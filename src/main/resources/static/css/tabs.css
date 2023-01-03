@@ -1,8 +1,30 @@
 .main-header-h {
 	text-align: center;
-	font-weight: bold;
-	color: #ccc;
-	text-shadow: -1px -1px 1px #fff, 1px 1px 2px #111;
+	color: white;
+    font-size: 35px;
+    text-shadow: 5px 5px 0 rgb(76, 170, 146);
+    position: relative;
+}
+
+
+h1:after{
+    content: attr(data-shadow);
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    z-index: -1;
+    text-shadow: none;
+    background-image: linear-gradient(45deg, transparent 45%, white 45%, white 55%, transparent 0);
+    background-size: 10px 10px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shadowAnimation 15s linear infinite;
+}
+
+@keyframes shadowAnimation{
+    0% {
+        background-position:100% -100%;
+    }
 }
 
 .form-select {
@@ -686,4 +708,14 @@ div.thumb:hover img {
 
 .li-active {
 	background-color: #292b3a;
+}
+
+.sub-menu-active {
+	background-color:#0b1e74;
+	border-radius: 8px;
+}
+
+.sub-menu-hover:hover {
+	background-color:#0b1e74;
+border-radius: 8px;
 }

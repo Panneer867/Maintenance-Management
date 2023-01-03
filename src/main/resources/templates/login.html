@@ -14,24 +14,32 @@
 </head>
 
 <body>
- <div class="alert alert-success text-center p-1 mx-auto font-weight-bold" role="alert" th:if="${param.success}">
+ 
+	<div class="login-page">
+	<div class="alert alert-success  p-1 font-weight-bold" role="alert" th:if="${param.success}">
                         Registered successfully!
                     </div>
                     <div class="alert alert-danger text-center p-1 mx-auto font-weight-bold" role="alert" th:if="${param.logout}">
                         Logged out successfully!
                     </div>
-	<div class="login-page">
 		<div class="form">
-		
-			<form class="login-form" th:action="@{/login}" method="post">
-				<h6 class="text-white text-center">SIGN IN</h6>
+		<form class="login-form" th:action="@{/login}" method="post">
+			<div class="d-flex justify-content-center pt-2" style="background-color: #ffff;border-radius: 10px;">
+				<img width="100px" height="100px" th:src="@{/images/IGI_Logo.png}"></div>
+				
 				<input type="text" name="username" required placeholder="Username" id="user" autocomplete="off" />
 				<input oninput="return formvalid()" type="password" name="password" required placeholder="Password" id="pass"
 					autocomplete="off" />
-				<img th:src="@{/images/password-hide.png}" onclick="show()" id="showimg">
+				<img class="eye" th:src="@{/images/password-hide.png}" onclick="show()" id="showimg">
 				<!--    <span id="vaild-pass"></span> -->
+				<div class="row">
+				<div class="col-4">
 				<button type="submit">SIGN IN</button>
-				<p class="message"><a class="text-white" href="#">Forgot your password?</a></p>
+				
+				</div><div class="col-8 my-auto message">
+				<small><a class="text-white" href="#">Forgot your password?</a></small>
+				</div>
+				</div>
 			</form>
 		</div>
 	</div>

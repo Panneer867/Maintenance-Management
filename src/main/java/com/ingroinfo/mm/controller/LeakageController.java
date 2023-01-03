@@ -6,7 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/monitor/leakage")
-public class LeakageController {	
+public class LeakageController {
+	
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "/pages/leakage/dashboard";
+	}
+	
 	
 	@GetMapping("/intent")
 	public String LeakageIntent() {
