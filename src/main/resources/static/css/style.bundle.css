@@ -43263,7 +43263,7 @@ body.m-content--skin-light2 {
   .m-menu__item
   > .m-menu__link
   .m-menu__ver-arrow {
-  color: #525672;
+  color: #ffff;
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
@@ -43279,7 +43279,7 @@ body.m-content--skin-light2 {
   .m-menu__item.m-menu__item--open
   > .m-menu__link
   .m-menu__link-text {
-  color: #868aa8;
+  color: #ffff;
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
@@ -43313,7 +43313,7 @@ body.m-content--skin-light2 {
   > .m-menu__link
   .m-menu__link-bullet.m-menu__link-bullet--dot
   > span {
-  background-color: #8c8ea4;
+  background-color: #ffff;
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
@@ -43347,7 +43347,7 @@ body.m-content--skin-light2 {
   .m-menu__item.m-menu__item--open
   > .m-menu__link
   .m-menu__ver-arrow {
-  color: #8c8ea4;
+  color: #ffff;
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
@@ -43431,7 +43431,7 @@ body.m-content--skin-light2 {
   .m-menu__item:hover
   > .m-menu__link
   .m-menu__ver-arrow {
-  color: #8c8ea4;
+  color: #ffff;
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
