@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1"
+			style="background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);">
+			Excel Import & Export
+		</h3>
+
+		<div class="col-6 mx-auto my-4">
+			<div class="card" style="background-color: rgb(213 245 255);">
+				<div class="card-header text-center bg-info text-white">
+
+				</div>
+				<div class="card-body">
+					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
+					
+						<div class="row mt-2 pr-5">
+							<div class="col-12">
+								<div class="form-group row">
+									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Import- Excel</label>
+									<div class="col-sm-7">
+										<input type="file" class="btn btn-info"/>
+									</div>
+									<div class="col-sm-2 py-2">
+										<button type="submit" class="btn btn-danger btn-sm py-1">Import</button>
+									</div>
+								</div>
+
+							</div>
+
+							
+						</div>
+						<div class="row mt-2 pr-5">
+							<div class="col-12">
+								<div class="form-group row">
+									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Export- Excel</label>
+									<div class="col-sm-7">
+										<select class="form-select">
+													<option value="" selected>Select Modules / Item</option>
+
+												</select>
+									</div>
+									<div class="col-sm-2 py-1">
+										<button type="submit" class="btn btn-primary btn-sm py-1">Export</button>
+									</div>
+								</div>
+
+							</div>
+
+							
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

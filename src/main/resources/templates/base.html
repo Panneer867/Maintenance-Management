@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:fragment="layout(content)">
+
+<head>
+	<meta charset="utf-8" />
+	<title th:text="${title}" />
+	<meta name="description" content="Latest updates and statistic charts">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Custom CSS -->
+	<link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/css/glyphicons/css/glyphicons.css}" rel="stylesheet" />
+	<link th:href="@{/css/vendors.bundle.css}" rel="stylesheet">
+	<link th:href="@{/css/style.bundle.css}" rel="stylesheet">
+	<link th:href="@{/css/stock-graph.css}" rel="stylesheet">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link th:href="@{/css/tabs.css}" rel="stylesheet">
+
+
+	<!-- Javascript -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js}"></script>
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+	<!-- Datatables -->
+	<script th:src="@{https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js}"></script>
+
+	<!-- Dropify -->
+	<link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css}" rel="stylesheet" />
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js}"></script>
+
+	<!-- Graph -->
+	<script th:src="@{https://code.highcharts.com/highcharts.js}"></script>
+	<script th:src="@{https://code.highcharts.com/modules/series-label.js}"></script>
+	<script th:src="@{https://code.highcharts.com/modules/exporting.js}"></script>
+	<script th:src="@{https://code.highcharts.com/modules/export-data.js}"></script>
+	<script th:src="@{https://code.highcharts.com/modules/accessibility.js}"></script>
+	<script th:src="@{https://code.highcharts.com/highcharts-3d.js}"></script>
+
+	<!-- Charts -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js}"></script>
+	<script th:src="@{https://canvasjs.com/assets/script/canvasjs.min.js}"></script>
+
+	<!--User Photo Upload-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<!-- Maps -->
+	<script defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXf7a1TSo_VbvY87jwzO2G6Ddk6XyVE0&callback=initMap">
+		</script>
+
+</head>
+
+<body
+	class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+	<div class="m-grid m-grid--hor m-grid--root m-page">
+		<header class="m-grid__item m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
+			<div class="m-container m-container--fluid m-container--full-height">
+				<div class="m-stack m-stack--ver m-stack--desktop">
+					<div class="m-stack__item m-brand  m-brand--skin-dark ">
+						<div class="m-stack m-stack--ver m-stack--general">
+							<div class="m-stack__item m-stack__item--middle m-brand__logo">
+								<a href="index.html" class="m-brand__logo-wrapper">
+									<img th:src="@{/images/logo.png}" alt="image" />
+								</a>
+							</div>
+							<div class="m-stack__item m-stack__item--middle m-brand__tools">
+								<a href="javascript:;" id="m_aside_left_minimize_toggle"
+									class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block">
+									<span></span>
+								</a>
+								<a href="javascript:;" id="m_aside_left_offcanvas_toggle"
+									class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+									<span></span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="m-stack__item m-stack__item--fluid m-header-head bg-dark" id="m_header_nav">
+						<h1 class="text-center my-4 text-white main-header-h">MAINTENANCE MANAGEMENT</h1>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+			<button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+				<i class="la la-close"></i>
+			</button>
+			<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+
+				<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark"
+					data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+					<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'li-active':''}">
+							<a th:href="@{/home}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Dashboard
+								</span>
+
+							</a>
+
+						</li>
+
+						<li class="m-menu__item  m-menu__item--submenu--active" aria-haspopup="true" id="expand-task"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-multimedia-1"></i>
+								<span class="m-menu__link-text">
+									Task Update
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Task Update
+											</span>
+										</a>
+									</li>
+
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/je' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/je}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												JE
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/aee' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/aee}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												AEE
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/ee' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/ee}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												EE
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/commissioner' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/commissioner}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Commissioner
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/work-complete' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/work-complete}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Work Complete
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/job-card' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/job-card}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Job card Update
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/task/complaint-history' ? 'm-menu__item--active':''}">
+										<a th:href="@{/task/complaint-history}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Complaint History
+											</span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/asset/entry' ? 'li-active':''}">
+							<a th:href="@{/asset/entry}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Assest Entry
+								</span>
+							</a>
+						</li>
+					
+						<li class="m-menu__item  m-menu__item--submenu" id="expand-stocks" aria-haspopup="true"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-multimedia-1"></i>
+								<span class="m-menu__link-text">
+									Stock Mangement
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Stock Mangement
+											</span>
+										</a>
+									</li>
+
+									<li class="m-menu__item" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Available
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/materials' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/inward/materials}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Inward Matieral
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/spares' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/inward/spares}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Inward Spares Matieral
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/tools' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/inward/tools}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Inward Tools Or Equipment
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/materials' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/outward/materials}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Outward Material Issue
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/spares' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/outward/spares}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Outward Spares Matieral Issue
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/tools' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/outward/tools}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Outward Tools Matieral Issue
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/material/return' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/material/return}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Matieral Return
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/spares/return' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/spares/return}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Spares Return
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/tools/return' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/tools/return}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Tools Return
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/material/reject' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/material/reject}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Rejection/ Damage Matieral Return
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/spares/reject' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/spares/reject}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Rejection/ Damage Spares Return
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/tools/reject' ? 'm-menu__item--active':''}">
+										<a th:href="@{/stocks/tools/reject}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Stock Rejection/ Damage Tools Return
+											</span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</li>
+
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-workorder"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-multimedia-1"></i>
+								<span class="m-menu__link-text">
+									Work Orders
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Work Orders
+											</span>
+										</a>
+									</li>
+
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/generate' ? 'm-menu__item--active':''}">
+										<a th:href="@{/workorder/generate}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Generate Work Order
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/hold' ? 'm-menu__item--active':''}">
+										<a th:href="@{/workorder/hold}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Hold Work Order
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/cancel' ? 'm-menu__item--active':''}">
+										<a th:href="@{/workorder/cancel}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Cancel Work Order
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/budget-estimation' ? 'm-menu__item--active':''}">
+										<a th:href="@{/workorder/budget-estimation}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Work Estmation Budget
+											</span>
+										</a>
+									</li>
+									
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-employee"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-interface-1"></i>
+								<span class="m-menu__link-text">
+									Employee 
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Employee Mangement
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/employee/dashboard' ? 'm-menu__item--active':''}">
+										<a th:href="@{/employee/dashboard}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												DashBoard
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/employee/master' ? 'm-menu__item--active':''}">
+										<a th:href="@{/employee/master}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Employee Master
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Attendnace
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/employee/salary-generate' ? 'm-menu__item--active':''}">
+										<a th:href="@{/employee/salary-generate}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Salary
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a th:href="@{/employee/inspection}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Inspection
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a th:href="@{/employee/leave}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Leave
+											</span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" i="expand-billing"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-network"></i>
+								<span class="m-menu__link-text">
+									Billing
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Billing Management
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/billing/consumer-master' ? 'm-menu__item--active':''}">
+										<a th:href="@{/billing/consumer-master}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Consumer Master Details
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/billing/transactions' ? 'm-menu__item--active':''}">
+										<a th:href="@{/billing/transactions}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Consumer Trasaction Details
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/billing/meter-details' ? 'm-menu__item--active':''}">
+										<a th:href="@{/billing/meter-details}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Meter Details
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/widgets/chart.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Ward Wise Conumption
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/widgets/chart.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												DMA Payment
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/widgets/chart.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												DCB
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-monitor"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-calendar"></i>
+								<span class="m-menu__link-text">
+									O&M Monitoring
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												O&M Work Monitoring
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/basic.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Assign Task
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/list-view.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Task update
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/google.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Work Investigation
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/external-events.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Complaint Raise
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										id="expand-leakage" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Leakage (Emergency / Routine/ Pro-Active)
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/leakage/intent' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/leakage/intent}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Leakage Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/leakage/maintanance' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/leakage/maintanance}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Leakage Maintanance Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/leakage/work' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/leakage/work}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Leakage Work Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/leakage/maintanance-history' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/leakage/maintanance-history}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Leakage Maintanance History
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Levels & Control (Emergency / Routine/ Pro-Active)
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Dam Levels
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Storage Levels
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															OHT Levels
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Meter Management
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Meter Testing | Maintenance (Emergency / Routine/
+															Pro-Active)
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Meter Replace
+														</span>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										id="expand-pipe" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Pipe Management
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pipe/dashboard' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pipe/dashboard}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															DashBoard
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pipe/maintanance-indent' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pipe/maintanance-indent}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Maintanance Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pipe/maintanance-work-update' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pipe/maintanance-work-update}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Maintanance Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pipe/maintanance-inspection' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pipe/maintanance-inspection}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Maintanance Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pipe/maintanance-history' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pipe/maintanance-history}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Maintanance History
+														</span>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										id="expand-vehicle" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Vehicle Management
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/management' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/management}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Vehicle Tracking Mangement
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/history' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/history}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Vehicle History
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="#" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Fuel Management
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/index' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/index}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Vehicle Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/management/index' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/management/index}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Vehicle Mangement Index
+														</span>
+													</a>
+												</li>
+
+
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/inspection' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/inspection}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Vehicle Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/vehicle/work-order' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/vehicle/work-order}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Work Order View
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Human Resource Management
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															DashBoard | Maintenance (Emergency / Routine/ Pro-Active)
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Employee Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Employee Attendence Routine Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Reminder
+														</span>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										id="expand-pump" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Pump House Maintance
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															DashBoard | Maintenance (Emergency / Routine/ Pro-Active)
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pump/master' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pump/master}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Pump Master
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pump/maintanance-intent' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pump/maintanance-intent}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Pump Mantainace Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pump/maintanance-work' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pump/maintanance-work}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Pump Maintanance Work Status Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pump/maintanance-inspection' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pump/maintanance-inspection}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Maintanance Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/pump/maintanance-history' ? 'm-menu__item--active':''}">
+													<a th:href="@{/monitor/pump/maintanance-history}"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Pump Maintainace History
+														</span>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/external-events.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Hand Pump Maintance |Maintenance (Emergency / Routine/ Pro-Active)
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true">
+										<a href="components/calendar/external-events.html" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Borewell Maintance | Maintenance (Emergency / Routine/ Pro-Active)
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Water Storage
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true">
+													<a href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															OHT
+														</span>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-masters"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/masters' ? 'li-active':''}"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/masters}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Masters
+								</span>
+							</a>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-mis"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-multimedia-1"></i>
+								<span class="m-menu__link-text">
+									MIS Reports
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												MIS Reports
+											</span>
+										</a>
+									</li>
+
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/mis/daily' ? 'm-menu__item--active':''}">
+										<a th:href="@{/mis/daily}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Daily Report
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/mis/monthly' ? 'm-menu__item--active':''}">
+										<a th:href="@{/mis/monthly}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Monthly Report
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/contact-management' ? 'li-active':''}"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/contact-management}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Contact Mangement
+								</span>
+
+							</a>
+
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/approval' ? 'li-active':''}"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/approval}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Approvals
+								</span>
+
+							</a>
+
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-admin"
+							data-menu-submenu-toggle="hover">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-calendar"></i>
+								<span class="m-menu__link-text">
+									Admin
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+							<div class="m-menu__submenu">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+										<a href="#" class="m-menu__link ">
+											<span class="m-menu__link-text">
+												Admin
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" id="expand-account"
+										aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Create Accounting Unit
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/account/company' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/account/company}"
+														href="components/charts/amcharts/charts.html"
+														class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Create Company / Division
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/account/branch' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/account/branch}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Create Branch / Sub Division
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/account/company/list' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/account/company/list}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Manage Company / Division (EDIT)
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/account/branch/list' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/account/branch/list}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Delete Company / Division
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" id="expand-user"
+										aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												User Management
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/user' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/user}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															User Creation
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/user/list' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/user/list}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															User Details
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/user/role' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/user/role}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															User Role ( with Email. Sms, Text Notification)
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/user/role/master' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/user/role/master}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Role Master
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item " aria-haspopup="true"
+													th:classappend="${#httpServletRequest.getRequestURI() == '/admin/user/change-password' ? 'm-menu__item--active':''}">
+													<a th:href="@{/admin/user/change-password}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Change Password
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/admin/backup' ? 'm-menu__item--active':''}">
+										<a th:href="@{/admin/backup}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Backup Schedule
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/admin/excel/import-export' ? 'm-menu__item--active':''}">
+										<a th:href="@{/admin/excel/import-export}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Excel Import & Export
+											</span>
+										</a>
+									</li>
+
+									<li class="m-menu__item " aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/admin/device/control' ? 'm-menu__item--active':''}">
+										<a th:href="@{/admin/device/control}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Device & Control (Tab / Phone)
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/logout?logout}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-layers"></i>
+								<span class="m-menu__link-text">
+									Logout
+								</span>
+
+							</a>
+
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="m-grid__item m-grid__item--fluid m-wrapper pl-3 pr-2">
+				<div th:replace="${content}"></div>
+			</div>
+
+		</div>
+
+		<footer class="m-grid__item	m-footer">
+			<div class="m-container m-container--fluid m-container--full-height m-page__container">
+				<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+					<div class="m-stack__item m-stack__item--center m-stack__item--middle m-stack__item--last">
+						<span class="m-footer__copyright">
+							2023 &copy; All Rights Reserved.
+							<a href="#" class="m-link">
+								IngrOInfo
+							</a>
+						</span>
+					</div>
+
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
+	<script th:src="@{/webjars/jquery/3.6.1/jquery.min.js}"></script>
+	<script th:src="@{/js/vendors.bundle.js}"></script>
+	<script th:src="@{/js/scripts.bundle.js}"></script>
+	<script th:src="@{/js/jquery-table.js}"></script>
+	<script th:src="@{/js/stock-graph-1.js}"></script>
+	<script th:src="@{/js/stock-graph-2.js}"></script>
+	<script th:src="@{/js/stock-graph-3.js}"></script>
+	<script th:src="@{/js/stock-graph-4.js}"></script>
+	<script th:src="@{/js/myCustomize.js}"></script>
+	<!-- <script th:src="@{/js/chart.js}"></script>  -->
+	<script th:src="@{/js/cancel-work-dashboard.js}"></script>
+	<script th:src="@{/js/generate-work-dashboard.js}"></script>
+	<script th:src="@{/js/hold-work-dashboard.js}"></script>
+	<script th:src="@{/js/vehicle-tracking-dashboard.js}"></script>
+	<!-- <script th:src="@{/js/jquery-hold.js}"></script> -->
+	<script th:src="@{/js/pipe-dashdoard.js}"></script>
+	<script th:src="@{/js/profile-upload.js}"></script>
+	<script th:src="@{/js/side-menu-active.js}"></script>
+	<script th:src="@{/js/get-consumer-data-from-ubarms.js}"></script>
+</body>
+
+</html>

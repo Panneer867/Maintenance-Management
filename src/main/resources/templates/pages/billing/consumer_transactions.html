@@ -1,0 +1,611 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<body>
+	<section>
+		<!-- Main layout-->
+		<div class="d-flex justify-content-end consumer-transxtion-page ">
+			<!--Content layout-->
+			<div class="col text-left mt-3">
+			 <!-- Card Start-->
+				 <div class="card text-center border-info">
+					<div class="card-header bg-info text-white fs-4"><h3>Consumer Transaction Details</h3></div>
+					<div class="card-body">					  				
+					   <div class="row g-3 align-items-center">
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">Consumer Id</label>
+						  </div>
+						  <div class="col-sm-1">
+						    <input type="text" id="consumerId" class="form-control" style="padding-left: 4px;padding-right: 4px;">
+						  </div>
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">Consumer Name</label>
+						  </div>
+						  <div class="col-sm-2">
+						    <input type="text" id="consumerId" class="form-control">
+						  </div>
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">Meter Type</label>
+						  </div>
+						  <div class="col" style="padding-left:0px;padding-right:0px;">
+						    <input type="text" id="consumerId" class="form-control" style="width: 80px;">
+						  </div>
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">Consumer Type </label>
+						  </div>
+						  <div class="col">
+						    <input type="text" id="consumerId" class="form-control" style="width: 100px;height:33px;">
+						  </div>
+						  <div class="col-auto" style="padding-left:0px;">
+						    <label for="consumerId" class="col-form-label">House No</label>
+						  </div>
+						  <div class="col">
+						    <input type="text" id="consumerId" class="form-control" style="padding-left: 5px;padding-right: 7px;">
+						  </div>						  
+						</div>
+						<div class="row g-3 align-items-center pt-2">
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">Ward No</label>
+						  </div>
+						  <div class="col-sm-1">
+						    <input type="text" id="consumerId" class="form-control" style="margin-left:21px;">
+						  </div>
+						  <div class="col-auto" style="margin-left:16px;">
+						    <label for="consumerId" class="col-form-label">Connection Status</label>
+						  </div>
+						  <div class="col-sm-2" style="padding-left: 13px; padding-right: 17px;">
+						    <input type="text" id="consumerId" class="form-control">
+						  </div>
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">IMIS Id</label>
+						  </div>
+						  <div class="col" style="padding-left:0px;margin-left:21px;padding-right:0px;">
+						    <input type="text" id="consumerId" class="form-control" style="width: 80px;">
+						  </div>
+						  <div class="col-auto">
+						    <label for="consumerId" class="col-form-label">DMA Id</label>
+						  </div>
+						  <div class="col" style="margin-left:45px;">
+						    <input type="text" id="consumerId" class="form-control" style="width: 100px;height:33px;">
+						  </div>
+						  <div class="col-auto" style="padding-left:0px;">
+						    <label for="consumerId" class="col-form-label">Meter Status</label>
+						  </div>
+						  <div class="col" style="padding-left:0px;">
+						    <input type="text" id="consumerId" class="form-control" style="padding-left: 5px;padding-right: 7px;">
+						  </div>						  
+						</div>  
+					</div>
+				  </div>				  
+			<!-- Card End-->
+			
+			<!--Strat of consumer Details Card-->
+			   <div class="card text-center mt-2">					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">PipeSize</th>
+						      <th scope="col" class="bg-info fs-6">MeterSts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Conspt.</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+						<table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">WC</th>
+						      <th scope="col" class="bg-info fs-6">FC</th>
+						      <th scope="col" class="bg-info fs-6">UGD</th>
+						      <th scope="col" class="bg-info fs-6">SC</th>
+						      <th scope="col" class="bg-info fs-6">Int</th>
+						      <th scope="col" class="bg-info fs-6">Tax</th>
+						      <th scope="col" class="bg-info fs-6">Other Charges</th>
+						      <th scope="col" class="bg-info fs-6">Rebate</th>
+						      <th scope="col" class="bg-info fs-6">Adjustment</th>
+						      <th scope="col" class="bg-info fs-6">Bill Amt</th>
+						      <th scope="col" class="bg-info fs-6">Total Paid Amt</th>
+						      <th scope="col" class="bg-info fs-6">Net Amt</th>
+						      <th scope="col" class="bg-info fs-6">CBR</th>
+						      <th scope="col" class="bg-info fs-6">CBI</th>
+						      <th scope="col" class="bg-info fs-6">CBT</th>
+						      <th scope="col" class="bg-info fs-6">CB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+						<table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Due Date</th>
+						      <th scope="col" class="bg-info fs-6">Bill No</th>
+						      <th scope="col" class="bg-info fs-6">SBM No</th>
+						      <th scope="col" class="bg-info fs-6">Tarns Id</th>
+						      <th scope="col" class="bg-info fs-6">User Name</th>
+						      <th scope="col" class="bg-info fs-6">Sms Sent</th>
+						      <th scope="col" class="bg-info fs-6">Remarks</th>
+						      <th scope="col" class="bg-info fs-6">Image Link</th>						      
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">02/01/2023</th>
+						      <td class="fs-6">101414141414</td>
+						      <td class="fs-6">412414141414141</td>
+						      <td class="fs-6">5248595178784</td>
+						      <td class="fs-6">SHARAT</td>
+						      <td class="fs-6">No</td>
+						      <td class="fs-6">New Consumer</td>
+						      <td class="fs-6">202201</td>						      
+						    </tr>					    
+						  </tbody>
+						</table>   
+					</div>
+			  </div>
+			  <!--End of consumer Details Card-->
+			  
+			  <!--Strat of Cash History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Cash History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--End of Cash History Card-->
+			 
+			  <!--Strat of Rebate History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Rebate History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of Rebate History Card-->
+			 
+			 <!--Strat of Intrest Wave Off History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Intrest Wave-Off History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--End of Intrest Wave off History Card-->
+			 
+			 <!--Strat of Wrong Posting History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Wrong Posting History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of Wrong Posting History Card-->
+			 
+			 <!--Strat of Cheque Bounce History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Cheque Bounce History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of cheque Bounce History Card-->
+			 
+			 <!--Strat of Reconnection History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>ReConnection History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of Reconnection History Card-->
+			 
+			 <!--Strat of DisConnection History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Disconnection History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Bill Month</th>
+						      <th scope="col" class="bg-info fs-6">Tariff</th>
+						      <th scope="col" class="bg-info fs-6">Rdng Day</th>
+						      <th scope="col" class="bg-info fs-6">Bill Date</th>
+						      <th scope="col" class="bg-info fs-6">Billed</th>
+						      <th scope="col" class="bg-info fs-6">BM</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Meter Sts</th>
+						      <th scope="col" class="bg-info fs-6">Avg Cons</th>
+						      <th scope="col" class="bg-info fs-6">Pres Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Prev Rdng</th>
+						      <th scope="col" class="bg-info fs-6">Consumption</th>
+						      <th scope="col" class="bg-info fs-6">ORB</th>
+						      <th scope="col" class="bg-info fs-6">OBI</th>
+						      <th scope="col" class="bg-info fs-6">OBT</th>
+						      <th scope="col" class="bg-info fs-6">OB Total</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">202301</th>
+						      <td class="fs-6">DOMESTIC</td>
+						      <td class="fs-6">21</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">Yes</td>
+						      <td class="fs-6">4</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">Normal</td>
+						      <td class="fs-6">800</td>
+						      <td class="fs-6">5000</td>
+						      <td class="fs-6">1200</td>
+						      <td class="fs-6">3500</td>
+						      <td class="fs-6">112</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">10</td>
+						      <td class="fs-6">132</td>
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of DisConnection History Card-->
+			 
+			 <!--Strat of Device History Card-->
+			   <div class="card text-center mt-2">
+			     <div class="card-header bg-primary text-white pb-0 pt-2"><h5><b>Device History</b></h5></div>					
+					<div class="card-body">					  				
+					   <table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Consumer Id</th>
+						      <th scope="col" class="bg-info fs-6">Device No</th>
+						      <th scope="col" class="bg-info fs-6">Device Make</th>
+						      <th scope="col" class="bg-info fs-6">Senction Date</th>
+						      <th scope="col" class="bg-info fs-6">Purchase Date</th>
+						      <th scope="col" class="bg-info fs-6">Connection Date</th>
+						      <th scope="col" class="bg-info fs-6">Device Ref No</th>
+						      <th scope="col" class="bg-info fs-6">Device IR</th>						     
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">1001</th>
+						      <td class="fs-6">2023A2514214</td>
+						      <td class="fs-6">ITRON</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">01/02/23</td>
+						      <td class="fs-6">1101</td>
+						      <td class="fs-6">4744</td>						     
+						    </tr>					    
+						  </tbody>
+						</table>
+						<table class="table">
+						  <thead class="table-bordered border-info">
+						    <tr>
+						      <th scope="col" class="bg-info fs-6">Device Digit</th>
+						      <th scope="col" class="bg-info fs-6">Device Location</th>
+						      <th scope="col" class="bg-info fs-6">Device Ownership</th>
+						      <th scope="col" class="bg-info fs-6">Pipe Size</th>
+						      <th scope="col" class="bg-info fs-6">Device Waranty</th>
+						      <th scope="col" class="bg-info fs-6">Plumber Name</th>
+						      <th scope="col" class="bg-info fs-6">Plumber Id</th>
+						      <th scope="col" class="bg-info fs-6">Remarks</th>						     
+						    </tr>
+						  </thead>
+						  <tbody>
+						   	 <tr>
+						      <th scope="row" class="fs-6">12</th>
+						      <td class="fs-6">INSIDE Gate</td>
+						      <td class="fs-6">B</td>
+						      <td class="fs-6">1/2</td>
+						      <td class="fs-6">12</td>
+						      <td class="fs-6">KIRAN</td>
+						      <td class="fs-6">101010</td>
+						      <td class="fs-6">New Device</td>						     
+						    </tr>					    
+						  </tbody>
+						</table>
+					</div>
+			  </div>
+			 <!--Strat of Device History Card-->
+			  	
+			</div>
+		</div>
+	</section>
+</body>
+</html>			

@@ -1,0 +1,9 @@
+alter session set "_ORACLE_SCRIPT"=true;
+
+drop user MAINTENANCE_MANAGEMENT cascade;
+
+create user MAINTENANCE_MANAGEMENT identified by MMDB;
+grant create session to MAINTENANCE_MANAGEMENT;
+grant all privileges to MAINTENANCE_MANAGEMENT;
+grant DBA to MAINTENANCE_MANAGEMENT;
+grant IMP_FULL_DATABASE to MAINTENANCE_MANAGEMENT;

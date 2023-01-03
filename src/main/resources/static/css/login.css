@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;1,100;1,200;1,300&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	background-image: url("/images/MM_IGI.png");
+	background-size: cover;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.login-page {
+	height: 96.5%;
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: right;
+
+}
+
+.form {
+	position: relative;
+  	margin-right: 30px;
+	filter: drop-shadow(0 0 2px #000000);
+	border-radius: 5px;
+	width: 280px;
+	height: 285px;
+	background-color: #3f64d6d6;
+	padding: 20px;
+}
+
+.form img {
+	position: absolute;
+	height: 20px;
+	top: 132px;
+	right: 35px;
+	cursor: pointer;
+}
+
+.form input {
+	outline: 0;
+	background: #f2f2f2;
+	border-radius: 4px;
+	width: 100%;
+	border: 0;
+	margin: 15px 0;
+	padding: 6px;
+	font-size: 14px;
+}
+
+.form input:focus {
+	box-shadow: 0 0 5px 0 rgba(106, 98, 210);
+}
+
+span {
+	color: red;
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+.form button {
+	outline: 0;
+	background: #7600ff;
+	width: 100%;
+	border: 0;
+	margin-top: 10px;
+	border-radius: 3px;
+	padding: 5px;
+	color: #ffffff;
+	font-size: 15px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.4s ease-in-out;
+	cursor: pointer;
+}
+
+.form button:hover, .form button:active, .form button:focus {
+	background: black;
+	color: #fff;
+}
+
+.message {
+	margin: 15px 0;
+	text-align: center;
+}
+
+.form .message a {
+	font-size: 14px;
+	color: #6a62d2;
+	text-decoration: none;
+}
+
+.footer-bg {
+	background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #473B7B 100%);
+}
+
+.m-link {
+	text-decoration: none;
+	color:coral;
+}
+
+.m-link:hover {
+
+	color:darkseagreen;
+}

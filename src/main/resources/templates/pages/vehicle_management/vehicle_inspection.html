@@ -1,0 +1,302 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<div class="col-sm-12 mt-2">
+			<div class="card ">
+				<form>
+					<div class="card-header" style="background-color: blueviolet;">
+						<h3 class="text-center text-white">Vehicle Inspection</h3>
+					</div>
+					<div class="card-body">
+
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Work Order No</label>
+								<input type="number" class="form-control" id="inputEmail4" placeholder="Work Order No">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle index ID</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle index ID">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputEmail4">Work Order Scope</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Work Order Scope">
+							</div>
+						</div>
+						<!--***********Row 2**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle ID</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle ID">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle Number</label>
+								<input type="number" class="form-control" id="inputEmail4" placeholder="Vehicle Number">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle type</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle type">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle Model</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle Model">
+							</div>
+						</div>
+
+						<!--***********Row 3**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-6">
+								<label for="inputEmail4">Cassis No</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Cassis No">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Owner Name</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Owner Name">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Address</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Address">
+							</div>
+						</div>
+
+						<!--***********Row 4**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Contact Number</label>
+								<input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">CC</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="CC">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Engine No</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle type">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Class</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Class">
+							</div>
+						</div>
+
+						<!--***********Row 5**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Color</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Color">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">SEATING</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="SEATING">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Mantaianace Type</label>
+								<select class="form-select" id="inputGroupSelect03"
+									aria-label="Example select with button addon">
+									<option selected>Choose...</option>
+									<option value="1">Emergency Maintainance</option>
+									<option value="2">Routine Maintainance</option>
+									<option value="3">Pro-Active Maintainance</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Date</label>
+								<input type="date" class="form-control" id="inputEmail4" placeholder="Date">
+							</div>
+						</div>
+
+						<!--***********Text Area**********-->
+						<div class="row mt-3">
+
+							<label for="inputEmail4">Mantaianace Reason</label>
+							<textarea class="form-control" id="inputEmail4"></textarea>
+
+						</div>
+
+						<!--***********Row 6**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Maintainace From Date </label>
+								<input type="date" class="form-control" id="inputEmail4"
+									placeholder="Maintainace From Date ">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Maintainace To Date</label>
+								<input type="date" class="form-control" id="inputEmail4"
+									placeholder="Maintainace To Date ">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Driver Name</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Driver Name">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Driver Contact No</label>
+								<input type="number" class="form-control" id="inputEmail4"
+									placeholder="Driver Contact No">
+							</div>
+						</div>
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover my-4 vehiceltable-size"
+							id="generatLabour">
+							<thead>
+								<tr>
+									<th>Sl.No</th>
+									<th>Item Name*</th>
+									<th>Cataregy Code</th>
+									<th>Cataregy Name*</th>
+									<th>HSN CODE</th>
+									<th>Unit Of Measure*</th>
+									<th>Total Quantity</th>
+									<th>MRP</th>
+									<th>GST Type</th>
+									<th>Cost Rate</th>
+									<th>GST</th>
+									<th>Reamarks</th>
+
+								</tr>
+							</thead>
+							<tbody class="vehicel-table-scroll">
+								<tr>
+									<td>1</td>
+									<td>System Architect</td>
+									<td>Edinburgh</td>
+									<td>61</td>
+									<td>2011-04-25</td>
+									<td>$320,800</td>
+									<td>2</td>
+									<td>Sales Assistant</td>
+									<td>San Francisco</td>
+									<td>59</td>
+									<td>2012-08-06</td>
+									<td>$137,500</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Sales Assistant</td>
+									<td>San Francisco</td>
+									<td>59</td>
+									<td>2012-08-06</td>
+									<td>$137,500</td>
+									<td>3</td>
+									<td>Integration Specialist</td>
+									<td>Tokyo</td>
+									<td>55</td>
+									<td>2010-10-14</td>
+									<td>$327,900</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Integration Specialist</td>
+									<td>Tokyo</td>
+									<td>55</td>
+									<td>2010-10-14</td>
+									<td>$327,900</td>
+									<td>4</td>
+									<td>Javascript Developer</td>
+									<td>San Francisco</td>
+									<td>39</td>
+									<td>2009-09-15</td>
+									<td>$205,500</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Javascript Developer</td>
+									<td>San Francisco</td>
+									<td>39</td>
+									<td>2009-09-15</td>
+									<td>$205,500</td>
+									<td>5</td>
+									<td>Software Engineer</td>
+									<td>Edinburgh</td>
+									<td>23</td>
+									<td>2008-12-13</td>
+									<td>$103,600</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Software Engineer</td>
+									<td>Edinburgh</td>
+									<td>23</td>
+									<td>2008-12-13</td>
+									<td>$103,600</td>
+									<td>6</td>
+									<td>Office Manager</td>
+									<td>London</td>
+									<td>30</td>
+									<td>2008-12-19</td>
+									<td>$90,560</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Office Manager</td>
+									<td>London</td>
+									<td>30</td>
+									<td>2008-12-19</td>
+									<td>$90,560</td>
+									<td>7</td>
+									<td>Customer Support</td>
+									<td>New York</td>
+									<td>27</td>
+									<td>2011-01-25</td>
+									<td>$112,000</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Customer Support</td>
+									<td>New York</td>
+									<td>27</td>
+									<td>2011-01-25</td>
+									<td>$112,000</td>
+									<td>1</td>
+									<td>System Architect</td>
+									<td>Edinburgh</td>
+									<td>61</td>
+									<td>2011-04-25</td>
+									<td>$320,800</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Serviced By Agency</label>
+								<input type="number" class="form-control" id="inputEmail4"
+									placeholder="Serviced By Agency">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Service Agency contact</label>
+								<input type="text" class="form-control" id="inputEmail4"
+									placeholder="Service  Agency contact">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Inspection date</label>
+								<input type="date" class="form-control" id="inputEmail4" placeholder="Inspection date">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">inspection by</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="inspection by">
+							</div>
+						</div>
+
+						<div class="row mt-3">
+							<div class="form-group col-md-6">
+								<label for="inputEmail4">Work Order Scope</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Work Order Scope">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Vehicle Status</label>
+								<input type="text" class="form-control" id="inputEmail4" placeholder="Vehicle Status">
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-center">
+						<button type="button" class="btn btn-primary w-25">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

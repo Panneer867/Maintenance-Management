@@ -1,0 +1,830 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+
+		<div class="mt-2">
+			<ul class="nav nav-pills justify-content-center py-1 mb-2" id="pills-tab" role="tablist">
+
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-home-tab"
+						data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
+						aria-controls="pills-home" aria-selected="true">
+						Hold Work Order
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-chart-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-chart" type="button" role="tab" aria-controls="pills-chart"
+						aria-selected="false">
+						Hold Work Order Dashboard
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab"
+						data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Hold Work Order View
+					</button>
+				</li>
+
+
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+					tabindex="0">
+					<div class="card">
+						<div class="card-header" style="background-color: blueviolet;height: 50px;">
+							<h3 class="text-center text-white">Hold Work Order</h3>
+						</div>
+						<div class="card-body">
+							<form>
+								<div class="row">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Indent No</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Indent No">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Indent Department</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Indent Department">
+									</div>
+									<!--	<div class="form-group col-md-3">
+																			<label for="inputEmail4">Indent Date</label>
+																			<input type="date" class="form-control" id="inputEmail4" placeholder="Indent Date">
+																		</div>-->
+
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Date</label>
+										<input type="date" class="form-control" id="inputEmail4" placeholder="Email">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Number</label>
+										<input type="number" class="form-control" id="inputEmail4"
+											placeholder="Work Order Number">
+									</div>
+
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Division</label>
+										<input type="text" class="form-control" id="inputEmail4" placeholder="Division">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Sub Division</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Sub Division">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="inputEmail4">Work Order Scope</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Work Order Scope">
+									</div>
+
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Issued By</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Work Order Issued By">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Priority</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Work Priority">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Cost</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Work Order Cost">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Contact</label>
+										<input type="text" class="form-control" id="inputEmail4" placeholder="Contact">
+									</div>
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-6">
+										<label for="inputEmail4">Work Site</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Work Site">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Expected Start Date</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Expected Start Date">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Expected End Date</label>
+										<input type="text" class="form-control" id="inputEmail4"
+											placeholder="Expected End Date">
+									</div>
+								</div>
+
+
+								<!--*********************** Hold Work Order || PART / MATERIAL ISSUED  Start ********************-->
+								<div class="col-md-12 mt-3">
+									<div class="card ">
+										<div class="card-header" style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
+										</div>
+										<div class="card-body">
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Category</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Category">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Item</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Item">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">HSNCODE</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="HSNCODE">
+												</div>
+											</div>
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Unit of Meassure</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Unit of Meassure">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Qty</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Qty">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Amount</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Amount">
+												</div>
+												<div class="text-center mt-2">
+													<button type="button"
+														class="btn btn-primary w-25 text-center">Add</button>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
+												id="generatMetrial">
+												<thead>
+													<tr>
+														<th>Category</th>
+														<th>Item</th>
+														<th>HSNCode</th>
+														<th>Unit of Meassure</th>
+														<th>Qty</th>
+														<th>Amount</th>
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>Herrod Chandler</td>
+														<td>Sales Assistant</td>
+														<td>San Francisco</td>
+														<td>59</td>
+														<td>2012-08-06</td>
+														<td>$137,500</td>
+													</tr>
+													<tr>
+														<td>Rhona Davidson</td>
+														<td>Integration Specialist</td>
+														<td>Tokyo</td>
+														<td>55</td>
+														<td>2010-10-14</td>
+														<td>$327,900</td>
+													</tr>
+													<tr>
+														<td>Colleen Hurst</td>
+														<td>Javascript Developer</td>
+														<td>San Francisco</td>
+														<td>39</td>
+														<td>2009-09-15</td>
+														<td>$205,500</td>
+													</tr>
+													<tr>
+														<td>Sonya Frost</td>
+														<td>Software Engineer</td>
+														<td>Edinburgh</td>
+														<td>23</td>
+														<td>2008-12-13</td>
+														<td>$103,600</td>
+													</tr>
+													<tr>
+														<td>Jena Gaines</td>
+														<td>Office Manager</td>
+														<td>London</td>
+														<td>30</td>
+														<td>2008-12-19</td>
+														<td>$90,560</td>
+													</tr>
+
+													<tr>
+														<td>Donna Snider</td>
+														<td>Customer Support</td>
+														<td>New York</td>
+														<td>27</td>
+														<td>2011-01-25</td>
+														<td>$112,000</td>
+													</tr>
+												</tbody>
+												<tbody class="table-scroll">
+													<tr>
+														<td colspan="5" class="text-center">TOTAL</td>
+														<td colspan="1" class="font-weight-bold text-right">qty</td>
+														<td colspan="1" class="font-weight-bold text-right">qty</td>
+													</tr>
+
+												</tbody>
+
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<!--*********************** Hold Work Order || LABOUR / TIMES  Start ********************-->
+								<div class="col-md-12 mt-3">
+									<div class="card ">
+										<div class="card-header" style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
+										</div>
+										<div class="card-body">
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Employee Categorty</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Employee Categorty">
+												</div>
+												<div class="form-group col-md-2">
+													<label for="inputEmail4">Qty</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Qty">
+												</div>
+
+												<div class="form-group col-md-2">
+													<label for="inputEmail4">Days</label>
+													<input type="date" class="form-control" id="inputEmail4"
+														placeholder="Days">
+												</div>
+												<div class="form-group col-md-2">
+													<label for="inputEmail4">Timing</label>
+													<input type="time" class="form-control" id="inputEmail4"
+														placeholder="Timing">
+												</div>
+												<div class="form-group col-md-2">
+													<label for="inputEmail4">Total Hour</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Total Hour">
+												</div>
+												<div class="text-center mt-2">
+													<button type="button"
+														class="btn btn-primary w-25 text-center">Add</button>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover  table-size">
+												<thead>
+													<tr>
+														<th>Employee Categorty</th>
+														<th>Qty</th>
+														<th>Days</th>
+														<th>Timing</th>
+														<th>Start date</th>
+														<th>Total Hour</th>
+
+
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>Herrod Chandler</td>
+														<td>Sales Assistant</td>
+														<td>San Francisco</td>
+														<td>59</td>
+														<td>2012-08-06</td>
+														<td>$137,500</td>
+													</tr>
+													<tr>
+														<td>Rhona Davidson</td>
+														<td>Integration Specialist</td>
+														<td>Tokyo</td>
+														<td>55</td>
+														<td>2010-10-14</td>
+														<td>$327,900</td>
+													</tr>
+													<tr>
+														<td>Colleen Hurst</td>
+														<td>Javascript Developer</td>
+														<td>San Francisco</td>
+														<td>39</td>
+														<td>2009-09-15</td>
+														<td>$205,500</td>
+													</tr>
+													<tr>
+														<td>Sonya Frost</td>
+														<td>Software Engineer</td>
+														<td>Edinburgh</td>
+														<td>23</td>
+														<td>2008-12-13</td>
+														<td>$103,600</td>
+													</tr>
+													<tr>
+														<td>Jena Gaines</td>
+														<td>Office Manager</td>
+														<td>London</td>
+														<td>30</td>
+														<td>2008-12-19</td>
+														<td>$90,560</td>
+													</tr>
+
+													<tr>
+														<td>Donna Snider</td>
+														<td>Customer Support</td>
+														<td>New York</td>
+														<td>27</td>
+														<td>2011-01-25</td>
+														<td>$112,000</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
+
+								<!--****************************  Hold Work Order || VEHICLE/TIMING Start *********************************-->
+								<div class="col-md-12 mt-3">
+									<div class="card ">
+										<div class="card-header " style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
+										</div>
+										<div class="card-body">
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Vehicle Type</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Vehicle Type">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Vehicle Number</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Vehicle Number">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Driver Name</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Driver Name">
+												</div>
+											</div>
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Driver Contact Number</label>
+													<input type="number" class="form-control" id="inputEmail4"
+														placeholder="Driver Contact Number">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">ODO Meter From Reading</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Total Hour">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Start Time</label>
+													<input type="text" class="form-control" id="inputEmail4"
+														placeholder="Start Time">
+												</div>
+											</div>
+											<div class="text-center mt-2">
+												<button type="button"
+													class="btn btn-primary w-25 text-center">Add</button>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover table-size"
+												id="generatLabour">
+												<thead>
+													<tr>
+														<th>Vehicle Type</th>
+														<th>Vehicle Number</th>
+														<th>Driver Name</th>
+														<th>Driver Contact No</th>
+														<th>ODO Meter Reading</th>
+														<th>Start Time</th>
+
+
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>Herrod Chandler</td>
+														<td>Sales Assistant</td>
+														<td>San Francisco</td>
+														<td>59</td>
+														<td>2012-08-06</td>
+														<td>$137,500</td>
+													</tr>
+													<tr>
+														<td>Rhona Davidson</td>
+														<td>Integration Specialist</td>
+														<td>Tokyo</td>
+														<td>55</td>
+														<td>2010-10-14</td>
+														<td>$327,900</td>
+													</tr>
+													<tr>
+														<td>Colleen Hurst</td>
+														<td>Javascript Developer</td>
+														<td>San Francisco</td>
+														<td>39</td>
+														<td>2009-09-15</td>
+														<td>$205,500</td>
+													</tr>
+													<tr>
+														<td>Sonya Frost</td>
+														<td>Software Engineer</td>
+														<td>Edinburgh</td>
+														<td>23</td>
+														<td>2008-12-13</td>
+														<td>$103,600</td>
+													</tr>
+													<tr>
+														<td>Jena Gaines</td>
+														<td>Office Manager</td>
+														<td>London</td>
+														<td>30</td>
+														<td>2008-12-19</td>
+														<td>$90,560</td>
+													</tr>
+
+													<tr>
+														<td>Donna Snider</td>
+														<td>Customer Support</td>
+														<td>New York</td>
+														<td>27</td>
+														<td>2011-01-25</td>
+														<td>$112,000</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</form>
+
+						</div>
+						<div class="card-footer text-center" style="margin-bottom: 30px;">
+							<button type="button" class="btn btn-primary w-25 text-center">Submit</button>
+							<button type="button" class="btn btn-primary w-25 text-center">Print</button>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="tab-pane fade" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab"
+					tabindex="0">
+					<div class="card">
+						<div class="card-header" style="background-color: blueviolet;height: 50px;">
+							<h3 class="text-center text-white">Hold Work Order Dashboard</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="holdorder"></div>
+									</figure>
+								</div>
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="holdorder1"></div>
+									</figure>
+								</div>
+							</div>
+							<div class="row">
+
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="holdorder2"></div>
+									</figure>
+								</div>
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="holdorder3"></div>
+									</figure>
+								</div>
+							</div>
+
+						</div>
+						<div class="card-footer text-muted">
+							2 days ago
+						</div>
+
+
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+					tabindex="0">
+					<div class="card">
+						<div class="card-header" style="background-color: blueviolet;height: 50px;">
+							<h3 class="text-center text-white">Hold Work Order View</h3>
+						</div>
+						<div class="card-body">
+
+
+							<table
+								class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
+								id="example">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
+										<th>Age</th>
+										<th>Start date</th>
+										<th>Salary</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody class="table-scroll">
+									<tr>
+										<td>Tiger Nixon</td>
+										<td>System Architect</td>
+										<td>Edinburgh</td>
+										<td>61</td>
+										<td>2011-04-25</td>
+										<td>$320,800</td>
+										<td><button class="open-button" value="click" onclick="openForm()">Open
+												Form</button></td>
+									</tr>
+									<!--<tr>
+									<td>Herrod Chandler</td>
+									<td>Sales Assistant</td>
+									<td>San Francisco</td>
+									<td>59</td>
+									<td>2012-08-06</td>
+									<td>$137,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+
+								</tr>
+								<tr>
+									<td>Rhona Davidson</td>
+									<td>Integration Specialist</td>
+									<td>Tokyo</td>
+									<td>55</td>
+									<td>2010-10-14</td>
+									<td>$327,900</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Colleen Hurst</td>
+									<td>Javascript Developer</td>
+									<td>San Francisco</td>
+									<td>39</td>
+									<td>2009-09-15</td>
+									<td>$205,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Sonya Frost</td>
+									<td>Software Engineer</td>
+									<td>Edinburgh</td>
+									<td>23</td>
+									<td>2008-12-13</td>
+									<td>$103,600</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Jena Gaines</td>
+									<td>Office Manager</td>
+									<td>London</td>
+									<td>30</td>
+									<td>2008-12-19</td>
+									<td>$90,560</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Quinn Flynn</td>
+									<td>Support Lead</td>
+									<td>Edinburgh</td>
+									<td>22</td>
+									<td>2013-03-03</td>
+									<td>$342,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Charde Marshall</td>
+									<td>Regional Director</td>
+									<td>San Francisco</td>
+									<td>36</td>
+									<td>2008-10-16</td>
+									<td>$470,600</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Haley Kennedy</td>
+									<td>Senior Marketing Designer</td>
+									<td>London</td>
+									<td>43</td>
+									<td>2012-12-18</td>
+									<td>$313,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Tatyana Fitzpatrick</td>
+									<td>Regional Director</td>
+									<td>London</td>
+									<td>19</td>
+									<td>2010-03-17</td>
+									<td>$385,750</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Michael Silva</td>
+									<td>Marketing Designer</td>
+									<td>London</td>
+									<td>66</td>
+									<td>2012-11-27</td>
+									<td>$198,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Paul Byrd</td>
+									<td>Chief Financial Officer (CFO)</td>
+									<td>New York</td>
+									<td>64</td>
+									<td>2010-06-09</td>
+									<td>$725,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Gloria Little</td>
+									<td>Systems Administrator</td>
+									<td>New York</td>
+									<td>59</td>
+									<td>2009-04-10</td>
+									<td>$237,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Bradley Greer</td>
+									<td>Software Engineer</td>
+									<td>London</td>
+									<td>41</td>
+									<td>2012-10-13</td>
+									<td>$132,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Dai Rios</td>
+									<td>Personnel Lead</td>
+									<td>Edinburgh</td>
+									<td>35</td>
+									<td>2012-09-26</td>
+									<td>$217,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Jenette Caldwell</td>
+									<td>Development Lead</td>
+									<td>New York</td>
+									<td>30</td>
+									<td>2011-09-03</td>
+									<td>$345,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Yuri Berry</td>
+									<td>Chief Marketing Officer (CMO)</td>
+									<td>New York</td>
+									<td>40</td>
+									<td>2009-06-25</td>
+									<td>$675,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Caesar Vance</td>
+									<td>Pre-Sales Support</td>
+									<td>New York</td>
+									<td>21</td>
+									<td>2011-12-12</td>
+									<td>$106,450</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+
+								<tr>
+									<td>Hermione Butler</td>
+									<td>Regional Director</td>
+									<td>London</td>
+									<td>47</td>
+									<td>2011-03-21</td>
+									<td>$356,250</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Lael Greer</td>
+									<td>Systems Administrator</td>
+									<td>London</td>
+									<td>21</td>
+									<td>2009-02-27</td>
+									<td>$103,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Jonas Alexander</td>
+									<td>Developer</td>
+									<td>San Francisco</td>
+									<td>30</td>
+									<td>2010-07-14</td>
+									<td>$86,500</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Shad Decker</td>
+									<td>Regional Director</td>
+									<td>Edinburgh</td>
+									<td>51</td>
+									<td>2008-11-13</td>
+									<td>$183,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Michael Bruce</td>
+									<td>Javascript Developer</td>
+									<td>Singapore</td>
+									<td>29</td>
+									<td>2011-06-27</td>
+									<td>$183,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>
+								<tr>
+									<td>Donna Snider</td>
+									<td>Customer Support</td>
+									<td>New York</td>
+									<td>27</td>
+									<td>2011-01-25</td>
+									<td>$112,000</td>
+									<td><input id="generateShow" type=submit value="click me" style="width:100%"></td>
+								</tr>-->
+								</tbody>
+							</table>
+
+
+						</div>
+						<div class="card-footer text-muted">
+							2 days ago
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

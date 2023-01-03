@@ -1,0 +1,446 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Material Mangement</title>
+</head>
+
+<body>
+	<section>
+
+		<!-- form Start-->
+		<div class="row">
+			<div class="col">
+
+				<div class="card text-center">
+					<div class="card-header bg-info text-white fs-4">
+						Leakage Maintanance Work Update
+					</div>
+					<div class="card-body">
+
+						<form>
+
+
+							<div class="row ">
+								<h5 class="card-title mt-1">Enter Work Order Details</h5>
+								<hr>
+								
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Work order number</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Work order Date</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col-6 text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Work Order Scope</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<h5 class="card-title mt-4">Leakage Details</h5>
+							<hr>
+							
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Indent No</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Indent
+										Date</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Indent
+										Reason</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Type</label>
+									<div class="col">
+										<select class="form-control form-control-sm form-control form-control-sm-sm">
+											<option>Emergency</option>
+											<option>Routine</option>
+											<option>Pro-Active</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Main Supply
+										Line</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label"> Area</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Maintanance Type</label>
+									<div class="col">
+										<select class="form-control form-control-sm form-control form-control-sm-sm">
+											<option>Pipe-Main Line</option>
+											<option>Bulk Meter supply Zone</option>
+											<option>Distriubution Line</option>
+											<option>HSC Zone</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Langitude</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Latitude</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Supply zone</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<h5 class="card-title mt-4">Pipe Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Line Start
+										Node</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Line End Node</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Assts ID</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Line Type</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Diameter</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label"> pressure
+										Range</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-12 col-form-label">Deduction
+										Instrument</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">GRID</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-8 col-form-label">GMIS_ID</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Ward No</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Ward Name</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col-6 text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label"> Pipe maintenance
+										reasons</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-lg " id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="inputEmail3" class="col-sm-12 col-form-label">Breakdown
+										Date</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-12 col-form-label">Breakdown
+										Time</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Site Engineer</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">TEAM CODE</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col-4 text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Site Superwiser</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm " id="inputEmail3">
+									</div>
+								</div>
+								<div class="col-4 text-start">
+
+									<label for="inputEmail3" class="col-sm-8 col-form-label">Work Status</label>
+									<div class="col">
+										<input type="email" class="form-control form-control-sm " id="inputEmail3">
+									</div>
+								</div>
+
+							</div>
+
+						</form>
+
+						<a href="#" class="btn btn-primary">Submit</a>
+						<a href="#" class="btn btn-success">Invoice Print</a>
+
+					</div>
+					<div class="card-footer text-muted bg-info">
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-3">
+
+				<div class="card text-center">
+					<div class="card-header bg-info text-white fs-6">
+						Updates
+					</div>
+
+					<div class="card-body">
+
+						<form>
+
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Wo No</th>
+										<th scope="col">Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- form END-->
+
+
+
+
+	</section>
+
+
+</body>
+
+</html>

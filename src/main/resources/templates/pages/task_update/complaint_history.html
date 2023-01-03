@@ -1,0 +1,927 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Material Mangement</title>
+</head>
+
+<body>
+	<section>
+
+		<!-- form Start-->
+		<div class="row">
+			<div class="col">
+
+				<div class="card text-center">
+					<div class="card-header bg-info text-white fs-4">
+						Complaint History
+					</div>
+					<div class="card-body">
+
+						<form>
+
+							<h5 class="card-title mt-4">ID's</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">ComplaintNo</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Complaint Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>									
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Docket No</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Complaint Received
+												By</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4"> Personal Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">First Name</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">House No</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Main</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Zone</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Tariff</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Pin code</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Contact No Mobile</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Reference Contact No</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Last Name</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Cross</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Land Mark</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Ward</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">City</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Gender</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Contact No Landline</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Email Id</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Complaint Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">DMA</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Registration of Complaints</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Complaint Category Department</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Complaint Details</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Complaint Status</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Service Location</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Functional Business Department</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Sub Category</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">SLG Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">SLG Job Code</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">SLG Duration</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>									
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Service Level Guarantee(SLG)</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>									
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Documents Submitted</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+<!--											<label for="inputEmail3" class="col-sm-8 col-form-label">Complaint-->
+<!--												No*</label>-->
+										</div>
+										<div class="col">
+											<div class="col">
+<!--												<input type="email" class="form-control form-control-sm"-->
+<!--													id="inputEmail3">-->
+											</div>
+										</div>
+									</div>
+									
+									
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+<!--											<label for="inputEmail3" class="col-sm-14 col-form-label">Docket No</label>-->
+										</div>
+										<div class="col">
+											<div class="col">
+<!--												<input type="number" class="form-control form-control-sm"-->
+<!--													id="inputEmail3">-->
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Job Card Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Job Card No</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Complaint Reg</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Job Card Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Service Station</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Field Report</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Service Station</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Visit Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Visit Remarks</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Name of Engg</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Job Status</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Escalation Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Escalated From</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-9 col-form-label">Department</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Type of Escalation</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-12 col-form-label">Escalated Reason</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">	Escalated To</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Escalated Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Escalated Level</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+							<h5 class="card-title mt-4">Job Completed Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Expected Compl Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Job Completed Date</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Signature of Customer</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Job Done Remarks</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Customer Feedback</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="text" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col">
+
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Docket No</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="number" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Complaint Received
+												By</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col text-left">
+											<label for="inputEmail3" class="col-sm-14 col-form-label">Job Card
+												Generation Date *</label>
+										</div>
+										<div class="col">
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<!-- row end-->
+
+
+						</form>
+
+						<a href="#" class="btn btn-primary">Submit</a>
+						<a href="#" class="btn btn-success">Print Job Card</a>
+
+					</div>
+					<div class="card-footer text-muted bg-info">
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-3">
+
+				<div class="card text-center">
+					<div class="card-header bg-info text-white fs-6">
+						Updates
+					</div>
+
+					<div class="card-body">
+
+						<form>
+
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Wo No</th>
+										<th scope="col">Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Routine</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Emergency</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+									<tr>
+										<td>1/12/22</td>
+										<td>123</td>
+										<td>Pro-Active</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- form END-->
+
+
+
+
+	</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,3527 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+
+		<!-- Main layout-->
+
+		<div class="d-flex justify-content-end ">
+
+			<!--Content layout-->
+
+			<div class="col text-left mt-3">
+
+				<!--Barcode master form -->
+				<div class="tab-content" id="v-pills-tabContent">
+
+					<div class="tab-pane fade show active" id="barcode-master-tab" role="tabpanel"
+						aria-labelledby="barcode-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Barcode Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row">
+										<div class="col">
+											<div class="row">
+
+												<div class="col text-start">
+													<label for="formGroupExampleInput">Scanner Type</label>
+													<div class="form-check">
+														<input class="form-check-input" type="radio"
+															name="exampleRadios" id="exampleRadios1" value="option1"
+															checked>
+														<label class="form-check-label" for="exampleRadios1">
+															QR Code
+														</label>
+													</div>
+													<div class="form-check ">
+														<input class="form-check-input" type="radio"
+															name="exampleRadios" id="exampleRadios2" value="option2">
+														<label class="form-check-label" for="exampleRadios2">
+															Barcode
+														</label>
+													</div>
+
+												</div>
+												<div class="col text-start">
+													<label class="text-left">Height</label>
+													<input type="text" class="form-control form-control-sm">
+												</div>
+												<div class="col text-start">
+													<label for="formGroupExampleInput">Width</label>
+													<input type="text" class="form-control form-control-sm">
+												</div>
+												<div class="col text-start">
+													<label for="formGroupExampleInput text-align-left">Alignment</label>
+													<input type="text" class="form-control form-control-sm">
+												</div>
+											</div>
+
+											<div class="row mt-4">
+
+												<div class="col text-start">
+													<label for="formGroupExampleInput">Item Name</label>
+													<input type="text" class="form-control form-control-sm">
+												</div>
+												<div class="col text-start">
+													<label for="formGroupExampleInput">View</label>
+													<input type="text" class="form-control form-control-sm">
+												</div>
+
+											</div>
+										</div>
+										<div class="col-4">
+											<label for="formGroupExampleInput">Preview</label>
+											<img th:src="@{/images/qr_code.png}" class="rounded mx-auto d-block"
+												alt="...">
+
+										</div>
+									</div>
+								</form>
+
+
+
+								<a href="#" class="btn btn-primary">Preview</a>
+								<a href="#" class="btn btn-success">Print</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="category-master-tab" role="tabpanel"
+						aria-labelledby="category-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Category Master Tab
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row">
+
+										<div class="col text-start">
+											<label class="text-left">Category ID</label>
+											<input type="text" class="form-control form-control-sm">
+										</div>
+										<div class="col text-start">
+											<label for="formGroupExampleInput">Category Name</label>
+											<input type="text" class="form-control form-control-sm">
+										</div>
+									</div>
+
+									<!--									<div class="row mt-4">-->
+									<!---->
+									<!--										<div class="col text-start">-->
+									<!--											<label for="formGroupExampleInput text-align-left">HSN CODE</label>-->
+									<!--											<input type="text" class="form-control form-control-sm">-->
+									<!--										</div>-->
+									<!--										<div class="col text-start">-->
+									<!--											<label for="formGroupExampleInput">Create Date</label>-->
+									<!--											<input type="date" class="form-control form-control-sm">-->
+									<!--										</div>-->
+									<!--										<div class="col text-start">-->
+									<!--											<label for="formGroupExampleInput">Category Status</label>-->
+									<!--											<input type="text" class="form-control form-control-sm">-->
+									<!--										</div>-->
+									<!---->
+									<!--									</div>-->
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Preview</a>
+								<a href="#" class="btn btn-success">Print</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Company Master form -->
+					<div class="tab-pane fade" id="company-master-tab" role="tabpanel" aria-labelledby="company-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Company Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<h5 class="card-title mt-4">Account Setting</h5>
+									<hr>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Default
+												Language</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="Hindi / English" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Clock Format</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="12-hr / 24 Hr" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Date Format</label>
+											<div class="col-sm-8">
+												<input type="date" class="form-control form-control-sm" id="inputEmail3"
+													placeholder="YYYY/MM/DD  , DD/MM/YYYY" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Currency</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="Inida Rupees (Rs)" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Fincial
+												Year</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="1-4-2023 to 31-3-2024" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Start of Work Week</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="Sunday" readonly>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mt-4">Security Settings</h5>
+									<hr>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-8 col-form-label">Automatically user outlog</label>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="4 hrs" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-8 col-form-label">Automatically expire
+												passwords</label>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="Disabled" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-8 col-form-label">Mini password length</label>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="8 characters" readonly>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-8 col-form-label">Remind Log Time</label>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3" placeholder="5 minutes" readonly>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<!--								<a href="#" class="btn btn-primary">Submit</a>-->
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--					<!--Device & Control form -->
+					<!--					<div class="tab-pane fade" id="device-control-tab" role="tabpanel" aria-labelledby="device-control">-->
+					<!---->
+					<!--						<!-- form Start-->
+					<!--						<div class="card text-center">-->
+					<!--							<div class="card-header bg-info text-white fs-4">-->
+					<!--								Device & Control-->
+					<!--							</div>-->
+					<!--							<div class="card-body">-->
+					<!---->
+					<!--								<form>-->
+					<!--									<div class="row ">-->
+					<!--										<div class="col">-->
+					<!---->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device-->
+					<!--														Make*</label>-->
+					<!--												</div>-->
+					<!--												<div class="col text-start">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-9 col-form-label">Device M-->
+					<!--														_IME No*</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Emp-->
+					<!--														ID</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Emp-->
+					<!--														Division</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Emp-->
+					<!--														Department</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device From-->
+					<!--														Period</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!---->
+					<!--										</div>-->
+					<!---->
+					<!--										<div class="col">-->
+					<!---->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device Type-->
+					<!--														*</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device-->
+					<!--														S_IME No </label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Emp-->
+					<!--														Name</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Emp-->
+					<!--														Branch</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device-->
+					<!--														Status</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!--											<div class="row p-1">-->
+					<!--												<div class="col text-start">-->
+					<!--													<label for="inputEmail3" class="col-sm-8 col-form-label">Device To-->
+					<!--														Period</label>-->
+					<!--												</div>-->
+					<!--												<div class="col">-->
+					<!--													<div class="col">-->
+					<!--														<input type="email" class="form-control form-control-sm"-->
+					<!--															id="inputEmail3">-->
+					<!--													</div>-->
+					<!--												</div>-->
+					<!--											</div>-->
+					<!---->
+					<!--										</div>-->
+					<!--									</div>-->
+					<!---->
+					<!--									<a href="#" class="btn btn-primary">Submit</a>-->
+					<!--									<a href="#" class="btn btn-success">View</a>-->
+					<!---->
+					<!--								</form>-->
+					<!---->
+					<!---->
+					<!---->
+					<!--							</div>-->
+					<!--							<div class="card-footer text-muted bg-info">-->
+					<!---->
+					<!--							</div>-->
+					<!--						</div>-->
+					<!---->
+					<!--						<!-- form END-->
+					<!---->
+					<!---->
+					<!--					</div>-->
+
+					<div class="tab-pane fade " id="distribution-location-tab" role="tabpanel"
+						aria-labelledby="distribution-location">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Distribution Location
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Division</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Branch</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Distribution
+												Location </label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="distribution-schedule-tab" role="tabpanel"
+						aria-labelledby="distribution-schedule">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Distribution Schedule
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Division</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Branch</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Distribution
+												Location</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Distribution
+												Schedule</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Company Master form -->
+					<div class="tab-pane fade" id="division-subdevision-tab" role="tabpanel"
+						aria-labelledby=">division-subdevision">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Division SubDevision
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Division</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Add</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Sub
+												Division</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Add</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Service Station</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Add</a>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="dma-ward-tab" role="tabpanel" aria-labelledby="dma-ward">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								DMA-Ward
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">DMA Number</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">DMA Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Ward
+												Number</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Ward Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<div class="tab-pane fade" id="employee-master-tab" role="tabpanel"
+						aria-labelledby="employee-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Employee Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="empId" class="col-sm-8 col-form-label">Emp ID</label>
+											<div class="col">
+												<input type="text" class="form-control form-control-sm" id="empId">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Emp Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Address </label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Contact No </label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Department</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Designation</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Company
+												/Division</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Branch/Sub
+												Division</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Emp Type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Join Date</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">End Date</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Emp Status</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">PAN Details</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Aadhar
+												Details</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Ref Contact
+												Details</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Ref Person
+												Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Blood
+												Group*</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Date of
+												birth*</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Gender*</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">State</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Marital
+												status*</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3"
+												class="col-sm-8 col-form-label">Qualification*</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Driving License
+												no</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">City</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="employee-performance-tab" role="tabpanel"
+						aria-labelledby="employee-performance">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Employee Performance
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Employee Performance</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>Good</option>
+													<option>Average</option>
+													<option>poor</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Company Master form -->
+					<div class="tab-pane fade" id="id-master-tab" role="tabpanel" aria-labelledby="id-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								ID Master
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col text-start">
+
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">ID's</label>
+											<label for="inputEmail3" class="col-sm-2 col-form-label fs-6">Serial
+												Number</label>
+											<label for="inputEmail3"
+												class="col-sm-4 col-form-label fs-6">Description</label>
+											<label for="inputEmail3" class="col-sm-2 col-form-label fs-6"></label>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Assest
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<!--										<div class="form-group row p-2">-->
+										<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Barcod-->
+										<!--												ID</label>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-4">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<a href="#" class="btn btn-primary">Reset</a>-->
+										<!--											</div>-->
+										<!--										</div>-->
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Branch
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Budjet
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<!--										<div class="form-group row p-2">-->
+										<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Cancel Work-->
+										<!--												Order ID</label>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-4">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<a href="#" class="btn btn-primary">Reset</a>-->
+										<!--											</div>-->
+										<!--										</div>-->
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Categaroy
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Company
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Department
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Device
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">DMA ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Employee
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<!--										<div class="form-group row p-2">-->
+										<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Genrate Work-->
+										<!--												Order ID</label>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-4">-->
+										<!--												<input type="email" class="form-control form-control-sm"-->
+										<!--													id="inputEmail3">-->
+										<!--											</div>-->
+										<!--											<div class="col-sm-2">-->
+										<!--												<a href="#" class="btn btn-primary">Reset</a>-->
+										<!--											</div>-->
+										<!--										</div>-->
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">HSN
+												CODE</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Inward
+												Material ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Inward Spares
+												Matieral ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Inward Tools
+												Or Equipment ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Item
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Leakage
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Meter
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Outward
+												Material Issue ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Outward Spares
+												Matieral Issue ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Outward Tools
+												Matieral Issue ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Pump
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Sequence
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock Matieral
+												Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock
+												Rejection/ Damage Matieral Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock
+												Rejection/ Damage Spares Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock
+												Rejection/ Damage Tools Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock Spares
+												Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Stock Tools
+												Return ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Vehicle
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Vehicel
+												Manitance Indent ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">WARD
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Work Estmation
+												Budjet ID </label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Work Order
+												ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Work Order
+												cancel ID</label>
+											<div class="col-sm-2">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-primary">Reset</a>
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">Reset All</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="hsn-code-tab" role="tabpanel" aria-labelledby="hsn-code">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								HSN CODE
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">Category</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Item Name</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label class="col-sm-4 col-form-label">HSN Code</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<div class="tab-pane fade" id="maintance-frequency-tab" role="tabpanel"
+						aria-labelledby="maintance-frequency">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Maintance Frequency
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Maintance
+												Work</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Maintance
+												Frequency</label>
+											<div class="col">
+												<select class="form-select form-select-sm">
+													<option>Daily</option>
+													<option> Weekly</option>
+													<option>15 Days</option>
+													<option>monthly</option>
+													<option>6 month</option>
+													<option>Yearly </option>
+												</select>
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="maintenance-activities-tab" role="tabpanel"
+						aria-labelledby="maintenance-activities">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Maintenance Activities
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Maintenance Activities Type</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm ">
+													<option>Pump Maintance</option>
+													<option>Pipe Mainttance</option>
+													<option>Vehicel Maintance</option>
+													<option>Meter Mainttance</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Company Master form -->
+					<div class="tab-pane fade" id="maintenance-performance-tab" role="tabpanel"
+						aria-labelledby="maintenance-performance">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Maintenance Performance
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Maintenance Performance Type</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm ">
+													<option>Good</option>
+													<option>Average</option>
+													<option>poor</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="maintenance-task-tab" role="tabpanel"
+						aria-labelledby="maintenance-task">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Maintenance Type
+							</div>
+							<div class="card-body">
+
+								<form>
+
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Maintenance Type</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>Emergency</option>
+													<option> Routine</option>
+													<option> Pro-Active</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<div class="tab-pane fade show" id="item-master-tab" role="tabpanel" aria-labelledby="item-master">
+						Item Master
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Item Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Item ID</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Item Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Description</label>
+											<div class="col-6">
+												<input type="email" class="form-control form-control-lg"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="meter-manufacture-tab" role="tabpanel"
+						aria-labelledby="meter-manufacture">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Meter Manufacture
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">ID</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Meter
+												Manufacture</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Meter Type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Degit</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Recevid
+												Date</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Meter Serial
+												Namber</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Warranty</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Condition</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Company Master form -->
+					<div class="tab-pane fade" id="meter-type-tab" role="tabpanel" aria-labelledby="meter-type">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Meter Type
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Meter Type</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>AMR</option>
+													<option>Non AMR</option>
+													<option>AMI</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="notifications-alerts-tab" role="tabpanel"
+						aria-labelledby="notifications-alerts">Notifications/Alerts</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="email-tab" role="tabpanel" aria-labelledby="email">Email</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="sms-tab" role="tabpanel" aria-labelledby="sms">SMS</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="text-popup-tab" role="tabpanel" aria-labelledby="text-popup">
+						Text_popup</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="pipe-manufacture-tab" role="tabpanel"
+						aria-labelledby="pipe-manufacture">
+
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Pipe Manufacture
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Manufacture
+												ID</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Manufacture
+												Name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Pipe Type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Size</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Pipe Manufacture
+												Address</label>
+											<div class="col-12">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Contact
+												Number</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="pressure-type-tab" role="tabpanel" aria-labelledby="pressure-type">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								PressureType
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">PressureType</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>High </option>
+													<option>Low</option>
+													<option>Midium </option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="pumps-master-tab" role="tabpanel" aria-labelledby="pumps-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Pumps Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Pumps ID</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Manufacture
+											</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Purchased
+												Date</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Manufacture
+												Address</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Contact
+												Number</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Warranty</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="safty-precautions-tab" role="tabpanel"
+						aria-labelledby="safty-precautions">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Safty Precautions
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Safety
+												Precautions</label>
+											<div class="col-sm-8">
+												<select class="form-select form-select-sm">
+													<option>Taken</option>
+													<option>Not Taken</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="service-area-tab" role="tabpanel" aria-labelledby="service-area">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Service Area Details
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-4 col-form-label">Service Area
+												Details </label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="service-progress-type-tab" role="tabpanel"
+						aria-labelledby="service-progress-type">Service Progress Type
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Service Progress Type Details
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Service Progress
+												Type Details</label>
+											<div class="col-sm-6">
+												<select
+													class="form-control form-control-sm form-control form-control-sm-sm">
+													<option>Initiated</option>
+													<option>On Progress</option>
+													<option>Completed</option>
+													<option>On hold</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="service-provider-tab" role="tabpanel"
+						aria-labelledby="service-provider">
+
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Service Provider Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
+												ID</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Nature of Work
+											</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
+												name</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Registeration
+												No</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
+												Address</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Contact
+												Number</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Status</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="spare-part-equipments-tab" role="tabpanel"
+						aria-labelledby="spare-part-equipments">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Spare Part/Equipments
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Spare Parts/
+												Equipment ID </label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Spare Parts/
+												Equipment Name </label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="store-branch-name-tab" role="tabpanel"
+						aria-labelledby="store-branch-name-tab">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Store/Branch Name
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Company Division
+											</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
+												ID</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch Name
+												Details</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
+												Address</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
+												Contact No</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="supplier-details-tab" role="tabpanel"
+						aria-labelledby="supplier-details">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Supplier Details
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Supplier
+														ID</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Supplier
+														Name*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-9 col-form-label">Recipt
+														No*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">GST
+														Type*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">GSTIN*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Contact
+														Details</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">Address*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">State*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-9 col-form-label">City*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">Pincode*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Email
+														ID*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">Telephone</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Mobile
+														No*</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="col text-start">
+
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-10 col-form-label">Enter
+														supplier name</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														recipt no</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">select</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														GSTIN/UIN</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														address</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">Select</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3"
+														class="col-sm-8 col-form-label">Select</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														pincode</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														Email</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-8 col-form-label">Enter
+														telephone no</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+											<div class="row p-1">
+												<div class="col">
+													<label for="inputEmail3" class="col-sm-10 col-form-label">Enter
+														mobile no</label>
+												</div>
+												<div class="col">
+													<div class="col">
+														<input type="email" class="form-control form-control-sm"
+															id="inputEmail3">
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="leakage-type-tab" role="tabpanel" aria-labelledby="leakage-type">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Leakage Type
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Leakage Type</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>Pipe-Main Line</option>
+													<option>Bulk Meter supply Zone</option>
+													<option>Distriubution Line</option>
+													<option>HSC Zone</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="task-status-tab" role="tabpanel" aria-labelledby="task-status">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Task Status
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Task Status</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>Open</option>
+													<option>In process</option>
+													<option>Completed Task</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="tax-master-tab" role="tabpanel" aria-labelledby="tax-master">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Tax Master
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">CGST</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">SGST</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-6 col-form-label">GST Total</label>
+											<div class="col-sm-6">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="units-of-measures-tab" role="tabpanel"
+						aria-labelledby="units-of-measures">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Units of Measures
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label for="inputEmail3" class="col-sm-3 col-form-label">Units Type</label>
+											<div class="col-sm-4">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+											<div class="col-sm-2">
+												<a href="#" class="btn btn-warning">Description</a>
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="vehicle-master-details-tab" role="tabpanel"
+						aria-labelledby="vehicle-master-details">
+
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Vehicle Master Details
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Vehical ID
+											</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Vehical Number
+											</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Vehcile
+												type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">RC No</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+									</div>
+
+									<div class="row ">
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Purchase
+												Date</label>
+											<div class="col">
+												<input type="date" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Insurance
+												No</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Type</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Model</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="work-priority-tab" role="tabpanel" aria-labelledby="work-priority">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Work Priority
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Work Priority</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>Low</option>
+													<option>Medium Priority</option>
+													<option>High</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="work-status-tab" role="tabpanel" aria-labelledby="work-status">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Work Status
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Work status</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>On Prgrogess</option>
+													<option>On Hold</option>
+													<option>Completed</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="team-code-tab" role="tabpanel" aria-labelledby="team-code">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								TEAM CODE
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="row ">
+										<div class="col text-start">
+
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Division</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-8 col-form-label">Section</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Site
+												Engineer</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+										<div class="col text-start">
+											<label for="inputEmail3" class="col-sm-10 col-form-label">Site Superwiser
+											</label>
+											<div class="col">
+												<input type="email" class="form-control form-control-sm"
+													id="inputEmail3">
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+					<!--Category master form -->
+					<div class="tab-pane fade" id="water-source-tab" role="tabpanel" aria-labelledby="water-source">
+
+						<!-- form Start-->
+						<div class="card text-center">
+							<div class="card-header bg-info text-white fs-4">
+								Water Source
+							</div>
+							<div class="card-body">
+
+								<form>
+									<div class="mx-auto col-8 text-start">
+										<div class="form-group row p-2">
+											<label class="col-sm-6 col-form-label">Work Priority</label>
+											<div class="col-sm-6">
+												<select class="form-select form-select-sm">
+													<option>River</option>
+													<option>Well</option>
+													<option>Borwell</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+								<a href="#" class="btn btn-primary">Submit</a>
+								<a href="#" class="btn btn-success">View</a>
+							</div>
+							<div class="card-footer text-muted bg-info">
+
+							</div>
+						</div>
+
+						<!-- form END-->
+
+					</div>
+
+
+
+
+
+
+
+				</div>
+			</div>
+
+			<!--Right sidebat layout-->
+			<!--			<div class="master-sidebar">-->
+			<div class=" mt-2 sidenav master-sidebar ">
+				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical di">
+
+					<button class="btn btn-dark m-1 btn-sm" id="barcode-master" data-bs-toggle="pill"
+						data-bs-target="#barcode-master-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Barcode Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="category-master" data-bs-toggle="pill"
+						data-bs-target="#category-master-tab" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">Category master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="company-master" data-bs-toggle="pill"
+						data-bs-target="#company-master-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Company Master</button>
+
+					<!--					<button class="btn btn-dark m-1 btn-sm" id="device-control" data-bs-toggle="pill"-->
+					<!--						data-bs-target="#device-control-tab" type="button" role="tab" aria-controls="v-pills-settings"-->
+					<!--						aria-selected="false">Device & Control</button>-->
+
+					<button class="btn btn-dark m-1 btn-sm" id="distribution-location" data-bs-toggle="pill"
+						data-bs-target="#distribution-location-tab" type="button" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">Distribution Location</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="distribution-schedule" data-bs-toggle="pill"
+						data-bs-target="#distribution-schedule-tab" type="button" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Distribution Schedule</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="division-subdevision" data-bs-toggle="pill"
+						data-bs-target="#division-subdevision-tab" type="button" role="tab"
+						aria-controls="v-pills-messages" aria-selected="false">Division-SubDevision</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="dma-ward" data-bs-toggle="pill"
+						data-bs-target="#dma-ward-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">DMA-Ward</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="employee-master" data-bs-toggle="pill"
+						data-bs-target="#employee-master-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Employee Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="employee-performance" data-bs-toggle="pill"
+						data-bs-target="#employee-performance-tab" type="button" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Employee Performance</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="id-master" data-bs-toggle="pill"
+						data-bs-target="#id-master-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">ID Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="hsn-code" data-bs-toggle="pill"
+						data-bs-target="#hsn-code-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">HSN CODE</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="maintance-frequency" data-bs-toggle="pill"
+						data-bs-target="#maintance-frequency-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Maintance Frequency</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="maintenance-activities" data-bs-toggle="pill"
+						data-bs-target="#maintenance-activities-tab" type="button" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Maintenance Activities</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="maintenance-performance" data-bs-toggle="pill"
+						data-bs-target="#maintenance-performance-tab" type="button" role="tab"
+						aria-controls="v-pills-messages" aria-selected="false">Maintenance Performance</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="maintenance-task" data-bs-toggle="pill"
+						data-bs-target="#maintenance-task-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Maintenance Type</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="item-master" data-bs-toggle="pill"
+						data-bs-target="#item-master-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Item Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="meter-manufacture" data-bs-toggle="pill"
+						data-bs-target="#meter-manufacture-tab" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">Meter Manufacture</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="meter-type" data-bs-toggle="pill"
+						data-bs-target="#meter-type-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Meter Type</button>
+
+					<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/notification-alert}" type="button"
+						role="tab">Notifications/Alerts</a>
+
+					<button class="btn btn-dark m-1 btn-sm" id="pipe-manufacture" data-bs-toggle="pill"
+						data-bs-target="#pipe-manufacture-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Pipe Manufacture</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="pressure-type" data-bs-toggle="pill"
+						data-bs-target="#pressure-type-tab" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">PressureType</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="pumps-master" data-bs-toggle="pill"
+						data-bs-target="#pumps-master-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Pumps Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="safty-precautions" data-bs-toggle="pill"
+						data-bs-target="#safty-precautions-tab" type="button" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Safty Precautions</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="service-area" data-bs-toggle="pill"
+						data-bs-target="#service-area-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Service Area</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="service-progress-type" data-bs-toggle="pill"
+						data-bs-target="#service-progress-type-tab" type="button" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Service Progress Type</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="service-provider" data-bs-toggle="pill"
+						data-bs-target="#service-provider-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Service Provider</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="spare-part-equipments" data-bs-toggle="pill"
+						data-bs-target="#spare-part-equipments-tab" type="button" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Spare Part/Equipments</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="store-branch-name" data-bs-toggle="pill"
+						data-bs-target="#store-branch-name-tab" type="button" role="tab" aria-controls="v-pills-home"
+						aria-selected="true">Store/Branch Name</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="supplier-details" data-bs-toggle="pill"
+						data-bs-target="#supplier-details-tab" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">Supplier Details</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="leakage-type" data-bs-toggle="pill"
+						data-bs-target="#leakage-type-tab" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">Leakage Type</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="task-status" data-bs-toggle="pill"
+						data-bs-target="#task-status-tab" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">Task Status</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="tax-master" data-bs-toggle="pill"
+						data-bs-target="#tax-master-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Tax Master</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="units-of-measures" data-bs-toggle="pill"
+						data-bs-target="#units-of-measures-tab" type="button" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Units of measures</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="vehicle-master-details" data-bs-toggle="pill"
+						data-bs-target="#vehicle-master-details-tab" type="button" role="tab"
+						aria-controls="v-pills-settings" aria-selected="false">Vehicle Master Details</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="work-priority" data-bs-toggle="pill"
+						data-bs-target="#work-priority-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Work Priority</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="work-status" data-bs-toggle="pill"
+						data-bs-target="#work-status-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Work Status</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="team-code" data-bs-toggle="pill"
+						data-bs-target="#team-code-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">TEAM CODE</button>
+
+					<button class="btn btn-dark m-1 btn-sm" id="water-source" data-bs-toggle="pill"
+						data-bs-target="#water-source-tab" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Water Source</button>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

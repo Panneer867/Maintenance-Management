@@ -1,0 +1,336 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Material Mangement</title>
+</head>
+
+<body>
+	<section>
+
+		<!-- form Start-->
+		<div class="card text-center">
+			<div class="card-header bg-info text-white fs-4">
+				Notification Alert
+			</div>
+			<div class="card-body">
+
+				<div class="card text-center">
+					<div class="card-body-sm pt-3">
+						<form>
+							<div class="form-group row p-2">
+								<label for="inputEmail3" class="col-sm-1 col-form-label fs-6">Enable / Disable</label>
+								<label for="inputEmail3" class="col-sm-3 col-form-label fs-6">Module name</label>
+								<label for="inputEmail3" class="col-sm-2 col-form-label fs-6">Message type</label>
+								<label for="inputEmail3" class="col-sm-3 col-form-label fs-6">Words</label>
+								<label for="inputEmail3" class="col-sm-2 col-form-label fs-6">Reciever</label>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="card text-center">
+					<div class="card-body">
+						<form>
+							<div class="row ">
+								<div class="col-1 mt-3 ml-4">
+									<div class="form-check form-switch mt-5 ">
+										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+									</div>
+								</div>
+								<div class="col py-5">
+									<div class="col">
+										<input type="email" class="form-control form-control-sm mt-3" id="inputEmail3">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-check form-switch align-top">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Email</label>
+									</div>
+									<div class="form-check form-switch align-middle">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">SMS</label>
+									</div>
+									<div class="form-check form-switch align-bottom">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Popup</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 50 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 110 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 150 Letter with Date & Time
+										</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Internal
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											External
+										</label>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				<div class="card text-center">
+					<div class="card-body">
+						<form>
+							<div class="row ">
+								<div class="col-1 mt-3 ml-4">
+									<div class="form-check form-switch mt-5">
+										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+									</div>
+								</div>
+								<div class="col py-5">
+									<div class="col">
+										<input type="email" class="form-control form-control-sm mt-3" id="inputEmail3">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-check form-switch align-top">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Email</label>
+									</div>
+									<div class="form-check form-switch align-middle">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">SMS</label>
+									</div>
+									<div class="form-check form-switch align-bottom">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Popup</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 50 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 110 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 150 Letter with Date & Time
+										</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Internal
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											External
+										</label>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				<div class="card text-center">
+					<div class="card-body">
+						<form>
+							<div class="row ">
+								<div class="col-1 mt-3 ml-4">
+									<div class="form-check form-switch mt-5">
+										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+									</div>
+								</div>
+								<div class="col py-5">
+									<div class="col">
+										<input type="email" class="form-control form-control-sm mt-3" id="inputEmail3">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-check form-switch align-top">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Email</label>
+									</div>
+									<div class="form-check form-switch align-middle">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">SMS</label>
+									</div>
+									<div class="form-check form-switch align-bottom">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Popup</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 50 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 110 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 150 Letter with Date & Time
+										</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Internal
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											External
+										</label>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				<div class="card text-center">
+					<div class="card-body">
+						<form>
+							<div class="row ">
+								<div class="col-1 mt-3 ml-4">
+									<div class="form-check form-switch mt-5">
+										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+									</div>
+								</div>
+								<div class="col py-5">
+									<div class="col">
+										<input type="email" class="form-control form-control-sm mt-3" id="inputEmail3">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-check form-switch align-top">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Email</label>
+									</div>
+									<div class="form-check form-switch align-middle">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">SMS</label>
+									</div>
+									<div class="form-check form-switch align-bottom">
+										<input class="form-check-input mt-3" type="checkbox"
+											id="flexSwitchCheckDefault">
+										<label for="inputEmail3" class="col-6 mt-1 col-form-label">Popup</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 50 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 110 Letter with Date & Time
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Massage 150 Letter with Date & Time
+										</label>
+									</div>
+								</div>
+								<div class="col text-start">
+									<div class="form-check mt-2">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											Internal
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										<label class="form-check-label" for="defaultCheck1">
+											External
+										</label>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+
+
+
+
+			</div>
+			<div class="card-footer text-muted bg-info">
+
+			</div>
+		</div>
+
+		<!-- form END-->
+
+
+	</section>
+
+
+</body>
+
+</html>

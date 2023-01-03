@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Register | Maintenance Management</title>
+	<meta name="description" content="Latest updates and statistic charts">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link th:href="@{/css/login.css}" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="login-page" style="padding-top: 60px; align-items:flex-start;">
+		<div class="form" style="height:460px;">
+			<form class="login-form" th:action="@{/register}" th:object="${register}" method="post">
+				<h6 class="text-center text-white">SIGN UP</h6>
+				<input type="text" name="name" required placeholder="Enter Name"/>
+				<input type="email" name="email" required placeholder="Enter Email"/>
+				<input type="number" name="mobile" required placeholder="Enter Mobile"/>
+				<input type="text" name="username" required placeholder="Enter Username"/>
+				<input type="password" name="password" required placeholder="Password" />
+				<button type="submit">SIGN UP</button>
+				<p class="message text-warning">Already a User?&nbsp;&nbsp;<a class="text-white" href="#">Login</a></p>
+			</form>
+		</div>
+	</div>
+	<footer class="text-center bg-info footer-bg"><span class="text-white"> 2023 &copy; All Rights Reserved. <a
+				href="https://ingroinfo.com/" class="m-link">
+				IngrOInfo
+			</a></span></footer>
+	<script th:src="@{/js/login.js}"></script>
+</body>
+
+</html>

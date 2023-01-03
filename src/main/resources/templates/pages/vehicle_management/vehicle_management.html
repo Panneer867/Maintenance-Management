@@ -1,0 +1,272 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h5 class="text-center text-white mt-2 p-1 bg-primary">Vehicle Tracking Mangement</h5>
+
+		<ul class="nav nav-pills nav-justified py-1 " id="pills-tab" role="tablist">
+			<li class="nav-item mx-1" role="presentation">
+				<button class="nav-link active mx-1 py-2 " id="pills-dashboard-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-dashboard" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true" style="margin-right:3px;">Dashboard</button>
+			</li>
+			<li class="nav-item mx-1" role="presentation">
+				<button class="nav-link  mx-1 py-2 " id="pills-ignition-status-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-ignition-status" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="false">Current Ignition Status</button>
+			</li>
+			<li class="nav-item  mx-1" role="presentation">
+				<button class="nav-link py-2 mx-1" id="pills-all-location-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-all-location" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Locate By All</button>
+			</li>
+			<li class="nav-item  mx-1" role="presentation">
+				<button class="nav-link py-2 mx-1" id="pills-todaytravel-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-todaytravel" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Today Travel Reply</button>
+			</li>
+
+		</ul>
+
+
+		<div class="tab-content" id="pills-tabContent">
+			<!--******************** Vehicle Tracking Mangement Dashboard Start ********************-->
+			<div class="tab-pane fade show active m-2" id="pills-dashboard" role="tabpanel"
+				aria-labelledby="pills-dashboard-tab" tabindex="0">
+				<div class="row mt-3 mb-2">
+					<div class="col-sm-6">
+						<div class="card" style="background-color: #ffffff">
+							<div class="card bg-dark">
+								<h5 style="text-align: center; margin-top: 2px;color: white">
+									Total Assests</h5>
+							</div>
+							<canvas id="myChart" style="width:100%;max-width:600px;"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card" style="background-color: #ffffff">
+							<div class="card bg-dark">
+								<h5 style="text-align: center; margin-top: 2px;color: white">
+									Assets By Group/Department</h5>
+							</div>
+							<canvas id="myChart1" style="width:100%;max-width:600px;"></canvas>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col mx-4 bg-info btn">
+						<div class="row">
+							<div class="col-6 text-end">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Total Vehicle
+									:</label>
+							</div>
+							<div class="col-5">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="9">
+							</div>
+						</div>
+					</div>
+
+					<div class="col mx-4 bg-danger btn">
+						<div class="row">
+							<div class="col">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Running Vehicle
+									:</label>
+							</div>
+							<div class="col">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="5">
+							</div>
+						</div>
+					</div>
+					<div class="col mx-4  bg-primary text-center btn">
+						<div class="row">
+							<div class="col-6">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Stopped Vehicle :
+								</label>
+							</div>
+							<div class="col-6">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="4">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******************** Vehicle Tracking Mangement Dashboard Ends ********************-->
+
+
+			<!--******************** Ignition Status Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-ignition-status" role="tabpanel"
+				aria-labelledby="pills-ignition-status-tab" tabindex="0">
+				<div class="col">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark mb-3">
+							<h5 style="text-align: center; margin-top: 2px;color: white">
+								Current Ignition Status</h5>
+						</div>
+
+
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4 p-2">
+							<thead class="table-dark">
+								<tr>
+
+									<th class="all">Image</th>
+									<th class="all">Vehicle Number</th>
+									<th class="all">Vehicle Type</th>
+									<th class="all">Driver Name </th>
+									<th class="all">Last On Time</th>
+									<th class="all">Last Off Time</th>
+									<th class="all">Ignition Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+									<td>600</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+			<!--******************** Ignition Status Ends ********************-->
+
+			<!--******************** All-location  Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-all-location" role="tabpanel"
+				aria-labelledby="pills-all-location-tab" tabindex="0">
+
+				<div class="col-sm-12">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark">
+							<h5 style="text-align: center; margin-top: 2px;color: white">
+								Locate By All</h5>
+						</div>
+						<div id="map" style="border: 1px solid black; width: 100%;height:380px"></div>
+
+					</div>
+				</div>
+			</div>
+			<!--******************** All-location  Ends ********************-->
+
+
+			<!--******************** All-location  Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-todaytravel" role="tabpanel"
+				aria-labelledby="pills-todaytravel-tab" tabindex="0">
+
+				<div class="col-sm-12">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark" style="height: 60px;">
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-5">
+										<h5><label for="staticEmail2" class="col-form-label text-white">Today Travel
+												Replay</label></h5>
+									</div>
+									<div class="col p-2">
+										<select class="form-select" id="inputGroupSelect03"
+											aria-label="Example select with button addon">
+											<option selected>Choose...</option>
+											<option value="1">KA51CM1995</option>
+											<option value="2">KA01AM1986</option>
+											<option value="3">KA36MM1997</option>
+											<option value="3">KA02MM1988</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="todaymap" style="border: 1px solid black; width: 100%;height:380px"></div>
+
+					</div>
+				</div>
+
+			</div>
+			<!--******************** All-location  Ends ********************-->
+		</div>
+
+	</section>
+</body>
+
+</html>

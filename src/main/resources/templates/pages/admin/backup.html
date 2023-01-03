@@ -1,0 +1,78 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1"
+			style="background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);">
+			Data Backup
+		</h3>
+
+		<div class="col-8 mx-auto my-4">
+			<div class="card" style="background-color: rgb(213 245 255);">
+				<div class="card-header text-center bg-info text-white">
+
+				</div>
+				<div class="card-body">
+					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
+						<div class="row mt-2 pr-5">
+							<div class="col-12">
+								<div class="form-group row">
+									<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Backup
+										Directory</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control form-control-sm" />
+									</div>
+									<div class="col-sm-2">
+										<button type="submit" class="btn btn-secondary btn-sm py-1">Select Path</button>
+									</div>
+								</div>
+								
+							</div>
+							
+							<div class="row">
+							
+							<div class="col-4 text-center">
+							<div class="form-check">
+													<input class="form-check-input my_checkbox" type="checkbox" value=""
+														id="flexCheckDefault">
+												 <label class="form-check-label py-1" for="flexCheckDefault">
+												    Daily
+												  </label>
+												</div>
+							</div>
+							
+							<div class="col-4 text-center">
+						<div class="form-group row">
+									<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Date</label>
+									<div class="col-sm-8">
+										<input type="date" class="form-control form-control-sm" />
+									</div>
+									
+								</div>
+							</div>
+							<div class="col-4 text-center">
+						<div class="form-group row">
+									<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Time</label>
+									<div class="col-sm-8">
+										<input type="time" class="form-control form-control-sm" />
+									</div>
+									
+								</div>
+							</div>
+							
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-success btn-sm">Now</button>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
