@@ -87,7 +87,7 @@ public class StockController {
 
 	@GetMapping("/stocks/outward/tools")
 	public String outwardTools() {
-		return "/pages/stocks/outward_tools_and_equipment";
+		return "/pages/stock_management/outward_tools_and_equipment";
 	}
 
 	@GetMapping("/stocks/material/return")
