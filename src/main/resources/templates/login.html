@@ -16,11 +16,11 @@
 <body>
  
 	<div class="login-page">
-	<div class="alert alert-success  p-1 font-weight-bold" role="alert" th:if="${param.success}">
+	<div class="alert alert-success col-2 text-center z-3 p-1 font-weight-bold" role="alert" th:if="${param.success}" style="left: 265px;bottom: 190px;">
                         Registered successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-1 mx-auto font-weight-bold" role="alert" th:if="${param.logout}">
-                        Logged out successfully!
+                    <div class="alert alert-danger col-2 text-center z-3 p-1 font-weight-bold" role="alert" th:if="${param.logout}" style="left: 265px;bottom: 190px;">
+                       You have logged out !
                     </div>
 		<div class="form">
 		<form class="login-form" th:action="@{/login}" method="post">

@@ -49,9 +49,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 	<!-- Maps -->
-	<script defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXf7a1TSo_VbvY87jwzO2G6Ddk6XyVE0&callback=initMap">
-		</script>
+	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXf7a1TSo_VbvY87jwzO2G6Ddk6XyVE0&callback=initMap"></script>
+	
+	<!-- Font Awesome -->
+	<link th:href="@{https://use.fontawesome.com/releases/v5.11.2/css/all.css}" rel="stylesheet" />
 
 </head>
 
@@ -82,7 +83,16 @@
 					</div>
 
 					<div class="m-stack__item m-stack__item--fluid m-header-head bg-dark" id="m_header_nav">
-						<h1 class="text-center my-4 text-white main-header-h" data-shadow="MAINTENANCE MANAGEMENT">MAINTENANCE MANAGEMENT</h1>
+						
+						<div class="row">
+						<div class="col-11">
+						<h1 class="text-center my-4 text-white main-header-h">MAINTENANCE MANAGEMENT</h1>
+						</div>
+						<div class="col-1 text-white my-auto text-center">
+						<i class="fas fa-sign-in-alt " style="font-size: 25px;"></i>
+						<span>Logout</span>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -100,7 +110,8 @@
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'li-active':''}">
 							<a th:href="@{/home}" class="m-menu__link m-menu__toggle">
-								<i class="m-menu__link-icon flaticon-layers"></i>
+							
+								<i class="m-menu__link-icon fa-chart-bar"></i>
 								<span class="m-menu__link-text">
 									Dashboard
 								</span>
@@ -112,7 +123,8 @@
 						<li class="m-menu__item  m-menu__item--submenu--active" aria-haspopup="true" id="expand-task"
 							data-menu-submenu-toggle="hover">
 							<a href="#" class="m-menu__link m-menu__toggle">
-								<i class="m-menu__link-icon flaticon-multimedia-1"></i>
+						
+								<i class="m-menu__link-icon fas fa-tasks"></i>
 								<span class="m-menu__link-text">
 									Task Management
 								</span>
