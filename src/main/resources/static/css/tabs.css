@@ -703,3 +703,10 @@ div.thumb:hover img {
 	background-color: #0b1e74;
 	border-radius: 8px;
 }
+.menu-icon-size{
+	width: 25px;
+}
+
+.align-list{
+    margin-left: 18px !important;
+}

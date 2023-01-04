@@ -32,13 +32,19 @@ $(document).ready(function() {
 	});
 
 	$(function() {
-		if (window.location.href.match('/monitor/pipe')) {
+		if (window.location.href.match('/pipe')) {
 			$("#expand-pipe").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
 
 	$(function() {
-		if (window.location.href.match('/monitor/vehicle')) {
+		if (window.location.href.match('/hr')) {
+			$("#expand-hr").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/vehicle')) {
 			$("#expand-vehicle").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
@@ -50,13 +56,13 @@ $(document).ready(function() {
 	});
 
 	$(function() {
-		if (window.location.href.match('/monitor/leakage')) {
+		if (window.location.href.match('/leakage')) {
 			$("#expand-leakage").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
 
 	$(function() {
-		if (window.location.href.match('/monitor/pump')) {
+		if (window.location.href.match('/pump')) {
 			$("#expand-pump").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
@@ -90,7 +96,6 @@ $(document).ready(function() {
 			$("#expand-workorder").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
-
 
 });
 
