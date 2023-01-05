@@ -1,13 +1,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
    <body>
       <section>
-         <form>
+         <form  action="#" th:action="@{/employee/saveEmployee}" th:object="${employee}" method="post" enctype="multipart/form-data">
             <div class="row">
                <div class="col-12 grid-margin stretch-card">
-                  <div class="card mt-3">
-                     <div class="card-header" style="background-color: rgb(64, 128, 128);">
-                        <h3 class="text-center text-white">Employee Master</h3>
-                     </div>
+               
+                  <div class="card mt-3 bl-cr">
+                     
+                        <h3 class="text-center text-white py-1" style="background-color: rgb(64, 128, 128);">Employee Master</h3>
+                    
                      <div class="card-body">
                         <div class="row">
                            <div class="col-md-4">
@@ -35,7 +36,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Address <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="address" class="form-control" id="address"
+                                    <input type="text"  name="address"  class="form-control" id="address"
                                        placeholder="Enter Address ">
                                  </div>
                               </div>
@@ -43,15 +44,15 @@
                                  <label for="customerName" class="col-sm-5  col-form-label"> Bank Acc No <strong
                                     class="text-danger "> *</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="bankAccNo" class="form-control" id="bankAccNo"
+                                    <input type="text"  name="bankAccNo"  class="form-control" id="bankAccNo"
                                        placeholder="Enter Bank Acc No ">
                                  </div>
                               </div>
                               <div class="form-group row">
                                  <label for="customerName" class="col-sm-5  col-form-label">IFSC CODE </label>
                                  <div class="col-sm-7">
-                                    <input type="text" name
-                                    ="ifscCode" class="form-control" id="ifscCode"
+                                    <input type="text"  name="ifscCode" 
+                                   class="form-control" id="ifscCode"
                                         placeholder="Enter IFSC CODE">
                                  </div>
                               </div>
@@ -60,7 +61,7 @@
                               <div class="form-group row">
                                  <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="empName" class="form-control" id="empName"
+                                    <input type="text"  name="empName"  class="form-control" id="empName"
                                        placeholder="Enter Employee Name">
                                  </div>
                               </div>
@@ -68,7 +69,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">House No <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="houseNo"  class="form-control" id="houseNo"
+                                    <input type="text"  name="houseNo"   class="form-control" id="houseNo"
                                        placeholder="Enter House No">
                                  </div>
                               </div>
@@ -76,14 +77,14 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Contact No(mobile)
                                  <strong class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="contactNo" class="form-control" id="contactNo"
+                                    <input type="text"  name="contactNo"  class="form-control" id="contactNo"
                                        placeholder="Enter Contact No">
                                  </div>
                               </div>
                               <div class="form-group row">
                                  <label for="customerName" class="col-sm-5  col-form-label">ESI Number <strong class="text-danger "> *</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="esiNumber" class="form-control" id="esiNumber"
+                                    <input type="text"  name="esiNumber"  class="form-control" id="esiNumber"
                                         placeholder="Enter ESI Number">
                                  </div>
                               </div>
@@ -91,17 +92,14 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Designation <strong
                                     class="text-danger "> *</strong> </label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="*designation" class="form-control" id="designation"
+                                    <input type="text"  name="designation" class="form-control" id="designation"
                                         placeholder="Enter Designation">
                                  </div>
                               </div>
                            </div>
-                           <div class="col-md-3" style="margin-left: 95px;">
-                              <div id="profile-container">
-								<image id="profileImage" th:src="@{/images/profile1.png}"/>
-							</div>
-							<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required=""
-								capture>
+                           <div class="col-md-2" style="margin-left: 95px;">
+                              <input name="materialImage" type="file" class="dropify"
+													data-height="170" />
                            </div>
                         </div>
                         <!-- ***************************** 2th Row  ***************************-->
@@ -111,7 +109,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Bank Name
                                  </label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="bankName" class="form-control" id="bankName"
+                                    <input type="text"  name="bankName"  class="form-control" id="bankName"
                                         placeholder="Enter Bank Name">
                                  </div>
                               </div>
@@ -121,7 +119,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label"> Department <strong
                                     class="text-danger "> *</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="*department" class="form-control" id="department"
+                                    <input type="text"  name="department"  class="form-control" id="department"
                                       placeholder="Enter Department">
                                  </div>
                               </div>
@@ -131,7 +129,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">DL No  <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="dlNo" class="form-control" id="dlNo"
+                                    <input type="text"  name="dlNo"  class="form-control" id="dlNo"
                                         placeholder="Enter DL No">
                                  </div>
                               </div>
@@ -144,7 +142,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Passport No
                                  <strong class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="passportNo" class="form-control" id="passportNo"
+                                    <input type="text"  name="passportNo" class="form-control" id="passportNo"
                                       placeholder="Enter Passport No">
                                  </div>
                               </div>
@@ -154,7 +152,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Date Of Join  <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="date" name="dateOfJoin" class="form-control" id="dateOfJoin"
+                                    <input type="date"  name="dateOfJoin"  class="form-control" id="dateOfJoin"
                                         placeholder="Enter Designation">
                                  </div>
                               </div>
@@ -164,7 +162,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">PAN NO  <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="panNO" class="form-control" id="panNO"
+                                    <input type="text"  name="panNO"  class="form-control" id="panNO"
                                       placeholder="Enter PAN NO">
                                  </div>
                               </div>
@@ -177,7 +175,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">PF No  
                                  <strong class="text-danger "> *</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="pfNo" class="form-control" id="pfNo"
+                                    <input type="text"  name="pfNo" class="form-control" id="pfNo"
                                        placeholder="Enter PF No ">
                                  </div>
                               </div>
@@ -187,7 +185,7 @@
                                  <label for="customerName" class="col-sm-5  col-form-label">Aadhar No  <strong
                                     class="text-danger ">*</strong></label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="aadharNo" class="form-control" id="aadharNo"
+                                    <input type="text"  name="aadharNo" class="form-control" id="aadharNo"
                                         placeholder="Enter Aadhar No">
                                  </div>
                               </div>
@@ -196,16 +194,18 @@
                               <div class="form-group row">
                                  <label for="customerName" class="col-sm-5  col-form-label"> Ref Contact No</label>
                                  <div class="col-sm-7">
-                                    <input type="text" name="RefContactNo" class="form-control" id="RefContactNo"
+                                    <input type="text"  name="RefContactNo"  class="form-control" id="RefContactNo"
                                         placeholder="Enter Ref Contact No">
                                  </div>
                               </div>
                            </div>
+                            <div class=" text-center">
+                        <button type="submit" class="btn btn-outline-primary ">Submit</button>
+                        <button type="reset" class="btn btn-outline-danger ">Reset</button>
+                     </div>
                         </div>
                      </div>
-                     <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-outline-primary  w-25">Submit</button>
-                     </div>
+                    	
                   </div>
                </div>
             </div>

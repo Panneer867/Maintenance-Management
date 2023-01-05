@@ -4,17 +4,17 @@
 	  <form>
 	 <div class="row">
 	 <div class="col-9 grid-margin stretch-card">
-		<div class="card mt-3">
-		  <div class="card-header" style="background-color: rgb(128, 128, 255);">
-			 <h3 class="text-center text-white">Employee Inspection</h3>
-		 </div>
+		<div class="card mt-3 bl-cr">
+	
+			 <h3 class="text-center text-white py-1"  style="background-color: rgb(128, 128, 255);">Employee Inspection</h3>
+		 
 		  <div class="card-body">
 			 
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">EMP Code <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">EMP Code <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <select class="form-control"  data-error="Select gender !" required>
                                        <option value="" selected>select</option>
                                        <option value="Male">Male</option>
@@ -24,37 +24,34 @@
                                     </div>
                                  </div>
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Emp Name</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Employee Name">
                                     </div>
                                  </div>
                                   
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Father Name <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Father Name <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Father Name ">
                                     </div>
                                  </div>
                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">House No  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">House No  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter House No ">
                                     </div>
                                  </div>
                                   <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Address  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Address  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Address">
                                     </div>
                                  </div>
                               </div>
-                              <div class="col-md-3" style="margin-left: 95px;">
-										<div id="profile-container">
-											<image id="profileImage" th:src="@{/images/profile1.png}" />
-										</div>
-										<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo"
-											required="" capture>
+                              <div class="col-md-6">
+										<input name="materialImage" type="file" class="dropify"
+													data-height="200" />
 									</div>
                              
                             </div>
@@ -63,16 +60,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Contact No(mobile) <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Contact No(mobile) <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Contact No">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Designation <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Designation <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Designation">
                                     </div>
                                  </div>
@@ -82,16 +79,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Bank Acc No <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Bank Acc No <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Bank Acc No">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Department <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Department <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Department">
                                     </div>
                                  </div>
@@ -101,16 +98,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">IFSC CODE</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">IFSC CODE</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter IFSC CODE">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Date Of Join <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Date Of Join <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Date Of Join ">
                                     </div>
                                  </div>
@@ -120,16 +117,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Bank Name</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Bank Name</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Bank Name">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Aadhar No  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Aadhar No  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Aadhar No">
                                     </div>
                                  </div>
@@ -139,16 +136,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Passport No <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Passport No <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Passport No">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">DL No  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">DL No  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter DL No ">
                                     </div>
                                  </div>
@@ -158,16 +155,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">PF No  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">PF No  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter PF No ">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">PAN NO  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">PAN NO  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter PAN NO">
                                     </div>
                                  </div>
@@ -177,38 +174,37 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">ESI Number  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">ESI Number  <strong class="text-danger ">*</strong></label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter ESI Number ">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Ref Contact No</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Ref Contact No</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Ref Contact No">
                                     </div>
                                  </div>
                               </div>
                       </div>
-                       <div class="card-header mt-3 pt-1 pb-0 mb-3" style="background-color: rgb(255, 128, 128);">
-			                <h3 class="text-center text-white">Inspection Data</h3>
-		               </div>
+                      
+		               <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(255, 128, 128);"><small>Inspection Data</small></h3>
 				  <!-- ***************************** 9th Row  ***************************-->
 					 <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-6 mt-1">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">safety rules maintain</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">safety rules maintain</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter safety rules maintain">
                                     </div>
                                  </div>
                               </div>
-                               <div class="col-md-6">
+                               <div class="col-md-6 mt-1">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Health Condition</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Health Condition</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Health Condition">
                                     </div>
                                  </div>
@@ -218,16 +214,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">employee behavior</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">employee behavior</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter employee behavior">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">time punctuality</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">time punctuality</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter time punctuality">
                                     </div>
                                  </div>
@@ -237,16 +233,16 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Inspection Date</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Inspection Date</label>
+                                    <div class="col-sm-7">
                                        <input type="date" class="form-control" id="customerName" name="customerName" placeholder="Enter Inspection Date">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Inspection By</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Inspection By</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Inspection By">
                                     </div>
                                  </div>
@@ -256,8 +252,8 @@
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-4  col-form-label">Inspection Remarks</label>
-                                    <div class="col-sm-8">
+                                    <label for="customerName" class="col-sm-5  col-form-label">Inspection Remarks</label>
+                                    <div class="col-sm-7">
                                        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Inspection Remarks">
                                     </div>
                                  </div>
@@ -274,12 +270,10 @@
 	   </div>	
 	 </div>
         <div class="col-3 grid-margin stretch-card ">
-	   <div class="card mt-5">
-	   <div class="row">
-                     <div class="col-9">
-                        <table  class="table table-hover  border-top-10 border-Light" style="background-color: rgb(213 245 255);" >
-                           <thead class="bg-info">
-                              <tr >
+	   <div class="card mt-3 bl-cr">
+                        <table  class="table table-hover  border-top-7 border-Light">
+                           <thead class="bg-dark">
+                              <tr class="text-white">
                                  <th>Emp ID</th>
                                  <th>Emp Name</th>
                                  <th>Dept</th>
@@ -291,88 +285,27 @@
                                  <td>14/10/2022</td>
                                  <td>10000</td>
                               </tr>
-                              <tr>
-                                 <td>P00002</td>
+                                <tr>
+                                 <td>P00001</td>
                                  <td>14/10/2022</td>
-                                 <td>200000</td>
+                                 <td>10000</td>
                               </tr>
                               <tr>
-                                 <td>P00003</td>
+                                 <td>P00001</td>
                                  <td>14/10/2022</td>
-                                 <td>3000000</td>
+                                 <td>10000</td>
                               </tr>
                               <tr>
-                                 <td>P00004</td>
+                                 <td>P00001</td>
                                  <td>14/10/2022</td>
-                                 <td>40000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P00005</td>
-                                 <td>14/10/2022</td>
-                                 <td>500000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P00006</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P00007</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P00008</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P00009</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000010</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000011</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000012</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000013</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000014</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000015</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
-                              </tr>
-                              <tr>
-                                 <td>P000016</td>
-                                 <td>14/10/2022</td>
-                                 <td>60000000</td>
+                                 <td>10000</td>
                               </tr>
                            </tbody>
-                        </table>
-                     </div>
-                  </div>
+                        </table>     
+	   </div>
+                          
 	   </div>
         </div>
-   </div>
    </form>
 	</section>
 			  
