@@ -17,6 +17,8 @@
 	<link th:href="@{/css/stock-graph.css}" rel="stylesheet">
 	<link th:href="@{/css/style.css}" rel="stylesheet">
 	<link th:href="@{/css/tabs.css}" rel="stylesheet">
+	<link th:href="@{/css/cards.css}" rel="stylesheet">
+
 
 	<!-- Javascript -->
 	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js}"></script>
@@ -1139,8 +1141,10 @@
 								</span>
 							</a>
 						</li>
-						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-masters" data-menu-submenu-toggle="hover">
-							<a th:href="@{/masters/barcode}" class="m-menu__link m-menu__toggle">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-masters"
+							th:classappend="${#httpServletRequest.getRequestURI() == '/masters' ? 'li-active':''}"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/masters}" class="m-menu__link m-menu__toggle">
 								<img th:src="@{/images/menu_icons/Masters.png}" class="menu-icon-size">
 								<span class="m-menu__link-text pl-5">
 									Masters
@@ -1285,6 +1289,128 @@
 
 			<div class="m-grid__item m-grid__item--fluid m-wrapper pl-3 pr-2">
 				<div th:replace="${content}"></div>
+			</div>
+			
+			<div class="d-flex justify-content-right ">
+				<div class=" mt-2 sidenav master-sidebar ">
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+						aria-orientation="vertical di">
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/barcode}" type="button"
+							role="tab">Master Barcode</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-id}" type="button"
+							role="tab">Master Id</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-category}" type="button"
+							role="tab">Master Category</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-company}" type="button"
+							role="tab">Master Company</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/dislocation}" type="button"
+							role="tab">Distribution Location</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/schedule}" type="button"
+							role="tab">Distribution Schedule</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/division-subdivision}" type="button"
+							role="tab">Division-SubDevision</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/dmaward}" type="button"
+							role="tab">DMA-Ward</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-employee}" type="button"
+							role="tab">Master Employee</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/employee-performance}" type="button"
+							role="tab">Employee Performance</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/hsncode}" type="button"
+							role="tab">HSN CODE</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/mainten-frequency}" type="button"
+							role="tab">Maintance Frequency</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/mainten-activity}" type="button"
+							role="tab">Maintenance Activities</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/mainten-performance}" type="button"
+							role="tab">Maintenance Performance</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/mainten-type}" type="button"
+							role="tab">Maintenance Type</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-item}" type="button"
+							role="tab">Master Item</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/meter-manufacture}" type="button"
+							role="tab">Meter Manufacture</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/meter-type}" type="button"
+							role="tab">Meter Type</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/notification-alert}" type="button"
+							role="tab">Notifications/Alerts</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/pipe-manufacture}" type="button"
+							role="tab">Pipe Manufacture</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/pressure-type}" type="button"
+							role="tab">PressureType</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-pumps}" type="button"
+							role="tab">Master Pumps</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/safty-precaution}" type="button"
+							role="tab">Safty Precautions</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/service-area}" type="button"
+							role="tab">Service Area</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/service-progtype}" type="button"
+							role="tab">Service Progress Type</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/service-provider}" type="button"
+							role="tab">Service Provider</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/spare-part}" type="button"
+							role="tab">Spare Part/Equipments</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/store-branch}" type="button"
+							role="tab">Store/Branch Name</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/supplier-details}" type="button"
+							role="tab">Supplier Details</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/leakage-type}" type="button"
+							role="tab">Leakage Type</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/task-status}" type="button"
+							role="tab">Task Status</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-tax}" type="button"
+							role="tab">Master Tax </a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/unit-measure}" type="button"
+							role="tab">Units of measures</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-vehicle}" type="button"
+							role="tab">Vehicle Master Details</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/work-priority}" type="button"
+							role="tab">Work Priority</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/work-status}" type="button"
+							role="tab">Work Status</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/teamcode}" type="button"
+							role="tab">TEAM CODE</a>
+
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/water-souce}" type="button"
+							role="tab">Water Source</a>
+					</div>
+				</div>
 			</div>
 		</div>
 

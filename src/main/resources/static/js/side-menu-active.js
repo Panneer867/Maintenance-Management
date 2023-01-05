@@ -74,7 +74,7 @@ $(document).ready(function() {
 	});
 
 	$(function() {
-		if (window.location.href.match('/masters/notification-alert')) {
+		if (window.location.href.match('/masters')) {
 			$("#expand-masters").addClass("li-active");
 		}
 	});
