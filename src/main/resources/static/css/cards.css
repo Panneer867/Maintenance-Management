@@ -8,7 +8,6 @@
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	grid-auto-rows: minmax(200px, auto);
 	grid-gap: 1rem;
-	
 }
 
 .dash-card {
@@ -32,8 +31,7 @@
 .thumbnail img {
 	fill: #c7c4c4;
 	height: 135px;
-	opacity: 0.25;
-	padding: 1.5rem;
+	
 }
 
 .dash-category {
@@ -41,7 +39,6 @@
 	position: absolute;
 	top: 148px;
 	text-align: center;
-	
 	width: 96%;
 	color: #fff;
 	background: #e74c3c;

@@ -711,8 +711,14 @@ div.thumb:hover img {
     margin-left: 18px !important;
 }
 
-
 .bl-cr {
-	
-	background-color: rgb(213 245 255);
+	background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);
 }
+
+.heading-bg {
+	
+	background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+}
+
+
+

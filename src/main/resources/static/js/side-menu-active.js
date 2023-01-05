@@ -6,24 +6,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$(function() {
-		if (window.location.href.match('/admin')) {
-			$("#expand-admin").addClass("m-menu__item--open m-menu__item--expanded");
-		}
-	});
-
-	$(function() {
-		if (window.location.href.match('/admin/account')) {
-			$("#expand-account").addClass("m-menu__item--open m-menu__item--expanded");
-		}
-	});
-
-	$(function() {
-		if (window.location.href.match('/admin/user')) {
-			$("#expand-user").addClass("m-menu__item--open m-menu__item--expanded");
-		}
-	});
-
 
 	$(function() {
 		if (window.location.href.match('/monitor')) {

@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dto.InwardItemDto;
@@ -19,6 +20,7 @@ import com.ingroinfo.mm.entity.InwardItem;
 import com.ingroinfo.mm.service.MaterialService;
 
 @Controller
+@RequestMapping("/stocks")
 public class StockController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
@@ -26,12 +28,12 @@ public class StockController {
 	@Autowired
 	private MaterialService materialService;
 
-	@GetMapping("/stocks")
+	@GetMapping("/dashboard")
 	public String availableStocks() {
 		return "/pages/stock_management/stock_available";
 	}
 
-	@GetMapping("/stocks/inward/materials")
+	@GetMapping("/inward/materials")
 	public String inwardMaterials(Model model) {
 
 		model.addAttribute("title", "Inward Material Page");
@@ -46,7 +48,7 @@ public class StockController {
 		return "/pages/stock_management/inward_material";
 	}
 
-	@PostMapping("/stocks/inward/material/add")
+	@PostMapping("/inward/material/add")
 	public String itemAdd(@RequestParam("materialImage") MultipartFile file,
 			@ModelAttribute("inwardItem") InwardItemDto inwardItemDto, BindingResult bindingResult) throws IOException {
 
@@ -65,119 +67,60 @@ public class StockController {
 		return "redirect:/inward/materials?MaterialAdded";
 	}
 
-	@GetMapping("/stocks/inward/spares")
+	@GetMapping("/inward/spares")
 	public String inwardSpares() {
 		return "/pages/stock_management/spares_material";
 	}
 
-	@GetMapping("/stocks/inward/tools")
+	@GetMapping("/inward/tools")
 	public String inwardTools() {
 		return "/pages/stock_management/tools_and_equipment";
 	}
 
-	@GetMapping("/stocks/outward/materials")
+	@GetMapping("/outward/materials")
 	public String outwardMaterials() {
 		return "/pages/stock_management/outward_material";
 	}
 
-	@GetMapping("/stocks/outward/spares")
+	@GetMapping("/outward/spares")
 	public String outwardSpares() {
 		return "/pages/stock_management/outward_spares";
 	}
 
-	@GetMapping("/stocks/outward/tools")
+	@GetMapping("/outward/tools")
 	public String outwardTools() {
 		return "/pages/stock_management/outward_tools_and_equipment";
 	}
 
-	@GetMapping("/stocks/material/return")
+	@GetMapping("/material/return")
 	public String materialReturn() {
 		return "/pages/stock_management/stock_material_return";
 	}
 
-	@GetMapping("/stocks/spares/return")
+	@GetMapping("/spares/return")
 	public String sparesReturn() {
 		return "/pages/stock_management/stock_spares_return";
 	}
 
-	@GetMapping("/stocks/tools/return")
+	@GetMapping("/tools/return")
 	public String toolsReturn() {
 		return "/pages/stock_management/stock_tools_return";
 	}
 
-	@GetMapping("/stocks/material/reject")
+	@GetMapping("/material/reject")
 	public String materialReject() {
 		return "/pages/stock_management/stock_material_reject";
 	}
 
-	@GetMapping("/stocks/spares/reject")
+	@GetMapping("/spares/reject")
 	public String sparesReject() {
 		return "/pages/stock_management/stock_spares_reject";
 	}
 
-	@GetMapping("/stocks/tools/reject")
+	@GetMapping("/tools/reject")
 	public String toolsReject() {
 		return "/pages/stock_management/stock_tools_reject";
 	}
-
-	@GetMapping("/admin/account/company")
-	public String createCompany() {
-		return "/pages/admin/create_company";
-	}
 	
-	@GetMapping("/admin/account/company/list")
-	public String companyList() {
-		return "/pages/admin/company_list";
-	}
-	
-	@GetMapping("/admin/account/branch")
-	public String createBranch() {
-		return "/pages/admin/create_branch";
-	}
-	
-	@GetMapping("/admin/account/branch/list")
-	public String branchList() {
-		return "/pages/admin/branch_list";
-	}
-	
-	@GetMapping("/admin/user")
-	public String createUser() {
-		return "/pages/admin/create_user";
-	}
-	
-	@GetMapping("/admin/user/list")
-	public String userList() {
-		return "/pages/admin/users_list";
-	}
-	
-	@GetMapping("/admin/user/role")
-	public String userRoles() {
-		return "/pages/admin/user_roles";
-	}
-	
-	@GetMapping("/admin/user/role/master")
-	public String roleMaster() {
-		return "/pages/admin/roles_master";
-	}
-	
-	@GetMapping("/admin/user/change-password")
-	public String changePassword() {
-		return "/pages/admin/change_password";
-	}
-	
-	@GetMapping("/admin/backup")
-	public String backup() {
-		return "/pages/admin/backup";
-	}
-		
-	@GetMapping("/admin/excel/import-export")
-	public String excel() {
-		return "/pages/admin/excel_import_export";
-	}
-	
-	@GetMapping("/admin/device/control")
-	public String deviceControl() {
-		return "/pages/admin/device_control";
-	}
 }
 

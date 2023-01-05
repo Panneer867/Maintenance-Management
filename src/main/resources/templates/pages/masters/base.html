@@ -60,7 +60,7 @@
 </head>
 
 <body
-	class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+	class="hide-scroll-bar m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 	<div class="m-grid m-grid--hor m-grid--root m-page">
 		<header class="m-grid__item m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
 			<div class="m-container m-container--fluid m-container--full-height">
@@ -253,8 +253,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/stocks}" class="m-menu__link ">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/dashboard' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/stocks/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>

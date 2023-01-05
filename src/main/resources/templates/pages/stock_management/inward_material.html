@@ -2,8 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1"
-			style="background-image: linear-gradient(-225deg, #A445B2 0%, #D41872 52%, #FF0066 100%);">Inward Materials
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Materials
 		</h3>
 		<div class="mt-2">
 			<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
@@ -35,11 +34,11 @@
 				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
 					tabindex="0">
 					<div class="col-11 mx-auto">
-						<div class="card">
-							<div class="card-header text-center bg-info text-white">
+						<div class="card bl-cr">
+							<div class="card-header text-center heading-bg text-white">
 								<h4 class="mb-0">Inward Entry</h4>
 							</div>
-							<div class="card-body">
+							<div class="card-body font-weight-bold">
 								<form class="p-0" th:action="@{/inward/material/add}" th:object="${inwardItem}"
 									method="post" enctype="multipart/form-data">
 									<div class="row">
@@ -235,14 +234,14 @@
 								</tr>
 							</tbody>
 						</table>
-						<div class="alert alert-warning text-center my-2 py-1" role="alert"
+						<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
 							th:if="${emptyList != null}">
 							[[${emptyList}]]</div>
 
 						<div class="row">
 							<div class="col-9">
-								<div class="card my-1 w-100" style="background-color: rgb(213 245 255);">
-									<div class="card-body ft pb-0">
+								<div class="card my-1 w-100 bl-cr">
+									<div class="card-body ft pb-0 font-weight-bold">
 										<form th:action="@{/inward/material/add}" th:object="${inwardItem}"
 											method="post">
 											<div class="row">

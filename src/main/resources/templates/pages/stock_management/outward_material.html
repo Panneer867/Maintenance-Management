@@ -2,8 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1"
-			style="background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);">Outward Materials
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Outward Materials
 		</h3>
 		<div class="mt-2">
 			<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
@@ -36,11 +35,11 @@
 					tabindex="0">
 					<div class="row">
 						<div class="col-10 ">
-							<div class="card" style="background-color: rgb(213 245 255);">
-								<div class="card-header text-center bg-info text-white">
+							<div class="card bl-cr">
+								<div class="card-header text-center bg-info text-white heading-bg">
 									<h4 class="mb-0">Outward Material</h4>
 								</div>
-								<div class="card-body">
+								<div class="card-body font-weight-bold">
 									<form class="p-0" th:action="@{/inward/material/add}" method="post"
 										enctype="multipart/form-data">
 										<div class="row">
@@ -282,8 +281,8 @@
 
 					<div class="row">
 						<div class="col-9">
-							<div class="card my-1 w-100" style="background-color: rgb(213 245 255);">
-								<div class="card-body ft pb-0">
+							<div class="card my-1 w-100 bl-cr">
+								<div class="card-body ft pb-0 font-weight-bold">
 									<form th:action="@{/inward/material/add}" th:object="${inwardItem}" method="post">
 										<div class="row">
 

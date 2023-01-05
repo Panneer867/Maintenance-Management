@@ -48,23 +48,19 @@
 	<!--User Photo Upload-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-	<!-- Maps
-	<script defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXf7a1TSo_VbvY87jwzO2G6Ddk6XyVE0&callback=initMap"></script>
-	 -->
 	<!-- Font Awesome -->
 	<link th:href="@{https://use.fontawesome.com/releases/v5.11.2/css/all.css}" rel="stylesheet" />
+	
 	<script th:src="@{https://unpkg.com/@popperjs/core@2}"></script>
 
 </head>
 
 <body
-	class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+	class="hide-scroll-bar m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 	<div class="m-grid m-grid--hor m-grid--root m-page">
 		<header class="m-grid__item m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
 			<div class="m-container m-container--fluid m-container--full-height">
-				<div class="m-stack m-stack--ver m-stack--desktop"
-					style="background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);">
+				<div class="m-stack m-stack--ver m-stack--desktop heading-bg">
 					<div class="m-stack__item m-brand  m-brand--skin-dark ">
 						<div class="m-stack m-stack--ver m-stack--general">
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
@@ -92,7 +88,7 @@
 									style="padding-left: 150px; padding-top: 9px;">MAINTENANCE MANAGEMENT</h1>
 							</div>
 							<div class="col-2 my-auto d-flex justify-content-end px-5">
-								<a class="text-warning" href="#">
+								<a class="text-warning" th:href="@{/admin/home}">
 									<i class="fas fa-user-shield px-2" style="font-size: 25px;" data-bs-toggle="tooltip"
 										data-bs-placement="bottom" title="Admin"></i>
 								</a>
@@ -228,7 +224,7 @@
 							<a th:href="@{/asset/entry}" class="m-menu__link m-menu__toggle">
 								<img th:src="@{/images/menu_icons/Asstes Managment.png}" class="menu-icon-size">
 								<span class="m-menu__link-text pl-5">
-									Assest Entry
+									Assest Management
 								</span>
 							</a>
 						</li>
@@ -252,8 +248,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/stocks}" class="m-menu__link ">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/dashboard' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/stocks/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>

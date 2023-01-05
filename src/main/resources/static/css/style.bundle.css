@@ -42900,7 +42900,7 @@ body.m-content--skin-light2 {
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
   > .m-menu__item.m-menu__item--open {
- background-image:linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%)
+ background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
 }
 .m-aside-menu.m-aside-menu--skin-dark
   .m-menu__nav
