@@ -28299,9 +28299,9 @@ th > .m-checkbox.m-checkbox--single {
 .m-form.m-form--state .has-danger .input-group-btn > .btn.btn-secondary:hover {
   border-color: #f4516c;
 }
-.table th {
+/* .table th {
   font-weight: 500;
-}
+} */
 .table.table-striped thead th {
   border: 0;
 }
