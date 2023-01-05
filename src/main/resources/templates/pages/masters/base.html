@@ -484,8 +484,9 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
-										<a href="#" class="m-menu__link ">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/attendenceTracker' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/employee/attendenceTracker}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1290,14 +1291,14 @@
 			<div class="m-grid__item m-grid__item--fluid m-wrapper pl-3 pr-2">
 				<div th:replace="${content}"></div>
 			</div>
-			
+
 			<div class="d-flex justify-content-right ">
 				<div class=" mt-2 sidenav master-sidebar ">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
 						aria-orientation="vertical di">
 
-						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/barcode}" type="button"
-							role="tab">Master Barcode</a>
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/barcode}" type="button" role="tab">Master
+							Barcode</a>
 
 						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/master-id}" type="button"
 							role="tab">Master Id</a>
@@ -1326,8 +1327,8 @@
 						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/employee-performance}" type="button"
 							role="tab">Employee Performance</a>
 
-						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/hsncode}" type="button"
-							role="tab">HSN CODE</a>
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/hsncode}" type="button" role="tab">HSN
+							CODE</a>
 
 						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/mainten-frequency}" type="button"
 							role="tab">Maintance Frequency</a>
@@ -1404,8 +1405,8 @@
 						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/work-status}" type="button"
 							role="tab">Work Status</a>
 
-						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/teamcode}" type="button"
-							role="tab">TEAM CODE</a>
+						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/teamcode}" type="button" role="tab">TEAM
+							CODE</a>
 
 						<a class="btn btn-dark m-1 btn-sm" th:href="@{/masters/water-souce}" type="button"
 							role="tab">Water Source</a>

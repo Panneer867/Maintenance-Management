@@ -38,5 +38,10 @@ public class EmployeeController {
 	public String approvals () {
 		return "/pages/employee_management/hr_approvals";
 	}
+	
+	@GetMapping("/attendenceTracker")
+	public String attendenceTracker () {
+		return "/pages/employee_management/attendence_tracker";
+	}
 
 }

@@ -482,8 +482,9 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
-										<a href="#" class="m-menu__link ">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/attendenceTracker' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/employee/attendenceTracker}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -503,7 +504,8 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/inspection' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/employee/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -513,7 +515,8 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true">
+									
+									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/employee/leave' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/employee/leave}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -1234,13 +1237,13 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/leakage/maintanance' ? 'm-menu__item--active sub-menu-active':''}">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/attendenceTracker' ? 'm-menu__item--active sub-menu-active':''}">
 										<a href="#" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Attendence Update
+												Attendnace
 											</span>
 										</a>
 									</li>
@@ -1344,6 +1347,9 @@
 	<script th:src="@{/js/side-menu-active.js}"></script>
 	<script th:src="@{/js/get-consumer-data-from-ubarms.js}"></script>
 	<script th:src="@{/js/tooltip.js}"></script>
+	<script th:src="@{/js/employee-graph-1.js}"></script>
+    <script th:src="@{/js/employee-graph-2.js}"></script>
+    <script th:src="@{/js/employee-graph-3.js}"></script>
 </body>
 
 </html>
