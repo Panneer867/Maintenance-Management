@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.ingroinfo.mm.entity.InwardItem;
 
 @Repository
-public interface InwardItemRepo extends JpaRepository<InwardItem, Long> {
+public interface InwardItemRepository extends JpaRepository<InwardItem, Long> {
 
 }

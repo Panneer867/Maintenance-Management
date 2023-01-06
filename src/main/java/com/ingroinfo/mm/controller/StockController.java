@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.InwardItem;
+import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.MaterialService;
 
 @Controller
@@ -24,6 +25,9 @@ import com.ingroinfo.mm.service.MaterialService;
 public class StockController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
+	
+	@Autowired
+	private AdminService adminService;
 
 	@Autowired
 	private MaterialService materialService;
@@ -61,7 +65,7 @@ public class StockController {
 				+ tokens.get();
 		String uploadDir = "C:/Material_Management/Inward_Materials/";
 		inwardItem.setMaterialImage(fileName);
-		materialService.saveFile(uploadDir, fileName, file);
+		adminService.saveFile(uploadDir, fileName, file);
 
 		materialService.saveInwardItem(inwardItem);
 		return "redirect:/stocks/inward/materials?MaterialAdded";
