@@ -64,7 +64,7 @@ public class StockController {
 		materialService.saveFile(uploadDir, fileName, file);
 
 		materialService.saveInwardItem(inwardItem);
-		return "redirect:/inward/materials?MaterialAdded";
+		return "redirect:/stocks/inward/materials?MaterialAdded";
 	}
 
 	@GetMapping("/inward/spares")

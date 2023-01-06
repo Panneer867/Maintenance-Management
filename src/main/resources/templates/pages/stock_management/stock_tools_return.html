@@ -2,8 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1"
-			style="background-image: linear-gradient(-225deg, #A445B2 0%, #D41872 52%, #FF0066 100%);">Outward Materials
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stock Tools Returns
 		</h3>
 		<div class="mt-2">
 			<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
@@ -12,21 +11,21 @@
 					<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-home-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
 						aria-controls="pills-home" aria-selected="true">
-						Spares Entry
+						Tools Returns Entry
 					</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-chart-tab" data-bs-toggle="pill"
 						data-bs-target="#pills-chart" type="button" role="tab" aria-controls="pills-chart"
 						aria-selected="false">
-						Spares Chart
+						Tools Returns Chart
 					</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
 						aria-controls="pills-profile" aria-selected="false">
-						Spares List
+						Tools Returns List
 					</button>
 				</li>
 
@@ -34,11 +33,11 @@
 			<div class="tab-content" id="pills-tabContent">
 				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
 					tabindex="0">
-					<div class="card" style="background-color: rgb(213 245 255);">
-						<div class="card-header text-center bg-info text-white">
+					<div class="card bl-cr">
+						<div class="card-header text-center heading-bg text-white">
 							<h4 class="mb-0">Inward Entry</h4>
 						</div>
-						<div class="card-body">
+						<div class="card-body font-weight-bold">
 							<form class="p-0" th:action="@{/inward/material/add}" method="post"
 								enctype="multipart/form-data">
 								<div class="row">
@@ -213,8 +212,8 @@
 						[[${emptyList}]]</div>
 					<div class="row">
 						<div class="col-9">
-							<div class="card my-1 w-100" style="background-color: rgb(213 245 255);">
-								<div class="card-body ft pb-0">
+							<div class="card my-1 w-100 bl-cr">
+								<div class="card-body ft pb-0 font-weight-bold">
 									<form th:action="@{/inward/material/add}" th:object="${inwardItem}" method="post">
 										<div class="row">
 											<div class="col-4">

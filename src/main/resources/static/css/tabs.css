@@ -703,12 +703,13 @@ div.thumb:hover img {
 	background-color: #0b1e74;
 	border-radius: 8px;
 }
-.menu-icon-size{
+
+.menu-icon-size {
 	width: 25px;
 }
 
-.align-list{
-    margin-left: 18px !important;
+.align-list {
+	margin-left: 18px !important;
 }
 
 .bl-cr {
@@ -716,9 +717,5 @@ div.thumb:hover img {
 }
 
 .heading-bg {
-	
 	background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
 }
-
-
-
