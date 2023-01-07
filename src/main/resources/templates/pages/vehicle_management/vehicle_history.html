@@ -1,0 +1,514 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h5 class="text-center text-white mt-2 p-1 bg-primary">Vehicle History</h5>
+
+		<ul class="nav nav-pills nav-justified py-1 " id="pills-tab" role="tablist">
+			<li class="nav-item mx-1" role="presentation">
+				<button class="nav-link active mx-1 py-2 " id="pills-dashboard-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-dashboard" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true" style="margin-right:3px;">Today Travel History</button>
+			</li>
+			<li class="nav-item mx-1" role="presentation">
+				<button class="nav-link  mx-1 py-2 " id="pills-ignition-status-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-ignition-status" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="false">Previous Travel history</button>
+			</li>
+			<li class="nav-item  mx-1" role="presentation">
+				<button class="nav-link py-2 mx-1" id="pills-all-location-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-all-location" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Today Stoppage History</button>
+			</li>
+			<li class="nav-item  mx-1" role="presentation">
+				<button class="nav-link py-2 mx-1" id="pills-todaytravel-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-todaytravel" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Previous Stoppage History</button>
+			</li>
+
+		</ul>
+
+
+		<div class="tab-content" id="pills-tabContent">
+			<!--******************** Vehicle Tracking Mangement Dashboard Start ********************-->
+			<div class="tab-pane fade show active m-2" id="pills-dashboard" role="tabpanel"
+				aria-labelledby="pills-dashboard-tab" tabindex="0">
+				<div class="card" style="background-color: #ffffff">
+					<div class="card bg-dark mb-3">
+						<h5 style="text-align: center; margin-top: 2px;color: white">
+							Today Travel History</h5>
+					</div>
+
+
+					<table
+						class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4 p-2">
+						<thead class="table-dark">
+							<tr>
+
+								<th class="all">Date</th>
+								<th class="all">Time</th>
+								<th class="all">Speed</th>
+								<th class="all">Distance </th>
+								<th class="all">Driver Name</th>
+								<th class="all">Location</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>English, Italian</td>
+								<td>Spanish (official)</td>
+								<td>41,803,125</td>
+								<td>600</td>
+								<td>41,803,125</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<!--******************** Today Travel History Ends ********************-->
+
+
+			<!--******************** Previous Travel history Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-ignition-status" role="tabpanel"
+				aria-labelledby="pills-ignition-status-tab" tabindex="0">
+				<div class="col">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark mb-3">
+							<h5 style="text-align: center; margin-top: 2px;color: white">
+								Previous Travel history</h5>
+						</div>
+						
+						<form class="row text-center" style="margin-left: 25px;">
+							<div class="col-auto">
+								<select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
+									<option selected>Vehicel Number</option>
+									<option value="1">KA51CM1995</option>
+									<option value="2">KA01AM1986</option>
+									<option value="3">KA36MM1997</option>
+									<option value="3">KA02MM1988</option>
+								</select>
+							</div>
+							<div class="col-auto">
+								<input type="date" class="form-control" id="inputPassword2">
+							</div>
+							<div class="col-auto">
+								<input type="date" class="form-control" id="inputPassword2">
+							</div>
+							<div class="col-auto">
+								<input type="time" class="form-control" id="inputPassword2">
+							</div>
+							<div class="col-auto">
+								<input type="time" class="form-control" id="inputPassword2">
+							</div>
+							<div class="col-auto">
+								<button type="submit" class="btn btn-primary mb-3">Get data</button>
+							</div>
+						</form>
+	
+
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4 p-2">
+							<thead class="table-dark">
+								<tr>
+
+									<th class="all">Date</th>
+									<th class="all">Time</th>
+									<th class="all">Speed</th>
+									<th class="all">Distance </th>
+									<th class="all">Driver Name</th>
+									<th class="all">Location</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+			<!--********************Previous Travel history Ends ********************-->
+
+			<!--******************** Today Stoppage History Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-all-location" role="tabpanel"
+				aria-labelledby="pills-all-location-tab" tabindex="0">
+
+				<div class="col-sm-12">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark mb-3">
+							<h5 style="text-align: center; margin-top: 2px;color: white">
+								Today Stoppage History</h5>
+						</div>
+
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4 p-2">
+							<thead class="table-dark">
+								<tr>
+
+									<th class="all">Date</th>
+									<th class="all">Time</th>
+									<th class="all">Speed</th>
+									<th class="all">Distance </th>
+									<th class="all">Driver Name</th>
+									<th class="all">Location</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!--******************** Today Stoppage History Ends ********************-->
+
+
+			<!--******************** Previous Stoppage History Start ********************-->
+			<div class="tab-pane fade m-2" id="pills-todaytravel" role="tabpanel"
+				aria-labelledby="pills-todaytravel-tab" tabindex="0">
+
+				<div class="col-sm-12">
+					<div class="card" style="background-color: #ffffff">
+						<div class="card bg-dark mb-3">
+							<h5 style="text-align: center; margin-top: 2px;color: white">
+								Previous Stoppage History</h5>
+						</div>
+						
+						<form class="row text-center" style="margin-left: 25px;">
+							<div class="col-auto">
+								<select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
+									<option selected>Vehicel Number</option>
+									<option value="1">KA51CM1995</option>
+									<option value="2">KA01AM1986</option>
+									<option value="3">KA36MM1997</option>
+									<option value="3">KA02MM1988</option>
+								</select>
+							</div>
+							<div class="col-auto">
+								<input type="date" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+							<div class="col-auto">
+								<input type="date" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+							<div class="col-auto">
+								<input type="time" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+							<div class="col-auto">
+								<input type="time" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+							<div class="col-auto">
+								<button type="submit" class="btn btn-primary mb-3">Get data</button>
+							</div>
+						</form>
+
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4 p-2">
+							<thead class="table-dark">
+								<tr>
+
+									<th class="all">Date</th>
+									<th class="all">Time</th>
+									<th class="all">Speed</th>
+									<th class="all">Distance </th>
+									<th class="all">Driver Name</th>
+									<th class="all">Location</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>English, Italian</td>
+									<td>Spanish (official)</td>
+									<td>41,803,125</td>
+									<td>600</td>
+									<td>41,803,125</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+			<!--********************Previous Stoppage History Ends ********************-->
+		</div>
+
+	</section>
+</body>
+
+</html>

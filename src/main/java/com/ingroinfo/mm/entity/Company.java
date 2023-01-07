@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,19 +35,19 @@ public class Company {
 	private String state;
 	private String city;
 	private String pincode;
-	
+
 	@Column(name = "phone")
 	private String mobile;
+
 	private String website;
 	private String fax;
 	private String enableApp;
 	private String path;
 	private String logo;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name = "user")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
 	private List<User> user;
-	
+
 	@CreationTimestamp
 	private Date dateCreated;
 

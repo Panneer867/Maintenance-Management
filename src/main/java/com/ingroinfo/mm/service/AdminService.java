@@ -19,13 +19,13 @@ public interface AdminService {
 	
 	String getState(String stateId);
 
-	User registerCompany(User user);
+	void registerCompany(User user);
 
 	void registerBranch(User user);
 
 	void registerUser(User user);
 	
-	void saveCompany(Company company);
+	Company saveCompany(Company company);
 
 	boolean emailExists(String email);
 

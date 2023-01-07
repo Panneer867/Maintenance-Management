@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,12 +31,15 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-
 	private String name;
 	private String username;
 	private String password;
 	private String email;
 	private String mobile;
+
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 	@CreationTimestamp
 	private Date dateCreated;

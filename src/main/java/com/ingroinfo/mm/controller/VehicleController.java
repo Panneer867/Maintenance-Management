@@ -17,6 +17,11 @@ public class VehicleController {
 	public String vehicleMangementIndex() {
 		return "/pages/vehicle_management/vehicle_management_index";
 	}
+	
+	@GetMapping("/history")
+	public String vehicleHistory() {
+		return "/pages/vehicle_management/vehicle_history";
+	}
 
 	@GetMapping("/inspection")
 	public String vehicleInspection() {

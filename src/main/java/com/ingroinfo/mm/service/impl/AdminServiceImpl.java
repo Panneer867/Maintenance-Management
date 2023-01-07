@@ -57,11 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public User registerCompany(User user) {
+	public void registerCompany(User user) {
 
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
 		register(user);
-		return userRepository.findByEmail(user.getEmail());
+		
 	}
 
 	@Override
@@ -101,8 +101,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void saveCompany(Company company) {
+	public Company saveCompany(Company company) {
 		companyRepository.save(company);
+		
+		return companyRepository.findByEmail(company.getEmail());
 	}
 
 	public List<Object[]> getAllStates() {

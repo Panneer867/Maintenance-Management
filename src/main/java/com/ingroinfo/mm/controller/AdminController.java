@@ -1,7 +1,6 @@
 package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,11 +72,11 @@ public class AdminController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		User createdUser = adminService.registerCompany(user);
-		company.setUser(Arrays.asList(createdUser));
-		adminService.saveCompany(company);		
+		Company newCompany = adminService.saveCompany(company);		
+		user.setCompany(newCompany);
+		adminService.registerCompany(user);		
 		session.setAttribute("message", new Message("Company has been created successfully !!", "success"));
+		
 		return "redirect:/admin/account/company";
 	}
 
@@ -90,8 +88,8 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping("/account/copany/delete/{id}")
-	public String deleteCompany(@PathVariable("id") Long companyId, HttpSession session) {
+	@GetMapping("/account/company/delete")
+	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
 
 		adminService.deleteCompany(companyId);
 		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
