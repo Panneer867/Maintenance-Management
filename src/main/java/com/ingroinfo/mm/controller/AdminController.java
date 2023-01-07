@@ -48,6 +48,11 @@ public class AdminController {
 	public String createCompany(@RequestParam("logo") MultipartFile file,
 			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
+		if (adminService.emailExists(companyDto.getEmail())) {
+			session.setAttribute("message", new Message("Email is already associated with another account !", "danger"));
+			return "redirect:/admin/account/company";
+		}
+		
 		Company company = modelMapper.map(companyDto, Company.class);
 		User user = modelMapper.map(companyDto, User.class);
 
@@ -55,7 +60,7 @@ public class AdminController {
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
 		String fileName = company.getCompanyName() + "." + fileExtension.get();
-		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\Logo";
+		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 

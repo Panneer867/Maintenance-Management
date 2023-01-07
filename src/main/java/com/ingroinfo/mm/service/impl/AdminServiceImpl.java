@@ -17,7 +17,6 @@ import com.ingroinfo.mm.dao.CompanyRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
-import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
@@ -107,5 +106,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Bank> getAllBanks() {
 		return bankRepository.findAll();
+	}
+
+	@Override
+	public boolean emailExists(String email) {
+
+		return (companyRepository.findByEmail(email) != null && userRepository.findByEmail(email) != null);
 	}
 }

@@ -26,5 +26,7 @@ public interface AdminService {
 	void registerUser(User user);
 	
 	void saveCompany(Company company);
+
+	boolean emailExists(String email);
 	
 }
