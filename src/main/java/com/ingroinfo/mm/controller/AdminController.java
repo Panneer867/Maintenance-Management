@@ -2,15 +2,11 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
-
 import javax.servlet.http.HttpSession;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,8 +18,6 @@ import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.MaterialService;
-import com.ingroinfo.mm.configuration.ModelMapperConfig;
 import com.ingroinfo.mm.dto.CompanyDto;
 
 @Controller
@@ -52,20 +46,25 @@ public class AdminController {
 
 	@PostMapping("/company/register")
 	public String createCompany(@RequestParam("logo") MultipartFile file,
-			@ModelAttribute("company") CompanyDto companyDto, HttpSession session) throws IOException {
-
-		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
-				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
 		Company company = modelMapper.map(companyDto, Company.class);
 		User user = modelMapper.map(companyDto, User.class);
 
-		String fileName = company.getCompanyName() + tokens.get();
+		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+
+		String fileName = company.getCompanyName() + "." + fileExtension.get();
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\Logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 
-		adminService.saveFile(uploadDir, fileName, file);
+		try {
+			adminService.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		adminService.saveCompany(company);
 		adminService.registerCompany(user);
 		session.setAttribute("message", new Message("Company has been created successfully !!", "success"));

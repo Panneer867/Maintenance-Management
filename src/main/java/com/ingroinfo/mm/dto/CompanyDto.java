@@ -1,5 +1,6 @@
 package com.ingroinfo.mm.dto;
 
+import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -7,7 +8,6 @@ public class CompanyDto {
 
 	private String companyId;
 	private String companyName;
-	private String userName;
 	private String password;
 	private String email;
 	private String address;
@@ -20,5 +20,9 @@ public class CompanyDto {
 	private String enableApp;
 	private String path;
 	private String logo;
+	private String name;
+	private String username;
+	private Date dateCreated;
+	private Date lastUpdated;
 
 }

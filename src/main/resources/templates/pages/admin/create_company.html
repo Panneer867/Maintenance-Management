@@ -14,7 +14,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-9 mx-auto">
+		<div class="col-10 mx-auto">
 		
 		<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
@@ -50,7 +50,7 @@
 												<label for="staticEmail"
 													class="col-sm-5 col-form-label pr-0">Username</label>
 												<div class="col-sm-7 px-0">
-													<input type="text" name="userName" class="form-control form-control-sm" />
+													<input type="text" name="username" class="form-control form-control-sm" />
 												</div>
 											</div>
 										</div>
@@ -161,9 +161,9 @@
 							</div>
 							<div class="col-3 text-center">
 								<label for="staticEmail">Company Logo</label>
-								<input name="materialImage" type="file" class="dropify" data-height="100" />
+								<input type="file" name="logo" class="dropify" data-height="100" />
 								<div class="form-check form-switch mt-4">
-									<input class="form-check-input" name="logo" type="checkbox" id="flexSwitchCheckChecked" checked>
+									<input class="form-check-input" name="enableApp" type="checkbox" id="flexSwitchCheckChecked" checked>
 									<label class="form-check-label" for="flexSwitchCheckChecked">Enable Mobile
 										App</label>
 								</div>
