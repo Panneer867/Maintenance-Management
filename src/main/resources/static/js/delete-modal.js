@@ -1,6 +1,3 @@
-$('.table #delete').on('click', function(event) {
-	event.preventDefault();
-	var href = $(this).attr('href');
+function deleteId(href) {
 	$('#delRef').attr('href', href);
-	$('#delCompany').modal();
-});
+}
