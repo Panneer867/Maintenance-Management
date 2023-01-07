@@ -7,9 +7,9 @@
 		<div class="mt-2">
 			<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<a class="nav-link py-2 mx-1 px-4 text-white hvr bg-primary"
+					<a class="nav-link py-2 mx-1 px-2 text-white hvr bg-danger"
 						th:href="@{/admin/account/company/list}">
-						Modify Branch
+						Manage Company
 					</a>
 				</li>
 			</ul>
@@ -82,21 +82,18 @@
 									<div class="form-group row">
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">State</label>
 										<div class="col-sm-3 px-0">
-											<select class="form-select" name="state">
+											<select class="form-control" name="state" id="states" required>
 												<option value="" selected>Select</option>
-												<option value="KARNATAKA">Karnataka</option>
-												<option value="KERALA">Kerala</option>
-												<option value="TAMIL NADU">Tamil Nadu</option>
+												<option th:each="ob:${states}" th:value="${ob[0]}" th:text="${ob[1]}">
+												</option>
 											</select>
+
 										</div>
 										<label for="staticEmail"
 											class="col-sm-3 col-form-label pr-0 text-center">City</label>
 										<div class="col-sm-3 px-0">
-											<select class="form-select" name="city">
+											<select class="form-control" name="city" id="cities" required>
 												<option value="" selected>Select</option>
-												<option value="KARNATAKA">Karnataka</option>
-												<option value="KERALA">Kerala</option>
-												<option value="TAMIL NADU">Tamil Nadu</option>
 											</select>
 										</div>
 									</div>

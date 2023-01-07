@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
 
@@ -54,10 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void registerCompany(User user) {
+	public User registerCompany(User user) {
 
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
 		register(user);
+		return userRepository.findByEmail(user.getEmail());
 	}
 
 	@Override
@@ -91,6 +95,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String getState(String stateId) {
+		Optional<State> state = stateRepository.findById(Integer.parseInt(stateId));
+		return state.get().getName();
+	}
+
+	@Override
 	public void saveCompany(Company company) {
 		companyRepository.save(company);
 	}
@@ -110,7 +120,20 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public boolean emailExists(String email) {
-
-		return (companyRepository.findByEmail(email) != null && userRepository.findByEmail(email) != null);
+		return (userRepository.findByEmail(email) != null || companyRepository.findByEmail(email) != null);
 	}
+
+	@Override
+	public List<Company> getAllCompany() {
+
+		return companyRepository.findAll();
+	}
+
+	@Override
+	public void deleteCompany(Long companyId) {
+		
+		companyRepository.deleteById(companyId);
+
+	}
+
 }

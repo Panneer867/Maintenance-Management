@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +42,7 @@ public class AdminController {
 	public String createCompany(Model model) {
 		model.addAttribute("title", "New Company | Maintenance Mangement");
 		model.addAttribute("company", new CompanyDto());
-
+		model.addAttribute("states", adminService.getAllStates());
 		return "/pages/admin/create_company";
 	}
 
@@ -49,10 +51,11 @@ public class AdminController {
 			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
 		if (adminService.emailExists(companyDto.getEmail())) {
-			session.setAttribute("message", new Message("Email is already associated with another account !", "danger"));
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/account/company";
 		}
-		
+
 		Company company = modelMapper.map(companyDto, Company.class);
 		User user = modelMapper.map(companyDto, User.class);
 
@@ -63,22 +66,37 @@ public class AdminController {
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
-
+		company.setState(adminService.getState(companyDto.getState()));
+		user.setName(company.getCompanyName());
+		
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
-		adminService.saveCompany(company);
-		adminService.registerCompany(user);
+		
+		User createdUser = adminService.registerCompany(user);
+		company.setUser(Arrays.asList(createdUser));
+		adminService.saveCompany(company);		
 		session.setAttribute("message", new Message("Company has been created successfully !!", "success"));
 		return "redirect:/admin/account/company";
 	}
 
 	@GetMapping("/account/company/list")
 	public String companyList(Model model) {
+		
+		model.addAttribute("company", adminService.getAllCompany());
 		return "/pages/admin/company_list";
+	}
+	
+	
+	@GetMapping("/account/copany/delete/{id}")
+	public String deleteCompany(@PathVariable("id") Long companyId, HttpSession session) {
+
+		adminService.deleteCompany(companyId);
+		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
+		return "redirect:/admin/account/company/list";
+
 	}
 
 	@GetMapping("/account/branch")

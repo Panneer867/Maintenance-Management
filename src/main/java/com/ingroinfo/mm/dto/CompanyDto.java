@@ -21,6 +21,7 @@ public class CompanyDto {
 	private String path;
 	private String logo;
 	private String name;
+	private Long userId;
 	private String username;
 	private Date dateCreated;
 	private Date lastUpdated;
