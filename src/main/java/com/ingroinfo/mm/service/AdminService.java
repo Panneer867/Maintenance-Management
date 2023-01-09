@@ -45,6 +45,10 @@ public interface AdminService {
 
 	void deleteBranch(Long branchId);
 
+	User getUserByCompanyId(Long id);
+
+	Integer getStateId(String name);
+
 	
 
 	

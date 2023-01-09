@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 var input = document.getElementById("companyName"),
 	match = document.getElementById("match");
 
@@ -7,4 +9,7 @@ function display(source, destination) {
 
 if (input != null) {
 			input.onkeyup = function () {display(this.value, match);};
-		}
+
+	}
+	
+	});	

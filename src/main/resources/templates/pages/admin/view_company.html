@@ -1,0 +1,249 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Company Management
+		</h3>
+		<div class="row mt-2">
+			<div class="col-6" dir="ltr">
+
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/home}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Company Creation</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-6">
+
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 mx-1 px-3 text-white hvr bg-danger"
+							th:href="@{/admin/account/company/list}" style="width: 133px;">
+							Manage Company
+						</a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="col-11 mx-auto my-auto">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h4 class="mb-0">Company Creation</h4>
+				</div>
+				<div class="card-body font-weight-bold">
+					<form class="p-0 mb-0" th:action="@{/admin/company/register}" th:object="${company}"
+						data-toggle="validator" method="post" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-9">
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0 ">Company
+											Name<strong class="text-danger">*</strong></label>
+										<div class="col-sm-9 px-0">
+											<input type="text" class="form-control form-control-sm" name="companyName"
+												id="companyName" data-minlength="3" data-error="Min 3 chars required !"
+												required />
+											<div class="help-block with-errors text-danger mb-0"></div>
+
+										</div>
+									</div>
+								</div>
+								<div class="row">
+								<div class="col-6">
+									<div class="form-group row mb-1">
+										<div class="form-group row" style="width: 350px;">
+											<label for="staticEmail"
+												class="col-sm-8 col-form-label pr-0 pl-5">Username<strong
+													class="text-danger">*</strong></label>
+											<div class="col-sm-4 px-0">
+												<input type="text" name="username" class="form-control form-control-sm"
+													data-error="Provide this field !" required style="width: 200px;" />
+												<div class="help-block with-errors text-danger mb-0"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-6">
+									<div class="form-group row mb-1" style="width: 350px;">
+										<label for="staticEmail"
+											class="col-sm-7 col-form-label pr-0 text-center float-left">Password<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-5 px-0">
+											<input type="password" class="form-control form-control-sm"
+												id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+												data-error="Password must be alphanumeric !" style="width: 200px;" />
+											<div class="help-block with-errors text-danger mb-0"></div>
+											<small class="text-primary">
+												Min 6 characters required.
+											</small>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row mb-0" style="width: 350px;">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-8 col-form-label pr-0 pl-5">Confirm
+												Password<strong class="text-danger">*</strong></label>
+											<div class="col-sm-4 px-0">
+												<input type="password" name="password"
+													class="form-control form-control-sm" id="password"
+													data-match="#inputPassword" data-match-error="oops,doesn't match!"
+													data-error="Provide confirm password !" required
+													style="width: 200px;" />
+												<div class="help-block with-errors text-danger mb-0"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-6">
+									<div class="form-group row mb-0" style="width: 350px;">
+										<label for="staticEmail"
+											class="col-sm-7 col-form-label pr-0 text-center">Email<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-5 px-0">
+											<input type="email" name="email" class="form-control form-control-sm"
+												data-error="Provide vaild email !" required style="width: 200px;" />
+											<div class="help-block with-errors text-danger mb-0"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Address<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-9 px-0">
+											<input type="text" name="address" class="form-control form-control-sm"
+												data-error="Provide this field !" required />
+											<div class="help-block with-errors text-danger mb-0"></div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">State<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-3 px-0">
+											<select class="form-control" name="state" id="states"
+												data-error="Provide this field !" required>
+
+
+												<option value="" selected>Select</option>
+												<option th:each="ob:${states}" th:value="${ob[0]}" th:text="${ob[1]}">
+												</option>
+											</select>
+											<div class="help-block with-errors text-danger mb-0"></div>
+
+										</div>
+										<label for="staticEmail"
+											class="col-sm-3 col-form-label pr-0 text-center">City<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-3 px-0">
+											<select class="form-control" name="city" id="cities"
+												data-error="Provide this field !" required>
+												<option value="" selected>Select</option>
+											</select>
+											<div class="help-block with-errors text-danger mb-0"></div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Pincode<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-3 px-0">
+											<input type="number" name="pincode" class="form-control form-control-sm"
+												data-error="Provide this field !"
+												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6"
+												required />
+											<div class="help-block with-errors text-danger mb-0"></div>
+										</div>
+										<label for="staticEmail"
+											class="col-sm-3 col-form-label pr-0 text-center">Phone</label>
+										<div class="col-sm-3 px-0">
+											<input type="number" name="mobile"
+												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
+												class="form-control form-control-sm" />
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Fax No</label>
+										<div class="col-sm-3 px-0">
+											<input type="number" name="fax"
+												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
+												class="form-control form-control-sm" />
+										</div>
+										<label for="staticEmail"
+											class="col-sm-3 col-form-label pr-0 text-center">Website</label>
+										<div class="col-sm-3 px-0">
+											<input type="text" name="website" class="form-control form-control-sm" />
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+
+							<div class="col-3 text-center">
+							<div class="form-group mt-4 ">
+								<label for="staticEmail">Company Logo<strong class="text-danger">*</strong></label>
+								<input type="file" name="logo" class="dropify" data-height="100"
+									data-error="Upload logo !" required />
+								
+								<div class="help-block with-errors text-danger mb-0"></div>
+								<small class="text-danger"> Logo [Size: 225x90]</small>
+							</div>
+								<div class="form-check form-switch mt-4">
+									<input class="form-check-input" name="enableApp" type="checkbox"
+										id="flexSwitchCheckChecked">
+									<label class="form-check-label" for="flexSwitchCheckChecked">Enable Mobile
+										App</label>
+								</div>
+								<div class="form-group mt-4 bg-secondary">
+									<label class="font-weight-bold pt-2">Company Path</label><br>
+									<small>C:\Company\</small>
+									<small id="match"></small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 text-center mt-3">
+							<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+							<button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,8 +30,6 @@ import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-
-	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -183,7 +179,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteBranch(Long branchId) {
 		branchRepository.deleteById(branchId);
+	}
 
+	@Override
+	public User getUserByCompanyId(Long id) {
+		return userRepository.findByCompany(companyRepository.findByCompanyId(id));
+	}
+
+	@Override
+	public Integer getStateId(String name) {
+		return stateRepository.findByName(name).getId();
 	}
 
 }

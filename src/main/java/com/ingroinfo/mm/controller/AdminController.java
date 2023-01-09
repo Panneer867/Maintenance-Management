@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,6 @@ public class AdminController {
 
 	@GetMapping("/home")
 	public String adminHome(Model model) {
-
 		model.addAttribute("title", "Admin | Maintenance Mangement");
 		return "/pages/admin/home";
 	}
@@ -56,13 +56,10 @@ public class AdminController {
 					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/account/company";
 		}
-
 		Company company = modelMapper.map(companyDto, Company.class);
 		User user = modelMapper.map(companyDto, User.class);
-
 		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
-
 		String fileName = company.getCompanyName() + "." + fileExtension.get();
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
@@ -79,20 +76,25 @@ public class AdminController {
 		user.setCompany(newCompany);
 		adminService.registerCompany(user);
 		session.setAttribute("message", new Message("Company has been created successfully !!", "success"));
-
 		return "redirect:/admin/account/company";
 	}
 
 	@GetMapping("/account/company/list")
 	public String companyList(Model model) {
-
 		model.addAttribute("companies", adminService.getAllCompanies());
 		return "/pages/admin/company_list";
 	}
 
+	@GetMapping("/account/company/edit/{id}")
+	public String companyEdit(@PathVariable Long id, Model model, HttpSession session) {
+		model.addAttribute("company", adminService.getCompany(id));
+		model.addAttribute("state", adminService.getStateId(adminService.getCompany(id).getState()));
+		model.addAttribute("user", adminService.getUserByCompanyId(id));
+		return "/pages/admin/edit_company";
+	}
+
 	@GetMapping("/account/company/delete")
 	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
-
 		adminService.deleteCompany(companyId);
 		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
 		return "redirect:/admin/account/company/list";
@@ -111,17 +113,14 @@ public class AdminController {
 	@PostMapping("/branch/register")
 	public String createBranch(@ModelAttribute("branch") BranchDto branchDto, HttpSession session,
 			Principal principal) {
-
 		if (adminService.branchEmailExists(branchDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/account/branch";
 		}
-
 		Company company = adminService.getCompany(branchDto.getCompanyId());
 		Branch branch = modelMapper.map(branchDto, Branch.class);
 		User user = modelMapper.map(branchDto, User.class);
-
 		branch.setState(adminService.getState(branchDto.getState()));
 		branch.setCompany(company);
 		Branch newBranch = adminService.saveBranch(branch);
