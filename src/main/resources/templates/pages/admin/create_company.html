@@ -68,76 +68,70 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
-										<div class="form-group row mb-1">
-											<div class="form-group row" style="width: 352px;">
-												<label for="staticEmail"
-													class="col-sm-7 col-form-label pr-0 pl-5">Username<strong
-														class="text-danger">*</strong></label>
-												<div class="col-sm-5 px-0">
-													<input type="text" name="username"
-														class="form-control form-control-sm"
-														data-error="Provide this field !" required
-														style="width: 170px;" />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-6">
-										<div class="form-group row mb-1" style="width: 352px;">
+								<div class="col-6">
+									<div class="form-group row mb-1">
+										<div class="form-group row" style="width: 350px;">
 											<label for="staticEmail"
-												class="col-sm-6 col-form-label pr-0 text-center float-left">Password<strong
+												class="col-sm-8 col-form-label pr-0 pl-5">Username<strong
 													class="text-danger">*</strong></label>
-											<div class="col-sm-6 px-0">
-												<input type="password" class="form-control form-control-sm"
-													id="inputPassword"
-													pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-													data-error="Password must be alphanumeric !"
-													style="width: 170px;" />
-												<div class="help-block with-errors text-danger mb-0"></div>
-												<small class="text-primary">
-													Min 6 characters required.
-												</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-6">
-										<div class="form-group row mb-0">
-											<div class="form-group row" style="width: 352px;">
-												<label for="staticEmail"
-													class="col-sm-7 col-form-label pr-0 pl-5">Confirm
-													Password<strong class="text-danger">*</strong></label>
-												<div class="col-sm-5 px-0">
-													<input type="password" name="password"
-														class="form-control form-control-sm" id="password"
-														data-match="#inputPassword"
-														data-match-error="oops,doesn't match!"
-														data-error="Provide confirm password !" required
-														style="width: 170px;" />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-6">
-										<div class="form-group row mb-0" style="width: 352px;">
-											<label for="staticEmail"
-												class="col-sm-6 col-form-label pr-0 text-center">Email<strong
-													class="text-danger">*</strong></label>
-											<div class="col-sm-6 px-0">
-												<input type="email" name="email" class="form-control form-control-sm"
-													data-error="Provide vaild email !" required style="width: 170px;" />
+											<div class="col-sm-4 px-0">
+												<input type="text" name="username" class="form-control form-control-sm"
+													data-error="Provide this field !" required style="width: 200px;" />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
 								</div>
+
+								<div class="col-6">
+									<div class="form-group row mb-1" style="width: 350px;">
+										<label for="staticEmail"
+											class="col-sm-7 col-form-label pr-0 text-center float-left">Password<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-5 px-0">
+											<input type="password" class="form-control form-control-sm"
+												id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+												data-error="Password must be alphanumeric !" style="width: 200px;" />
+											<div class="help-block with-errors text-danger mb-0"></div>
+											<small class="text-primary">
+												Min 6 characters required.
+											</small>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row mb-0" style="width: 350px;">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-8 col-form-label pr-0 pl-5">Confirm
+												Password<strong class="text-danger">*</strong></label>
+											<div class="col-sm-4 px-0">
+												<input type="password" name="password"
+													class="form-control form-control-sm" id="password"
+													data-match="#inputPassword" data-match-error="oops,doesn't match!"
+													data-error="Provide confirm password !" required
+													style="width: 200px;" />
+												<div class="help-block with-errors text-danger mb-0"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-6">
+									<div class="form-group row mb-0" style="width: 350px;">
+										<label for="staticEmail"
+											class="col-sm-7 col-form-label pr-0 text-center">Email<strong
+												class="text-danger">*</strong></label>
+										<div class="col-sm-5 px-0">
+											<input type="email" name="email" class="form-control form-control-sm"
+												data-error="Provide vaild email !" required style="width: 200px;" />
+											<div class="help-block with-errors text-danger mb-0"></div>
+										</div>
+									</div>
+								</div>
+							</div>
 								<div class="col-12">
 									<div class="form-group row">
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Address<strong
@@ -219,11 +213,14 @@
 							</div>
 
 							<div class="col-3 text-center">
+							<div class="form-group mt-4 ">
 								<label for="staticEmail">Company Logo<strong class="text-danger">*</strong></label>
 								<input type="file" name="logo" class="dropify" data-height="100"
-									data-error="Provide this field !" required />
-								<small class="text-danger"> Logo Required [Size: 225x90]</small>
+									data-error="Upload logo !" required />
+								
 								<div class="help-block with-errors text-danger mb-0"></div>
+								<small class="text-danger"> Logo [Size: 225x90]</small>
+							</div>
 								<div class="form-check form-switch mt-4">
 									<input class="form-check-input" name="enableApp" type="checkbox"
 										id="flexSwitchCheckChecked">

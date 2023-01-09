@@ -86,7 +86,7 @@ public class AdminController {
 	@GetMapping("/account/company/list")
 	public String companyList(Model model) {
 
-		model.addAttribute("company", adminService.getAllCompanies());
+		model.addAttribute("companies", adminService.getAllCompanies());
 		return "/pages/admin/company_list";
 	}
 
@@ -117,7 +117,7 @@ public class AdminController {
 					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/account/branch";
 		}
-		
+
 		Company company = adminService.getCompany(branchDto.getCompanyId());
 		Branch branch = modelMapper.map(branchDto, Branch.class);
 		User user = modelMapper.map(branchDto, User.class);
@@ -136,16 +136,14 @@ public class AdminController {
 
 	@GetMapping("/account/branch/list")
 	public String branchList(Model model) {
-		model.addAttribute("company", adminService.getAllBranches());
+		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("states", adminService.getAllStates());
-		model.addAttribute("company", adminService.getAllCompanies());
+		model.addAttribute("companies", adminService.getAllCompanies());
 		return "/pages/admin/branch_list";
 	}
-	
-	
+
 	@GetMapping("/account/branch/delete")
 	public String deleteBranch(@RequestParam("id") Long branchId, HttpSession session) {
-
 		adminService.deleteBranch(branchId);
 		session.setAttribute("message", new Message("Branch has been deleted successfully !!", "success"));
 		return "redirect:/admin/account/branch/list";

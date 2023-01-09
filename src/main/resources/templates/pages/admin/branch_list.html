@@ -42,132 +42,58 @@
 		</div>
 		<div class="col-11 mx-auto my-3">
 			<table
-				class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+				class="table table-stock table-bordered table table-secondary table-striped table-hover mytable w-100 mt-4">
 				<thead class="table-dark">
 					<tr>
-						<th class="all">Id</th>
-
+						<th class="all">ID</th>
 						<th class="all">Branch</th>
-						<th class="all">Company</th>
+						<th class="all">Company</th>					
 						<th class="all">Email</th>
 						<th class="all">Phone</th>
-						<th class="all">Website</th>
 						<th class="all">Date Added</th>
-
+						<th class="all">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
-
-					</tr>
-					<tr>
-						<td>100</td>
-						<td>English, Italian</td>
-						<td>Spanish (official)</td>
-						<td>41,803,125</td>
-						<td>600</td>
-						<td>41,803,125</td>
-						<td>600</td>
-
+					<tr th:each="branch: ${branches}">
+						<td th:text="${branch.branchId}"></td>
+						<td th:text="${branch.branchName}"></td>
+						<td th:text="${branch.company}"></td>
+						<td th:text="${branch.email}"></td>
+						<td th:text="${branch.mobile}"></td>
+						<td th:text="${#dates.format(branch.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+						<td>
+							<a th:href="@{/get/hsn/(id=${branch.branchId})}" class="btn btn-info p-1 mx-2 edit-hsn"
+								data-toggle="modal" data-target="#editHsn"><span
+									class="glyphicon glyphicon-edit"></span></a>
+							<button th:onclick="|deleteId('/admin/account/branch/delete/?id=${branch.branchId}')|"
+								class="btn btn-danger p-1 mx-2 edit-hsn" data-toggle="modal"
+								data-target="#delBranch"><span class="glyphicon glyphicon-trash"></span></button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
+		
+		<div class="modal fade" id="delBranch" tabindex="-1" role="dialog" aria-labelledby="delBranch"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document" style="margin-top: 180px;">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h4>Delete Company</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Are you sure, you want to delete Branch? Branch associated all records will be vanished !
+					</div>
+					<div class="modal-footer p-2">
+						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
+						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </body>

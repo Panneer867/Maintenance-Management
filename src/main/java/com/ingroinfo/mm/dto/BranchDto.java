@@ -9,6 +9,7 @@ public class BranchDto {
 	private Long branchId;
 	private String branchName;
 	private Long companyId;
+	private String company;
 	private String username;
 	private String password;
 	private String email;

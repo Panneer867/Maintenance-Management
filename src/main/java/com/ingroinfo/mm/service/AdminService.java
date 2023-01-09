@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
@@ -40,7 +41,7 @@ public interface AdminService {
 
 	Company getCompany(Long id);
 
-	List<Branch> getAllBranches();
+	List<BranchDto> getAllBranches();
 
 	void deleteBranch(Long branchId);
 

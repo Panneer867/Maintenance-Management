@@ -63,18 +63,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="com: ${company}">
-						<td th:text="${com.companyId}"></td>
-						<td th:text="${com.companyName}"></td>
-						<td th:text="${com.email}"></td>
-						<td th:text="${com.mobile}"></td>
-						<td th:text="${com.website}"></td>
-						<td th:text="${#dates.format(com.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+					<tr th:each="company: ${companies}">
+						<td th:text="${company.companyId}"></td>
+						<td th:text="${company.companyName}"></td>
+						<td th:text="${company.email}"></td>
+						<td th:text="${company.mobile}"></td>
+						<td th:text="${company.website}"></td>
+						<td th:text="${#dates.format(company.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
 						<td>
-							<a th:href="@{/get/hsn/(id=${com.companyId})}" class="btn btn-info p-1 mx-2 edit-hsn"
+							<a th:href="@{/get/hsn/(id=${company.companyId})}" class="btn btn-info p-1 mx-2 edit-hsn"
 								data-toggle="modal" data-target="#editHsn"><span
 									class="glyphicon glyphicon-edit"></span></a>
-							<button th:onclick="|deleteId('/admin/account/company/delete/?id=${com.companyId}')|"
+							<button th:onclick="|deleteId('/admin/account/company/delete/?id=${company.companyId}')|"
 								class="btn btn-danger p-1 mx-2 edit-hsn" data-toggle="modal"
 								data-target="#delCompany"><span class="glyphicon glyphicon-trash"></span></button>
 						</td>

@@ -9,7 +9,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import com.ingroinfo.mm.dao.CompanyRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
+import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
@@ -29,6 +32,8 @@ import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
+	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -153,16 +158,32 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Branch> getAllBranches() {
-		return branchRepository.findAll();
+	public List<BranchDto> getAllBranches() {
+
+		List<Branch> branches = branchRepository.findAll();
+		List<BranchDto> branchDto = branches.stream().map((branch) -> {
+			BranchDto newBranch = new BranchDto();
+			newBranch.setAddress(branch.getAddress());
+			newBranch.setBranchName(branch.getBranchName());
+			newBranch.setCity(branch.getCity());
+			newBranch.setState(branch.getState());
+			newBranch.setPincode(branch.getPincode());
+			newBranch.setCompany(branch.getCompany().getCompanyName());
+			newBranch.setEmail(branch.getEmail());
+			newBranch.setMobile(branch.getMobile());
+			newBranch.setBranchId(branch.getBranchId());
+			newBranch.setDateCreated(branch.getDateCreated());
+			newBranch.setLastUpdated(branch.getLastUpdated());
+			return newBranch;
+		}).collect(Collectors.toList());
+
+		return branchDto;
 	}
 
 	@Override
 	public void deleteBranch(Long branchId) {
 		branchRepository.deleteById(branchId);
-		
-	}
 
-	
+	}
 
 }
