@@ -1,17 +1,31 @@
 package com.ingroinfo.mm.controller;
 
+import java.io.IOException;
+import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ingroinfo.mm.dto.CompanyDto;
+import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 
 @Controller
 public class LoginController {
+	
+	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	private AdminService adminService;
@@ -21,17 +35,45 @@ public class LoginController {
 		return "/login";
 	}
 
-	@GetMapping("/register")
-	public String register(Model model) {
-		model.addAttribute("register", new User());
-
-		return "/register";
+	@GetMapping("/register/company")
+	public String createCompany(Model model) {
+		model.addAttribute("company", new CompanyDto());
+		model.addAttribute("states", adminService.getAllStates());
+		return "/company";
 	}
 
-	@PostMapping("/register")
-	public String addUser(Model model, @ModelAttribute("register") User user) {
-		adminService.registerUser(user);
+	@PostMapping("/register/company")
+	public String createCompany(@RequestParam("logo") MultipartFile file,
+			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
+		if (adminService.companyEmailExists(companyDto.getEmail())) {
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
+			return "redirect:/admin/account/company";
+		}
+
+		Company company = modelMapper.map(companyDto, Company.class);
+		User user = modelMapper.map(companyDto, User.class);
+
+		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+
+		String fileName = company.getCompanyName() + "." + fileExtension.get();
+		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
+		company.setPath("C:\\Company\\" + company.getCompanyName());
+		company.setLogo(fileName);
+		company.setState(adminService.getState(companyDto.getState()));
+		user.setName(company.getCompanyName());
+		
+		try {
+			adminService.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Company newCompany = adminService.saveCompany(company);		
+		user.setCompany(newCompany);
+		adminService.registerCompany(user);		
+		
 		return "redirect:/login?success";
 	}
 }

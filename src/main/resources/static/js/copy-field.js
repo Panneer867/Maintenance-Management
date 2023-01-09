@@ -5,4 +5,6 @@ function display(source, destination) {
 	destination.textContent = source;
 }
 
-input.onkeyup = function() { display(this.value, match); };
+if (input != null) {
+			input.onkeyup = function () {display(this.value, match);};
+		}

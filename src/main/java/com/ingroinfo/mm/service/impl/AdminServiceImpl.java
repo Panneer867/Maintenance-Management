@@ -15,11 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.BankRepository;
+import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.entity.Bank;
+import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
@@ -50,30 +52,29 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	private void register(User user) {
+	@Autowired
+	private BranchRepository branchRepository;
 
+	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
 		userRepository.save(user);
 	}
 
 	@Override
 	public void registerCompany(User user) {
-
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
 		register(user);
-		
+
 	}
 
 	@Override
 	public void registerBranch(User user) {
-
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_BRANCH")));
 		register(user);
 	}
 
 	@Override
 	public void registerUser(User user) {
-
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
 		register(user);
 	}
@@ -103,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Company saveCompany(Company company) {
 		companyRepository.save(company);
-		
+
 		return companyRepository.findByEmail(company.getEmail());
 	}
 
@@ -121,21 +122,47 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean emailExists(String email) {
+	public boolean companyEmailExists(String email) {
 		return (userRepository.findByEmail(email) != null || companyRepository.findByEmail(email) != null);
 	}
 
 	@Override
-	public List<Company> getAllCompany() {
-
+	public List<Company> getAllCompanies() {
 		return companyRepository.findAll();
 	}
 
 	@Override
 	public void deleteCompany(Long companyId) {
-		
 		companyRepository.deleteById(companyId);
-
 	}
+
+	@Override
+	public boolean branchEmailExists(String email) {
+		return (userRepository.findByEmail(email) != null || branchRepository.findByEmail(email) != null);
+	}
+
+	@Override
+	public Branch saveBranch(Branch branch) {
+		branchRepository.save(branch);
+		return branchRepository.findByEmail(branch.getEmail());
+	}
+
+	@Override
+	public Company getCompany(Long id) {
+		return companyRepository.findByCompanyId(id);
+	}
+
+	@Override
+	public List<Branch> getAllBranches() {
+		return branchRepository.findAll();
+	}
+
+	@Override
+	public void deleteBranch(Long branchId) {
+		branchRepository.deleteById(branchId);
+		
+	}
+
+	
 
 }

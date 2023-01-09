@@ -724,3 +724,9 @@ div.thumb:hover img {
 	
 	box-shadow: none !important; border:none !important;
 }
+
+
+.list-unstyled {
+	
+	margin-bottom: 0;
+}

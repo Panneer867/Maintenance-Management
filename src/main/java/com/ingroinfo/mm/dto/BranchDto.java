@@ -4,9 +4,11 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class CompanyDto {
+public class BranchDto {
 
-	private String companyName;
+	private Long branchId;
+	private String branchName;
+	private Long companyId;
 	private String username;
 	private String password;
 	private String email;
@@ -15,11 +17,7 @@ public class CompanyDto {
 	private String city;
 	private String pincode;
 	private String mobile;
-	private String website;
-	private String fax;
-	private String enableApp;
-	private String path;
-	private String logo;
+	private String remarks;
 	private Date dateCreated;
 	private Date lastUpdated;
 

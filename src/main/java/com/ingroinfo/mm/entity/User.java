@@ -40,6 +40,10 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
+	
+	@ManyToOne
+	@JoinColumn(name = "branch_id")
+	private Branch branch;
 
 	@CreationTimestamp
 	private Date dateCreated;

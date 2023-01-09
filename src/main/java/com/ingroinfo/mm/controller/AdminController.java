@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 
 @Controller
@@ -48,7 +51,7 @@ public class AdminController {
 	public String createCompany(@RequestParam("logo") MultipartFile file,
 			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
-		if (adminService.emailExists(companyDto.getEmail())) {
+		if (adminService.companyEmailExists(companyDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/account/company";
@@ -66,28 +69,27 @@ public class AdminController {
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
 		user.setName(company.getCompanyName());
-		
+
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Company newCompany = adminService.saveCompany(company);		
+		Company newCompany = adminService.saveCompany(company);
 		user.setCompany(newCompany);
-		adminService.registerCompany(user);		
+		adminService.registerCompany(user);
 		session.setAttribute("message", new Message("Company has been created successfully !!", "success"));
-		
+
 		return "redirect:/admin/account/company";
 	}
 
 	@GetMapping("/account/company/list")
 	public String companyList(Model model) {
-		
-		model.addAttribute("company", adminService.getAllCompany());
+
+		model.addAttribute("company", adminService.getAllCompanies());
 		return "/pages/admin/company_list";
 	}
-	
-	
+
 	@GetMapping("/account/company/delete")
 	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
 
@@ -99,12 +101,55 @@ public class AdminController {
 
 	@GetMapping("/account/branch")
 	public String createBranch(Model model) {
+		model.addAttribute("title", "New Branch | Maintenance Mangement");
+		model.addAttribute("branch", new BranchDto());
+		model.addAttribute("states", adminService.getAllStates());
+		model.addAttribute("companies", adminService.getAllCompanies());
 		return "/pages/admin/create_branch";
+	}
+
+	@PostMapping("/branch/register")
+	public String createBranch(@ModelAttribute("branch") BranchDto branchDto, HttpSession session,
+			Principal principal) {
+
+		if (adminService.branchEmailExists(branchDto.getEmail())) {
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
+			return "redirect:/admin/account/branch";
+		}
+		
+		Company company = adminService.getCompany(branchDto.getCompanyId());
+		Branch branch = modelMapper.map(branchDto, Branch.class);
+		User user = modelMapper.map(branchDto, User.class);
+
+		branch.setState(adminService.getState(branchDto.getState()));
+		branch.setCompany(company);
+		Branch newBranch = adminService.saveBranch(branch);
+		user.setBranch(newBranch);
+		user.setCompany(company);
+		user.setName(branchDto.getBranchName());
+		adminService.registerBranch(user);
+		session.setAttribute("message", new Message("Branch has been created successfully !!", "success"));
+
+		return "redirect:/admin/account/branch";
 	}
 
 	@GetMapping("/account/branch/list")
 	public String branchList(Model model) {
+		model.addAttribute("company", adminService.getAllBranches());
+		model.addAttribute("states", adminService.getAllStates());
+		model.addAttribute("company", adminService.getAllCompanies());
 		return "/pages/admin/branch_list";
+	}
+	
+	
+	@GetMapping("/account/branch/delete")
+	public String deleteBranch(@RequestParam("id") Long branchId, HttpSession session) {
+
+		adminService.deleteBranch(branchId);
+		session.setAttribute("message", new Message("Branch has been deleted successfully !!", "success"));
+		return "redirect:/admin/account/branch/list";
+
 	}
 
 	@GetMapping("/user")

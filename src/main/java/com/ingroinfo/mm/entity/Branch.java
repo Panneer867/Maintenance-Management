@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,14 +24,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "company")
-public class Company {
+@Table(name = "branch")
+public class Branch {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "company_id")
-	private Long companyId;
-	private String companyName;
+	@Column(name = "branch_id")
+	private Long branchId;
+	private String branchName;
 	private String email;
 	private String address;
 	private String state;
@@ -37,21 +39,14 @@ public class Company {
 	private String pincode;
 	@Column(name = "phone")
 	private String mobile;
-	private String website;
-	private String fax;
-	private String enableApp;
-	private String path;
-	private String logo;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+	private String remarks;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "branch")
 	private List<User> user;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-	private List<Branch> branch;
-
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 	@CreationTimestamp
 	private Date dateCreated;
-
 	@UpdateTimestamp
 	private Date lastUpdated;
 
