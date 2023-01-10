@@ -15,6 +15,9 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
 						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/account/company/list}">Company Management</a></div>
+						</li>
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Company Creation</span></div>
 						</li>
@@ -26,8 +29,8 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 mx-1 px-3 text-white hvr bg-danger"
-							th:href="@{/admin/account/company/list}" style="width: 133px;">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
+							th:href="@{/admin/account/company/list}"><span class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Company
 						</a>
 					</li>
@@ -70,13 +73,13 @@
 								<div class="row">
 								<div class="col-6">
 									<div class="form-group row mb-1">
-										<div class="form-group row" style="width: 350px;">
+										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-8 col-form-label pr-0 pl-5">Username<strong
+												class="col-sm-7 col-form-label pr-0 pl-5">Username<strong
 													class="text-danger">*</strong></label>
-											<div class="col-sm-4 px-0">
+											<div class="col-sm-5 px-0">
 												<input type="text" name="username" class="form-control form-control-sm"
-													data-error="Provide this field !" required style="width: 200px;" />
+													data-error="Provide this field !" required/>
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
@@ -84,14 +87,14 @@
 								</div>
 
 								<div class="col-6">
-									<div class="form-group row mb-1" style="width: 350px;">
+									<div class="form-group row mb-1">
 										<label for="staticEmail"
-											class="col-sm-7 col-form-label pr-0 text-center float-left">Password<strong
+											class="col-sm-6 col-form-label pr-0 text-center float-left">Password<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-5 px-0">
 											<input type="password" class="form-control form-control-sm"
 												id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-												data-error="Password must be alphanumeric !" style="width: 200px;" />
+												data-error="Password must be alphanumeric !"/>
 											<div class="help-block with-errors text-danger mb-0"></div>
 											<small class="text-primary">
 												Min 6 characters required.
@@ -103,16 +106,16 @@
 
 							<div class="row">
 								<div class="col-6">
-									<div class="form-group row mb-0" style="width: 350px;">
+									<div class="form-group row mb-0">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-8 col-form-label pr-0 pl-5">Confirm
+											<label for="staticEmail" class="col-sm-7 col-form-label pr-0 pl-5">Confirm
 												Password<strong class="text-danger">*</strong></label>
-											<div class="col-sm-4 px-0">
+											<div class="col-sm-5 px-0">
 												<input type="password" name="password"
 													class="form-control form-control-sm" id="password"
 													data-match="#inputPassword" data-match-error="oops,doesn't match!"
 													data-error="Provide confirm password !" required
-													style="width: 200px;" />
+													/>
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
@@ -120,13 +123,13 @@
 								</div>
 
 								<div class="col-6">
-									<div class="form-group row mb-0" style="width: 350px;">
+									<div class="form-group row mb-0">
 										<label for="staticEmail"
-											class="col-sm-7 col-form-label pr-0 text-center">Email<strong
+											class="col-sm-6 col-form-label pr-0 text-center">Email<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-5 px-0">
 											<input type="email" name="email" class="form-control form-control-sm"
-												data-error="Provide vaild email !" required style="width: 200px;" />
+												data-error="Provide vaild email !" required />
 											<div class="help-block with-errors text-danger mb-0"></div>
 										</div>
 									</div>
@@ -207,17 +210,13 @@
 										</div>
 									</div>
 								</div>
-
-
-
-							</div>
+						</div>
 
 							<div class="col-3 text-center">
-							<div class="form-group mt-4 ">
+							<div class="form-group">
 								<label for="staticEmail">Company Logo<strong class="text-danger">*</strong></label>
 								<input type="file" name="logo" class="dropify" data-height="100"
-									data-error="Upload logo !" required />
-								
+									data-error="Upload logo !" required />								
 								<div class="help-block with-errors text-danger mb-0"></div>
 								<small class="text-danger"> Logo [Size: 225x90]</small>
 							</div>
@@ -227,11 +226,18 @@
 									<label class="form-check-label" for="flexSwitchCheckChecked">Enable Mobile
 										App</label>
 								</div>
+								
+								
 								<div class="form-group mt-4 bg-secondary">
 									<label class="font-weight-bold pt-2">Company Path</label><br>
 									<small>C:\Company\</small>
 									<small id="match"></small>
 								</div>
+								<div class="form-group">
+										<label for="staticEmail">No of Branch</label>
+										
+											<input type="number" class="col-sm-5 form-control form-control-sm mx-auto" name="noOfBranch" />
+										</div>
 							</div>
 						</div>
 

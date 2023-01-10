@@ -6,7 +6,6 @@
 		</h3>
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
-
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
@@ -15,9 +14,9 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
 						</li>
-						
+
 						<li class="crumb">
-							<div class="link"><a th:href="@{/admin/home}">Company Management</a></div>
+							<div class="link"><a th:href="@{/admin/account/company/list}">Company Management</a></div>
 						</li>
 
 						<li class="crumb active">
@@ -31,8 +30,9 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 mx-1 px-3 text-white hvr bg-danger"
-							th:href="@{/admin/account/company/list}" style="width: 133px;">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
+							th:href="@{/admin/account/company/list}"><span
+								class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Company
 						</a>
 					</li>
@@ -55,8 +55,8 @@
 					<h4 class="mb-0">Edit Company</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/admin/company/register}" th:object="${company}"
-						data-toggle="validator" method="post" enctype="multipart/form-data">
+					<form class="p-0 mb-0" th:action="@{/admin/account/company/edit/update}" th:object="${company}"
+						data-toggle="validator" method="post">
 						<div class="row">
 							<div class="col-9">
 								<div class="col-12">
@@ -64,10 +64,12 @@
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0 ">Company
 											Name<strong class="text-danger">*</strong></label>
 										<div class="col-sm-9 px-0">
-									
-										<input type="hidden" id="ccomname" th:value="${company.companyName}"/>
+											<input type="hidden" id="ccomid" th:value="${companyDetails.companyId}" />
+											<input type="hidden" id="icomid" name="companyId" />
+											<input type="hidden" id="ccomname"
+												th:value="${companyDetails.companyName}" />
 											<input type="text" class="form-control form-control-sm" name="companyName"
-												id="icomname" data-minlength="3" data-error="Min 3 chars required !"
+												id="companyName" data-minlength="3" data-error="Min 3 chars required !"
 												required />
 											<div class="help-block with-errors text-danger mb-0"></div>
 
@@ -75,80 +77,85 @@
 									</div>
 								</div>
 								<div class="row">
-								<div class="col-6">
-									<div class="form-group row mb-1">
-										<div class="form-group row" style="width: 350px;">
+									<div class="col-6">
+										<div class="form-group row mb-1">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-7 col-form-label pr-0 pl-5">Username<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-5 px-0">
+													<input type="hidden" id="cusername" th:value="${user.username}" />
+													<input type="text" name="username" id="iusername"
+														class="form-control form-control-sm"
+														data-error="Provide this field !" required />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-6">
+										<div class="form-group row mb-1">
 											<label for="staticEmail"
-												class="col-sm-8 col-form-label pr-0 pl-5">Username<strong
+												class="col-sm-6 col-form-label pr-0 text-center float-left">Password<strong
 													class="text-danger">*</strong></label>
-											<div class="col-sm-4 px-0">
-											<input type="hidden" id="cusername" th:value="${user.username}"/>
-												<input type="text" name="username" id="iusername" class="form-control form-control-sm"
-													data-error="Provide this field !" required style="width: 200px;" />
+											<div class="col-sm-5 px-0">
+												<input type="password" class="form-control form-control-sm"
+													id="inputPassword"
+													pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+													data-error="Password must be alphanumeric !" />
 												<div class="help-block with-errors text-danger mb-0"></div>
+												<small class="text-primary">
+													Min 6 characters required.
+												</small>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="col-6">
-									<div class="form-group row mb-1" style="width: 350px;">
-										<label for="staticEmail"
-											class="col-sm-7 col-form-label pr-0 text-center float-left">Password<strong
-												class="text-danger">*</strong></label>
-										<div class="col-sm-5 px-0">
-											<input type="password" class="form-control form-control-sm"
-												id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-												data-error="Password must be alphanumeric !" style="width: 200px;" />
-											<div class="help-block with-errors text-danger mb-0"></div>
-											<small class="text-primary">
-												Min 6 characters required.
-											</small>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group row mb-0">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-7 col-form-label pr-0 pl-5">Confirm
+													Password<strong class="text-danger">*</strong></label>
+												<div class="col-sm-5 px-0">
+													<input type="password" name="password"
+														class="form-control form-control-sm" id="password"
+														data-match="#inputPassword"
+														data-match-error="oops,doesn't match!"
+														data-error="Provide confirm password !" />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
 
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group row mb-0" style="width: 350px;">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-8 col-form-label pr-0 pl-5">Confirm
-												Password<strong class="text-danger">*</strong></label>
-											<div class="col-sm-4 px-0">
-												<input type="password" name="password"
-													class="form-control form-control-sm" id="password"
-													data-match="#inputPassword" data-match-error="oops,doesn't match!"
-													data-error="Provide confirm password !" required
-													style="width: 200px;" />
+									<div class="col-6">
+										<div class="form-group row mb-0">
+											<label for="staticEmail"
+												class="col-sm-6 col-form-label pr-0 text-center">Email<strong
+													class="text-danger">*</strong></label>
+											<div class="col-sm-5 px-0">
+												<input type="hidden" id="cemail" th:value="${companyDetails.email}" />
+												<input type="email" name="email" id="iemail"
+													class="form-control form-control-sm"
+													data-error="Provide vaild email !" required />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-								<div class="col-6">
-									<div class="form-group row mb-0" style="width: 350px;">
-										<label for="staticEmail"
-											class="col-sm-7 col-form-label pr-0 text-center">Email<strong
-												class="text-danger">*</strong></label>
-										<div class="col-sm-5 px-0">
-										<input type="hidden" id="cemail" th:value="${company.email}"/>
-											<input type="email" name="email" id="iemail" class="form-control form-control-sm"
-												data-error="Provide vaild email !" required style="width: 200px;" />
-											<div class="help-block with-errors text-danger mb-0"></div>
-										</div>
-									</div>
-								</div>
-							</div>
 								<div class="col-12">
 									<div class="form-group row">
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Address<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-9 px-0">
-										<input type="hidden" id="caddress" th:value="${company.address}"/>
-											<input type="text" name="address" id="iaddress" class="form-control form-control-sm"
-												data-error="Provide this field !" required />
+											<input type="hidden" id="caddress" th:value="${companyDetails.address}" />
+											<input type="text" name="address" id="iaddress"
+												class="form-control form-control-sm" data-error="Provide this field !"
+												required />
 											<div class="help-block with-errors text-danger mb-0"></div>
 
 										</div>
@@ -159,13 +166,11 @@
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">State<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="cstate" th:value="${state}"/>
-											<select class="form-control" name="state" id="rstates"
-												data-error="Provide this field !" required>
-												<option value="" selected>Select</option>
-												<option th:each="ob:${states}" th:value="${ob[0]}" th:text="${ob[1]}">
-												</option>
-											</select>
+											<input type="hidden" id="cstate" th:value="${companyDetails.state}" />
+											<input type="text" name="state" id="istate"
+												class="form-control form-control-sm" data-error="Provide this field !"
+												required />
+
 											<div class="help-block with-errors text-danger mb-0"></div>
 
 										</div>
@@ -173,11 +178,11 @@
 											class="col-sm-3 col-form-label pr-0 text-center">City<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="ccity" th:value="${company.city}"/>
-											<select class="form-control" name="city" id="rcities"
-												data-error="Provide this field !" required>
-												<option value="" selected>Select</option>
-											</select>
+											<input type="hidden" id="ccity" th:value="${companyDetails.city}" />
+											<input type="text" name="city" id="icity"
+												class="form-control form-control-sm" data-error="Provide this field !"
+												required />
+
 											<div class="help-block with-errors text-danger mb-0"></div>
 										</div>
 									</div>
@@ -187,9 +192,9 @@
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Pincode<strong
 												class="text-danger">*</strong></label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="cpincode" th:value="${company.pincode}"/>
-											<input type="number" name="pincode" id="ipincode" class="form-control form-control-sm"
-												data-error="Provide this field !"
+											<input type="hidden" id="cpincode" th:value="${companyDetails.pincode}" />
+											<input type="number" name="pincode" id="ipincode"
+												class="form-control form-control-sm" data-error="Provide this field !"
 												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6"
 												required />
 											<div class="help-block with-errors text-danger mb-0"></div>
@@ -197,7 +202,7 @@
 										<label for="staticEmail"
 											class="col-sm-3 col-form-label pr-0 text-center">Phone</label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="cmobile" th:value="${company.mobile}"/>
+											<input type="hidden" id="cmobile" th:value="${companyDetails.mobile}" />
 											<input type="number" name="mobile" id="imobile"
 												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
 												class="form-control form-control-sm" />
@@ -208,7 +213,7 @@
 									<div class="form-group row">
 										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Fax No</label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="cfax" th:value="${company.fax}"/>
+											<input type="hidden" id="cfax" th:value="${companyDetails.fax}" />
 											<input type="number" name="fax" id="ifax"
 												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
 												class="form-control form-control-sm" />
@@ -216,36 +221,41 @@
 										<label for="staticEmail"
 											class="col-sm-3 col-form-label pr-0 text-center">Website</label>
 										<div class="col-sm-3 px-0">
-										<input type="hidden" id="cwebsite" th:value="${company.website}"/>
-											<input type="text" id="iwebsite" name="website" class="form-control form-control-sm" />
+											<input type="hidden" id="cwebsite" th:value="${companyDetails.website}" />
+											<input type="text" id="iwebsite" name="website"
+												class="form-control form-control-sm" />
 										</div>
 									</div>
 								</div>
-
-
-
 							</div>
 
 							<div class="col-3 text-center">
-							<div class="form-group mt-4 ">
-								<label for="staticEmail">Company Logo<strong class="text-danger">*</strong></label>
-								<input type="file" name="logo" class="dropify" data-height="100"
-									data-error="Upload logo !" required />
-								
-								<div class="help-block with-errors text-danger mb-0"></div>
-								<small class="text-danger"> Logo [Size: 225x90]</small>
-							</div>
+								<div class="form-group ">
+									<label for="staticEmail">Company Logo</label><br>
+									<img th:src="@{'/Company/'+ ${companyDetails.companyName} +'/logo/'+ ${companyDetails.logo}}"
+										width="130" alt="image" />
+									<a data-toggle="modal" data-target="#editLogo"
+										class="btn btn-sm btn-secondary mt-3 text-dark">Change Logo</a>
+								</div>
 								<div class="form-check form-switch mt-4">
-								<input type="hidden" id="cenableApp" th:value="${company.enableApp}"/>
-									<input class="form-check-input" name="enableApp" type="checkbox"
-										id="ienableApp">
-									<label class="form-check-label" for="flexSwitchCheckChecked">Enable Mobile
-										App</label>
+									<input type="hidden" id="cenableApp" th:value="${companyDetails.enableApp}"
+										hidden />
+									<input class="form-check-input" type="checkbox" id="ienableApp"
+										th:onclick="|enable()|">
+									<input type="hidden" name="enableApp" id="senableApp">
+									<label class="form-check-label" for="ienableApp">Enable Mobile App</label>
 								</div>
 								<div class="form-group mt-4 bg-secondary">
 									<label class="font-weight-bold pt-2">Company Path</label><br>
-									<small>C:\Company\<span id="match"></span></small>
+									<small>C:\Company\</small>
 									<small id="match"></small>
+								</div>
+								<div class="form-group">
+									<label for="staticEmail">No of Branch</label>
+									<input type="hidden" id="cnoofbranch" th:value="${companyDetails.noOfBranch}" />
+									<input type="number"
+										class="col-sm-5 form-control form-control-sm mx-auto text-center"
+										id="inoofbranch" name="noOfBranch" />
 								</div>
 							</div>
 						</div>
@@ -253,6 +263,38 @@
 						<div class="col-12 text-center mt-3">
 							<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
 							<button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editLogo" tabindex="-1" role="dialog" aria-labelledby="editLogo" aria-hidden="true">
+			<div class="modal-dialog" role="document" style="margin-top: 130px;">
+				<div class="modal-content">
+					<form th:action="@{/admin/account/company/edit/logo}" role="form" class="mb-0" method="post"
+						enctype="multipart/form-data">
+						<div class="modal-header py-2">
+							<h5 class="modal-title" id="editModal">Change Logo</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body p-2">
+							<div class="row justify-content-center">
+								<div class="col-8">
+									<div class="form-group text-center">
+										<label class="font-weight-bold">Comapny Logo</label>
+										<input type="hidden" id="setId" name="companyId" />
+										<input type="file" name="logo" data-height="100" class="dropify" />
+										<small class="text-info"> Logo [Size: 225x90]</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer justify-content-center py-2">
+							<button type="submit" class="btn btn-sm btn-success">Submit</button>
+							<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
 						</div>
 					</form>
 				</div>

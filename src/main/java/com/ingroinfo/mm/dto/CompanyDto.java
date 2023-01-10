@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class CompanyDto {
 
+	private Long companyId;
 	private String companyName;
 	private String username;
 	private String password;
@@ -20,6 +21,7 @@ public class CompanyDto {
 	private String enableApp;
 	private String path;
 	private String logo;
+	private String noOfBranch;
 	private Date dateCreated;
 	private Date lastUpdated;
 

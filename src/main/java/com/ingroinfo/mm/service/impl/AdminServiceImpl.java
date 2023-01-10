@@ -21,6 +21,7 @@ import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
+import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
@@ -105,7 +106,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Company saveCompany(Company company) {
 		companyRepository.save(company);
-
 		return companyRepository.findByEmail(company.getEmail());
 	}
 
@@ -187,8 +187,79 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Integer getStateId(String name) {
-		return stateRepository.findByName(name).getId();
+	public boolean companyEmailCheck(CompanyDto companyDto) {
+		List<User> filteredListUser = userRepository.findAll().stream()
+				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
+				.collect(Collectors.toList());
+
+		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getEmail().equals(companyDto.getEmail()))
+				.findFirst().isPresent();
+
+		List<Company> filteredListCompany = companyRepository.findAll().stream()
+				.filter(x -> !companyDto.getCompanyId().equals(x.getCompanyId())).collect(Collectors.toList());
+
+		boolean isExistsCompany = filteredListCompany.stream().filter(o -> o.getEmail().equals(companyDto.getEmail()))
+				.findFirst().isPresent();
+		return isExistsUser || isExistsCompany;
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public void updateUser(CompanyDto companyDto) {
+
+		User user = userRepository.findByEmail(companyDto.getEmail());
+		user.setEmail(companyDto.getEmail());
+		user.setMobile(companyDto.getMobile());
+		user.setName(companyDto.getCompanyName());
+		user.setUsername(companyDto.getUsername());
+		if (companyDto.getPassword().equalsIgnoreCase("")) {
+			user.setPassword(user.getPassword());
+			userRepository.save(user);
+		} else {
+			user.setPassword(this.passwordEncoder.encode(companyDto.getPassword()));
+			userRepository.save(user);
+		}
+	}
+
+	@Override
+	public boolean companyUsernameExists(String username) {
+		return userRepository.findByUsername(username) != null;
+	}
+
+	@Override
+	public boolean companyUsernameCheck(CompanyDto companyDto) {
+		List<User> filteredListUser = userRepository.findAll().stream()
+				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
+				.collect(Collectors.toList());
+
+		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getUsername().equals(companyDto.getUsername()))
+				.findFirst().isPresent();
+
+		return isExistsUser;
+	}
+
+	@Override
+	public boolean branchAllowed(Company company) {
+
+		boolean checkBranch = false;
+
+		String branchCount = company.getNoOfBranch();
+		List<Branch> branches = branchRepository.findAll();
+		int count = Integer.parseInt(branchCount);
+		int branchSize = branches.size();
+		if (count > branchSize) {
+			checkBranch = true;
+		}
+		return checkBranch;
+	}
+
+	@Override
+	public boolean branchUsernameExists(String username) {		
+		return userRepository.findByUsername(username) != null;
 	}
 
 }

@@ -25,7 +25,7 @@ import com.ingroinfo.mm.service.MaterialService;
 public class StockController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
-	
+
 	@Autowired
 	private AdminService adminService;
 
@@ -125,6 +125,5 @@ public class StockController {
 	public String toolsReject() {
 		return "/pages/stock_management/stock_tools_reject";
 	}
-	
-}
 
+}

@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.dto.BranchDto;
+import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
@@ -47,11 +48,17 @@ public interface AdminService {
 
 	User getUserByCompanyId(Long id);
 
-	Integer getStateId(String name);
+	boolean companyEmailCheck(CompanyDto companyDto);
 
-	
+	User getUserByEmail(String email);
 
-	
+	void updateUser(CompanyDto companyDto);
 
-	
+	boolean companyUsernameExists(String username);
+
+	boolean companyUsernameCheck(CompanyDto companyDto);
+
+	boolean branchAllowed(Company company);
+
+	boolean branchUsernameExists(String username);
 }

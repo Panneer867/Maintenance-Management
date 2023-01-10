@@ -15,9 +15,7 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
 						</li>
-						<li class="crumb">
-							<div class="link"><a th:href="@{/admin/home}">Company Creation</a></div>
-						</li>
+						
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Company Management</span></div>
 						</li>
@@ -27,8 +25,8 @@
 			<div class="col-6">
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 mx-1 px-3 text-white hvr bg-danger" th:href="@{/admin/account/company}"
-							style="width: 125px;">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/account/company}"
+							><span class="glyphicon glyphicon-plus pr-1"></span>
 							Create Company
 						</a>
 					</li>
@@ -68,7 +66,7 @@
 						<td>
 							<a th:href="@{'/admin/account/company/edit/' + ${company.companyId}}"
 								class="btn btn-info p-1 mx-2" id="editCompany"><span class="glyphicon glyphicon-edit"></span></a>
-							<a href="#" class="btn btn-success p-1 mx-2"><span
+							<a th:href="@{'/admin/account/company/view/' + ${company.companyId}}" class="btn btn-success p-1 mx-2"><span
 									class="glyphicon glyphicon-eye-open"></span></a>
 							<button th:onclick="|deleteId('/admin/account/company/delete/?id=${company.companyId}')|"
 								class="btn btn-danger p-1 mx-2 edit-hsn" data-toggle="modal"

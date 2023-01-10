@@ -42,7 +42,8 @@ public class Company {
 	private String enableApp;
 	private String path;
 	private String logo;
-
+	private String noOfBranch;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
 	private List<User> user;
 
