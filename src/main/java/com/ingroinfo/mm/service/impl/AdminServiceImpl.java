@@ -65,6 +65,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void registerCompany(User user) {
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
+		user.setBranch(null);
 		register(user);
 
 	}

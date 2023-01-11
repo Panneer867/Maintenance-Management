@@ -79,7 +79,7 @@ public class AdminController {
 		company.setState(adminService.getState(companyDto.getState()));
 		user.setName(company.getCompanyName());
 
-		if (companyDto.getNoOfBranch().equalsIgnoreCase("")) {
+		if (companyDto.getNoOfBranch().length() == 0) {
 			company.setNoOfBranch("0");
 		}
 		try {

@@ -152,8 +152,26 @@
 									</div>
 								</div>
 							</div>
-						</div>
+							<div class="col-12">
+								<div class="form-group row">
+									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">No of
+										Branch</label>
+									<div class="col-sm-3 px-0">
+										<input type="text" class="form-control-plaintext"
+											th:value="${companyDetails.noOfBranch}" />
 
+									</div>
+									<label for="staticEmail"
+										class="col-sm-3 col-form-label pr-0 ">Company Path</label>
+									<div class="col-sm-3 px-0">
+										<input type="text" class="form-control-plaintext"
+											th:value="${companyDetails.path}" />
+
+									</div>
+								</div>
+							</div>
+							
+						</div>
 						<div class="col-3 text-center">
 							<div class="form-group ">
 								<label for="staticEmail">Company Logo</label><br>
@@ -165,16 +183,8 @@
 								<input type="text" class="form-control-plaintext text-center"
 									th:value="${companyDetails.enableApp}" />
 							</div>
-							<div class="form-group mt-4 bg-secondary ">
-								<label class="font-weight-bold pt-2">Company Path</label><br>
-								<small>C:\Company\</small>
-								<small id="match"></small>
-							</div>
-							<div class="form-group">
-								<label for="staticEmail">No of Branch</label>
-								<input type="text" class="form-control-plaintext text-center"
-									th:value="${companyDetails.noOfBranch}" />
-							</div>
+							
+
 						</div>
 					</div>
 				</div>

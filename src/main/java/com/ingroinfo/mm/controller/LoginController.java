@@ -49,7 +49,13 @@ public class LoginController {
 		if (adminService.companyEmailExists(companyDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
-			return "redirect:/admin/account/company";
+			return "redirect:/register/company";
+		}
+		
+		if (adminService.companyUsernameExists(companyDto.getUsername())) {
+			session.setAttribute("message",
+					new Message("Username is already associated with another account !", "danger"));
+			return "redirect:/register/company";
 		}
 
 		Company company = modelMapper.map(companyDto, Company.class);
@@ -64,6 +70,11 @@ public class LoginController {
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
 		user.setName(company.getCompanyName());
+		
+
+		if (companyDto.getNoOfBranch().length() == 0) {
+			company.setNoOfBranch("0");
+		}
 		
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
