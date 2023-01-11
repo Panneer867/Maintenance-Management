@@ -13,7 +13,7 @@ import com.ingroinfo.mm.service.AdminService;
 
 @RestController
 @RequestMapping("/get")
-public class JSONResponse {
+public class ResponseContoller {
 
 	@Autowired
 	private AdminService adminService;

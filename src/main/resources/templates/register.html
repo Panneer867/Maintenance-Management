@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Register | Maintenance Management</title>
+	<title>Admin | Maintenance Management</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,11 +16,8 @@
 <body>
 	<div class="login-page" style="padding-top: 60px; align-items:flex-start;">
 		<div class="form" style="height:460px;">
-			<form class="login-form" th:action="@{/register}" th:object="${register}" method="post">
+			<form class="login-form" th:action="@{/admin}" method="post">
 				<h6 class="text-center text-white">SIGN UP</h6>
-				<input type="text" name="name" required placeholder="Enter Name"/>
-				<input type="email" name="email" required placeholder="Enter Email"/>
-				<input type="number" name="mobile" required placeholder="Enter Mobile"/>
 				<input type="text" name="username" required placeholder="Enter Username"/>
 				<input type="password" name="password" required placeholder="Password" />
 				<button type="submit">SIGN UP</button>

@@ -46,7 +46,7 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/login","/register/**","/get/**").permitAll()
+				.antMatchers("/login","/admin","/get/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -73,7 +73,7 @@ public class WebSecurityConfiguration {
 	public RoleHierarchy roleHierarchy() {
 		
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-		String hierarchy = "ROLE_ADMIN > ROLE_BRANCH \n ROLE_BRANCH > ROLE_USER";
+		String hierarchy = "ROLE_ADMIN > ROLE_COMAPNY \n ROLE_COMAPNY > ROLE_BRANCH \n ROLE_BRANCH > ROLE_USER";
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
 	}

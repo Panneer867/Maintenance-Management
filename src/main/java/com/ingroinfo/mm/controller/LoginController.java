@@ -2,6 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +25,7 @@ import com.ingroinfo.mm.service.AdminService;
 
 @Controller
 public class LoginController {
-	
+
 	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
@@ -51,7 +52,7 @@ public class LoginController {
 					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/register/company";
 		}
-		
+
 		if (adminService.companyUsernameExists(companyDto.getUsername())) {
 			session.setAttribute("message",
 					new Message("Username is already associated with another account !", "danger"));
@@ -64,27 +65,42 @@ public class LoginController {
 		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-		String fileName = company.getCompanyName() + "." + fileExtension.get();
+		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 1000) + "."
+				+ fileExtension.get();
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
 		user.setName(company.getCompanyName());
-		
 
 		if (companyDto.getNoOfBranch().length() == 0) {
 			company.setNoOfBranch("0");
 		}
-		
+
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Company newCompany = adminService.saveCompany(company);		
+		Company newCompany = adminService.saveCompany(company);
 		user.setCompany(newCompany);
-		adminService.registerCompany(user);		
-		
+		adminService.registerCompany(user);
+
+		return "redirect:/login?success";
+	}
+
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		return "/register";
+	}
+
+	@PostMapping("/admin")
+	public String signup(@RequestParam String username, @RequestParam String password) {
+
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		adminService.admin(user);
 		return "redirect:/login?success";
 	}
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +74,8 @@ public class AdminController {
 		User user = modelMapper.map(companyDto, User.class);
 		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
-		String fileName = company.getCompanyName() + "." + fileExtension.get();
+		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
+				+ fileExtension.get();
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
@@ -116,7 +119,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/account/company/edit/update")
-	public String brandUpdate(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult,
+	public String companyUpdate(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult,
 			HttpSession session, Principal principal) throws IOException {
 		if (adminService.companyEmailCheck(companyDto)) {
 			session.setAttribute("message",
@@ -140,7 +143,7 @@ public class AdminController {
 			company.setPath(folder);
 		}
 		adminService.saveCompany(company);
-		adminService.updateUser(companyDto);
+		adminService.updateUserCompany(companyDto);
 		session.setAttribute("message", new Message("Company has been successfully updated!!", "success"));
 		return "redirect:/admin/account/company/list";
 	}
@@ -151,10 +154,11 @@ public class AdminController {
 		Company company = adminService.getCompany(Long.parseLong(companyId));
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
-		String profile = company.getCompanyName() + "." + tokens.get();
+		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
+				+ tokens.get();
 		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
-		company.setLogo(profile);
-		adminService.saveFile(uploadDir, profile, file);
+		company.setLogo(fileName);
+		adminService.saveFile(uploadDir, fileName, file);
 		adminService.saveCompany(company);
 		session.setAttribute("message", new Message("Logo has been successfully Updated !", "success"));
 		return "redirect:/admin/account/company/edit/" + companyId;
@@ -229,6 +233,13 @@ public class AdminController {
 
 	}
 	
+	@GetMapping("/account/branch/view/{id}")
+	public String branchView(@PathVariable Long id, Model model, HttpSession session) {
+		model.addAttribute("branchDetails", adminService.getBranch(id));
+		model.addAttribute("user", adminService.getUser(adminService.getBranch(id).getEmail()));
+		return "/pages/admin/view_branch";
+	}
+
 	@GetMapping("/account/branch/edit/{id}")
 	public String branchEdit(@PathVariable Long id, Model model, HttpSession session) {
 		model.addAttribute("branchDetails", adminService.getBranch(id));
@@ -236,6 +247,28 @@ public class AdminController {
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("user", adminService.getUser(adminService.getBranch(id).getEmail()));
 		return "/pages/admin/edit_branch";
+	}
+
+	@PostMapping("/account/branch/edit/update")
+	public String brandUpdate(@ModelAttribute("branch") BranchDto branchDto, BindingResult bindingResult,
+			HttpSession session) throws IOException {
+		if (adminService.branchEmailCheck(branchDto)) {
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
+			return "redirect:/admin/account/branch/edit/" + branchDto.getBranchId();
+		}
+
+		if (adminService.branchUsernameCheck(branchDto)) {
+			session.setAttribute("message",
+					new Message("Username is already associated with another account !", "danger"));
+			return "redirect:/admin/account/branch/edit/" + branchDto.getBranchId();
+		}
+		Branch branch = adminService.getBranch(branchDto.getBranchId());
+		mapper.modelMapper().map(branchDto, branch);
+		adminService.saveBranch(branch);
+		adminService.updateUserBranch(branchDto);
+		session.setAttribute("message", new Message("Branch has been successfully updated!!", "success"));
+		return "redirect:/admin/account/branch/list";
 	}
 
 	@GetMapping("/user")

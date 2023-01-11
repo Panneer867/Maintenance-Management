@@ -61,13 +61,20 @@ public class AdminServiceImpl implements AdminService {
 		user.setPassword(getEncodedPassword(user.getPassword()));
 		userRepository.save(user);
 	}
+	
+	@Override
+	public void admin(User user) {
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
+		user.setCompany(null);
+		user.setBranch(null);
+		register(user);
+	}
 
 	@Override
 	public void registerCompany(User user) {
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_COMPANY")));
 		user.setBranch(null);
 		register(user);
-
 	}
 
 	@Override
@@ -206,14 +213,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void updateUser(CompanyDto companyDto) {
+	public void updateUserCompany(CompanyDto companyDto) {
 
 		User user = userRepository.findByEmail(companyDto.getEmail());
 		user.setEmail(companyDto.getEmail());
 		user.setMobile(companyDto.getMobile());
 		user.setName(companyDto.getCompanyName());
 		user.setUsername(companyDto.getUsername());
-		if (companyDto.getPassword().equalsIgnoreCase("")) {
+		if (companyDto.getPassword().length() == 0) {
 			user.setPassword(user.getPassword());
 			userRepository.save(user);
 		} else {
@@ -267,6 +274,47 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public User getUser(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public boolean branchEmailCheck(BranchDto branchDto) {
+		List<User> filteredListUser = userRepository.findAll().stream()
+				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
+				.collect(Collectors.toList());
+
+		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getEmail().equals(branchDto.getEmail()))
+				.findFirst().isPresent();
+
+		return isExistsUser;
+	}
+
+	@Override
+	public boolean branchUsernameCheck(BranchDto branchDto) {
+		List<User> filteredListUser = userRepository.findAll().stream()
+				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
+				.collect(Collectors.toList());
+
+		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getUsername().equals(branchDto.getUsername()))
+				.findFirst().isPresent();
+
+		return isExistsUser;
+	}
+
+	@Override
+	public void updateUserBranch(BranchDto branchDto) {
+		User user = userRepository.findByEmail(branchDto.getEmail());
+		user.setEmail(branchDto.getEmail());
+		user.setMobile(branchDto.getMobile());
+		user.setName(branchDto.getBranchName());
+		user.setUsername(branchDto.getUsername());
+		if (branchDto.getPassword().length() == 0) {
+			user.setPassword(user.getPassword());
+			userRepository.save(user);
+		} else {
+			user.setPassword(this.passwordEncoder.encode(branchDto.getPassword()));
+			userRepository.save(user);
+		}
+		
 	}
 	
 }

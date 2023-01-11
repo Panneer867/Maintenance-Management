@@ -21,6 +21,8 @@ public interface AdminService {
 	List<Bank> getAllBanks();
 	
 	String getState(String stateId);
+	
+	void admin(User user);
 
 	void registerCompany(User user);
 
@@ -50,7 +52,7 @@ public interface AdminService {
 
 	User getUserByEmail(String email);
 
-	void updateUser(CompanyDto companyDto);
+	void updateUserCompany(CompanyDto companyDto);
 
 	boolean companyUsernameExists(String username);
 
@@ -63,4 +65,10 @@ public interface AdminService {
 	Branch getBranch(Long id);
 
 	User getUser(String email);
+
+	boolean branchEmailCheck(BranchDto branchDto);
+
+	boolean branchUsernameCheck(BranchDto branchDto);
+
+	void updateUserBranch(BranchDto branchDto);
 }
