@@ -10,4 +10,6 @@ public interface BranchRepository extends JpaRepository<Branch, Long>
 
 	Branch findByEmail(String email);
 
+	Branch findByBranchId(Long id);
+
 }

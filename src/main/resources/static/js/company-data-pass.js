@@ -24,7 +24,6 @@ $(document).ready(function() {
 	}
 
 	document.getElementById('setId').value = document.getElementById('ccomid').value;
-
 	document.getElementById('inoofbranch').value = document.getElementById('cnoofbranch').value;
-
+	
 });

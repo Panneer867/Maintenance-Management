@@ -104,14 +104,14 @@ public class AdminController {
 	public String companyEdit(@PathVariable Long id, Model model, HttpSession session) {
 		model.addAttribute("companyDetails", adminService.getCompany(id));
 		model.addAttribute("company", new CompanyDto());
-		model.addAttribute("user", adminService.getUserByCompanyId(id));
+		model.addAttribute("user", adminService.getUser(adminService.getCompany(id).getEmail()));
 		return "/pages/admin/edit_company";
 	}
 
 	@GetMapping("/account/company/view/{id}")
 	public String companyView(@PathVariable Long id, Model model, HttpSession session) {
 		model.addAttribute("companyDetails", adminService.getCompany(id));
-		model.addAttribute("user", adminService.getUserByCompanyId(id));
+		model.addAttribute("user", adminService.getUser(adminService.getCompany(id).getEmail()));
 		return "/pages/admin/view_company";
 	}
 
@@ -227,6 +227,15 @@ public class AdminController {
 		session.setAttribute("message", new Message("Branch has been deleted successfully !!", "success"));
 		return "redirect:/admin/account/branch/list";
 
+	}
+	
+	@GetMapping("/account/branch/edit/{id}")
+	public String branchEdit(@PathVariable Long id, Model model, HttpSession session) {
+		model.addAttribute("branchDetails", adminService.getBranch(id));
+		model.addAttribute("branch", new BranchDto());
+		model.addAttribute("companies", adminService.getAllCompanies());
+		model.addAttribute("user", adminService.getUser(adminService.getBranch(id).getEmail()));
+		return "/pages/admin/edit_branch";
 	}
 
 	@GetMapping("/user")

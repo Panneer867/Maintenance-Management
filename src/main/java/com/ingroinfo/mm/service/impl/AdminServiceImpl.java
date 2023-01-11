@@ -181,11 +181,7 @@ public class AdminServiceImpl implements AdminService {
 		branchRepository.deleteById(branchId);
 	}
 
-	@Override
-	public User getUserByCompanyId(Long id) {
-		return userRepository.findByCompany(companyRepository.findByCompanyId(id));
-	}
-
+	
 	@Override
 	public boolean companyEmailCheck(CompanyDto companyDto) {
 		List<User> filteredListUser = userRepository.findAll().stream()
@@ -262,4 +258,14 @@ public class AdminServiceImpl implements AdminService {
 		return userRepository.findByUsername(username) != null;
 	}
 
+	@Override
+	public Branch getBranch(Long id) {
+		return branchRepository.findByBranchId(id);
+	}
+
+	@Override
+	public User getUser(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
 }

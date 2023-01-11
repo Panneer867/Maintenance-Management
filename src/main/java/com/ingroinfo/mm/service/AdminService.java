@@ -46,8 +46,6 @@ public interface AdminService {
 
 	void deleteBranch(Long branchId);
 
-	User getUserByCompanyId(Long id);
-
 	boolean companyEmailCheck(CompanyDto companyDto);
 
 	User getUserByEmail(String email);
@@ -61,4 +59,8 @@ public interface AdminService {
 	boolean branchAllowed(Company company);
 
 	boolean branchUsernameExists(String username);
+
+	Branch getBranch(Long id);
+
+	User getUser(String email);
 }
