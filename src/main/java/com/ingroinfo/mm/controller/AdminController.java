@@ -232,7 +232,7 @@ public class AdminController {
 		return "redirect:/admin/account/branch/list";
 
 	}
-	
+
 	@GetMapping("/account/branch/view/{id}")
 	public String branchView(@PathVariable Long id, Model model, HttpSession session) {
 		model.addAttribute("branchDetails", adminService.getBranch(id));

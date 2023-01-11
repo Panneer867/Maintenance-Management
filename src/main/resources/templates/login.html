@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/">
 
 <head>
@@ -11,62 +10,83 @@
 	<link th:href="@{/css/login.css}" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link th:href="@{/css/glyphicons/css/glyphicons.css}" rel="stylesheet" />
 </head>
 
 <body>
- 
-	<div class="login-page">
-	<div class="alert alert-success col-2 text-center z-3 p-1 font-weight-bold" role="alert" th:if="${param.success}" style="left: 265px;bottom: 190px;">
-                        Registered successfully!
-                    </div>
-                    <div class="alert alert-danger col-2 text-center z-3 p-1 font-weight-bold" role="alert" th:if="${param.logout}" style="left: 265px;bottom: 190px;">
-                       You have logged out !
-                    </div>
-		<div class="form">
-		<form class="login-form" th:action="@{/login}" method="post">
-		<div class="row mb-2 text-center">
-				<div class="col-6">
-			
-				<button type="button" class="my-0 py-0 btn btn-primary text-white" style="font-size: 14px;">Manual</button>
+	<div style="padding: 100px 0;">
+		<div class="row">
+			<div class="col-9"></div>
+			<div class="col-3">
+				<div class="alert alert-success col-11 py-1 mb-0 text-center font-weight-bold" role="alert"
+					th:if="${param.success}">
+					Registered successfully !
 				</div>
-				<div class="col-6">
-				<button type="button" class="my-0 py-0 btn btn-danger text-white" style="font-size: 14px;">Biometric</button>
+				<div class="alert alert-danger col-11 py-1 mb-0 text-center font-weight-bold" role="alert"
+					th:if="${param.logout}">
+					You have logged out !
 				</div>
-				
+				<div class="alert alert-danger col-11 py-1 mb-0 text-center font-weight-bold" role="alert"
+					th:if="${param.error}">
+					Incorrect Username/Password !
 				</div>
-			<div class="d-flex justify-content-center pt-2" style="background-color: #ffff;border-radius: 10px;">
-			
-			
-				<img width="100px" height="100px" th:src="@{/images/IGI_Logo.png}"></div>
-				
-				<input type="text" name="username" required placeholder="Username" id="user" autocomplete="off" />
-				<input oninput="return formvalid()" type="password" name="password" required placeholder="Password" id="pass"
-					autocomplete="off" />
-				<img class="eye" th:src="@{/images/password-hide.png}" onclick="show()" id="showimg">
-				<!--    <span id="vaild-pass"></span> -->
-				
-				<input type="text" name="username" required placeholder="Username" id="user" autocomplete="off" />
-				<input type="text" name="username" required placeholder="Username" id="user" autocomplete="off" />
-				<div class="row">
-				<div class="col-4">
-				<button type="submit" class="login">SIGN IN</button>
-				
-				</div><div class="col-8 my-auto message">
-				<small><a class="text-white" href="#">Forgot your password?</a></small>
-				</div>
-				<small style="font-size: 13px;margin-top: 9px;" class="text-white">Don't have account?<a class="text-warning text-decoration-none" th:href="@{/register/company}" style="font-size: 13px;"> Create Company</a></small>
-				</div>
-				
-			</form>
+				<div class="alert col-11 py-1 text-center font-weight-bold" id="output" role="alert"></div>
+			</div>
+		</div>
+
+		<div class="d-flex justify-content-end">
+			<div class="form d-flex justify-content-end">
+				<form class="login-form submit-form" th:action="@{/login}" method="post">
+					<div class="row mb-2 text-center">
+						<div class="col-6">
+							<button type="button" class="my-0 py-0 btn btn-sm btn-primary text-white">Manual</button>
+						</div>
+						<div class="col-6">
+							<button type="button" class="my-0 py-0 btn btn-sm btn-danger text-white">Biometric</button>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center pt-2 logo-box">
+						<img width="100px" height="100px" th:src="@{/images/IGI_Logo.png}">
+					</div>
+					<input type="text" name="username" placeholder="Username" class="my-4" id="user" required />
+					<input oninput="return formvalid()" type="password" name="password" class="mb-3"
+						placeholder="Password" id="pass" required />
+					<img class="eye" th:src="@{/images/password-hide.png}" onclick="show()" id="showimg">
+
+					<div class="row text-center">
+						<div class="col-1"></div>
+						<div class="col-9 pb-2"><span id="captcha" class="mb-0 px-0 captcha"></span></div>
+						<div class="col-2 my-auto pb-2"><span id="refresh"
+								class="glyphicon glyphicon-refresh text-white"></span></div>
+					</div>
+					<div class="form-group d-flex justify-content-center mb-4">
+						<input type="text" class="form-control form-control-sm w-75" name="text" id="textBox"
+							placeholder="Enter Above Captcha here" />
+					</div>
+					<div class="row">
+						<div class="col-5">
+							<a id="submit" class="login text-decoration-none px-4" disabled>SIGN IN</a>
+						</div>
+						<div class="col-7">
+							<small><a class="text-white text-decoration-none" href="#">Forgot your password?</a></small>
+						</div>
+					</div>
+					<div class="text-center mt-3">
+						<small class="text-white">Don't have account?<a class="text-warning text-decoration-none"
+								th:href="@{/register/company}"> Create Company</a></small>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-
 	<footer class="text-center footer-bg"><span class="text-white"> 2023 &copy; All Rights Reserved. <a
 				href="https://ingroinfo.com/" class="m-link">
 				IngrOInfo
-			</a></span></footer>
-
+			</a></span>
+	</footer>
 	<script th:src="@{/js/login.js}"></script>
+	<script th:src="@{/js/captcha.js}"></script>
+	<script th:src="@{/js/window-timeout.js}"></script>
 </body>
 
 </html>
