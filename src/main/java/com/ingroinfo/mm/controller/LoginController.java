@@ -88,5 +88,17 @@ public class LoginController {
 
 		return "redirect:/login?success";
 	}
+	
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		
+		return "/access_denied";
+	}
+	
+	@GetMapping("/server-error")
+	public String serverError() {
+		
+		return "/server_error";
+	}
 
 }

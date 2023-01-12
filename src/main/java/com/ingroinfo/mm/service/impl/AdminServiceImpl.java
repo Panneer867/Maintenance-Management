@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
+import com.ingroinfo.mm.dao.PrivilegeRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
@@ -25,6 +26,7 @@ import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.Privilege;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
@@ -56,18 +58,13 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BranchRepository branchRepository;
+	
+	@Autowired
+	private PrivilegeRepository privilegeRepository;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
 		userRepository.save(user);
-	}
-	
-	@Override
-	public void admin(User user) {
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
-		user.setCompany(null);
-		user.setBranch(null);
-		register(user);
 	}
 
 	@Override
@@ -189,21 +186,17 @@ public class AdminServiceImpl implements AdminService {
 		branchRepository.deleteById(branchId);
 	}
 
-	
 	@Override
 	public boolean companyEmailCheck(CompanyDto companyDto) {
-		List<User> filteredListUser = userRepository.findAll().stream()
+
+		boolean isExistsUser = userRepository.findAll().stream()
 				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
-				.collect(Collectors.toList());
-
-		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getEmail().equals(companyDto.getEmail()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getEmail().equals(companyDto.getEmail()))
 				.findFirst().isPresent();
 
-		List<Company> filteredListCompany = companyRepository.findAll().stream()
-				.filter(x -> !companyDto.getCompanyId().equals(x.getCompanyId())).collect(Collectors.toList());
-
-		boolean isExistsCompany = filteredListCompany.stream().filter(o -> o.getEmail().equals(companyDto.getEmail()))
-				.findFirst().isPresent();
+		boolean isExistsCompany = companyRepository.findAll().stream()
+				.filter(x -> !companyDto.getCompanyId().equals(x.getCompanyId())).collect(Collectors.toList()).stream()
+				.filter(o -> o.getEmail().equals(companyDto.getEmail())).findFirst().isPresent();
 		return isExistsUser || isExistsCompany;
 	}
 
@@ -236,11 +229,10 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public boolean companyUsernameCheck(CompanyDto companyDto) {
-		List<User> filteredListUser = userRepository.findAll().stream()
-				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
-				.collect(Collectors.toList());
 
-		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getUsername().equals(companyDto.getUsername()))
+		boolean isExistsUser = userRepository.findAll().stream()
+				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getUsername().equals(companyDto.getUsername()))
 				.findFirst().isPresent();
 
 		return isExistsUser;
@@ -262,7 +254,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean branchUsernameExists(String username) {		
+	public boolean branchUsernameExists(String username) {
 		return userRepository.findByUsername(username) != null;
 	}
 
@@ -278,23 +270,25 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public boolean branchEmailCheck(BranchDto branchDto) {
-		List<User> filteredListUser = userRepository.findAll().stream()
-				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
-				.collect(Collectors.toList());
 
-		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getEmail().equals(branchDto.getEmail()))
+		boolean isExistsUser = userRepository.findAll().stream()
+				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getEmail().equals(branchDto.getEmail()))
 				.findFirst().isPresent();
 
-		return isExistsUser;
+		boolean isExistsBranch = branchRepository.findAll().stream()
+				.filter(x -> !branchDto.getCompanyId().equals(x.getBranchId())).collect(Collectors.toList()).stream()
+				.filter(o -> o.getEmail().equals(branchDto.getEmail())).findFirst().isPresent();
+
+		return isExistsUser || isExistsBranch;
 	}
 
 	@Override
 	public boolean branchUsernameCheck(BranchDto branchDto) {
-		List<User> filteredListUser = userRepository.findAll().stream()
-				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
-				.collect(Collectors.toList());
 
-		boolean isExistsUser = filteredListUser.stream().filter(o -> o.getUsername().equals(branchDto.getUsername()))
+		boolean isExistsUser = userRepository.findAll().stream()
+				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getUsername().equals(branchDto.getUsername()))
 				.findFirst().isPresent();
 
 		return isExistsUser;
@@ -314,7 +308,23 @@ public class AdminServiceImpl implements AdminService {
 			user.setPassword(this.passwordEncoder.encode(branchDto.getPassword()));
 			userRepository.save(user);
 		}
-		
 	}
+
+	@Override
+	public boolean userEmailExists(String email) {
+		return userRepository.findByEmail(email) != null;
+	}
+
+	@Override
+	public boolean userUsernameExists(String username) {
+		return userRepository.findByUsername(username) != null;
+	}
+
+	@Override
+	public List<Privilege> getAllRoles() {
+		
+		return privilegeRepository.findAll();
+	}
+
 	
 }

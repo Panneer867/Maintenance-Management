@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="crumb">
-							<div class="link"><a th:href="@{/admin/account/company/list}">Company Management</a></div>
+							<div class="link"><a th:href="@{/admin/company/list}">Company Management</a></div>
 						</li>
 
 						<li class="crumb active">
@@ -31,7 +31,7 @@
 
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
-							th:href="@{/admin/account/company/list}"><span
+							th:href="@{/admin/company/list}"><span
 								class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Company
 						</a>
@@ -55,7 +55,7 @@
 					<h4 class="mb-0">Edit Company</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/admin/account/company/edit/update}" th:object="${company}"
+					<form class="p-0 mb-0" th:action="@{/admin/company/edit/update}" th:object="${company}"
 						data-toggle="validator" method="post">
 						<div class="row">
 							<div class="col-9">
@@ -271,7 +271,7 @@
 		<div class="modal fade" id="editLogo" tabindex="-1" role="dialog" aria-labelledby="editLogo" aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 130px;">
 				<div class="modal-content">
-					<form th:action="@{/admin/account/company/edit/logo}" role="form" class="mb-0" method="post"
+					<form th:action="@{/admin/company/edit/logo}" role="form" class="mb-0" method="post"
 						enctype="multipart/form-data">
 						<div class="modal-header py-2">
 							<h5 class="modal-title" id="editModal">Change Logo</h5>

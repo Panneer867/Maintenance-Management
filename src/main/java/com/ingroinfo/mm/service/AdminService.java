@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.Privilege;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
@@ -21,8 +22,6 @@ public interface AdminService {
 	List<Bank> getAllBanks();
 	
 	String getState(String stateId);
-	
-	void admin(User user);
 
 	void registerCompany(User user);
 
@@ -71,4 +70,11 @@ public interface AdminService {
 	boolean branchUsernameCheck(BranchDto branchDto);
 
 	void updateUserBranch(BranchDto branchDto);
+
+	boolean userEmailExists(String email);
+
+	boolean userUsernameExists(String username);
+
+	List<Privilege> getAllRoles();
+
 }

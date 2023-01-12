@@ -46,13 +46,14 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/login","/admin","/get/**").permitAll()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/login","/admin","/access-denied","/server-error","/get/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
 				.loginPage("/login")
 				.defaultSuccessUrl("/home", true)
-				.failureUrl("/login?error=true")
+				.failureUrl("/login?error")
 				.and()
 				.logout()
 				.logoutUrl("/logout")

@@ -6,38 +6,51 @@
 			<h4 class="text-center bg-primary py-1 text-white heading-shadow">ADMIN PANEL</h4>
 			<div class="d-flex justify-content-center mt-5">
 				<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
 									<img class="category__02 w-100" th:src="@{/images/dashboard/Company.jpg}" alt="" />
 								</picture>
-								<a th:href="@{/admin/account/company/list}">
+								<a th:href="@{/admin/company/list}">
 									<p class="dash-category category__01">Company Management</p>
 								</a>
 							</article>
 						</div>
 					</div>
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
 									<img class="category__03 w-100" th:src="@{/images/dashboard/Branch.jpg}" alt="" />
 								</picture>
-								<a th:href="@{/admin/account/branch/list}">
+								<a th:href="@{/admin/branch/list}">
 									<p class="dash-category category__03">Branch Management</p>
 								</a>
 							</article>
 						</div>
 					</div>
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
 									<img class="category__03 w-100" th:src="@{/images/dashboard/Users.jpg}" alt="" />
 								</picture>
-								<a href="#">
+								<a th:href="@{/admin/user}">
 									<p class="dash-category category__04">User Mangement</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<img class="category__03 w-100" th:src="@{/images/dashboard/roles.jpg}"
+										alt="" />
+								</picture>
+								<a th:href="@{/admin/role}">
+									<p class="dash-category category__03">Role Master</p>
 								</a>
 							</article>
 						</div>
@@ -46,7 +59,7 @@
 			</div>
 			<div class="d-flex justify-content-center mt-5">
 				<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
@@ -59,7 +72,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
@@ -72,7 +85,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="col-4">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
@@ -81,6 +94,19 @@
 								</picture>
 								<a href="#">
 									<p class="dash-category category__01">Backup</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards ">
+							<article class="dash-card border-hide">
+								<picture class="thumbnail">
+
+									
+								</picture>
+								<a href="#">
+									
 								</a>
 							</article>
 						</div>

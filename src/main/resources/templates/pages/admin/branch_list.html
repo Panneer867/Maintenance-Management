@@ -29,7 +29,7 @@
 
 					<li class="nav-item" role="presentation">
 						
-							<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/account/branch}"
+							<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/branch}"
 							><span class="glyphicon glyphicon-plus pr-1"></span>
 							Create Branch
 						</a>
@@ -68,13 +68,13 @@
 						<td th:text="${branch.mobile}"></td>
 						<td th:text="${#dates.format(branch.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
 						<td>
-							<a th:href="@{'/admin/account/branch/edit/' + ${branch.branchId}}"
+							<a th:href="@{'/admin/branch/edit/' + ${branch.branchId}}"
 								class="btn btn-info p-1 mx-2" id="editCompany" data-bs-toggle="tooltip"
 										data-bs-placement="top" title="Edit Branch"><span class="glyphicon glyphicon-edit"></span></a>
-							<a th:href="@{'/admin/account/branch/view/' + ${branch.branchId}}" class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip"
+							<a th:href="@{'/admin/branch/view/' + ${branch.branchId}}" class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip"
 										data-bs-placement="top" title="View Branch"><span
 									class="glyphicon glyphicon-eye-open"></span></a>
-							<button th:onclick="|deleteId('/admin/account/branch/delete/?id=${branch.branchId}')|"
+							<button th:onclick="|deleteId('/admin/branch/delete/?id=${branch.branchId}')|"
 								class="btn btn-danger p-1 mx-2 edit-hsn" data-toggle="modal"
 								data-target="#delBranch" data-bs-toggle="tooltip"
 										data-bs-placement="top" title="Delete Branch"><span class="glyphicon glyphicon-trash"></span></button>

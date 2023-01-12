@@ -2,16 +2,50 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1" style="background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);"> 
-		Role Master
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Role Master
 		</h3>
-
-		<div class="col-9 mx-auto my-4">
-			<div class="card" style="background-color: rgb(213 245 255);">
-				<div class="card-header text-center bg-info text-white">
-					
+		<div class="row ">
+			<div class="col-6" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/home}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/user/list}">Role Master</a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Role Creation</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-6">
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">				
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/role/list}"><span
+								class="glyphicon glyphicon-th-list pr-1"></span>
+							Manage Roles
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-9 mx-auto my-2">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
 				</div>
-				<div class="card-body">
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h4 class="mb-0">User Creation</h4>
+				</div>
+				<div class="card-body font-weight-bold">
 					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
 						<div class="row">
 							<div class="col px-5">
@@ -20,7 +54,7 @@
 								<div class="form-group row">
 									<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Role Name</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" />
+										<input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()"/>
 									</div>
 								</div>
 							</div>
