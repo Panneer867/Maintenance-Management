@@ -17,7 +17,7 @@ submitButton.addEventListener('click', function() {
 		x[0].submit();
 	} else {
 		output.classList.add("alert-danger");
-		output.innerHTML = "Incorrect Captcha, Please try again";
+		output.innerHTML = "Invalid Captcha, Please try again";
 	}
 });
 
@@ -28,7 +28,7 @@ submitButton.addEventListener('keyup', function(e) {
 			x[0].submit();
 		} else {
 			output.classList.add("alert-danger");
-			output.innerHTML = "Incorrect, Please try again";
+			output.innerHTML = "Invalid, Please try again";
 		}
 	}
 });
@@ -40,7 +40,7 @@ userText.addEventListener('keyup', function(e) {
 			x[0].submit();
 		} else {
 			output.classList.add("alert-danger");
-			output.innerHTML = "Incorrect, Please try again";
+			output.innerHTML = "Invalid, Please try again";
 		}
 	}
 });

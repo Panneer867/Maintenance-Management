@@ -89,18 +89,4 @@ public class LoginController {
 		return "redirect:/login?success";
 	}
 
-	@GetMapping("/admin")
-	public String admin(Model model) {
-		return "/register";
-	}
-
-	@PostMapping("/admin")
-	public String signup(@RequestParam String username, @RequestParam String password) {
-
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		adminService.admin(user);
-		return "redirect:/login?success";
-	}
 }
