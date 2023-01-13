@@ -2,6 +2,8 @@ package com.ingroinfo.mm.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Privilege;
@@ -12,15 +14,17 @@ import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
 public interface AdminService {
-	
+
 	void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException;
-	
+
 	List<Object[]> getAllStates();
 
 	List<Object[]> getCitiesByState(Integer id);
 
 	List<Bank> getAllBanks();
-	
+
+	List<User> getAllUsers(String username);
+
 	String getState(String stateId);
 
 	void registerCompany(User user);
@@ -28,7 +32,7 @@ public interface AdminService {
 	void registerBranch(User user);
 
 	void registerUser(User user);
-	
+
 	Company saveCompany(Company company);
 
 	boolean companyEmailExists(String email);
@@ -77,6 +81,18 @@ public interface AdminService {
 
 	List<Privilege> getAllRoles();
 
+	Optional<Privilege> getRoleById(Long roleId);
+
 	void addRole(Privilege role);
+
+	void deleteRole(Long roleId);
+
+	boolean roleExists(String roleName);
+
+	boolean roleNameCheck(Privilege role);
+
+	void updateRole(Privilege privilege);
+
+	void deleteUser(Long userId);
 
 }

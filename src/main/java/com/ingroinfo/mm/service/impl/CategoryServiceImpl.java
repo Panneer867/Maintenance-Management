@@ -15,23 +15,23 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@Override
-	public CategoryDto saveCategory(CategoryDto categoryDto) {	
-		 Category category = this.modelMapper.map(categoryDto, Category.class);
-		 Category savedCategory = this.categoryRepository.save(category);
-		 return modelMapper.map(savedCategory,CategoryDto.class);
+	public CategoryDto saveCategory(CategoryDto categoryDto) {
+		Category category = this.modelMapper.map(categoryDto, Category.class);
+		Category savedCategory = this.categoryRepository.save(category);
+		return modelMapper.map(savedCategory, CategoryDto.class);
 	}
 
 	@Override
-	public List<CategoryDto> findAllCategory() {	
-		 List<Category> categories = this.categoryRepository.findAll();
-		 List<CategoryDto> categoryDtos = categories.stream().map((category)-> 
-		    this.modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
-		 return categoryDtos;
+	public List<CategoryDto> findAllCategory() {
+		List<Category> categories = this.categoryRepository.findAll();
+		List<CategoryDto> categoryDtos = categories.stream()
+				.map((category) -> this.modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
+		return categoryDtos;
 	}
 
 }

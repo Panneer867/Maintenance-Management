@@ -721,11 +721,10 @@ div.thumb:hover img {
 }
 
 .border-hide {
-	
-	box-shadow: none !important; border:none !important;
+	box-shadow: none !important;
+	border: none !important;
 }
 
 .list-unstyled {
 	margin-bottom: 0;
 }
-

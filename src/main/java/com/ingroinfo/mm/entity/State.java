@@ -1,5 +1,6 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +37,9 @@ public class State {
 	@OneToMany
 	@JoinColumn(name = "state_id")
 	private Set<City> cities;
+	
+	@CreationTimestamp
+	private Date dateCreated;
+	@UpdateTimestamp
+	private Date lastUpdated;
 }

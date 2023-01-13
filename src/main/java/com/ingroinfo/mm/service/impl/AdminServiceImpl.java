@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,12 +28,16 @@ import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Privilege;
+import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -177,7 +182,6 @@ public class AdminServiceImpl implements AdminService {
 			newBranch.setLastUpdated(branch.getLastUpdated());
 			return newBranch;
 		}).collect(Collectors.toList());
-
 		return branchDto;
 	}
 
@@ -197,6 +201,7 @@ public class AdminServiceImpl implements AdminService {
 		boolean isExistsCompany = companyRepository.findAll().stream()
 				.filter(x -> !companyDto.getCompanyId().equals(x.getCompanyId())).collect(Collectors.toList()).stream()
 				.filter(o -> o.getEmail().equals(companyDto.getEmail())).findFirst().isPresent();
+
 		return isExistsUser || isExistsCompany;
 	}
 
@@ -230,12 +235,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean companyUsernameCheck(CompanyDto companyDto) {
 
-		boolean isExistsUser = userRepository.findAll().stream()
+		return userRepository.findAll().stream()
 				.filter(x -> !companyRepository.findByCompanyId(companyDto.getCompanyId()).equals(x.getCompany()))
 				.collect(Collectors.toList()).stream().filter(o -> o.getUsername().equals(companyDto.getUsername()))
 				.findFirst().isPresent();
-
-		return isExistsUser;
 	}
 
 	@Override
@@ -286,12 +289,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean branchUsernameCheck(BranchDto branchDto) {
 
-		boolean isExistsUser = userRepository.findAll().stream()
+		return userRepository.findAll().stream()
 				.filter(x -> !branchRepository.findByBranchId(branchDto.getBranchId()).equals(x.getBranch()))
 				.collect(Collectors.toList()).stream().filter(o -> o.getUsername().equals(branchDto.getUsername()))
 				.findFirst().isPresent();
-
-		return isExistsUser;
 	}
 
 	@Override
@@ -322,19 +323,63 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Privilege> getAllRoles() {
-
 		return privilegeRepository.findAll();
 	}
 
 	@Override
 	public void addRole(Privilege role) {
 
-		Privilege privilege = privilegeRepository.findByName(role.getName());
+		privilegeRepository.save(role);
+		Privilege newRole = privilegeRepository.findByName(role.getName());
+		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
+		int result = jdbcTemplate.update(sql, adminRole.getId(), newRole.getId());
 
-		if (privilege == null) {
-			privilegeRepository.save(role);
+		if (result > 0) {
+			System.out.println("Insert successfully.");
 		}
+	}
 
+	@Override
+	public void updateRole(Privilege privilege) {
+		privilegeRepository.save(privilege);
+	}
+
+	@Override
+	public void deleteRole(Long roleId) {
+		privilegeRepository.deleteById(roleId);
+	}
+
+	@Override
+	public Optional<Privilege> getRoleById(Long roleId) {
+
+		return privilegeRepository.findById(roleId);
+	}
+
+	@Override
+	public boolean roleExists(String roleName) {
+
+		return privilegeRepository.findByName(roleName) != null;
+	}
+
+	@Override
+	public boolean roleNameCheck(Privilege role) {
+
+		return privilegeRepository.findAll().stream().filter(x -> !role.getId().equals(x.getId()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getName().equals(role.getName().trim()))
+				.findFirst().isPresent();
+	}
+
+	@Override
+	public List<User> getAllUsers(String username) {
+		return userRepository.findAll().stream().filter(x -> !username.equalsIgnoreCase(x.getUsername()))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void deleteUser(Long userId) {
+		userRepository.deleteById(userId);
+		
 	}
 
 }

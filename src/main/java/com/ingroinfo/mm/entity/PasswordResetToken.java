@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +34,11 @@ public class PasswordResetToken {
 	private User user;
 
 	private Date expiryDate;
+	
+	@CreationTimestamp
+	private Date dateCreated;
+	@UpdateTimestamp
+	private Date lastUpdated;
 
 	public PasswordResetToken() {
 		super();

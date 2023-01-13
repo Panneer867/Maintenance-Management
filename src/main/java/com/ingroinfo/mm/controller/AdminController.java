@@ -281,10 +281,9 @@ public class AdminController {
 		model.addAttribute("roles", adminService.getAllRoles());
 		return "/pages/admin/create_user";
 	}
-	
+
 	@PostMapping("/user/register")
-	public String createUser(@ModelAttribute("user") UserDto userDto, HttpSession session,
-			Principal principal) {
+	public String createUser(@ModelAttribute("user") UserDto userDto, HttpSession session, Principal principal) {
 		if (adminService.userEmailExists(userDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
@@ -305,21 +304,70 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/list")
-	public String userList() {
+	public String userList(Model model,Principal principal) {
+	
+		model.addAttribute("user", new UserDto());
+		model.addAttribute("branches", adminService.getAllBranches());
+		model.addAttribute("companies", adminService.getAllCompanies());
+		model.addAttribute("roles", adminService.getAllRoles());
+		model.addAttribute("users", adminService.getAllUsers("Admin"));
 		return "/pages/admin/users_list";
+	}
+	
+	@GetMapping("/user/delete")
+	public String deleteUser(@RequestParam("id") Long userId, HttpSession session) {
+		adminService.deleteUser(userId);
+		session.setAttribute("message", new Message("User has been deleted successfully !!", "success"));
+		return "redirect:/admin/user/list";
+
 	}
 
 	@GetMapping("/role")
 	public String userRoles(Model model) {
 		model.addAttribute("role", new Privilege());
-		return "/pages/admin/roles_master";
+		return "/pages/admin/create_role";
 	}
-	
-	@PostMapping("/role/add")
+
+	@PostMapping("/role/register")
 	public String addRoles(@ModelAttribute("role") Privilege role, HttpSession session) {
+
+		if (adminService.roleExists(role.getName().trim())) {
+			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
+			return "redirect:/admin/role";
+		}
+		role.setName(role.getName().trim().replaceAll("\\s+", "_"));
 		adminService.addRole(role);
-		session.setAttribute("message", new Message("Role has been successfully Created!!", "success"));
+		session.setAttribute("message", new Message("Role has been successfully created!!", "success"));
 		return "redirect:/admin/role";
+	}
+
+	@GetMapping("/role/delete")
+	public String deleteRole(@RequestParam("id") Long roleId, HttpSession session) {
+		adminService.deleteRole(roleId);
+		session.setAttribute("message", new Message("Role has been deleted successfully !!", "success"));
+		return "redirect:/admin/role/list";
+
+	}
+
+	@GetMapping("/role/list")
+	public String rolesList(Model model) {
+		model.addAttribute("role", new Privilege());
+		model.addAttribute("roles", adminService.getAllRoles());
+		return "/pages/admin/roles_list";
+	}
+
+	@PostMapping("/role/update")
+	public String updateRoles(@ModelAttribute("role") Privilege role, HttpSession session) {
+		if (adminService.roleNameCheck(role)) {
+			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
+			return "redirect:/admin/role/list";
+		}
+		Optional<Privilege> oldRole = adminService.getRoleById(role.getId());
+		oldRole.get().setName(role.getName().trim().replaceAll("\\s+", "_"));
+		oldRole.get().setDescription(role.getDescription());
+		adminService.updateRole(oldRole.get());
+		session.setAttribute("message", new Message("Role has been updated successfully !", "success"));
+		return "redirect:/admin/role/list";
 	}
 
 	@GetMapping("/user/role/master")

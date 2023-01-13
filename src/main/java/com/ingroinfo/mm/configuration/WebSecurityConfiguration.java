@@ -47,7 +47,7 @@ public class WebSecurityConfiguration {
 
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/login","/admin","/access-denied","/server-error","/get/**").permitAll()
+				.antMatchers("/login","/admin","/register/company","/access-denied","/server-error","/get/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()

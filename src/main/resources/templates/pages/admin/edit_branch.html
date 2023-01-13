@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="crumb">
-							<div class="link"><a th:href="@{/admin/account/branch/list}">Branch Management</a></div>
+							<div class="link"><a th:href="@{/admin/branch/list}">Branch Management</a></div>
 						</li>
 
 						<li class="crumb active">
@@ -31,7 +31,7 @@
 
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
-							th:href="@{/admin/account/branch/list}"><span
+							th:href="@{/admin/branch/list}"><span
 								class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Branch
 						</a>
@@ -55,7 +55,7 @@
 					<h4 class="mb-0">Edit Branch</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/admin/account/branch/edit/update}" th:object="${branch}"
+					<form class="p-0 mb-0" th:action="@{/admin/branch/edit/update}" th:object="${branch}"
 						data-toggle="validator" method="post">
 						<div class="row">
 							<div class="col-6">
