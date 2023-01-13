@@ -24,13 +24,15 @@ public class Privilege {
 	private Long id;
 
 	private String name;
+	private String description;
 
 	@ManyToMany(mappedBy = "privileges")
 	private Collection<Role> roles;
 
-	public Privilege(String name) {
+	public Privilege(String name, String description) {
 		super();
 		this.name = name;
+		this.description = description;
 	}
 
 }

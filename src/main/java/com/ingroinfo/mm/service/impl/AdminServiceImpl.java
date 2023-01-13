@@ -58,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BranchRepository branchRepository;
-	
+
 	@Autowired
 	private PrivilegeRepository privilegeRepository;
 
@@ -322,9 +322,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Privilege> getAllRoles() {
-		
+
 		return privilegeRepository.findAll();
 	}
 
-	
+	@Override
+	public void addRole(Privilege role) {
+
+		Privilege privilege = privilegeRepository.findByName(role.getName());
+
+		if (privilege == null) {
+			privilegeRepository.save(role);
+		}
+
+	}
+
 }

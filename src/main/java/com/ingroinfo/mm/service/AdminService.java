@@ -77,4 +77,6 @@ public interface AdminService {
 
 	List<Privilege> getAllRoles();
 
+	void addRole(Privilege role);
+
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.Privilege;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
@@ -309,8 +310,16 @@ public class AdminController {
 	}
 
 	@GetMapping("/role")
-	public String userRoles() {
+	public String userRoles(Model model) {
+		model.addAttribute("role", new Privilege());
 		return "/pages/admin/roles_master";
+	}
+	
+	@PostMapping("/role/add")
+	public String addRoles(@ModelAttribute("role") Privilege role, HttpSession session) {
+		adminService.addRole(role);
+		session.setAttribute("message", new Message("Role has been successfully Created!!", "success"));
+		return "redirect:/admin/role";
 	}
 
 	@GetMapping("/user/role/master")
