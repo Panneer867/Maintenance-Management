@@ -23,7 +23,7 @@ public interface AdminService {
 
 	List<Bank> getAllBanks();
 
-	List<User> getAllUsers(String username);
+	List<User> getAllUsers();
 
 	String getState(String stateId);
 
@@ -31,7 +31,7 @@ public interface AdminService {
 
 	void registerBranch(User user);
 
-	void registerUser(User user);
+	void registerUser(User user, Long roleId);
 
 	Company saveCompany(Company company);
 

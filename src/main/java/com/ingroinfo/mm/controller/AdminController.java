@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +81,7 @@ public class AdminController {
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
+		if(company.getEnableApp().length() == 0) {company.setEnableApp("off");}
 		user.setName(company.getCompanyName());
 
 		if (companyDto.getNoOfBranch().length() == 0) {
@@ -298,22 +298,22 @@ public class AdminController {
 		User user = modelMapper.map(userDto, User.class);
 		user.setCompany(adminService.getCompany(userDto.getCompanyId()));
 		user.setBranch(adminService.getBranch(userDto.getBranchId()));
-		adminService.registerUser(user);
+		adminService.registerUser(user, userDto.getRoleId());
 		session.setAttribute("message", new Message("User has been successfully Created!!", "success"));
 		return "redirect:/admin/user";
 	}
 
 	@GetMapping("/user/list")
-	public String userList(Model model,Principal principal) {
-	
+	public String userList(Model model, Principal principal) {
+
 		model.addAttribute("user", new UserDto());
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
-		model.addAttribute("users", adminService.getAllUsers("Admin"));
+		model.addAttribute("users", adminService.getAllUsers());
 		return "/pages/admin/users_list";
 	}
-	
+
 	@GetMapping("/user/delete")
 	public String deleteUser(@RequestParam("id") Long userId, HttpSession session) {
 		adminService.deleteUser(userId);

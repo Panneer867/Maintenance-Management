@@ -71,6 +71,7 @@ public class LoginController {
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
+		if(company.getEnableApp().length() == 0) {company.setEnableApp("off");}
 		user.setName(company.getCompanyName());
 
 		if (companyDto.getNoOfBranch().length() == 0) {

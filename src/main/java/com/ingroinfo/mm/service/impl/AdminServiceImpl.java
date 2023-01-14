@@ -76,18 +76,25 @@ public class AdminServiceImpl implements AdminService {
 	public void registerCompany(User user) {
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_COMPANY")));
 		user.setBranch(null);
+		user.setUserType("C");
 		register(user);
 	}
 
 	@Override
 	public void registerBranch(User user) {
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_BRANCH")));
+		user.setUserType("B");
 		register(user);
 	}
 
 	@Override
-	public void registerUser(User user) {
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+	public void registerUser(User user, Long roleId) {
+		Role userRole = roleRepository.findByName("ROLE_USER");
+		user.setRoles(Arrays.asList(userRole));
+		user.setUserType("U");
+		user.setUserRole(privilegeRepository.findById(roleId).get().getName());
+		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
+		jdbcTemplate.update(sql, userRole.getId(), roleId);
 		register(user);
 	}
 
@@ -333,11 +340,7 @@ public class AdminServiceImpl implements AdminService {
 		Privilege newRole = privilegeRepository.findByName(role.getName());
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
-		int result = jdbcTemplate.update(sql, adminRole.getId(), newRole.getId());
-
-		if (result > 0) {
-			System.out.println("Insert successfully.");
-		}
+		jdbcTemplate.update(sql, adminRole.getId(), newRole.getId());
 	}
 
 	@Override
@@ -371,15 +374,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<User> getAllUsers(String username) {
-		return userRepository.findAll().stream().filter(x -> !username.equalsIgnoreCase(x.getUsername()))
+	public List<User> getAllUsers() {
+		String admin = "A";
+		String branch = "B";
+		String company = "C";
+
+		return userRepository.findAll().stream().filter(x -> !admin.equalsIgnoreCase(x.getUserType()))
+				.collect(Collectors.toList()).stream().filter(x -> !branch.equalsIgnoreCase(x.getUserType()))
+				.collect(Collectors.toList()).stream().filter(x -> !company.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public void deleteUser(Long userId) {
 		userRepository.deleteById(userId);
-		
+
 	}
 
 }

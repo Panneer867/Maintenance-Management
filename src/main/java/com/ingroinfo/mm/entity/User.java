@@ -36,12 +36,15 @@ public class User {
 	private String password;
 	private String email;
 	private String mobile;
+	private String userType;
+	private String designation;
+	private String userRole;
 	private String remarks;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "branch_id")
 	private Branch branch;
