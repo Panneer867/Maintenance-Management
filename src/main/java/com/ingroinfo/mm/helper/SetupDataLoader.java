@@ -482,11 +482,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Transactional
-	Privilege createPrivilegeIfNotFound(int pageno, String name, String httpMethod) {
+	Privilege createPrivilegeIfNotFound(int pageNo, String name, String httpMethod) {
 
 		Privilege privilege = privilegeRepository.findByName(name);
 		if (privilege == null) {
-			privilege = new Privilege(pageno, name, httpMethod);
+			privilege = new Privilege(pageNo, name, httpMethod);
 			privilegeRepository.save(privilege);
 		}
 		return privilege;

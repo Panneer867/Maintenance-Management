@@ -42,7 +42,7 @@ public class Role {
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH)
-	@JoinTable(name = "role_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+	@JoinTable(name = "role_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "page_no", referencedColumnName = "pageNo"))
 	private Collection<Privilege> privileges;
 
 	public Role(String name, String description) {

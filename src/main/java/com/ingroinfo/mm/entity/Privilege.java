@@ -19,18 +19,16 @@ import lombok.Setter;
 public class Privilege {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int pageNo;
 	private String name;	
-	private int pageno;
 	private String httpMethod;
 
 	@ManyToMany(mappedBy = "privileges")
 	private Collection<Role> roles;
 
-	public Privilege(int pageno,String name,String httpMethod) {
+	public Privilege(int pageNo,String name,String httpMethod) {
 		super();
-		this.pageno = pageno;
+		this.pageNo = pageNo;
 		this.name = name;
 		this.httpMethod = httpMethod;
 	}

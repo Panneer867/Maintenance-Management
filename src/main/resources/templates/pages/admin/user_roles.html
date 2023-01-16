@@ -7,64 +7,116 @@
 			Text Notification)
 		</h3>
 
-		<div class="col-9 mx-auto my-4">
-			<div class="card" style="background-color: rgb(213 245 255);">
-				<div class="card-header text-center bg-info text-white">
-
+		<div class="row mt-2">
+			<div class="col-6" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/home}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">User Roles</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		
+		
+		<div class="col-11 mx-auto my-auto">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
 				</div>
-				<div class="card-body">
-					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
-						<div class="row">
-							<div class="col px-5">
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
 
-								<table class="table table-borderless" style="font-size: 12px;">
-									<thead class="table-primary">
-										<tr class="text-uppercase" style="font-weight: bold;">
-											<th>Modules</th>
-											<th>User Access</th>
-											<th>SMS</th>
-											<th>Email</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="py-4">Task Update</td>
-
-											<td><select class="form-select col-8">
-													<option value="NO" selected>NO</option>
-													<option value="YES" >YES</option>
-													
-												</select></td>
-											<td>
-												<div class="form-check">
-													<input class="form-check-input my_checkbox" type="checkbox" value=""
-														id="flexCheckDefault">
-
-												</div>
-											</td>
-											<td class="justify-content-center">
-												<div class="form-check">
-													<input class="form-check-input my_checkbox" type="checkbox" value=""
-														id="flexCheckDefault">
-
-												</div>
-											</td>
-
-										</tr>
-										
-									</tbody>
-								</table>
-							</div>
-
-						</div>
-						<div class="row mt-2">
-							<div class="col-12 text-center">
-								<button type="submit" class="btn btn-success btn-sm">Submit</button>
-								<button type="reset" class="btn btn-secondary btn-sm">Reset</button>
-							</div>
-						</div>
-
-					</form>
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h4 class="mb-0">User Roles</h4>
+				</div>
+				<div class="card-body font-weight-bold">
+					<div class="tree_main">
+                <ul id="bs_main" class="main_ul">
+                    <li id="bs_1">
+                        <span class="plus">&nbsp;</span>
+                        <input type="checkbox" id="c_bs_1" />
+                        <span>Main Level 1 </span>
+                        <ul id="bs_l_1" class="sub_ul" style="display: none">
+                            <li id="bf_1">
+                                <span class="plus">&nbsp;</span>
+                                <input type="checkbox" id="c_bf_1" />
+                                <span>Sub Level 1 </span>
+                                <ul id="bf_l_1" style="display: none" class="inner_ul">
+                                    <li id="io_1">
+                                        <input type="checkbox" id="c_io_1" /><span>Last Level 1 </span></li>
+                                    <li id="io_2">
+                                        <input type="checkbox" id="c_io_2" /><span>Last Level 2 </span></li>
+                                    <li id="io_3">
+                                        <input type="checkbox" id="c_io_3" /><span>Last Level 3 </span></li>
+                                    <li id="io_4">
+                                        <input type="checkbox" id="c_io_4" /><span>Last Level 4 </span></li>
+                                </ul>
+                            </li>
+                            <li id="bf_2">
+                                <span class="plus">&nbsp;</span>
+                                <input type="checkbox" id="c_bf_2" />
+                                <span>Sub Level 2</span>
+                                <ul id="bf_l_2" style="display: none" class="inner_ul">
+                                    <li id="io_5">
+                                        <input type="checkbox" id="c_io_5" /><span>Last Level 5 </span></li>
+                                    <li id="io_6">
+                                        <input type="checkbox" id="c_io_6" /><span>Last Level 6 </span></li>
+                                    <li id="io_7">
+                                        <input type="checkbox" id="c_io_7" /><span>Last Level 7 </span></li>
+                                    <li id="io_8">
+                                        <input type="checkbox" id="c_io_8" /><span>Last Level 8 </span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="bs_2">
+                        <span class="plus">&nbsp;</span>
+                        <input type="checkbox" id="c_bs_2" />
+                        <span>Main Level 2 </span>
+                        <ul id="bs_l_2" style="display: none" class="sub_ul">
+                            <li id="bf_3">
+                                <span class="plus">&nbsp;</span>
+                                <input type="checkbox" id="c_bf_3" />
+                                <span>Sub Level 3 </span>
+                                <ul id="bf_l_3" style="display: none" class="inner_ul">
+                                    <li id="io_9">
+                                        <input type="checkbox" id="c_io_9" /><span>Last Level 9 </span></li>
+                                    <li id="io_10">
+                                        <input type="checkbox" id="c_io_10" /><span>Last Level 10 </span></li>
+                                    <li id="io_11">
+                                        <input type="checkbox" id="c_io_11" /><span>Last Level 11 </span></li>
+                                    <li id="io_12">
+                                        <input type="checkbox" id="c_io_12" /><span>Last Level 12 </span></li>
+                                </ul>
+                            </li>
+                            <li id="bf_4">
+                                <span class="plus">&nbsp;</span>
+                                <input type="checkbox" id="c_bf_4" />
+                                <span>Sub Level 4 </span>
+                                <ul id="bf_l_4" style="display: none" class="inner_ul">
+                                    <li id="io_13">
+                                        <input type="checkbox" id="c_io_13" /><span>Last Level 13 </span></li>
+                                    <li id="io_14">
+                                        <input type="checkbox" id="c_io_14" /><span>Last Level 14 </span></li>
+                                    <li id="io_15">
+                                        <input type="checkbox" id="c_io_15" /><span>Last Level 15 </span></li>
+                                    <li id="io_16">
+                                        <input type="checkbox" id="c_io_16" /><span>Last Level 16 </span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 				</div>
 			</div>
 		</div>

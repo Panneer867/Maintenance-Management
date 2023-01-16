@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void registerUser(User user, Long roleId) {
-		Role userRole = roleRepository.findByName("ROLE_USER");
+		Role userRole = roleRepository.findById(roleId).get();
 		user.setRoles(Arrays.asList(userRole));
 		user.setUserType("U");
 		register(user);

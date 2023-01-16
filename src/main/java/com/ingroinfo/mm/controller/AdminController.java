@@ -296,14 +296,16 @@ public class AdminController {
 
 	@PostMapping("/user/register")
 	public String createUser(@ModelAttribute("user") UserDto userDto, HttpSession session, Principal principal) {
-		if (adminService.userEmailExists(userDto.getEmail())) {
-			session.setAttribute("message",
-					new Message("Email is already associated with another account !", "danger"));
-			return "redirect:/admin/user";
-		}
+		
 		if (adminService.userUsernameExists(userDto.getUsername())) {
 			session.setAttribute("message",
 					new Message("Username is already associated with another account !", "danger"));
+			return "redirect:/admin/user";
+		}
+		
+		if (adminService.userEmailExists(userDto.getEmail())) {
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
 			return "redirect:/admin/user";
 		}
 

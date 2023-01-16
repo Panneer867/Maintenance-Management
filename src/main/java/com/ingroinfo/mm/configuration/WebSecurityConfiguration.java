@@ -2,9 +2,6 @@ package com.ingroinfo.mm.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.access.method.MethodSecurityMetadataSource;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-
 import com.ingroinfo.mm.service.MyUserDetailsService;
 
 @Configuration
@@ -51,7 +46,7 @@ public class WebSecurityConfiguration {
 
 		http.csrf().disable().authorizeRequests()
 				// .antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/login", "/admin", "/register/company", "/swagger-ui/**", "/access-denied",
+				.antMatchers("/login", "/admin", "/register/company", "/access-denied",
 						"/server-error", "/get/**")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/home", true).failureUrl("/login?error").and().logout().logoutUrl("/logout")
