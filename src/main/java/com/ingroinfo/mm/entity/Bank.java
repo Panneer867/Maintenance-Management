@@ -8,11 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +17,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "bank")
 public class Bank {
@@ -36,4 +32,11 @@ public class Bank {
 	private Date dateCreated;
 	@UpdateTimestamp
 	private Date lastUpdated;
+	
+	public Bank(String name) {
+		super();
+		this.name = name;
+	}
+	
+	
 }

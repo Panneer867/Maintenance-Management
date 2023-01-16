@@ -28,6 +28,7 @@ public class InwardItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long itemId;
+	
 	private Long slNo;
 	private String itemName;
 	private String materialImage;

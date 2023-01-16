@@ -8,4 +8,6 @@ import com.ingroinfo.mm.entity.Bank;
 @Repository
 public interface BankRepository extends JpaRepository<Bank, Integer> {
 
+	Bank findByName(String bankName);
+
 }

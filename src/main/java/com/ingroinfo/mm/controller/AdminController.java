@@ -370,7 +370,7 @@ public class AdminController {
 		return "redirect:/admin/role/list";
 	}
 
-	@GetMapping("/user/role/master")
+	@GetMapping("/user/roles")
 	public String roleMaster() {
 		return "/pages/admin/user_roles";
 	}

@@ -18,9 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
+import com.ingroinfo.mm.dao.ModuleEndpointsRepository;
 import com.ingroinfo.mm.dao.PrivilegeRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
+import com.ingroinfo.mm.dao.UserAccesssRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
@@ -31,6 +33,7 @@ import com.ingroinfo.mm.entity.Privilege;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.entity.UserAccess;
 import com.ingroinfo.mm.service.AdminService;
 
 @Service
@@ -41,6 +44,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserAccesssRepository userAccessRepository;
 
 	public String getEncodedPassword(String password) {
 		return passwordEncoder.encode(password);
@@ -66,6 +72,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private PrivilegeRepository privilegeRepository;
+	
+	@Autowired
+	private ModuleEndpointsRepository moduleEndpointsRepository;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
@@ -96,6 +105,14 @@ public class AdminServiceImpl implements AdminService {
 		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
 		jdbcTemplate.update(sql, userRole.getId(), roleId);
 		register(user);
+		
+		User createdUser = userRepository.findByUsername(user.getUsername());
+		UserAccess userAccess = new UserAccess();
+		moduleEndpointsRepository.findAll();
+		userAccess.setModuleEndpoints(null);
+			userAccessRepository.save(userAccess);
+		
+	
 	}
 
 	@Override
@@ -388,7 +405,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteUser(Long userId) {
 		userRepository.deleteById(userId);
-
 	}
 
 }

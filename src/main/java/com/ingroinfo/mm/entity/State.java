@@ -10,11 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +19,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "state")
 public class State {
@@ -42,4 +38,12 @@ public class State {
 	private Date dateCreated;
 	@UpdateTimestamp
 	private Date lastUpdated;
+	
+	public State(String name) {
+		super();
+		this.name = name;
+	}
+	
+	
+	
 }
