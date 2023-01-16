@@ -1,21 +1,23 @@
 package com.ingroinfo.mm.helper;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.CityRepository;
-import com.ingroinfo.mm.dao.ModuleEndpointsRepository;
+import com.ingroinfo.mm.dao.PrivilegeRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.City;
-import com.ingroinfo.mm.entity.ModuleEndpoints;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
+import com.ingroinfo.mm.entity.Privilege;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -24,10 +26,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 	@Autowired
 	private RoleRepository roleRepository;
-
-	@Autowired
-	private ModuleEndpointsRepository moduleEndpointsRepository;
-
+	
 	@Autowired
 	private StateRepository stateRepository;
 
@@ -37,20 +36,35 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	@Autowired
 	private BankRepository bankRepository;
 
+	@Autowired
+	private PrivilegeRepository privilegeRepository;
+
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (alreadySetup)
 			return;
 
-		/* Roles */	
-		
-		createRoleIfNotFound("ROLE_ADMIN");
-		createRoleIfNotFound("ROLE_COMPANY");
-		createRoleIfNotFound("ROLE_BRANCH");
-		createRoleIfNotFound("ROLE_USER");
+		/* Privileges */
 
-		/* States */	
+		Privilege a = createPrivilegeIfNotFound(300, "/admin/home", "GET");
+		Privilege b = createPrivilegeIfNotFound(301, "/admin/company/list", "GET");
+		Privilege c = createPrivilegeIfNotFound(302, "/admin/company", "GET");
+		Privilege d = createPrivilegeIfNotFound(303, "/admin/company/register", "POST");
+		Privilege e = createPrivilegeIfNotFound(304, "/admin/company/view/id", "GET");
+		Privilege f = createPrivilegeIfNotFound(305, "/admin/company/edit/id", "GET");
+		Privilege g = createPrivilegeIfNotFound(306, "/admin/company/edit/update", "POST");
+		Privilege h = createPrivilegeIfNotFound(307, "/admin/company/edit/logo", "POST");
+		Privilege i = createPrivilegeIfNotFound(308, "/admin/company/delete", "GET");
+		List<Privilege> ownerPrivileges = Arrays.asList(a,b,c,d,e,f,g,h,i);
 		
+		/* Roles */
+
+		createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
+		createRoleIfNotFound("ROLE_COMPANY", "This is Company level access", Arrays.asList(a,b,c,d,e,f,g,h,i));
+		createRoleIfNotFound("ROLE_BRANCH", "This is branch level access", null);
+
+		/* States */
+
 		statesIfNotFound("ANDAMAN & NICOBAR ISLANDS");
 		statesIfNotFound("ANDHRA PRADESH");
 		statesIfNotFound("ASSAM");
@@ -86,8 +100,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		statesIfNotFound("UTTARANCHAL");
 		statesIfNotFound("WEST BENGAL");
 
-		/* Cities */	
-		
+		/* Cities */
+
 		citiesIfNotFound("AGARTALA", 28);
 		citiesIfNotFound("AGRA", 31);
 		citiesIfNotFound("AHMEDABAD", 8);
@@ -427,9 +441,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		citiesIfNotFound("YAMUNOTRI", 33);
 		citiesIfNotFound("YERCAUD", 27);
 		citiesIfNotFound("YUKSOM", 26);
-		
-		/* Banks */	
-			
+
+		/* Banks */
+
 		banksIfNotFound("AXIS BANK LTD");
 		banksIfNotFound("BANDHAN BANK LTD");
 		banksIfNotFound("BANK OF BARODA");
@@ -463,42 +477,31 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		banksIfNotFound("UCO BANK");
 		banksIfNotFound("UNION BANK OF INDIA");
 		banksIfNotFound("YES BANK LTD");
-		
-		/* Endpoints */	
-				
-		moduleEndpointsIfNotFound(300, "/admin/home","GET");		
-		moduleEndpointsIfNotFound(301, "/admin/company/list","GET");
-		moduleEndpointsIfNotFound(302, "/admin/company","GET");
-		moduleEndpointsIfNotFound(303, "/admin/company/register","POST");
-		moduleEndpointsIfNotFound(304, "/admin/company/view/**","GET");
-		moduleEndpointsIfNotFound(305, "/admin/company/edit/**","GET");		
-		moduleEndpointsIfNotFound(306, "/admin/company/edit/update","POST");
-		moduleEndpointsIfNotFound(307, "/admin/company/edit/logo","POST");
-		moduleEndpointsIfNotFound(308, "/admin/company/delete","GET");
-		
+
 		alreadySetup = true;
 	}
 
 	@Transactional
-	Role createRoleIfNotFound(String name) {
+	Privilege createPrivilegeIfNotFound(int pageno, String name, String httpMethod) {
 
-		Role role = roleRepository.findByName(name);
-		if (role == null) {
-			role = new Role(name);
-			roleRepository.save(role);
+		Privilege privilege = privilegeRepository.findByName(name);
+		if (privilege == null) {
+			privilege = new Privilege(pageno, name, httpMethod);
+			privilegeRepository.save(privilege);
 		}
-		return role;
+		return privilege;
 	}
 
 	@Transactional
-	void moduleEndpointsIfNotFound(Integer pageno, String endpoint, String httpMethod) {
+	Role createRoleIfNotFound(String name, String description, Collection<Privilege> privileges) {
 
-		ModuleEndpoints endpoints = moduleEndpointsRepository.findByEndpoint(endpoint);
-		if (endpoints == null) {
-			endpoints = new ModuleEndpoints(pageno, endpoint, httpMethod);
-			moduleEndpointsRepository.save(endpoints);
+		Role role = roleRepository.findByName(name);
+		if (role == null) {
+			role = new Role(name, description);
+			role.setPrivileges(privileges);
+			roleRepository.save(role);
 		}
-
+		return role;
 	}
 
 	@Transactional
@@ -508,9 +511,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		if (state == null) {
 			state = new State(stateName);
 			stateRepository.save(state);
-
 		}
-
 	}
 
 	@Transactional
@@ -522,7 +523,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			city = new City(cityName, getState);
 			cityRepository.save(city);
 		}
-
 	}
 
 	@Transactional
@@ -533,7 +533,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			bank = new Bank(bankName);
 			bankRepository.save(bank);
 		}
-
 	}
 
 }

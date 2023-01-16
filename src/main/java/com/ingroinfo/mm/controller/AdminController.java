@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.Privilege;
+import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
@@ -40,14 +41,16 @@ public class AdminController {
 	private AdminService adminService;
 
 	private static final ModelMapper modelMapper = new ModelMapper();
-
+  
 	@GetMapping("/home")
+	@PreAuthorize("hasAuthority('/admin/home')")
 	public String adminHome(Model model) {
 		model.addAttribute("title", "Admin | Maintenance Mangement");
 		return "/pages/admin/home";
 	}
 
 	@GetMapping("/company")
+	@PreAuthorize("hasAuthority('/admin/company')")
 	public String createCompany(Model model) {
 		model.addAttribute("title", "New Company | Maintenance Mangement");
 		model.addAttribute("company", new CompanyDto());
@@ -56,6 +59,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/company/register")
+	@PreAuthorize("hasAuthority('/admin/company/register')")
 	public String createCompany(@RequestParam("logo") MultipartFile file,
 			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, HttpSession session) {
 
@@ -81,7 +85,9 @@ public class AdminController {
 		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
-		if(company.getEnableApp().length() == 0) {company.setEnableApp("off");}
+		if (company.getEnableApp().length() == 0) {
+			company.setEnableApp("off");
+		}
 		user.setName(company.getCompanyName());
 
 		if (companyDto.getNoOfBranch().length() == 0) {
@@ -100,27 +106,31 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/list")
+	@PreAuthorize("hasAuthority('/admin/company/list')")
 	public String companyList(Model model) {
 		model.addAttribute("companies", adminService.getAllCompanies());
 		return "/pages/admin/company_list";
 	}
 
 	@GetMapping("/company/edit/{id}")
+	@PreAuthorize("hasAuthority('/admin/company/edit/id')")
 	public String companyEdit(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("companyDetails", adminService.getCompany(id));
+		model.addAttribute("companyDetails", adminService.getCompanyById(id));
 		model.addAttribute("company", new CompanyDto());
-		model.addAttribute("user", adminService.getUser(adminService.getCompany(id).getEmail()));
+		model.addAttribute("user", adminService.getUserByEmail(adminService.getCompanyById(id).getEmail()));
 		return "/pages/admin/edit_company";
 	}
 
 	@GetMapping("/company/view/{id}")
+	@PreAuthorize("hasAuthority('/admin/company/view/id')")
 	public String companyView(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("companyDetails", adminService.getCompany(id));
-		model.addAttribute("user", adminService.getUser(adminService.getCompany(id).getEmail()));
+		model.addAttribute("companyDetails", adminService.getCompanyById(id));
+		model.addAttribute("user", adminService.getUserByEmail(adminService.getCompanyById(id).getEmail()));
 		return "/pages/admin/view_company";
 	}
 
 	@PostMapping("/company/edit/update")
+	@PreAuthorize("hasAuthority('/admin/company/edit/update')")
 	public String companyUpdate(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult,
 			HttpSession session, Principal principal) throws IOException {
 		if (adminService.companyEmailCheck(companyDto)) {
@@ -134,7 +144,7 @@ public class AdminController {
 					new Message("Username is already associated with another account !", "danger"));
 			return "redirect:/admin/company/edit/" + companyDto.getCompanyId();
 		}
-		Company company = adminService.getCompany(companyDto.getCompanyId());
+		Company company = adminService.getCompanyById(companyDto.getCompanyId());
 		String oldfolder = "C:\\Company\\" + company.getCompanyName() + "\\";
 		File files = new File(oldfolder);
 		mapper.modelMapper().map(companyDto, company);
@@ -145,15 +155,16 @@ public class AdminController {
 			company.setPath(folder);
 		}
 		adminService.saveCompany(company);
-		adminService.updateUserCompany(companyDto);
+		adminService.updateUserDetailsForCompany(companyDto);
 		session.setAttribute("message", new Message("Company has been successfully updated!!", "success"));
 		return "redirect:/admin/company/list";
 	}
 
 	@PostMapping("/company/edit/logo")
+	@PreAuthorize("hasAuthority('/admin/company/edit/logo')")
 	public String companyLogo(@RequestParam("logo") MultipartFile file, @RequestParam String companyId,
 			HttpSession session) throws IOException {
-		Company company = adminService.getCompany(Long.parseLong(companyId));
+		Company company = adminService.getCompanyById(Long.parseLong(companyId));
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
@@ -167,8 +178,9 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/delete")
+	@PreAuthorize("hasAuthority('/admin/company/delete')")
 	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
-		adminService.deleteCompany(companyId);
+		adminService.deleteCompanyById(companyId);
 		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
 		return "redirect:/admin/company/list";
 	}
@@ -196,7 +208,7 @@ public class AdminController {
 			return "redirect:/admin/branch";
 		}
 
-		Company company = adminService.getCompany(branchDto.getCompanyId());
+		Company company = adminService.getCompanyById(branchDto.getCompanyId());
 
 		if (adminService.branchAllowed(company)) {
 			Branch branch = modelMapper.map(branchDto, Branch.class);
@@ -237,17 +249,17 @@ public class AdminController {
 
 	@GetMapping("/branch/view/{id}")
 	public String branchView(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("branchDetails", adminService.getBranch(id));
-		model.addAttribute("user", adminService.getUser(adminService.getBranch(id).getEmail()));
+		model.addAttribute("branchDetails", adminService.getBranchById(id));
+		model.addAttribute("user", adminService.getUserByEmail(adminService.getBranchById(id).getEmail()));
 		return "/pages/admin/view_branch";
 	}
 
 	@GetMapping("/branch/edit/{id}")
 	public String branchEdit(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("branchDetails", adminService.getBranch(id));
+		model.addAttribute("branchDetails", adminService.getBranchById(id));
 		model.addAttribute("branch", new BranchDto());
 		model.addAttribute("companies", adminService.getAllCompanies());
-		model.addAttribute("user", adminService.getUser(adminService.getBranch(id).getEmail()));
+		model.addAttribute("user", adminService.getUserByEmail(adminService.getBranchById(id).getEmail()));
 		return "/pages/admin/edit_branch";
 	}
 
@@ -265,10 +277,10 @@ public class AdminController {
 					new Message("Username is already associated with another account !", "danger"));
 			return "redirect:/admin/branch/edit/" + branchDto.getBranchId();
 		}
-		Branch branch = adminService.getBranch(branchDto.getBranchId());
+		Branch branch = adminService.getBranchById(branchDto.getBranchId());
 		mapper.modelMapper().map(branchDto, branch);
 		adminService.saveBranch(branch);
-		adminService.updateUserBranch(branchDto);
+		adminService.updateUserDetailsForBranch(branchDto);
 		session.setAttribute("message", new Message("Branch has been successfully updated!!", "success"));
 		return "redirect:/admin/branch/list";
 	}
@@ -296,8 +308,8 @@ public class AdminController {
 		}
 
 		User user = modelMapper.map(userDto, User.class);
-		user.setCompany(adminService.getCompany(userDto.getCompanyId()));
-		user.setBranch(adminService.getBranch(userDto.getBranchId()));
+		user.setCompany(adminService.getCompanyById(userDto.getCompanyId()));
+		user.setBranch(adminService.getBranchById(userDto.getBranchId()));
 		adminService.registerUser(user, userDto.getRoleId());
 		session.setAttribute("message", new Message("User has been successfully Created!!", "success"));
 		return "redirect:/admin/user";
@@ -305,7 +317,6 @@ public class AdminController {
 
 	@GetMapping("/user/list")
 	public String userList(Model model, Principal principal) {
-
 		model.addAttribute("user", new UserDto());
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("companies", adminService.getAllCompanies());
@@ -316,7 +327,7 @@ public class AdminController {
 
 	@GetMapping("/user/delete")
 	public String deleteUser(@RequestParam("id") Long userId, HttpSession session) {
-		adminService.deleteUser(userId);
+		adminService.deleteUserById(userId);
 		session.setAttribute("message", new Message("User has been deleted successfully !!", "success"));
 		return "redirect:/admin/user/list";
 
@@ -324,18 +335,20 @@ public class AdminController {
 
 	@GetMapping("/role")
 	public String userRoles(Model model) {
-		model.addAttribute("role", new Privilege());
+		model.addAttribute("role", new Role());
 		return "/pages/admin/create_role";
 	}
 
 	@PostMapping("/role/register")
-	public String addRoles(@ModelAttribute("role") Privilege role, HttpSession session) {
+	public String addRoles(@ModelAttribute("role") Role role, HttpSession session) {
 
-		if (adminService.roleExists(role.getName().trim())) {
+		role.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
+
+		if (adminService.roleExists(role.getName())) {
 			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
 			return "redirect:/admin/role";
 		}
-		role.setName(role.getName().trim().replaceAll("\\s+", "_"));
+
 		adminService.addRole(role);
 		session.setAttribute("message", new Message("Role has been successfully created!!", "success"));
 		return "redirect:/admin/role";
@@ -343,29 +356,33 @@ public class AdminController {
 
 	@GetMapping("/role/delete")
 	public String deleteRole(@RequestParam("id") Long roleId, HttpSession session) {
-		adminService.deleteRole(roleId);
+		
+		adminService.deleteRoleById(roleId);
 		session.setAttribute("message", new Message("Role has been deleted successfully !!", "success"));
 		return "redirect:/admin/role/list";
-
 	}
 
 	@GetMapping("/role/list")
 	public String rolesList(Model model) {
-		model.addAttribute("role", new Privilege());
+		
+		model.addAttribute("role", new Role());
 		model.addAttribute("roles", adminService.getAllRoles());
 		return "/pages/admin/roles_list";
 	}
 
 	@PostMapping("/role/update")
-	public String updateRoles(@ModelAttribute("role") Privilege role, HttpSession session) {
-		if (adminService.roleNameCheck(role)) {
+	public String updateRoles(@ModelAttribute("role") Role role, HttpSession session) {
+		
+		role.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
+		
+		if (adminService.roleNameCheck(role.getName(), role.getId())) {
 			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
 			return "redirect:/admin/role/list";
 		}
-		Optional<Privilege> oldRole = adminService.getRoleById(role.getId());
-		oldRole.get().setName(role.getName().trim().replaceAll("\\s+", "_"));
-		oldRole.get().setDescription(role.getDescription());
-		adminService.updateRole(oldRole.get());
+		Role oldRole = adminService.getRoleById(role.getId());
+		oldRole.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
+		oldRole.setDescription(role.getDescription());
+		adminService.updateRole(oldRole);
 		session.setAttribute("message", new Message("Role has been updated successfully !", "success"));
 		return "redirect:/admin/role/list";
 	}

@@ -1,7 +1,6 @@
 package com.ingroinfo.mm.controller;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ingroinfo.mm.entity.Privilege;
+import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.service.AdminService;
 
 @RestController
@@ -34,9 +33,9 @@ public class ResponseContoller {
 	}
 
 	@GetMapping("/role/{id}")
-	public Privilege getRoles(@PathVariable Long id) {
-		Optional<Privilege> privilege = adminService.getAllRoles().stream().filter(x -> id.equals(x.getId()))
-				.findFirst();
-		return privilege.get();
+	public Role getRoles(@PathVariable Long id) {
+		Role role = adminService.getRoleById(id);
+		role.setName(role.getName().replace("ROLE_", ""));
+		return role;
 	}
 }

@@ -44,8 +44,7 @@
 			<table
 				class="table table-stock table-bordered table table-secondary table-striped table-hover mytable w-100 mt-4">
 				<thead class="table-dark">
-					<tr>
-						<th>Role ID</th>
+					<tr>					
 						<th>Name</th>
 						<th>Description</th>
 						<th>Created on</th>
@@ -53,8 +52,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="role: ${roles}">
-						<td th:text="${role.id}"></td>
+					<tr th:each="role: ${roles}">					
 						<td th:text="${role.name}"></td>
 						<td th:text="${role.description}"></td>
 						<td th:text="${#dates.format(role.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>

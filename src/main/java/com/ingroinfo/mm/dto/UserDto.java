@@ -18,7 +18,6 @@ public class UserDto {
 	private String remarks;
 	private String designation;
 	private String userType;
-	private String userRole;
 	private Date dateCreated;
 	private Date lastUpdated;
 

@@ -2,11 +2,9 @@ package com.ingroinfo.mm.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.Privilege;
+import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
@@ -39,13 +37,13 @@ public interface AdminService {
 
 	List<Company> getAllCompanies();
 
-	void deleteCompany(Long companyId);
+	void deleteCompanyById(Long companyId);
 
 	boolean branchEmailExists(String email);
 
 	Branch saveBranch(Branch branch);
 
-	Company getCompany(Long id);
+	Company getCompanyById(Long id);
 
 	List<BranchDto> getAllBranches();
 
@@ -55,7 +53,7 @@ public interface AdminService {
 
 	User getUserByEmail(String email);
 
-	void updateUserCompany(CompanyDto companyDto);
+	void updateUserDetailsForCompany(CompanyDto companyDto);
 
 	boolean companyUsernameExists(String username);
 
@@ -65,34 +63,32 @@ public interface AdminService {
 
 	boolean branchUsernameExists(String username);
 
-	Branch getBranch(Long id);
-
-	User getUser(String email);
+	Branch getBranchById(Long id);
 
 	boolean branchEmailCheck(BranchDto branchDto);
 
 	boolean branchUsernameCheck(BranchDto branchDto);
 
-	void updateUserBranch(BranchDto branchDto);
+	void updateUserDetailsForBranch(BranchDto branchDto);
 
 	boolean userEmailExists(String email);
 
 	boolean userUsernameExists(String username);
 
-	List<Privilege> getAllRoles();
+	void deleteUserById(Long userId);
 
-	Optional<Privilege> getRoleById(Long roleId);
+	List<Role> getAllRoles();
 
-	void addRole(Privilege role);
+	Role getRoleById(Long roleId);
 
-	void deleteRole(Long roleId);
+	void addRole(Role role);
+
+	void deleteRoleById(Long roleId);
 
 	boolean roleExists(String roleName);
 
-	boolean roleNameCheck(Privilege role);
+	boolean roleNameCheck(String roleName, Long id);
 
-	void updateRole(Privilege privilege);
-
-	void deleteUser(Long userId);
+	void updateRole(Role privilege);
 
 }

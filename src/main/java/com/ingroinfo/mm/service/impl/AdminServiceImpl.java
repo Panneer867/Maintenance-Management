@@ -11,42 +11,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
-import com.ingroinfo.mm.dao.ModuleEndpointsRepository;
-import com.ingroinfo.mm.dao.PrivilegeRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
-import com.ingroinfo.mm.dao.UserAccesssRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.Privilege;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
-import com.ingroinfo.mm.entity.UserAccess;
 import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
-	JdbcTemplate jdbcTemplate;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private UserAccesssRepository userAccessRepository;
 
 	public String getEncodedPassword(String password) {
 		return passwordEncoder.encode(password);
@@ -69,12 +57,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BranchRepository branchRepository;
-
-	@Autowired
-	private PrivilegeRepository privilegeRepository;
-	
-	@Autowired
-	private ModuleEndpointsRepository moduleEndpointsRepository;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
@@ -101,18 +83,7 @@ public class AdminServiceImpl implements AdminService {
 		Role userRole = roleRepository.findByName("ROLE_USER");
 		user.setRoles(Arrays.asList(userRole));
 		user.setUserType("U");
-		user.setUserRole(privilegeRepository.findById(roleId).get().getName());
-		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
-		jdbcTemplate.update(sql, userRole.getId(), roleId);
 		register(user);
-		
-		User createdUser = userRepository.findByUsername(user.getUsername());
-		UserAccess userAccess = new UserAccess();
-		moduleEndpointsRepository.findAll();
-		userAccess.setModuleEndpoints(null);
-			userAccessRepository.save(userAccess);
-		
-	
 	}
 
 	@Override
@@ -167,7 +138,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteCompany(Long companyId) {
+	public void deleteCompanyById(Long companyId) {
 		companyRepository.deleteById(companyId);
 	}
 
@@ -183,7 +154,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Company getCompany(Long id) {
+	public Company getCompanyById(Long id) {
 		return companyRepository.findByCompanyId(id);
 	}
 
@@ -230,12 +201,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public User getUserByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
-
-	@Override
-	public void updateUserCompany(CompanyDto companyDto) {
+	public void updateUserDetailsForCompany(CompanyDto companyDto) {
 
 		User user = userRepository.findByEmail(companyDto.getEmail());
 		user.setEmail(companyDto.getEmail());
@@ -286,12 +252,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Branch getBranch(Long id) {
+	public Branch getBranchById(Long id) {
 		return branchRepository.findByBranchId(id);
 	}
 
 	@Override
-	public User getUser(String email) {
+	public User getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
@@ -320,7 +286,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void updateUserBranch(BranchDto branchDto) {
+	public void updateUserDetailsForBranch(BranchDto branchDto) {
 		User user = userRepository.findByEmail(branchDto.getEmail());
 		user.setEmail(branchDto.getEmail());
 		user.setMobile(branchDto.getMobile());
@@ -346,47 +312,51 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Privilege> getAllRoles() {
-		return privilegeRepository.findAll();
+	public void deleteUserById(Long userId) {
+		userRepository.deleteById(userId);
 	}
 
 	@Override
-	public void addRole(Privilege role) {
-
-		privilegeRepository.save(role);
-		Privilege newRole = privilegeRepository.findByName(role.getName());
-		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-		String sql = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID, PRIVILEGE_ID) VALUES (?, ?)";
-		jdbcTemplate.update(sql, adminRole.getId(), newRole.getId());
+	public List<Role> getAllRoles() {
+		return roleRepository.findAll().stream()
+				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
+						r.getLastUpdated()))
+				.collect(Collectors.toList()).stream().filter(o -> !o.getName().equals("ADMIN")
+						&& !o.getName().equals("COMPANY") && !o.getName().equals("BRANCH"))
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public void updateRole(Privilege privilege) {
-		privilegeRepository.save(privilege);
+	public void addRole(Role role) {
+		roleRepository.save(role);
 	}
 
 	@Override
-	public void deleteRole(Long roleId) {
-		privilegeRepository.deleteById(roleId);
+	public void updateRole(Role role) {
+		roleRepository.save(role);
 	}
 
 	@Override
-	public Optional<Privilege> getRoleById(Long roleId) {
+	public void deleteRoleById(Long roleId) {
+		roleRepository.deleteById(roleId);
+	}
 
-		return privilegeRepository.findById(roleId);
+	@Override
+	public Role getRoleById(Long roleId) {
+		return roleRepository.findById(roleId).get();
 	}
 
 	@Override
 	public boolean roleExists(String roleName) {
 
-		return privilegeRepository.findByName(roleName) != null;
+		return roleRepository.findByName(roleName) != null;
 	}
 
 	@Override
-	public boolean roleNameCheck(Privilege role) {
+	public boolean roleNameCheck(String roleName, Long id) {
 
-		return privilegeRepository.findAll().stream().filter(x -> !role.getId().equals(x.getId()))
-				.collect(Collectors.toList()).stream().filter(o -> o.getName().equals(role.getName().trim()))
+		return roleRepository.findAll().stream().filter(x -> !id.equals(x.getId()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getName().equals(roleName))
 				.findFirst().isPresent();
 	}
 
@@ -400,11 +370,6 @@ public class AdminServiceImpl implements AdminService {
 				.collect(Collectors.toList()).stream().filter(x -> !branch.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList()).stream().filter(x -> !company.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList());
-	}
-
-	@Override
-	public void deleteUser(Long userId) {
-		userRepository.deleteById(userId);
 	}
 
 }
