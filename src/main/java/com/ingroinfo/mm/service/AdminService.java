@@ -78,7 +78,9 @@ public interface AdminService {
 	void deleteUserById(Long userId);
 
 	List<Role> getAllRoles();
-
+	
+	List<Role> getAllRolesWithoutAdmin();
+	
 	Role getRoleById(Long roleId);
 
 	void addRole(Role role);

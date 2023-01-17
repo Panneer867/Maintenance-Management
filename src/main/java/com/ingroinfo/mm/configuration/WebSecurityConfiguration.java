@@ -46,11 +46,20 @@ public class WebSecurityConfiguration {
 
 		http.csrf().disable().authorizeRequests()
 				// .antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/login", "/admin", "/register/company", "/access-denied",
-						"/server-error", "/get/**")
-				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
-				.defaultSuccessUrl("/home", true).failureUrl("/login?error").and().logout().logoutUrl("/logout")
-				.deleteCookies("JSESSIONID").and().exceptionHandling().accessDeniedPage("/access-denied");
+				.antMatchers("/login", "/admin", "/register/company", "/denied", "/error", "/get/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/home", true)
+				.failureUrl("/login?error")
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.deleteCookies("JSESSIONID")
+				.and()
+				.exceptionHandling()
+				.accessDeniedPage("/denied");
 		http.headers().frameOptions().sameOrigin();
 		return http.build();
 	}

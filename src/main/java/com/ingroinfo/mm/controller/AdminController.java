@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +25,21 @@ import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.entity.UserRole;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.configuration.ModelMapperConfig;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
+import com.ingroinfo.mm.dto.UserRolesDto;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public ModelMapperConfig mapper;
@@ -41,7 +48,7 @@ public class AdminController {
 	private AdminService adminService;
 
 	private static final ModelMapper modelMapper = new ModelMapper();
-  
+
 	@GetMapping("/home")
 	@PreAuthorize("hasAuthority('/admin/home')")
 	public String adminHome(Model model) {
@@ -296,13 +303,13 @@ public class AdminController {
 
 	@PostMapping("/user/register")
 	public String createUser(@ModelAttribute("user") UserDto userDto, HttpSession session, Principal principal) {
-		
+
 		if (adminService.userUsernameExists(userDto.getUsername())) {
 			session.setAttribute("message",
 					new Message("Username is already associated with another account !", "danger"));
 			return "redirect:/admin/user";
 		}
-		
+
 		if (adminService.userEmailExists(userDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
@@ -336,7 +343,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/role")
-	public String userRoles(Model model) {
+	public String addRoles(Model model) {
 		model.addAttribute("role", new Role());
 		return "/pages/admin/create_role";
 	}
@@ -358,7 +365,7 @@ public class AdminController {
 
 	@GetMapping("/role/delete")
 	public String deleteRole(@RequestParam("id") Long roleId, HttpSession session) {
-		
+
 		adminService.deleteRoleById(roleId);
 		session.setAttribute("message", new Message("Role has been deleted successfully !!", "success"));
 		return "redirect:/admin/role/list";
@@ -366,7 +373,7 @@ public class AdminController {
 
 	@GetMapping("/role/list")
 	public String rolesList(Model model) {
-		
+
 		model.addAttribute("role", new Role());
 		model.addAttribute("roles", adminService.getAllRoles());
 		return "/pages/admin/roles_list";
@@ -374,24 +381,83 @@ public class AdminController {
 
 	@PostMapping("/role/update")
 	public String updateRoles(@ModelAttribute("role") Role role, HttpSession session) {
-		
+
 		role.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
-		
+
 		if (adminService.roleNameCheck(role.getName(), role.getId())) {
 			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
 			return "redirect:/admin/role/list";
 		}
+		
 		Role oldRole = adminService.getRoleById(role.getId());
 		oldRole.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
 		oldRole.setDescription(role.getDescription());
 		adminService.updateRole(oldRole);
+		
 		session.setAttribute("message", new Message("Role has been updated successfully !", "success"));
 		return "redirect:/admin/role/list";
 	}
 
 	@GetMapping("/user/roles")
-	public String roleMaster() {
+	public String userRoles(Model model) {
+
+		model.addAttribute("userRoles", new UserRolesDto());
+
+		try {
+			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = 2 AND PAGE_NO = 300";
+			int count = jdbcTemplate.update(sql);
+
+			if (count > 0) {
+				UserRole userRoles = jdbcTemplate.queryForObject(sql,
+						BeanPropertyRowMapper.newInstance(UserRole.class));
+				model.addAttribute("value", userRoles);
+			} else {
+				model.addAttribute("value", new UserRole());
+			}
+
+			model.addAttribute("roles", adminService.getAllRolesWithoutAdmin());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/pages/admin/user_roles";
+	}
+
+	@PostMapping("/user/roles/update")
+	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
+
+		try {
+
+			if (dto.getAllAdminpages().contains("N")) {
+
+				String no[] = dto.getAllAdminpages().split("N");
+				long pageNo = Long.parseLong(no[0]);
+
+				String sql2 = "DELETE FROM ROLE_PRIVILEGES WHERE ROLE_ID= ? AND PAGE_NO = ?";
+				jdbcTemplate.update(sql2, dto.getRoleId(), pageNo);
+
+			} else {
+
+				long pageNo = Long.parseLong(dto.getAllAdminpages());
+
+				String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + dto.getRoleId() + " AND PAGE_NO ="
+						+ pageNo;
+
+				int count = jdbcTemplate.update(sql);
+
+				if (count == 0) {
+
+					String sql1 = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID,PAGE_NO) VALUES (?, ?)";
+					jdbcTemplate.update(sql1, dto.getRoleId(), pageNo);
+				}
+			}
+
+			session.setAttribute("message", new Message("User Roles has been updated successfully !", "success"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/user/roles";
 	}
 
 	@GetMapping("/user/change-password")

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,9 @@ import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -325,10 +329,25 @@ public class AdminServiceImpl implements AdminService {
 						&& !o.getName().equals("COMPANY") && !o.getName().equals("BRANCH"))
 				.collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<Role> getAllRolesWithoutAdmin() {
+		return roleRepository.findAll().stream()
+				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
+						r.getLastUpdated()))
+				.collect(Collectors.toList()).stream().filter(o -> !o.getName().equals("ADMIN"))
+				.collect(Collectors.toList());
+	}
 
 	@Override
 	public void addRole(Role role) {
+		
 		roleRepository.save(role);
+		Role newRole = roleRepository.findByName(role.getName());
+		User admin = userRepository.findByUsername("Admin");
+		String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), newRole.getId());
+		if(jdbc>0) {System.out.println("Successfully role assigned for admin");}
 	}
 
 	@Override
@@ -338,6 +357,10 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteRoleById(Long roleId) {
+		User admin = userRepository.findByUsername("Admin");
+		String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), roleId);
+		if(jdbc>0) {System.out.println("Successfully role assigned for admin");}
 		roleRepository.deleteById(roleId);
 	}
 

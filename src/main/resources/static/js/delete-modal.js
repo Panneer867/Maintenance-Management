@@ -5,3 +5,4 @@ function deleteId(href) {
 function enable() {
 	document.getElementById('senableApp').value = $('#ienableApp').is(':checked') ? $('#ienableApp').val() : "off";
 }
+
