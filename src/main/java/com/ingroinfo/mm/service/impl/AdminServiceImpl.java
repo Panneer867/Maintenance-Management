@@ -381,7 +381,7 @@ public class AdminServiceImpl implements AdminService {
 		String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
 		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), roleId);
 		if (jdbc > 0) {
-			System.out.println("Successfully role assigned for admin");
+			System.out.println("Role assigned for admin also successfully");
 		}
 		roleRepository.deleteById(roleId);
 	}
@@ -488,47 +488,35 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public UserRolesDto getUserRoles(Long roleId) {
-		
+
 		UserRolesDto pages = new UserRolesDto();
 
 		try {
-			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = "+ roleId +" ORDER BY PAGE_NO";
+			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " ORDER BY PAGE_NO";
 			int count = jdbcTemplate.update(sql);
 
-			
 			if (count > 0) {
 				List<UserRole> userRoles = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(UserRole.class));
-
-				
 
 				for (int i = 0; i < userRoles.size(); i++) {
 
 					int pageNo = userRoles.get(i).getPageNo();
 
-					switch (pageNo) {
-					case 300:
+					if (pageNo == 300) {
 						pages.setAdminpage(String.valueOf(pageNo));
-						break;
-					case 301:
+					} else if (pageNo == 301) {
 						pages.setCompanyManagement(String.valueOf(pageNo));
-						break;
-					case 302:
+					} else if (pageNo == 302) {
 						pages.setCreateCompany(String.valueOf(pageNo));
-						break;
-					case 303:
+					} else if (pageNo == 303) {
 						pages.setEditCompany(String.valueOf(pageNo));
-						break;
-					case 304:
+					} else if (pageNo == 304) {
 						pages.setViewCompany(String.valueOf(pageNo));
-						break;
-					case 305:
+					} else if (pageNo == 305) {
 						pages.setDeleteCompany(String.valueOf(pageNo));
-						break;
 					}
 				}
-				
-
-			} 
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
