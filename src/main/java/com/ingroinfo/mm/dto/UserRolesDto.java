@@ -12,7 +12,7 @@ import lombok.Setter;
 public class UserRolesDto {
 	
 	private Long roleId;
-	private String allAdminpages;
+	private String adminpage;
 	private String companyManagement;
 	private String createCompany;
 	private String editCompany;

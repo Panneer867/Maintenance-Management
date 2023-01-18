@@ -8,6 +8,7 @@ import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
+import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
@@ -52,6 +53,8 @@ public interface AdminService {
 	boolean companyEmailCheck(CompanyDto companyDto);
 
 	User getUserByEmail(String email);
+	
+	User getUserByUsername(String username);
 
 	void updateUserDetailsForCompany(CompanyDto companyDto);
 
@@ -79,7 +82,9 @@ public interface AdminService {
 
 	List<Role> getAllRoles();
 	
-	List<Role> getAllRolesWithoutAdmin();
+	List<Role> getAllRolesOnlyWithoutAdmin();
+	
+	List<Role> getAllRolesWithoutAdminAndCompany();
 	
 	Role getRoleById(Long roleId);
 
@@ -92,5 +97,9 @@ public interface AdminService {
 	boolean roleNameCheck(String roleName, Long id);
 
 	void updateRole(Role privilege);
+
+	void AssignRoles(UserRolesDto dto);
+
+	UserRolesDto getUserRoles(Long roleId);
 
 }

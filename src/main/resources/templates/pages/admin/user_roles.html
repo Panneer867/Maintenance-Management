@@ -2,8 +2,6 @@
 
 <body>
 	<section>
-		<h5 class="text-center text-white mt-2 p-1 bg-primary">User Role ( with Email, SMS, Text Notification) </h5>
-
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
 				<nav aria-label="breadcrumb">
@@ -22,93 +20,118 @@
 			</div>
 		</div>
 
-
-		<div class="col-11 mx-auto my-auto">
-			<div th:if="${session.message}" class="alert_field">
-				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
-				</div>
-				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		<div th:if="${session.message}" class="alert_field">
+			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+				<span th:text="${session.message.content}"></span>
 			</div>
-			<div class="card">
-				<div class="card-header text-center heading-bg text-white">
-
-				</div>
-				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/admin/user/roles/update}" th:object="${userRoles}" method="post">
-						<div class="mx-auto col-4">
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-4 col-form-label pr-0">User Roles</label>
-								<div class="col-sm-8 px-0">
-									<select class="form-select" name="roleId">
-										<option th:each="role : ${roles}" th:value="${role.id}"
-											th:utext="${role.name}" />
-									</select>
-								</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<div class="card">
+			<div class="card-header text-center heading-bg text-white">
+				<h5 class="mb-0">User Role (Email, SMS, Text Notification) </h5>
+			</div>
+			<div class="card-body font-weight-bold">
+				<form class="p-0 mb-0" th:action="@{/admin/user/roles/update}" th:object="${userRoles}" method="post">
+					<div class="mx-auto col-4">
+						<div class="form-group row mb-0">
+							<label for="staticEmail" class="col-sm-4 col-form-label pr-0">User Role</label>
+							<div class="col-sm-8 px-0">
+								<select class="form-select" name="roleId" id="roleId-change">
+									<option value="" selected>Select</option>
+									<option th:each="role : ${roles}" th:value="${role.id}" th:utext="${role.name}" />
+								</select>
 							</div>
 						</div>
-						<div class="tree_main">
-							<ul id="bs_main" class="main_ul">
-								<li id="bs_1">
-									<span class="plus">&nbsp;</span>
-									<input type="hidden" th:value="${value.pageNo}" id="get-admin">		
-									<input type="checkbox" class="admin-page" th:onclick="|enableAdmin()|" id="c_bs_1" />
-									<input type="hidden" name="allAdminpages" id="set-admin">	
-									<span>Admin Pages</span>
-									<ul id="bs_l_1" class="sub_ul" style="display: none">
-										<li id="bf_1">
-											<span class="plus">&nbsp;</span>
-											<input type="checkbox" id="c_bf_1" />
-											<span>Company Mangement</span>
-											<ul id="bf_l_1" style="display: none" class="inner_ul">
-												<li id="io_1">
-													<input type="checkbox" id="c_io_1" /><span>Create Company</span>
-												</li>
-												<li id="io_2">
-													<input type="checkbox" id="c_io_2" /><span>Edit Company</span>
-												</li>
-												<li id="io_3">
-													<input type="checkbox" id="c_io_3" /><span>View Company</span>
-												</li>
-												<li id="io_4">
-													<input type="checkbox" id="c_io_4" /><span>Delete Company</span>
-												</li>
-											</ul>
-										</li>
-										<li id="bf_2">
-											<span class="plus">&nbsp;</span>
-											<input type="checkbox" id="c_bf_2" />
-											<span>Branch Mangement</span>
-										</li>
-										<li id="bf_3">
-											<span class="plus">&nbsp;</span>
-											<input type="checkbox" id="c_bf_3" />
-											<span>User Mangement</span>
-										</li>
-										<li id="bf_4">
-											<span class="plus">&nbsp;</span>
-											<input type="checkbox" id="c_bf_4" />
-											<span>Role Master</span>
-										</li>
-										<li id="bf_5">
-											<span class="plus">&nbsp;</span>
-											<input type="checkbox" id="c_bf_5" />
-											<span>User Roles</span>
-										</li>
-									</ul>
-								</li>
+					</div>
+					<div class="tab-content" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="pills-one" role="tabpanel"
+							aria-labelledby="pills-one-tab" tabindex="0">
+							<div class="row">
+								<div class="col-4 ">
+									<h3 class="col-form-label bg-secondary font-weight-bold text-center">Admin Pages
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-3">
+											<input type="checkbox" class="form-check-input" id="admin-page">
+											<input type="hidden" name="adminpage" id="set-admin-page">
+											<label class="form-check-label" for="admin-page">Home</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="company-management" />
+											<input type="hidden" name="companyManagement" id="set-company-management">
+											<label class="form-check-label" for="company-management">Company Management</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="create-company" />
+											<input type="hidden" name="createCompany" id="set-create-company">
+											<label class="form-check-label" for="create-company">Create Company</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="edit-company" />
+											<input type="hidden" name="editCompany" id="set-edit-company">
+											<label class="form-check-label" for="edit-company">Edit Company</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="view-company" />
+											<input type="hidden" name="viewCompany" id="set-view-company">
+											<label class="form-check-label" for="view-company">View Company</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="delete-company" />
+											<input type="hidden" name="deleteCompany" id="set-delete-company">
+											<label class="form-check-label" for="delete-company">Delete Company</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
 
-							</ul>
-						</div>
+								</div>
+								<div class="col-4">
 
-						<div class="col-12 text-center mt-3">
-							<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+								</div>
+							</div>
 
 						</div>
-					</form>
-				</div>
+						<div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab"
+							tabindex="0">
+
+						</div>
+						<div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab"
+							tabindex="0">
+
+						</div>
+					</div>
+					<ul class="nav nav-pills justify-content-end py-1 mb-0" id="pills-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-one-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-one" type="button" role="tab"
+								aria-controls="pills-one" aria-selected="true">
+								1
+							</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-two-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-two" type="button" role="tab"
+								aria-controls="pills-two" aria-selected="false">
+								2
+							</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-three-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-three" type="button" role="tab"
+								aria-controls="pills-three" aria-selected="false">
+								3
+							</button>
+						</li>
+					</ul>
+					<div class="text-center mt-3">
+						<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+
+					</div>
+				</form>
 			</div>
 		</div>
+
 	</section>
 </body>
 

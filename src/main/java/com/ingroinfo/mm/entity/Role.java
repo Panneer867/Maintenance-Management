@@ -33,6 +33,7 @@ public class Role {
 
 	@CreationTimestamp
 	private Date dateCreated;
+	
 	@UpdateTimestamp
 	private Date lastUpdated;
 

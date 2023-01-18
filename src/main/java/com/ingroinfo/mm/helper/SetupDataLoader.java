@@ -46,21 +46,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		/* Privileges */
 
-		Privilege a = createPrivilegeIfNotFound(300, "/admin/home", "GET");
-		Privilege b = createPrivilegeIfNotFound(301, "/admin/company/list", "GET");
-		Privilege c = createPrivilegeIfNotFound(302, "/admin/company", "GET");
-		Privilege d = createPrivilegeIfNotFound(303, "/admin/company/register", "POST");
-		Privilege e = createPrivilegeIfNotFound(304, "/admin/company/view/id", "GET");
-		Privilege f = createPrivilegeIfNotFound(305, "/admin/company/edit/id", "GET");
-		Privilege g = createPrivilegeIfNotFound(306, "/admin/company/edit/update", "POST");
-		Privilege h = createPrivilegeIfNotFound(307, "/admin/company/edit/logo", "POST");
-		Privilege i = createPrivilegeIfNotFound(308, "/admin/company/delete", "GET");
-		List<Privilege> ownerPrivileges = Arrays.asList(a,b,c,d,e,f,g,h,i);
+		Privilege a = createPrivilegeIfNotFound(300, "/admin/home");
+		Privilege b = createPrivilegeIfNotFound(301, "/admin/company/list");
+		Privilege c = createPrivilegeIfNotFound(302, "/admin/company/create");
+		Privilege e = createPrivilegeIfNotFound(303, "/admin/company/edit");
+		Privilege d = createPrivilegeIfNotFound(304, "/admin/company/view");
+		Privilege f = createPrivilegeIfNotFound(305, "/admin/company/delete");
+		
+		List<Privilege> ownerPrivileges = Arrays.asList(a,b,c,d,e,f);
 		
 		/* Roles */
 
 		createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
-		createRoleIfNotFound("ROLE_COMPANY", "This is Company level access", Arrays.asList(a,b,c,d,e,f,g,h,i));
+		createRoleIfNotFound("ROLE_COMPANY", "This is Company level access", Arrays.asList(a,b,c,d,e,f));
 		createRoleIfNotFound("ROLE_BRANCH", "This is branch level access", null);
 
 		/* States */
@@ -482,11 +480,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Transactional
-	Privilege createPrivilegeIfNotFound(int pageNo, String name, String httpMethod) {
+	Privilege createPrivilegeIfNotFound(int pageNo, String name) {
 
 		Privilege privilege = privilegeRepository.findByName(name);
 		if (privilege == null) {
-			privilege = new Privilege(pageNo, name, httpMethod);
+			privilege = new Privilege(pageNo, name);
 			privilegeRepository.save(privilege);
 		}
 		return privilege;

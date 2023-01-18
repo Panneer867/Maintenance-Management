@@ -19,15 +19,14 @@ public class Privilege {
 	@Id
 	private int pageNo;
 	private String name;	
-	private String httpMethod;
 
 	@ManyToMany(mappedBy = "privileges")
 	private Collection<Role> roles;
 
-	public Privilege(int pageNo,String name,String httpMethod) {
+	public Privilege(int pageNo,String name) {
 		super();
 		this.pageNo = pageNo;
 		this.name = name;
-		this.httpMethod = httpMethod;
+	
 	}
 }

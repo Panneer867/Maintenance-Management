@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,17 +24,19 @@ import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
+import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.entity.UserRole;
 import com.ingroinfo.mm.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -266,6 +269,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public User getUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
 	public boolean branchEmailCheck(BranchDto branchDto) {
 
 		boolean isExistsUser = userRepository.findAll().stream()
@@ -321,17 +329,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Role> getAllRoles() {
-		return roleRepository.findAll().stream()
-				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
-						r.getLastUpdated()))
-				.collect(Collectors.toList()).stream().filter(o -> !o.getName().equals("ADMIN")
-						&& !o.getName().equals("COMPANY") && !o.getName().equals("BRANCH"))
-				.collect(Collectors.toList());
-	}
-	
-	@Override
-	public List<Role> getAllRolesWithoutAdmin() {
+	public List<Role> getAllRolesOnlyWithoutAdmin() {
 		return roleRepository.findAll().stream()
 				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
 						r.getLastUpdated()))
@@ -340,14 +338,36 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<Role> getAllRolesWithoutAdminAndCompany() {
+		return roleRepository.findAll().stream()
+				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
+						r.getLastUpdated()))
+				.collect(Collectors.toList()).stream()
+				.filter(o -> !o.getName().equals("ADMIN") && !o.getName().equals("COMPANY"))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Role> getAllRoles() {
+		return roleRepository.findAll().stream()
+				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
+						r.getLastUpdated()))
+				.collect(Collectors.toList()).stream().filter(o -> !o.getName().equals("ADMIN")
+						&& !o.getName().equals("COMPANY") && !o.getName().equals("BRANCH"))
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	public void addRole(Role role) {
-		
+
 		roleRepository.save(role);
 		Role newRole = roleRepository.findByName(role.getName());
 		User admin = userRepository.findByUsername("Admin");
 		String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), newRole.getId());
-		if(jdbc>0) {System.out.println("Successfully role assigned for admin");}
+		if (jdbc > 0) {
+			System.out.println("Successfully role assigned for admin");
+		}
 	}
 
 	@Override
@@ -360,7 +380,9 @@ public class AdminServiceImpl implements AdminService {
 		User admin = userRepository.findByUsername("Admin");
 		String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
 		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), roleId);
-		if(jdbc>0) {System.out.println("Successfully role assigned for admin");}
+		if (jdbc > 0) {
+			System.out.println("Successfully role assigned for admin");
+		}
 		roleRepository.deleteById(roleId);
 	}
 
@@ -378,9 +400,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean roleNameCheck(String roleName, Long id) {
 
-		return roleRepository.findAll().stream().filter(x -> !id.equals(x.getId()))
-				.collect(Collectors.toList()).stream().filter(o -> o.getName().equals(roleName))
-				.findFirst().isPresent();
+		return roleRepository.findAll().stream().filter(x -> !id.equals(x.getId())).collect(Collectors.toList())
+				.stream().filter(o -> o.getName().equals(roleName)).findFirst().isPresent();
 	}
 
 	@Override
@@ -393,6 +414,127 @@ public class AdminServiceImpl implements AdminService {
 				.collect(Collectors.toList()).stream().filter(x -> !branch.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList()).stream().filter(x -> !company.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList());
+	}
+
+	private void deleteRole(Long roleId, String PageNumber) {
+		try {
+			String no[] = PageNumber.split("N");
+			long pageNo = Long.parseLong(no[0]);
+
+			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
+
+			int count = jdbcTemplate.update(sql);
+
+			if (count > 0) {
+				String sql2 = "DELETE FROM ROLE_PRIVILEGES WHERE ROLE_ID= ? AND PAGE_NO = ?";
+				jdbcTemplate.update(sql2, roleId, pageNo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void createRole(Long roleId, String PageNumber) {
+		try {
+			long pageNo = Long.parseLong(PageNumber);
+
+			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
+
+			int count = jdbcTemplate.update(sql);
+
+			if (count == 0) {
+
+				String sql1 = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID,PAGE_NO) VALUES (?, ?)";
+				jdbcTemplate.update(sql1, roleId, pageNo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void AssignRoles(UserRolesDto dto) {
+
+		Long roleId = dto.getRoleId();
+
+		if (dto.getAdminpage().contains("N"))
+			deleteRole(roleId, dto.getAdminpage());
+		else
+			createRole(roleId, dto.getAdminpage());
+		if (dto.getCompanyManagement().contains("N"))
+			deleteRole(roleId, dto.getCompanyManagement());
+		else
+			createRole(roleId, dto.getCompanyManagement());
+		if (dto.getCreateCompany().contains("N"))
+			deleteRole(roleId, dto.getCreateCompany());
+		else
+			createRole(roleId, dto.getCreateCompany());
+		if (dto.getEditCompany().contains("N"))
+			deleteRole(roleId, dto.getEditCompany());
+		else
+			createRole(roleId, dto.getEditCompany());
+		if (dto.getViewCompany().contains("N"))
+			deleteRole(roleId, dto.getViewCompany());
+		else
+			createRole(roleId, dto.getViewCompany());
+		if (dto.getDeleteCompany().contains("N"))
+			deleteRole(roleId, dto.getDeleteCompany());
+		else
+			createRole(roleId, dto.getDeleteCompany());
+
+	}
+
+	@Override
+	public UserRolesDto getUserRoles(Long roleId) {
+		
+		UserRolesDto pages = new UserRolesDto();
+
+		try {
+			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = "+ roleId +" ORDER BY PAGE_NO";
+			int count = jdbcTemplate.update(sql);
+
+			
+			if (count > 0) {
+				List<UserRole> userRoles = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(UserRole.class));
+
+				
+
+				for (int i = 0; i < userRoles.size(); i++) {
+
+					int pageNo = userRoles.get(i).getPageNo();
+
+					switch (pageNo) {
+					case 300:
+						pages.setAdminpage(String.valueOf(pageNo));
+						break;
+					case 301:
+						pages.setCompanyManagement(String.valueOf(pageNo));
+						break;
+					case 302:
+						pages.setCreateCompany(String.valueOf(pageNo));
+						break;
+					case 303:
+						pages.setEditCompany(String.valueOf(pageNo));
+						break;
+					case 304:
+						pages.setViewCompany(String.valueOf(pageNo));
+						break;
+					case 305:
+						pages.setDeleteCompany(String.valueOf(pageNo));
+						break;
+					}
+				}
+				
+
+			} 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return pages;
 	}
 
 }
