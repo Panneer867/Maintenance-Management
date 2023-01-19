@@ -24,7 +24,7 @@
 			<div class="col-6">
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/user}"><span
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/user/create}"><span
 								class="glyphicon glyphicon-plus pr-1"></span>
 							Create User
 						</a>
@@ -62,10 +62,9 @@
 						<td th:text="${user.remarks}"></td>
 						<td th:text="${#dates.format(user.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
 						<td>
-							<a th:href="@{'/get/role/' + ${user.userId}}" class="btn btn-info p-1 mx-2 edit-user"
-								data-bs-toggle="tooltip" data-toggle="modal" data-target="#editUser"
-								data-bs-placement="top" title="Edit User"><span
-									class="glyphicon glyphicon-edit"></span></a>
+							<a th:href="@{'/admin/user/edit/' + ${user.userId}}"
+								class="btn btn-info p-1 mx-2" id="editUser" data-bs-toggle="tooltip"
+										data-bs-placement="top" title="Edit User"><span class="glyphicon glyphicon-edit"></span></a>
 							<button th:onclick="|deleteId('/admin/user/delete/?id=${user.userId}')|"
 								class="btn btn-danger p-1 mx-2 edit-hsn" data-toggle="modal" data-bs-toggle="tooltip"
 								data-bs-placement="top" title="Delete User" data-target="#delUser"><span
@@ -96,179 +95,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUser" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document" style="margin-top: 110px;">
-				<div class="modal-content">
-					<div class="modal-header p-2 heading-bg text-white font-weight-bold">
-						<h5>Edit User</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body bl-cr font-weight-bold">
-						<form class="p-0 mb-0" th:action="@{/admin/user/add}" th:object="${user}"
-							data-toggle="validator" method="post">
-							<div class="row">
-								<div class="col-9">
-									<div class="row">
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Select
-													Company</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control form-control-sm" disabled />
-												</div>
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Select
-													Branch</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control form-control-sm" disabled />
-
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Designation</label>
-												<div class="col-sm-8">
-													<select class="form-select" name="designation"
-														data-error="Select this field !" required>
-														<option value="" selected>Select</option>
-														<option value="ADMIN">ADMIN</option>
-														<option value="CASHIER">CASHIER</option>
-														<option value="AEE">AEE</option>
-														<option value="EE">EE</option>
-														<option value="JE">JE</option>
-														<option value="CE">CE</option>
-													</select>
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">User
-													Role</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control form-control-sm" disabled />
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Name</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control form-control-sm" name="name"
-														data-error="Provide this field !" required />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Mobile</label>
-												<div class="col-sm-8">
-													<input type="number" class="form-control form-control-sm"
-														name="mobile"
-														oninput="this.value=this.value.slice(0,this.maxLength)"
-														maxlength="10" data-error="Provide this field !" required />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Email</label>
-												<div class="col-sm-8">
-													<input type="email" class="form-control form-control-sm"
-														name="email" data-error="Provide this field !" required />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Username</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control form-control-sm"
-														name="username" data-error="Provide this field !" required />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail"
-													class="col-sm-4 col-form-label pr-0">Password</label>
-												<div class="col-sm-8">
-													<input type="password" class="form-control form-control-sm"
-														id="inputPassword"
-														pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-														data-error="Password must be alphanumeric !" />
-													<small class="text-primary">
-														Min 6 characters required.
-													</small>
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Confirm
-													Password</label>
-												<div class="col-sm-8">
-													<input type="password" name="password"
-														class="form-control form-control-sm" id="password"
-														data-match="#inputPassword"
-														data-match-error="oops,doesn't match!"
-														data-error="Provide confirm password !" />
-													<div class="help-block with-errors text-danger mb-0"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="form-group row">
-												<label for="staticEmail" name="remarks"
-													class="col-sm-2 col-form-label pr-0">Remarks</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control form-control-sm" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-3 text-center">
-									<img th:src="@{/images/finger-scan.gif}" width="150" height="200" alt="image" /><br>
-									<a class="btn btn-info col-6 mt-3 text-white">Capture</a>
-								</div>
-							</div>
-							<div class="col-12 text-center mt-3">
-								<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
-
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
 
 	</section>
 </body>

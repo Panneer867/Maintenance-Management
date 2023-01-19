@@ -89,7 +89,9 @@
 								<h1 class="text-center text-white main-header-h"
 									style="padding-left: 150px; padding-top: 9px;">MAINTENANCE MANAGEMENT</h1>
 							</div>
-							<div class="col-2 my-auto d-flex justify-content-end px-5">
+							<div class="col-2 my-auto d-flex justify-content-end pr-4">
+							
+							<h5 class="mb-0 mt-2 pr-3 font-weight-bold" th:text="${getLoggedUser}" style="color: #2232f5 !important;"></h5>
 								<a class="text-dark" th:href="@{/admin/home}">
 									<i class="fas fa-user-shield px-2" style="font-size: 25px;" data-bs-toggle="tooltip"
 										data-bs-placement="bottom" title="Admin"></i>
@@ -1283,6 +1285,7 @@
 	<script th:src="@{/js/validator.js}"></script>
 	<script th:src="@{/js/company-data-pass.js}"></script>
 	<script th:src="@{/js/branch-data-pass.js}"></script>
+	<script th:src="@{/js/user-data-pass.js}"></script>
 	<script th:src="@{/js/get-role-data.js}"></script>
 	<script th:src="@{/js/tree-checkboxes.js}"></script>
 	<script th:src="@{/js/checkbox-probs.js}"></script>

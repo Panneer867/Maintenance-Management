@@ -1,13 +1,23 @@
 package com.ingroinfo.mm.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class HomeController {
 	
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
+	
 	@GetMapping("/home")
 	public String Home() {
+		
 		return "/dashboard";
 	}	
 	

@@ -7,16 +7,19 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.CityRepository;
 import com.ingroinfo.mm.dao.PrivilegeRepository;
 import com.ingroinfo.mm.dao.RoleRepository;
 import com.ingroinfo.mm.dao.StateRepository;
+import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.City;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
+import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.entity.Privilege;
 
 @Component
@@ -25,8 +28,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	boolean alreadySetup = false;
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	public String getEncodedPassword(String password) {
+		return passwordEncoder.encode(password);
+	}
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private StateRepository stateRepository;
 
@@ -46,20 +59,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		/* Privileges */
 
-		Privilege a = createPrivilegeIfNotFound(300, "/admin/home");
-		Privilege b = createPrivilegeIfNotFound(301, "/admin/company/list");
-		Privilege c = createPrivilegeIfNotFound(302, "/admin/company/create");
-		Privilege e = createPrivilegeIfNotFound(303, "/admin/company/edit");
-		Privilege d = createPrivilegeIfNotFound(304, "/admin/company/view");
-		Privilege f = createPrivilegeIfNotFound(305, "/admin/company/delete");
-		
-		List<Privilege> ownerPrivileges = Arrays.asList(a,b,c,d,e,f);
-		
+		Privilege a = createPrivilegeIfNotFound(100, "ADMIN_HOME");
+		Privilege b = createPrivilegeIfNotFound(101, "COMPANY_MANAGEMENT");
+		Privilege c = createPrivilegeIfNotFound(102, "CREATE_COMPANY");
+		Privilege e = createPrivilegeIfNotFound(103, "EDIT_COMPANY");
+		Privilege d = createPrivilegeIfNotFound(104, "VIEW_COMPANY");
+		Privilege f = createPrivilegeIfNotFound(105, "DELETE_COMPANY");
+
+		List<Privilege> ownerPrivileges = Arrays.asList(a, b, c, d, e, f);
+
 		/* Roles */
 
-		createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
-		createRoleIfNotFound("ROLE_COMPANY", "This is Company level access", Arrays.asList(a,b,c,d,e,f));
-		createRoleIfNotFound("ROLE_BRANCH", "This is branch level access", null);
+		Role admin = createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
 
 		/* States */
 
@@ -476,6 +487,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		banksIfNotFound("UNION BANK OF INDIA");
 		banksIfNotFound("YES BANK LTD");
 
+		/* User */
+		
+		createAdminIfNotFound("Admin", "Admin", "Admin", "ingroinfo@gmail.com", "999999999", "A", "Admin", Arrays.asList(admin));
+
 		alreadySetup = true;
 	}
 
@@ -531,6 +546,21 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			bank = new Bank(bankName);
 			bankRepository.save(bank);
 		}
+	}
+
+	@Transactional
+	User createAdminIfNotFound(String name, String username, String password, String email, String mobile,
+			String userType, String designation, Collection<Role> roles) {
+
+		User user = userRepository.findByUsername(username);
+		String encryptPassword = getEncodedPassword(password);
+
+		if (user == null) {
+			user = new User(name, username, encryptPassword, email, mobile, userType, designation);
+			user.setRoles(roles);
+			userRepository.save(user);
+		}
+		return user;
 	}
 
 }

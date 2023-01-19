@@ -14,9 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,10 +41,12 @@ public class User {
 	private String designation;
 	private String remarks;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "branch_id")
 	private Branch branch;
@@ -61,5 +61,17 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
+
+	public User(String name, String username, String password, String email, String mobile, String userType,
+			String designation) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.mobile = mobile;
+		this.userType = userType;
+		this.designation = designation;
+	}
 
 }

@@ -4,7 +4,7 @@
 	<section>
 		<h3 class="text-center text-white mt-2 p-1 bg-primary">User Management
 		</h3>
-		<div class="row ">
+		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
@@ -14,17 +14,21 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/admin/home}">Admin</a></div>
 						</li>
+
 						<li class="crumb">
 							<div class="link"><a th:href="@{/admin/user/list}">User Management</a></div>
 						</li>
+
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">User Creation</span></div>
+							<div class="link"><span aria-current="location">Edit User</span></div>
 						</li>
 					</ol>
 				</nav>
 			</div>
 			<div class="col-6">
+
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger" th:href="@{/admin/user/list}"><span
 								class="glyphicon glyphicon-th-list pr-1"></span>
@@ -32,21 +36,25 @@
 						</a>
 					</li>
 				</ul>
+
 			</div>
+
 		</div>
-		<div class="my-2">
+
+		<div class="col-11 mx-auto my-auto">
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 					<span th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
+
 			<div class="card bl-cr">
 				<div class="card-header text-center heading-bg text-white">
-					<h4 class="mb-0">User Creation</h4>
+					<h4 class="mb-0">Edit User</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/admin/user/register}" th:object="${user}"
+					<form class="p-0 mb-0" th:action="@{/admin/user/edit/update}" th:object="${user}"
 						data-toggle="validator" method="post">
 						<div class="row">
 							<div class="col-9">
@@ -54,31 +62,33 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Select
-												Company<strong class="text-danger">*</strong></label>
+												Company</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="companyId"
-													data-error="Select this field !" required>
+												<input type="hidden" id="uauserid" th:value="${userDetails.userId}" />
+												<input type="hidden" id="ubuserid" name="userId" />
+												<input type="hidden" id="uacompanyid"
+													th:value="${userDetails.company.companyId}" />
+												<select class="form-select" id="ubcompanyid" name="companyId" disabled>
 													<option value="" selected>Select</option>
 													<option th:each="company : ${companies}"
 														th:value="${company.companyId}"
 														th:utext="${company.companyName}" />
 												</select>
-												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Select
-												Branch<strong class="text-danger">*</strong></label>
+												Branch</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="branchId"
-													data-error="Select this field !" required>
+												<input type="hidden" id="uabranch"
+													th:value="${userDetails.branch.branchId}" />
+												<select class="form-select" id="ubbranch" name="branchId" disabled>
 													<option value="" selected>Select</option>
 													<option th:each="branch : ${branches}" th:value="${branch.branchId}"
 														th:utext="${branch.branchName}" />
 												</select>
-												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
@@ -87,9 +97,11 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Designation<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Designation</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="designation"
+												<input type="hidden" id="uadestination"
+													th:value="${userDetails.designation}" />
+												<select class="form-select" id="ubdestination" name="designation"
 													data-error="Select this field !" required>
 													<option value="" selected>Select</option>
 													<option value="ADMIN">ADMIN</option>
@@ -103,17 +115,17 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-6 ">
+									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">User
-												Role<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">User
+												Role</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="roleId" data-error="Select user role !" required>
+												<input type="hidden" id="uarole" th:value="${roleId}" />
+												<select class="form-select" id="ubrole" name="roleId" disabled>
 													<option value="" selected>Select</option>
 													<option th:each="role : ${roles}" th:value="${role.id}"
 														th:utext="${role.name}" />
 												</select>
-												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
@@ -121,19 +133,22 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Name<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Name</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control-sm" name="name"
-													data-error="Provide this field !" required />
+												<input type="hidden" id="uaname" th:value="${userDetails.name}" />
+												<input type="text" class="form-control form-control-sm" id="ubname"
+													name="name" data-error="Provide this field !" required />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Mobile<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Mobile</label>
 											<div class="col-sm-8">
-												<input type="number" class="form-control form-control-sm" name="mobile"
+												<input type="hidden" id="uamobile" th:value="${userDetails.mobile}" />
+												<input type="number" class="form-control form-control-sm" id="ubmobile"
+													name="mobile"
 													oninput="this.value=this.value.slice(0,this.maxLength)"
 													maxlength="10" data-error="Provide this field !" required />
 												<div class="help-block with-errors text-danger mb-0"></div>
@@ -144,10 +159,11 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Email<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Email</label>
 											<div class="col-sm-8">
-												<input type="email" class="form-control form-control-sm" name="email"
-													data-error="Provide a valid email !" required />
+												<input type="hidden" id="uaemail" th:value="${userDetails.email}" />
+												<input type="email" class="form-control form-control-sm" id="ubemail"
+													name="email" data-error="Provide this field !" required />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
@@ -155,10 +171,12 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Username<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Username</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control form-control-sm" name="username"
-													data-error="Provide this field !" required />
+												<input type="hidden" id="uausername"
+													th:value="${userDetails.username}" />
+												<input type="text" class="form-control form-control-sm" id="ubusername"
+													name="username" data-error="Provide this field !" required />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
@@ -168,7 +186,7 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Password<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Password</label>
 											<div class="col-sm-8">
 												<input type="password" class="form-control form-control-sm"
 													id="inputPassword"
@@ -189,17 +207,19 @@
 												<input type="password" name="password"
 													class="form-control form-control-sm" id="password"
 													data-match="#inputPassword" data-match-error="oops,doesn't match!"
-													data-error="Provide confirm password !" required />
+													data-error="Provide confirm password !" />
 												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group row">
-											<label for="staticEmail" 
+											<label for="staticEmail" name="remarks"
 												class="col-sm-2 col-form-label pr-0">Remarks</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control form-control-sm" name="remarks" />
+												<input type="hidden" id="uaremarks" th:value="${userDetails.remarks}" />
+												<input type="text" id="ubremarks" name="remarks"
+													class="form-control form-control-sm" />
 											</div>
 										</div>
 									</div>
@@ -212,7 +232,6 @@
 						</div>
 						<div class="col-12 text-center mt-3">
 							<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
-							<button type="reset" class="btn btn-secondary btn-sm">Reset</button>
 						</div>
 					</form>
 				</div>

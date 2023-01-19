@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Role;
+import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
 
 @RestController
@@ -33,16 +34,22 @@ public class ResponseContoller {
 		return json;
 	}
 
+	@GetMapping("/user/{id}")
+	public User getUsers(@PathVariable Long id) {
+		return adminService.getUserById(id);
+
+	}
+
 	@GetMapping("/role/{id}")
 	public Role getRoles(@PathVariable Long id) {
 		Role role = adminService.getRoleById(id);
 		role.setName(role.getName().replace("ROLE_", ""));
 		return role;
 	}
-	
+
 	@GetMapping("/user/roles/{id}")
 	public UserRolesDto getUserRoles(@PathVariable Long id) {
-
 		return adminService.getUserRoles(id);
 	}
+
 }

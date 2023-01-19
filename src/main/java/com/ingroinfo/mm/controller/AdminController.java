@@ -43,15 +43,20 @@ public class AdminController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
+
 	@GetMapping("/home")
-	@PreAuthorize("hasAuthority('/admin/home')")
+	@PreAuthorize("hasAuthority('ADMIN_HOME')")
 	public String adminHome(Model model) {
 		model.addAttribute("title", "Admin | Maintenance Mangement");
 		return "/pages/admin/home";
 	}
 
 	@GetMapping("/company/create")
-	@PreAuthorize("hasAuthority('/admin/company/create')")
+	@PreAuthorize("hasAuthority('CREATE_COMPANY')")
 	public String createCompany(Model model) {
 		model.addAttribute("title", "New Company | Maintenance Mangement");
 		model.addAttribute("company", new CompanyDto());
@@ -106,7 +111,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/list")
-	@PreAuthorize("hasAuthority('/admin/company/list')")
+	@PreAuthorize("hasAuthority('COMPANY_MANAGEMENT')")
 	public String companyList(Model model) {
 		model.addAttribute("companies", adminService.getAllCompanies());
 
@@ -114,8 +119,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/edit/{id}")
-	@PreAuthorize("hasAuthority('/admin/company/edit')")
-	public String companyEdit(@PathVariable Long id, Model model, HttpSession session) {
+	@PreAuthorize("hasAuthority('EDIT_COMPANY')")
+	public String companyEdit(@PathVariable Long id, Model model) {
 
 		model.addAttribute("companyDetails", adminService.getCompanyById(id));
 		model.addAttribute("company", new CompanyDto());
@@ -125,8 +130,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/view/{id}")
-	@PreAuthorize("hasAuthority('/admin/company/view')")
-	public String companyView(@PathVariable Long id, Model model, HttpSession session) {
+	@PreAuthorize("hasAuthority('VIEW_COMPANY')")
+	public String companyView(@PathVariable Long id, Model model) {
 
 		model.addAttribute("companyDetails", adminService.getCompanyById(id));
 		model.addAttribute("user", adminService.getUserByEmail(adminService.getCompanyById(id).getEmail()));
@@ -191,7 +196,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/company/delete")
-	@PreAuthorize("hasAuthority('/admin/company/delete')")
+	@PreAuthorize("hasAuthority('DELETE_COMPANY')")
 	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
 		adminService.deleteCompanyById(companyId);
 		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
@@ -199,7 +204,7 @@ public class AdminController {
 		return "redirect:/admin/company/list";
 	}
 
-	@GetMapping("/branch")
+	@GetMapping("/branch/create")
 	public String createBranch(Model model) {
 		model.addAttribute("title", "New Branch | Maintenance Mangement");
 		model.addAttribute("branch", new BranchDto());
@@ -216,13 +221,13 @@ public class AdminController {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
 
-			return "redirect:/admin/branch";
+			return "redirect:/admin/branch/create";
 		}
 		if (adminService.branchUsernameExists(branchDto.getUsername())) {
 			session.setAttribute("message",
 					new Message("Username is already associated with another account !", "danger"));
 
-			return "redirect:/admin/branch";
+			return "redirect:/admin/branch/create";
 		}
 
 		Company company = adminService.getCompanyById(branchDto.getCompanyId());
@@ -243,10 +248,10 @@ public class AdminController {
 			session.setAttribute("message",
 					new Message("Only " + company.getNoOfBranch() + " no of branches are allowed !", "danger"));
 
-			return "redirect:/admin/branch";
+			return "redirect:/admin/branch/create";
 		}
 
-		return "redirect:/admin/branch";
+		return "redirect:/admin/branch/create";
 	}
 
 	@GetMapping("/branch/list")
@@ -267,7 +272,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/view/{id}")
-	public String branchView(@PathVariable Long id, Model model, HttpSession session) {
+	public String branchView(@PathVariable Long id, Model model) {
 		model.addAttribute("branchDetails", adminService.getBranchById(id));
 		model.addAttribute("user", adminService.getUserByEmail(adminService.getBranchById(id).getEmail()));
 
@@ -275,7 +280,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/edit/{id}")
-	public String branchEdit(@PathVariable Long id, Model model, HttpSession session) {
+	public String branchEdit(@PathVariable Long id, Model model) {
+		
 		model.addAttribute("branchDetails", adminService.getBranchById(id));
 		model.addAttribute("branch", new BranchDto());
 		model.addAttribute("companies", adminService.getAllCompanies());
@@ -310,7 +316,7 @@ public class AdminController {
 		return "redirect:/admin/branch/list";
 	}
 
-	@GetMapping("/user")
+	@GetMapping("/user/create")
 	public String createUser(Model model) {
 
 		model.addAttribute("user", new UserDto());
@@ -327,13 +333,13 @@ public class AdminController {
 		if (adminService.userUsernameExists(userDto.getUsername())) {
 			session.setAttribute("message",
 					new Message("Username is already associated with another account !", "danger"));
-			return "redirect:/admin/user";
+			return "redirect:/admin/user/create";
 		}
 
 		if (adminService.userEmailExists(userDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
-			return "redirect:/admin/user";
+			return "redirect:/admin/user/create";
 		}
 
 		User user = modelMapper.map(userDto, User.class);
@@ -342,19 +348,52 @@ public class AdminController {
 		adminService.registerUser(user, userDto.getRoleId());
 		session.setAttribute("message", new Message("User has been successfully Created!!", "success"));
 
-		return "redirect:/admin/user";
+		return "redirect:/admin/user/create";
 	}
 
 	@GetMapping("/user/list")
-	public String userList(Model model, Principal principal) {
+	public String userList(Model model) {
 
-		model.addAttribute("user", new UserDto());
-		model.addAttribute("branches", adminService.getAllBranches());
-		model.addAttribute("companies", adminService.getAllCompanies());
-		model.addAttribute("roles", adminService.getAllRoles());
 		model.addAttribute("users", adminService.getAllUsers());
 
 		return "/pages/admin/users_list";
+	}
+
+	@GetMapping("/user/edit/{id}")
+		public String userEdit(@PathVariable Long id, Model model) {
+
+		model.addAttribute("user", new UserDto());
+		model.addAttribute("userDetails", adminService.getUserById(id));
+		model.addAttribute("branches", adminService.getAllBranches());
+		model.addAttribute("companies", adminService.getAllCompanies());
+		model.addAttribute("roles", adminService.getAllRoles());
+		model.addAttribute("roleId", adminService.getRoleIdByUserId(id));
+		
+		return "/pages/admin/edit_user";
+	}
+	
+	@PostMapping("/user/edit/update")
+	public String userUpdate(@ModelAttribute("user") UserDto userDto, BindingResult bindingResult,
+			HttpSession session) throws IOException {
+
+		if (adminService.userEmailCheck(userDto)) {
+			session.setAttribute("message",
+					new Message("Email is already associated with another account !", "danger"));
+
+			return "redirect:/admin/user/edit/" + userDto.getUserId();
+		}
+
+		if (adminService.userUsernameCheck(userDto)) {
+			session.setAttribute("message",
+					new Message("Username is already associated with another account !", "danger"));
+
+			return "redirect:/admin/user/edit/" + userDto.getUserId();
+		}
+		
+		adminService.updateUser(userDto);
+		session.setAttribute("message", new Message("User has been successfully updated!!", "success"));
+
+		return "redirect:/admin/user/list";
 	}
 
 	@GetMapping("/user/delete")
@@ -367,7 +406,7 @@ public class AdminController {
 
 	}
 
-	@GetMapping("/role")
+	@GetMapping("/role/create")
 	public String addRoles(Model model) {
 
 		model.addAttribute("role", new Role());
@@ -383,12 +422,12 @@ public class AdminController {
 		if (adminService.roleExists(role.getName())) {
 			session.setAttribute("message", new Message("You've entered role Name already exists !", "danger"));
 
-			return "redirect:/admin/role";
+			return "redirect:/admin/role/create";
 		}
 		adminService.addRole(role);
 		session.setAttribute("message", new Message("Role has been successfully created!!", "success"));
 
-		return "redirect:/admin/role";
+		return "redirect:/admin/role/create";
 	}
 
 	@GetMapping("/role/delete")

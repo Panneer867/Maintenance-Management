@@ -9,6 +9,8 @@ import com.ingroinfo.mm.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	User findByUserId(Long id);
+	
 	User findByUsername(String username);
 
 	User findByEmail(String email);

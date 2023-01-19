@@ -1,0 +1,79 @@
+1) Add @PreAuthorize("hasAuthority('{PAGE_NAME}')") to all the getmapping coltrollers 
+
+2) Goto helper package and open SetupDataLoader, find createPrivilegeIfNotFound method add parameter as(page_no, page_name)
+
+	eg: 	Privilege a = createPrivilegeIfNotFound(100, "ADMIN_HOME");
+		Privilege b = createPrivilegeIfNotFound(101, "COMPANY_MANAGEMENT");
+
+	   	List<Privilege> ownerPrivileges = Arrays.asList(a,b);
+
+3) Add custom variables to UserRolesDto class  
+
+	eg:	private String adminpage;
+		private String companyManagement;
+
+4) Open AdminServiceImpl find UserRolesDto method add setting to the variables
+
+	eg:	if (pageNo == 100) {
+			pages.setAdminpage(String.valueOf(pageNo));
+		} else if (pageNo == 101) {
+			pages.setCompanyManagement(String.valueOf(pageNo));
+		}
+5) then, move to AssignRoles method, there do these things for the new pages
+
+	eg:	if (dto.getAdminpage().contains("N")) {
+			deleteRole(roleId, dto.getAdminpage());
+		} else {
+			createRole(roleId, dto.getAdminpage());
+		}
+
+		if (dto.getCompanyManagement().contains("N")) {
+			deleteRole(roleId, dto.getCompanyManagement());
+		} else {
+			createRole(roleId, dto.getCompanyManagement());
+		}
+
+6) Open user roles html page and add check boxes along with hidden input tags and assign id with unique name.
+
+	eg:	<div class="form-check form-switch mt-2">
+			<input type="checkbox" class="form-check-input" id="company-management" />
+			<input type="hidden" name="companyManagement" id="set-company-management">
+		<label class="form-check-label" for="company-management">Company Management</label>
+		</div>
+
+		<div class="form-check form-switch mt-2">
+			<input type="checkbox" class="form-check-input" id="company-management" />
+			<input type="hidden" name="companyManagement" id="set-company-management">
+		<label class="form-check-label" for="company-management">Company Management</label>
+		</div>
+	
+7) Open user-roles.js Javascript file, add if conditions and same as page numers for the associated id's
+
+	eg:	if (jsonobject.adminpage != null) {
+			$('#set-admin-page').val("100");
+			$('#admin-page').prop('checked', true);
+		} else {
+			$('#set-admin-page').val("100N");
+			$('#admin-page').prop('checked', false);
+		}
+
+		if (jsonobject.companyManagement != null) {
+			$('#set-company-management').val("101");
+			$('#company-management').prop('checked', true);
+		} else {
+			$('#set-company-management').val("101N");
+			$('#company-management').prop('checked', false);
+		}
+
+8) Open checkbox-probs.js Javascript file, add same here too with page numbers for the associated id's
+
+	eg: 	$('#admin-page').click(function() {
+			$('#set-admin-page').val($('#admin-page').is(':checked') ? 100 : "100N");
+		});
+
+		$('#company-management').click(function() {
+			$('#set-company-management').val($('#company-management').is(':checked') ? 101 : "101N");
+		});
+
+
+Thats, all

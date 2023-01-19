@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ import com.ingroinfo.mm.dao.StateRepository;
 import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
+import com.ingroinfo.mm.dto.UserDto;
 import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
@@ -70,9 +72,33 @@ public class AdminServiceImpl implements AdminService {
 		userRepository.save(user);
 	}
 
+	private void userRoleEntry(Long id) {
+		try {
+
+			User admin = userRepository.findByUsername("Admin");
+			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+			jdbcTemplate.update(sql, admin.getUserId(), id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void registerCompany(User user) {
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_COMPANY")));
+
+		String roleName = "ROLE_" + user.getName().toUpperCase() + "_COMPANY";
+		String description = "This is " + user.getName() + "company role";
+		Role role = roleRepository.findByName(roleName);
+
+		if (role == null) {
+			role = new Role(roleName, description);
+			roleRepository.save(role);
+		}
+
+		userRoleEntry(role.getId());
+
+		user.setRoles(Arrays.asList(role));
 		user.setBranch(null);
 		user.setUserType("C");
 		register(user);
@@ -80,17 +106,32 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void registerBranch(User user) {
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_BRANCH")));
+
+		String roleName = "ROLE_" + user.getName().toUpperCase() + "_BRANCH";
+		String description = "This is " + user.getName() + "branch role";
+		Role role = roleRepository.findByName(roleName);
+
+		if (role == null) {
+			role = new Role(roleName, description);
+			roleRepository.save(role);
+		}
+
+		userRoleEntry(role.getId());
+
+		user.setRoles(Arrays.asList(role));
 		user.setUserType("B");
 		register(user);
+
 	}
 
 	@Override
 	public void registerUser(User user, Long roleId) {
+
 		Role userRole = roleRepository.findById(roleId).get();
 		user.setRoles(Arrays.asList(userRole));
 		user.setUserType("U");
 		register(user);
+
 	}
 
 	@Override
@@ -282,7 +323,7 @@ public class AdminServiceImpl implements AdminService {
 				.findFirst().isPresent();
 
 		boolean isExistsBranch = branchRepository.findAll().stream()
-				.filter(x -> !branchDto.getCompanyId().equals(x.getBranchId())).collect(Collectors.toList()).stream()
+				.filter(x -> !branchDto.getBranchId().equals(x.getBranchId())).collect(Collectors.toList()).stream()
 				.filter(o -> o.getEmail().equals(branchDto.getEmail())).findFirst().isPresent();
 
 		return isExistsUser || isExistsBranch;
@@ -304,6 +345,7 @@ public class AdminServiceImpl implements AdminService {
 		user.setMobile(branchDto.getMobile());
 		user.setName(branchDto.getBranchName());
 		user.setUsername(branchDto.getUsername());
+		user.setRemarks(branchDto.getRemarks());
 		if (branchDto.getPassword().length() == 0) {
 			user.setPassword(user.getPassword());
 			userRepository.save(user);
@@ -329,6 +371,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public User getUserById(Long id) {
+		return userRepository.findByUserId(id);
+	}
+
+	@Override
 	public List<Role> getAllRolesOnlyWithoutAdmin() {
 		return roleRepository.findAll().stream()
 				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
@@ -343,7 +390,7 @@ public class AdminServiceImpl implements AdminService {
 				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
 						r.getLastUpdated()))
 				.collect(Collectors.toList()).stream()
-				.filter(o -> !o.getName().equals("ADMIN") && !o.getName().equals("COMPANY"))
+				.filter(o -> !o.getName().equals("ADMIN") && !o.getName().contains("COMPANY"))
 				.collect(Collectors.toList());
 	}
 
@@ -353,7 +400,7 @@ public class AdminServiceImpl implements AdminService {
 				.map(r -> new Role(r.getId(), r.getName().replace("ROLE_", ""), r.getDescription(), r.getDateCreated(),
 						r.getLastUpdated()))
 				.collect(Collectors.toList()).stream().filter(o -> !o.getName().equals("ADMIN")
-						&& !o.getName().equals("COMPANY") && !o.getName().equals("BRANCH"))
+						&& !o.getName().contains("COMPANY") && !o.getName().contains("BRANCH"))
 				.collect(Collectors.toList());
 	}
 
@@ -362,12 +409,8 @@ public class AdminServiceImpl implements AdminService {
 
 		roleRepository.save(role);
 		Role newRole = roleRepository.findByName(role.getName());
-		User admin = userRepository.findByUsername("Admin");
-		String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
-		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), newRole.getId());
-		if (jdbc > 0) {
-			System.out.println("Successfully role assigned for admin");
-		}
+
+		userRoleEntry(newRole.getId());
 	}
 
 	@Override
@@ -459,30 +502,36 @@ public class AdminServiceImpl implements AdminService {
 
 		Long roleId = dto.getRoleId();
 
-		if (dto.getAdminpage().contains("N"))
+		if (dto.getAdminpage().contains("N")) {
 			deleteRole(roleId, dto.getAdminpage());
-		else
+		} else {
 			createRole(roleId, dto.getAdminpage());
-		if (dto.getCompanyManagement().contains("N"))
+		}
+		if (dto.getCompanyManagement().contains("N")) {
 			deleteRole(roleId, dto.getCompanyManagement());
-		else
+		} else {
 			createRole(roleId, dto.getCompanyManagement());
-		if (dto.getCreateCompany().contains("N"))
+		}
+		if (dto.getCreateCompany().contains("N")) {
 			deleteRole(roleId, dto.getCreateCompany());
-		else
+		} else {
 			createRole(roleId, dto.getCreateCompany());
-		if (dto.getEditCompany().contains("N"))
+		}
+		if (dto.getEditCompany().contains("N")) {
 			deleteRole(roleId, dto.getEditCompany());
-		else
+		} else {
 			createRole(roleId, dto.getEditCompany());
-		if (dto.getViewCompany().contains("N"))
+		}
+		if (dto.getViewCompany().contains("N")) {
 			deleteRole(roleId, dto.getViewCompany());
-		else
+		} else {
 			createRole(roleId, dto.getViewCompany());
-		if (dto.getDeleteCompany().contains("N"))
+		}
+		if (dto.getDeleteCompany().contains("N")) {
 			deleteRole(roleId, dto.getDeleteCompany());
-		else
+		} else {
 			createRole(roleId, dto.getDeleteCompany());
+		}
 
 	}
 
@@ -502,17 +551,17 @@ public class AdminServiceImpl implements AdminService {
 
 					int pageNo = userRoles.get(i).getPageNo();
 
-					if (pageNo == 300) {
+					if (pageNo == 100) {
 						pages.setAdminpage(String.valueOf(pageNo));
-					} else if (pageNo == 301) {
+					} else if (pageNo == 101) {
 						pages.setCompanyManagement(String.valueOf(pageNo));
-					} else if (pageNo == 302) {
+					} else if (pageNo == 102) {
 						pages.setCreateCompany(String.valueOf(pageNo));
-					} else if (pageNo == 303) {
+					} else if (pageNo == 103) {
 						pages.setEditCompany(String.valueOf(pageNo));
-					} else if (pageNo == 304) {
+					} else if (pageNo == 104) {
 						pages.setViewCompany(String.valueOf(pageNo));
-					} else if (pageNo == 305) {
+					} else if (pageNo == 105) {
 						pages.setDeleteCompany(String.valueOf(pageNo));
 					}
 				}
@@ -523,6 +572,50 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		return pages;
+	}
+
+	@Override
+	public boolean userEmailCheck(UserDto userDto) {
+
+		return userRepository.findAll().stream().filter(x -> !userDto.getUserId().equals(x.getUserId()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getEmail().equals(userDto.getEmail())).findFirst()
+				.isPresent();
+
+	}
+
+	@Override
+	public boolean userUsernameCheck(UserDto userDto) {
+		return userRepository.findAll().stream().filter(x -> !userDto.getUserId().equals(x.getUserId()))
+				.collect(Collectors.toList()).stream().filter(o -> o.getUsername().equals(userDto.getUsername()))
+				.findFirst().isPresent();
+	}
+
+	@Override
+	public void updateUser(UserDto userDto) {
+
+		User user = getUserById(userDto.getUserId());
+
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		user.setMobile(userDto.getMobile());
+		user.setRemarks(userDto.getRemarks());
+		user.setUsername(userDto.getUsername());
+
+		if (userDto.getPassword().length() == 0) {
+			user.setPassword(user.getPassword());
+			userRepository.save(user);
+		} else {
+			user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
+			userRepository.save(user);
+		}
+	}
+
+	@Override
+	public Long getRoleIdByUserId(Long id) {
+
+		Collection<Role> roles = userRepository.findByUserId(id).getRoles();
+		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
+		return roleId.get(0);
 	}
 
 }

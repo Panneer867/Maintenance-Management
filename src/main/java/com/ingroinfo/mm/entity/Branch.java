@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +43,7 @@ public class Branch {
 	@Column(name = "phone")
 	private String mobile;
 	private String remarks;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "branch")
 	private List<User> user;
 	@ManyToOne
