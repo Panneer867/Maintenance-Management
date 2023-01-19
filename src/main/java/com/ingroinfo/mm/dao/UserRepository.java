@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	User findByCompany(Company company);
 
+	User findByUserType(String userType);
+
 }

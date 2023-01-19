@@ -8,9 +8,13 @@
 				<div class="row">
 					<div class="col-3">
 						<div class="dash-cards">
+
 							<article class="dash-card">
+
 								<picture class="thumbnail">
-									<img class="category__02 w-100" th:src="@{/images/dashboard/Company.jpg}" alt="" />
+									<a th:href="@{/admin/company/list}"><img class="category__02 w-100"
+											th:src="@{/images/dashboard/Company.jpg}" alt="" />
+									</a>
 								</picture>
 								<a th:href="@{/admin/company/list}">
 									<p class="dash-category category__01">Company Management</p>
@@ -22,7 +26,9 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/Branch.jpg}" alt="" />
+									<a th:href="@{/admin/branch/list}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Branch.jpg}" alt="" />
+									</a>
 								</picture>
 								<a th:href="@{/admin/branch/list}">
 									<p class="dash-category category__03">Branch Management</p>
@@ -34,7 +40,9 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/Users.jpg}" alt="" />
+									<a th:href="@{/admin/user/list}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Users.jpg}" alt="" />
+									</a>
 								</picture>
 								<a th:href="@{/admin/user/list}">
 									<p class="dash-category category__04">User Mangement</p>
@@ -46,8 +54,9 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/roles.jpg}"
-										alt="" />
+									<a th:href="@{/admin/role/list}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/roles.jpg}" alt="" />
+									</a>
 								</picture>
 								<a th:href="@{/admin/role/list}">
 									<p class="dash-category category__03">Role Master</p>
@@ -59,12 +68,13 @@
 			</div>
 			<div class="d-flex justify-content-center mt-5">
 				<div class="row">
-				<div class="col-3">
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/user_roles.jpg}"
-										alt="" />
+									<a th:href="@{/admin/user/roles}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/user_roles.jpg}" alt="" />
+									</a>
 								</picture>
 								<a th:href="@{/admin/user/roles}">
 									<p class="dash-category category__03">User Roles</p>
@@ -76,10 +86,11 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/Import.jpg}"
-										alt="" />
+									<a th:href="@{/admin/excel/import-export}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Import.jpg}" alt="" />
+									</a>
 								</picture>
-								<a href="#">
+								<a th:href="@{/admin/excel/import-export}">
 									<p class="dash-category category__03">Excel Import & Export</p>
 								</a>
 							</article>
@@ -89,10 +100,11 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<img class="category__03 w-100" th:src="@{/images/dashboard/Device.jpg}"
-										alt="" />
+									<a th:href="@{/admin/device/control}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Device.jpg}" alt="" />
+									</a>
 								</picture>
-								<a href="#">
+								<a th:href="@{/admin/device/control}">
 									<p class="dash-category category__04">Device & Control</p>
 								</a>
 							</article>
@@ -102,16 +114,18 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-
-									<img class="category__02 w-100" th:src="@{/images/dashboard/Backup.jpg}" alt="" />
+									<a th:href="@{/admin/backup}">
+										<img class="category__02 w-100" th:src="@{/images/dashboard/Backup.jpg}"
+											alt="" />
+									</a>
 								</picture>
-								<a href="#">
+								<a th:href="@{/admin/backup}">
 									<p class="dash-category category__01">Backup</p>
 								</a>
 							</article>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

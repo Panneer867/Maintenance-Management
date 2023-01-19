@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 	private void userRoleEntry(Long id) {
 		try {
 
-			User admin = userRepository.findByUsername("Admin");
+			User admin = userRepository.findByUserType("A");
 			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 			jdbcTemplate.update(sql, admin.getUserId(), id);
 
@@ -102,6 +102,7 @@ public class AdminServiceImpl implements AdminService {
 		user.setBranch(null);
 		user.setUserType("C");
 		register(user);
+
 	}
 
 	@Override
@@ -122,6 +123,16 @@ public class AdminServiceImpl implements AdminService {
 		user.setUserType("B");
 		register(user);
 
+		try {
+
+			User admin = userRepository.findByUserType("C");
+			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+			jdbcTemplate.update(sql, admin.getUserId(), role.getId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -132,6 +143,19 @@ public class AdminServiceImpl implements AdminService {
 		user.setUserType("U");
 		register(user);
 
+		userRoleEntry(userRole.getId());
+
+		try {
+
+			Long companyId = user.getCompany().getCompanyId();
+			Long branchId = user.getBranch().getBranchId();
+			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+			jdbcTemplate.update(sql, companyId, userRole.getId());
+			jdbcTemplate.update(sql, branchId, userRole.getId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -187,7 +211,30 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteCompanyById(Long companyId) {
+
+		Company company = companyRepository.findByCompanyId(companyId);
+
+		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equals(company.getEmail())).findFirst()
+				.get();
+
+		Collection<Role> roles = userRepository.findByUserId(user.getUserId()).getRoles();
+		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
+
+		for (int i = 0; i < roleId.size(); i++) {
+			deleteRoleById(roleId.get(i));
+		}
+
+		try {
+
+			String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+			jdbcTemplate.update(sql, user.getUserId(), roleId);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		companyRepository.deleteById(companyId);
+
 	}
 
 	@Override
@@ -230,6 +277,28 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteBranch(Long branchId) {
+
+		Branch branch = branchRepository.findByBranchId(branchId);
+
+		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equals(branch.getEmail())).findFirst()
+				.get();
+
+		Collection<Role> roles = userRepository.findByUserId(user.getUserId()).getRoles();
+		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
+
+		for (int i = 0; i < roleId.size(); i++) {
+			deleteRoleById(roleId.get(i));
+		}
+
+		try {
+
+			String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+			jdbcTemplate.update(sql, user.getUserId(), roleId);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		branchRepository.deleteById(branchId);
 	}
 
@@ -422,10 +491,8 @@ public class AdminServiceImpl implements AdminService {
 	public void deleteRoleById(Long roleId) {
 		User admin = userRepository.findByUsername("Admin");
 		String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
-		int jdbc = jdbcTemplate.update(sql, admin.getUserId(), roleId);
-		if (jdbc > 0) {
-			System.out.println("Role assigned for admin also successfully");
-		}
+		jdbcTemplate.update(sql, admin.getUserId(), roleId);
+
 		roleRepository.deleteById(roleId);
 	}
 

@@ -198,6 +198,7 @@ public class AdminController {
 	@GetMapping("/company/delete")
 	@PreAuthorize("hasAuthority('DELETE_COMPANY')")
 	public String deleteCompany(@RequestParam("id") Long companyId, HttpSession session) {
+
 		adminService.deleteCompanyById(companyId);
 		session.setAttribute("message", new Message("Company has been deleted successfully !!", "success"));
 
@@ -206,6 +207,7 @@ public class AdminController {
 
 	@GetMapping("/branch/create")
 	public String createBranch(Model model) {
+
 		model.addAttribute("title", "New Branch | Maintenance Mangement");
 		model.addAttribute("branch", new BranchDto());
 		model.addAttribute("states", adminService.getAllStates());
@@ -217,6 +219,7 @@ public class AdminController {
 	@PostMapping("/branch/register")
 	public String createBranch(@ModelAttribute("branch") BranchDto branchDto, HttpSession session,
 			Principal principal) {
+
 		if (adminService.branchEmailExists(branchDto.getEmail())) {
 			session.setAttribute("message",
 					new Message("Email is already associated with another account !", "danger"));
@@ -281,7 +284,7 @@ public class AdminController {
 
 	@GetMapping("/branch/edit/{id}")
 	public String branchEdit(@PathVariable Long id, Model model) {
-		
+
 		model.addAttribute("branchDetails", adminService.getBranchById(id));
 		model.addAttribute("branch", new BranchDto());
 		model.addAttribute("companies", adminService.getAllCompanies());
@@ -360,7 +363,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/edit/{id}")
-		public String userEdit(@PathVariable Long id, Model model) {
+	public String userEdit(@PathVariable Long id, Model model) {
 
 		model.addAttribute("user", new UserDto());
 		model.addAttribute("userDetails", adminService.getUserById(id));
@@ -368,13 +371,13 @@ public class AdminController {
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
 		model.addAttribute("roleId", adminService.getRoleIdByUserId(id));
-		
+
 		return "/pages/admin/edit_user";
 	}
-	
+
 	@PostMapping("/user/edit/update")
-	public String userUpdate(@ModelAttribute("user") UserDto userDto, BindingResult bindingResult,
-			HttpSession session) throws IOException {
+	public String userUpdate(@ModelAttribute("user") UserDto userDto, BindingResult bindingResult, HttpSession session)
+			throws IOException {
 
 		if (adminService.userEmailCheck(userDto)) {
 			session.setAttribute("message",
@@ -389,7 +392,7 @@ public class AdminController {
 
 			return "redirect:/admin/user/edit/" + userDto.getUserId();
 		}
-		
+
 		adminService.updateUser(userDto);
 		session.setAttribute("message", new Message("User has been successfully updated!!", "success"));
 
