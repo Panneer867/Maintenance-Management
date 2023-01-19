@@ -72,13 +72,21 @@ public class AdminServiceImpl implements AdminService {
 		userRepository.save(user);
 	}
 
-	private void userRoleEntry(Long id) {
+	private void userRoleEntry(Long roleId) {
+
+		User admin = userRepository.findByUserType("A");
+		Long adminUserId = admin.getUserId();
+
 		try {
 
-			User admin = userRepository.findByUserType("A");
-			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
-			jdbcTemplate.update(sql, admin.getUserId(), id);
+			String checkSql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + adminUserId + " AND ROLE_ID= " + roleId;
+			int count = jdbcTemplate.update(checkSql);
 
+			if (count == 0) {
+
+				String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+				jdbcTemplate.update(sql, adminUserId, roleId);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,15 +151,32 @@ public class AdminServiceImpl implements AdminService {
 		user.setUserType("U");
 		register(user);
 
-		userRoleEntry(userRole.getId());
+		userRoleEntry(roleId);
+
+		User companyUserDetail = userRepository.findAll().stream()
+				.filter(o -> o.getEmail().equalsIgnoreCase(user.getCompany().getEmail())).findFirst().get();
+		User branchUserDetail = userRepository.findAll().stream()
+				.filter(o -> o.getEmail().equalsIgnoreCase(user.getBranch().getEmail())).findFirst().get();
+
+		Long companyId = companyUserDetail.getUserId();
+		Long branchId = branchUserDetail.getUserId();
 
 		try {
 
-			Long companyId = user.getCompany().getCompanyId();
-			Long branchId = user.getBranch().getBranchId();
+			String checkCompanySql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + companyId + " AND ROLE_ID= "
+					+ roleId;
+			String checkBranchSql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + branchId + " AND ROLE_ID= " + roleId;
 			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
-			jdbcTemplate.update(sql, companyId, userRole.getId());
-			jdbcTemplate.update(sql, branchId, userRole.getId());
+			int count1 = jdbcTemplate.update(checkCompanySql);
+			int count2 = jdbcTemplate.update(checkBranchSql);
+
+			if (count1 == 0) {
+				jdbcTemplate.update(sql, companyId, roleId);
+			}
+
+			if (count2 == 0) {
+				jdbcTemplate.update(sql, branchId, roleId);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -214,8 +239,8 @@ public class AdminServiceImpl implements AdminService {
 
 		Company company = companyRepository.findByCompanyId(companyId);
 
-		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equals(company.getEmail())).findFirst()
-				.get();
+		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equalsIgnoreCase(company.getEmail()))
+				.findFirst().get();
 
 		Collection<Role> roles = userRepository.findByUserId(user.getUserId()).getRoles();
 		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
@@ -232,9 +257,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		companyRepository.deleteById(companyId);
-
 	}
 
 	@Override
@@ -415,10 +438,13 @@ public class AdminServiceImpl implements AdminService {
 		user.setName(branchDto.getBranchName());
 		user.setUsername(branchDto.getUsername());
 		user.setRemarks(branchDto.getRemarks());
+
 		if (branchDto.getPassword().length() == 0) {
 			user.setPassword(user.getPassword());
 			userRepository.save(user);
+
 		} else {
+
 			user.setPassword(this.passwordEncoder.encode(branchDto.getPassword()));
 			userRepository.save(user);
 		}
@@ -647,7 +673,6 @@ public class AdminServiceImpl implements AdminService {
 		return userRepository.findAll().stream().filter(x -> !userDto.getUserId().equals(x.getUserId()))
 				.collect(Collectors.toList()).stream().filter(o -> o.getEmail().equals(userDto.getEmail())).findFirst()
 				.isPresent();
-
 	}
 
 	@Override
@@ -682,6 +707,7 @@ public class AdminServiceImpl implements AdminService {
 
 		Collection<Role> roles = userRepository.findByUserId(id).getRoles();
 		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
+
 		return roleId.get(0);
 	}
 
