@@ -3,58 +3,95 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				DMA-Ward
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">DMA-Ward</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/savedmaward}" method="post">
+						<div class="row ">
+							<div class="col text-start">
 
-				<form>
-					<div class="row ">
-						<div class="col text-start">
+								<label for="dmaNumber" class="col-sm-8 col-form-label">DMA Number</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="dmaNumber"
+										name="dmaNumber" required>
+								</div>
+							</div>
 
-							<label for="inputEmail3" class="col-sm-8 col-form-label">DMA Number</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+							<div class="col text-start">
+								<label for="dmaName" class="col-sm-8 col-form-label">DMA Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="dmaName" name="dmaName"
+										required>
+								</div>
+							</div>
+
+							<div class="col text-start">
+								<label for="wardNumber" class="col-sm-10 col-form-label">Ward Number</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="wardNumber"
+										name="wardNumber" required>
+								</div>
+							</div>
+
+							<div class="col text-start">
+								<label for="wardName" class="col-sm-10 col-form-label">Ward Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="wardName"
+										name="wardName" required>
+								</div>
 							</div>
 						</div>
 
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">DMA Name</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/dmawardhistory}" class="btn btn-success">View</a>
 						</div>
 
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Ward
-								Number</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Ward Name</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">DMA-Ward History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Dma No</th>
+						<th class="text-center" scope="col">Dma Name</th>
+						<th class="text-center" scope="col">Ward Number</th>
+						<th class="text-center" scope="col">Ward Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="dmaward : ${listOfDmaWard}">
+						<td><a href="#" th:onclick="|deleteDmaWard(${dmaward.dmaWardId})|">
+								<span th:text="${'DW'+dmaward.dmaWardId}"></span></a>
+						</td>
+						<td th:text="${dmaward.dmaNumber}"></td>
+						<td th:text="${dmaward.dmaName}"></td>
+						<td th:text="${dmaward.wardNumber}"></td>
+						<td th:text="${dmaward.wardName}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+
 	</section>
 </body>
 

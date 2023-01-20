@@ -2,466 +2,503 @@
 
 <body>
 	<section>
-		<div class="card col-md-12 mt-3 bl-cr">
-			<div class="card-header heading-bg">
-				<h3 class="text-center text-white">Work Estmation</h3>
-			</div>
-			<div class="card-body font-weight-bold">
-				<form>
-					<div class="row">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Division</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Division">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Sub Division</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Sub Division">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Work Order Date</label>
-							<input type="date" class="form-control" id="inputEmail4" placeholder="Email">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Estimation Number</label>
-							<input type="number" class="form-control" id="inputEmail4" placeholder="Estimation Number">
-						</div>
-					</div>
+		<div class="mt-2">
+			<ul class="nav nav-pills justify-content-center py-1 mb-2" id="pills-tab" role="tablist">
 
-					<div class="row mt-3">
-						<div class="form-group col-md-6">
-							<label for="inputEmail4">Work Order Scope</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Work Order Scope">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Estimation Genrated By</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Estimation Genrated By">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Work Priority</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Work Priority">
-						</div>
-					</div>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-home-tab"
+						data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
+						aria-controls="pills-home" aria-selected="true">
+						Work Estmation
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-chart-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-chart" type="button" role="tab" aria-controls="pills-chart"
+						aria-selected="false">
+						Work Estmation Dashboard
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab"
+						data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Work Estmation View
+					</button>
+				</li>
 
-					<div class="row mt-3">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Work Order Cost</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Work Order Cost">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="inputEmail4">Work Site</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Work Site">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Contact</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Contact">
-						</div>
-					</div>
 
-					<div class="row mt-3">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Expected Start Date</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Expected Start Date">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Expected End Date</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Expected End Date">
-						</div>
-					</div>
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+					aria-labelledby="pills-home-tab" tabindex="0">
 
-					<!--*********************** Work Estmation || PART / MATERIAL ISSUED  Start ********************-->
-					<div class="col-md-12 mt-3">
-						<div class="card bl-cr">
-							<div class="card-header" style="background-color: blueviolet;height: 35px;">
-								<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
-							</div>
-							<div class="card-body font-weight-bold">
-
-								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Category</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Category">
+					<div class="card col-md-12 mt-3 bl-cr generate-hold-cancle-form">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white">Work Estmation</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+							<form method="POST" th:action="@{/workorder/saveworkestmation}">
+								<div class="row">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Division</label>
+										<input type="text" class="form-control" id="division" name="division"
+											placeholder="Division">
 									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Item</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Item">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Sub Division</label>
+										<input type="text" class="form-control" id="subDivision" name="subDivision"
+											placeholder="Sub Division">
 									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">HSNCODE</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="HSNCODE">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Date</label>
+										<input type="date" class="form-control" id="workOrderDate" name="workOrderDate">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Estimation Number</label>
+										<input type="number" class="form-control" id="estimationNumber"
+											name="estimationNumber" placeholder="Estimation Number">
 									</div>
 								</div>
 
 								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Unit of Meassure</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Unit of Meassure">
+									<div class="form-group col-md-6">
+										<label for="inputEmail4">Work Order Scope</label>
+										<input type="text" class="form-control" id="workOrderScope"
+											name="workOrderScope" placeholder="Work Order Scope">
 									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Qty</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Qty">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Estimation Genrated By</label>
+										<input type="text" class="form-control" id="estimationGenratedBy"
+											name="estimationGenratedBy" placeholder="Estimation Genrated By">
 									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Amount</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Amount">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Priority</label>
+										<input type="text" class="form-control" id="workPriority" name="workPriority"
+											placeholder="Work Priority">
 									</div>
 								</div>
-								<div class="text-center mt-3">
-									<button type="button" class="btn btn-primary w-25">Add</button>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Work Order Cost</label>
+										<input type="number" class="form-control" id="workOrderCost" name=""
+											placeholder="Work Order Cost">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="inputEmail4">Work Site</label>
+										<input type="text" class="form-control" id="workSite" name="workSite"
+											placeholder="Work Site">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Contact</label>
+										<input type="number" class="form-control" id="contact" name="contact"
+											placeholder="Contact">
+									</div>
 								</div>
-							</div>
-							<div class="card-footer">
-								<table
-									class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
-									id="generatMetrial">
-									<thead>
-										<tr>
-											<th>Category</th>
-											<th>Item</th>
-											<th>HSNCode</th>
-											<th>Unit of Meassure</th>
-											<th>Qty</th>
-											<th>Amount</th>
-										</tr>
-									</thead>
-									<tbody class="table-scroll">
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011-04-25</td>
-											<td>$320,800</td>
-										</tr>
-										<tr>
-											<td>Herrod Chandler</td>
-											<td>Sales Assistant</td>
-											<td>San Francisco</td>
-											<td>59</td>
-											<td>2012-08-06</td>
-											<td>$137,500</td>
-										</tr>
-										<tr>
-											<td>Rhona Davidson</td>
-											<td>Integration Specialist</td>
-											<td>Tokyo</td>
-											<td>55</td>
-											<td>2010-10-14</td>
-											<td>$327,900</td>
-										</tr>
-										<tr>
-											<td>Colleen Hurst</td>
-											<td>Javascript Developer</td>
-											<td>San Francisco</td>
-											<td>39</td>
-											<td>2009-09-15</td>
-											<td>$205,500</td>
-										</tr>
-										<tr>
-											<td>Sonya Frost</td>
-											<td>Software Engineer</td>
-											<td>Edinburgh</td>
-											<td>23</td>
-											<td>2008-12-13</td>
-											<td>$103,600</td>
-										</tr>
-										<tr>
-											<td>Jena Gaines</td>
-											<td>Office Manager</td>
-											<td>London</td>
-											<td>30</td>
-											<td>2008-12-19</td>
-											<td>$90,560</td>
-										</tr>
 
-										<tr>
-											<td>Donna Snider</td>
-											<td>Customer Support</td>
-											<td>New York</td>
-											<td>27</td>
-											<td>2011-01-25</td>
-											<td>$112,000</td>
-										</tr>
-									</tbody>
-									<tbody class="table-scroll">
-										<tr>
-											<td colspan="5" class="text-center">TOTAL</td>
-											<td colspan="1" class="font-weight-bold text-right">qty</td>
-											<td colspan="1" class="font-weight-bold text-right">qty</td>
-										</tr>
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Expected Start Date</label>
+										<input type="Date" class="form-control" id="expectedStartDate"
+											name="expectedStartDate" placeholder="Expected Start Date">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Expected End Date</label>
+										<input type="Date" class="form-control" id="expectedEndDate"
+											name="expectedEndDate" placeholder="Expected End Date">
+									</div>
+								</div>
 
-									</tbody>
+								<!--*********************** Work Estmation || PART / MATERIAL ISSUED  Start ********************-->
+								<div class="col-md-12 mt-3">
+									<div class="card bl-cr">
+										<div class="card-header" style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
+										</div>
+										<div class="card-body font-weight-bold">
 
-								</table>
-							</div>
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Category</label>
+													<input type="text" class="form-control" id="category"
+														name="category" placeholder="Category">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Item</label>
+													<input type="text" class="form-control" id="item" name="item"
+														placeholder="Item">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">HSNCODE</label>
+													<input type="text" class="form-control" id="hsnCode" name="hsnCode"
+														placeholder="HSNCODE">
+												</div>
+											</div>
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Unit of Meassure</label>
+													<input type="text" class="form-control" id="unitMeassure"
+														name="unitMeassure" placeholder="Unit of Meassure">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Qty</label>
+													<input type="number" class="form-control" id="estMaterialQty"
+														name="estMaterialQty" placeholder="Qty">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Amount</label>
+													<input type="number" class="form-control" id="estMaterialAmount"
+														name="estMaterialAmount" placeholder="Amount">
+												</div>
+											</div>
+											<div class="text-center mt-3">
+												<button type="button" class="btn btn-primary w-25">Add</button>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
+												id="generatMetrial">
+												<thead>
+													<tr>
+														<th>Category</th>
+														<th>Item</th>
+														<th>HSNCode</th>
+														<th>Unit of Meassure</th>
+														<th>Qty</th>
+														<th>Amount</th>
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>Herrod Chandler</td>
+														<td>Sales Assistant</td>
+														<td>San Francisco</td>
+														<td>59</td>
+														<td>2012-08-06</td>
+														<td>$137,500</td>
+													</tr>
+												</tbody>
+												<tbody class="table-scroll">
+													<tr>
+														<td colspan="5" class="text-center">TOTAL</td>
+														<td colspan="1" class="font-weight-bold text-right">qty</td>
+														<td colspan="1" class="font-weight-bold text-right">qty</td>
+													</tr>
+
+												</tbody>
+
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<!--*********************** Work Estmation || LABOUR / TIMES  Start ********************-->
+								<div class="col-md-12 mt-3">
+									<div class="card bl-cr">
+										<div class="card-header" style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
+										</div>
+										<div class="card-body font-weight-bold">
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Employee Categorty</label>
+													<input type="text" class="form-control" id="employeeCategorty"
+														name="employeeCategorty" placeholder="Employee Categorty">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Employee Type</label>
+													<input type="text" class="form-control" id="employeeType"
+														name="employeeType" placeholder="Employee Type">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Qty</label>
+													<input type="number" class="form-control" id="labourQty"
+														name="labourQty" placeholder="Qty">
+												</div>
+											</div>
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Days</label>
+													<input type="date" class="form-control" id="days" name="days">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Timing</label>
+													<input type="time" class="form-control" id="time" name="time">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Total Hour</label>
+													<input type="text" class="form-control" id="totalHours"
+														name="totalHours" placeholder="Total Hour">
+												</div>
+											</div>
+											<div class="text-center mt-3">
+												<button type="button" class="btn btn-primary w-25">Add</button>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
+												id="generatLabour">
+												<thead>
+													<tr>
+														<th>Employee Categorty</th>
+														<th>Qty</th>
+														<th>Days</th>
+														<th>Timing</th>
+														<th>Start date</th>
+														<th>Total Hour</th>
+
+
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+
+													<tr>
+														<td>Rhona Davidson</td>
+														<td>Integration Specialist</td>
+														<td>Tokyo</td>
+														<td>55</td>
+														<td>2010-10-14</td>
+														<td>$327,900</td>
+													</tr>
+													<tr>
+														<td>Colleen Hurst</td>
+														<td>Javascript Developer</td>
+														<td>San Francisco</td>
+														<td>39</td>
+														<td>2009-09-15</td>
+														<td>$205,500</td>
+													</tr>
+													<tr>
+														<td>Sonya Frost</td>
+														<td>Software Engineer</td>
+														<td>Edinburgh</td>
+														<td>23</td>
+														<td>2008-12-13</td>
+														<td>$103,600</td>
+													</tr>
+
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
+
+								<!--****************************  Work Estmation || VEHICLE/TIMING Start *********************************-->
+								<div class="col-md-12 mt-3">
+									<div class="card bl-cr">
+										<div class="card-header " style="background-color: blueviolet;height: 35px;">
+											<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
+										</div>
+										<div class="card-body font-weight-bold">
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Vehicle Type</label>
+													<input type="text" class="form-control" id="vehicleType"
+														name="vehicleType" placeholder="Vehicle Type">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Vehicle Number</label>
+													<input type="text" class="form-control" id="vehicleNumber"
+														name="vehicleNumber" placeholder="Vehicle Number">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Driver Name</label>
+													<input type="text" class="form-control" id="driverName"
+														name="driverName" placeholder="Driver Name">
+												</div>
+											</div>
+
+											<div class="row mt-3">
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Driver Contact Number</label>
+													<input type="number" class="form-control" id="driverContactNumber"
+														name="driverContactNumber" placeholder="Driver Contact Number">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">ODO Meter From Reading</label>
+													<input type="text" class="form-control" id="odoMeterReading"
+														name="odoMeterReading" placeholder="Total Hour">
+												</div>
+
+												<div class="form-group col-md-4">
+													<label for="inputEmail4">Start Time</label>
+													<input type="time" class="form-control" id="startTime"
+														name="startTime" placeholder="Start Time">
+												</div>
+											</div>
+											<div class="text-center mt-3">
+												<button type="button" class="btn btn-primary w-25">Add</button>
+											</div>
+										</div>
+										<div class="card-footer">
+											<table
+												class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
+												id="generatLabour">
+												<thead>
+													<tr>
+														<th>Vehicle Type</th>
+														<th>Vehicle Number</th>
+														<th>Driver Name</th>
+														<th>Driver Contact No</th>
+														<th>ODO Meter Reading</th>
+														<th>Start Time</th>
+
+
+													</tr>
+												</thead>
+												<tbody class="table-scroll">
+													<tr>
+														<td>Tiger Nixon</td>
+														<td>System Architect</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>2011-04-25</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>Colleen Hurst</td>
+														<td>Javascript Developer</td>
+														<td>San Francisco</td>
+														<td>39</td>
+														<td>2009-09-15</td>
+														<td>$205,500</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class=" text-center mt-4">
+									<button type="submit" class="btn btn-primary w-25 text-center">Submit</button>
+									<button type="button" class="btn btn-primary w-25 text-center">Print</button>
+								</div>
+							</form>
 						</div>
 					</div>
 
-					<!--*********************** Work Estmation || LABOUR / TIMES  Start ********************-->
-					<div class="col-md-12 mt-3">
-						<div class="card bl-cr">
-							<div class="card-header" style="background-color: blueviolet;height: 35px;">
-								<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
-							</div>
-							<div class="card-body font-weight-bold">
-								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Employee Categorty</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Employee Categorty">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Employee Type</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Employee Type">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Qty</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Qty">
-									</div>
-								</div>
+				</div>
 
-								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Days</label>
-										<input type="date" class="form-control" id="inputEmail4" placeholder="Days">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Timing</label>
-										<input type="time" class="form-control" id="inputEmail4" placeholder="Timing">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Total Hour</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Total Hour">
-									</div>
-								</div>
-								<div class="text-center mt-3">
-									<button type="button" class="btn btn-primary w-25">Add</button>
-								</div>
-							</div>
-							<div class="card-footer">
-								<table
-									class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
-									id="generatLabour">
-									<thead>
-										<tr>
-											<th>Employee Categorty</th>
-											<th>Qty</th>
-											<th>Days</th>
-											<th>Timing</th>
-											<th>Start date</th>
-											<th>Total Hour</th>
+				<!--Work Estmation Dashboard-->
+				<div class="tab-pane fade" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab"
+					tabindex="0">
 
-
-										</tr>
-									</thead>
-									<tbody class="table-scroll">
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011-04-25</td>
-											<td>$320,800</td>
-										</tr>
-										<tr>
-											<td>Herrod Chandler</td>
-											<td>Sales Assistant</td>
-											<td>San Francisco</td>
-											<td>59</td>
-											<td>2012-08-06</td>
-											<td>$137,500</td>
-										</tr>
-										<tr>
-											<td>Rhona Davidson</td>
-											<td>Integration Specialist</td>
-											<td>Tokyo</td>
-											<td>55</td>
-											<td>2010-10-14</td>
-											<td>$327,900</td>
-										</tr>
-										<tr>
-											<td>Colleen Hurst</td>
-											<td>Javascript Developer</td>
-											<td>San Francisco</td>
-											<td>39</td>
-											<td>2009-09-15</td>
-											<td>$205,500</td>
-										</tr>
-										<tr>
-											<td>Sonya Frost</td>
-											<td>Software Engineer</td>
-											<td>Edinburgh</td>
-											<td>23</td>
-											<td>2008-12-13</td>
-											<td>$103,600</td>
-										</tr>
-										<tr>
-											<td>Jena Gaines</td>
-											<td>Office Manager</td>
-											<td>London</td>
-											<td>30</td>
-											<td>2008-12-19</td>
-											<td>$90,560</td>
-										</tr>
-
-										<tr>
-											<td>Donna Snider</td>
-											<td>Customer Support</td>
-											<td>New York</td>
-											<td>27</td>
-											<td>2011-01-25</td>
-											<td>$112,000</td>
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
+					<div class="card ">
+						<div class="card-header bg-primary">
+							<h3 class="text-center text-white mb-0">Work Estmation Dashboard</h3>
 						</div>
-					</div>
-
-
-
-					<!--****************************  Work Estmation || VEHICLE/TIMING Start *********************************-->
-					<div class="col-md-12 mt-3">
-						<div class="card bl-cr">
-							<div class="card-header " style="background-color: blueviolet;height: 35px;">
-								<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
-							</div>
-							<div class="card-body font-weight-bold">
-
-								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Vehicle Type</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Vehicle Type">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Vehicle Number</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Vehicle Number">
-									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Driver Name</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Driver Name">
-									</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="generateorder"></div>
+									</figure>
 								</div>
-
-								<div class="row mt-3">
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Driver Contact Number</label>
-										<input type="number" class="form-control" id="inputEmail4"
-											placeholder="Driver Contact Number">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">ODO Meter From Reading</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Total Hour">
-									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputEmail4">Start Time</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Start Time">
-									</div>
-								</div>
-								<div class="text-center mt-3">
-									<button type="button" class="btn btn-primary w-25">Add</button>
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="generateorder1"></div>
+									</figure>
 								</div>
 							</div>
-							<div class="card-footer">
-								<table
-									class="table table-stock table-bordered table table-success table-striped table-hover mytable table-size"
-									id="generatLabour">
-									<thead>
-										<tr>
-											<th>Vehicle Type</th>
-											<th>Vehicle Number</th>
-											<th>Driver Name</th>
-											<th>Driver Contact No</th>
-											<th>ODO Meter Reading</th>
-											<th>Start Time</th>
+							<div class="row">
 
-
-										</tr>
-									</thead>
-									<tbody class="table-scroll">
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011-04-25</td>
-											<td>$320,800</td>
-										</tr>
-										<tr>
-											<td>Herrod Chandler</td>
-											<td>Sales Assistant</td>
-											<td>San Francisco</td>
-											<td>59</td>
-											<td>2012-08-06</td>
-											<td>$137,500</td>
-										</tr>
-										<tr>
-											<td>Rhona Davidson</td>
-											<td>Integration Specialist</td>
-											<td>Tokyo</td>
-											<td>55</td>
-											<td>2010-10-14</td>
-											<td>$327,900</td>
-										</tr>
-										<tr>
-											<td>Colleen Hurst</td>
-											<td>Javascript Developer</td>
-											<td>San Francisco</td>
-											<td>39</td>
-											<td>2009-09-15</td>
-											<td>$205,500</td>
-										</tr>
-										<tr>
-											<td>Sonya Frost</td>
-											<td>Software Engineer</td>
-											<td>Edinburgh</td>
-											<td>23</td>
-											<td>2008-12-13</td>
-											<td>$103,600</td>
-										</tr>
-										<tr>
-											<td>Jena Gaines</td>
-											<td>Office Manager</td>
-											<td>London</td>
-											<td>30</td>
-											<td>2008-12-19</td>
-											<td>$90,560</td>
-										</tr>
-
-										<tr>
-											<td>Donna Snider</td>
-											<td>Customer Support</td>
-											<td>New York</td>
-											<td>27</td>
-											<td>2011-01-25</td>
-											<td>$112,000</td>
-										</tr>
-
-									</tbody>
-								</table>
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="generateorder2"></div>
+									</figure>
+								</div>
+								<div class="col">
+									<figure class="highcharts-figure border">
+										<div id="generateorder3"></div>
+									</figure>
+								</div>
 							</div>
+
 						</div>
-					</div>
-				</form>
+						<div class="card-footer text-muted">
+							2 days ago
+						</div>
 
-			</div>
-			<div class="card-footer text-muted">
-				2 days ago
+					</div>
+				</div>
+
+				<!--Work Estmation View-->
+				<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+					tabindex="0">
+
+					<div class="card">
+						<div class="card-header bg-info">
+							<h3 class="text-center text-white mb-0">Work Estmation View</h3>
+						</div>
+						<div class="card-body">
+							<table
+								class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+								<thead class="table-dark">
+									<tr>
+										<th class="all">Id</th>
+										<th class="all">Category</th>
+										<th class="all">Item</th>
+										<th class="all">Supplier</th>
+										<th class="all">Brand</th>
+										<th class="all">HSN</th>
+										<th class="all">Qty</th>
+										<th class="all">Unit</th>
+										<th class="all">MRP</th>
+										<th class="all">Entry Date</th>
+										<th class="all">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="genworkorder: ${listofgenWork}">
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.category}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td th:text="${genworkorder.generateWorkId}"></td>
+										<td class="text-center modal-dialog modal-xl"> <a
+												class="btn bg-primary text-white">VIEW</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

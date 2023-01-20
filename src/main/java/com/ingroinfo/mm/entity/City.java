@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "city")
+@Table(name = "mm_city")
 public class City {
 
 	@Id

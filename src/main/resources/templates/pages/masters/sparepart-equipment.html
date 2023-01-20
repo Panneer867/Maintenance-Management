@@ -3,40 +3,73 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Spare Part/Equipments
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-					<div class="mx-auto col-8 text-start">
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Spare Parts/
-								Equipment ID </label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Spare Part/Equipments</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveequipments}" method="post">
+						<div class="mx-auto col-8 text-start">
+							<div class="form-group row">
+								<label for="spareEquipmentId" class="col-auto col-form-label">Spare Parts/
+									Equipment ID </label>
+								<div class="col-sm-6 ml-4">
+									<input type="text" class="form-control form-control-sm" 
+									id="spareEquipmentId" name="spareEquipmentId" maxlength="6" required>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="spareEquipmentName" class="col-auto col-form-label">Spare Parts/
+									Equipment Name </label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control form-control-sm" 
+									id="spareEquipmentName" name="spareEquipmentName" required>
+								</div>
 							</div>
 						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Spare Parts/
-								Equipment Name </label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+						<div class="pt-3 text-center">
+						  <button type="submit" class="btn btn-primary">Submit </button>
+						  <a th:href="@{/masters/partsequipmenthistory}" class="btn btn-success">View</a>
+					   </div>
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Spare Parts/Equipment History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Spare Parts / Equipment Id</th>
+						<th class="text-center" scope="col">Spare Parts / Equipment Name</th>																	
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="partsequi : ${listOfEquipments}">
+						<td><a href="#" th:onclick="|deleteSparePartsEquipment(${partsequi.spareequiId})|">
+								<span th:text="${'SE'+partsequi.spareequiId}"></span></a>
+						</td>
+						<td th:text="${partsequi.spareEquipmentId}"></td>
+						<td th:text="${partsequi.spareEquipmentName}"></td>																									
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+		
 	</section>
 </body>
 

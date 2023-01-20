@@ -3,61 +3,102 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Store/Branch Name
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-					<div class="mx-auto col-8 text-start">
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Company Division
-							</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Store/Branch Name</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/savestorebranch}" method="post">
+						<div class="mx-auto col-8 text-start">
+							<div class="form-group row">
+								<label for="companyDivision" class="col-auto col-form-label">Company Division</label>
+								<div class="col-sm-6" style="margin-left: 57px;">
+									<input type="text" class="form-control form-control-sm" id="companyDivision"
+										name="companyDivision" required placeholder="Enter Company Division">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="storeBranchId" class="col-auto col-form-label">Store / Branch ID</label>
+								<div class="col-sm-6" style="margin-left: 65px;">
+									<input type="text" class="form-control form-control-sm bg-white" id="storeBranchId"
+										name="storeBranchId" required th:value="${masterbranchid}" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="storeBranchContactNo" class="col-auto col-form-label">Store / Branch Contact
+									No</label>
+								<div class="col-sm-6 ml-3" style="margin-left: 16px;">
+									<input type="text" class="form-control form-control-sm" id="storeBranchContactNo"
+										name="storeBranchContactNo" required maxlength="10" placeholder="Enter Store/Branch Contact No">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="stroreBranchName" class="col-auto col-form-label">Store / Branch Name
+									Details</label>
+								<div class="col-sm-6" style="margin-left: 2px;">
+									<input type="text" class="form-control form-control-sm" id="stroreBranchName"
+										name="stroreBranchName" required placeholder="Enter Store/Branch Name">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="storeBranchAdd" class="col-auto col-form-label">Store / Branch
+									Address</label>
+								<div class="col-sm-6" style="margin-left: 29px;">
+									<input type="text" class="form-control form-control-sm" id="storeBranchAdd"
+										name="storeBranchAdd" required placeholder="Enter Store/Branch Address">
+								</div>
 							</div>
 						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
-								ID</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
+						<div class="pt-3 text-center">
+							<button type="submit" class="btn btn-primary">Submit </button>
+							<a th:href="@{/masters/storebranchistory}" class="btn btn-success">View</a>
 						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch Name
-								Details</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
-								Address</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-6 col-form-label">Store / Branch
-								Contact No</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Store/Branch History</h5>
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Company Division</th>
+						<th class="text-center" scope="col">Store/Branch Id</th>
+						<th class="text-center" scope="col">Store/Branch Contact</th>
+						<th class="text-center" scope="col">Store/Branch Name</th>
+						<th class="text-center" scope="col">Store/Branch Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="storebranch : ${listOfStoreBranch}">
+						<td><a href="#" th:onclick="|deleteStoreBranch(${storebranch.strbraNameId})|">
+								<span th:text="${'SE'+storebranch.strbraNameId}"></span></a>
+						</td>
+						<td th:text="${storebranch.companyDivision}"></td>
+						<td th:text="${storebranch.storeBranchId}"></td>
+						<td th:text="${storebranch.storeBranchContactNo}"></td>
+						<td th:text="${storebranch.stroreBranchName}"></td>
+						<td th:text="${storebranch.storeBranchAdd}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+
 	</section>
 </body>
 

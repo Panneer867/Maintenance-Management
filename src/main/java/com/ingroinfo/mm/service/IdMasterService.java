@@ -11,5 +11,11 @@ public interface IdMasterService {
     
     //FindAll
     List<IdMasterDto> findAllIdMaster();
+    
+    //get Data By Id
+    IdMasterDto getByMasterId(Long masterId);
+    
+    //get Data by IdMaster Name
+    IdMasterDto getByMasterIdName(String masterIdName);
 	
 }

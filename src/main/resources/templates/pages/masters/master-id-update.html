@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5">
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Master Id Update</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/upadeMasterId}" th:object="${idMasterDto}" method="post">
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<label for="masterIdName" class="col-form-label">Id Name</label>
+							</div>
+							<input type="hidden" name="masterId" th:value="${idMasterDto.masterId}">
+							<div class="col-2">
+								<input type="text" id="masterIdName" class="form-control form-control-sm bg-white"
+								readonly th:value="${idMasterDto.masterIdName}" name="masterIdName" >
+							</div>
+							<div class="col-auto">
+								<label for="statNumber" class="col-form-label">Start No</label>
+							</div>
+							<div class="col-2">
+								<input type="text" id="statNumber" class="form-control form-control-sm"
+								th:value="${idMasterDto.statNumber}" name="statNumber" maxlength="5">
+							</div>
+							<div class="col-auto">
+								<label for="idDescription" class="col-form-label">Description</label>
+							</div>
+							<div class="col-4">
+								<input type="text" id="idDescription" class="form-control form-control-sm"
+								th:value="${idMasterDto.idDescription}" name="idDescription">
+							</div>							
+						</div>
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Update</button>							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+		  $(document).ready(() =>{			 
+			  $("#master-id-sidebar").addClass("active");			  			 
+		  });
+		</script>
+		
+	</section>
+</body>
+
+</html>

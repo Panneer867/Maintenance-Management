@@ -26,6 +26,7 @@ import com.ingroinfo.mm.dao.UserRepository;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
+import com.ingroinfo.mm.dto.UserRoleIdDto;
 import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
@@ -33,7 +34,6 @@ import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
-import com.ingroinfo.mm.entity.UserRole;
 import com.ingroinfo.mm.service.AdminService;
 
 @Service
@@ -638,7 +638,7 @@ public class AdminServiceImpl implements AdminService {
 			int count = jdbcTemplate.update(sql);
 
 			if (count > 0) {
-				List<UserRole> userRoles = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(UserRole.class));
+				List<UserRoleIdDto> userRoles = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(UserRoleIdDto.class));
 
 				for (int i = 0; i < userRoles.size(); i++) {
 

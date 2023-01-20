@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "branch")
+@Table(name = "mm_branch")
 public class Branch {
 
 	@Id

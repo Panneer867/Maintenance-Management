@@ -1,0 +1,482 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5 id-master-form">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Department Id Master History</h3>
+				</div>
+				<div class="card-body pl-5 pr-5">
+					<div class="float-right mb-2">
+						<a th:href="@{/masters/departmentId}" class="col-sm btn btn-danger fs-6">Add Id</a>
+					</div>
+
+					<!--Strat of Budget Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-5">
+						<h5><b>Budget Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="budget : ${listOfBudgetId}" class="bl-cr">
+								<td th:text="${budget.masterIdName}"></td>
+								<td th:text="${budget.deptId}"></td>
+								<td th:text="${budget.deptName}"></td>
+								<td th:text="${budget.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${budget.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Budget Id History Card-->
+
+					<!--Strat of Out Material Isuued Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Out Material Issued Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="metalissue : ${listOfOutmatlIsueId}" class="bl-cr">
+								<td th:text="${metalissue.masterIdName}"></td>
+								<td th:text="${metalissue.deptId}"></td>
+								<td th:text="${metalissue.deptName}"></td>
+								<td th:text="${metalissue.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${metalissue.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Out Material Isuued Id History Card-->
+
+					<!--Strat of Out Material Isuued Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Out Spare Material Issue Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="sparemetalissue : ${listOfOutSparematlIsueId}" class="bl-cr">
+								<td th:text="${sparemetalissue.masterIdName}"></td>
+								<td th:text="${sparemetalissue.deptId}"></td>
+								<td th:text="${sparemetalissue.deptName}"></td>
+								<td th:text="${sparemetalissue.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${sparemetalissue.depMasterId})|">Update</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Out Material Isuued Id History Card-->
+
+					<!--Strat of Out Tools Material Isuued Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Out Tools Material Issued Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="toolsmetalissue : ${listOfOutToolsmatlIsueId}" class="bl-cr">
+								<td th:text="${toolsmetalissue.masterIdName}"></td>
+								<td th:text="${toolsmetalissue.deptId}"></td>
+								<td th:text="${toolsmetalissue.deptName}"></td>
+								<td th:text="${toolsmetalissue.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${toolsmetalissue.depMasterId})|">Update</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Out Tools Material Isuued Id History Card-->
+
+					<!--Strat of Sequence Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Sequence Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="sequence : ${listOfSequenceId}" class="bl-cr">
+								<td th:text="${sequence.masterIdName}"></td>
+								<td th:text="${sequence.deptId}"></td>
+								<td th:text="${sequence.deptName}"></td>
+								<td th:text="${sequence.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${sequence.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Sequence Id History Card-->
+
+					<!--Strat of Stock Rejection/Damage Material Return History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Rejection/Damage Material Return History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stkrejmat : ${listOfStkRejDmgMatlRtnId}" class="bl-cr">
+								<td th:text="${stkrejmat.masterIdName}"></td>
+								<td th:text="${stkrejmat.deptId}"></td>
+								<td th:text="${stkrejmat.deptName}"></td>
+								<td th:text="${stkrejmat.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${stkrejmat.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Rejection/Damage Material Return History Card-->
+
+					<!--Strat of Stock Rejection/Damage Spare Return Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Rejection/Damage Spare Return Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="sktrejsprertn : ${listOfStkRejSpareRtn}" class="bl-cr">
+								<td th:text="${sktrejsprertn.masterIdName}"></td>
+								<td th:text="${sktrejsprertn.deptId}"></td>
+								<td th:text="${sktrejsprertn.deptName}"></td>
+								<td th:text="${sktrejsprertn.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${sktrejsprertn.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Rejection/Damage Spare Return Id History Card-->
+
+					<!--Strat of Stock Rejection/Damage Tools Return Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Rejection/Damage Tools dfr Return Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="sktrejtoolsrtn : ${listOfStkRejToolsRtn}" class="bl-cr">
+								<td th:text="${sktrejtoolsrtn.masterIdName}"></td>
+								<td th:text="${sktrejtoolsrtn.deptId}"></td>
+								<td th:text="${sktrejtoolsrtn.deptName}"></td>
+								<td th:text="${sktrejtoolsrtn.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${sktrejtoolsrtn.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Rejection/Damage Tools Return Id History Card-->
+
+					<!--Strat of Stock Material Return Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Material Return Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stkmtrlrtn : ${listOfstkMtlRtn}" class="bl-cr">
+								<td th:text="${stkmtrlrtn.masterIdName}"></td>
+								<td th:text="${stkmtrlrtn.deptId}"></td>
+								<td th:text="${stkmtrlrtn.deptName}"></td>
+								<td th:text="${stkmtrlrtn.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${stkmtrlrtn.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Material Return Id History Card-->
+
+					<!--Strat of Stock Rejection/Damage Spare Return Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Spare Return Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stksprrtn : ${listOfstkSprRtn}" class="bl-cr">
+								<td th:text="${stksprrtn.masterIdName}"></td>
+								<td th:text="${stksprrtn.deptId}"></td>
+								<td th:text="${stksprrtn.deptName}"></td>
+								<td th:text="${stksprrtn.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${stksprrtn.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Spare Return Id History Card-->
+
+					<!--Strat of Stock Tools Return Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Stock Tools Return Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stktlsrtn : ${listOfStkTlsRtn}" class="bl-cr">
+								<td th:text="${stktlsrtn.masterIdName}"></td>
+								<td th:text="${stktlsrtn.deptId}"></td>
+								<td th:text="${stktlsrtn.deptName}"></td>
+								<td th:text="${stktlsrtn.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${stktlsrtn.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Stock Tools Return Id History Card-->
+
+					<!--Strat of Indent Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Indent Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="indent : ${listOfindet}" class="bl-cr">
+								<td th:text="${indent.masterIdName}"></td>
+								<td th:text="${indent.deptId}"></td>
+								<td th:text="${indent.deptName}"></td>
+								<td th:text="${indent.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${indent.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Indent Id History Card-->
+
+					<!--Strat of Work Order Cancel Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Work Order Cancel Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="workcancel : ${listOfWorkOrderCencel}" class="bl-cr">
+								<td th:text="${workcancel.masterIdName}"></td>
+								<td th:text="${workcancel.deptId}"></td>
+								<td th:text="${workcancel.deptName}"></td>
+								<td th:text="${workcancel.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${workcancel.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Work Order Cancel Id History Card-->
+
+					<!--Strat of Work Order Id History Card-->
+					<div class="card-header bg-primary text-white text-center pb-0 mt-3">
+						<h5><b>Work Order Id History</b></h5>
+					</div>
+					<table class="table table-stock table-bordered text-center table-striped table-hover MasterTable">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th class="text-center" scope="col">Name</th>
+								<th class="text-center" scope="col">Start No</th>
+								<th class="text-center" scope="col">Department Name</th>
+								<th class="text-center" scope="col">Description</th>
+								<th class="text-center" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="workorder : ${listOfWorkOrder}" class="bl-cr">
+								<td th:text="${workorder.masterIdName}"></td>
+								<td th:text="${workorder.deptId}"></td>
+								<td th:text="${workorder.deptName}"></td>
+								<td th:text="${workorder.deptIdDesc}"></td>
+								<td><a class="btn-sm btn-warning" href="#" data-bs-toggle="modal"
+										data-bs-target="#editdeptIdModal"
+										th:onclick="|updateDeptMasterId(${workorder.depMasterId})|">Update</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--End of Work Order Id History Card-->
+
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editdeptIdModal" tabindex="-1" aria-labelledby="editdeptIdModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" style="margin-top: 100px;">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h3 class="modal-title" id="editdeptIdModalLabel">Update Department Id Master</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<form th:action="@{/masters/updateDeptIdMaster}" method="post">
+					<div class="modal-body font-weight-bold">
+						
+							<div class="row align-items-center">
+							  <input type="hidden" id="edit-dept-master-masterid" class="form-control form-control-sm"
+									readonly name="depMasterId">
+								<div class="col-sm-1">
+									<label for="name" class="col-form-label">Name</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" id="edit-dept-master-idName" class="form-control form-control-sm"
+									readonly name="masterIdName">
+								</div>
+								<div class="col-auto">
+									<label for="department" class="col-form-label">Department</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" id="edit-dept-master-department" class="form-control form-control-sm"
+									readonly name="deptName">
+								</div>									
+							</div>
+							<div class="row align-items-center pt-3">
+								<div class="col-sm-2">
+									<label for="startingNo" class="col-form-label">Start No</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="edit-dept-master-startNo" class="form-control form-control-sm"
+									required maxlength="5" name="deptId">
+								</div>
+								<div class="col-auto">
+									<label for="description" class="col-form-label">Description</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" id="edit-dept-master-desc" class="form-control form-control-sm"
+									required name="deptIdDesc">
+								</div>									
+							</div>						
+					</div>
+					<div class="modal-footer">
+						<button type="submit"  class="btn btn-primary">Update</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+
+</html>

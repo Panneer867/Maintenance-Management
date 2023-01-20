@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Department Master</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveDepartment}" method="post">
+						<div class="row text-center">                          
+							<div class="col-auto text-start">
+								<label class="text-left">Department ID</label>								
+							</div>
+						    <div class="col-sm-2">
+						      <input class="form-control form-control-sm bg-white" type="text" maxlength="5" name="departmentId"
+									required readonly th:value="${maxdeptId}"> 
+						    </div>
+							<div class="col-auto text-start">
+								<label for="categoryName">Department Name</label>								
+							</div>
+							<div class="col-sm-6"> 
+							  <input class="form-control form-control-sm" type="text" name="departmentName" 
+							  required placeholder="Enter Department Name">
+							</div>
+						</div>
+						<div class="mt-4 text-center">
+							<button type="submit" href="#" id="dept-master-submit-button" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/deparmentHistory}" class="btn btn-success">View</a>
+						</div>					  
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<!-- form END-->
+
+		<!-- History Table Start-->
+
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Department Master History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Department ID</th>
+						<th class="text-center" scope="col">Department Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="department : ${listOfDepartment}">
+						<td><a href="#" th:onclick="|deleteDeptMaster(${department.depMasterId})|">
+								<span th:text="${'DP'+department.depMasterId}"></span></a>
+						</td>
+						<td th:text="${department.departmentId}"></td>
+						<td th:text="${department.departmentName}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- History Table END-->
+
+	</section>
+</body>
+
+</html>

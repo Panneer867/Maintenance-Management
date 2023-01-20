@@ -100,18 +100,17 @@ table .vehicel-table-scroll {
 
 /** master base side bar scroll */
 .master-sidebar {
-	height: 585px;
+	height: 700px;
 	margin-right: -15px;
 	overflow: auto;
 }
-
-/** master base side bar scroll */
-.master-sidebar {
-	height: 585px;
-	margin-right: -15px;
+.id-master-form{
+	height: 658px;	
 	overflow: auto;
 }
-
+.id-master-form::-webkit-scrollbar {
+    display: none;
+}
 .costdtls-button {
 	padding-top: 12px;
 	padding-bottom: 12px;

@@ -144,8 +144,7 @@
 	animation: move-text ease 0.5s forwards;
 }
 
-@
-keyframes move-text {from { opacity:0;
+@keyframes move-text {from { opacity:0;
 	transform: translateX(-100%);
 }
 

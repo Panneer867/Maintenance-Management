@@ -11,4 +11,10 @@ public interface CategoryService {
 	
 	//Get All Data
 	List<CategoryDto> findAllCategory();
+	
+	//Delete
+	void deleteCategory(Long catid);
+	
+	//get Max CategoryId
+	String getMaxCategoryId();
 }

@@ -35,4 +35,10 @@ public class DistributionLocationServiceImpl implements DistributionLocationServ
 		return distributionLocationDtos;
 	}
 
+	@Override
+	public void deleteDistributeLocation(Long disLocId) {
+		DistributionLocation distributionLocation = this.disLocationRepo.findById(disLocId).get();
+		this.disLocationRepo.delete(distributionLocation);
+	}
+
 }

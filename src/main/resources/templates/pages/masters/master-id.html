@@ -1,601 +1,398 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
 
 <body>
-	<section>	
-	<!-- form Start-->
-			<div class="card text-center">
-				<div class="card-header bg-info text-white fs-4">
-					ID Master
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5 id-master-form">
+			<!-- Message Alert Field -->
+			<!--<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
 				</div>
-				<!-- Message Alert Field -->               
-		               <div th:if="${session.message}" class="alert_field pt-1" style="margin-left: 212px;margin-right: 234px;">       
-		                 <div class="alert text-center" th:classappend="${'alert-'+session.message.type}"  role="alert">
-                            <span th:text="${session.message.content}"></span>
-                         </div>
-                           <th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		              </div>  		                
-                      <!-- End of Message Alert Field -->
-				<div class="card-body">
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>-->
+			<!-- End of Message Alert Field -->
 
-					<form method="post" th:action="@{/masters/saveIdMaster}" th:object="${idmaster}">
-					
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0"> ID Master</h3>
+				</div>
+				<div class="card-body pl-5 font-weight-bold">
 						<div class="mx-auto col text-start">
 
 							<div class="form-group row p-2">
-								<label for="Ids" class="col-sm-4 col-form-label fs-6">ID's</label>
-								<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Serial Number</label>
-								<label for="description" class="col-sm-4 col-form-label fs-6">Description</label>
-								<label for="inputEmail3" class="col-sm-2 col-form-label fs-6"></label>
-							</div>
+								<label for="Ids" class="col-sm-3 col-form-label fs-6">ID's</label>
+								<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Starting Number</label>
+								<label for="description" class="col-sm-5 col-form-label fs-6">Description</label>
+								<a th:href="@{/masters/idmasterhistory}" class="col-sm-2 btn btn-success fs-6">History</a>
+             				</div>
+             				<form method="post" th:action="@{/masters/saveIdMaster}" th:object="${idmaster}">
 							<div class="form-group row p-2">
-								<label for="assertId" class="col-sm-4 col-form-label fs-6">Assest ID
-								   <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="assertId"  name="assertId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="assertDesc" name="assertDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="assert-idName"
+										name="masterIdName" value="Asset Id" required readonly="true">								
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assert-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
 								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="assert-desc"
+										name="idDescription" required placeholder="Enter Asset Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" id="submit-button-master" class="btn btn-primary">Add</button>								
+								</div>							
 							</div>
-							<!--										<div class="form-group row p-2">-->
-							<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Barcod-->
-							<!--												ID</label>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-4">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<a href="#" class="btn btn-primary">Reset</a>-->
-							<!--											</div>-->
-							<!--										</div>-->
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="branchId" class="col-sm-4 col-form-label fs-6">Branch ID
-								 <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="2"
-										id="branchId"  name="branchId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="branchDesc" name="branchDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="branch-idName"
+										name="masterIdName" value="Branch Id" required readonly="true">								
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="branch-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="branch-desc"
+										name="idDescription" required placeholder="Enter Branch Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="budjetId" class="col-sm-4 col-form-label fs-6">Budjet
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="budjetId" name="budjetId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="budjetDesc" name="budjetDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="category-idName"
+										name="masterIdName" value="Categaroy Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="category-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="category-desc"
+										name="idDescription" required placeholder="Enter Category Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
-							<!--										<div class="form-group row p-2">-->
-							<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Cancel Work-->
-							<!--												Order ID</label>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-4">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<a href="#" class="btn btn-primary">Reset</a>-->
-							<!--											</div>-->
-							<!--										</div>-->
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="categoryId" class="col-sm-4 col-form-label fs-6">Categaroy
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="categoryId" name="categoryId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="categoryDesc" name="categoryDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="company-idName"
+										name="masterIdName" value="Company Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="company-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="company-desc"
+										name="idDescription" required placeholder="Enter Company Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="companyId" class="col-sm-4 col-form-label fs-6">Company ID
-								 <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="4"
-										id="companyId" name="companyId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="companyDesc" name="companyDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="department-idName"
+										name="masterIdName" value="Department Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="department-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="department-desc"
+										name="idDescription" required placeholder="Enter Department Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="departmentId" class="col-sm-4 col-form-label fs-6">Department
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="departmentId" name="departmentId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="departmentDesc" name="departmentDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="device-idName"
+										name="masterIdName" value="Device Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="device-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="device-desc"
+										name="idDescription" required placeholder="Enter Device Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="deviceId" class="col-sm-4 col-form-label fs-6">Device
-									ID</label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="deviceId" name="deviceId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="deviceDesc" name="deviceDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="dma-idName"
+										name="masterIdName" value="DMA Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="dma-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="dma-desc"
+										name="idDescription" required placeholder="Enter Dma Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="dmaId" class="col-sm-4 col-form-label fs-6">DMA ID
-								 <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="dmaId" name="dmaId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="dmaDesc" name="dmaDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="employee-idName"
+										name="masterIdName" value="Employee Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="employee-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="employee-desc"
+										name="idDescription" required placeholder="Enter Employee Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form><form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="employeeId" class="col-sm-4 col-form-label fs-6">Employee
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="2"
-										id="employeeId" name="employeeId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="employeeDesc" name="employeeDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="hsn-idName"
+										name="masterIdName" value="HsnCode Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="hsn-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="hsn-desc"
+										name="idDescription" required placeholder="Enter HsnCode Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
-							<!--										<div class="form-group row p-2">-->
-							<!--											<label for="inputEmail3" class="col-sm-4 col-form-label fs-6">Genrate Work-->
-							<!--												Order ID</label>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-4">-->
-							<!--												<input type="text" class="form-control form-control-sm"-->
-							<!--													id="inputEmail3" name="" required>-->
-							<!--											</div>-->
-							<!--											<div class="col-sm-2">-->
-							<!--												<a href="#" class="btn btn-primary">Reset</a>-->
-							<!--											</div>-->
-							<!--										</div>-->
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="hsnCodeId" class="col-sm-4 col-form-label fs-6">HsnCode
-									Id <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="8"
-										id="hsnCodeId" name="hsnCodeId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="hsnCodeDesc" name="hsnCodeDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="in-matl-idName"
+										name="masterIdName" value="Inward Matl Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="in-matl-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="in-matl-desc"
+										name="idDescription" required placeholder="Enter Inward Material Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="inMaterialId" class="col-sm-4 col-form-label fs-6">Inward
-									Material ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="inMaterialId" name="inMaterialId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="inMaterialDesc" name="inMaterialDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="spare-matl-idName"
+										name="masterIdName" value="Spare Matl Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="spare-matl-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="spare-matl-desc"
+										name="idDescription" required placeholder="Enter SpareParts Material Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="inSparesMatieralId" class="col-sm-4 col-form-label fs-6">Inward Spares
-									Matieral ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="inSparesMatieralId" name="inSparesMatieralId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="inSparesMatieralDesc" name="inSparesMatieralDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="tool-equi-idName"
+										name="masterIdName" value="Tools/Eqt Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="tool-equi-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="tool-equi-desc"
+										name="idDescription" required placeholder="Enter Tools/Equipment Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="inToolsId" class="col-sm-4 col-form-label fs-6">Inward Tools
-									Or Equipment ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="inToolsId" name="inToolsId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="inToolsDesc" name="inToolsDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="item-idName"
+										name="masterIdName" value="Item Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="item-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="item-desc"
+										name="idDescription" required placeholder="Enter Item Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="itemId" class="col-sm-4 col-form-label fs-6">Item
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="itemId" name="itemId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="itemDesc" name="itemDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="leakage-idName"
+										name="masterIdName" value="Leakage Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="leakage-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="leakage-desc"
+										name="idDescription" required placeholder="Enter Leakage Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="leakageId" class="col-sm-4 col-form-label fs-6">Leakage
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="leakageId" name="leakageId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="leakageDesc" name="leakageDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="meter-idName"
+										name="masterIdName" value="Meter Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="meter-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="meter-desc"
+										name="idDescription" required placeholder="Enter Meter Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="meterId" class="col-sm-4 col-form-label fs-6">Meter
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="meterId" name="meterId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="meterDesc" name="meterDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="pump-idName"
+										name="masterIdName" value="Pump Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="pump-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="pump-desc"
+										name="idDescription" required placeholder="Enter Pump Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="outMaterialIssueId" class="col-sm-4 col-form-label fs-6">Outward
-									Material Issue ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="outMaterialIssueId" name="outMaterialIssueId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="outMaterialIssueDesc" name="outMaterialIssueDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="stock-idName"
+										name="masterIdName" value="Stock Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="stock-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="stock-desc"
+										name="idDescription" required placeholder="Enter Stock Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="outSparesIssueId" class="col-sm-4 col-form-label fs-6">Outward Spares
-									Matieral Issue ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="outSparesIssueId" name="outSparesIssueId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="outSparesIssueDesc" name="outSparesIssueDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="vehicle-idName"
+										name="masterIdName" value="Vehicle Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="vehicle-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="vehicle-desc"
+										name="idDescription" required placeholder="Enter Vehicle Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
+						   </form>
+						   <form method="post" th:action="@{/masters/saveIdMaster}">
 							<div class="form-group row p-2">
-								<label for="outToolsIssueId" class="col-sm-4 col-form-label fs-6">Outward Tools
-									Matieral Issue ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="outToolsIssueId" name="outToolsIssueId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="outToolsIssueDesc" name="outToolsIssueDesc" required>
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold" id="ward-idName"
+										name="masterIdName" value="Ward Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="ward-startNo"
+										name="statNumber" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" id="ward-desc"
+										name="idDescription" required placeholder="Enter Ward Id Description">
+								</div>
+								<div class="col-sm-2" style="bottom :3px">
+									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
 							</div>
-							<div class="form-group row p-2">
-								<label for="pumpId" class="col-sm-4 col-form-label fs-6">Pump ID
-								 <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="pumpId" name="pumpId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="pumpDesc" name="pumpDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="sequenceId" class="col-sm-4 col-form-label fs-6">Sequence ID
-								 <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="17"
-										id="sequenceId" name="sequenceId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="sequenceDesc" name="sequenceDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockId" class="col-sm-4 col-form-label fs-6">Stock
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockId" name="stockId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockDesc" name="stockDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockReturnId" class="col-sm-4 col-form-label fs-6">Stock Matieral
-									Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockReturnId" name="stockReturnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockReturnDesc" name="stockReturnDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockRejMatieralRtnId" class="col-sm-4 col-form-label fs-6">Stock
-									Rejection/ Damage Matieral Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockRejMatieralRtnId" name="stockRejMatieralRtnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockRejMatieralRtnDesc" name="stockRejMatieralRtnDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockRejDmgSparesRtnId" class="col-sm-4 col-form-label fs-6">Stock
-									Rejection/ Damage Spares Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockRejDmgSparesRtnId" name="stockRejDmgSparesRtnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockRejDmgSparesRtnDesc" name="stockRejDmgSparesRtnDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockRejDmgToolsRtnId" class="col-sm-4 col-form-label fs-6">Stock
-									Rejection/ Damage Tools Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockRejDmgToolsRtnId" name="stockRejDmgToolsRtnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockRejDmgToolsRtnDesc" name="stockRejDmgToolsRtnDesc" required>
-								</div>
-								<div class="col-sm-2" name="" required>
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockSparesRtnId" class="col-sm-4 col-form-label fs-6">Stock Spares
-									Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockSparesRtnId" name="stockSparesRtnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockSparesRtnDesc" name="stockSparesRtnDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="stockToolsRtnId" class="col-sm-4 col-form-label fs-6">Stock Tools
-									Return ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="stockToolsRtnId" name="stockToolsRtnId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="stockToolsRtnDesc" name="stockToolsRtnDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="vehicleId" class="col-sm-4 col-form-label fs-6">Vehicle
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="vehicleId" name="vehicleId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="vehicleDesc" name="vehicleDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="vehicelMntIndentId" class="col-sm-4 col-form-label fs-6">Vehicel
-									Manitance Indent ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="vehicelMntIndentId" name="vehicelMntIndentId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="vehicelMntIndentDesc" name="vehicelMntIndentDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="wardId" class="col-sm-4 col-form-label fs-6">WARD
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="wardId" name="wardId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="wardDesc" name="wardDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="workEstBudjetId" class="col-sm-4 col-form-label fs-6">Work Estmation
-									Budjet ID  <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="workEstBudjetId" name="workEstBudjetId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="workEstBudjetDesc" name="workEstBudjetDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="workOrderId" class="col-sm-4 col-form-label fs-6">Work Order
-									ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="workOrderId" name="workOrderId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="workOrderDesc" name="workOrderDesc" required>
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-							<div class="form-group row p-2">
-								<label for="workOrderCancelId" class="col-sm-4 col-form-label fs-6">Work Order
-									cancel ID <strong class="text-danger">*</strong></label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5"
-										id="workOrderCancelId" name="workOrderCancelId" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										id="workOrderCancelDesc" name="workOrderCancelDesc" required >
-								</div>
-								<div class="col-sm-2">
-									<a href="#" class="btn btn-primary">Reset</a>
-								</div>
-							</div>
-
-						</div>
-												
-						<button type="submit" class="btn btn-primary">Submit</button>
-					    <button type="reset" class="btn btn-secondary">Reset All</button>
-					    
-					</form>				
-				</div>
-				<div class="card-footer text-muted bg-info">
-
+						   </form>
+					 </div>
 				</div>
 			</div>
-
-			<!-- form END-->
+		</div>
+		<!-- form END-->
 	</section>
 </body>
+
 </html>

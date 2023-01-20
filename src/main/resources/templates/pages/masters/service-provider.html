@@ -2,87 +2,118 @@
 
 <body>
 	<section>
-		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Service Provider Master
+		<!-- form Start-->		
+		 <div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-					<div class="row ">
-						<div class="col text-start">
-
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
-								ID</label>
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Service Provider Master</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+				  <form th:action="@{/masters/saveservcprovider}" method="post">
+					<div class="row">
+						<div class="col-sm-3">
+							<label for="serviceProviderId" class="col col-form-label">Service provider ID</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="serviceProviderId" name="serviceProviderId" required maxlength="6" >
 							</div>
 						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Nature of Work
-							</label>
+						<div class="col-sm-3">
+							<label for="natureOfWork" class="col col-form-label">Nature of Work</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="natureOfWork" name="natureOfWork" required>
 							</div>
 						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
-								name</label>
+						<div class="col-sm-3">
+							<label for="registerationdNo" class="col col-form-label">Registeration No</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="registerationdNo" name="registerNo" required maxlength="25">
 							</div>
 						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Registeration
-								No</label>
+						<div class="col-sm-3">
+							<label for="status" class="col col-form-label">Status</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="status" name="status" required>
 							</div>
-						</div>
+						</div>												
 					</div>
-
-					<div class="row ">
-						<div class="col text-start">
-
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Service provider
-								Address</label>
+					<div class="row">
+						<div class="col-sm-3">
+							<label for="contactNo" class="col col-form-label">Contact No</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="contactNo" name="contactNo" required maxlength="10">
 							</div>
 						</div>
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Contact
-								Number</label>
+						<div class="col-sm-4">
+							<label for="serviceProvdName" class="col col-form-label">Service provider Name</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="serviceProvdName" name="serviceProvdName" required >
 							</div>
 						</div>
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Status</label>
+						<div class="col-sm-5">
+							<label for="serviceProvdAdd" class="col col-form-label">Service provider Address</label>
 							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+								<input type="text" class="form-control form-control-sm" 
+								id="serviceProvdAdd" name="serviceProvdAdd" required>
 							</div>
-						</div>
-
-
+						</div>												
 					</div>
-
+					  <div class="pt-5 text-center">
+						  <button type="submit" class="btn btn-primary">Submit </button>
+						  <a th:href="@{/masters/serviceprovhistory}" class="btn btn-success">View</a>
+					   </div>							
 				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-
+				</div>
 			</div>
-			<div class="card-footer text-muted bg-info">
-
-			</div>
-		</div>
-
+		  </div>
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Service provider History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Service Prd Id</th>
+						<th class="text-center" scope="col">Nature Of Work</th>
+						<th class="text-center" scope="col">Registeration No</th>
+						<th class="text-center" scope="col">Status</th>
+						<th class="text-center" scope="col">Contact No</th>
+						<th class="text-center" scope="col">Service Provider Name</th>
+						<th class="text-center" scope="col">Service Provider Address</th>												
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="serviceprov : ${listOfServiceProvider}">
+						<td><a href="#" th:onclick="|deleteServiceProvider(${serviceprov.servProvId})|">
+								<span th:text="${'SP'+serviceprov.servProvId}"></span></a>
+						</td>
+						<td th:text="${serviceprov.serviceProviderId}"></td>
+						<td th:text="${serviceprov.natureOfWork}"></td>	
+						<td th:text="${serviceprov.registerNo}"></td>	
+						<td th:text="${serviceprov.status}"></td>	
+						<td th:text="${serviceprov.contactNo}"></td>
+						<td th:text="${serviceprov.serviceProvdName}"></td>
+						<td th:text="${serviceprov.serviceProvdAdd}"></td>																		
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
 	</section>
 </body>
 

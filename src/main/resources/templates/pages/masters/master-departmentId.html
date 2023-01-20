@@ -1,0 +1,515 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5 id-master-form">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Department ID Master</h3>
+				</div>
+				<div class="card-body pl-1 pr-1 font-weight-bold">
+					<div class="mx-auto col text-start">
+
+						<div class="form-group row p-2">
+							<label for="Ids" class="col-sm-3 col-form-label fs-6">ID's</label>
+							<label for="branchName" class="col-sm-2 col-form-label fs-6">Department Name</label>
+							<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Start Number</label>
+							<label for="description" class="col-sm-3 col-form-label fs-6">Description</label>
+							<a th:href="@{/masters/departmentIdHistory}" class="col-sm-1 btn btn-success fs-6">History</a>
+							<label for="description" class="col-sm-1 col-form-label fs-6"></label>
+						</div>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budget-idName" name="masterIdName" value="Budget Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required
+										id="budget-deptName">
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5"
+										id="budget-deptId" name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="budget-deptIdDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Budget Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Out Matl Issue Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" name="deptIdDesc" 
+									required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Out Matl Issue Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form>
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Out Spr Matl Issue Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="maintanFrequency" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="assertId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="assertDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Out Spr Matl Issue Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Out Tools Matl Issue Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Out Tools Matl Issue Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Sequence Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Sequence Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stk Rej/Dmg Matl Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stk Rej/Dmg Matl Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stk Rej/Dmg Spr Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stk Rej/Dmg Spr Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stk Rej/Dmg Tools Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stk Rej/Dmg Tools Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stock Matl Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stock Matl Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stock Spares Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stock Spares Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Stock Tools Rtn Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Stock Tools Rtn Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Indent Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Indent Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>						
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Work Order Cnsl Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Work Order Cnsl Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="form-group row p-2">
+								<div class="col-sm-3">
+									<input type="text" class="form-control-plaintext font-weight-bold"
+										id="budjet-idName" name="masterIdName" value="Work Order Id" required
+										readonly="true">
+								</div>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
+										<option th:each="deptName:${allDepartment}"
+											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" class="form-control form-control-sm" maxlength="5" id="assertId"
+										name="deptId" required placeholder="Enter Starting No">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" id="assertDesc"
+										name="deptIdDesc" required placeholder="Enter Id Description">
+								</div>
+								<div class="col-sm-1" style="bottom: 3px;">
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+								<div class="col-sm-1 text-white" style="bottom: 3px;">
+									<a class="btn btn-info" data-bs-toggle="modal"
+										th:onclick="|getDepartmentIdMaster('Work Order Id')|"
+										data-bs-target="#exampleModal">View</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- form END-->
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="margin-top: 100px;">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h3 class="modal-title" id="exampleModalLabel">Id History For Departments..</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">						
+							<table
+								class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+								<thead class="table-dark">
+									<tr>										
+										<th class="text-center" scope="col">Ids Name</th>
+										<th class="text-center" scope="col">Department Name</th>
+										<th class="text-center" scope="col">Strat No</th>
+										<th class="text-center" scope="col">Description</th>
+									</tr>
+								</thead>
+								<tbody id="result-table">									
+								</tbody>
+							</table>						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+
+</html>

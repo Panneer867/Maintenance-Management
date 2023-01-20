@@ -3,91 +3,132 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Vehicle Master Details
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Vehicle Master Details</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveVehicleDtls}" method="post">
+						<div class="row ">
+							<div class="col text-start">
 
-				<form>
-					<div class="row ">
-						<div class="col text-start">
+								<label for="vehicleId" class="col-sm-10 col-form-label">Vehicle ID
+								</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" readonly
+									id="vehicleId" th:value="${vehicleMasterId}" name="vehicleId" required maxlength="6">
+								</div>
+							</div>
 
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Vehical ID
-							</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+							<div class="col text-start">
+								<label for="vehicleNo" class="col-sm-10 col-form-label">Vehicle Number
+								</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="vehicleNo" name="vehicleNo" required placeholder="Enter Vehicle No">
+								</div>
+							</div>
+
+							<div class="col text-start">
+								<label for="vehicleType" class="col-sm-10 col-form-label">Vehcile type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="vehicleType" name="vehicleType" required placeholder="Enter Vehicle Type">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="rcNumber" class="col-sm-10 col-form-label">RC No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="rcNumber" name="rcNumber" required placeholder="Enter RC No">
+								</div>
 							</div>
 						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Vehical Number
-							</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+						<div class="row ">
+						    <div class="col text-start">
+								<label for="vehiclemodel" class="col-sm-8 col-form-label">Vehicle Model</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="vehiclemodel" name="vehiclemodel" required placeholder="Enter Vehicle Model">
+								</div>
 							</div>
-						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Vehcile
-								type</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+							<div class="col text-start">
+								<label for="purchaseDate" class="col-sm-10 col-form-label">Purchase Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" 
+									id="purchaseDate" name="purchaseDate" required>
+								</div>
 							</div>
-						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">RC No</label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" id="inputEmail3">
+							<div class="col text-start">
+								<label for="insurancNo" class="col-sm-10 col-form-label">Insurance No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="insurancNo" name="insurancNo" required placeholder="Enter Insurance No">
+								</div>
 							</div>
+							<div class="col text-start">
+								<label for="insurancType" class="col-sm-9 col-form-label">Insurance Type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" 
+									id="insurancType" name="insurancType" required placeholder="Enter Insurance Type">
+								</div>
+							</div>							
 						</div>
-					</div>
-
-					<div class="row ">
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Purchase
-								Date</label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" id="inputEmail3">
-							</div>
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/vehicleDtlsHistory}" class="btn btn-success">View</a>
 						</div>
-						<div class="col text-start">
-
-							<label for="inputEmail3" class="col-sm-10 col-form-label">Insurance
-								No</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Type</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Model</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-						</div>
-
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Vehicle Master Details History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Vehicle Id</th>
+						<th class="text-center" scope="col">Vehicle No</th>
+						<th class="text-center" scope="col">Vehicle Type</th>
+						<th class="text-center" scope="col">RC Number</th>
+						<th class="text-center" scope="col">Vehicle Model</th>		
+						<th class="text-center" scope="col">Purchase Date</th>
+						<th class="text-center" scope="col">Insurance No</th>
+						<th class="text-center" scope="col">Insurance Type</th>															
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="vehicle : ${listOfVehicle}">
+						<td><a href="#" th:onclick="|deleteVehicleDetails(${vehicle.vehicleDtlsId})|">
+								<span th:text="${'VM'+vehicle.vehicleDtlsId}"></span></a>
+						</td>
+						<td th:text="${vehicle.vehicleId}"></td>
+						<td th:text="${vehicle.vehicleNo}"></td>
+						<td th:text="${vehicle.vehicleType}"></td>
+						<td th:text="${vehicle.rcNumber}"></td>
+						<td th:text="${vehicle.vehiclemodel}"></td>
+						<td th:text="${vehicle.purchaseDate}"></td>
+						<td th:text="${vehicle.insurancNo}"></td>
+						<td th:text="${vehicle.insurancType}"></td>												
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+		
 	</section>
 </body>
 

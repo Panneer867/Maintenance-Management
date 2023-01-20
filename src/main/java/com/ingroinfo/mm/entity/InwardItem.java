@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "inward_items")
+@Table(name = "mm_inward_items")
 public class InwardItem {
 
 	@Id

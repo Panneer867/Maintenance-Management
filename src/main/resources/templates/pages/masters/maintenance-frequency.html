@@ -3,52 +3,78 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Maintance Frequency
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-					<div class="row ">
-						<div class="col text-start">
-
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Maintance
-								Work</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Maintance Frequency</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/savemaintenfreq}" method="post">
+						<div class="row g-3 align-items-center">
+							<div class="col-auto pl-5">
+								<label for="maintanWork" class="col-form-label">Maintance Work</label>
 							</div>
-						</div>
-
-						<div class="col text-start">
-							<label for="inputEmail3" class="col-sm-8 col-form-label">Maintance
-								Frequency</label>
-							<div class="col">
-								<select class="form-select form-select-sm">
+							<div class="col-sm-4">
+								<input type="text" id="maintanWork" class="form-control form-control-sm" name="maintanWork" required>
+							</div>
+							<div class="col-auto">
+								<label for="maintanFrequency" class="col-form-label">Maintance Frequency</label>
+							</div>
+							<div class="col-sm-3">
+								<select class="form-select form-select-sm" name="maintanFrequency" required>
 									<option>Daily</option>
-									<option> Weekly</option>
+									<option>Weekly</option>
 									<option>15 Days</option>
-									<option>monthly</option>
-									<option>6 month</option>
+									<option>Monthly</option>
+									<option>6 Month</option>
 									<option>Yearly </option>
 								</select>
 							</div>
 						</div>
 
-					</div>
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/maintanfreqhistory}" class="btn btn-success">View</a>
+						</div>
 
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Maintance Frequency History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Maintance Work</th>
+						<th class="text-center" scope="col">Maintance Frequency</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="maintanfreq : ${listOfMaintenFreq}">
+						<td><a href="#" th:onclick="|deleteMaintenFrequency(${maintanfreq.maintanFrequId})|">
+								<span th:text="${'DW'+maintanfreq.maintanFrequId}"></span></a>
+						</td>
+						<td th:text="${maintanfreq.maintanWork}"></td>
+						<td th:text="${maintanfreq.maintanFrequency}"></td>						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+		
 	</section>
 </body>
 

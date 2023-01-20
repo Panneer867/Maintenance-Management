@@ -1,0 +1,411 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="row mt-3">
+			<div class="col">
+
+				<div class="col-sm-12">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white">Pipe Maintenance Inspection </h3>
+						</div>
+						<div class="card-body font-weight-bold">
+							<form method="post" th:action="@{/pipe/savepipemaintenanceinspection}"  th:object="${pipeMaintenanceUpdateDto}">
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Line From</label>
+										<input type="text" class="form-control" id="pipeFromInsp" name="pipeFromInsp" th:value="${pipeMaintenanceUpdateDto.pipeFrom}"
+										placeholder="Pipe Line From">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Line End</label>
+										<input type="text" class="form-control" id="pipeEndInsp" name="pipeEndInsp" th:value="${pipeMaintenanceUpdateDto.pipeEnd}"
+											placeholder="Pipe Line End">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Lenth in Meter / KM</label>
+										<input type="number" class="form-control" id="lengthMeterKMInsp" th:value="${pipeMaintenanceUpdateDto.lengthMeterKM}"
+											name="lengthMeterKMInsp" placeholder="Lenth in Meter / KM">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Maintenance Type</label>
+										<input type="text" class="form-control" id="maintenanceType" name="maintenanceType"
+									placeholder="Maintenance Type" th:value="${pipeMaintenanceUpdateDto.maintenanceType}">
+										<!--<select class="form-select" id="maintenanceTypeInsp" name="maintenanceTypeInsp" th:value="${pipeMaintenanceUpdateDto.maintenanceType}"
+											aria-label="Example select with button addon">
+											<option selected>Choose...</option>
+											<option value="Emergency">Emergency</option>
+											<option value="Routine">Routine </option>
+											<option value="Pro-Active">Pro-Active </option>
+										</select>-->
+									</div>
+
+
+								</div>
+
+								<!--***********Row 3**********-->
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Line Start Node</label>
+										<input type="number" class="form-control" id="pipeStartNodeInsp" th:value="${pipeMaintenanceUpdateDto.pipeStartNode}"
+											name="pipeStartNodeInsp" placeholder="Pipe Line Start Node">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Line End Node</label>
+										<input type="number" class="form-control" id="pipeEndNodeInsp" th:value="${pipeMaintenanceUpdateDto.pipeEndNode}"
+											name="pipeEndNodeInsp" placeholder="Pipe Line End Node">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Lenth in Meter / KM</label>
+										<input type="number" class="form-control" id="nodeLengthMeterKMInsp" th:value="${pipeMaintenanceUpdateDto.nodeLengthMeterKM}"
+											name="nodeLengthMeterKMInsp" placeholder="Lenth in Meter / KM">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Assts ID</label>
+										<input type="number" class="form-control" id="asstsIDInsp" name="asstsIDInsp" th:value="${pipeMaintenanceUpdateDto.asstsID}"
+											placeholder="Assts ID">
+									</div>
+								</div>
+
+								<!--***********Row 4**********-->
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Langitude</label>
+										<input type="number" class="form-control" id="langitudeInsp" th:value="${pipeMaintenanceUpdateDto.langitude}"
+											name="langitudeInsp" placeholder="Langitude">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Latitude</label>
+										<input type="number" class="form-control" id="latitudeInsp" name="latitudeInsp" th:value="${pipeMaintenanceUpdateDto.latitude}"
+											placeholder="Latitude">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Lenth in Meter / KM</label>
+										<input type="number" class="form-control" id="lanlatlLengthMeterKMInsp" th:value="${pipeMaintenanceUpdateDto.lanlatlLengthMeterKM}"
+											name="lanlatlLengthMeterKMInsp" placeholder="Lenth in Meter / KM">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Line Type</label>
+										<input type="number" class="form-control" id="pipeLineTypeInsp" th:value="${pipeMaintenanceUpdateDto.pipeLineType}"
+											name="pipeLineTypeInsp" placeholder="Pipe Line Type">
+									</div>
+								</div>
+								<!--***********Row 5**********-->
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipeline Diameter</label>
+										<input type="number" class="form-control" id="pipeLineDiameterInsp" th:value="${pipeMaintenanceUpdateDto.pipeLineDiameter}"
+											name="pipeLineDiameterInsp" placeholder="Pipeline Diameters">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipeline pressure</label>
+										<input type="number" class="form-control" id="pipeLinepressureInsp" th:value="${pipeMaintenanceUpdateDto.pipeLinepressure}"
+											name="pipeLinepressureInsp" placeholder="Pipeline pressure">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">GRID</label>
+										<input type="number" class="form-control" id="pipeGRIDInsp" name="pipeGRIDInsp" th:value="${pipeMaintenanceUpdateDto.pipeGRID}"
+											placeholder="GRID">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">GMIS_ID</label>
+										<input type="number" class="form-control" id="pipeGMIS_IDInsp" th:value="${pipeMaintenanceUpdateDto.pipeGMIS_ID}"
+											name="pipeGMIS_IDInsp" placeholder="GMIS_ID">
+									</div>
+								</div>
+
+								<!--***********Row 6**********-->
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Ward No</label>
+										<input type="number" class="form-control" id="pipeWardNoInsp" th:value="${pipeMaintenanceUpdateDto.pipeWardNo}"
+											name="pipeWardNoInsp" placeholder="Ward No">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Ward Name</label>
+										<input type="number" class="form-control" id="pipeWardNameInsp" th:value="${pipeMaintenanceUpdateDto.pipeWardName}"
+											name="pipeWardNameInsp" placeholder="Ward Name">
+									</div>
+
+								</div>
+
+								<!--***********Text Area**********-->
+
+								<div class="row mt-2">
+									<div class="form-group col-md-12">
+										<label for="inputEmail4">Pipe maintenance reasons</label>
+										<textarea type="text" class="form-control" id="pipeMaintenanceReasonsInsp" th:value="${pipeMaintenanceUpdateDto.pipeMaintenanceReasons}"
+											name="pipeMaintenanceReasonsInsp"
+											placeholder="Complaint Details "></textarea>
+									</div>
+								</div>
+
+								<!--***********Row 7**********-->
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Breakdown Date</label>
+										<input type="text" class="form-control" id="pipeBreakdownDateInsp" th:value="${pipeMaintenanceUpdateDto.pipeBreakdownDate}"
+											name="pipeBreakdownDateInsp" placeholder="Pipe Breakdown schedule Date">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Pipe Breakdown Time</label>
+										<input type="text" class="form-control" id="pipeBreakdownTimeInsp" th:value="${pipeMaintenanceUpdateDto.pipeBreakdownTime}"
+											name="pipeBreakdownTimeInsp" placeholder="Pipe Breakdown schedule Time">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Site Engineer</label>
+										<input type="text" class="form-control" id="siteEngineerInsp" th:value="${pipeMaintenanceUpdateDto.siteEngineer}"
+											name="siteEngineerInsp" placeholder="Site Engineer">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">TEAM CODE</label>
+										<input type="text" class="form-control" id="teamCodeInsp" name="teamCodeInsp" th:value="${pipeMaintenanceUpdateDto.teamCode}"
+											placeholder="TEAM CODE"> 
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Site Superwiser </label>
+										<input type="text" class="form-control" id="siteSuperwiserInsp" th:value="${pipeMaintenanceUpdateDto.siteSuperwiser}"
+											name="siteSuperwiserInsp" placeholder="Site Superwiser ">
+									</div>
+								</div>
+
+
+
+
+								<div class="row mt-3">
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Total equipment cost</label>
+										<input type="number" class="form-control" id="TotalEquipmentCost"
+											name="TotalEquipmentCost" placeholder="Total equipment cost">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Service cost</label>
+										<input type="number" class="form-control" id="serviceCost" name="serviceCost"
+											placeholder="Service cost">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Labour Cost</label>
+										<input type="number" class="form-control" id="labourCost" name="labourCost"
+											placeholder="Labour Cost">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="inputEmail4">Total Work Cost</label>
+										<input type="number" class="form-control" id="totalWorkCost"
+											name="totalWorkCost" placeholder="Total Work Cost">
+									</div>
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-4">
+										<label for="inputEmail4">Inspection Done By</label>
+										<input type="number" class="form-control" id="inspectionDoneBy"
+											name="inspectionDoneBy" placeholder="Inspection Done By">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="inputEmail4">Inspection Work Status</label>
+										<input type="number" class="form-control" id="inspectionWorkStatus"
+											name="inspectionWorkStatus" placeholder="Inspection Work Status">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="inputEmail4">Inspection Date</label>
+										<input type="date" class="form-control" id="inspectionDate"
+											name="inspectionDate" placeholder="Inspection Date">
+									</div>
+
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-group col-md-5">
+										<label for="inputEmail4">Inspection Photo upload</label>
+										<input type="text" class="form-control" id="inspectionDocUplode"
+											name="inspectionDocUplode" placeholder="Inspection Photo upload">
+									</div>
+									<div class="form-group col-md-7">
+										<label for="inputEmail4">Inspection Remark</label>
+										<input type="text" class="form-control" id="inspectionRemark"
+											name="inspectionRemark" placeholder="Inspection Date">
+									</div>
+								</div>
+
+
+
+								<div class="card-footer text-center">
+									<button type="submit" class="btn btn-info ">Submit</button>
+									<button type="button" class="btn btn-secondary ">Invoice Print</button>
+
+
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<div class="col-4">
+			<div class="card text-center">
+				<div class="card-header heading-bg text-white fs-6 ">
+					Updates
+				</div>
+
+				<div class="card-body">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">Id</th>
+								<th class="text-center" scope="col">Work No</th>
+								<th class="text-center" scope="col">Date</th>
+								<th class="text-center" scope="col">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="listofPipeMaintenUpdate : ${listofPipeMaintenUpdate}" class="text-center">
+
+								<td><a href="#" th:href="@{'/pipe/viewPipeMaintenanceUpdate/'+ ${listofPipeMaintenUpdate.pipeUpdateId}}"
+										th:text="${listofPipeMaintenUpdate.pipeUpdateId}"></a></td>
+								<td th:text="${listofPipeMaintenUpdate.asstsID}"></td>
+								<td th:text="${#dates.format(listofPipeMaintenUpdate.pipeIndentDate, 'dd-MMM-yyyy')}"></td>	
+									<td th:text="${listofPipeMaintenUpdate.maintenanceType}"></td>
+										
+									</tr>
+								</tbody>
+							</table>
+
+					
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<table
+			class="table table-stock table-bordered table table-success table-striped table-hover my-4 vehiceltable-size"
+			id="generatLabour">
+			<thead>
+				<tr>
+					<th>Sl.No</th>
+					<th>Item Name*</th>
+					<th>Cataregy Code</th>
+					<th>Cataregy Name*</th>
+					<th>HSN CODE</th>
+					<th>Unit Of Measure*</th>
+					<th>Total Quantity</th>
+					<th>MRP</th>
+					<th>GST Type</th>
+					<th>Cost Rate</th>
+					<th>GST</th>
+					<th>Reamarks</th>
+
+				</tr>
+			</thead>
+			<tbody class="vehicel-table-scroll">
+				<tr>
+					<td>1</td>
+					<td>System Architect</td>
+					<td>Edinburgh</td>
+					<td>61</td>
+					<td>2011-04-25</td>
+					<td>$320,800</td>
+					<td>2</td>
+					<td>Sales Assistant</td>
+					<td>San Francisco</td>
+					<td>59</td>
+					<td>2012-08-06</td>
+					<td>$137,500</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Sales Assistant</td>
+					<td>San Francisco</td>
+					<td>59</td>
+					<td>2012-08-06</td>
+					<td>$137,500</td>
+					<td>3</td>
+					<td>Integration Specialist</td>
+					<td>Tokyo</td>
+					<td>55</td>
+					<td>2010-10-14</td>
+					<td>$327,900</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Integration Specialist</td>
+					<td>Tokyo</td>
+					<td>55</td>
+					<td>2010-10-14</td>
+					<td>$327,900</td>
+					<td>4</td>
+					<td>Javascript Developer</td>
+					<td>San Francisco</td>
+					<td>39</td>
+					<td>2009-09-15</td>
+					<td>$205,500</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Javascript Developer</td>
+					<td>San Francisco</td>
+					<td>39</td>
+					<td>2009-09-15</td>
+					<td>$205,500</td>
+					<td>5</td>
+					<td>Software Engineer</td>
+					<td>Edinburgh</td>
+					<td>23</td>
+					<td>2008-12-13</td>
+					<td>$103,600</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>Software Engineer</td>
+					<td>Edinburgh</td>
+					<td>23</td>
+					<td>2008-12-13</td>
+					<td>$103,600</td>
+					<td>6</td>
+					<td>Office Manager</td>
+					<td>London</td>
+					<td>30</td>
+					<td>2008-12-19</td>
+					<td>$90,560</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>Office Manager</td>
+					<td>London</td>
+					<td>30</td>
+					<td>2008-12-19</td>
+					<td>$90,560</td>
+					<td>7</td>
+					<td>Customer Support</td>
+					<td>New York</td>
+					<td>27</td>
+					<td>2011-01-25</td>
+					<td>$112,000</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>Customer Support</td>
+					<td>New York</td>
+					<td>27</td>
+					<td>2011-01-25</td>
+					<td>$112,000</td>
+					<td>1</td>
+					<td>System Architect</td>
+					<td>Edinburgh</td>
+					<td>61</td>
+					<td>2011-04-25</td>
+					<td>$320,800</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- form END-->
+	</section>
+</body>
+
+</html>

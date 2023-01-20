@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "privilege_master")
+@Table(name = "mm_privilege_master")
 public class Privilege {
 
 	@Id

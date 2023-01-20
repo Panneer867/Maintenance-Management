@@ -1,163 +1,168 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
-  <body>
+
+<body>
 	<section>
 		<div class="card  mt-2 bl-cr">
-		  <div class="card-header heading-bg" >
-			 <h3 class="text-center text-white mb-0">Assest Entry</h3>
-		 </div>
-		  <div class="card-body font-weight-bold">
-			   <form>
+			<div class="card-header heading-bg">
+				<h3 class="text-center text-white mb-0">Assest Entry</h3>
+			</div>
+			<div class="card-body font-weight-bold">
+				<form method="post" th:action="@{/asset/saveassestentry}">
 					<div class="row">
 						<div class="form-group col-md-3">
-					      <label for="inputEmail4">Division</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Division">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Sub Division</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Sub Division">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Assests Name</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Assests Name">
-					    </div>
-					     <div class="form-group col-md-3">
-					      <label for="inputEmail4">Asset Id</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Asset Id ">
-					    </div>
+							<label for="inputEmail4">Division</label>
+							<input type="text" class="form-control" id="division" name="division" placeholder="Division">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Sub Division</label>
+							<input type="text" class="form-control" id="subDivision" name="subDivision" placeholder="Sub Division">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Assests Name</label>
+							<input type="text" class="form-control" id="assestsName" name="assestsName" placeholder="Assests Name">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Asset Id</label>
+							<input type="text" class="form-control" id="assetId" name="assetId" placeholder="Asset Id ">
+						</div>
 					</div>
-					
+
 					<!-- ***************************** 2nd Row  ***************************-->
 					<div class="row mt-2">
 						<div class="form-group col-md-3">
-					      <label for="inputEmail4">Category</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Category">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Sub-Category</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Sub-Category">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Model</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Model">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Purchase Date</label>
-					      <input type="date" class="form-control" id="inputEmail4" placeholder="Purchase Date">
-					    </div>
+							<label for="inputEmail4">Category</label>
+							<input type="text" class="form-control" id="category" name="category" placeholder="Category">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Sub-Category</label>
+							<input type="text" class="form-control" id="subCategory" name="subCategory" placeholder="Sub-Category">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Model</label>
+							<input type="text" class="form-control" id="model" name="model" placeholder="Model">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Purchase Date</label>
+							<input type="date" class="form-control" id="purchaseDate" name="purchaseDate"
+								placeholder="Purchase Date">
+						</div>
 					</div>
-					
+
 					<!-- ***************************** 3rd Row  ***************************-->
 					<div class="row mt-2">
 						<div class="form-group col-md-3">
-					      <label for="inputEmail4">Assest Type</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Assest Type">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Assigned To</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Assigned To">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Barcode</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Barcode">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">HSNCode</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="HSNCode">
-					    </div>
+							<label for="inputEmail4">Assest Type</label>
+							<input type="text" class="form-control" id="assestType" name="assestType" placeholder="Assest Type">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Assigned To</label>
+							<input type="text" class="form-control" id="assignedTo" name="assignedTo" placeholder="Assigned To">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Barcode</label>
+							<input type="text" class="form-control" id="barCode" name="barCode" placeholder="Barcode">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">HSNCode</label>
+							<input type="text" class="form-control" id="hsnCode" name="hsnCode" placeholder="HSNCode">
+						</div>
 					</div>
-					
-						<!-- ***************************** 4th Row  ***************************-->
+
+					<!-- ***************************** 4th Row  ***************************-->
 					<div class="row mt-2">
 						<div class="form-group col-md-3">
-					      <label for="inputEmail4">Cost</label>
-					      <input type="number" class="form-control" id="inputEmail4" placeholder="Cost">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">AssestsLocation</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="AssestsLocation">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Retuned Date</label>
-					      <input type="date" class="form-control" id="inputEmail4" placeholder="Retuned Date">
-					    </div>
-					    <div class="form-group col-md-3">
-					      <label for="inputEmail4">Store Name</label>
-					      <input type="text" class="form-control" id="inputEmail4" placeholder="Store Name">
-					    </div>
+							<label for="inputEmail4">Cost</label>
+							<input type="number" class="form-control" id="cost" name="cost" placeholder="Cost">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">AssestsLocation</label>
+							<input type="text" class="form-control" id="assestsLocation" name="assestsLocation"
+								placeholder="AssestsLocation">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Retuned Date</label>
+							<input type="date" class="form-control" id="retunedDate" name="retunedDate" placeholder="Retuned Date">
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputEmail4">Store Name</label>
+							<input type="text" class="form-control" id="storeName" name="storeName" placeholder="Store Name">
+						</div>
 					</div>
-					
-				</form>
-			
-			</div>
-			 <div class="card-footer text-center">
-		   	 	<button type="button" class="btn btn-info">Add</button>
-		   	    <button type="button" class="btn btn-success">Search</button>
-		   	    <button type="button" class="btn btn-primary">Print</button>
-		  	 </div>
-	   </div>	
-	   
-	   
-	   	           <div class="row mt-2 mb-2">
-						<div class="col-sm-6">
-							<div class="card" style="background-color: #ffffff">
-								<div class="card bg-dark">
-									<h5
-										style="text-align: center; margin-top: 2px;color: white">
-										Total Assests</h5>
-								</div>
-								<canvas id="myChart"  style="width:100%;max-width:600px;"></canvas>
-							</div>
-						   </div>
-						   <div class="col-sm-6">
-							<div class="card" style="background-color: #ffffff">
-								<div class="card bg-dark">
-									<h5
-										style="text-align: center; margin-top: 2px;color: white">
-										Assets By Group/Department</h5>
-								</div>
-								<canvas id="myChart1"  style="width:100%;max-width:600px;"></canvas>
-							</div>
-					   </div>
-					</div>	
-					
-					<div class="row mt-2 mb-2">
-						<div class="col-sm-6">
-							<div class="card" style="background-color: #ffffff">
-								<div class="card bg-dark">
-									<h5
-										style="text-align: center; margin-top: 2px;color: white">
-										Assets By Location</h5>
-								</div>
-								<canvas id="chartContainer"  style="width:100%;max-width:600px;"></canvas>
-							</div>
-						   </div>
-						   <div class="col-sm-6">
-							<div class="card" style="background-color: #ffffff">
-								<div class="card bg-dark">
-									<h5
-										style="text-align: center; margin-top: 2px;color: white">
-										Assets By Vendor</h5>
-								</div>
-								<canvas id="myChart1"  style="width:100%;max-width:600px;"></canvas>
-							</div>
-					      </div>
-					</div>
-					
-					
-					   <div class="col-sm-12">
-							<div class="card" style="background-color: #ffffff">
-								<div class="card bg-dark">
-									<h5
-										style="text-align: center; margin-top: 2px;color: white">
-										Assest On GPS</h5>
-								</div>
-								<div  class="border border-dark" id="googleMap" style="width:100%;height:300px;"></div>	
-							</div>
-					      </div>
 
-					
+					<div class="card-footer text-center">
+						<button type="submit" class="btn btn-info">Submit</button>
+						<button type="button" class="btn btn-success">Search</button>
+						<button type="button" class="btn btn-primary">Print</button>
+					</div>
+
+				</form>
+
+			</div>
+		<!--	<div class="card-footer text-center">
+				<button type="button" class="btn btn-info">Add</button>
+				<button type="button" class="btn btn-success">Search</button>
+				<button type="button" class="btn btn-primary">Print</button>
+			</div>-->
+		</div>
+
+
+		<div class="row mt-2 mb-2">
+			<div class="col-sm-6">
+				<div class="card" style="background-color: #ffffff">
+					<div class="card bg-dark">
+						<h5 style="text-align: center; margin-top: 2px;color: white">
+							Total Assests</h5>
+					</div>
+					<canvas id="myChart" style="width:100%;max-width:600px;"></canvas>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="card" style="background-color: #ffffff">
+					<div class="card bg-dark">
+						<h5 style="text-align: center; margin-top: 2px;color: white">
+							Assets By Group/Department</h5>
+					</div>
+					<canvas id="myChart1" style="width:100%;max-width:600px;"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-2 mb-2">
+			<div class="col-sm-6">
+				<div class="card" style="background-color: #ffffff">
+					<div class="card bg-dark">
+						<h5 style="text-align: center; margin-top: 2px;color: white">
+							Assets By Location</h5>
+					</div>
+					<canvas id="chartContainer" style="width:100%;max-width:600px;"></canvas>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="card" style="background-color: #ffffff">
+					<div class="card bg-dark">
+						<h5 style="text-align: center; margin-top: 2px;color: white">
+							Assets By Vendor</h5>
+					</div>
+					<canvas id="myChart1" style="width:100%;max-width:600px;"></canvas>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-sm-12">
+			<div class="card" style="background-color: #ffffff">
+				<div class="card bg-dark">
+					<h5 style="text-align: center; margin-top: 2px;color: white">
+						Assest On GPS</h5>
+				</div>
+				<div class="border border-dark" id="map" style="width:100%;height:300px;"></div>
+			</div>
+		</div>
+
+
 	</section>
-			  
-    
-  </body>
+
+
+</body>
+
 </html>

@@ -2,63 +2,90 @@
 
 <body>
 	<section>
-		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Distribution Location
-			</div>
+		<div class="mx-auto col-12 mt-5">
 			<!-- Message Alert Field -->
-			<div th:if="${session.message}" class="alert_field pt-1" style="margin-left: 212px;margin-right: 234px;">
-				<div class="alert text-center" th:classappend="${'alert-'+session.message.type}" role="alert">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 					<span th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
 			<!-- End of Message Alert Field -->
-			<div class="card-body">
-				<form th:action="@{/masters/savedislocation}" method="post">
-					<div class="row ">
-						<div class="col text-start">
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Distribution Location</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<!--Strat Form-->
+					<form th:action="@{/masters/savedislocation}" method="post">
+						<div class="row ">
+							<div class="col text-start">
 
-							<label for="division" class="col-sm-8 col-form-label">Division</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"
-								 id="division" name="division" required>
+								<label for="division" class="col-sm-8 col-form-label">Division</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="division"
+										name="division" required>
+								</div>
 							</div>
+
+							<div class="col text-start">
+								<label for="branch" class="col-sm-8 col-form-label">Branch</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="branch" name="branch"
+										required>
+								</div>
+							</div>
+
+							<div class="col text-start">
+								<label for="distlocation" class="col-sm-8 col-form-label">Distribution
+									Location </label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="distlocation"
+										name="distlocation" required>
+								</div>
+							</div>
+
 						</div>
 
-						<div class="col text-start">
-							<label for="branch" class="col-sm-8 col-form-label">Branch</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"
-								 id="branch" name="branch" required>
-							</div>
+						<div class="pt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit </button>
+							<a th:href="@{/masters/dislocationhistory}" class="btn btn-success">View</a>
 						</div>
 
-						<div class="col text-start">
-							<label for="distlocation" class="col-sm-8 col-form-label">Distribution
-								Location </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="distlocation" name="distlocation" required>
-							</div>
-						</div>
-
-					</div>
-               
-                 <div class="pt-4">
-                   <button type="submit" class="btn btn-primary">Submit </button>
-				   <a href="#" class="btn btn-success">View</a>
-                 </div>
-                 
-				</form>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+					</form>
+					<!--End Form-->
+				</div>
 			</div>
 		</div>
+		
+		<!-- History Table Start-->
 
-		<!-- form END-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Distribution Location History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Division</th>
+						<th class="text-center" scope="col">Branch</th>
+						<th class="text-center" scope="col">Dis Location</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="dislocation : ${listOfDistLocations}">
+						<td><a href=# th:onclick="|deleteDistrutLocation(${dislocation.disLocId})|">
+								<span th:text="${'DL'+dislocation.disLocId}"></span></a>
+						</td>
+						<td th:text="${dislocation.division}"></td>
+						<td th:text="${dislocation.branch}"></td>
+						<td th:text="${dislocation.distlocation}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- History Table END-->
+		
 	</section>
 </body>
 

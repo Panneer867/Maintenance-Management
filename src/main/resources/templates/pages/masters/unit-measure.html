@@ -3,38 +3,69 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Units of Measures
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-					<div class="mx-auto col-8 text-start">
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-3 col-form-label">Units Type</label>
-							<div class="col-sm-3">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-							<label for="inputEmail3" class="col-sm-3 col-form-label">Description</label>
-							<div class="col-sm-3">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Units Of Measures</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveUnitMeasure}" method="post">
+						<div class="mx-auto col-10 text-start">
+							<div class="form-group row">
+								<label for="unitType" class="col-auto col-form-label">Units Type</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm" 
+									id="unitType" name="unitType" required>
+								</div>
+								<label for="description" class="col-auto col-form-label">Description</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control form-control-sm" 
+									id="description" name="description" required>
+								</div>
 							</div>
 						</div>
-
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/unitMeasureHistory}" class="btn btn-success">View</a>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Units Of Measures History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Unit Type</th>
+						<th class="text-center" scope="col">Description</th>											
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="unitmeaseu : ${listOfUnitMeasure}">
+						<td><a href="#" th:onclick="|deleteUnitOfMeasure(${unitmeaseu.unitMeasureId})|">
+								<span th:text="${'TM'+unitmeaseu.unitMeasureId}"></span></a>
+						</td>
+						<td th:text="${unitmeaseu.unitType}"></td>
+						<td th:text="${unitmeaseu.description}"></td>												
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+		
 	</section>
 </body>
 

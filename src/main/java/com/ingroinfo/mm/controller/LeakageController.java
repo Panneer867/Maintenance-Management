@@ -1,12 +1,22 @@
 package com.ingroinfo.mm.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/leakage")
 public class LeakageController {
+	
+	
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
 	
 	@GetMapping("/dashboard")
 	public String dashboard() {
@@ -19,9 +29,9 @@ public class LeakageController {
 		return "/pages/leakage/leakage_intent";
 	}
 	
-	@GetMapping("/maintanance")
-	public String LeakageMaintanance() {
-		return "/pages/leakage/leakage_maintanance";
+	@GetMapping("/maintenance")
+	public String LeakageMaintenance() {
+		return "/pages/leakage/leakage_maintenance";
 	}
 	
 	@GetMapping("/work")
@@ -29,9 +39,9 @@ public class LeakageController {
 		return "/pages/leakage/leakage_work";
 	}
 	
-	@GetMapping("/maintanance-history")
-	public String MaintananceHistory() {
-		return "/pages/leakage/leakage_maintanance_history";
+	@GetMapping("/maintenance-history")
+	public String MaintenanceHistory() {
+		return "/pages/leakage/leakage_maintenance_history";
 	}
 
 }

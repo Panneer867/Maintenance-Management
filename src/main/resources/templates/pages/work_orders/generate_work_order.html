@@ -31,495 +31,541 @@
 
 			</ul>
 			<div class="tab-content" id="pills-tabContent">
-				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+				<div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
 					tabindex="0">
 					<div class="card bl-cr">
 						<div class="card-header heading-bg">
 							<h3 class="text-center text-white mb-0">Generate Work Order</h3>
 						</div>
 						<div class="card-body font-weight-bold">
-							<form>
-								<div class="row mt-2">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Indent No</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Indent No">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Indent Department</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Indent Department">
-									</div>
-									
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Date</label>
-										<input type="date" class="form-control" id="inputEmail4" placeholder="Email">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Number</label>
-										<input type="number" class="form-control" id="inputEmail4"
-											placeholder="Work Order Number">
-									</div>
-
-								</div>
-
-								<div class="row mt-2">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Division</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Division">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Sub Division</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Sub Division">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="inputEmail4">Work Order Scope</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Work Order Scope">
-									</div>
-
-								</div>
-
-								<div class="row mt-2">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Issued By</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Work Order Issued By">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Priority</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Work Priority">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Cost</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Work Order Cost">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Contact</label>
-										<input type="text" class="form-control" id="inputEmail4" placeholder="Contact">
-									</div>
-								</div>
-
-								<div class="row mt-2">
-									<div class="form-group col-md-6">
-										<label for="inputEmail4">Work Site</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Work Site">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Expected Start Date</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Expected Start Date">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Expected End Date</label>
-										<input type="text" class="form-control" id="inputEmail4"
-											placeholder="Expected End Date">
-									</div>
-								</div>
-
-
-								<!--*********************** Generate Work Order || PART / MATERIAL ISSUED  Start ********************-->
-								<div class="col-md-12 mt-2">
-									<div class="card bl-cr">
-										<div class="card-header" style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white mb-0"><b>PART / MATERIAL ISSUED</b></p>
+							<div class="tab">
+								<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white" 
+									onclick="openCity(event, 'MaterialIssued')" id="work-order-btn">PART / MATERIAL ISSUED
+								</button>
+								<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white" id="gen-labour-work-btn"
+									onclick="openCity(event, 'LabourTime')">LABOUR / TIMES</button>
+								<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white" id="gen-vehicle-work-btn"
+									onclick="openCity(event, 'VehicleTime')">VEHICLE/TIMING
+								</button>
+							</div>
+							<div id="MaterialIssued" class="tabcontent">
+								
+									<div class="row">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent No</label>
+											<input type="text" class="form-control" id="indentNo" name="indentNo"
+												placeholder="Indent No">
 										</div>
-										<div class="card-body font-weight-bold">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent Department</label>
+											<input type="text" class="form-control" id="indentDepartement"
+												name="indentDepartement" placeholder="Indent Department">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Department</label>
+											<input type="text" class="form-control" id="genWorkOrderDepartment"
+												name="genWorkOrderDepartment" placeholder="Work Order Department">
+										</div>
 
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Category</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Category">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Item</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Item">
-												</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Number</label>
+											<input type="number" class="form-control" id="workOrderNumber"
+												name="workOrderNumber" placeholder="Work Order Number">
+										</div>
 
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">HSNCODE</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="HSNCODE">
+
+									</div>
+
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Date</label>
+											<input type="date" class="form-control" id="workOrderDate"
+												name="workOrderDate" placeholder="Email">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Division</label>
+											<input type="text" class="form-control" id="division" name="division"
+												placeholder="Division">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Sub Division</label>
+											<input type="text" class="form-control" id="subDivision" name="subDivision"
+												placeholder="Sub Division">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Scope</label>
+											<input type="text" class="form-control" id="workOrderScope"
+												name="workOrderScope" placeholder="Work Order Scope">
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Issued By</label>
+											<input type="text" class="form-control" id="workOrderIssuBy"
+												name="workOrderIssuBy" placeholder="Work Order Issued By">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Priority</label>
+											<input type="text" class="form-control" id="workPriority"
+												name="workPriority" placeholder="Work Priority">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Cost</label>
+											<input type="text" class="form-control" id="workOrderCost"
+												name="workOrderCost" placeholder="Work Order Cost">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Contact</label>
+											<input type="text" class="form-control" id="contact" name="contact"
+												placeholder="Contact">
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="form-group col-md-6">
+											<label for="inputEmail4">Work Site</label>
+											<input type="text" class="form-control" id="workSite" name="workSite"
+												placeholder="Work Site">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected Start Date</label>
+											<input type="date" class="form-control" id="expectedStartDate"
+												name="expectedStartDate" placeholder="Expected Start Date">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected End Date</label>
+											<input type="date" class="form-control" id="expectedEndDate"
+												name="expectedEndDate" placeholder="Expected End Date">
+										</div>
+									</div>
+
+
+									<!--*********************** Generate Work Order || PART / MATERIAL ISSUED  Start ********************-->
+
+									<div class="col-md-12 mt-3">
+										<div class="card bl-cr">
+											<div class="card-header" style="background-color: blueviolet;height: 35px;">
+												<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
+											</div>
+											<div class="card-body">
+												<div class="row mt-3">
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Category</label>
+														<!--<input type="text" class="form-control" id="category"
+														name="category" placeholder="Category">
+														-->
+														<select class="form-control" id="category" name="category">
+															<option value="">--Select--</option>
+															<option th:each="item:${listOfHsnCode}"
+																th:value="${item.category}" th:text="${item.category}">
+															</option>
+														</select>
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Item</label>
+														<input type="text" class="form-control" id="item" name="item"
+															placeholder="Item">
+													</div>
+
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">HSNCODE</label>
+														<input type="text" class="form-control" id="hsnCode"
+															name="hsnCode" placeholder="HSNCODE">
+													</div>
+												</div>
+												<div class="row mt-3">
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Unit of Meassure</label>
+														<input type="text" class="form-control" id="unitMeassure"
+															name="unitMeassure" placeholder="Unit of Meassure">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Qty</label>
+														<input type="number" class="form-control" id="gentrMaterialQty"
+															name="gentrMaterialQty" placeholder="Qty">
+													</div>
+
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Amount</label>
+														<input type="number" class="form-control"
+															id="gentrMaterialAmount" name="gentrMaterialAmount"
+															placeholder="Amount">
+													</div>
+													<div class="text-center mt-2">
+														<button type="button" id="gen-add-category"
+															class="btn btn-primary w-25 text-center">Add</button>
+													</div>
 												</div>
 											</div>
+											<div class="card-footer">
+												<table
+													class="table table-stock table-bordered table table-success table-striped table-hover">
+													<thead>
+														<tr>
+															<th>Sl No</th>
+															<th>Category</th>
+															<th>Item</th>
+															<th>HSNCode</th>
+															<th>Unit of Meassure</th>
+															<th>Qty</th>
+															<th>Amount</th>
+														</tr>
+													</thead>
+													<tbody class="category-item-display">
+													</tbody>
+												</table>
 
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Unit of Meassure</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Unit of Meassure">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Qty</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Qty">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Amount</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Amount">
-												</div>
-												<div class="text-center mt-2">
-													<button type="button"
-														class="btn btn-success w-25 text-center">Add</button>
-												</div>
 											</div>
 										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover  mytable table-size">
-												<thead>
-													<tr>
-														<th>Category</th>
-														<th>Item</th>
-														<th>HSNCode</th>
-														<th>Unit of Meassure</th>
-														<th>Qty</th>
-														<th>Amount</th>
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-													<tr>
-														<td>Tiger Nixon</td>
-														<td>System Architect</td>
-														<td>Edinburgh</td>
-														<td>61</td>
-														<td>2011-04-25</td>
-														<td>$320,800</td>
-													</tr>
-													<tr>
-														<td>Herrod Chandler</td>
-														<td>Sales Assistant</td>
-														<td>San Francisco</td>
-														<td>59</td>
-														<td>2012-08-06</td>
-														<td>$137,500</td>
-													</tr>
-													<tr>
-														<td>Rhona Davidson</td>
-														<td>Integration Specialist</td>
-														<td>Tokyo</td>
-														<td>55</td>
-														<td>2010-10-14</td>
-														<td>$327,900</td>
-													</tr>
-													<tr>
-														<td>Colleen Hurst</td>
-														<td>Javascript Developer</td>
-														<td>San Francisco</td>
-														<td>39</td>
-														<td>2009-09-15</td>
-														<td>$205,500</td>
-													</tr>
-													<tr>
-														<td>Sonya Frost</td>
-														<td>Software Engineer</td>
-														<td>Edinburgh</td>
-														<td>23</td>
-														<td>2008-12-13</td>
-														<td>$103,600</td>
-													</tr>
-													<tr>
-														<td>Jena Gaines</td>
-														<td>Office Manager</td>
-														<td>London</td>
-														<td>30</td>
-														<td>2008-12-19</td>
-														<td>$90,560</td>
-													</tr>
+									</div>
+									<div class=" text-center mt-4">
+										<button  id="gen-submit"
+											class="btn btn-primary w-25 text-center">Submit</button>
+										<button id="gen-next-EmpCat"
+											class="btn btn-primary w-25 text-center">Next</button>
+									</div>
 
-													<tr>
-														<td>Donna Snider</td>
-														<td>Customer Support</td>
-														<td>New York</td>
-														<td>27</td>
-														<td>2011-01-25</td>
-														<td>$112,000</td>
-													</tr>
-												</tbody>
-												<tbody class="table-scroll">
-													<tr>
-														<td colspan="5" class="text-center">TOTAL</td>
-														<td colspan="1" class="font-weight-bold text-right">qty</td>
-														<td colspan="1" class="font-weight-bold text-right">qty</td>
-													</tr>
+							
 
-												</tbody>
-											</table>
+							</div>
+							<!--*********************** Generate Work Order || Employees LABOUR / TIMES  Start ********************-->
+							<div id="LabourTime" class="tabcontent">
+								
+									<div class="row">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent No</label>
+											<input type="text" class="form-control bg-white" id="indentNo-labour" name="indentNo" readonly>
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent Department</label>
+											<input type="text" class="form-control bg-white" id="indentdepartement-labour" readonly
+												name="indentDepartement">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Department</label>
+											<input type="text" class="form-control bg-white" id="workdepartment-labour" readonly
+												name="genWorkOrderDepartment">
+										</div>
+
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Number</label>
+											<input type="number" class="form-control bg-white" id="workrdernumber-labour" readonly
+												name="workOrderNumber">
+										</div>
+
+
+									</div>
+
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Date</label>
+											<input type="text" class="form-control bg-white" id="workdate-labour" readonly
+												name="workOrderDate">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Division</label>
+											<input type="text" class="form-control bg-white" id="division-labour" readonly name="division">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Sub Division</label>
+											<input type="text" class="form-control bg-white" id="subdivision-labour" readonly name="subDivision">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Scope</label>
+											<input type="text" class="form-control bg-white" id="workorderscope-labour" readonly
+												name="workOrderScope">
 										</div>
 									</div>
-								</div>
 
-								<!--*********************** Generate Work Order || LABOUR / TIMES  Start ********************-->
-								<div class="col-md-12 mt-2">
-									<div class="card bl-cr">
-										<div class="card-header" style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Issued By</label>
+											<input type="text" class="form-control bg-white" id="workorderissuby-labour" readonly
+												name="workOrderIssuBy">
 										</div>
-										<div class="card-body">
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Employee Categorty</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Employee Categorty">
-												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Qty</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Qty">
-												</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Priority</label>
+											<input type="text" class="form-control bg-white" id="workpriority-labour" readonly
+												name="workPriority">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Cost</label>
+											<input type="text" class="form-control bg-white" id="workordercost-labour"  name="workordercost-labour" readonly >
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Contact</label>
+											<input type="text" class="form-control bg-white" id="contact-labour" name="contact" readonly>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="form-group col-md-6">
+											<label for="inputEmail4">Work Site</label>
+											<input type="text" class="form-control bg-white" id="worksite-labour" name="workSite" readonly>
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected Start Date</label>
+											<input type="text" class="form-control bg-white" id="expectedstartdate-labour" readonly
+												name="expectedStartDate" >
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected End Date</label>
+											<input type="text" class="form-control bg-white" id="expectedenddate-labour" readonly
+												name="expectedEndDate">
+										</div>
+									</div>
 
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Days</label>
-													<input type="date" class="form-control" id="inputEmail4"
-														placeholder="Days">
+
+
+									<div class="col-md-12 mt-3">
+										<div class="card bl-cr ">
+											<div class="card-header" style="background-color: blueviolet;height: 35px;">
+												<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
+											</div>
+											<div class="card-body">
+												<div class="row mt-3">
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Employee Categorty</label>
+														<input type="text" class="form-control" id="employeeCategorty"
+															name="employeeCategorty" placeholder="Employee Categorty">
+													</div>
+													<div class="form-group col-md-2">
+														<label for="inputEmail4">Members</label>
+														<input type="number" class="form-control" id="labourQty"
+															nam="labourQty" placeholder="Members">
+													</div>
+													<div class="form-group col-md-2">
+														<label for="inputEmail4">Days</label>
+														<input type="date" class="form-control" id="days" name="days"
+															placeholder="Days">
+													</div>
+													<div class="form-group col-md-2">
+														<label for="inputEmail4">Timing</label>
+														<input type="time" class="form-control" id="time" name="time"
+															placeholder="Timing">
+													</div>
+													<div class="form-group col-md-2">
+														<label for="inputEmail4">Total Hour</label>
+														<input type="text" class="form-control" id="totalHours"
+															name="totalHour" placeholder="Total Hour">
+													</div>
+													<div class="text-center mt-2">
+														<button type="button" id="gen-add-employees"
+															class="btn btn-primary w-25 text-center">Add</button>
+													</div>
 												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Timing</label>
-													<input type="time" class="form-control" id="inputEmail4"
-														placeholder="Timing">
+											</div>
+											<div class="card-footer">
+												<table
+													class="table table-stock table-bordered table table-success table-striped table-hover"
+													id="generatLabour">
+													<thead>
+														<tr>
+															<th>Sl No</th>
+															<th>Employee Categorty</th>
+															<th>Qty</th>
+															<th>Days</th>
+															<th>Timing</th>
+															<th>Total Hour</th>
+														</tr>
+													</thead>
+													<tbody class="employees-labour-display">
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+
+
+									<div class=" text-center mt-4">
+										<button type="submit" id="gen-emplabours-submit"
+											class="btn btn-primary w-25 text-center">Submit</button>
+										<button type="submit" id="gen-next-EmpCat"
+											class="btn btn-primary w-25 text-center">Next</button>
+									</div>
+
+								
+							</div>
+							<!--*********************** Generate Work Order || Employees LABOUR / TIMES  END ********************-->
+
+
+							<!--****************************  Generate Work Order || VEHICLE/TIMING Start *********************************-->
+
+							<div id="VehicleTime" class="tabcontent">
+										
+									<div class="row">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent No</label>
+											<input type="text" class="form-control bg-white" id="indentNo-vehicle" name="indentNo" readonly>
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Indent Department</label>
+											<input type="text" class="form-control bg-white" id="indentdepartement-vehicle" readonly
+												name="indentDepartement">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Department</label>
+											<input type="text" class="form-control bg-white" id="workdepartment-vehicle" readonly
+												name="genWorkOrderDepartment">
+										</div>
+
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Number</label>
+											<input type="number" class="form-control bg-white" id="workrdernumber-vehicle" readonly
+												name="workOrderNumber">
+										</div>
+
+
+									</div>
+
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Date</label>
+											<input type="text" class="form-control bg-white" id="workdate-vehicle" readonly
+												name="workOrderDate">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Division</label>
+											<input type="text" class="form-control bg-white" id="division-vehicle" readonly name="division">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Sub Division</label>
+											<input type="text" class="form-control bg-white" id="subdivision-vehicle" readonly name="subDivision">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Scope</label>
+											<input type="text" class="form-control bg-white" id="workorderscope-vehicle" readonly
+												name="workOrderScope">
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Issued By</label>
+											<input type="text" class="form-control bg-white" id="workorderissuby-vehicle" readonly
+												name="workOrderIssuBy">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Priority</label>
+											<input type="text" class="form-control bg-white" id="workpriority-vehicle" readonly
+												name="workPriority">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Work Order Cost</label>
+											<input type="text" class="form-control bg-white" id="workordercost-vehicle"  name="workordercost-labour" readonly >
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Contact</label>
+											<input type="text" class="form-control bg-white" id="contact-vehicle" name="contact" readonly>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="form-group col-md-6">
+											<label for="inputEmail4">Work Site</label>
+											<input type="text" class="form-control bg-white" id="worksite-vehicle" name="workSite" readonly>
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected Start Date</label>
+											<input type="text" class="form-control bg-white" id="expectedstartdate-vehicle" readonly
+												name="expectedStartDate" >
+										</div>
+										<div class="form-group col-md-3">
+											<label for="inputEmail4">Expected End Date</label>
+											<input type="text" class="form-control bg-white" id="expectedenddate-vehicle" readonly
+												name="expectedEndDate">
+										</div>
+									</div>
+
+
+
+									<div class="col-md-12 mt-3">
+										<div class="card bl-cr">
+											<div class="card-header "
+												style="background-color: blueviolet;height: 35px;">
+												<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
+											</div>
+											<div class="card-body">
+
+												<div class="row mt-2">
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Vehicle Type</label>
+														<input type="text" class="form-control" id="vehicleType"
+															name="vehicleType" placeholder="Vehicle Type">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Vehicle Number</label>
+														<input type="text" class="form-control" id="vehicleNumber"
+															name="vehicleNumber" placeholder="Vehicle Number">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Driver Name</label>
+														<input type="text" class="form-control" id="driverName"
+															name="driverName" placeholder="Driver Name">
+													</div>
 												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Total Hour</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Total Hour">
+												<div class="row mt-2">
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Driver Contact Number</label>
+														<input type="number" class="form-control"
+															id="driverContactNumber" name="driverContactNumber"
+															placeholder="Driver Contact Number">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">ODO Meter From Reading</label>
+														<input type="text" class="form-control" id="odoMeterReading"
+															name="odoMeterReading" placeholder="Total Hour">
+													</div>
+
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Start Time</label>
+														<input type="time" class="form-control" id="startTime"
+															name="startTime" placeholder="Start Time">
+													</div>
 												</div>
 												<div class="text-center mt-2">
-													<button type="button"
+													<button type="button" id="gen-add-vehicle"
 														class="btn btn-primary w-25 text-center">Add</button>
 												</div>
 											</div>
-										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover  table-size"
-												id="generatLabour">
-												<thead>
-													<tr>
-														<th>Employee Categorty</th>
-														<th>Qty</th>
-														<th>Days</th>
-														<th>Timing</th>
-														<th>Start date</th>
-														<th>Total Hour</th>
-
-
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-													<tr>
-														<td>Tiger Nixon</td>
-														<td>System Architect</td>
-														<td>Edinburgh</td>
-														<td>61</td>
-														<td>2011-04-25</td>
-														<td>$320,800</td>
-													</tr>
-													<tr>
-														<td>Herrod Chandler</td>
-														<td>Sales Assistant</td>
-														<td>San Francisco</td>
-														<td>59</td>
-														<td>2012-08-06</td>
-														<td>$137,500</td>
-													</tr>
-													<tr>
-														<td>Rhona Davidson</td>
-														<td>Integration Specialist</td>
-														<td>Tokyo</td>
-														<td>55</td>
-														<td>2010-10-14</td>
-														<td>$327,900</td>
-													</tr>
-													<tr>
-														<td>Colleen Hurst</td>
-														<td>Javascript Developer</td>
-														<td>San Francisco</td>
-														<td>39</td>
-														<td>2009-09-15</td>
-														<td>$205,500</td>
-													</tr>
-													<tr>
-														<td>Sonya Frost</td>
-														<td>Software Engineer</td>
-														<td>Edinburgh</td>
-														<td>23</td>
-														<td>2008-12-13</td>
-														<td>$103,600</td>
-													</tr>
-													<tr>
-														<td>Jena Gaines</td>
-														<td>Office Manager</td>
-														<td>London</td>
-														<td>30</td>
-														<td>2008-12-19</td>
-														<td>$90,560</td>
-													</tr>
-
-													<tr>
-														<td>Donna Snider</td>
-														<td>Customer Support</td>
-														<td>New York</td>
-														<td>27</td>
-														<td>2011-01-25</td>
-														<td>$112,000</td>
-													</tr>
-
-												</tbody>
-											</table>
+											<div class="card-footer">
+												<table
+													class="table table-stock table-bordered table table-success table-striped table-hover"
+													id="generatLabour">
+													<thead>
+														<tr>
+															<th>Sl No</th>
+															<th>Vehicle Type</th>
+															<th>Vehicle Number</th>
+															<th>Driver Name</th>
+															<th>Driver Contact No</th>
+															<th>ODO Meter Reading</th>
+															<th>Start Time</th>
+														</tr>
+													</thead>
+													<tbody class="vehicle-labour-display">
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
-								</div>
 
 
-
-								<!--****************************  Generate Work Order || VEHICLE/TIMING Start *********************************-->
-								<div class="col-md-12 mt-2">
-									<div class="card bl-cr">
-										<div class="card-header " style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
-										</div>
-										<div class="card-body">
-
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Vehicle Type</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Vehicle Type">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Vehicle Number</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Vehicle Number">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Driver Name</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Driver Name">
-												</div>
-											</div>
-
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Driver Contact Number</label>
-													<input type="number" class="form-control" id="inputEmail4"
-														placeholder="Driver Contact Number">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">ODO Meter From Reading</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Total Hour">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Start Time</label>
-													<input type="text" class="form-control" id="inputEmail4"
-														placeholder="Start Time">
-												</div>
-											</div>
-											<div class="text-center mt-2">
-												<button type="button"
-													class="btn btn-primary w-25 text-center">Add</button>
-											</div>
-										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover table-size"
-												id="generatLabour">
-												<thead>
-													<tr>
-														<th>Vehicle Type</th>
-														<th>Vehicle Number</th>
-														<th>Driver Name</th>
-														<th>Driver Contact No</th>
-														<th>ODO Meter Reading</th>
-														<th>Start Time</th>
-
-
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-													<tr>
-														<td>Tiger Nixon</td>
-														<td>System Architect</td>
-														<td>Edinburgh</td>
-														<td>61</td>
-														<td>2011-04-25</td>
-														<td>$320,800</td>
-													</tr>
-													<tr>
-														<td>Herrod Chandler</td>
-														<td>Sales Assistant</td>
-														<td>San Francisco</td>
-														<td>59</td>
-														<td>2012-08-06</td>
-														<td>$137,500</td>
-													</tr>
-													<tr>
-														<td>Rhona Davidson</td>
-														<td>Integration Specialist</td>
-														<td>Tokyo</td>
-														<td>55</td>
-														<td>2010-10-14</td>
-														<td>$327,900</td>
-													</tr>
-													<tr>
-														<td>Colleen Hurst</td>
-														<td>Javascript Developer</td>
-														<td>San Francisco</td>
-														<td>39</td>
-														<td>2009-09-15</td>
-														<td>$205,500</td>
-													</tr>
-													<tr>
-														<td>Sonya Frost</td>
-														<td>Software Engineer</td>
-														<td>Edinburgh</td>
-														<td>23</td>
-														<td>2008-12-13</td>
-														<td>$103,600</td>
-													</tr>
-													<tr>
-														<td>Jena Gaines</td>
-														<td>Office Manager</td>
-														<td>London</td>
-														<td>30</td>
-														<td>2008-12-19</td>
-														<td>$90,560</td>
-													</tr>
-
-													<tr>
-														<td>Donna Snider</td>
-														<td>Customer Support</td>
-														<td>New York</td>
-														<td>27</td>
-														<td>2011-01-25</td>
-														<td>$112,000</td>
-													</tr>
-
-												</tbody>
-											</table>
-										</div>
+									<div class=" text-center mt-4">
+										<button  id="gen-vehicle-submit"
+											class="btn btn-primary w-25 text-center">Submit</button>
+										<button type="submit" id="gen-next-EmpCat"
+											class="btn btn-primary w-25 text-center">Next</button>
 									</div>
-								</div>
-							</form>
+
+							
+							</div>
+
+
 
 						</div>
-						<div class="card-footer text-center" style="margin-bottom: 30px;">
-							<button type="button" class="btn btn-primary w-25 text-center">Submit</button>
-							<button type="button" class="btn btn-primary w-25 text-center">Print</button>
-						</div>
+
 
 					</div>
-
 				</div>
 				<div class="tab-pane fade" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab"
 					tabindex="0">
@@ -561,171 +607,61 @@
 
 					</div>
 				</div>
-		
-			<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-				tabindex="0">
-				<div class="card">
-					<div class="card-header bg-info">
-						<h3 class="text-center text-white mb-0">Generate Work Order View</h3>
+
+				<div class="tab-pane fade click" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+					tabindex="0">
+					<div class="card">
+						<div class="card-header bg-info">
+							<h3 class="text-center text-white mb-0">Generate Work Order View</h3>
+						</div>
+						<div class="card-body">
+
+							<table
+								class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+								<thead class="table-dark">
+									<tr>
+										<!--<th class="all">Id</th>-->
+										<th class="all">Indent No</th>
+										<th class="all">Indent Dept</th>
+										<th class="all">Work Order Dept</th>
+										<th class="all">Work Order No</th>
+										<th class="all">Work Order Date</th>
+										<th class="all">Work Order Iss By</th>
+										<th class="all">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="genworkorder: ${listofgenWork}">
+										<!--	<td th:text="${genworkorder.generateWorkId}"></td>-->
+										<td th:text="${genworkorder.indentNo}"></td>
+										<td th:text="${genworkorder.indentDepartement}"></td>
+										<td th:text="${genworkorder.genWorkOrderDepartment}"></td>
+										<td th:text="${genworkorder.workOrderNumber}"></td>
+										<td th:text="${#dates.format(genworkorder.workOrderDate, 'dd-MMM-yyyy')}"></td>	
+										<td th:text="${genworkorder.workOrderIssuBy}"></td>
+										<td class="text-center" >
+										 <a class="text-white bg-black p-2 rounded" th:href="@{'/workorder/viewwork/'+ ${genworkorder.generateWorkId}}">View</a>
+									<a class="text-white bg-black p-2 rounded" >Hold</a>
+									<a class="text-white bg-black p-2 rounded" >Cancel</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 					</div>
-					<div class="card-body">
-
-
-						<table
-							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
-							<thead class="table-dark">
-								<tr>
-									<th class="all">Id</th>
-
-									<th class="all">Category</th>
-									<th class="all">Item</th>
-									<th class="all">Supplier</th>
-									<th class="all">Brand</th>
-									<th class="all">HSN</th>
-									<th class="all">Qty</th>
-									<th class="all">Unit</th>
-									<th class="all">MRP</th>
-									<th class="all">Entry Date</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-
-								</tr>
-								<tr>
-									<td>100</td>
-									<td>English, Italian</td>
-									<td>Spanish (official)</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>41,803,125</td>
-									<td>600</td>
-									<td>2,780,387</td>
-									<td>31.3</td>
-									<td>31/12/2022</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					
 				</div>
 			</div>
 		</div>
-		</div>
+		
+		<script>
+		$(document).ready(function() {
+			$("#gen-labour-work-btn").hide();
+			$("#gen-vehicle-work-btn").hide();
+		});
+		</script>
+		
+		
+		
 	</section>
 </body>
 

@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -24,6 +25,11 @@ import com.ingroinfo.mm.service.MaterialService;
 @RequestMapping("/stocks")
 public class StockController {
 
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
+	
 	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired

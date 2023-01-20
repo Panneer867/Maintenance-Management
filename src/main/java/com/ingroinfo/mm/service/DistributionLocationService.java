@@ -11,4 +11,7 @@ public interface DistributionLocationService {
 	
 	//FindAll
 	List<DistributionLocationDto> findAllDistributionLocation();
+	
+	//Delete
+	void deleteDistributeLocation(Long disLocId);
 }

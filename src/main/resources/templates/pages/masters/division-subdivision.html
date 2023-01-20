@@ -3,56 +3,93 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Division SubDevision
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-
-					<div class="mx-auto col-8 text-start">
-
-						<div class="form-group row p-2">
-							<label class="col-sm-4 col-form-label">Division</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-							<div class="col-sm-2">
-								<a href="#" class="btn btn-primary">Add</a>
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Division SubDevision</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/savedivsubdiv}" method="post">
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-8">
+								<div class="form-group row ">
+									<label class="col-sm-4 col-form-label">Division</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-sm" 
+										id="division" name="division" required>
+									</div>									
+								</div>
+								<div class="form-group row">
+									<label for="subdivision" class="col-sm-4 col-form-label">Sub Division</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-sm" 
+										id="subdivision" name="subdivision" required>
+									</div>									
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Service Station</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-sm" 
+										id="serviceStation" name="serviceStation" required>
+									</div>									
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Created Date</label>
+									<div class="col-sm-6">
+										<input type="date" class="form-control form-control-sm" 
+										id="inputEmail3" name="createdDate" required>
+									</div>									
+								</div>
 							</div>
 						</div>
-						<div class="form-group row p-2">
-							<label for="inputEmail3" class="col-sm-4 col-form-label">Sub
-								Division</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-							<div class="col-sm-2">
-								<a href="#" class="btn btn-primary">Add</a>
-							</div>
+						
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/divsubdivhistory}" class="btn btn-success">View</a>
 						</div>
-						<div class="form-group row p-2">
-							<label class="col-sm-4 col-form-label">Service Station</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control form-control-sm" id="inputEmail3">
-							</div>
-							<div class="col-sm-2">
-								<a href="#" class="btn btn-primary">Add</a>
-							</div>
-						</div>
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+						
+					</form>
+				</div>
 			</div>
 		</div>
-
-		<!-- form END-->
+		<!-- form End-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Division SubDevision History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Division</th>
+						<th class="text-center" scope="col">Sub-Division</th>
+						<th class="text-center" scope="col">Service Station</th>
+						<th class="text-center" scope="col">Created Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="divsubdiv : ${listOfDivSubdiv}">
+						<td><a href="#" th:onclick="|deleteDivSubdiv(${divsubdiv.divsubId})|">
+								<span th:text="${'DS'+divsubdiv.divsubId}"></span></a>
+						</td>						
+						<td th:text="${divsubdiv.division}"></td>
+						<td th:text="${divsubdiv.subdivision}"></td>
+						<td th:text="${divsubdiv.serviceStation}"></td>
+						<td th:text="${#dates.format(divsubdiv.createdDate, 'dd-MMM-yyyy')}"></td>						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- History Table End-->
 	</section>
 </body>
 

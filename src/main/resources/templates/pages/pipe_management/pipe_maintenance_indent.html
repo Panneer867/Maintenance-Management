@@ -1,0 +1,191 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<div class="col-sm-11 mx-auto mt-3">
+			<div class="card bl-cr">
+				<div class="card-header heading-bg">
+					<h3 class="text-center text-white">Pipe Maintenance Indent </h3>
+				</div>
+				<div class="card-body font-weight-bold">
+					<form method="post" th:action="@{/pipe/savepipemaintenance}">
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line Indent No</label>
+								<input type="number" class="form-control" id="pipeIndentNo" name="pipeIndentNo"
+									placeholder="Pipe Line Indent No">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line Indent Date</label>
+								<input type="date" class="form-control" id="pipeIndentDate" name="pipeIndentDate"
+									placeholder="Pipe Line Indent Date">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputEmail4">Indent for </label>
+								<select class="form-select" id="indentFor" name="indentFor"
+									aria-label="Example select with button addon">
+									<option selected>Choose...</option>
+									<option value="Main Line">Main Line</option>
+									<option value="Distriubution Line">Distriubution Line </option>
+									<option value="HSC Connection">HSC Connection </option>
+								</select>
+							</div>
+
+						</div>
+						<!--***********Row 2**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line From</label>
+								<input type="number" class="form-control" id="pipeFrom" name="pipeFrom" placeholder="Pipe Line From">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line End</label>
+								<input type="text" class="form-control" id="pipeEnd" name="pipeEnd" placeholder="Pipe Line End">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Lenth in Meter / KM</label>
+								<input type="number" class="form-control" id="lengthMeterKM" name="lengthMeterKM"
+									placeholder="Lenth in Meter / KM">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Maintenance Type</label>
+								<select class="form-select" id="maintenanceType" name="maintenanceType"
+									aria-label="Example select with button addon">
+									<option selected>Choose...</option>
+									<option value="Emergency">Emergency</option>
+									<option value="Routine">Routine </option>
+									<option value="Pro-Active ">Pro-Active </option>
+								</select>
+							</div>
+
+
+						</div>
+
+						<!--***********Row 3**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line Start Node</label>
+								<input type="number" class="form-control" id="pipeStartNode" name="pipeStartNode"
+									placeholder="Pipe Line Start Node">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line End Node</label>
+								<input type="number" class="form-control" id="pipeEndNode" name="pipeEndNode"
+									placeholder="Pipe Line End Node">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Lenth in Meter / KM</label>
+								<input type="number" class="form-control" id="nodeLengthMeterKM" name="nodeLengthMeterKM"
+									placeholder="Lenth in Meter / KM">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Assts ID</label>
+								<input type="number" class="form-control" id="asstsID" name="asstsID" placeholder="Assts ID">
+							</div>
+						</div>
+
+						<!--***********Row 4**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Langitude</label>
+								<input type="number" class="form-control" id="langitude"  name="langitude" placeholder="Langitude">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Latitude</label>
+								<input type="number" class="form-control" id="latitude" name="latitude" placeholder="Latitude">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Lenth in Meter / KM</label>
+								<input type="number" class="form-control" id="lanlatlLengthMeterKM" name="lanlatlLengthMeterKM"
+									placeholder="Lenth in Meter / KM">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Line Type</label>
+								<input type="text" class="form-control" id="pipeLineType" name="pipeLineType"
+									placeholder="Pipe Line  Type">
+							</div>
+						</div>
+						<!--***********Row 5**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipeline Diameter</label>
+								<input type="text" class="form-control" id="pipeLineDiameter" name="pipeLineDiameter"
+									placeholder="Pipeline Diameters">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipeline pressure</label>
+								<input type="text" class="form-control" id="pipeLinepressure" name="pipeLinepressure"
+									placeholder="Pipeline pressure">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">GRID</label>
+								<input type="number" class="form-control" id="pipeGRID" name="pipeGRID" placeholder="GRID">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">GMIS_ID</label>
+								<input type="number" class="form-control" id="pipeGMIS_ID" name="pipeGMIS_ID" placeholder="GMIS_ID">
+							</div>
+						</div>
+
+						<!--***********Row 6**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Ward No</label>
+								<input type="text" class="form-control" id="pipeWardNo" name="pipeWardNo" placeholder="Ward No">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Ward Name</label>
+								<input type="text" class="form-control" id="pipeWardName" name="pipeWardName" placeholder="Ward Name">
+							</div>
+
+						</div>
+
+						<!--***********Text Area**********-->
+						<div class="row mt-3">
+
+							<label for="inputEmail4">Pipe maintenance reasons</label>
+							<textarea class="form-control" id="pipeMaintenanceReasons" name="pipeMaintenanceReasons" ></textarea>
+
+						</div>
+						<!--***********Row 7**********-->
+						<div class="row mt-3">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Breakdown Date</label>
+								<input type="date" class="form-control" id="pipeBreakdownDate" name="pipeBreakdownDate"
+									placeholder="Pipe Breakdown schedule Date">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Pipe Breakdown Time</label>
+								<input type="time" class="form-control" id="pipeBreakdownTime" name="pipeBreakdownTime"
+									placeholder="Pipe Breakdown schedule Time">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Site Engineer</label>
+								<input type="text" class="form-control" id="siteEngineer" name="siteEngineer" placeholder="Site Engineer">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">TEAM CODE</label>
+								<input type="text" class="form-control" id="teamCode" name="teamCode" placeholder="TEAM CODE">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Site Superwiser </label>
+								<input type="text" class="form-control" id="siteSuperwiser" name="siteSuperwiser" placeholder="Site Superwiser ">
+							</div>
+						</div>
+
+						<div class="text-center">
+							<button type="submit" class="btn btn-info ">Submit</button>
+							<button type="button" class="btn btn-secondary ">Cancel</button>
+							<button type="button" class="btn btn-primary ">View</button>
+
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+</body>
+
+</html>

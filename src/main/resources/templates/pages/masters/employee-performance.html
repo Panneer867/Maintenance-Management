@@ -3,38 +3,65 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="card text-center">
-			<div class="card-header bg-info text-white fs-4">
-				Employee Performance
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
-			<div class="card-body">
-
-				<form>
-
-					<div class="mx-auto col-8 text-start">
-						<div class="form-group row p-2">
-							<label class="col-sm-6 col-form-label">Employee Performance</label>
-							<div class="col-sm-6">
-								<select class="form-select form-select-sm">
-									<option>Good</option>
-									<option>Average</option>
-									<option>poor</option>
-								</select>
+			<!-- End of Message Alert Field -->
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Employee Performance</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveEmpPerform}" method="post">
+						<div class="mx-auto col-6 text-start">
+							<div class="form-group row p-2">
+								<label class="col-sm-6 col-form-label">Employee Performance</label>
+								<div class="col-sm-6">
+									<select class="form-select form-select-sm" name="performStatus" required>
+										<option>Good</option>
+										<option>Average</option>
+										<option>poor</option>
+									</select>
+								</div>
 							</div>
 						</div>
-					</div>
-
-				</form>
-
-				<a href="#" class="btn btn-primary">Submit</a>
-				<a href="#" class="btn btn-success">View</a>
-			</div>
-			<div class="card-footer text-muted bg-info">
-
+						<div class="mt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/empperformhistory}" class="btn btn-success">View</a>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-
 		<!-- form END-->
+		
+		<!-- History Table Start-->
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Employee Performance History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Employee Performance</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="empperform : ${listOfEmpPerform}">
+						<td><a href="#" th:onclick="|deleteEmplyeePerformance(${empperform.empPerformId})|">
+								<span th:text="${'EP'+empperform.empPerformId}"></span></a>
+						</td>
+						<td th:text="${empperform.performStatus}"></td>						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- History Table End-->
+		
 	</section>
 </body>
 

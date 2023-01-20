@@ -3,7 +3,7 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="mx-auto col-8 mt-5">
+		<div class="mx-auto col-12 mt-5">
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
@@ -15,52 +15,54 @@
 
 
 			<div class="card bl-cr">
-				<div class="card-header text-center bg-info text-white">
-					<h4 class="mb-0">Category Master</h4>
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Category Master</h3>
 				</div>
-				<div class="card-body">
+				<div class="card-body pl-5 pr-5 font-weight-bold">
 					<form th:action="@{/masters/savecategorydata}" method="post">
-						<div class="row">
-
-							<div class="col-3 text-start">
-								<label class="text-left">Category ID</label>
-								<input class="form-control form-control-sm" type="text" maxlength="5" name="categoryId"
-									required>
+						<div class="row text-center">                          
+							<div class="col-auto text-start">
+								<label class="text-left">Category ID</label>								
 							</div>
-							<div class="col-9 text-start">
-								<label for="categoryName">Category Name</label>
-								<input class="form-control form-control-sm" type="text" name="categoryName" required>
+						    <div class="col-sm-2">
+						      <input class="form-control form-control-sm bg-white" type="text" maxlength="5" name="categoryId"
+									required th:value="${maxcategoryid}" readonly> 
+						    </div>
+							<div class="col-auto text-start">
+								<label for="categoryName">Category Name</label>								
+							</div>
+							<div class="col-sm-6"> 
+							  <input class="form-control form-control-sm" type="text" name="categoryName" 
+							  required placeholder="Enter Category Name">
 							</div>
 						</div>
 						<div class="mt-4 text-center">
 							<button type="submit" href="#" class="btn btn-primary">Submit</button>
-							<a type="button" th:href="@{/masters/category-history}" class="btn btn-success">View</a>
-						</div>
+							<a type="button" th:href="@{/masters/categoryhistory}" class="btn btn-success">View</a>
+						</div>					  
 					</form>
-
-
 				</div>
 			</div>
 
 		</div>
 		<!-- form END-->
 
-		<!-- form Start-->
+		<!-- History Table Start-->
 
-		<div class=" mt-4 col-8 px-0 mx-auto" th:if="${show != null}">
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Category Master History</h5>
-			<table class="table table-stock table-bordered table table-primary table-striped table-hover">
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th scope="col">Delete</th>
-						<th scope="col">Category ID</th>
-						<th scope="col">Category Name</th>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Category ID</th>
+						<th class="text-center" scope="col">Category Name</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="category : ${listOfCategory}">
-						<td><a th:href="@{'/masters/deleteCategory/'+${category.catid}}">
+						<td><a href="#" th:onclick="|deleteCategory(${category.catid})|">
 								<span th:text="${'CI'+category.catid}"></span></a>
 						</td>
 						<td th:text="${category.categoryId}"></td>
@@ -69,7 +71,7 @@
 				</tbody>
 			</table>
 		</div>
-	<!-- form END-->
+	<!-- History Table END-->
 
 	</section>
 </body>

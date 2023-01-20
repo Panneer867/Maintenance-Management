@@ -7,5 +7,6 @@ import com.ingroinfo.mm.entity.IdMaster;
 
 @Repository
 public interface IdMasterRepository extends JpaRepository<IdMaster, Long> {
-
+	
+	IdMaster getByMasterIdName(String masterIdName);
 }
