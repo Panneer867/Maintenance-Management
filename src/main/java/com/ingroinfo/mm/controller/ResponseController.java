@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ingroinfo.mm.dao.EmployeeMasterRepository;
 import com.ingroinfo.mm.dto.UserRolesDto;
-import com.ingroinfo.mm.entity.EmployeeMaster;
+import com.ingroinfo.mm.entity.HsnCode;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.HsnCodeService;
 
 
 @RestController
@@ -25,8 +25,8 @@ public class ResponseController {
 	private AdminService adminService;
 	
 	@Autowired
-	private EmployeeMasterRepository employeeMasterRepository;
-
+	private HsnCodeService hsnCodeService;
+	
 	@GetMapping("/city")
 	public String getCities(@RequestParam Integer stateId) {
 
@@ -58,9 +58,9 @@ public class ResponseController {
 		return adminService.getUserRoles(id);
 	}
 	
-	 @GetMapping("/test") 
-	  public EmployeeMaster getEmployees(@RequestParam Long id) {	  
-	  return employeeMasterRepository.findByEmployeeId(id);	  
-	  }
+	@GetMapping("/item/hsn/{id}")
+	public HsnCode getItemHsn(@PathVariable Long id) {
+		return hsnCodeService.getHsnById(id);
+	}
 
 }

@@ -22,34 +22,26 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_items")
+@Table(name = "mm_inward_items_bundle")
 public class InwardItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long bundleId;
 	private Long itemId;
-	
-	private Long slNo;
 	private String itemName;
+	private String aliasName;
 	private String materialImage;
+	private String imagePath;
 	private String categoryName;
-	private String categoryCode;
-	private String description;
-	private String supplierName;
-	private String suppliedOn;
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
 	private String totalQuantity;
 	private String costRate;
 	private String mrp;
-	private String invoiceNo;
-	private String gstType;
-	private String igst;
-	private String sgst;
-	private String cgst;
-	private String receivedBy;
-	private String receivedDate;
+	private String entryDate;
+	private String description;
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

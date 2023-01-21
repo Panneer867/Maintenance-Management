@@ -39,4 +39,9 @@ public class HsnCodeServiceImpl implements HsnCodeService {
 		this.hsnCodeRepo.delete(hsnCode);
 	}
 
+	@Override
+	public HsnCode getHsnById(Long id) {
+		return hsnCodeRepo.findByhsnCodeId(id);
+	}
+
 }

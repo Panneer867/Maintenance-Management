@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.HsnCode;
 @Repository
 public interface HsnCodeRepository extends JpaRepository<HsnCode, Long> {
 
+	HsnCode findByhsnCodeId(Long id);
+
 }

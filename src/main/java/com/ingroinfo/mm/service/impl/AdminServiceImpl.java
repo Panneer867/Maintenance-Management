@@ -886,4 +886,11 @@ public class AdminServiceImpl implements AdminService {
 		return pages;
 	}
 
+	@Override
+	public Company getCompanyByUsername(String name) {
+
+		User user = userRepository.findByUsername(name);
+		return user.getCompany();
+	}
+
 }

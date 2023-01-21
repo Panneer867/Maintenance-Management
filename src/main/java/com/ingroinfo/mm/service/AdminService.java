@@ -113,4 +113,6 @@ public interface AdminService {
 
 	Long getRoleIdByUserId(Long id);
 
+	Company getCompanyByUsername(String name);
+
 }

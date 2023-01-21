@@ -658,23 +658,23 @@ input[type="number"] {
 	-moz-appearance: textfield;
 }
 
-div.thumb {
+td.thumb {
 	position: relative;
 	z-index: 0;
 	margin: -0.2em;
 }
 
-div.thumb img {
-	width: 1.2em;
-	height: 1.2em;
+td.thumb img {
+	width: 1.5em;
+	height: 1.5em;
 	object-fit: cover;
 }
 
-div.thumb:hover {
+td.thumb:hover {
 	z-index: 9999;
 }
 
-div.thumb:hover img {
+td.thumb:hover img {
 	width: 20em;
 	height: 20em;
 	display: block;
