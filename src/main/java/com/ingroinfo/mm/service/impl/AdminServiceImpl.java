@@ -96,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
 	public void registerCompany(User user) {
 
 		String roleName = "ROLE_" + user.getName().toUpperCase() + "_COMPANY";
-		String description = "This is " + user.getName() + "company role";
+		String description = "This is " + user.getName() + " company role";
 		Role role = roleRepository.findByName(roleName);
 
 		if (role == null) {
@@ -117,7 +117,7 @@ public class AdminServiceImpl implements AdminService {
 	public void registerBranch(User user) {
 
 		String roleName = "ROLE_" + user.getName().toUpperCase() + "_BRANCH";
-		String description = "This is " + user.getName() + "branch role";
+		String description = "This is " + user.getName() + " branch role";
 		Role role = roleRepository.findByName(roleName);
 
 		if (role == null) {
@@ -637,8 +637,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void AssignRoles(UserRolesDto dto) {
-		
-		
+
 		/*
 		 * try { for (Field field : dto.getClass().getDeclaredFields()) {
 		 * field.setAccessible(true); Object value = field.get(dto);
