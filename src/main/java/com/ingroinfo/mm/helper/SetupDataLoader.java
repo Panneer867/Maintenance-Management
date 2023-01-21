@@ -59,14 +59,42 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		/* Privileges */
 
+		/* Admin Pages */
+
 		Privilege a = createPrivilegeIfNotFound(100, "ADMIN_HOME");
 		Privilege b = createPrivilegeIfNotFound(101, "COMPANY_MANAGEMENT");
 		Privilege c = createPrivilegeIfNotFound(102, "CREATE_COMPANY");
-		Privilege e = createPrivilegeIfNotFound(103, "EDIT_COMPANY");
-		Privilege d = createPrivilegeIfNotFound(104, "VIEW_COMPANY");
+		Privilege d = createPrivilegeIfNotFound(103, "EDIT_COMPANY");
+		Privilege e = createPrivilegeIfNotFound(104, "VIEW_COMPANY");
 		Privilege f = createPrivilegeIfNotFound(105, "DELETE_COMPANY");
+		Privilege g = createPrivilegeIfNotFound(106, "BRANCH_MANAGEMENT");
+		Privilege h = createPrivilegeIfNotFound(107, "CREATE_BRANCH");
+		Privilege i = createPrivilegeIfNotFound(108, "EDIT_BRANCH");
+		Privilege j = createPrivilegeIfNotFound(109, "VIEW_BRANCH");
+		Privilege k = createPrivilegeIfNotFound(110, "DELETE_BRANCH");
+		Privilege l = createPrivilegeIfNotFound(111, "USER_MANAGEMENT");
+		Privilege m = createPrivilegeIfNotFound(112, "CREATE_USER");
+		Privilege n = createPrivilegeIfNotFound(113, "EDIT_USER");
+		Privilege o = createPrivilegeIfNotFound(114, "DELETE_USER");
+		Privilege p = createPrivilegeIfNotFound(115, "ROLE_MANAGEMENT");
+		Privilege q = createPrivilegeIfNotFound(116, "CREATE_ROLE");
+		Privilege r = createPrivilegeIfNotFound(117, "EDIT_ROLE");
+		Privilege s = createPrivilegeIfNotFound(118, "DELETE_ROLE");
+		Privilege t = createPrivilegeIfNotFound(119, "USER_ROLES");
+		Privilege u = createPrivilegeIfNotFound(120, "EDIT_USER_ROLES");
 
-		List<Privilege> ownerPrivileges = Arrays.asList(a, b, c, d, e, f);
+		/* Task Management Pages */
+
+		Privilege v = createPrivilegeIfNotFound(200, "TASK_JE");
+		Privilege w = createPrivilegeIfNotFound(201, "TASK_AEE");
+		Privilege x = createPrivilegeIfNotFound(202, "TASK_EE");
+		Privilege y = createPrivilegeIfNotFound(203, "TASK_COMMISSIONER");
+		Privilege z = createPrivilegeIfNotFound(204, "TASK_WORKCOMPLETE");
+		Privilege a1 = createPrivilegeIfNotFound(205, "TASK_JOBCARD");
+		Privilege b1 = createPrivilegeIfNotFound(206, "TASK_COMPLAINTHISTORY");
+
+		List<Privilege> ownerPrivileges = Arrays.asList(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u,
+				v, w, x, y, z, a1, b1);
 
 		/* Roles */
 
@@ -488,8 +516,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		banksIfNotFound("YES BANK LTD");
 
 		/* User */
-		
-		createAdminIfNotFound("Admin", "Admin", "Admin", "ingroinfo@gmail.com", "999999999", "A", "Admin", Arrays.asList(admin));
+
+		createAdminIfNotFound("Admin", "Admin", "Admin", "ingroinfo@gmail.com", "999999999", "A", "Admin",
+				Arrays.asList(admin));
 
 		alreadySetup = true;
 	}

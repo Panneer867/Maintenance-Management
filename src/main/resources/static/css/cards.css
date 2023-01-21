@@ -105,7 +105,7 @@
 }
 
 .container .bar.dark {
-	background: #3a3f51;
+	background: #473B7B;
 }
 
 .container .bar.opened .icon {
@@ -126,16 +126,16 @@
 	gap: 1em;
 	padding: 0.2em 1em;
 	border-radius: 8px;
-	background: rgb(128, 128, 255);
+	background:#3584A7 ;
 	transition: all ease 0.5s;
 }
 
 .container .bar .icon:hover {
-	background: rgb(255, 128, 64);
+	background:linear-gradient(to right, #00f260, #0575e6);
 }
 
 .container .bar .active {
-	background: rgb(255, 128, 64);
+	background:linear-gradient(to right, #00f260, #0575e6);
 }
 
 .container .bar .icon .text {

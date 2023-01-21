@@ -53,6 +53,9 @@
 	<link th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
 	<link th:href="@{https://use.fontawesome.com/releases/v5.11.2/css/all.css}" rel="stylesheet" />
 	<script th:src="@{https://unpkg.com/@popperjs/core@2}"></script>
+	
+	<!-- Sweet Alert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -525,6 +528,17 @@
 											</i>
 											<span class="m-menu__link-text">
 												Leave
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/payment' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/employee/payment}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Payment Config
 											</span>
 										</a>
 									</li>
@@ -1285,13 +1299,13 @@
 	<script th:src="@{/js/user-roles.js}"></script>
 	<script th:src="@{/js/back-button.js}"></script>
 	<script th:src="@{/js/chart.js}"></script>
-	<script th:src="@{/js/delete-masters.js}"></script>
 	<script th:src="@{/js/form-validation.js}"></script>
-	<script th:src="@{/js/gen-work-data.js}"></script>
-	<script th:src="@{/js/getmaster-departmentId.js}"></script>
-	<script th:src="@{/js/get-msterId-data.js}"></script>
+	<script th:src="@{/js/gen-work-data.js}"></script>	
 	<script th:src="@{/js/master-jquery-table.js}"></script>
 	<script th:src="@{/js/tab-work-order.js}"></script>
+	<script th:src="@{/js/edit-input.js}"></script>
+	<script th:src="@{/js/emp-data.js}"></script>
+	<script th:src="@{/js/employee-details.js}"></script>
 
 </body>
 

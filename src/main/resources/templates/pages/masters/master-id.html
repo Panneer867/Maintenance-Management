@@ -23,8 +23,8 @@
 
 							<div class="form-group row p-2">
 								<label for="Ids" class="col-sm-3 col-form-label fs-6">ID's</label>
-								<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Starting Number</label>
-								<label for="description" class="col-sm-5 col-form-label fs-6">Description</label>
+								<label for="serialNumber" class="col-sm-3 col-form-label fs-6">Starting Number</label>
+								<label for="description" class="col-sm-4 col-form-label fs-6">Description</label>
 								<a th:href="@{/masters/idmasterhistory}" class="col-sm-2 btn btn-success fs-6">History</a>
              				</div>
              				<form method="post" th:action="@{/masters/saveIdMaster}" th:object="${idmaster}">

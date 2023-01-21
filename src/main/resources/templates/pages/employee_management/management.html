@@ -1,0 +1,230 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+<h3 class="text-center text-white mt-2 p-1 bg-primary">Employee Management
+		</h3>
+		 	
+		<div class="row">
+		<div class="col-11 mx-auto">
+		<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+					tabindex="0">
+		<ul class="nav nav-pills justify-content-end py-1 mb-1" id="pills-tab" role="tablist">
+
+				<li class="nav-item" role="presentation">
+					   <a th:href="@{/employee/master}" class="nav-link active text-center  py-2 text-white hvr bg-dark">
+              Employee Master
+               </a> 
+				</li>
+			</ul>
+		<div class="alert alert-danger text-center mx-0 p-1 mb-2  font-weight-bold" role="alert" th:if="${param.delete}" >
+                       Employee information deleted successfully  !
+                    </div>
+                    
+                    <div class="alert alert-success text-center mx-0 p-1 mb-2  font-weight-bold" role="alert" th:if="${param.success}" >
+                       Employee information updated successfully  !
+                    </div>
+
+          <div class="row">
+               
+				<!-- Table Start-->
+				<div class="col-12">
+				  <table  class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+                           <thead class="table-dark">
+                              <tr>
+								<th class="all">Emp Code</th>
+								<th class="all">Emp Name</th>
+								<th class="all">Mobile</th>
+								<th class="all">Designation</th>
+								<th class="all">Company</th>
+								<th class="all">Aadhar No</th>
+								<th class="all">Address</th>
+								<th class="all">Actions</th>
+						
+                              </tr>
+                           </thead>
+                           <tbody>
+                             <tr th:each="employee: ${employees}">
+							  <td th:text = "${employee.employeeCode}"></td>
+							  <td th:text = "${employee.empName}"></td>
+							  <td th:text = "${employee.contactNo}"></td>
+							  <td th:text = "${employee.designation}"></td>
+							  <td th:text = "${employee.company}"></td>
+							  <td th:text = "${employee.aadharNo}"></td>
+							  <td th:text = "${employee.city}"></td>
+								<td>	
+							    <a th:href="@{/get/test/(id=${employee.employeeId})}" class="btn btn-info btn-sm p-2 mx-2 edit-master" data-toggle="modal" data-target="#editMaster">Edit</a>
+							  	<!--<a th:href="@{/employee/delete/{id}(id=${employee.id})}"  class="btn btn-danger btn-sm p-2 mx-2" >Delete</a>-->
+							  		<a th:onclick="|deleteEmployee(${employee.employeeId})|"  class="btn btn-danger btn-sm p-2 mx-2" >Delete</a>
+								</td></tr>
+                           </tbody>
+                        </table>   
+				</div>
+				<!-- Table End-->	
+			</div>
+				</div>
+					<div class="modal" id="editMaster" tabindex="-1" role="dialog" aria-labelledby="editMaster" aria-hidden="true">
+            <div class="modal-dialog mt-5" role="document" style="max-width: 60%;">
+               <div class="modal-content">
+                  <form  th:action="@{/employee/update}" role="form" th:object="${update}" method="post">
+                     <div class="modal-header pt-2 pb-1">
+                        <h5 class="modal-title" id="editModal">Edit Employee Details</h5>
+                           <div style="margin-left: 490px;">
+                           <label for="exampleInputCity1" class="font-weight-bold pr-1">Emp ID</label>
+                           <input type="text" class="bg-danger border-danger text-white" id="empCodeCopy" style="width: 38px;" disabled/>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="empNameCopy">Emp Name<strong class="text-danger ">*</strong></label>   
+                                 <input type="hidden" class="bg-danger border-danger text-white" id="employeeIdCopy" name="employeeId"/>                             
+                                 <input type="text" class="form-control" id="empNameCopy" name="empName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="salaryCopy">Salary<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="salaryCopy" name="salary" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="maritalstatusCopy">Marital status<strong class="text-danger ">*</strong></label>
+                                  <select class="form-control" id="maritalstatusCopy" name="maritalstatus"  data-error="Select Marital Status !" required>
+                                    <option value="" selected>select</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="contactNoCopy">Contact Number<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" id="contactNoCopy" name="contactNo"  onkeyup='checkMobile();' maxlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="refContactNoCopy">Ref Contact Mobile</label>
+                                 <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" id="refContactNoCopy" name="refContactNo"  onkeyup='checkMobile();' maxlength="10" data-error="Enter a valid mobile number" placeholder="Enter alternate mobile no">
+                                 <div class="help-block with-errors text-danger"></div>
+                                 <small id="message"></small> 
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="addressCopy">Address<strong class="text-danger ">*</strong></label>
+                                 <textarea type="text" class="form-control" rows="3" id="addressCopy" name="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="stateCopy">State<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="stateCopy" name="state" data-error="Provide a pincode !"  placeholder="Enter a pincode" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="cityCopy">City<strong class="text-danger">*</strong></label>
+                                 <input type="text" class="form-control" id="cityCopy" name="city" data-error="Provide a city !" placeholder="Enter city name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="pinCodeCopy">Pincode<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="pinCodeCopy" name="pinCode" data-error="Provide a pincode !"  placeholder="Enter a pincode" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="bankAccNoCopy">Bank Acc No<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="bankAccNoCopy" name="bankAccNo"  data-error="Provide valid aadhaar !" pattern="[0-9]{12}" maxlength="12" placeholder="Enter aadhaar no" readonly>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="bankNameCopy">Bank Name<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="bankNameCopy" name="bankName"  placeholder="Enter driving license no">
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="ifscCodeCopy">IFSC CODE<strong class="text-danger ">*</strong></label>
+                              <input type="text" class="form-control" id="ifscCodeCopy" name="ifscCode"  data-error="Provide valid aadhaar !"  placeholder="Enter aadhaar no">
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                           <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="slCopy">SL<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="slCopy" name="sl"  data-error="Provide valid aadhaar !" placeholder="Enter aadhaar no">
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="clCopy">CL<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="clCopy" name="cl"  placeholder="Enter driving license no">
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="lwpCopy">LWP<strong class="text-danger ">*</strong></label>
+                                <input type="text" class="form-control"  id="lwpCopy" name="lwp" placeholder="Enter driving license no">
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                           <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="dlNoCopy">Driving License<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="dlNoCopy" name="dlNo"  data-error="Provide valid aadhaar !" placeholder="Enter aadhaar no" readonly>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer justify-content-center py-2">
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>	
+			</div>
+	
+		</div>
+	</section>
+</body>
+</html>
+					
+					
+			
+		
+
+

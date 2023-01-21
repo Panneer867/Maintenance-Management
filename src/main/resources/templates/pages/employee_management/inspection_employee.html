@@ -2,54 +2,53 @@
 
 <body>
 	<section>
+	
 <h3 class="text-center text-white mt-2 p-1 bg-primary">Employee Inspection
 		</h3>
-		 
 		<div class="row">
 		<div class="col-11 mx-auto">
-		 <div class="alert alert-success text-center my-0  p-1 font-weight-bold" role="alert" th:if="${param.success}" >
-                       Employee Inspection information submitted successfully  !
+		  <div class="alert alert-success text-center my-1 p-1 font-weight-bold" role="alert" th:if="${param.success}" >
+                       Employee information submitted successfully  !
                     </div>
-		<div class="mt-3">
-					
                     <div class="row">
                     <div class="col-9">
+                     <form class="forms-sample" data-toggle="validator" action="#" th:action="@{/employee/saveEmpInspect}" th:object="${employeeInspect}" role="form"  method="post" enctype="multipart/form-data">
 				<div class="card  bl-cr">
 				<div class="card-header text-center heading-bg text-white py-2">
-								<h4 class="mb-0">Employee Data</h4>
+								<h4 class="mt-1">Employee Data</h4>
 							</div>
-		    	<div class="card-body">
+		    	   <div class="card-body">
 					 <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">EMP Code <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                         <input type="text" class="form-control" name="empId" id="empId"  placeholder="Employee Id">
+                                         <input type="text" class="form-control" th:value="${listOfEmployees.employeeCode}" name="employeeCode" id="empCode"  placeholder="Employee Id" readonly="true">
                                     </div>
                                  </div>
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="empName" id="empName"  placeholder="Employee Name">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.empName}" name="empName" id="empName"  placeholder="Employee Name" readonly="true">
                                     </div>
                                  </div>
                                   
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Father Name <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="fatherName" id="fatherName" placeholder="Father Name ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.fatherName}" name="fatherName" id="fatherName" placeholder="Father Name" readonly="true" >
                                     </div>
                                  </div>
                                 <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">House No  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="houseNo" id="houseNo"  placeholder="House No ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.houseNo}" name="houseNo" id="houseNo"  placeholder="House No" readonly="true">
                                     </div>
                                  </div>
                                   <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Address  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="address" id="address"  placeholder="Address">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.address}" name="address" id="address"  placeholder="Address" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -67,7 +66,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Contact No(mobile) <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="contactNo" id="contactNo"  placeholder="Contact No">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.contactNo}" name="contactNo" id="contactNo"  placeholder="Contact No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -75,7 +74,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Designation <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="designation" id="designation"  placeholder="Designation">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.designation}" name="designation" id="designation"  placeholder="Designation" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -86,7 +85,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Bank Acc No <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="bankAccNo" id="bankAccNo"  placeholder="Bank Acc No">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.bankAccNo}" name="bankAccNo" id="bankAccNo"  placeholder="Bank Acc No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -94,7 +93,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Department <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="department" id="department"  placeholder="Department">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.department}" name="department" id="department"  placeholder="Department" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -105,7 +104,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">IFSC CODE</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="ifscCode" id="ifscCode"  placeholder="IFSC CODE">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.ifscCode}"  name="ifscCode" id="ifscCode"  placeholder="IFSC CODE" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -113,7 +112,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Date Of Join <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="dateOfJoin" id="dateOfJoin"  placeholder="Date Of Join ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.dateOfJoin}" name="dateOfJoin" id="dateOfJoin"  placeholder="Date Of Join" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -124,7 +123,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Bank Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="bankName"  id="bankName"  placeholder="Bank Name">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.bankName}"  name="bankName"  id="bankName"  placeholder="Bank Name" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -132,7 +131,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Aadhar No  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="aadharNo" id="aadharNo" placeholder="Aadhar No">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.aadharNo}"  name="aadharNo" id="aadharNo" placeholder="Aadhar No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -143,7 +142,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Passport No <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="passportNo" id="passportNo"  placeholder="Passport No">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.passportNo}" name="passportNo" id="passportNo"  placeholder="Passport No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -151,7 +150,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">DL No  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="dlNo" id="dlNo"  placeholder="DL No ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.dlNo}" name="dlNo" id="dlNo"  placeholder="DL No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -162,7 +161,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">PF No  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="pfNo" id="pfNo"  placeholder="PF No ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.pfNo}" name="pfNo" id="pfNo"  placeholder="PF No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -170,7 +169,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">PAN NO  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="panNO"  id="panNO"  placeholder="PAN NO">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.panNO}" name="panNO" id="panNO"  placeholder="PAN NO" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -181,7 +180,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">ESI Number  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="esiNumber" id="esiNumber"  placeholder="ESI Number ">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.esiNumber}" name="esiNumber" id="esiNumber"  placeholder="ESI Number" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -189,7 +188,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Ref Contact No</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control"  name="RefContactNo" id="RefContactNo"  placeholder="Ref Contact No">
+                                       <input type="text" class="form-control" th:value="${listOfEmployees.RefContactNo}" name="RefContactNo" id="RefContactNo"  placeholder="Ref Contact No" readonly="true">
                                     </div>
                                  </div>
                               </div>
@@ -202,7 +201,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">safety rules maintain</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="safetyrule" id="safetyrule" placeholder="safety rules maintain">
+                                       <input type="text" class="form-control" name="safetyRules" id="safetyRules" placeholder="safety rules maintain">
                                     </div>
                                  </div>
                               </div>
@@ -210,7 +209,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Health Condition</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" name="health_condtn" id="health_condtn" placeholder="Health Condition">
+                                       <input type="text" class="form-control" name="healthCondtn" id="healthCondtn" placeholder="Health Condition">
                                     </div>
                                  </div>
                               </div>
@@ -265,12 +264,14 @@
                               </div>
                               
                       </div>
-			
+		    	   
 			</div>
 			 <div class="card-footer text-center">	
-		   	    <button type="button" class="btn btn-primary  w-25">Submit</button> 
+		   	    <button type="submit" class="btn btn-primary  w-25">Submit</button> 
 		  	 </div>
 	   </div>
+				
+                     </form>	
 				</div>
 				<!-- Table Start-->
 				<div class="col-3">
@@ -283,7 +284,7 @@
                               </tr>
                            </thead>
                            <tbody>
-                              <tr class="fs-6" th:each="employee: ${listOfEmployees}">
+                              <tr class="fs-6" th:each="employee: ${listEmployee}">
 						     <td> <a th:href="@{/employee/getEmployeeData/{id}(id=${employee.employeeId})}"><span th:text="${employee.employeeCode}"></span></a></td>
 							  <td th:text = "${employee.empName}"></td>
 							  <td th:text = "${employee.department}"></td>
@@ -293,19 +294,10 @@
 				</div>
 				<!-- Table End-->	
 			</div>
-				</div>
+                   
+			
 			</div>
-		</div>
-<!--	  <script>
-			  $(document).ready(() =>{				 		 
-				  $(".m-menu__item  m-menu__item--submenu").removeClass("active");
-				  $(".account").removeClass("show");
-				  $("#expand-employee").addClass("active");
-				  $("#order-shipped").hide();
-				 /*  $("#print-invoice").hide();	 */	 			
-			  });
-			 			  
-		   </script>-->
+		</div>	
 	</section>
 </body>
 </html>

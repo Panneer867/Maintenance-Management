@@ -1,0 +1,221 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Payment Configure
+		</h3>
+		<div class="mt-2">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+			<div class="row">
+				<div class="col-11 mx-auto">
+					<div class="card bl-cr mt-3">
+						<div class="card-header text-center heading-bg text-white py-2">
+							<h4 class="mb-0">Payment</h4>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/employee/saveEmpPayment}" method="post">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="employeeId" class="col-sm-5  col-form-label">EMP ID <strong
+													class="text-danger ">*</strong></label>
+											<div class="col-sm-7">
+												<select class="form-select" name="employeeId" id="payment-empId"
+													data-error="Select Employee Id !"  required>
+													<option value="" selected>select</option>
+													<option th:each="emp : ${listOfEmployees}"
+														th:text="${emp.employeeCode}" />
+												</select>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row ">
+											<label for="empName" class="col-sm-5  col-form-label">Emp Name</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-empName"
+													name="empName" placeholder="Emp Name">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="department" class="col-sm-5  col-form-label">Department</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-designation"
+													name="department" placeholder="Department">
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+								<!-- ***************************** 2th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="basicSalary" class="col-sm-5  col-form-label">Basic
+												Salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-basicSalary"
+													name="basicSalary" placeholder="Basic Salary">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="salary" class="col-sm-5  col-form-label">Gross salary </label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-grossSalary"
+													name="salary" placeholder="Gross salary">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="da" class="col-sm-5  col-form-label"> DA </label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-da" name="da"
+													placeholder="DA">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 3th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="hra" class="col-sm-5  col-form-label">HRA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-hra" name="hra"
+													placeholder="HRA">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="convencyance"
+												class="col-sm-5  col-form-label">Conveyance</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-conveyance"
+													name="convencyance" placeholder="Conveyance">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="medical" class="col-sm-5  col-form-label">Medical</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-medical"
+													name="medical" placeholder="Medical">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 4th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="splAllow" class="col-sm-5  col-form-label">SPL Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-spalAllow"
+													name="splAllow" placeholder="SPL Allow">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="esi" class="col-sm-5  col-form-label">ESI</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-esi" name="esi"
+													placeholder="ESI">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">telephone
+												Allowance</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-telAllow"
+													name="telAllowance" placeholder="telephone Allowance">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- ***************************** 5th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="ltaAllow" class="col-sm-5  col-form-label">LTA Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-ltaAllow"
+													name="ltaAllow" placeholder="LTA Allow">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="pf" class="col-sm-5  col-form-label">PF</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-pf" name="pf"
+													placeholder="PF">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="tds" class="col-sm-5  col-form-label">TDS</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-tds" name="tds"
+													placeholder="Enter TDS" required>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- ***************************** 6th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="tax" class="col-sm-5  col-form-label">Prof.TAX</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-profTax" name="tax"
+													placeholder="Prof.TAX">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="netSalary" class="col-sm-5  col-form-label">Net salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="payment-netSalary"
+													name="netSalary" placeholder="Net Salary">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center">
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

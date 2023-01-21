@@ -1,34 +1,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
   <body>
 	<section>
-	  <form>
+	<h3 class="text-center text-white mt-2 p-1 bg-primary">Leave Information
+		</h3>
+	 
+   <div class="row">
+	 <div class="col-11 mx-auto">
 	 <div class="row">
-	 <div class="col-9 grid-margin stretch-card">
-		<div class="card mt-3 bl-cr">
-			 <h3 class="text-center text-white py-1 heading-bg">Leave Information</h3>
-	
-		  <div class="card-body font-weight-bold">
-			 
+	 <div class="col-9">
+		<div class="card bl-cr mt-3">
+			 <div class="card-header text-center heading-bg text-white py-2">
+								<h4 class="mb-0">Employee Data</h4>
+							</div>
+		      <div class="card-body">
 					 <div class="row">
                               <div class="col-md-4">
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">EMP Code <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                           <select class="form-control" data-error="Select gender !" required>
-                                       <option value="" selected>Select</option>
-                                       <option value="Male">Male</option>
-                                       <option value="Female">Female</option>
-                                       <option value="Other">Other</option>
-                                    </select>
+                                     <input type="text" class="form-control" id="hrleave-empId" name="employeeCode"  placeholder="empCode">
                                     </div>
                                  </div>
-                   
                               </div>
                                   <div class="col-md-4">
                                     <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Name</label>
+                                    <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Name">
+                                       <input type="text" class="form-control" id="hrleave-empName" name="empName"  placeholder="Emp Name">
                                     </div>
                                  </div>
                                   </div>
@@ -36,7 +34,7 @@
                                       <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Designation</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Designation">
+                                       <input type="text" class="form-control" id="hrleave-designation" name="designation"  placeholder="Designation">
                                     </div>
                                  </div>
                                   </div>
@@ -50,7 +48,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Father Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Father Name">
+                                       <input type="text" class="form-control" id="hrleave-fatherName" name="fatherName"  placeholder="Father Name">
                                     </div>
                                  </div>
                               </div>
@@ -58,7 +56,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Department </label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Department ">
+                                       <input type="text" class="form-control" id="hrleave-department" name="department"  placeholder="Department ">
                                     </div>
                                  </div>
                               </div>
@@ -66,7 +64,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">	House No </label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="House No">
+                                       <input type="text" class="form-control" id="hrleave-houseNo" name="houseNo"  placeholder="House No">
                                     </div>
                                  </div>
                               </div>
@@ -77,7 +75,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Date Of Join</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Date Of Join">
+                                       <input type="text" class="form-control" id="hrleave-dateOfJoin" name="dateOfJoin"  placeholder="Date Of Join">
                                     </div>
                                  </div>
                               </div>
@@ -85,15 +83,15 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Address</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Address">
+                                       <input type="text" class="form-control" id="hrleave-address" name="address"  placeholder="Address">
                                     </div>
                                  </div>
                               </div>
                                <div class="col-md-4">
                                  <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Ref Contact No</label>
+                                    <label for="customerName" class="col-sm-5  col-form-label">Ref Con. No</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Ref Contact No">
+                                       <input type="text" class="form-control" id="hrleave-refContactNo" name="refContactNo"  placeholder="Ref Contact No">
                                     </div>
                                  </div>
                               </div>
@@ -104,7 +102,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Contact No</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Contact No">
+                                       <input type="text" class="form-control" id="hrleave-contactNo" name="contactNo"  placeholder="Contact No(mobile)">
                                     </div>
                                  </div>
                               </div>
@@ -122,7 +120,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">SL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="SL">
+                                       <input type="text" class="form-control" id="hrleave-Asl" name="sl"  placeholder="SL">
                                     </div>
                                  </div>
                               </div>
@@ -130,7 +128,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">CL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="CL">
+                                       <input type="text" class="form-control" id="hrleave-Acl" name="cl"  placeholder="CL">
                                     </div>
                                  </div>
                               </div>
@@ -138,7 +136,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="LWP">
+                                       <input type="text" class="form-control" id="hrleave-Alwp" name="lwp"  placeholder="LWP">
                                     </div>
                                  </div>
                               </div>
@@ -152,7 +150,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">SL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="SL">
+                                       <input type="text" class="form-control" id="emp-Ssl" name="Ssl"  placeholder="SL">
                                     </div>
                                  </div>
                               </div>
@@ -160,7 +158,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">CL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="CL">
+                                       <input type="text" class="form-control" id="emp-Scl" name="Scl"  placeholder="CL">
                                     </div>
                                  </div>
                               </div>
@@ -168,7 +166,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="LWP">
+                                       <input type="text" class="form-control" id="emp-Slwp" name="Slwp"  placeholder="LWP">
                                     </div>
                                  </div>
                               </div>
@@ -184,7 +182,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Department Head <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                         <select class="form-control" data-error="Select gender !" required>
+                                         <select class="form-control" data-error="Select gender !" id="deptHead" name="deptHead">
                                        <option value="" selected>Select</option>
                                        <option value="Yes">Yes</option>
                                        <option value="No">No</option>
@@ -197,7 +195,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Remark</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="Remark">
+                                       <input type="text" class="form-control" id="remark" name="remark"  placeholder="Remark">
                                     </div>
                                  </div>
                               </div>
@@ -211,7 +209,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Date  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="Date" class="form-control" id="customerName" name="customerName"  placeholder="Date ">
+                                       <input type="Date" class="form-control" id="leaveDate" name="leaveDate"  placeholder="Date ">
                                     </div>
                                  </div>
                               </div>
@@ -219,7 +217,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">No of Days <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName"  placeholder="No of Days">
+                                       <input type="text" class="form-control" id="noOfLeave" name="noOfLeave"  placeholder="No of Days">
                                     </div>
                                  </div>
                               </div>
@@ -227,61 +225,56 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Leave Type <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                         <select class="form-control" data-error="Select gender !" required>
+                                         <select class="form-control" data-error="Select gender !" id="leaveType" name="leaveType">
                                        <option value="" selected>Select</option>
-                                       <option value="Male">SL</option>
-                                       <option value="Female">CL</option>
-                                       <option value="Other">LWP</option>
+                                       <option value="SL">SL</option>
+                                       <option value="CL">CL</option>
+                                       <option value="LWP">LWP</option>
                                     </select>
                                     </div>
                                  </div>
                               </div>
                                <div class="text-center mb-2">
-		                      <button type="button" class="btn btn-primary">Leave Letter</button>
+		                      <button type="button" class="btn btn-sucess">Leave Letter</button>
 		   	   
 	 	                      </div>    
                       </div>
                       
                       	
                 <div class="card-footer text-center">
-		   	 	
-		   	    <button type="button" class="btn btn-info">Submit</button>
-		   	   
+		   	    <button type="submit" id="emp-details" class="btn btn-primary">Submit</button> 
 	 	 </div>    
 	 	  
 	   </div>
 			 
 	   </div>	
 	 </div>
-        <div class="col-3 grid-margin stretch-card ">
-	   <div class="card mt-3 bl-cr">
-	    <h3 class="text-center text-white py-2 heading-bg"><small>Waiting For Approval </small></h3>
-	                <p class="pl-1 text-decoration-underline">EmpCode</p>
-	   <div class="row">
-                     <div class="col-12">
-                        <table  class="table table-hover  border-top-7 border-Light">
-                           <thead>
+	 <!-- Table Start-->
+        	<div class="col-3 mt-3">
+                        <table  class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+                           <thead class="table-dark">
+                              <tr>
+                                  <th class="text-white text-center fs-6">EmpID</th>
+                                 <th class="text-white text-center fs-6">EmpName</th>
+                                 <th class="text-white text-center fs-6">Dept</th>
+                              </tr>
                            </thead>
                            <tbody>
-                             
-                              <tr>
-                                 <td>10000</td>
-                              </tr>
-                              <tr> 
-                                 <td>20000</td>
-                              </tr>
-                              <tr> 
-                                 <td>30000</td>
+                              <tr class="fs-6" th:each="employee: ${listOfEmployees}">
+						     <td> <a href="#" th:onclick="|empDataForHrLeave(${employee.employeeId})|">
+						          <span th:text="${employee.employeeCode}"></span></a></td>
+							  <td th:text = "${employee.empName}"></td>
+							  <td th:text = "${employee.department}"></td>
                               </tr>
                            </tbody>
-                        </table>
+                        </table>   
                      </div>
+        <!-- Table End-->
                   </div>
 	   </div>
         </div>
-        </div>
+    
 
-   </form>
 	</section>
 			  
     

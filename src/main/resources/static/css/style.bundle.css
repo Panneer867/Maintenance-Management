@@ -8743,7 +8743,7 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
   font-family: Poppins;
   -ms-text-size-adjust: 100%;
@@ -28269,7 +28269,21 @@ th > .m-checkbox.m-checkbox--single {
 .m-form.m-form--state .has-warning .input-group-btn > .btn.btn-secondary:hover {
   border-color: #ffb822;
 }
-
+.has-danger label.col-form-label,
+.has-danger label.form-control-label,
+.has-danger label:not(.m-checkbox):not(.m-radio) {
+  color: #f4516c;
+}
+.has-danger .form-control-feedback {
+  color: #f4516c;
+}
+.has-danger .form-control,
+.has-danger .input-group-addon {
+  border-color: #ebedf2;
+}
+.has-danger .form-control:focus {
+  border-color: #716aca;
+}
 .m-form.m-form--state .has-danger .form-control,
 .m-form.m-form--state .has-danger .form-control:focus,
 .m-form.m-form--state .has-danger .input-group-addon {

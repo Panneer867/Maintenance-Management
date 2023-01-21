@@ -206,6 +206,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/create")
+	@PreAuthorize("hasAuthority('CREATE_BRANCH')")
 	public String createBranch(Model model) {
 
 		model.addAttribute("title", "New Branch | Maintenance Mangement");
@@ -258,6 +259,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/list")
+	@PreAuthorize("hasAuthority('BRANCH_MANAGEMENT')")
 	public String branchList(Model model) {
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("states", adminService.getAllStates());
@@ -266,6 +268,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/delete")
+	@PreAuthorize("hasAuthority('DELETE_BRANCH')")
 	public String deleteBranch(@RequestParam("id") Long branchId, HttpSession session) {
 		adminService.deleteBranch(branchId);
 		session.setAttribute("message", new Message("Branch has been deleted successfully !!", "success"));
@@ -275,6 +278,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/view/{id}")
+	@PreAuthorize("hasAuthority('VIEW_BRANCH')")
 	public String branchView(@PathVariable Long id, Model model) {
 		model.addAttribute("branchDetails", adminService.getBranchById(id));
 		model.addAttribute("user", adminService.getUserByEmail(adminService.getBranchById(id).getEmail()));
@@ -283,6 +287,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/branch/edit/{id}")
+	@PreAuthorize("hasAuthority('EDIT_BRANCH')")
 	public String branchEdit(@PathVariable Long id, Model model) {
 
 		model.addAttribute("branchDetails", adminService.getBranchById(id));
@@ -320,6 +325,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/create")
+	@PreAuthorize("hasAuthority('CREATE_USER')")
 	public String createUser(Model model) {
 
 		model.addAttribute("user", new UserDto());
@@ -355,6 +361,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/list")
+	@PreAuthorize("hasAuthority('USER_MANAGEMENT')")
 	public String userList(Model model) {
 
 		model.addAttribute("users", adminService.getAllUsers());
@@ -363,6 +370,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/edit/{id}")
+	@PreAuthorize("hasAuthority('EDIT_USER')")
 	public String userEdit(@PathVariable Long id, Model model) {
 
 		model.addAttribute("user", new UserDto());
@@ -400,6 +408,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/delete")
+	@PreAuthorize("hasAuthority('DELETE_USER')")
 	public String deleteUser(@RequestParam("id") Long userId, HttpSession session) {
 
 		adminService.deleteUserById(userId);
@@ -410,6 +419,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/role/create")
+	@PreAuthorize("hasAuthority('CREATE_ROLE')")
 	public String addRoles(Model model) {
 
 		model.addAttribute("role", new Role());
@@ -434,6 +444,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/role/delete")
+	@PreAuthorize("hasAuthority('DELETE_ROLE')")
 	public String deleteRole(@RequestParam("id") Long roleId, HttpSession session) {
 
 		adminService.deleteRoleById(roleId);
@@ -443,6 +454,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/role/list")
+	@PreAuthorize("hasAuthority('ROLE_MANAGEMENT')")
 	public String rolesList(Model model) {
 
 		model.addAttribute("role", new Role());
@@ -452,6 +464,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/role/update")
+	@PreAuthorize("hasAuthority('EDIT_ROLE')")
 	public String updateRoles(@ModelAttribute("role") Role role, HttpSession session) {
 
 		role.setName("ROLE_" + role.getName().trim().replaceAll("\\s+", "_"));
@@ -472,6 +485,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/user/roles")
+	@PreAuthorize("hasAuthority('USER_ROLES')")
 	public String userRoles(Model model, Principal principal) {
 
 		String type = adminService.getUserByUsername(principal.getName()).getUserType();
@@ -492,6 +506,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/user/roles/update")
+	@PreAuthorize("hasAuthority('EDIT_USER_ROLES')")
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
 
 		adminService.AssignRoles(dto);
@@ -507,18 +522,21 @@ public class AdminController {
 	}
 
 	@GetMapping("/backup")
+	@PreAuthorize("hasAuthority('BACKUP')")
 	public String backup() {
 
 		return "/pages/admin/backup";
 	}
 
 	@GetMapping("/excel/import-export")
+	@PreAuthorize("hasAuthority('EXCEL_IMPEXP')")
 	public String excel() {
 
 		return "/pages/admin/excel_import_export";
 	}
 
 	@GetMapping("/device/control")
+	@PreAuthorize("hasAuthority('DEVICE_CONTROL')")
 	public String deviceControl() {
 
 		return "/pages/admin/device_control";

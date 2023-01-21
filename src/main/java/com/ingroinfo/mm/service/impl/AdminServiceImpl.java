@@ -79,12 +79,12 @@ public class AdminServiceImpl implements AdminService {
 
 		try {
 
-			String checkSql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + adminUserId + " AND ROLE_ID= " + roleId;
+			String checkSql = "SELECT * FROM MM_USERS_ROLES WHERE USER_ID = " + adminUserId + " AND ROLE_ID= " + roleId;
 			int count = jdbcTemplate.update(checkSql);
 
 			if (count == 0) {
 
-				String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+				String sql = "INSERT INTO MM_USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 				jdbcTemplate.update(sql, adminUserId, roleId);
 			}
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class AdminServiceImpl implements AdminService {
 		try {
 
 			User admin = userRepository.findByUserType("C");
-			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+			String sql = "INSERT INTO MM_USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 			jdbcTemplate.update(sql, admin.getUserId(), role.getId());
 
 		} catch (Exception e) {
@@ -163,10 +163,11 @@ public class AdminServiceImpl implements AdminService {
 
 		try {
 
-			String checkCompanySql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + companyId + " AND ROLE_ID= "
+			String checkCompanySql = "SELECT * FROM MM_USERS_ROLES WHERE USER_ID = " + companyId + " AND ROLE_ID= "
 					+ roleId;
-			String checkBranchSql = "SELECT * FROM USERS_ROLES WHERE USER_ID = " + branchId + " AND ROLE_ID= " + roleId;
-			String sql = "INSERT INTO USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
+			String checkBranchSql = "SELECT * FROM MM_USERS_ROLES WHERE USER_ID = " + branchId + " AND ROLE_ID= "
+					+ roleId;
+			String sql = "INSERT INTO MM_USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 			int count1 = jdbcTemplate.update(checkCompanySql);
 			int count2 = jdbcTemplate.update(checkBranchSql);
 
@@ -251,7 +252,7 @@ public class AdminServiceImpl implements AdminService {
 
 		try {
 
-			String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+			String sql = "DELETE FROM MM_USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
 			jdbcTemplate.update(sql, user.getUserId(), roleId);
 
 		} catch (Exception e) {
@@ -315,7 +316,7 @@ public class AdminServiceImpl implements AdminService {
 
 		try {
 
-			String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+			String sql = "DELETE FROM MM_USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
 			jdbcTemplate.update(sql, user.getUserId(), roleId);
 
 		} catch (Exception e) {
@@ -516,7 +517,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteRoleById(Long roleId) {
 		User admin = userRepository.findByUsername("Admin");
-		String sql = "DELETE FROM USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
+		String sql = "DELETE FROM MM_USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
 		jdbcTemplate.update(sql, admin.getUserId(), roleId);
 
 		roleRepository.deleteById(roleId);
@@ -550,121 +551,6 @@ public class AdminServiceImpl implements AdminService {
 				.collect(Collectors.toList()).stream().filter(x -> !branch.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList()).stream().filter(x -> !company.equalsIgnoreCase(x.getUserType()))
 				.collect(Collectors.toList());
-	}
-
-	private void deleteRole(Long roleId, String PageNumber) {
-		try {
-			String no[] = PageNumber.split("N");
-			long pageNo = Long.parseLong(no[0]);
-
-			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
-
-			int count = jdbcTemplate.update(sql);
-
-			if (count > 0) {
-				String sql2 = "DELETE FROM ROLE_PRIVILEGES WHERE ROLE_ID= ? AND PAGE_NO = ?";
-				jdbcTemplate.update(sql2, roleId, pageNo);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void createRole(Long roleId, String PageNumber) {
-		try {
-			long pageNo = Long.parseLong(PageNumber);
-
-			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
-
-			int count = jdbcTemplate.update(sql);
-
-			if (count == 0) {
-
-				String sql1 = "INSERT INTO ROLE_PRIVILEGES (ROLE_ID,PAGE_NO) VALUES (?, ?)";
-				jdbcTemplate.update(sql1, roleId, pageNo);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void AssignRoles(UserRolesDto dto) {
-
-		Long roleId = dto.getRoleId();
-
-		if (dto.getAdminpage().contains("N")) {
-			deleteRole(roleId, dto.getAdminpage());
-		} else {
-			createRole(roleId, dto.getAdminpage());
-		}
-		if (dto.getCompanyManagement().contains("N")) {
-			deleteRole(roleId, dto.getCompanyManagement());
-		} else {
-			createRole(roleId, dto.getCompanyManagement());
-		}
-		if (dto.getCreateCompany().contains("N")) {
-			deleteRole(roleId, dto.getCreateCompany());
-		} else {
-			createRole(roleId, dto.getCreateCompany());
-		}
-		if (dto.getEditCompany().contains("N")) {
-			deleteRole(roleId, dto.getEditCompany());
-		} else {
-			createRole(roleId, dto.getEditCompany());
-		}
-		if (dto.getViewCompany().contains("N")) {
-			deleteRole(roleId, dto.getViewCompany());
-		} else {
-			createRole(roleId, dto.getViewCompany());
-		}
-		if (dto.getDeleteCompany().contains("N")) {
-			deleteRole(roleId, dto.getDeleteCompany());
-		} else {
-			createRole(roleId, dto.getDeleteCompany());
-		}
-
-	}
-
-	@Override
-	public UserRolesDto getUserRoles(Long roleId) {
-
-		UserRolesDto pages = new UserRolesDto();
-
-		try {
-			String sql = "SELECT * FROM ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " ORDER BY PAGE_NO";
-			int count = jdbcTemplate.update(sql);
-
-			if (count > 0) {
-				List<UserRoleIdDto> userRoles = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(UserRoleIdDto.class));
-
-				for (int i = 0; i < userRoles.size(); i++) {
-
-					int pageNo = userRoles.get(i).getPageNo();
-
-					if (pageNo == 100) {
-						pages.setAdminpage(String.valueOf(pageNo));
-					} else if (pageNo == 101) {
-						pages.setCompanyManagement(String.valueOf(pageNo));
-					} else if (pageNo == 102) {
-						pages.setCreateCompany(String.valueOf(pageNo));
-					} else if (pageNo == 103) {
-						pages.setEditCompany(String.valueOf(pageNo));
-					} else if (pageNo == 104) {
-						pages.setViewCompany(String.valueOf(pageNo));
-					} else if (pageNo == 105) {
-						pages.setDeleteCompany(String.valueOf(pageNo));
-					}
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return pages;
 	}
 
 	@Override
@@ -709,6 +595,296 @@ public class AdminServiceImpl implements AdminService {
 		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
 
 		return roleId.get(0);
+	}
+
+	private void deleteRole(Long roleId, String PageNumber) {
+		try {
+			String no[] = PageNumber.split("N");
+			long pageNo = Long.parseLong(no[0]);
+
+			String sql = "SELECT * FROM MM_ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
+
+			int count = jdbcTemplate.update(sql);
+
+			if (count > 0) {
+				String sql2 = "DELETE FROM MM_ROLE_PRIVILEGES WHERE ROLE_ID= ? AND PAGE_NO = ?";
+				jdbcTemplate.update(sql2, roleId, pageNo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void createRole(Long roleId, String PageNumber) {
+		try {
+			long pageNo = Long.parseLong(PageNumber);
+
+			String sql = "SELECT * FROM MM_ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " AND PAGE_NO =" + pageNo;
+
+			int count = jdbcTemplate.update(sql);
+
+			if (count == 0) {
+
+				String sql1 = "INSERT INTO MM_ROLE_PRIVILEGES (ROLE_ID,PAGE_NO) VALUES (?, ?)";
+				jdbcTemplate.update(sql1, roleId, pageNo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void AssignRoles(UserRolesDto dto) {
+		
+		
+		/*
+		 * try { for (Field field : dto.getClass().getDeclaredFields()) {
+		 * field.setAccessible(true); Object value = field.get(dto);
+		 * System.out.println(String.format("%-20s : %-5s", field.getName(), value)); }
+		 * } catch (IllegalAccessException e) { e.printStackTrace(); }
+		 */
+
+		Long roleId = dto.getRoleId();
+
+		/* Admin Pages */
+
+		if (dto.getAdminpage().contains("N")) {
+			deleteRole(roleId, dto.getAdminpage());
+		} else {
+			createRole(roleId, dto.getAdminpage());
+		}
+		if (dto.getCompanyManagement().contains("N")) {
+			deleteRole(roleId, dto.getCompanyManagement());
+		} else {
+			createRole(roleId, dto.getCompanyManagement());
+		}
+		if (dto.getCreateCompany().contains("N")) {
+			deleteRole(roleId, dto.getCreateCompany());
+		} else {
+			createRole(roleId, dto.getCreateCompany());
+		}
+		if (dto.getEditCompany().contains("N")) {
+			deleteRole(roleId, dto.getEditCompany());
+		} else {
+			createRole(roleId, dto.getEditCompany());
+		}
+		if (dto.getViewCompany().contains("N")) {
+			deleteRole(roleId, dto.getViewCompany());
+		} else {
+			createRole(roleId, dto.getViewCompany());
+		}
+		if (dto.getDeleteCompany().contains("N")) {
+			deleteRole(roleId, dto.getDeleteCompany());
+		} else {
+			createRole(roleId, dto.getDeleteCompany());
+		}
+		if (dto.getBranchManagement().contains("N")) {
+			deleteRole(roleId, dto.getBranchManagement());
+		} else {
+			createRole(roleId, dto.getBranchManagement());
+		}
+		if (dto.getCreateBranch().contains("N")) {
+			deleteRole(roleId, dto.getCreateBranch());
+		} else {
+			createRole(roleId, dto.getCreateBranch());
+		}
+		if (dto.getEditBranch().contains("N")) {
+			deleteRole(roleId, dto.getEditBranch());
+		} else {
+			createRole(roleId, dto.getEditBranch());
+		}
+		if (dto.getViewBranch().contains("N")) {
+			deleteRole(roleId, dto.getViewBranch());
+		} else {
+			createRole(roleId, dto.getViewBranch());
+		}
+		if (dto.getDeleteBranch().contains("N")) {
+			deleteRole(roleId, dto.getDeleteBranch());
+		} else {
+			createRole(roleId, dto.getDeleteBranch());
+		}
+		if (dto.getUserManagement().contains("N")) {
+			deleteRole(roleId, dto.getUserManagement());
+		} else {
+			createRole(roleId, dto.getUserManagement());
+		}
+		if (dto.getCreateUser().contains("N")) {
+			deleteRole(roleId, dto.getCreateUser());
+		} else {
+			createRole(roleId, dto.getCreateUser());
+		}
+		if (dto.getEditUser().contains("N")) {
+			deleteRole(roleId, dto.getEditUser());
+		} else {
+			createRole(roleId, dto.getEditUser());
+		}
+		if (dto.getDeleteUser().contains("N")) {
+			deleteRole(roleId, dto.getDeleteUser());
+		} else {
+			createRole(roleId, dto.getDeleteUser());
+		}
+		if (dto.getRoleManagement().contains("N")) {
+			deleteRole(roleId, dto.getRoleManagement());
+		} else {
+			createRole(roleId, dto.getRoleManagement());
+		}
+		if (dto.getCreateRole().contains("N")) {
+			deleteRole(roleId, dto.getCreateRole());
+		} else {
+			createRole(roleId, dto.getCreateRole());
+		}
+		if (dto.getEditRole().contains("N")) {
+			deleteRole(roleId, dto.getEditRole());
+		} else {
+			createRole(roleId, dto.getEditRole());
+		}
+		if (dto.getDeleteRole().contains("N")) {
+			deleteRole(roleId, dto.getDeleteRole());
+		} else {
+			createRole(roleId, dto.getDeleteRole());
+		}
+		if (dto.getUserRoles().contains("N")) {
+			deleteRole(roleId, dto.getUserRoles());
+		} else {
+			createRole(roleId, dto.getUserRoles());
+		}
+		if (dto.getUpdateUserRoles().contains("N")) {
+			deleteRole(roleId, dto.getUpdateUserRoles());
+		} else {
+			createRole(roleId, dto.getUpdateUserRoles());
+		}
+
+		/* Task Management */
+
+		if (dto.getTaskJe().contains("N")) {
+			deleteRole(roleId, dto.getTaskJe());
+		} else {
+			createRole(roleId, dto.getTaskJe());
+		}
+		if (dto.getTaskAee().contains("N")) {
+			deleteRole(roleId, dto.getTaskAee());
+		} else {
+			createRole(roleId, dto.getTaskAee());
+		}
+		if (dto.getTaskEe().contains("N")) {
+			deleteRole(roleId, dto.getTaskEe());
+		} else {
+			createRole(roleId, dto.getTaskEe());
+		}
+		if (dto.getTaskCommissioner().contains("N")) {
+			deleteRole(roleId, dto.getTaskCommissioner());
+		} else {
+			createRole(roleId, dto.getTaskCommissioner());
+		}
+		if (dto.getTaskWorkcomplete().contains("N")) {
+			deleteRole(roleId, dto.getTaskWorkcomplete());
+		} else {
+			createRole(roleId, dto.getTaskWorkcomplete());
+		}
+		if (dto.getTaskJobcard().contains("N")) {
+			deleteRole(roleId, dto.getTaskJobcard());
+		} else {
+			createRole(roleId, dto.getTaskJobcard());
+		}
+		if (dto.getTaskComplainthistory().contains("N")) {
+			deleteRole(roleId, dto.getTaskComplainthistory());
+		} else {
+			createRole(roleId, dto.getTaskComplainthistory());
+		}
+
+	}
+
+	@Override
+	public UserRolesDto getUserRoles(Long roleId) {
+
+		UserRolesDto pages = new UserRolesDto();
+
+		try {
+			String sql = "SELECT * FROM MM_ROLE_PRIVILEGES WHERE ROLE_ID = " + roleId + " ORDER BY PAGE_NO";
+			int count = jdbcTemplate.update(sql);
+
+			if (count > 0) {
+				List<UserRoleIdDto> userRoles = jdbcTemplate.query(sql,
+						BeanPropertyRowMapper.newInstance(UserRoleIdDto.class));
+
+				for (int i = 0; i < userRoles.size(); i++) {
+
+					int pageNo = userRoles.get(i).getPageNo();
+
+					/* Admin Pages */
+
+					if (pageNo == 100) {
+						pages.setAdminpage(String.valueOf(pageNo));
+					} else if (pageNo == 101) {
+						pages.setCompanyManagement(String.valueOf(pageNo));
+					} else if (pageNo == 102) {
+						pages.setCreateCompany(String.valueOf(pageNo));
+					} else if (pageNo == 103) {
+						pages.setEditCompany(String.valueOf(pageNo));
+					} else if (pageNo == 104) {
+						pages.setViewCompany(String.valueOf(pageNo));
+					} else if (pageNo == 105) {
+						pages.setDeleteCompany(String.valueOf(pageNo));
+					} else if (pageNo == 106) {
+						pages.setBranchManagement(String.valueOf(pageNo));
+					} else if (pageNo == 107) {
+						pages.setCreateBranch(String.valueOf(pageNo));
+					} else if (pageNo == 108) {
+						pages.setEditBranch(String.valueOf(pageNo));
+					} else if (pageNo == 109) {
+						pages.setViewBranch(String.valueOf(pageNo));
+					} else if (pageNo == 110) {
+						pages.setDeleteBranch(String.valueOf(pageNo));
+					} else if (pageNo == 111) {
+						pages.setUserManagement(String.valueOf(pageNo));
+					} else if (pageNo == 112) {
+						pages.setCreateUser(String.valueOf(pageNo));
+					} else if (pageNo == 113) {
+						pages.setEditUser(String.valueOf(pageNo));
+					} else if (pageNo == 114) {
+						pages.setDeleteUser(String.valueOf(pageNo));
+					} else if (pageNo == 115) {
+						pages.setRoleManagement(String.valueOf(pageNo));
+					} else if (pageNo == 116) {
+						pages.setCreateRole(String.valueOf(pageNo));
+					} else if (pageNo == 117) {
+						pages.setEditRole(String.valueOf(pageNo));
+					} else if (pageNo == 118) {
+						pages.setDeleteRole(String.valueOf(pageNo));
+					} else if (pageNo == 119) {
+						pages.setUserRoles(String.valueOf(pageNo));
+					} else if (pageNo == 120) {
+						pages.setUpdateUserRoles(String.valueOf(pageNo));
+					}
+
+					/* Task Pages */
+
+					else if (pageNo == 200) {
+						pages.setTaskJe(String.valueOf(pageNo));
+					} else if (pageNo == 201) {
+						pages.setTaskAee(String.valueOf(pageNo));
+					} else if (pageNo == 202) {
+						pages.setTaskEe(String.valueOf(pageNo));
+					} else if (pageNo == 203) {
+						pages.setTaskCommissioner(String.valueOf(pageNo));
+					} else if (pageNo == 204) {
+						pages.setTaskWorkcomplete(String.valueOf(pageNo));
+					} else if (pageNo == 205) {
+						pages.setTaskJobcard(String.valueOf(pageNo));
+					} else if (pageNo == 206) {
+						pages.setTaskComplainthistory(String.valueOf(pageNo));
+					}
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return pages;
 	}
 
 }

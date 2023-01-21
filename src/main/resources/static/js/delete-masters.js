@@ -1,36 +1,30 @@
 //Swal Messages While Deleting Masters
 
 function deleteDeptMaster(depMasterId){
-	// @ts-ignore
 	swal({		 
 		  text: "Are you sure ? You Want To Delete This Department !!",		 
 		  buttons: true,
 		  dangerMode: true,
 		})
 		.then((willDelete) => {
-		  if (willDelete) {
-		    // @ts-ignore
+		  if (willDelete) {		   
 		    window.location ="/masters/deleteDeptMaster/"+depMasterId;
-		  } else {
-		    // @ts-ignore
+		  } else {		   
 		    swal("Data is safe !!");
 		  }
 		});	
 }
 
-function deleteCategory(catid){
-	// @ts-ignore
+function deleteCategory(catid){	
 	swal({		  
 		  text: "Are you sure ? You Want To Delete This Category !!",		 
 		  buttons: true,
 		  dangerMode: true,
 		})
 		.then((willDelete) => {
-		  if (willDelete) {
-		    // @ts-ignore
+		  if (willDelete) {		   
 		    window.location ="/masters/deleteCategory/"+catid;
-		  } else {
-		    // @ts-ignore
+		  } else {		   
 		    swal("Data is safe !!");
 		  }
 		});	
