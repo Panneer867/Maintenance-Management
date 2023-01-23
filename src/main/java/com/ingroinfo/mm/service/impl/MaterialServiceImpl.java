@@ -2,7 +2,6 @@ package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,8 +119,20 @@ public class MaterialServiceImpl implements MaterialService {
 
 	@Override
 	public void deleteBundleItem(Long itemId) {
+
+		InwardItem iI = inwardItemRepo.findBybundleId(itemId);
+
+		Long materialsId = iI.getInwardMaterial().getMaterialsId();
+
+		List<InwardItem> inwardItem = inwardItemRepo.findAll().stream()
+				.filter(f -> f.getInwardMaterial().equals(iI.getInwardMaterial())).collect(Collectors.toList());
+
 		inwardItemRepo.deleteById(itemId);
-		
+
+		if (inwardItem.size() == 1) {
+			inwardMaterialRepo.deleteById(materialsId);
+		}
+
 	}
 
 }

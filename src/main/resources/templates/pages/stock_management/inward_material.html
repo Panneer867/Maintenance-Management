@@ -254,7 +254,7 @@
 						<td>&#8377;<label class="px-1" th:text="${inwardItemList.costRate}"></label></td>
 						<td>&#8377;<label class="px-1" th:text="${inwardItemList.mrp}"></label></td>
 						<td th:text="${inwardItemList.totalQuantity}"></td>
-						<td>&#8377;<label class="px-1" th:text="${materialsList.totalAmount}"></label></td>
+						<td>&#8377;<label class="px-1" th:text="${inwardItemList.totalAmount}"></label></td>
 						
 						<td class="text-center"><button
 								th:onclick="|deleteId('/stocks/inward/item/delete/?id=${inwardItemList.bundleId}')|"

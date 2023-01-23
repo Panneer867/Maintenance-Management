@@ -7,5 +7,7 @@ import com.ingroinfo.mm.entity.InwardItem;
 @Repository
 public interface InwardBundleItemRepository extends JpaRepository<InwardItem, Long> {
 
+	InwardItem findBybundleId(Long itemId);
+
 
 }
