@@ -23,10 +23,25 @@ public class InwardItemDto {
 	private String hsnCode;
 	private String unitOfMeasure;
 	private String totalQuantity;
+	private String totalAmount;
 	private String costRate;
 	private String mrp;
 	private String entryDate;
 	private String description;
 	private Date dateCreated;
 	private Date lastUpdated;
+	private Long bundleId;
+	private String supplierName;
+	private String suppliedOn;
+	private String gstType;
+	private String igst;
+	private String sgst;
+	private String cgst;
+	private String subTotal;
+	private String grandTotal;
+	private String invoiceNo;
+	private String receivedBy;
+	private String receivedDate;
+	
+	private String username;
 }

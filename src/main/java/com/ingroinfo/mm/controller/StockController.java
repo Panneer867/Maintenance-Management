@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.InwardItem;
+import com.ingroinfo.mm.entity.InwardItemTemp;
+import com.ingroinfo.mm.entity.InwardMaterial;
+import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.HsnCodeService;
@@ -57,15 +59,18 @@ public class StockController {
 		return "/pages/stock_management/stock_available";
 	}
 
-	@GetMapping("/inward")
-	public String inwardMaterials(Model model) {
+	@GetMapping("/inward/material")
+	public String inwardMaterials(Model model, Principal principal) {
 
 		model.addAttribute("title", "Inward Material Page");
 		model.addAttribute("inwardItem", new InwardItemDto());
 
-		List<InwardItem> inwardItemList = materialService.getInwardItemList();
+		List<InwardItemTemp> inwardItemList = materialService.getInwardTempItemList(principal.getName());
 		if (inwardItemList.size() == 0) {
 			model.addAttribute("emptyList", "No Materials");
+		} else {
+			Long subTotal = inwardItemList.stream().filter(f -> f.getTotalAmount() != null).mapToLong(o -> o.getTotalAmount()).sum();
+			model.addAttribute("subTotal", subTotal);
 		}
 		model.addAttribute("inwardItemLists", inwardItemList);
 
@@ -75,6 +80,7 @@ public class StockController {
 
 		model.addAttribute("items", hsnCodeService.findAllHsnCode());
 
+		
 		return "/pages/stock_management/inward_material";
 	}
 
@@ -86,7 +92,7 @@ public class StockController {
 		String companyName = "";
 		Long ItemOrhsnId = Long.parseLong(inwardItemDto.getItemName());
 		Company company = adminService.getCompanyByUsername(principal.getName());
-		
+
 		if (company != null) {
 			companyName = company.getCompanyName();
 		} else {
@@ -96,19 +102,92 @@ public class StockController {
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-		InwardItem inwardItem = modelMapper.map(inwardItemDto, InwardItem.class);
+		InwardItemTemp inwardItemTemp = modelMapper.map(inwardItemDto, InwardItemTemp.class);
 		String itemName = hsnCodeService.getHsnById(ItemOrhsnId).getItemName();
 		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
 		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Materials\\";
 
 		adminService.saveFile(uploadDir, fileName, file);
-		inwardItem.setMaterialImage(fileName);
-		inwardItem.setItemName(itemName);
-		inwardItem.setImagePath("/Company/"+ companyName +"/Inward_Materials/");
-		inwardItem.setItemId(ItemOrhsnId);
+		inwardItemTemp.setMaterialImage(fileName);
+		inwardItemTemp.setItemName(itemName);
+		inwardItemTemp.setImagePath("/Company/" + companyName + "/Inward_Materials/");
+		inwardItemTemp.setItemId(ItemOrhsnId);
+		inwardItemTemp.setUsername(principal.getName());
+		inwardItemTemp.setTotalAmount(inwardItemTemp.getCostRate() * inwardItemTemp.getTotalQuantity());
+		materialService.saveInwardItem(inwardItemTemp);
 
-		materialService.saveInwardItem(inwardItem);
+		return "redirect:/stocks/inward/material";
+	}
+
+	@PostMapping("/inward/materials/add")
+	public String itemAdd(@ModelAttribute("inwardItem") InwardItemDto inwardItemDto, BindingResult bindingResult,
+			HttpSession session, Principal principal) throws IOException {
+
+		List<InwardItemTemp> inwardItemList = materialService.getInwardTempItemList(principal.getName());
+
+		if (inwardItemList.size() == 0) {
+
+			session.setAttribute("message", new Message("Please Add Material Items  !", "danger"));
+
+			return "redirect:/stocks/inward/material";
+		}
+
+		if (inwardItemDto.getIgst() == null) {
+			inwardItemDto.setIgst("0");
+		}
+		InwardMaterial inwardMaterial = modelMapper.map(inwardItemDto, InwardMaterial.class);
+
+		inwardMaterial.setUsername(principal.getName());
+
+		materialService.saveInwardMaterial(inwardMaterial);
+
+		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
+		return "redirect:/stocks/inward/material";
+	}
+
+	@GetMapping("/inward/item/delete")
+	public String deleteItem(@RequestParam("id") Long tempBunleId, HttpSession session) {
+		materialService.deleteTempBundleItem(tempBunleId);
+		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
+		return "redirect:/stocks/inward/material";
+
+	}
+
+	@GetMapping("/inward/items/delete")
+	public String deleteItems(HttpSession session) {
+		materialService.deleteAllItems();
+		session.setAttribute("message",
+				new Message("All Item has been successfully removed from the list !", "success"));
 		return "redirect:/stocks/inward";
+
+	}
+	
+	
+	@GetMapping("/inward/material/list")
+	public String inwardList(Model model, Principal principal) {
+
+		model.addAttribute("title", "Inward Material List | Maintenance Management");
+		
+		model.addAttribute("materialsLists", materialService.getInwarAlldItemList());
+		
+		return "/pages/stock_management/inward_materials_list";
+	}
+	
+	@GetMapping("/inward/item/list/delete")
+	public String deleteItemsOfList(@RequestParam("id") Long itemId,HttpSession session) {
+		materialService.deleteBundleItem(itemId);
+		session.setAttribute("message",
+				new Message("Item has been successfully removed from the list !", "danger"));
+		return "redirect:/stocks/inward/material";
+
+	}
+	
+	@GetMapping("/inward/material/chart")
+	public String inwardChart(Model model, Principal principal) {
+
+		model.addAttribute("title", "Inward Material Chart | Maintenance Management");
+		
+		return "/pages/stock_management/inward_material_chart";
 	}
 
 	@GetMapping("/inward/spares")

@@ -79,5 +79,11 @@ $(document).ready(function() {
 		}
 	});
 
+
+$(function() {
+		if (window.location.href.match('/inward/material')) {
+			$("#inward-material-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
 });
 
