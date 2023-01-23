@@ -178,7 +178,7 @@ public class StockController {
 		materialService.deleteBundleItem(itemId);
 		session.setAttribute("message",
 				new Message("Item has been successfully removed from the list !", "danger"));
-		return "redirect:/stocks/inward/material";
+		return "redirect:/stocks/inward/material/list";
 
 	}
 	
