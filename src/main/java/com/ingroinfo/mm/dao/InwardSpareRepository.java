@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.InwardSpare;
 @Repository
 public interface InwardSpareRepository extends JpaRepository<InwardSpare, Long> {
 
+	InwardSpare findByAllSparesId(Long allSparesId);
+
 }

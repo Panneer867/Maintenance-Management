@@ -285,14 +285,13 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/tools' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="inward-tools-active">
 										<a th:href="@{/stocks/inward/tools}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Inward Tools & Equip
+												Inward Tools & Equipment
 											</span>
 										</a>
 									</li>
@@ -1308,6 +1307,7 @@
 	<script th:src="@{/js/hsn-for-items.js}"></script>
 	<script th:src="@{/js/inward-material.js}"></script>
 	<script th:src="@{/js/inward-spare.js}"></script>
+	<script th:src="@{/js/inward-tools.js}"></script>
 </body>
 
 </html>

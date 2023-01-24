@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.InwardMaterial;
 @Repository
 public interface InwardMaterialRepository extends JpaRepository<InwardMaterial, Long> {
 
+	InwardMaterial findByAllMaterialsId(Long allMaterialsId);
+
 }

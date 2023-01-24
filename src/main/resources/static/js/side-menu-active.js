@@ -91,5 +91,11 @@ $(document).ready(function() {
 			$("#inward-spare-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
+	
+	$(function() {
+		if (window.location.href.match('/inward/tools')) {
+			$("#inward-tools-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
 });
 

@@ -27,12 +27,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_spares")
-public class InwardSpare {
+@Table(name = "mm_inward_tools")
+public class InwardTools {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long allSparesId;
+	private Long allToolsId;
 	private String supplierName;
 	private String suppliedOn;
 	private String gstType;
@@ -47,8 +47,8 @@ public class InwardSpare {
 	private String username;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardSpare")
-	private List<InwardSpareBundle> inwardSpareBundle;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardTools")
+	private List<InwardToolsBundle> inwardToolsBundle;
 
 	@Column(name = "date_created")
 	@CreationTimestamp

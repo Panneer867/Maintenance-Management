@@ -32,7 +32,7 @@ public class InwardMaterial {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long materialsId;
+	private Long allMaterialsId;
 	private String supplierName;
 	private String suppliedOn;
 	private String gstType;

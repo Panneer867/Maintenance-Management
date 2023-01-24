@@ -1,21 +1,16 @@
 package com.ingroinfo.mm.entity;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,29 +22,29 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_spares")
-public class InwardSpare {
+@Table(name = "mm_inward_tools_temp_bundles")
+public class InwardToolsTempBundle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long allSparesId;
-	private String supplierName;
-	private String suppliedOn;
-	private String gstType;
-	private Double igst;
-	private Double sgst;
-	private Double cgst;
-	private Double subTotal;
-	private Double grandTotal;
-	private String invoiceNo;
-	private String receivedBy;
-	private String receivedDate;
+	private Long bundleId;
+	private Long itemId;
+	private String itemName;
+	private String aliasName;
+	private String toolsImage;
+	private String imagePath;
+	private String categoryName;
+	private String brand;
+	private String hsnCode;
+	private String unitOfMeasure;
+	private Long totalQuantity;
+	private Long totalAmount;
+	private Long costRate;
+	private Long mrp;
+	private String entryDate;
+	private String description;
 	private String username;
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardSpare")
-	private List<InwardSpareBundle> inwardSpareBundle;
-
+	
 	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;
@@ -57,5 +52,5 @@ public class InwardSpare {
 	@Column(name = "last_updated")
 	@UpdateTimestamp
 	private Date lastUpdated;
-
+	
 }

@@ -17,6 +17,8 @@ public class InwardItemDto {
 	private String itemName;
 	private String aliasName;
 	private String materialImage;
+	private String spareImage;
+	private String toolsImage;
 	private String imagePath;
 	private String categoryName;
 	private String brand;
@@ -42,6 +44,5 @@ public class InwardItemDto {
 	private String invoiceNo;
 	private String receivedBy;
 	private String receivedDate;
-	private String spareImage;
 	private String username;
 }

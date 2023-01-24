@@ -11,12 +11,18 @@ import com.ingroinfo.mm.dao.InwardMaterialTempBundleRepository;
 import com.ingroinfo.mm.dao.InwardSpareBundleRepository;
 import com.ingroinfo.mm.dao.InwardSpareRepository;
 import com.ingroinfo.mm.dao.InwardSpareTempBundleRepository;
+import com.ingroinfo.mm.dao.InwardToolsBundleRepository;
+import com.ingroinfo.mm.dao.InwardToolsRepository;
+import com.ingroinfo.mm.dao.InwardToolsTempBundleRepository;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.InwardMaterialBundle;
 import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
 import com.ingroinfo.mm.entity.InwardSpare;
 import com.ingroinfo.mm.entity.InwardSpareBundle;
 import com.ingroinfo.mm.entity.InwardSpareTempBundle;
+import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.InwardToolsBundle;
+import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.entity.InwardMaterial;
 
@@ -42,6 +48,15 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private InwardSpareRepository inwardSpareRepository;
+
+	@Autowired
+	private InwardToolsTempBundleRepository inwardToolsTempBundleRepository;
+
+	@Autowired
+	private InwardToolsBundleRepository inwardToolsBundleRepository;
+
+	@Autowired
+	private InwardToolsRepository inwardToolsRepository;
 
 	@Override
 	public void saveInwardMaterial(InwardMaterialTempBundle inwardMaterialTemp) {
@@ -132,17 +147,28 @@ public class StockServiceImpl implements StockService {
 
 		InwardMaterialBundle iI = inwardMaterialBundleRepository.findBybundleId(materialId);
 
-		Long materialsId = iI.getInwardMaterial().getMaterialsId();
+		double subTotal = (iI.getInwardMaterial().getSubTotal() - iI.getTotalAmount());
 
-		List<InwardMaterialBundle> inwardMaterial = inwardMaterialBundleRepository.findAll().stream()
+		double gstVal = (subTotal / 100) * iI.getInwardMaterial().getIgst();
+
+		InwardMaterial inwardMaterial = inwardMaterialRepository
+				.findByAllMaterialsId(iI.getInwardMaterial().getAllMaterialsId());
+
+		inwardMaterial.setSubTotal(subTotal);
+		inwardMaterial.setGrandTotal(subTotal + gstVal);
+
+		Long materialsId = iI.getInwardMaterial().getAllMaterialsId();
+
+		List<InwardMaterialBundle> inwardMaterials = inwardMaterialBundleRepository.findAll().stream()
 				.filter(f -> f.getInwardMaterial().equals(iI.getInwardMaterial())).collect(Collectors.toList());
 
 		inwardMaterialBundleRepository.deleteById(materialId);
 
-		if (inwardMaterial.size() == 1) {
+		inwardMaterialRepository.save(inwardMaterial);
+
+		if (inwardMaterials.size() == 1) {
 			inwardMaterialRepository.deleteById(materialsId);
 		}
-
 	}
 
 	@Override
@@ -163,11 +189,11 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public void deleteTempBundleSpare(Long tempBunleId) {
 		inwardSpareTempBundleRepository.deleteById(tempBunleId);
-
 	}
 
 	@Override
 	public void saveInwardSpares(InwardSpare inwardSpare) {
+
 		InwardSpare newInwardSpare = inwardSpareRepository.save(inwardSpare);
 
 		List<InwardSpareTempBundle> inwardSpareTemp = inwardSpareTempBundleRepository
@@ -189,6 +215,7 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public List<InwardItemDto> getInwardAllSpareList() {
+
 		List<InwardSpare> spares = inwardSpareRepository.findAll();
 
 		List<InwardItemDto> newSpares = inwardSpareBundleRepository.findAll().stream().map(s -> {
@@ -239,22 +266,151 @@ public class StockServiceImpl implements StockService {
 
 		InwardSpareBundle iI = inwardSpareBundleRepository.findBybundleId(spareId);
 
-		Long sparesId = iI.getInwardSpare().getSparesId();
+		double subTotal = (iI.getInwardSpare().getSubTotal() - iI.getTotalAmount());
 
-		List<InwardSpareBundle> inwardSpare = inwardSpareBundleRepository.findAll().stream()
+		double gstVal = (subTotal / 100) * iI.getInwardSpare().getIgst();
+
+		InwardSpare inwardSpare = inwardSpareRepository.findByAllSparesId(iI.getInwardSpare().getAllSparesId());
+
+		inwardSpare.setSubTotal(subTotal);
+		inwardSpare.setGrandTotal(subTotal + gstVal);
+
+		Long sparesId = iI.getInwardSpare().getAllSparesId();
+
+		List<InwardSpareBundle> inwardSpares = inwardSpareBundleRepository.findAll().stream()
 				.filter(f -> f.getInwardSpare().equals(iI.getInwardSpare())).collect(Collectors.toList());
 
 		inwardSpareBundleRepository.deleteById(spareId);
 
-		if (inwardSpare.size() == 1) {
+		inwardSpareRepository.save(inwardSpare);
+
+		if (inwardSpares.size() == 1) {
 			inwardSpareRepository.deleteById(sparesId);
 		}
-
 	}
 
 	@Override
 	public void deleteAllSpares() {
 		inwardSpareTempBundleRepository.deleteAll();
+	}
+
+	@Override
+	public void saveInwardTools(InwardToolsTempBundle inwardToolsTemp) {
+		inwardToolsTempBundleRepository.save(inwardToolsTemp);
+	}
+
+	@Override
+	public List<InwardToolsTempBundle> getInwardTempToolsList(String username) {
+		return inwardToolsTempBundleRepository.findByUsername(username);
+	}
+
+	@Override
+	public void deleteTempBundleTools(Long tempBunleId) {
+
+		inwardToolsTempBundleRepository.deleteById(tempBunleId);
+	}
+
+	@Override
+	public void saveInwardAllTools(InwardTools inwardTools) {
+
+		InwardTools newInwardTools = inwardToolsRepository.save(inwardTools);
+
+		List<InwardToolsTempBundle> inwardToolsTemp = inwardToolsTempBundleRepository
+				.findByUsername(newInwardTools.getUsername());
+
+		for (InwardToolsTempBundle tempInwardTools : inwardToolsTemp) {
+			InwardToolsBundle inwardToolsBundle = modelMapper.map(tempInwardTools, InwardToolsBundle.class);
+			inwardToolsBundle.setInwardTools(newInwardTools);
+			inwardToolsBundleRepository.save(inwardToolsBundle);
+		}
+		inwardToolsTempBundleRepository.deleteAll();
+	}
+
+	@Override
+	public List<InwardToolsBundle> getInwardToolsList() {
+		return inwardToolsBundleRepository.findAll();
+	}
+
+	@Override
+	public List<InwardItemDto> getInwardAllToolsList() {
+
+		List<InwardTools> tools = inwardToolsRepository.findAll();
+
+		List<InwardItemDto> newTools = inwardToolsBundleRepository.findAll().stream().map(s -> {
+			InwardItemDto iIdto = new InwardItemDto();
+			for (InwardTools tool : tools) {
+				if (s.getInwardTools().equals(tool)) {
+					iIdto.setSupplierName(tool.getSupplierName());
+					iIdto.setItemId(s.getItemId());
+					iIdto.setItemName(s.getItemName());
+					iIdto.setAliasName(s.getAliasName());
+					iIdto.setToolsImage(s.getToolsImage());
+					iIdto.setImagePath(s.getImagePath());
+					iIdto.setCategoryName(s.getCategoryName());
+					iIdto.setBrand(s.getBrand());
+					iIdto.setHsnCode(s.getHsnCode());
+					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
+					iIdto.setTotalQuantity(String.valueOf(s.getTotalQuantity()));
+					iIdto.setTotalAmount(String.valueOf(s.getTotalAmount()));
+					iIdto.setCostRate(String.valueOf(s.getCostRate()));
+					iIdto.setMrp(String.valueOf(s.getMrp()));
+					iIdto.setEntryDate(s.getEntryDate());
+					iIdto.setDescription(s.getDescription());
+					iIdto.setDateCreated(s.getDateCreated());
+					iIdto.setLastUpdated(s.getLastUpdated());
+					iIdto.setSupplierName(tool.getSupplierName());
+					iIdto.setSuppliedOn(tool.getSuppliedOn());
+					iIdto.setGstType(tool.getGstType());
+					iIdto.setIgst(String.valueOf(tool.getIgst()));
+					iIdto.setSgst(String.valueOf(tool.getSgst()));
+					iIdto.setCgst(String.valueOf(tool.getCgst()));
+					iIdto.setSubTotal(String.valueOf(tool.getSubTotal()));
+					iIdto.setGrandTotal(String.valueOf(tool.getGrandTotal()));
+					iIdto.setInvoiceNo(tool.getInvoiceNo());
+					iIdto.setReceivedBy(tool.getReceivedBy());
+					iIdto.setReceivedDate(tool.getReceivedDate());
+					iIdto.setUsername(tool.getUsername());
+					iIdto.setBundleId(s.getBundleId());
+				}
+			}
+			return iIdto;
+		}).collect(Collectors.toList());
+
+		return newTools;
+	}
+
+	@Override
+	public void deleteBundleTools(Long toolsId) {
+
+		InwardToolsBundle iI = inwardToolsBundleRepository.findBybundleId(toolsId);
+
+		double subTotal = (iI.getInwardTools().getSubTotal() - iI.getTotalAmount());
+
+		double gstVal = (subTotal / 100) * iI.getInwardTools().getIgst();
+
+		InwardTools inwardTools = inwardToolsRepository.findByAllToolsId(iI.getInwardTools().getAllToolsId());
+
+		inwardTools.setSubTotal(subTotal);
+		inwardTools.setGrandTotal(subTotal + gstVal);
+
+		Long lastToolsId = iI.getInwardTools().getAllToolsId();
+
+		List<InwardToolsBundle> allInwardTools = inwardToolsBundleRepository.findAll().stream()
+				.filter(f -> f.getInwardTools().equals(iI.getInwardTools())).collect(Collectors.toList());
+
+		inwardToolsBundleRepository.deleteById(toolsId);
+
+		inwardToolsRepository.save(inwardTools);
+
+		if (allInwardTools.size() == 1) {
+			inwardToolsRepository.deleteById(lastToolsId);
+		}
+
+	}
+
+	@Override
+	public void deleteAllTools() {
+		inwardToolsTempBundleRepository.deleteAll();
 
 	}
 

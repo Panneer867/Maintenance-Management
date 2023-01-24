@@ -7,6 +7,9 @@ import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
 import com.ingroinfo.mm.entity.InwardSpare;
 import com.ingroinfo.mm.entity.InwardSpareBundle;
 import com.ingroinfo.mm.entity.InwardSpareTempBundle;
+import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.InwardToolsBundle;
+import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.entity.InwardMaterial;
 
 public interface StockService {
@@ -42,5 +45,21 @@ public interface StockService {
 	void deleteBundleSpare(Long spareId);
 	
 	void deleteAllSpares();
+	
+	void saveInwardTools(InwardToolsTempBundle inwardToolsTemp);
+
+	List<InwardToolsTempBundle> getInwardTempToolsList(String username);
+
+	void deleteTempBundleTools(Long tempBunleId);
+	
+	void saveInwardAllTools(InwardTools inwardTools);
+
+	List<InwardToolsBundle> getInwardToolsList();
+
+	List<InwardItemDto> getInwardAllToolsList();
+
+	void deleteBundleTools(Long toolsId);
+	
+	void deleteAllTools();
 
 }

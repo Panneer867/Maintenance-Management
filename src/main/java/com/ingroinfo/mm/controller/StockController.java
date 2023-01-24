@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.InwardSpareTempBundle;
+import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardMaterial;
@@ -98,7 +100,7 @@ public class StockController {
 		if (company != null) {
 			companyName = company.getCompanyName();
 		} else {
-			companyName = "Admin Data";
+			companyName = "Admin_Data";
 		}
 
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
@@ -137,6 +139,13 @@ public class StockController {
 		if (inwardItemDto.getIgst() == null) {
 			inwardItemDto.setIgst("0");
 		}
+
+		if (inwardItemDto.getGstType() == "Exempted") {
+			inwardItemDto.setIgst("0");
+			inwardItemDto.setSgst("0");
+			inwardItemDto.setCgst("0");
+		}
+
 		InwardMaterial inwardMaterial = modelMapper.map(inwardItemDto, InwardMaterial.class);
 
 		inwardMaterial.setUsername(principal.getName());
@@ -149,6 +158,7 @@ public class StockController {
 
 	@GetMapping("/inward/material/delete")
 	public String deleteMaterial(@RequestParam("id") Long tempBunleId, HttpSession session) {
+		
 		stockService.deleteTempBundleMaterial(tempBunleId);
 		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
 		return "redirect:/stocks/inward/material";
@@ -157,6 +167,7 @@ public class StockController {
 
 	@GetMapping("/inward/materials/delete")
 	public String deleteMaterials(HttpSession session) {
+		
 		stockService.deleteAllMaterials();
 		session.setAttribute("message",
 				new Message("All Item has been successfully removed from the list !", "success"));
@@ -263,6 +274,13 @@ public class StockController {
 		if (inwardItemDto.getIgst() == null) {
 			inwardItemDto.setIgst("0");
 		}
+
+		if (inwardItemDto.getGstType() == "Exempted") {
+			inwardItemDto.setIgst("0");
+			inwardItemDto.setSgst("0");
+			inwardItemDto.setCgst("0");
+		}
+
 		InwardSpare inwardSpare = modelMapper.map(inwardItemDto, InwardSpare.class);
 
 		inwardSpare.setUsername(principal.getName());
@@ -314,8 +332,143 @@ public class StockController {
 		model.addAttribute("title", "Inward Spare Chart | Maintenance Management");
 		return "/pages/stock_management/inward_spare_chart";
 	}
-	
-	
+
+	@GetMapping("/inward/tools")
+	public String inwardTools(Model model, Principal principal) {
+
+		model.addAttribute("title", "Inward Tools | Maintenance Management");
+		model.addAttribute("inwardItem", new InwardItemDto());
+
+		List<InwardToolsTempBundle> inwardToolsList = stockService.getInwardTempToolsList(principal.getName());
+
+		if (inwardToolsList.size() == 0) {
+			model.addAttribute("emptyList", "No Tools");
+		} else {
+			Long subTotal = inwardToolsList.stream().filter(f -> f.getTotalAmount() != null)
+					.mapToLong(o -> o.getTotalAmount()).sum();
+			model.addAttribute("subTotal", subTotal);
+		}
+		model.addAttribute("inwardToolsLists", inwardToolsList);
+
+		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
+
+		model.addAttribute("categories", categoryService.findAllCategory());
+
+		return "/pages/stock_management/inward_tools";
+	}
+
+	@PostMapping("/inward/tools/add")
+	public String addTools(@RequestParam("toolsImage") MultipartFile file,
+			@ModelAttribute("inwardItem") InwardItemDto inwardItemDto, BindingResult bindingResult, HttpSession session,
+			Principal principal) throws IOException {
+
+		String companyName = "";
+
+		Company company = adminService.getCompanyByUsername(principal.getName());
+
+		if (company != null) {
+			companyName = company.getCompanyName();
+		} else {
+			companyName = "Admin_Data";
+		}
+
+		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+
+		InwardToolsTempBundle inwardToolsTempBundle = modelMapper.map(inwardItemDto, InwardToolsTempBundle.class);
+
+		String fileName = inwardItemDto.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+				+ tokens.get();
+		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Tools\\";
+
+		adminService.saveFile(uploadDir, fileName, file);
+		inwardToolsTempBundle.setToolsImage(fileName);
+		inwardToolsTempBundle.setImagePath("/Company/" + companyName + "/Inward_Tools/");
+		inwardToolsTempBundle.setUsername(principal.getName());
+		inwardToolsTempBundle
+				.setTotalAmount(inwardToolsTempBundle.getCostRate() * inwardToolsTempBundle.getTotalQuantity());
+		stockService.saveInwardTools(inwardToolsTempBundle);
+
+		return "redirect:/stocks/inward/tools";
+	}
+
+	@PostMapping("/inward/alltools/add")
+	public String addAllTools(@ModelAttribute("inwardItem") InwardItemDto inwardItemDto, BindingResult bindingResult,
+			HttpSession session, Principal principal) throws IOException {
+
+		List<InwardToolsTempBundle> inwardToolsList = stockService.getInwardTempToolsList(principal.getName());
+
+		if (inwardToolsList.size() == 0) {
+
+			session.setAttribute("message", new Message("Please Add Tools Items !", "danger"));
+
+			return "redirect:/stocks/inward/tools";
+		}
+
+		if (inwardItemDto.getIgst() == null) {
+			inwardItemDto.setIgst("0");
+		}
+
+		if (inwardItemDto.getGstType() == "Exempted") {
+			inwardItemDto.setIgst("0");
+			inwardItemDto.setSgst("0");
+			inwardItemDto.setCgst("0");
+		}
+
+		InwardTools inwardTools = modelMapper.map(inwardItemDto, InwardTools.class);
+
+		inwardTools.setUsername(principal.getName());
+
+		stockService.saveInwardAllTools(inwardTools);
+
+		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
+		return "redirect:/stocks/inward/tools";
+	}
+
+	@GetMapping("/inward/tools/delete")
+	public String deleteTools(@RequestParam("id") Long tempBunleId, HttpSession session) {
+
+		stockService.deleteTempBundleTools(tempBunleId);
+		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
+		return "redirect:/stocks/inward/tools";
+
+	}
+
+	@GetMapping("/inward/alltools/delete")
+	public String deleteAllTools(HttpSession session) {
+		stockService.deleteAllTools();
+		session.setAttribute("message",
+				new Message("All Item has been successfully removed from the list !", "success"));
+		return "redirect:/stocks/inward/tools";
+
+	}
+
+	@GetMapping("/inward/tools/list")
+	public String inwardToolsList(Model model, Principal principal) {
+
+		model.addAttribute("title", "Inward Tools List | Maintenance Management");
+		model.addAttribute("toolsLists", stockService.getInwardAllToolsList());
+
+		return "/pages/stock_management/inward_tools_list";
+	}
+
+	@GetMapping("/inward/tools/list/delete")
+	public String deleteToolsOfList(@RequestParam("id") Long toolsId, HttpSession session) {
+
+		stockService.deleteBundleTools(toolsId);
+		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "danger"));
+
+		return "redirect:/stocks/inward/tools/list";
+
+	}
+
+	@GetMapping("/inward/tools/chart")
+	public String inwardToolsChart(Model model, Principal principal) {
+
+		model.addAttribute("title", "Inward Tools Chart | Maintenance Management");
+		return "/pages/stock_management/inward_tools_chart";
+	}
+
 	@GetMapping("/outward/materials")
 	public String outwardMaterials() {
 		return "/pages/stock_management/outward_material";
