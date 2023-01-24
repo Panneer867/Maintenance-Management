@@ -275,14 +275,13 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/spares' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/stocks/inward/spares}" class="m-menu__link ">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="inward-spare-active">
+										<a th:href="@{/stocks/inward/spare}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Inward Spares Matieral
+												Inward Spares
 											</span>
 										</a>
 									</li>
@@ -1308,6 +1307,7 @@
 	<script th:src="@{/js/delete-employee.js}"></script>
 	<script th:src="@{/js/hsn-for-items.js}"></script>
 	<script th:src="@{/js/inward-material.js}"></script>
+	<script th:src="@{/js/inward-spare.js}"></script>
 </body>
 
 </html>

@@ -1,21 +1,18 @@
 package com.ingroinfo.mm.entity;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,28 +24,32 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_materials")
-public class InwardMaterial {
+@Table(name = "mm_inward_material_bundles")
+public class InwardMaterialBundle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long materialsId;
-	private String supplierName;
-	private String suppliedOn;
-	private String gstType;
-	private Double igst;
-	private Double sgst;
-	private Double cgst;
-	private Double subTotal;
-	private Double grandTotal;
-	private String invoiceNo;
-	private String receivedBy;
-	private String receivedDate;
-	private String username;
+	private Long bundleId;
+	private Long itemId;
+	private String itemName;
+	private String aliasName;
+	private String materialImage;
+	private String imagePath;
+	private String categoryName;
+	private String brand;
+	private String hsnCode;
+	private String unitOfMeasure;
+	private Long totalQuantity;
+	private Long totalAmount;
+	private Long costRate;
+	private Long mrp;
+	private String entryDate;
+	private String description;
+	
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardMaterial")
-	private List<InwardMaterialBundle> inwardMaterialBundle;
+	@ManyToOne
+	@JoinColumn(name = "inward_material_id")
+	private InwardMaterial inwardMaterial;
 
 	@Column(name = "date_created")
 	@CreationTimestamp

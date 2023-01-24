@@ -80,9 +80,15 @@ $(document).ready(function() {
 	});
 
 
-$(function() {
+	$(function() {
 		if (window.location.href.match('/inward/material')) {
 			$("#inward-material-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/inward/spare')) {
+			$("#inward-spare-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 });

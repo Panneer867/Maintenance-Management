@@ -2,7 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Materials Entry
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Spares Entry
 		</h3>
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Material</span></div>
+							<div class="link"><span aria-current="location">Inward Spares</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -26,19 +26,19 @@
 					<li class="nav-item" role="presentation">
 
 						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
-							th:href="@{/stocks/inward/material}">
+							th:href="@{/stocks/inward/spare}">
 							Inward Entry
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/material/chart}">
+							th:href="@{/stocks/inward/spare/chart}">
 							Inward Chart
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/material/list}">
+							th:href="@{/stocks/inward/spare/list}">
 							Inward List
 						</a>
 					</li>
@@ -54,10 +54,10 @@
 		<div class="col-12 mx-auto">
 			<div class="card bl-cr">
 				<div class="card-header text-center heading-bg text-white">
-					<h4 class="mb-0">Inward Material</h4>
+					<h4 class="mb-0">Inward Spares</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/stocks/inward/material/add}" th:object="${inwardItem}" method="post"
+					<form class="p-0 mb-0" th:action="@{/stocks/inward/spare/add}" th:object="${inwardItem}" method="post"
 						enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-9">
@@ -67,11 +67,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
 											</label>
 											<div class="col-sm-8">
-												<select class="form-select" id="itemId" name="itemName">
-													<option value="" selected>Select</option>
-													<option th:each="item : ${items}" th:value="${item.hsnCodeId}"
-														th:utext="${item.itemName}" />
-												</select>
+												<input type="text" name="itemName" class="form-control" required/>
 											</div>
 										</div>
 									</div>
@@ -119,8 +115,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
 											</label>
 											<div class="col-sm-8">
-												<input type="hidden" id="get-hsncode" name="hsnCode" />
-												<input type="text" id="get-hsn" class="form-control" disabled />
+												<input type="text" name="hsnCode" class="form-control" required/>
 											</div>
 										</div>
 									</div>
@@ -202,8 +197,8 @@
 								</div>
 							</div>
 							<div class="col-3 text-center">
-								<label for="staticEmail">Material Image</label>
-								<input name="materialImage" type="file" class="dropify" data-height="200"
+								<label for="staticEmail">Spare Image</label>
+								<input name="spareImage" type="file" class="dropify" data-height="200"
 									accept="image/*" data-max-file-size="2M" required />
 								<strong class="text-danger"> File Max Size: 2MB</strong>
 							</div>
@@ -218,7 +213,7 @@
 					</form>
 				</div>
 			</div>
-			<h3 class="text-center bg-warning mt-2 py-1"><small>Added Materials</small></h3>
+			<h3 class="text-center bg-warning mt-2 py-1"><small>Added Spares</small></h3>
 
 			<table class="table table-stock table-bordered table table-success table-striped table-hover">
 				<thead class="table-dark">
@@ -234,32 +229,32 @@
 						<th class="all">MRP</th>
 						<th class="all">Qty</th>
 						<th class="all">Total</th>
-						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/items/delete')|"
+						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/spares/delete')|"
 								class="btn text-danger p-0 font-weight-bold" data-toggle="modal" data-target="#delAll"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item">Clear All</button>
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="inwardMaterialList: ${inwardMaterialLists}">
-						<td th:text="${inwardMaterialList.itemId}"></td>
-						<td th:text="${inwardMaterialList.itemName}"></td>
+					<tr th:each="inwardSpareList: ${inwardSpareLists}">
+						<td th:text="${inwardSpareList.itemId}"></td>
+						<td th:text="${inwardSpareList.itemName}"></td>
 						<td class="text-center thumb">
-							<img th:src="@{${inwardMaterialList.imagePath} + ${inwardMaterialList.materialImage}}"
+							<img th:src="@{${inwardSpareList.imagePath} + ${inwardSpareList.spareImage}}"
 								alt="image" />
 						</td>
-						<td th:text="${inwardMaterialList.categoryName}"></td>
-						<td th:text="${inwardMaterialList.brand}"></td>
-						<td th:text="${inwardMaterialList.hsnCode}"></td>
+						<td th:text="${inwardSpareList.categoryName}"></td>
+						<td th:text="${inwardSpareList.brand}"></td>
+						<td th:text="${inwardSpareList.hsnCode}"></td>
 
-						<td th:text="${inwardMaterialList.unitOfMeasure}"></td>
-						<td>&#8377;<label class="px-1" th:text="${inwardMaterialList.costRate}"></label></td>
-						<td>&#8377;<label class="px-1" th:text="${inwardMaterialList.mrp}"></label></td>
-						<td th:text="${inwardMaterialList.totalQuantity}"></td>
-						<td>&#8377;<label class="px-1" th:text="${inwardMaterialList.totalAmount}"></label></td>
+						<td th:text="${inwardSpareList.unitOfMeasure}"></td>
+						<td>&#8377;<label class="px-1" th:text="${inwardSpareList.costRate}"></label></td>
+						<td>&#8377;<label class="px-1" th:text="${inwardSpareList.mrp}"></label></td>
+						<td th:text="${inwardSpareList.totalQuantity}"></td>
+						<td>&#8377;<label class="px-1" th:text="${inwardSpareList.totalAmount}"></label></td>
 
 						<td class="text-center"><button
-								th:onclick="|deleteId('/stocks/inward/material/delete/?id=${inwardMaterialList.bundleId}')|"
+								th:onclick="|deleteId('/stocks/inward/spare/delete/?id=${inwardSpareList.bundleId}')|"
 								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 									class="glyphicon glyphicon-trash"></span></button>
@@ -270,7 +265,7 @@
 			<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert" th:if="${emptyList != null}">
 				[[${emptyList}]]</div>
 
-			<form th:action="@{/stocks/inward/materials/add}" th:object="${inwardItem}" method="post">
+			<form th:action="@{/stocks/inward/spares/add}" th:object="${inwardItem}" method="post">
 				<div class="row">
 					<div class="col-9">
 						<div class="card my-1 w-100 bl-cr">
@@ -300,7 +295,7 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">GST
 												Type<strong class="text-danger">*</strong></label>
 											<div class="col-sm-7">
-												<select class="form-select" name="gstType" id="select-gst-material" required>
+												<select class="form-select" name="gstType" id="select-gst-spare" required>
 													<option value="">Select</option>
 													<option value="Taxable">Taxable</option>
 													<option value="Exempted">Exempted</option>
@@ -315,7 +310,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">GST/IGST</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<input type="number" id="get-igst-material" class="form-control calculate-material"
+													<input type="number" id="get-igst-spare" class="form-control calculate-spare"
 														name="igst" required />
 													<div class="input-group-prepend">
 														<span class="input-group-text font-weight-bold"
@@ -330,8 +325,8 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
 											<div class="col-sm-7">
 												<div class="input-group">
-													<input type="hidden" name="sgst" id="get-imp-sgst-material" />
-													<input type="number" value="0" id="get-sgst-material" class="form-control" />
+													<input type="hidden" name="sgst" id="get-imp-sgst-spare" />
+													<input type="number" value="0" id="get-sgst-spare" class="form-control" />
 													<div class="input-group-prepend">
 														<span class="input-group-text font-weight-bold"
 															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -345,8 +340,8 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
 											<div class="col-sm-7">
 												<div class="input-group">
-													<input type="hidden" name="cgst" id="get-imp-cgst-material" />
-													<input type="number" value="0" id="get-cgst-material" class="form-control" />
+													<input type="hidden" name="cgst" id="get-imp-cgst-spare" />
+													<input type="number" value="0" id="get-cgst-spare" class="form-control" />
 													<div class="input-group-prepend">
 														<span class="input-group-text  font-weight-bold"
 															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -385,8 +380,8 @@
 										</div>
 									</div>
 								</div>
-								<input type="hidden" id="sub-total-material" name="subTotal" />
-								<input type="hidden" id="grand-total-material" name="grandTotal" />
+								<input type="hidden" id="sub-total-spare" name="subTotal" />
+								<input type="hidden" id="grand-total-spare" name="grandTotal" />
 								<div class="row mt-3">
 									<div class="col-12 text-center">
 										<button type="submit" class="btn btn-success btn-sm">Submit</button>
@@ -403,7 +398,7 @@
 							</div>
 							<div class="col-6 bg-dark row py-2 rounded-top">
 								<label class="font-weight-bold mb-0">&#8377;<label
-										class=" pl-2 font-weight-bold mb-0 get-item-sub-total-material"
+										class=" pl-2 font-weight-bold mb-0 get-item-sub-total-spare"
 										th:text="${subTotal}"></label></label>
 							</div>
 						</div>
@@ -413,7 +408,7 @@
 							</div>
 							<div class="col-6 bg-primary row py-2 rounded-bottom">
 								<label class="font-weight-bold mb-0">&#8377;<label
-										class=" pl-2 font-weight-bold mb-0 set-item-grand-total-material"></label></label>
+										class=" pl-2 font-weight-bold mb-0 set-item-grand-total-spare"></label></label>
 							</div>
 						</div>
 					</div>

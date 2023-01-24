@@ -22,8 +22,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_items_bundle_temp")
-public class InwardItemTemp {
+@Table(name = "mm_inward_spare_temp_bundles")
+public class InwardSpareTempBundle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class InwardItemTemp {
 	private Long itemId;
 	private String itemName;
 	private String aliasName;
-	private String materialImage;
+	private String spareImage;
 	private String imagePath;
 	private String categoryName;
 	private String brand;
@@ -44,8 +44,6 @@ public class InwardItemTemp {
 	private String entryDate;
 	private String description;
 	private String username;
-	
-	
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

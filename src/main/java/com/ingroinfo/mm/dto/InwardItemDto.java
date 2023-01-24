@@ -42,6 +42,6 @@ public class InwardItemDto {
 	private String invoiceNo;
 	private String receivedBy;
 	private String receivedDate;
-	
+	private String spareImage;
 	private String username;
 }
