@@ -12,12 +12,11 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}">Stock Management</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/tools}">Inward Tools</a></div>
 						</li>
-
-
+						
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Spares</span></div>
+							<div class="link"><span aria-current="location">Inward Bundles</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -32,14 +31,20 @@
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/spare/chart}">
+							th:href="@{/stocks/inward/tools/chart}">
 							Inward Chart
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
-							th:href="@{/stocks/inward/spare/list}">
-							Inward List
+							th:href="@{/stocks/inward/tools/bundles}">
+							Inward Bundles
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/tools/list}">
+							Inward Full List
 						</a>
 					</li>
 				</ul>
@@ -55,73 +60,45 @@
 			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 			<thead class="table-dark">
 				<tr>
-					<th class="all">Item ID</th>
-					<th class="all">Category</th>
-					<th class="all">Item</th>
-					<th class="all">Image</th>
+					<th class="all" > ID</th>
 					<th class="all">Supplier</th>
-					<th class="all">Brand</th>
-					<th class="all">HSN</th>
-					<th class="all">Unit(M)</th>
-					<th class="all">Qty</th>
-					<th class="all">Cost</th>
-					<th class="all">MRP</th>
-					<th class="all">Total </th>
-					<th class="all">Entry </th>
+					<th class="all">Invoice</th>
+					<th class="all">Supldon</th>				
+					<th class="all">IGST</th>
+					<th class="all">CGST</th>
+					<th class="all">SGST</th>
+					<th class="all">Subtotal</th>
+					<th class="all">Total Amt</th>
+					<th class="all">No's</th>
+					<th class="all">Rcvd By</th>
+					<th class="all">Rcvd Date </th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="sparesList: ${sparesLists}">
-					<td th:text="${sparesList.itemId}"></td>
-					<td th:text="${sparesList.categoryName}"></td>
-					<td th:text="${sparesList.itemName}"></td>
-					<td class="text-center thumb">
-						<img th:src="@{${sparesList.imagePath} + ${sparesList.spareImage}}" alt="image" />
-					</td>
-					<td th:text="${sparesList.supplierName}"></td>
-					<td th:text="${sparesList.brand}"></td>
-					<td th:text="${sparesList.hsnCode}"></td>
+				<tr th:each="bundleToolsList: ${bundleToolsLists}">
+					<td th:text="${bundleToolsList.allToolsId}"></td>
+					<td th:text="${bundleToolsList.supplierName}"></td>
+					<td th:text="${bundleToolsList.invoiceNo}"></td>
+					<td th:text="${bundleToolsList.suppliedOn}"></td>					
+					<td th:text="${bundleToolsList.igst}"></td>
+					<td th:text="${bundleToolsList.cgst}"></td>
+					<td th:text="${bundleToolsList.sgst}"></td>
+					<td>&#8377;<label class="px-1" th:text="${bundleToolsList.subTotal}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundleToolsList.grandTotal}"></label></td>
+					<td th:text="${bundleToolsList.noOfTools}"></td>
+					<td th:text="${bundleToolsList.receivedBy}"></td>
+					<td th:text="${bundleToolsList.receivedDate}"></td>
 
-					<td th:text="${sparesList.unitOfMeasure}"></td>
-					<td th:text="${sparesList.totalQuantity}"></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.costRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.mrp}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.totalAmount}"></label></td>
-					<td th:text="${sparesList.entryDate}"></td>
-
-					<td class="text-center"><button
-							th:onclick="|deleteId('/stocks/inward/spare/list/delete/?id=${sparesList.bundleId}')|"
-							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
-								class="glyphicon glyphicon-trash"></span></button>
+					<td class="text-center">
+						<a th:href="@{'/stocks/inward/tools/bundle/view/' + ${bundleToolsList.allToolsId}}"
+							class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
+							title="View Bundle"><span class="glyphicon glyphicon-eye-open"></span></a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<div class="modal fade" id="delInwardItem" tabindex="-1" role="dialog" aria-labelledby="delInwardItem"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document" style="margin-top: 180px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4>Remove Item</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						Are you sure, you want to remove this Item from the list?
-					</div>
-					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Remove</a>
-						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
+		
 	</section>
 </body>
 

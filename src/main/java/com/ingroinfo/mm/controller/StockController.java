@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.InwardSpareTempBundle;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.InwardToolsBundle;
 import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.Company;
@@ -27,6 +28,7 @@ import com.ingroinfo.mm.entity.InwardMaterial;
 import com.ingroinfo.mm.entity.InwardMaterialBundle;
 import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
 import com.ingroinfo.mm.entity.InwardSpare;
+import com.ingroinfo.mm.entity.InwardSpareBundle;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.CategoryService;
@@ -219,7 +221,7 @@ public class StockController {
 	public String viewMaterialsOfList(Model model) {
 
 		model.addAttribute("title", "Inward Bundles | Maintenance Management");
-		model.addAttribute("bundleLists", stockService.getMaterialsBundlesList());
+		model.addAttribute("bundleMaterialsLists", stockService.getMaterialsBundlesList());
 
 		return "/pages/stock_management/inward_material_bundles";
 
@@ -373,29 +375,50 @@ public class StockController {
 
 	}
 
+	@GetMapping("/inward/spare/bundle/list/delete")
+	public String deleteSparesOfBundleList(@RequestParam("id") Long bundleId, HttpSession session) {
+
+		InwardSpareBundle spareId = stockService.getSpareById(bundleId);
+
+		boolean deletedAll = stockService.deleteBundleSpare(bundleId);
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+
+		if (deletedAll) {
+			session.setAttribute("message",
+					new Message("Bundle has been removed successfully  from the list !", "danger"));
+			return "redirect:/stocks/inward/spare/bundles";
+		}
+
+		return "redirect:/stocks/inward/spare/bundle/view/" + spareId.getInwardSpare().getAllSparesId();
+	}
+
 	@GetMapping("/inward/spare/bundles")
 	public String viewSparesOfList(Model model) {
 
-		model.addAttribute("bundleLists", stockService.getMaterialsBundlesList());
+		model.addAttribute("title", "Inward Spares Bundles | Maintenance Management");
+		model.addAttribute("bundleSparesLists", stockService.getSparesBundlesList());
 
-		return "/pages/stock_management/inward_spare_bundles";
+		return "/pages/stock_management/inward_spares_bundles";
 
 	}
 
 	@GetMapping("/inward/spare/bundle/view/{id}")
 	public String viewSparesOfList(@PathVariable Long id, Model model) {
 
+		model.addAttribute("title", "Inward Spares Bundle List | Maintenance Management");
 		model.addAttribute("bundledSpares", stockService.getBundledSparesById(id));
 
-		return "/pages/stock_management/inward_spare_bundle_list";
+		return "/pages/stock_management/inward_spares_bundle_list";
+
 	}
+	
 
 	@GetMapping("/inward/spare/chart")
 	public String inwardSpareChart(Model model, Principal principal) {
 
 		model.addAttribute("title", "Inward Spare Chart | Maintenance Management");
 		
-		return "/pages/stock_management/inward_spare_chart";
+		return "/pages/stock_management/inward_spares_chart";
 	}
 
 	@GetMapping("/inward/tools")
@@ -530,10 +553,27 @@ public class StockController {
 		return "redirect:/stocks/inward/tools/list";
 	}
 
-	@GetMapping("/inward/tools/bundles")
+	@GetMapping("/inward/tools/bundle/list/delete")
+	public String deleteToolsOfBundleList(@RequestParam("id") Long bundleId, HttpSession session) {
+
+		InwardToolsBundle spareId = stockService.getToolsById(bundleId);
+		
+		boolean deletedAll = stockService.deleteBundleTools(bundleId);
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+
+		if (deletedAll) {
+			session.setAttribute("message", new Message("Bundle has been removed successfully  from the list !", "danger"));
+			return "redirect:/stocks/inward/tools/bundles";
+		}
+
+		return "redirect:/stocks/inward/tools/bundle/view/" + spareId.getInwardTools().getAllToolsId();
+	}
+
+@GetMapping("/inward/tools/bundles")
 	public String viewToolsOfList(Model model) {
 
-		model.addAttribute("bundleLists", stockService.getToolsBundlesList());
+		model.addAttribute("title", "Inward Tools Bundles | Maintenance Management");
+		model.addAttribute("bundleToolsLists", stockService.getToolsBundlesList());
 
 		return "/pages/stock_management/inward_tools_bundles";
 
@@ -542,6 +582,7 @@ public class StockController {
 	@GetMapping("/inward/tools/bundle/view/{id}")
 	public String viewToolsOfList(@PathVariable Long id, Model model) {
 
+		model.addAttribute("title", "Inward Tools Bundle List | Maintenance Management");
 		model.addAttribute("bundledTools", stockService.getBundledToolsById(id));
 
 		return "/pages/stock_management/inward_tools_bundle_list";

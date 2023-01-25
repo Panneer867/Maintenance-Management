@@ -77,22 +77,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="bundleList: ${bundleLists}">
-					<td th:text="${bundleList.allMaterialsId}"></td>
-					<td th:text="${bundleList.supplierName}"></td>
-					<td th:text="${bundleList.invoiceNo}"></td>
-					<td th:text="${bundleList.suppliedOn}"></td>					
-					<td th:text="${bundleList.igst}"></td>
-					<td th:text="${bundleList.cgst}"></td>
-					<td th:text="${bundleList.sgst}"></td>
-					<td>&#8377;<label class="px-1" th:text="${bundleList.subTotal}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${bundleList.grandTotal}"></label></td>
-					<td th:text="${bundleList.noOfMaterials}"></td>
-					<td th:text="${bundleList.receivedBy}"></td>
-					<td th:text="${bundleList.receivedDate}"></td>
+				<tr th:each="bundleMaterialsList: ${bundleMaterialsLists}">
+					<td th:text="${bundleMaterialsList.allMaterialsId}"></td>
+					<td th:text="${bundleMaterialsList.supplierName}"></td>
+					<td th:text="${bundleMaterialsList.invoiceNo}"></td>
+					<td th:text="${bundleMaterialsList.suppliedOn}"></td>					
+					<td th:text="${bundleMaterialsList.igst}"></td>
+					<td th:text="${bundleMaterialsList.cgst}"></td>
+					<td th:text="${bundleMaterialsList.sgst}"></td>
+					<td>&#8377;<label class="px-1" th:text="${bundleMaterialsList.subTotal}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundleMaterialsList.grandTotal}"></label></td>
+					<td th:text="${bundleMaterialsList.noOfMaterials}"></td>
+					<td th:text="${bundleMaterialsList.receivedBy}"></td>
+					<td th:text="${bundleMaterialsList.receivedDate}"></td>
 
 					<td class="text-center">
-						<a th:href="@{'/stocks/inward/material/bundle/view/' + ${bundleList.allMaterialsId}}"
+						<a th:href="@{'/stocks/inward/material/bundle/view/' + ${bundleMaterialsList.allMaterialsId}}"
 							class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
 							title="View Bundle"><span class="glyphicon glyphicon-eye-open"></span></a>
 					</td>

@@ -221,7 +221,7 @@ public class StockServiceImpl implements StockService {
 
 		inwardMaterial.setSubTotal(subTotal);
 		inwardMaterial.setGrandTotal(subTotal + gstVal);
-		
+
 		Long materialsId = iI.getInwardMaterial().getAllMaterialsId();
 
 		List<InwardMaterialBundle> inwardMaterials = inwardMaterialBundleRepository.findAll().stream()
@@ -231,7 +231,7 @@ public class StockServiceImpl implements StockService {
 
 		List<InwardMaterialBundle> inwardMaterialsCount = inwardMaterialBundleRepository.findAll().stream()
 				.filter(f -> f.getInwardMaterial().equals(iI.getInwardMaterial())).collect(Collectors.toList());
-		
+
 		inwardMaterial.setNoOfMaterials(inwardMaterialsCount.size());
 		inwardMaterialRepository.save(inwardMaterial);
 
@@ -286,16 +286,61 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
+	public InwardSpareBundle getSpareById(Long bundleId) {
+		return inwardSpareBundleRepository.findBybundleId(bundleId);
+	}
+
+	@Override
 	public List<InwardSpareBundle> getInwardSpareList() {
 		return inwardSpareBundleRepository.findAll();
 	}
 
 	@Override
-	public List<InwardSpareBundle> getBundledSparesById(Long bundleId) {
+	public List<InwardItemDto> getBundledSparesById(Long bundleId) {
 
 		InwardSpare inwardSpare = inwardSpareRepository.findByAllSparesId(bundleId);
 
-		return inwardSpareBundleRepository.findByInwardSpare(inwardSpare);
+		List<InwardItemDto> newSpares = inwardSpareBundleRepository.findByInwardSpare(inwardSpare).stream()
+				.map(s -> {
+
+					InwardItemDto iIdto = new InwardItemDto();
+
+					iIdto.setSupplierName(inwardSpare.getSupplierName());
+					iIdto.setItemId(s.getItemId());
+					iIdto.setItemName(s.getItemName());
+					iIdto.setAliasName(s.getAliasName());
+					iIdto.setSpareImage(s.getSpareImage());
+					iIdto.setImagePath(s.getImagePath());
+					iIdto.setCategoryName(s.getCategoryName());
+					iIdto.setBrand(s.getBrand());
+					iIdto.setHsnCode(s.getHsnCode());
+					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
+					iIdto.setTotalQuantity(String.valueOf(s.getTotalQuantity()));
+					iIdto.setTotalAmount(String.valueOf(s.getTotalAmount()));
+					iIdto.setCostRate(String.valueOf(s.getCostRate()));
+					iIdto.setMrp(String.valueOf(s.getMrp()));
+					iIdto.setEntryDate(s.getEntryDate());
+					iIdto.setDescription(s.getDescription());
+					iIdto.setDateCreated(s.getDateCreated());
+					iIdto.setLastUpdated(s.getLastUpdated());
+					iIdto.setSupplierName(inwardSpare.getSupplierName());
+					iIdto.setSuppliedOn(inwardSpare.getSuppliedOn());
+					iIdto.setGstType(inwardSpare.getGstType());
+					iIdto.setIgst(String.valueOf(inwardSpare.getIgst()));
+					iIdto.setSgst(String.valueOf(inwardSpare.getSgst()));
+					iIdto.setCgst(String.valueOf(inwardSpare.getCgst()));
+					iIdto.setSubTotal(String.valueOf(inwardSpare.getSubTotal()));
+					iIdto.setGrandTotal(String.valueOf(inwardSpare.getGrandTotal()));
+					iIdto.setInvoiceNo(inwardSpare.getInvoiceNo());
+					iIdto.setReceivedBy(inwardSpare.getReceivedBy());
+					iIdto.setReceivedDate(inwardSpare.getReceivedDate());
+					iIdto.setUsername(inwardSpare.getUsername());
+					iIdto.setBundleId(s.getBundleId());
+
+					return iIdto;
+				}).collect(Collectors.toList());
+
+		return newSpares;
 	}
 
 	@Override
@@ -347,7 +392,9 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void deleteBundleSpare(Long spareId) {
+	public boolean deleteBundleSpare(Long spareId) {
+
+		boolean deletedAll = false;
 
 		InwardSpareBundle iI = inwardSpareBundleRepository.findBybundleId(spareId);
 
@@ -367,11 +414,18 @@ public class StockServiceImpl implements StockService {
 
 		inwardSpareBundleRepository.deleteById(spareId);
 
+		List<InwardSpareBundle> inwardSparesCount = inwardSpareBundleRepository.findAll().stream()
+				.filter(f -> f.getInwardSpare().equals(iI.getInwardSpare())).collect(Collectors.toList());
+
+		inwardSpare.setNoOfSpares(inwardSparesCount.size());
+
 		inwardSpareRepository.save(inwardSpare);
 
 		if (inwardSpares.size() == 1) {
 			inwardSpareRepository.deleteById(sparesId);
+			deletedAll = true;
 		}
+		return deletedAll;
 	}
 
 	@Override
@@ -418,16 +472,61 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
+	public InwardToolsBundle getToolsById(Long bundleId) {
+		return inwardToolsBundleRepository.findBybundleId(bundleId);
+	}
+
+	@Override
 	public List<InwardToolsBundle> getInwardToolsList() {
 		return inwardToolsBundleRepository.findAll();
 	}
 
 	@Override
-	public List<InwardToolsBundle> getBundledToolsById(Long bundleId) {
+	public List<InwardItemDto> getBundledToolsById(Long bundleId) {
 
 		InwardTools inwardTools = inwardToolsRepository.findByAllToolsId(bundleId);
 
-		return inwardToolsBundleRepository.findByInwardTools(inwardTools);
+		List<InwardItemDto> newTools = inwardToolsBundleRepository.findByInwardTools(inwardTools).stream()
+				.map(s -> {
+
+					InwardItemDto iIdto = new InwardItemDto();
+
+					iIdto.setSupplierName(inwardTools.getSupplierName());
+					iIdto.setItemId(s.getItemId());
+					iIdto.setItemName(s.getItemName());
+					iIdto.setAliasName(s.getAliasName());
+					iIdto.setToolsImage(s.getToolsImage());
+					iIdto.setImagePath(s.getImagePath());
+					iIdto.setCategoryName(s.getCategoryName());
+					iIdto.setBrand(s.getBrand());
+					iIdto.setHsnCode(s.getHsnCode());
+					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
+					iIdto.setTotalQuantity(String.valueOf(s.getTotalQuantity()));
+					iIdto.setTotalAmount(String.valueOf(s.getTotalAmount()));
+					iIdto.setCostRate(String.valueOf(s.getCostRate()));
+					iIdto.setMrp(String.valueOf(s.getMrp()));
+					iIdto.setEntryDate(s.getEntryDate());
+					iIdto.setDescription(s.getDescription());
+					iIdto.setDateCreated(s.getDateCreated());
+					iIdto.setLastUpdated(s.getLastUpdated());
+					iIdto.setSupplierName(inwardTools.getSupplierName());
+					iIdto.setSuppliedOn(inwardTools.getSuppliedOn());
+					iIdto.setGstType(inwardTools.getGstType());
+					iIdto.setIgst(String.valueOf(inwardTools.getIgst()));
+					iIdto.setSgst(String.valueOf(inwardTools.getSgst()));
+					iIdto.setCgst(String.valueOf(inwardTools.getCgst()));
+					iIdto.setSubTotal(String.valueOf(inwardTools.getSubTotal()));
+					iIdto.setGrandTotal(String.valueOf(inwardTools.getGrandTotal()));
+					iIdto.setInvoiceNo(inwardTools.getInvoiceNo());
+					iIdto.setReceivedBy(inwardTools.getReceivedBy());
+					iIdto.setReceivedDate(inwardTools.getReceivedDate());
+					iIdto.setUsername(inwardTools.getUsername());
+					iIdto.setBundleId(s.getBundleId());
+
+					return iIdto;
+				}).collect(Collectors.toList());
+
+		return newTools;
 	}
 
 	@Override
@@ -479,7 +578,9 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void deleteBundleTools(Long toolsId) {
+	public boolean deleteBundleTools(Long toolsId) {
+
+		boolean deletedAll = false;
 
 		InwardToolsBundle iI = inwardToolsBundleRepository.findBybundleId(toolsId);
 
@@ -499,12 +600,18 @@ public class StockServiceImpl implements StockService {
 
 		inwardToolsBundleRepository.deleteById(toolsId);
 
+		List<InwardToolsBundle> inwardToolsCount = inwardToolsBundleRepository.findAll().stream()
+				.filter(f -> f.getInwardTools().equals(iI.getInwardTools())).collect(Collectors.toList());
+
+		inwardTools.setNoOfTools(inwardToolsCount.size());
+
 		inwardToolsRepository.save(inwardTools);
 
 		if (allInwardTools.size() == 1) {
 			inwardToolsRepository.deleteById(lastToolsId);
+			deletedAll = true;
 		}
-
+		return deletedAll;
 	}
 
 	@Override

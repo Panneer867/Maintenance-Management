@@ -12,12 +12,11 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}">Stock Management</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/spare}">Inward Spares</a></div>
 						</li>
 
-
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Spares</span></div>
+							<div class="link"><span aria-current="location">Inward chart</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -36,8 +35,14 @@
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/spare/bundles}">
+							Inward Bundles
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/spare/list}">
-							Inward List
+							Inward All List
 						</a>
 					</li>
 				</ul>

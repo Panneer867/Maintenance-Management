@@ -12,12 +12,13 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}">Stock Management</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/spare}">Inward Spare</a></div>
 						</li>
-
-
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/inward/spare/bundles}">Inward Bundles</a></div>
+						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Spares</span></div>
+							<div class="link"><span aria-current="location">Inward Bundle List</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -38,8 +39,14 @@
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/inward/spare/bundles}">
+							Inward Bundles
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/spare/list}">
-							Inward List
+							Inward Full List
 						</a>
 					</li>
 				</ul>
@@ -55,7 +62,7 @@
 			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 			<thead class="table-dark">
 				<tr>
-					<th class="all">Item ID</th>
+					<th class="all">ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item</th>
 					<th class="all">Image</th>
@@ -72,26 +79,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="sparesList: ${sparesLists}">
-					<td th:text="${sparesList.itemId}"></td>
-					<td th:text="${sparesList.categoryName}"></td>
-					<td th:text="${sparesList.itemName}"></td>
+				<tr th:each="bundledSpare: ${bundledSpares}">
+					<td th:text="${bundledSpare.itemId}"></td>
+					<td th:text="${bundledSpare.categoryName}"></td>
+					<td th:text="${bundledSpare.itemName}"></td>
 					<td class="text-center thumb">
-						<img th:src="@{${sparesList.imagePath} + ${sparesList.spareImage}}" alt="image" />
+						<img th:src="@{${bundledSpare.imagePath} + ${bundledSpare.spareImage}}" alt="image" />
 					</td>
-					<td th:text="${sparesList.supplierName}"></td>
-					<td th:text="${sparesList.brand}"></td>
-					<td th:text="${sparesList.hsnCode}"></td>
+					<td th:text="${bundledSpare.supplierName}"></td>
+					<td th:text="${bundledSpare.brand}"></td>
+					<td th:text="${bundledSpare.hsnCode}"></td>
 
-					<td th:text="${sparesList.unitOfMeasure}"></td>
-					<td th:text="${sparesList.totalQuantity}"></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.costRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.mrp}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${sparesList.totalAmount}"></label></td>
-					<td th:text="${sparesList.entryDate}"></td>
+					<td th:text="${bundledSpare.unitOfMeasure}"></td>
+					<td th:text="${bundledSpare.totalQuantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledSpare.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledSpare.mrp}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledSpare.totalAmount}"></label></td>
+					<td th:text="${bundledSpare.entryDate}"></td>
 
 					<td class="text-center"><button
-							th:onclick="|deleteId('/stocks/inward/spare/list/delete/?id=${sparesList.bundleId}')|"
+							th:onclick="|deleteId('/stocks/inward/spare/bundle/list/delete/?id=${bundledSpare.bundleId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 								class="glyphicon glyphicon-trash"></span></button>
