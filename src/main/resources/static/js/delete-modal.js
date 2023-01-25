@@ -6,6 +6,10 @@ function deleteAll(href) {
 	$('#deleteAll').attr('href', href);
 }
 
+function viewId(href) {
+	$('#vievRef').attr('href', href);
+}
+
 function enable() {
 	document.getElementById('senableApp').value = $('#ienableApp').is(':checked') ? $('#ienableApp').val() : "off";
 }

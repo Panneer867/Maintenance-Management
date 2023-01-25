@@ -45,6 +45,7 @@ public class InwardTools {
 	private String receivedBy;
 	private String receivedDate;
 	private String username;
+	private int noOfTools;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardTools")

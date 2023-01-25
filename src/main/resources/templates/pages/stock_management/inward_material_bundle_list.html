@@ -2,7 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Materials List
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Bundles List
 		</h3>
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
@@ -11,13 +11,14 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
-
-<li class="crumb">
+						<li class="crumb">
 							<div class="link"><a th:href="@{/stocks/inward/material}">Inward Material</a></div>
 						</li>
-						
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/inward/material/bundles}">Inward Bundles</a></div>
+						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Full List</span></div>
+							<div class="link"><span aria-current="location">Inward Bundle List</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -25,8 +26,7 @@
 			<div class="col-6">
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/material}">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/spare}">
 							Inward Entry
 						</a>
 					</li>
@@ -37,17 +37,18 @@
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
 							th:href="@{/stocks/inward/material/bundles}">
 							Inward Bundles
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/material/list}">
 							Inward Full List
 						</a>
 					</li>
+					
 					
 				</ul>
 			</div>
@@ -59,8 +60,8 @@
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 		</div>
 		<table
-			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
-			<thead class="table-dark">
+			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4" style="position: relative">
+			<thead class="table-dark ">
 				<tr>
 					<th class="all">ID</th>
 					<th class="all">Category</th>
@@ -79,26 +80,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="materialsList: ${materialsLists}">
-					<td th:text="${materialsList.itemId}"></td>
-					<td th:text="${materialsList.categoryName}"></td>
-					<td th:text="${materialsList.itemName}"></td>
+				<tr th:each="bundledMaterial: ${bundledMaterials}">
+					<td th:text="${bundledMaterial.itemId}"></td>
+					<td th:text="${bundledMaterial.categoryName}"></td>
+					<td th:text="${bundledMaterial.itemName}"></td>
 					<td class="text-center thumb">
-						<img th:src="@{${materialsList.imagePath} + ${materialsList.materialImage}}" alt="image" />
+						<img th:src="@{${bundledMaterial.imagePath} + ${bundledMaterial.materialImage}}" alt="image" />
 					</td>
-					<td th:text="${materialsList.supplierName}"></td>
-					<td th:text="${materialsList.brand}"></td>
-					<td th:text="${materialsList.hsnCode}"></td>
+					<td th:text="${bundledMaterial.supplierName}"></td>
+					<td th:text="${bundledMaterial.brand}"></td>
+					<td th:text="${bundledMaterial.hsnCode}"></td>
 
-					<td th:text="${materialsList.unitOfMeasure}"></td>
-					<td th:text="${materialsList.totalQuantity}"></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.costRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.mrp}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.totalAmount}"></label></td>
-					<td th:text="${materialsList.entryDate}"></td>
+					<td th:text="${bundledMaterial.unitOfMeasure}"></td>
+					<td th:text="${bundledMaterial.totalQuantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledMaterial.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledMaterial.mrp}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${bundledMaterial.totalAmount}"></label></td>
+					<td th:text="${bundledMaterial.entryDate}"></td>
 
 					<td class="text-center"><button
-							th:onclick="|deleteId('/stocks/inward/material/list/delete/?id=${materialsList.bundleId}')|"
+							th:onclick="|deleteId('/stocks/inward/material/bundle/list/delete/?id=${bundledMaterial.bundleId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 								class="glyphicon glyphicon-trash"></span></button>
@@ -106,6 +107,7 @@
 				</tr>
 			</tbody>
 		</table>
+
 		<div class="modal fade" id="delInwardItem" tabindex="-1" role="dialog" aria-labelledby="delInwardItem"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
@@ -126,7 +128,6 @@
 				</div>
 			</div>
 		</div>
-
 
 
 	</section>

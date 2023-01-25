@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardMaterial;
+import com.ingroinfo.mm.entity.InwardMaterialBundle;
 import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
 import com.ingroinfo.mm.entity.InwardSpare;
 import com.ingroinfo.mm.helper.Message;
@@ -158,19 +160,21 @@ public class StockController {
 
 	@GetMapping("/inward/material/delete")
 	public String deleteMaterial(@RequestParam("id") Long tempBunleId, HttpSession session) {
-		
+
 		stockService.deleteTempBundleMaterial(tempBunleId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/material";
 
 	}
 
 	@GetMapping("/inward/materials/delete")
 	public String deleteMaterials(HttpSession session) {
-		
+
 		stockService.deleteAllMaterials();
 		session.setAttribute("message",
-				new Message("All Item has been successfully removed from the list !", "success"));
+				new Message("All Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/material";
 
 	}
@@ -187,9 +191,47 @@ public class StockController {
 
 	@GetMapping("/inward/material/list/delete")
 	public String deleteMaterialsOfList(@RequestParam("id") Long materialId, HttpSession session) {
+		
 		stockService.deleteBundleMaterial(materialId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "danger"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+		
 		return "redirect:/stocks/inward/material/list";
+
+	}
+
+	@GetMapping("/inward/material/bundle/list/delete")
+	public String deleteMaterialsOfBundleList(@RequestParam("id") Long bundleId, HttpSession session) {
+
+		InwardMaterialBundle materialId = stockService.getMaterialById(bundleId);
+		
+		boolean deletedAll = stockService.deleteBundleMaterial(bundleId);
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+
+		if (deletedAll) {
+			session.setAttribute("message", new Message("Bundle has been removed successfully  from the list !", "danger"));
+			return "redirect:/stocks/inward/material/bundles";
+		}
+
+		return "redirect:/stocks/inward/material/bundle/view/" + materialId.getInwardMaterial().getAllMaterialsId();
+	}
+
+	@GetMapping("/inward/material/bundles")
+	public String viewMaterialsOfList(Model model) {
+
+		model.addAttribute("title", "Inward Bundles | Maintenance Management");
+		model.addAttribute("bundleLists", stockService.getMaterialsBundlesList());
+
+		return "/pages/stock_management/inward_material_bundles";
+
+	}
+
+	@GetMapping("/inward/material/bundle/view/{id}")
+	public String viewMaterialsOfList(@PathVariable Long id, Model model) {
+
+		model.addAttribute("title", "Inward Bundle List | Maintenance Management");
+		model.addAttribute("bundledMaterials", stockService.getBundledMaterialsById(id));
+
+		return "/pages/stock_management/inward_material_bundle_list";
 
 	}
 
@@ -293,17 +335,21 @@ public class StockController {
 
 	@GetMapping("/inward/spare/delete")
 	public String deleteSpare(@RequestParam("id") Long tempBunleId, HttpSession session) {
+		
 		stockService.deleteTempBundleSpare(tempBunleId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/spare";
 
 	}
 
 	@GetMapping("/inward/spares/delete")
 	public String deleteSpares(HttpSession session) {
+		
 		stockService.deleteAllSpares();
 		session.setAttribute("message",
-				new Message("All Item has been successfully removed from the list !", "success"));
+				new Message("All Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/spare";
 
 	}
@@ -321,15 +367,34 @@ public class StockController {
 	public String deleteSparesOfList(@RequestParam("id") Long spareId, HttpSession session) {
 
 		stockService.deleteBundleSpare(spareId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "danger"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+		
 		return "redirect:/stocks/inward/spare/list";
 
+	}
+
+	@GetMapping("/inward/spare/bundles")
+	public String viewSparesOfList(Model model) {
+
+		model.addAttribute("bundleLists", stockService.getMaterialsBundlesList());
+
+		return "/pages/stock_management/inward_spare_bundles";
+
+	}
+
+	@GetMapping("/inward/spare/bundle/view/{id}")
+	public String viewSparesOfList(@PathVariable Long id, Model model) {
+
+		model.addAttribute("bundledSpares", stockService.getBundledSparesById(id));
+
+		return "/pages/stock_management/inward_spare_bundle_list";
 	}
 
 	@GetMapping("/inward/spare/chart")
 	public String inwardSpareChart(Model model, Principal principal) {
 
 		model.addAttribute("title", "Inward Spare Chart | Maintenance Management");
+		
 		return "/pages/stock_management/inward_spare_chart";
 	}
 
@@ -422,6 +487,7 @@ public class StockController {
 		stockService.saveInwardAllTools(inwardTools);
 
 		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
+		
 		return "redirect:/stocks/inward/tools";
 	}
 
@@ -429,16 +495,19 @@ public class StockController {
 	public String deleteTools(@RequestParam("id") Long tempBunleId, HttpSession session) {
 
 		stockService.deleteTempBundleTools(tempBunleId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "success"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/tools";
 
 	}
 
 	@GetMapping("/inward/alltools/delete")
 	public String deleteAllTools(HttpSession session) {
+		
 		stockService.deleteAllTools();
 		session.setAttribute("message",
-				new Message("All Item has been successfully removed from the list !", "success"));
+				new Message("All Item has been removed successfully from the list !", "success"));
+		
 		return "redirect:/stocks/inward/tools";
 
 	}
@@ -456,9 +525,26 @@ public class StockController {
 	public String deleteToolsOfList(@RequestParam("id") Long toolsId, HttpSession session) {
 
 		stockService.deleteBundleTools(toolsId);
-		session.setAttribute("message", new Message("Item has been successfully removed from the list !", "danger"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
 
 		return "redirect:/stocks/inward/tools/list";
+	}
+
+	@GetMapping("/inward/tools/bundles")
+	public String viewToolsOfList(Model model) {
+
+		model.addAttribute("bundleLists", stockService.getToolsBundlesList());
+
+		return "/pages/stock_management/inward_tools_bundles";
+
+	}
+
+	@GetMapping("/inward/tools/bundle/view/{id}")
+	public String viewToolsOfList(@PathVariable Long id, Model model) {
+
+		model.addAttribute("bundledTools", stockService.getBundledToolsById(id));
+
+		return "/pages/stock_management/inward_tools_bundle_list";
 
 	}
 

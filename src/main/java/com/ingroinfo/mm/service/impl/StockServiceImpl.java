@@ -82,16 +82,79 @@ public class StockServiceImpl implements StockService {
 				.findByUsername(inwardMaterial.getUsername());
 
 		for (InwardMaterialTempBundle tempInwardMaterial : inwardMaterialTemp) {
+
 			InwardMaterialBundle inwardMaterialBundle = modelMapper.map(tempInwardMaterial, InwardMaterialBundle.class);
 			inwardMaterialBundle.setInwardMaterial(newInwardMaterial);
 			inwardMaterialBundleRepository.save(inwardMaterialBundle);
+
 		}
 		inwardMaterialTempBundleRepository.deleteAll();
+
+		List<InwardMaterialBundle> listOfMaterials = inwardMaterialBundleRepository
+				.findByInwardMaterial(newInwardMaterial);
+
+		newInwardMaterial.setNoOfMaterials(listOfMaterials.size());
+
+		inwardMaterialRepository.save(inwardMaterial);
+
+	}
+
+	@Override
+	public InwardMaterialBundle getMaterialById(Long bundleId) {
+		return inwardMaterialBundleRepository.findBybundleId(bundleId);
 	}
 
 	@Override
 	public List<InwardMaterialBundle> getInwardMaterialList() {
 		return inwardMaterialBundleRepository.findAll();
+	}
+
+	@Override
+	public List<InwardItemDto> getBundledMaterialsById(Long bundleId) {
+
+		InwardMaterial inwardMaterial = inwardMaterialRepository.findByAllMaterialsId(bundleId);
+
+		List<InwardItemDto> newMaterials = inwardMaterialBundleRepository.findByInwardMaterial(inwardMaterial).stream()
+				.map(s -> {
+
+					InwardItemDto iIdto = new InwardItemDto();
+
+					iIdto.setSupplierName(inwardMaterial.getSupplierName());
+					iIdto.setItemId(s.getItemId());
+					iIdto.setItemName(s.getItemName());
+					iIdto.setAliasName(s.getAliasName());
+					iIdto.setMaterialImage(s.getMaterialImage());
+					iIdto.setImagePath(s.getImagePath());
+					iIdto.setCategoryName(s.getCategoryName());
+					iIdto.setBrand(s.getBrand());
+					iIdto.setHsnCode(s.getHsnCode());
+					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
+					iIdto.setTotalQuantity(String.valueOf(s.getTotalQuantity()));
+					iIdto.setTotalAmount(String.valueOf(s.getTotalAmount()));
+					iIdto.setCostRate(String.valueOf(s.getCostRate()));
+					iIdto.setMrp(String.valueOf(s.getMrp()));
+					iIdto.setEntryDate(s.getEntryDate());
+					iIdto.setDescription(s.getDescription());
+					iIdto.setDateCreated(s.getDateCreated());
+					iIdto.setLastUpdated(s.getLastUpdated());
+					iIdto.setSupplierName(inwardMaterial.getSupplierName());
+					iIdto.setSuppliedOn(inwardMaterial.getSuppliedOn());
+					iIdto.setGstType(inwardMaterial.getGstType());
+					iIdto.setIgst(String.valueOf(inwardMaterial.getIgst()));
+					iIdto.setSgst(String.valueOf(inwardMaterial.getSgst()));
+					iIdto.setCgst(String.valueOf(inwardMaterial.getCgst()));
+					iIdto.setSubTotal(String.valueOf(inwardMaterial.getSubTotal()));
+					iIdto.setGrandTotal(String.valueOf(inwardMaterial.getGrandTotal()));
+					iIdto.setInvoiceNo(inwardMaterial.getInvoiceNo());
+					iIdto.setReceivedBy(inwardMaterial.getReceivedBy());
+					iIdto.setReceivedDate(inwardMaterial.getReceivedDate());
+					iIdto.setUsername(inwardMaterial.getUsername());
+					iIdto.setBundleId(s.getBundleId());
+
+					return iIdto;
+				}).collect(Collectors.toList());
+
+		return newMaterials;
 	}
 
 	@Override
@@ -143,7 +206,9 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void deleteBundleMaterial(Long materialId) {
+	public boolean deleteBundleMaterial(Long materialId) {
+
+		boolean deletedAll = false;
 
 		InwardMaterialBundle iI = inwardMaterialBundleRepository.findBybundleId(materialId);
 
@@ -156,7 +221,7 @@ public class StockServiceImpl implements StockService {
 
 		inwardMaterial.setSubTotal(subTotal);
 		inwardMaterial.setGrandTotal(subTotal + gstVal);
-
+		
 		Long materialsId = iI.getInwardMaterial().getAllMaterialsId();
 
 		List<InwardMaterialBundle> inwardMaterials = inwardMaterialBundleRepository.findAll().stream()
@@ -164,11 +229,17 @@ public class StockServiceImpl implements StockService {
 
 		inwardMaterialBundleRepository.deleteById(materialId);
 
+		List<InwardMaterialBundle> inwardMaterialsCount = inwardMaterialBundleRepository.findAll().stream()
+				.filter(f -> f.getInwardMaterial().equals(iI.getInwardMaterial())).collect(Collectors.toList());
+		
+		inwardMaterial.setNoOfMaterials(inwardMaterialsCount.size());
 		inwardMaterialRepository.save(inwardMaterial);
 
 		if (inwardMaterials.size() == 1) {
 			inwardMaterialRepository.deleteById(materialsId);
+			deletedAll = true;
 		}
+		return deletedAll;
 	}
 
 	@Override
@@ -206,11 +277,25 @@ public class StockServiceImpl implements StockService {
 		}
 		inwardSpareTempBundleRepository.deleteAll();
 
+		List<InwardSpareBundle> listOfSpares = inwardSpareBundleRepository.findByInwardSpare(newInwardSpare);
+
+		newInwardSpare.setNoOfSpares(listOfSpares.size());
+
+		inwardSpareRepository.save(newInwardSpare);
+
 	}
 
 	@Override
 	public List<InwardSpareBundle> getInwardSpareList() {
 		return inwardSpareBundleRepository.findAll();
+	}
+
+	@Override
+	public List<InwardSpareBundle> getBundledSparesById(Long bundleId) {
+
+		InwardSpare inwardSpare = inwardSpareRepository.findByAllSparesId(bundleId);
+
+		return inwardSpareBundleRepository.findByInwardSpare(inwardSpare);
 	}
 
 	@Override
@@ -324,11 +409,25 @@ public class StockServiceImpl implements StockService {
 			inwardToolsBundleRepository.save(inwardToolsBundle);
 		}
 		inwardToolsTempBundleRepository.deleteAll();
+
+		List<InwardToolsBundle> listOfTools = inwardToolsBundleRepository.findByInwardTools(newInwardTools);
+
+		newInwardTools.setNoOfTools(listOfTools.size());
+
+		inwardToolsRepository.save(newInwardTools);
 	}
 
 	@Override
 	public List<InwardToolsBundle> getInwardToolsList() {
 		return inwardToolsBundleRepository.findAll();
+	}
+
+	@Override
+	public List<InwardToolsBundle> getBundledToolsById(Long bundleId) {
+
+		InwardTools inwardTools = inwardToolsRepository.findByAllToolsId(bundleId);
+
+		return inwardToolsBundleRepository.findByInwardTools(inwardTools);
 	}
 
 	@Override
@@ -411,7 +510,24 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public void deleteAllTools() {
 		inwardToolsTempBundleRepository.deleteAll();
+	}
 
+	@Override
+	public List<InwardMaterial> getMaterialsBundlesList() {
+
+		return inwardMaterialRepository.findAll();
+	}
+
+	@Override
+	public List<InwardSpare> getSparesBundlesList() {
+
+		return inwardSpareRepository.findAll();
+	}
+
+	@Override
+	public List<InwardTools> getToolsBundlesList() {
+
+		return inwardToolsRepository.findAll();
 	}
 
 }

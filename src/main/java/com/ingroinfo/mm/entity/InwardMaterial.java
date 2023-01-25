@@ -45,7 +45,8 @@ public class InwardMaterial {
 	private String receivedBy;
 	private String receivedDate;
 	private String username;
-
+	private int noOfMaterials;
+	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardMaterial")
 	private List<InwardMaterialBundle> inwardMaterialBundle;

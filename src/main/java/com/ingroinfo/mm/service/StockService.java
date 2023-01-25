@@ -23,10 +23,16 @@ public interface StockService {
 	void saveInwardMaterials(InwardMaterial inwardMaterial);
 
 	List<InwardMaterialBundle> getInwardMaterialList();
+	
+	List<InwardItemDto> getBundledMaterialsById(Long bundleId);
 
 	List<InwardItemDto> getInwarAllMaterialList();
+	
+	List<InwardMaterial> getMaterialsBundlesList();
+	
+	InwardMaterialBundle getMaterialById(Long bundleId);
 
-	void deleteBundleMaterial(Long materialId);
+	boolean deleteBundleMaterial(Long materialId);
 	
 	void deleteAllMaterials();
 	
@@ -39,8 +45,12 @@ public interface StockService {
 	void saveInwardSpares(InwardSpare inwardSpare);
 
 	List<InwardSpareBundle> getInwardSpareList();
+	
+	List<InwardSpareBundle> getBundledSparesById(Long bundleId);
 
 	List<InwardItemDto> getInwardAllSpareList();
+	
+	List<InwardSpare> getSparesBundlesList();
 
 	void deleteBundleSpare(Long spareId);
 	
@@ -55,11 +65,21 @@ public interface StockService {
 	void saveInwardAllTools(InwardTools inwardTools);
 
 	List<InwardToolsBundle> getInwardToolsList();
+	
+	List<InwardToolsBundle> getBundledToolsById(Long bundleId);
 
 	List<InwardItemDto> getInwardAllToolsList();
+	
+	List<InwardTools> getToolsBundlesList();
 
 	void deleteBundleTools(Long toolsId);
 	
 	void deleteAllTools();
+
+	
+
+	
+
+	
 
 }

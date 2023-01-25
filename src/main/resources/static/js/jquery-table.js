@@ -3,12 +3,16 @@ $(document).ready(function() {
 	$.noConflict(true);
 	$.noConflict();
 	$.noConflict();
-   $('.mytable').DataTable({
+	$('.mytable').DataTable({
 		"responsive": true,
-		"autoWidth": false
-	});
-	
+		"autoWidth": false,
+		scrollX: true,
+
+	}).columns.adjust();
+
+
 	$('.dropify').dropify();
-	
+
+
 });
 

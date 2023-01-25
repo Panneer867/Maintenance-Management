@@ -45,6 +45,7 @@ public class InwardSpare {
 	private String receivedBy;
 	private String receivedDate;
 	private String username;
+	private int noOfSpares;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardSpare")
