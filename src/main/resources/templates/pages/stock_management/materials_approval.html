@@ -1,0 +1,29 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stocks Approvals</h3>
+		<div class="row mt-2">
+			<div class="col-6" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Material Approvals</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-6" >
+			</div>
+		</div>
+		
+	</section>
+</body>
+
+</html>
