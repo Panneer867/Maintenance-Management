@@ -2,35 +2,35 @@ package com.ingroinfo.mm.service;
 
 import java.util.List;
 import com.ingroinfo.mm.dto.InwardItemDto;
-import com.ingroinfo.mm.entity.InwardMaterialBundle;
-import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
+import com.ingroinfo.mm.entity.InwardMaterials;
+import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardSpare;
 import com.ingroinfo.mm.entity.InwardSpareBundle;
 import com.ingroinfo.mm.entity.InwardSpareTempBundle;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.InwardToolsBundle;
 import com.ingroinfo.mm.entity.InwardToolsTempBundle;
-import com.ingroinfo.mm.entity.InwardMaterial;
+import com.ingroinfo.mm.entity.InwardMaterialBundles;
 
 public interface StockService {
 
-	void saveInwardMaterial(InwardMaterialTempBundle inwardMaterialTemp);
+	void saveInwardMaterial(InwardTempMaterials inwardMaterialTemp);
 
-	List<InwardMaterialTempBundle> getInwardTempMaterialList(String username);
+	List<InwardTempMaterials> getInwardTempMaterialList(String username);
 
 	void deleteTempBundleMaterial(Long tempBunleId);
 	
-	void saveInwardMaterials(InwardMaterial inwardMaterial);
+	void saveInwardMaterials(InwardMaterialBundles inwardMaterial);
 
-	List<InwardMaterialBundle> getInwardMaterialList();
+	List<InwardMaterials> getInwardMaterialList();
 	
 	List<InwardItemDto> getBundledMaterialsById(Long bundleId);
 
 	List<InwardItemDto> getInwarAllMaterialList();
 	
-	List<InwardMaterial> getMaterialsBundlesList();
+	List<InwardMaterialBundles> getMaterialsBundlesList();
 	
-	InwardMaterialBundle getMaterialById(Long bundleId);
+	InwardMaterials getMaterialById(Long bundleId);
 
 	boolean deleteBundleMaterial(Long materialId);
 	

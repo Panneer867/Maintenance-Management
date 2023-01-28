@@ -39,13 +39,12 @@ public class InwardSpareBundle {
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
-	private Long totalQuantity;
-	private Long totalAmount;
-	private Long costRate;
-	private Long mrp;
+	private int totalQuantity;
+	private Double totalAmount;
+	private Double costRate;
+	private Double mrp;
 	private String entryDate;
 	private String description;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "inward_spare_id")

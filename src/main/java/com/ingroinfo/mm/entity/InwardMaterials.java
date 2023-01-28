@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,12 +24,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_material_temp_bundles")
-public class InwardMaterialTempBundle {
+@Table(name = "mm_inward_materials")
+public class InwardMaterials {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long bundleId;
+	private Long materialId;
 	private Long itemId;
 	private String itemName;
 	private String aliasName;
@@ -37,14 +39,17 @@ public class InwardMaterialTempBundle {
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
-	private Long totalQuantity;
-	private Long totalAmount;
-	private Long costRate;
-	private Long mrp;
+	private int totalQuantity;
+	private Double totalAmount;
+	private Double costRate;
+	private Double mrp;
 	private String entryDate;
 	private String description;
-	private String username;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "bundleId")
+	private InwardMaterialBundles materialBundle;
+
 	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;
@@ -52,5 +57,5 @@ public class InwardMaterialTempBundle {
 	@Column(name = "last_updated")
 	@UpdateTimestamp
 	private Date lastUpdated;
-	
+
 }

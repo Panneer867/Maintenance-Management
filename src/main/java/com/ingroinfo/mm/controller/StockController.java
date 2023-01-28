@@ -24,9 +24,9 @@ import com.ingroinfo.mm.entity.InwardToolsBundle;
 import com.ingroinfo.mm.entity.InwardToolsTempBundle;
 import com.ingroinfo.mm.dto.InwardItemDto;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.InwardMaterial;
-import com.ingroinfo.mm.entity.InwardMaterialBundle;
-import com.ingroinfo.mm.entity.InwardMaterialTempBundle;
+import com.ingroinfo.mm.entity.InwardMaterialBundles;
+import com.ingroinfo.mm.entity.InwardMaterials;
+import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardSpare;
 import com.ingroinfo.mm.entity.InwardSpareBundle;
 import com.ingroinfo.mm.helper.Message;
@@ -73,7 +73,7 @@ public class StockController {
 		model.addAttribute("title", "Inward Material Page");
 		model.addAttribute("inwardItem", new InwardItemDto());
 
-		List<InwardMaterialTempBundle> inwardMaterialList = stockService.getInwardTempMaterialList(principal.getName());
+		List<InwardTempMaterials> inwardMaterialList = stockService.getInwardTempMaterialList(principal.getName());
 		if (inwardMaterialList.size() == 0) {
 			model.addAttribute("emptyList", "No Materials");
 		} else {
@@ -110,7 +110,7 @@ public class StockController {
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-		InwardMaterialTempBundle inwardMaterialTemp = modelMapper.map(inwardItemDto, InwardMaterialTempBundle.class);
+		InwardTempMaterials inwardMaterialTemp = modelMapper.map(inwardItemDto, InwardTempMaterials.class);
 		String itemName = hsnCodeService.getHsnById(ItemOrhsnId).getItemName();
 		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
 		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Materials\\";
@@ -131,7 +131,7 @@ public class StockController {
 	public String addMaterials(@ModelAttribute("inwardItem") InwardItemDto inwardItemDto, BindingResult bindingResult,
 			HttpSession session, Principal principal) throws IOException {
 
-		List<InwardMaterialTempBundle> inwardMaterialList = stockService.getInwardTempMaterialList(principal.getName());
+		List<InwardTempMaterials> inwardMaterialList = stockService.getInwardTempMaterialList(principal.getName());
 
 		if (inwardMaterialList.size() == 0) {
 
@@ -141,16 +141,16 @@ public class StockController {
 		}
 
 		if (inwardItemDto.getIgst() == null) {
-			inwardItemDto.setIgst("0");
+			inwardItemDto.setIgst(0.0);
 		}
 
 		if (inwardItemDto.getGstType() == "Exempted") {
-			inwardItemDto.setIgst("0");
-			inwardItemDto.setSgst("0");
-			inwardItemDto.setCgst("0");
+			inwardItemDto.setIgst(0.0);
+			inwardItemDto.setSgst(0.0);
+			inwardItemDto.setCgst(0.0);
 		}
 
-		InwardMaterial inwardMaterial = modelMapper.map(inwardItemDto, InwardMaterial.class);
+		InwardMaterialBundles inwardMaterial = modelMapper.map(inwardItemDto, InwardMaterialBundles.class);
 
 		inwardMaterial.setUsername(principal.getName());
 
@@ -165,7 +165,7 @@ public class StockController {
 
 		stockService.deleteTempBundleMaterial(tempBunleId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/material";
 
 	}
@@ -176,7 +176,7 @@ public class StockController {
 		stockService.deleteAllMaterials();
 		session.setAttribute("message",
 				new Message("All Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/material";
 
 	}
@@ -193,10 +193,10 @@ public class StockController {
 
 	@GetMapping("/inward/material/list/delete")
 	public String deleteMaterialsOfList(@RequestParam("id") Long materialId, HttpSession session) {
-		
+
 		stockService.deleteBundleMaterial(materialId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
-		
+
 		return "redirect:/stocks/inward/material/list";
 
 	}
@@ -204,17 +204,18 @@ public class StockController {
 	@GetMapping("/inward/material/bundle/list/delete")
 	public String deleteMaterialsOfBundleList(@RequestParam("id") Long bundleId, HttpSession session) {
 
-		InwardMaterialBundle materialId = stockService.getMaterialById(bundleId);
-		
+		InwardMaterials materialId = stockService.getMaterialById(bundleId);
+
 		boolean deletedAll = stockService.deleteBundleMaterial(bundleId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
 
 		if (deletedAll) {
-			session.setAttribute("message", new Message("Bundle has been removed successfully  from the list !", "danger"));
+			session.setAttribute("message",
+					new Message("Bundle has been removed successfully  from the list !", "danger"));
 			return "redirect:/stocks/inward/material/bundles";
 		}
 
-		return "redirect:/stocks/inward/material/bundle/view/" + materialId.getInwardMaterial().getAllMaterialsId();
+		return "redirect:/stocks/inward/material/bundle/view/" + materialId.getMaterialBundle().getBundleId();
 	}
 
 	@GetMapping("/inward/material/bundles")
@@ -316,13 +317,13 @@ public class StockController {
 		}
 
 		if (inwardItemDto.getIgst() == null) {
-			inwardItemDto.setIgst("0");
+			inwardItemDto.setIgst(0.0);
 		}
 
 		if (inwardItemDto.getGstType() == "Exempted") {
-			inwardItemDto.setIgst("0");
-			inwardItemDto.setSgst("0");
-			inwardItemDto.setCgst("0");
+			inwardItemDto.setIgst(0.0);
+			inwardItemDto.setSgst(0.0);
+			inwardItemDto.setCgst(0.0);
 		}
 
 		InwardSpare inwardSpare = modelMapper.map(inwardItemDto, InwardSpare.class);
@@ -337,21 +338,21 @@ public class StockController {
 
 	@GetMapping("/inward/spare/delete")
 	public String deleteSpare(@RequestParam("id") Long tempBunleId, HttpSession session) {
-		
+
 		stockService.deleteTempBundleSpare(tempBunleId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/spare";
 
 	}
 
 	@GetMapping("/inward/spares/delete")
 	public String deleteSpares(HttpSession session) {
-		
+
 		stockService.deleteAllSpares();
 		session.setAttribute("message",
 				new Message("All Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/spare";
 
 	}
@@ -370,7 +371,7 @@ public class StockController {
 
 		stockService.deleteBundleSpare(spareId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
-		
+
 		return "redirect:/stocks/inward/spare/list";
 
 	}
@@ -411,13 +412,12 @@ public class StockController {
 		return "/pages/stock_management/inward_spares_bundle_list";
 
 	}
-	
 
 	@GetMapping("/inward/spare/chart")
 	public String inwardSpareChart(Model model, Principal principal) {
 
 		model.addAttribute("title", "Inward Spare Chart | Maintenance Management");
-		
+
 		return "/pages/stock_management/inward_spares_chart";
 	}
 
@@ -494,13 +494,13 @@ public class StockController {
 		}
 
 		if (inwardItemDto.getIgst() == null) {
-			inwardItemDto.setIgst("0");
+			inwardItemDto.setIgst(0.0);
 		}
 
 		if (inwardItemDto.getGstType() == "Exempted") {
-			inwardItemDto.setIgst("0");
-			inwardItemDto.setSgst("0");
-			inwardItemDto.setCgst("0");
+			inwardItemDto.setIgst(0.0);
+			inwardItemDto.setSgst(0.0);
+			inwardItemDto.setCgst(0.0);
 		}
 
 		InwardTools inwardTools = modelMapper.map(inwardItemDto, InwardTools.class);
@@ -510,7 +510,7 @@ public class StockController {
 		stockService.saveInwardAllTools(inwardTools);
 
 		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
-		
+
 		return "redirect:/stocks/inward/tools";
 	}
 
@@ -519,18 +519,18 @@ public class StockController {
 
 		stockService.deleteTempBundleTools(tempBunleId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/tools";
 
 	}
 
 	@GetMapping("/inward/alltools/delete")
 	public String deleteAllTools(HttpSession session) {
-		
+
 		stockService.deleteAllTools();
 		session.setAttribute("message",
 				new Message("All Item has been removed successfully from the list !", "success"));
-		
+
 		return "redirect:/stocks/inward/tools";
 
 	}
@@ -557,19 +557,20 @@ public class StockController {
 	public String deleteToolsOfBundleList(@RequestParam("id") Long bundleId, HttpSession session) {
 
 		InwardToolsBundle spareId = stockService.getToolsById(bundleId);
-		
+
 		boolean deletedAll = stockService.deleteBundleTools(bundleId);
 		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
 
 		if (deletedAll) {
-			session.setAttribute("message", new Message("Bundle has been removed successfully  from the list !", "danger"));
+			session.setAttribute("message",
+					new Message("Bundle has been removed successfully  from the list !", "danger"));
 			return "redirect:/stocks/inward/tools/bundles";
 		}
 
 		return "redirect:/stocks/inward/tools/bundle/view/" + spareId.getInwardTools().getAllToolsId();
 	}
 
-@GetMapping("/inward/tools/bundles")
+	@GetMapping("/inward/tools/bundles")
 	public String viewToolsOfList(Model model) {
 
 		model.addAttribute("title", "Inward Tools Bundles | Maintenance Management");

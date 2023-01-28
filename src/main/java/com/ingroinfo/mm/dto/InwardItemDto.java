@@ -12,37 +12,46 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InwardItemDto {
-	
+
+	private Long materialId;
+	private Long spareId;
+	private Long toolsId;
 	private Long itemId;
+	private Long bundleId;
 	private String itemName;
 	private String aliasName;
-	private String materialImage;
-	private String spareImage;
-	private String toolsImage;
-	private String imagePath;
 	private String categoryName;
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
-	private String totalQuantity;
-	private String totalAmount;
-	private String costRate;
-	private String mrp;
-	private String entryDate;
-	private String description;
-	private Date dateCreated;
-	private Date lastUpdated;
-	private Long bundleId;
-	private String supplierName;
+	private int totalQuantity;
+	private String supplier;
 	private String suppliedOn;
 	private String gstType;
-	private String igst;
-	private String sgst;
-	private String cgst;
-	private String subTotal;
-	private String grandTotal;
 	private String invoiceNo;
 	private String receivedBy;
 	private String receivedDate;
+	private String entryDate;
+	private String approvedBy;
 	private String username;
+	private String imagePath;
+	private String description;
+	private String materialImage;
+	private String spareImage;
+	private String toolsImage;
+	private Double costRate;
+	private Double mrp;
+	private Double igst;
+	private Double sgst;
+	private Double cgst;
+	private Double totalAmount;
+	private Double subTotal;
+	private Double grandTotal;
+	private String supplierName;
+	private int noOfMaterials;
+	private int noOfSpares;
+	private int noOfTools;
+	private Date dateCreated;
+	private Date lastUpdated;
+
 }

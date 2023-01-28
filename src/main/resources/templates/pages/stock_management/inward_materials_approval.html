@@ -1,0 +1,440 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stocks Approvals</h3>
+		<div class="row mt-2">
+			<div class="col-6" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Material Approvals</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-6">
+			</div>
+		</div>
+
+		<div th:if="${session.message}" class="alert_field">
+			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+				<span th:text="${session.message.content}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<table class="table table-stock table-bordered table table-info table-striped table-hover mytable w-100 mt-4">
+			<thead class="table-dark">
+				<tr>
+					<th class="all">ID</th>
+					<th class="all">Category</th>
+					<th class="all">Item</th>
+					<th class="all">Image</th>
+					<th class="all">Qty</th>
+					<th class="all">Cost</th>
+					<th class="all">MRP</th>
+					<th class="all">Total </th>
+					<th class="all">Entry </th>
+					<th class="all">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="materialsList: ${materialsLists}">
+					<td th:text="${materialsList.itemId}"></td>
+					<td th:text="${materialsList.categoryName}"></td>
+					<td th:text="${materialsList.itemName}"></td>
+					<td class="text-center img-box"
+						th:attr="onclick=|viewImg('${materialsList.imagePath}${materialsList.materialImage}')|"
+						data-toggle="modal" data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top"
+						title="Click to View">
+						<img th:src="@{${materialsList.imagePath} + ${materialsList.materialImage}}" alt="image" />
+					</td>
+
+
+					<td th:text="${materialsList.totalQuantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.mrp}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.totalAmount}"></label></td>
+					<td th:text="${materialsList.entryDate}"></td>
+
+					<td class="text-center">
+
+						<button th:onclick="|getMaterialDetails('${materialsList.bundleId}')|"
+							class="btn btn-success p-1 mx-2" data-toggle="modal" data-target="#material-detail"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><span
+								class="glyphicon glyphicon-ok"></span></button>
+
+						<button
+							th:onclick="|deleteId('/stocks/inward/material/list/delete/?id=${materialsList.bundleId}')|"
+							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
+								class="glyphicon glyphicon-remove"></span></button>
+					</td>
+
+
+				</tr>
+			</tbody>
+		</table>
+		<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h4 class="mx-auto">Material Image</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-1">
+						<img th:id="viewRef" width="794" alt="image" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="material-detail" tabindex="-1" role="dialog" aria-labelledby="material-detail"
+			aria-hidden="true">
+			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
+				<div class="modal-content">
+					<form class="mb-0" th:action="@{/approvals/stocks/material/approved}" th:object="${inwardItem}"
+						method="post">
+						<div class="modal-header p-2">
+							<h4 class="mx-auto my-2">Material Approval</h4>
+							<label class="mb-0 text-dark font-weight-bold">Item ID
+							</label>
+							<input type="hidden" name="itemId" id="mat-bundleId" />
+							<input type="hidden" name="itemName" id="mat-itemName" />
+							<input type="hidden" name="aliasName" id="mat-aliasName" />
+							<input type="hidden" name="categoryName" id="mat-categoryName" />
+							<input type="hidden" name="brand" id="mat-brand" />
+							<input type="hidden" name="hsnCode" id="mat-hsnCode" />
+							<input type="hidden" name="unitOfMeasure" id="mat-unitOfMeasure" />
+							<input type="hidden" name="costRate" id="mat-costRate" />
+							<input type="hidden" name="mrp" id="mat-mrp" />
+							<input type="hidden" name="totalQuantity" id="mat-totalQuantity" />
+							<input type="hidden" name="supplierName" id="mat-supplierName" />
+							<input type="hidden" name="suppliedOn" id="mat-suppliedOn" />
+							<input type="hidden" name="gstType" id="mat-gstType" />
+							<input type="hidden" name="igst" id="mat-igst" />
+							<input type="hidden" name="sgst" id="mat-sgst" />
+							<input type="hidden" name="cgst" id="mat-cgst" />
+							<input type="hidden" name="invoiceNo" id="mat-invoiceNo" />
+							<input type="hidden" name="receivedBy" id="mat-receivedBy" />
+							<input type="hidden" name="receivedDate" id="mat-receivedDate" />
+							<input type="hidden" name="entryDate" id="mat-entryDate" />
+							<input type="hidden" name="description" id="mat-description" />
+							<input type="hidden" name="subTotal" id="mat-subTotal" />
+							<input type="hidden" name="grandTotal" id="mat-grandTotal" />
+							<input type="hidden" name="imagePath" id="mat-imagePath" />
+							<input type="hidden" name="materialImage" id="mat-materialImage" />
+							<input type="text" class="form-control-plaintext text-primary text-center col-1"
+								id="copy-mat-itemId" disabled />
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="row">
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-itemName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
+													Name</label>
+												<div class="col-sm-8 px-0">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-aliasName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">Category</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-categoryName" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-brand" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
+												</label>
+												<div class="col-sm-8">
+
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-hsnCode" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
+													Measure</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-unitOfMeasure" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Cost
+													Rate</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number" class="form-control text-primary"
+															id="copy-mat-costRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">MRP
+												</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number"
+															class="form-control text-primary text-primary"
+															id="copy-mat-mrp" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">
+													Quantity</label>
+												<div class="col-sm-8">
+													<input type="number" class="form-control text-primary"
+														id="copy-mat-totalQuantity" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-supplierName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Supplied On</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="copy-mat-suppliedOn" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-gstType" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">GST/IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="number" class="form-control text-primary"
+															id="copy-mat-igst" required disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="copy-mat-sgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="copy-mat-cgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-invoiceNo" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													By</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-receivedBy" disabled />
+												</div>
+											</div>
+										</div>
+
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													Date</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="copy-mat-receivedDate" disabled />
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Entry
+													Date</label>
+												<div class="col-sm-8">
+													<input type="date" class="form-control text-primary"
+														id="copy-mat-entryDate" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-8">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
+													style="width: 110px;">Description</label>
+												<div class="col-sm-10 px-0">
+													<input type="text" class="form-control text-primary"
+														id="copy-mat-description" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-3 text-center">
+									<label for="staticEmail">Material Image</label><br>
+									<img id="material-image" alt="image" width="250" />
+									<div class="mb-4 w-75 ml-5" style="position: absolute;bottom: 0;">
+										<div class="row text-white">
+											<div class="col-5 bg-dark py-2 rounded-top">
+												<label class="font-weight-bold mb-0">Subtotal</label>
+											</div>
+											<div class="col-7 bg-dark row py-2 rounded-top text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="copy-mat-subTotal"></label></label>
+											</div>
+										</div>
+										<div class="row text-white">
+											<div class="col-5 bg-primary py-2 rounded-bottom">
+												<label class="font-weight-bold mb-0">Grand Total</label>
+											</div>
+											<div class="col-7 bg-primary row py-2 rounded-bottom text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="copy-mat-grandTotal"></label></label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer p-2 ">
+							<button type="submit" class="btn btn-sm btn-success">Approve</button>
+							<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+						</div>
+
+
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

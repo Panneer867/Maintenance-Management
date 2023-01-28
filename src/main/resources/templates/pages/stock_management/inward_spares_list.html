@@ -82,7 +82,9 @@
 					<td th:text="${sparesList.itemId}"></td>
 					<td th:text="${sparesList.categoryName}"></td>
 					<td th:text="${sparesList.itemName}"></td>
-					<td class="text-center thumb">
+					<td class="text-center img-box"
+						th:attr="onclick=|viewImg('${sparesList.imagePath}${sparesList.spareImage}')|" data-toggle="modal"
+						data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to View">
 						<img th:src="@{${sparesList.imagePath} + ${sparesList.spareImage}}" alt="image" />
 					</td>
 					<td th:text="${sparesList.supplierName}"></td>
@@ -125,7 +127,21 @@
 				</div>
 			</div>
 		</div>
-
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h4 class="mx-auto">Spare Image</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-1">
+						<img th:id="viewRef" width="794" alt="image" />
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 	</section>

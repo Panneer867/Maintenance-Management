@@ -1,18 +1,21 @@
 package com.ingroinfo.mm.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,31 +27,29 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_tools_bundles")
-public class InwardToolsBundle {
+@Table(name = "mm_inward_material_bundles")
+public class InwardMaterialBundles {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long bundleId;
-	private Long itemId;
-	private String itemName;
-	private String aliasName;
-	private String toolsImage;
-	private String imagePath;
-	private String categoryName;
-	private String brand;
-	private String hsnCode;
-	private String unitOfMeasure;
-	private int totalQuantity;
-	private Double totalAmount;
-	private Double costRate;
-	private Double mrp;
-	private String entryDate;
-	private String description;
+	private String supplierName;
+	private String suppliedOn;
+	private String gstType;
+	private Double igst;
+	private Double sgst;
+	private Double cgst;
+	private Double subTotal;
+	private Double grandTotal;
+	private String invoiceNo;
+	private String receivedBy;
+	private String receivedDate;
+	private String username;
+	private int noOfMaterials;
 
-	@ManyToOne
-	@JoinColumn(name = "inward_tools_id")
-	private InwardTools inwardTools;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "materialBundle")
+	private List<InwardMaterials> inwardMaterials;
 
 	@Column(name = "date_created")
 	@CreationTimestamp

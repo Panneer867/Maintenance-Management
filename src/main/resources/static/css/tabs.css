@@ -732,3 +732,9 @@ td.thumb:hover img {
 ul li a.active-tab {
 	background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%) !important;
 }
+
+td.img-box img {
+	width: 1.5em;
+	/* height: 1.5em; */
+	object-fit: cover;
+}
