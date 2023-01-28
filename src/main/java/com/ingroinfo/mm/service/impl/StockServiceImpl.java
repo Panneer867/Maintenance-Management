@@ -32,7 +32,7 @@ public class StockServiceImpl implements StockService {
 	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
-	private InwardTempMaterialsRepository inwardMaterialTempBundleRepository;
+	private InwardTempMaterialsRepository inwardTempMaterialsRepository;
 
 	@Autowired
 	private InwardMaterialsRepository inwardMaterialsRepository;
@@ -60,17 +60,17 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public void saveInwardMaterial(InwardTempMaterials inwardMaterialTemp) {
-		inwardMaterialTempBundleRepository.save(inwardMaterialTemp);
+		inwardTempMaterialsRepository.save(inwardMaterialTemp);
 	}
 
 	@Override
 	public List<InwardTempMaterials> getInwardTempMaterialList(String username) {
-		return inwardMaterialTempBundleRepository.findByUsername(username);
+		return inwardTempMaterialsRepository.findByUsername(username);
 	}
 
 	@Override
 	public void deleteTempBundleMaterial(Long tempBunleId) {
-		inwardMaterialTempBundleRepository.deleteById(tempBunleId);
+		inwardTempMaterialsRepository.deleteById(tempBunleId);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class StockServiceImpl implements StockService {
 
 		InwardMaterialBundles newInwardMaterial = inwardMaterialBundlesRepository.save(inwardMaterial);
 
-		List<InwardTempMaterials> inwardMaterialTemp = inwardMaterialTempBundleRepository
+		List<InwardTempMaterials> inwardMaterialTemp = inwardTempMaterialsRepository
 				.findByUsername(inwardMaterial.getUsername());
 
 		for (InwardTempMaterials tempInwardMaterial : inwardMaterialTemp) {
@@ -88,7 +88,7 @@ public class StockServiceImpl implements StockService {
 			inwardMaterialsRepository.save(inwardMaterialBundle);
 
 		}
-		inwardMaterialTempBundleRepository.deleteAll();
+		inwardTempMaterialsRepository.deleteAll();
 
 		List<InwardMaterials> listOfMaterials = inwardMaterialsRepository.findByMaterialBundle(newInwardMaterial);
 
@@ -245,7 +245,7 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public void deleteAllMaterials() {
-		inwardMaterialTempBundleRepository.deleteAll();
+		inwardTempMaterialsRepository.deleteAll();
 	}
 
 	@Override

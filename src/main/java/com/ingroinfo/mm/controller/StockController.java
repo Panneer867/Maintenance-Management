@@ -76,9 +76,11 @@ public class StockController {
 		List<InwardTempMaterials> inwardMaterialList = stockService.getInwardTempMaterialList(principal.getName());
 		if (inwardMaterialList.size() == 0) {
 			model.addAttribute("emptyList", "No Materials");
+			model.addAttribute("subTotal", 0);
 		} else {
-			Long subTotal = inwardMaterialList.stream().filter(f -> f.getTotalAmount() != null)
-					.mapToLong(o -> o.getTotalAmount()).sum();
+			Double subTotal = inwardMaterialList.stream().filter(f -> f.getTotalAmount() != null)
+					.mapToDouble(o -> o.getTotalAmount()).sum();
+			
 			model.addAttribute("subTotal", subTotal);
 		}
 		model.addAttribute("inwardMaterialLists", inwardMaterialList);

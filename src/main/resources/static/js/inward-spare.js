@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$("#grand-total-spare").val(subTotal);
 
 			$("#get-igst-spare").prop('disabled', true);
-
+			$("#get-igst-spare").val(0);
 			$("#get-cgst-spare").val(0);
 			$("#get-sgst-spare").val(0);
 

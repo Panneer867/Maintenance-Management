@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$("#grand-total-material").val(subTotal);
 
 			$("#get-igst-material").prop('disabled', true);
-
+			$("#get-igst-material").val(0);
 			$("#get-cgst-material").val(0);
 			$("#get-sgst-material").val(0);
 

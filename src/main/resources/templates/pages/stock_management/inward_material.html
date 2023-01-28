@@ -237,7 +237,7 @@
 						<th class="all">MRP</th>
 						<th class="all">Qty</th>
 						<th class="all">Total</th>
-						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/items/delete')|"
+						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/materials/delete')|"
 								class="btn text-danger p-0 font-weight-bold" data-toggle="modal" data-target="#delAll"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item">Clear All</button>
 						</th>
@@ -262,7 +262,7 @@
 						<td>&#8377;<label class="px-1" th:text="${inwardMaterialList.totalAmount}"></label></td>
 
 						<td class="text-center"><button
-								th:onclick="|deleteId('/stocks/inward/material/delete/?id=${inwardMaterialList.bundleId}')|"
+								th:onclick="|deleteId('/stocks/inward/material/delete/?id=${inwardMaterialList.materialId}')|"
 								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 									class="glyphicon glyphicon-trash"></span></button>
@@ -334,7 +334,7 @@
 											<div class="col-sm-7">
 												<div class="input-group">
 													<input type="hidden" name="sgst" id="get-imp-sgst-material" />
-													<input type="number" value="0" id="get-sgst-material" class="form-control" />
+													<input type="number" id="get-sgst-material" class="form-control" />
 													<div class="input-group-prepend">
 														<span class="input-group-text font-weight-bold"
 															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -349,7 +349,7 @@
 											<div class="col-sm-7">
 												<div class="input-group">
 													<input type="hidden" name="cgst" id="get-imp-cgst-material" />
-													<input type="number" value="0" id="get-cgst-material" class="form-control" />
+													<input type="number" id="get-cgst-material" class="form-control" />
 													<div class="input-group-prepend">
 														<span class="input-group-text  font-weight-bold"
 															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>

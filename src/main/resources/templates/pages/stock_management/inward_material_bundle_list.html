@@ -101,7 +101,7 @@
 					<td th:text="${bundledMaterial.entryDate}"></td>
 
 					<td class="text-center"><button
-							th:onclick="|deleteId('/stocks/inward/material/bundle/list/delete/?id=${bundledMaterial.bundleId}')|"
+							th:onclick="|deleteId('/stocks/inward/material/bundle/list/delete/?id=${bundledMaterial.materialId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 								class="glyphicon glyphicon-trash"></span></button>

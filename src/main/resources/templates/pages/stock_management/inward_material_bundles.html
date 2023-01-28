@@ -64,7 +64,7 @@
 					<th class="all" > ID</th>
 					<th class="all">Supplier</th>
 					<th class="all">Invoice</th>
-					<th class="all">Supldon</th>				
+								
 					<th class="all">IGST</th>
 					<th class="all">CGST</th>
 					<th class="all">SGST</th>
@@ -78,10 +78,10 @@
 			</thead>
 			<tbody>
 				<tr th:each="bundleMaterialsList: ${bundleMaterialsLists}">
-					<td th:text="${bundleMaterialsList.allMaterialsId}"></td>
+					<td th:text="${bundleMaterialsList.bundleId}"></td>
 					<td th:text="${bundleMaterialsList.supplierName}"></td>
 					<td th:text="${bundleMaterialsList.invoiceNo}"></td>
-					<td th:text="${bundleMaterialsList.suppliedOn}"></td>					
+									
 					<td th:text="${bundleMaterialsList.igst}"></td>
 					<td th:text="${bundleMaterialsList.cgst}"></td>
 					<td th:text="${bundleMaterialsList.sgst}"></td>
@@ -92,7 +92,7 @@
 					<td th:text="${bundleMaterialsList.receivedDate}"></td>
 
 					<td class="text-center">
-						<a th:href="@{'/stocks/inward/material/bundle/view/' + ${bundleMaterialsList.allMaterialsId}}"
+						<a th:href="@{'/stocks/inward/material/bundle/view/' + ${bundleMaterialsList.bundleId}}"
 							class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
 							title="View Bundle"><span class="glyphicon glyphicon-eye-open"></span></a>
 					</td>
