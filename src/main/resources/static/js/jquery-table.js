@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$('.mytable').DataTable({
 		"responsive": true,
 		"autoWidth": false,
-		scrollX: true,
+		"scrollX": true,
 
 	}).columns.adjust();
 

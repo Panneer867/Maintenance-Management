@@ -40,12 +40,12 @@ import com.ingroinfo.mm.service.UnitMeasureService;
 @RequestMapping("/stocks")
 public class StockController {
 
+	private static final ModelMapper modelMapper = new ModelMapper();
+
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-
-	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	private AdminService adminService;
@@ -80,7 +80,7 @@ public class StockController {
 		} else {
 			Double subTotal = inwardMaterialList.stream().filter(f -> f.getTotalAmount() != null)
 					.mapToDouble(o -> o.getTotalAmount()).sum();
-			
+
 			model.addAttribute("subTotal", subTotal);
 		}
 		model.addAttribute("inwardMaterialLists", inwardMaterialList);
