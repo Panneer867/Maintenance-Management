@@ -2,8 +2,8 @@
 
 <body>
 	<section>
-	<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Tools Chart
-	</h3>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Tools Chart
+		</h3>
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
 				<nav aria-label="breadcrumb">
@@ -12,11 +12,11 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/inward/tools}">Inward Tools</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/tools/entry}">Inward Tools</a></div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward chart</span></div>
+							<div class="link"><span aria-current="location">Inward Tools chart</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -25,32 +25,37 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
 
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/tools}">
-							Inward Entry
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/tools/entry}">
+							Inward Tools Entry
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark" th:href="@{/stocks/inward/tools/chart}">
-							Inward Chart
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/inward/tools/chart}">
+							Inward Tools Chart
 						</a>
 					</li>
+
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/tools/bundles}">
-							Inward Bundles
+							th:href="@{/stocks/inward/tools/list}">
+							Inward Tools List
 						</a>
 					</li>
+
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/tools/list}">
-							Inward All List
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/tools/list/approved}">
+							Inward Approved Tools List
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<figure class="highcharts-figure border">
-					<div id="container"></div>
-				</figure>
+			<div id="container"></div>
+		</figure>
 
 	</section>
 </body>

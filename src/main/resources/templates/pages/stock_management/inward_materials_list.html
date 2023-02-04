@@ -13,11 +13,11 @@
 						</li>
 
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/inward/material}">Inward Material</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/materials/entry}">Inward Material</a></div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Full List</span></div>
+							<div class="link"><span aria-current="location">Inward Materials List</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -26,29 +26,31 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
 
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/inward/material}">
-							Inward Entry
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/materials/entry}">
+							Inward Materials Entry
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/material/chart}">
-							Inward Chart
-						</a>
-					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/material/bundles}">
-							Inward Bundles
-						</a>
-					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
-							th:href="@{/stocks/inward/material/list}">
-							Inward Full List
+							th:href="@{/stocks/inward/materials/chart}">
+							Inward Materials Chart
 						</a>
 					</li>
 
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/inward/materials/list}">
+							Inward Materials List
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/materials/list/approved}">
+							Inward Approved Materials List
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -62,52 +64,363 @@
 			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 			<thead class="table-dark">
 				<tr>
-					<th class="all">ID</th>
+					<th class="all">Item ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item</th>
-					<th class="all">Image</th>
 					<th class="all">Supplier</th>
-					<th class="all">Brand</th>
-					<th class="all">HSN</th>
-					<th class="all">Unit(M)</th>
 					<th class="all">Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
-					<th class="all">Total </th>
-					<th class="all">Entry </th>
+					<th class="all">Sub Total</th>
+					<th class="all">GST</th>
+					<th class="all">Grand Total</th>
+					<th class="all">Entry Date</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="materialsList: ${materialsLists}">
 					<td th:text="${materialsList.itemId}"></td>
-					<td th:text="${materialsList.categoryName}"></td>
+					<td th:text="${materialsList.category}"></td>
 					<td th:text="${materialsList.itemName}"></td>
-					<td class="text-center img-box"
-						th:attr="onclick=|viewImg('${materialsList.imagePath}${materialsList.materialImage}')|"
-						data-toggle="modal" data-target="#imgModal">
-						<img th:src="@{${materialsList.imagePath} + ${materialsList.materialImage}}" alt="image" />
-					</td>
-					<td th:text="${materialsList.supplierName}"></td>
-					<td th:text="${materialsList.brand}"></td>
-					<td th:text="${materialsList.hsnCode}"></td>
-
-					<td th:text="${materialsList.unitOfMeasure}"></td>
-					<td th:text="${materialsList.totalQuantity}"></td>
+					<td th:text="${materialsList.supplier}"></td>
+					<td th:text="${materialsList.quantity}"></td>
 					<td>&#8377;<label class="px-1" th:text="${materialsList.costRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.mrp}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.totalAmount}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.mrpRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.subTotal}"></label></td>
+					<td><label class="px-1" th:text="${materialsList.igst}"></label>%</td>
+					<td>&#8377;<label class="px-1" th:text="${materialsList.grandTotal}"></label></td>
 					<td th:text="${materialsList.entryDate}"></td>
-
-					<td class="text-center"><button
-							th:onclick="|deleteId('/stocks/inward/material/list/delete/?id=${materialsList.materialId}')|"
+					<td class="text-center">
+						<button
+							th:onclick="|getMaterialDetails('/stocks/inward/materials/get/${materialsList.materialId}')|"
+							class="btn btn-success p-1 mx-2" data-toggle="modal"
+							data-target="#material-detail">View</button>
+						<button
+							th:onclick="|deleteId('/stocks/inward/materials/list/delete/${materialsList.materialId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
 								class="glyphicon glyphicon-trash"></span></button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="modal fade" id="material-detail" tabindex="-1" role="dialog" aria-labelledby="material-detail"
+			aria-hidden="true">
+			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
+				<div class="modal-content">
+					<form class="mb-0" th:action="@{/approvals/stocks/material/approved}" th:object="${inwardItem}"
+						method="post">
+						<div class="modal-header p-2">
+							<h4 class="mx-auto my-2">Material Details</h4>
+							<label class="mb-0 text-dark font-weight-bold">Item ID
+							</label>
+
+							<input type="text" class="form-control-plaintext text-primary text-center col-1"
+								id="copy-mat-itemId" disabled />
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="row">
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="mat-itemName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
+													Name</label>
+												<div class="col-sm-8 px-0">
+													<input type="text" class="form-control text-primary"
+														id="mat-aliasName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">Category</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="mat-category" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary" id="mat-brand"
+														disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
+												</label>
+												<div class="col-sm-8">
+
+													<input type="text" class="form-control text-primary"
+														id="mat-hsnCode" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
+													Measure</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="mat-unitOfMeasure" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Cost
+													Rate</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number" class="form-control text-primary"
+															id="mat-costRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">MRP
+												</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number"
+															class="form-control text-primary text-primary"
+															id="mat-mrpRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">
+													Quantity</label>
+												<div class="col-sm-8">
+													<input type="number" class="form-control text-primary"
+														id="mat-quantity" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="mat-supplier" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Supplied On</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="mat-suppliedOn" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="mat-gstType" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">GST/IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="number" class="form-control text-primary"
+															id="mat-igst" required disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="mat-sgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="mat-cgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="mat-invoice" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													By</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="mat-receivedBy" disabled />
+												</div>
+											</div>
+										</div>
+
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													Date</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="mat-receivedDate" disabled />
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Entry
+													Date</label>
+												<div class="col-sm-8">
+													<input type="date" class="form-control text-primary"
+														id="mat-entryDate" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-8">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
+													style="width: 110px;">Description</label>
+												<div class="col-sm-10 px-0">
+													<input type="text" class="form-control text-primary"
+														id="mat-description" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-3 text-center">
+									<label for="staticEmail">Material Image</label><br>
+									<img id="mat-itemImage" alt="image" width="250" />
+									<div class="mb-4 w-75 ml-5" style="position: absolute;bottom: 0;">
+										<div class="row text-white">
+											<div class="col-5 bg-dark py-2 rounded-top">
+												<label class="font-weight-bold mb-0">Subtotal</label>
+											</div>
+											<div class="col-7 bg-dark row py-2 rounded-top text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="mat-subTotal"></label></label>
+											</div>
+										</div>
+										<div class="row text-white">
+											<div class="col-5 bg-primary py-2 rounded-bottom">
+												<label class="font-weight-bold mb-0">Grand Total</label>
+											</div>
+											<div class="col-7 bg-primary row py-2 rounded-bottom text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="mat-grandTotal"></label></label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer p-2 ">
+							<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+						</div>
+
+
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+
+
 		<div class="modal fade" id="delInwardItem" tabindex="-1" role="dialog" aria-labelledby="delInwardItem"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
@@ -128,21 +441,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4 class="mx-auto">Material Image</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body p-1">
-						<img th:id="viewRef" width="794" alt="image" />
-					</div>
-				</div>
-			</div>
-		</div>
+
 
 
 	</section>

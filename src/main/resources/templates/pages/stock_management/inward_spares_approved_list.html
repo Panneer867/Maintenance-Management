@@ -2,7 +2,8 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stocks Approvals</h3>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Spares List
+		</h3>
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
 				<nav aria-label="breadcrumb">
@@ -10,170 +11,110 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
+
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/spares/entry}">Inward Spare</a></div>
 						</li>
+
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Material Approvals</span></div>
+							<div class="link"><span aria-current="location">Inward Approved Spares</span></div>
 						</li>
 					</ol>
 				</nav>
 			</div>
 			<div class="col-6">
-
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/spares/entry}">
+							Inward Spares Entry
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/inward/spares/chart}">
+							Inward Spares Chart
+						</a>
+					</li>
 
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/inward/materials/list/approved}">
-							Inward Approved Materials List
+							th:href="@{/stocks/inward/spares/list}">
+							Inward Spares List
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/inward/spares/list/approved}">
+							Inward Approved Spares List
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-
 		<div th:if="${session.message}" class="alert_field">
 			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 				<span th:text="${session.message.content}"></span>
 			</div>
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 		</div>
-		<table class="table table-stock table-bordered table table-info table-striped table-hover mytable w-100 mt-4">
+		<table
+			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 			<thead class="table-dark">
 				<tr>
+
 					<th class="all">Item ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item</th>
-					<th class="all">Image</th>
+					<th class="all">Supplier</th>
 					<th class="all">Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
 					<th class="all">Sub Total</th>
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
-					<th class="all">Entry </th>
+					<th class="all">Entry Date</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="materialsList: ${materialsLists}">
-					<td th:text="${materialsList.ItemId}"></td>
-					<td th:text="${materialsList.category}"></td>
-					<td th:text="${materialsList.itemName}"></td>
-					<td class="text-center img-box"
-						th:attr="onclick=|viewImg('${materialsList.imagePath}${materialsList.itemImage}')|"
-						data-toggle="modal" data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top"
-						title="Click to View">
-						<img th:src="@{${materialsList.imagePath} + ${materialsList.itemImage}}" alt="image" />
-					</td>
+				<tr th:each="approvedSparesList: ${approvedSparesLists}">
 
-
-					<td th:text="${materialsList.quantity}"></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.costRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.mrpRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.subTotal}"></label></td>
-					<td><label class="px-1" th:text="${materialsList.igst}"></label>%</td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.grandTotal}"></label></td>
-					<td th:text="${materialsList.entryDate}"></td>
-
+					<td th:text="${approvedSparesList.itemId}"></td>
+					<td th:text="${approvedSparesList.category}"></td>
+					<td th:text="${approvedSparesList.itemName}"></td>
+					<td th:text="${approvedSparesList.supplier}"></td>
+					<td th:text="${approvedSparesList.quantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.mrpRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.subTotal}"></label></td>
+					<td><label class="px-1" th:text="${approvedSparesList.igst}"></label>%</td>
+					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.grandTotal}"></label></td>
+					<td th:text="${approvedSparesList.entryDate}"></td>
 					<td class="text-center">
-
 						<button
-							th:onclick="|getMaterialDetails('/stocks/inward/materials/get/${materialsList.materialId}')|"
-							class="btn btn-success p-1 mx-2" data-toggle="modal" data-target="#material-detail"
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><span
-								class="glyphicon glyphicon-ok"></span></button>
-
-						<button
-							th:onclick="|deleteId('/approvals/stocks/materials/reject/${materialsList.materialId}')|"
-							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
-								class="glyphicon glyphicon-remove"></span></button>
+							th:onclick="|getSpareDetails('/approvals/inward/approved/spares/get/${approvedSparesList.approvedSpareId}')|"
+							class="btn btn-success p-1 mx-2" data-toggle="modal"
+							data-target="#spare-detail">View</button>
 					</td>
-
-
 				</tr>
 			</tbody>
 		</table>
-		<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4 class="mx-auto">Material Image</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body p-1">
-						<img th:id="viewRef" width="794" alt="image" />
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<div class="modal fade" id="delInwardItem" tabindex="-1" role="dialog" aria-labelledby="delInwardItem"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document" style="margin-top: 180px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4>Reject Item</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						Are you sure, you want to reject this Item?
-					</div>
-					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Remove</a>
-						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="material-detail" tabindex="-1" role="dialog" aria-labelledby="material-detail"
+		<div class="modal fade" id="spare-detail" tabindex="-1" role="dialog" aria-labelledby="spare-detail"
 			aria-hidden="true">
 			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
 				<div class="modal-content">
-					<form class="mb-0" th:action="@{/approvals/stocks/materials/approve}" th:object="${approval}"
+					<form class="mb-0" th:action="@{/approvals/stocks/spare/approved}" th:object="${inwardItem}"
 						method="post">
-
-						<input type="hidden" name="materialId" id="approve-mat-materialId" />
-						<input type="hidden" name="itemName" id="approve-mat-itemName" />
-						<input type="hidden" name="itemId" id="approve-mat-itemId" />
-						<input type="hidden" name="aliasName" id="approve-mat-aliasName" />
-						<input type="hidden" name="category" id="approve-mat-category" />
-						<input type="hidden" name="brand" id="approve-mat-brand" />
-						<input type="hidden" name="hsnCode" id="approve-mat-hsnCode" />
-						<input type="hidden" name="unitOfMeasure" id="approve-mat-unitOfMeasure" />
-						<input type="hidden" name="costRate" id="approve-mat-costRate" />
-						<input type="hidden" name="mrpRate" id="approve-mat-mrpRate" />
-						<input type="hidden" name="quantity" id="approve-mat-quantity" />
-						<input type="hidden" name="supplier" id="approve-mat-supplier" />
-						<input type="hidden" name="suppliedOn" id="approve-mat-suppliedOn" />
-						<input type="hidden" name="gstType" id="approve-mat-gstType" />
-						<input type="hidden" name="igst" id="approve-mat-igst" />
-						<input type="hidden" name="sgst" id="approve-mat-sgst" />
-						<input type="hidden" name="cgst" id="approve-mat-cgst" />
-						<input type="hidden" name="invoice" id="approve-mat-invoice" />
-						<input type="hidden" name="receivedBy" id="approve-mat-receivedBy" />
-						<input type="hidden" name="receivedDate" id="approve-mat-receivedDate" />
-						<input type="hidden" name="entryDate" id="approve-mat-entryDate" />
-						<input type="hidden" name="description" id="approve-mat-description" />
-						<input type="hidden" name="subTotal" id="approve-mat-subTotal" />
-						<input type="hidden" name="grandTotal" id="approve-mat-grandTotal" />
-						<input type="hidden" name="imagePath" id="approve-mat-imagePath" />
-						<input type="hidden" name="itemImage" id="approve-mat-itemImage" />
-
 						<div class="modal-header p-2">
-							<h4 class="mx-auto my-2">Material Approval</h4>
-							<label class="mb-0 text-dark font-weight-bold">Material ID
+							<h4 class="mx-auto my-2">Spare Details</h4>
+							<label class="mb-0 text-dark font-weight-bold">Item ID
 							</label>
 
 							<input type="text" class="form-control-plaintext text-primary text-center col-1"
-								id="copy-approve-mat-materialId" disabled />
+								id="approved-sap-itemId" disabled />
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -189,7 +130,7 @@
 												</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-itemName" disabled />
+														id="approved-sap-itemName" disabled />
 												</div>
 											</div>
 										</div>
@@ -199,7 +140,7 @@
 													Name</label>
 												<div class="col-sm-8 px-0">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-aliasName" disabled />
+														id="approved-sap-aliasName" disabled />
 												</div>
 											</div>
 										</div>
@@ -209,7 +150,7 @@
 													class="col-sm-4 col-form-label">Category</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-category" disabled />
+														id="approved-sap-category" disabled />
 												</div>
 											</div>
 										</div>
@@ -221,7 +162,7 @@
 												<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-brand" disabled />
+														id="approved-sap-brand" disabled />
 												</div>
 											</div>
 										</div>
@@ -232,7 +173,7 @@
 												<div class="col-sm-8">
 
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-hsnCode" disabled />
+														id="approved-sap-hsnCode" disabled />
 												</div>
 											</div>
 										</div>
@@ -242,7 +183,7 @@
 													Measure</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-unitOfMeasure" disabled />
+														id="approved-sap-unitOfMeasure" disabled />
 												</div>
 											</div>
 										</div>
@@ -259,7 +200,7 @@
 																style="border-radius: 0;">&#8377;</span>
 														</div>
 														<input type="number" class="form-control text-primary"
-															id="copy-approve-mat-costRate" disabled />
+															id="approved-sap-costRate" disabled />
 													</div>
 												</div>
 											</div>
@@ -276,7 +217,7 @@
 														</div>
 														<input type="number"
 															class="form-control text-primary text-primary"
-															id="copy-approve-mat-mrpRate" disabled />
+															id="approved-sap-mrpRate" disabled />
 													</div>
 												</div>
 											</div>
@@ -287,7 +228,7 @@
 													Quantity</label>
 												<div class="col-sm-8">
 													<input type="number" class="form-control text-primary"
-														id="copy-approve-mat-quantity" disabled />
+														id="approved-sap-quantity" disabled />
 												</div>
 											</div>
 										</div>
@@ -300,7 +241,7 @@
 												</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-supplier" disabled />
+														id="approved-sap-supplier" disabled />
 												</div>
 											</div>
 										</div>
@@ -310,7 +251,7 @@
 													style="width: 95px;">Supplied On</label>
 												<div class="col-sm-7">
 													<input type="date" class="form-control text-primary"
-														id="copy-approve-mat-suppliedOn" disabled />
+														id="approved-sap-suppliedOn" disabled />
 												</div>
 											</div>
 										</div>
@@ -320,7 +261,7 @@
 													Type</label>
 												<div class="col-sm-7">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-gstType" disabled />
+														id="approved-sap-gstType" disabled />
 												</div>
 											</div>
 										</div>
@@ -333,7 +274,7 @@
 												<div class="col-sm-8">
 													<div class="input-group">
 														<input type="number" class="form-control text-primary"
-															id="copy-approve-mat-igst" required disabled />
+															id="approved-sap-igst" required disabled />
 														<div class="input-group-prepend">
 															<span class="input-group-text font-weight-bold"
 																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -349,7 +290,7 @@
 													<div class="input-group">
 
 														<input type="number" class="form-control text-primary"
-															id="copy-approve-mat-sgst" disabled />
+															id="approved-sap-sgst" disabled />
 														<div class="input-group-prepend">
 															<span class="input-group-text font-weight-bold"
 																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -365,7 +306,7 @@
 													<div class="input-group">
 
 														<input type="number" class="form-control text-primary"
-															id="copy-approve-mat-cgst" disabled />
+															id="approved-sap-cgst" disabled />
 														<div class="input-group-prepend">
 															<span class="input-group-text  font-weight-bold"
 																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -381,7 +322,7 @@
 												<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-invoice" disabled />
+														id="approved-sap-invoice" disabled />
 												</div>
 											</div>
 										</div>
@@ -391,7 +332,7 @@
 													By</label>
 												<div class="col-sm-7">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-receivedBy" disabled />
+														id="approved-sap-receivedBy" disabled />
 												</div>
 											</div>
 										</div>
@@ -402,7 +343,7 @@
 													Date</label>
 												<div class="col-sm-7">
 													<input type="date" class="form-control text-primary"
-														id="copy-approve-mat-receivedDate" disabled />
+														id="approved-sap-receivedDate" disabled />
 												</div>
 											</div>
 										</div>
@@ -416,7 +357,7 @@
 													Date</label>
 												<div class="col-sm-8">
 													<input type="date" class="form-control text-primary"
-														id="copy-approve-mat-entryDate" disabled />
+														id="approved-sap-entryDate" disabled />
 												</div>
 											</div>
 										</div>
@@ -426,7 +367,7 @@
 													style="width: 110px;">Description</label>
 												<div class="col-sm-10 px-0">
 													<input type="text" class="form-control text-primary"
-														id="copy-approve-mat-description" disabled />
+														id="approved-sap-description" disabled />
 												</div>
 											</div>
 										</div>
@@ -434,8 +375,8 @@
 								</div>
 
 								<div class="col-3 text-center">
-									<label for="staticEmail">Material Image</label><br>
-									<img id="copy-approve-mat-itemImage" alt="image" width="250" />
+									<label for="staticEmail">Spare Image</label><br>
+									<img id="approved-sap-itemImage" alt="image" width="250" />
 									<div class="mb-4 w-75 ml-5" style="position: absolute;bottom: 0;">
 										<div class="row text-white">
 											<div class="col-5 bg-dark py-2 rounded-top">
@@ -444,7 +385,7 @@
 											<div class="col-7 bg-dark row py-2 rounded-top text-left">
 												<label class="font-weight-bold mb-0">&#8377;<label
 														class=" pl-2 font-weight-bold mb-0"
-														id="copy-approve-mat-subTotal"></label></label>
+														id="approved-sap-subTotal"></label></label>
 											</div>
 										</div>
 										<div class="row text-white">
@@ -454,7 +395,7 @@
 											<div class="col-7 bg-primary row py-2 rounded-bottom text-left">
 												<label class="font-weight-bold mb-0">&#8377;<label
 														class=" pl-2 font-weight-bold mb-0"
-														id="copy-approve-mat-grandTotal"></label></label>
+														id="approved-sap-grandTotal"></label></label>
 											</div>
 										</div>
 									</div>
@@ -463,12 +404,10 @@
 
 						</div>
 						<div class="modal-footer p-2 ">
-							<button type="submit" class="btn btn-sm btn-success">Approve</button>
 							<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</form>
 				</div>
-
 			</div>
 		</div>
 	</section>

@@ -7,6 +7,6 @@ import com.ingroinfo.mm.entity.InwardTools;
 @Repository
 public interface InwardToolsRepository extends JpaRepository<InwardTools, Long> {
 
-	InwardTools findByAllToolsId(Long allToolsId);
+	InwardTools findByToolId(Long id);
 
 }

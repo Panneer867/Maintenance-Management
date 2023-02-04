@@ -19,12 +19,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_materials")
-public class InwardMaterials {
+@Table(name = "mm_inward_approved_tools")
+public class InwardApprovedTools {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long materialId;
+	private Long approvedToolId;
+	private Long toolId;
 	private Long itemId;
 	private String itemName;
 	private String aliasName;

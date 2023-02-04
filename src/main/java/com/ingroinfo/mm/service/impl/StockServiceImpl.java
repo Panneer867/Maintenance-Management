@@ -1,35 +1,50 @@
 package com.ingroinfo.mm.service.impl;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
+import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
+import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.InwardMaterialsRepository;
-import com.ingroinfo.mm.dao.InwardMaterialBundlesRepository;
+import com.ingroinfo.mm.dao.InwardSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempMaterialsRepository;
-import com.ingroinfo.mm.dao.InwardSpareBundleRepository;
-import com.ingroinfo.mm.dao.InwardSpareRepository;
-import com.ingroinfo.mm.dao.InwardSpareTempBundleRepository;
-import com.ingroinfo.mm.dao.InwardToolsBundleRepository;
+import com.ingroinfo.mm.dao.InwardTempSparesRepository;
+import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
-import com.ingroinfo.mm.dao.InwardToolsTempBundleRepository;
-import com.ingroinfo.mm.dto.InwardItemDto;
+import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.InwardApprovedMaterials;
+import com.ingroinfo.mm.entity.InwardApprovedSpares;
+import com.ingroinfo.mm.entity.InwardApprovedTools;
 import com.ingroinfo.mm.entity.InwardMaterials;
+import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTempMaterials;
-import com.ingroinfo.mm.entity.InwardSpare;
-import com.ingroinfo.mm.entity.InwardSpareBundle;
-import com.ingroinfo.mm.entity.InwardSpareTempBundle;
+import com.ingroinfo.mm.entity.InwardTempSpares;
+import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.InwardToolsBundle;
-import com.ingroinfo.mm.entity.InwardToolsTempBundle;
+import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.StockService;
-import com.ingroinfo.mm.entity.InwardMaterialBundles;
 
 @Service
 public class StockServiceImpl implements StockService {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
+
+	@Autowired
+	private AdminService adminService;
+
+	@Autowired
+	private HsnCodeService hsnCodeService;
 
 	@Autowired
 	private InwardTempMaterialsRepository inwardTempMaterialsRepository;
@@ -38,209 +53,117 @@ public class StockServiceImpl implements StockService {
 	private InwardMaterialsRepository inwardMaterialsRepository;
 
 	@Autowired
-	private InwardMaterialBundlesRepository inwardMaterialBundlesRepository;
+	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
 
 	@Autowired
-	private InwardSpareTempBundleRepository inwardSpareTempBundleRepository;
+	private InwardTempSparesRepository inwardTempSparesRepository;
 
 	@Autowired
-	private InwardSpareBundleRepository inwardSpareBundleRepository;
+	private InwardSparesRepository inwardSparesRepository;
 
 	@Autowired
-	private InwardSpareRepository inwardSpareRepository;
+	private InwardApprovedSparesRepository inwardApprovedSparesRepository;
 
 	@Autowired
-	private InwardToolsTempBundleRepository inwardToolsTempBundleRepository;
-
-	@Autowired
-	private InwardToolsBundleRepository inwardToolsBundleRepository;
+	private InwardTempToolsRepository inwardTempToolsRepository;
 
 	@Autowired
 	private InwardToolsRepository inwardToolsRepository;
 
+	@Autowired
+	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
+
 	@Override
-	public void saveInwardMaterial(InwardTempMaterials inwardMaterialTemp) {
-		inwardTempMaterialsRepository.save(inwardMaterialTemp);
+	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
+
+		String companyName = "";
+		Long ItemId = Long.parseLong(inward.getItemName());
+		Company company = adminService.getCompanyByUsername(inward.getUsername());
+
+		if (company != null) {
+			companyName = company.getCompanyName();
+		} else {
+			companyName = "Admin";
+		}
+
+		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+
+		InwardTempMaterials inwardTempMaterials = modelMapper.map(inward, InwardTempMaterials.class);
+
+		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
+		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Materials\\";
+
+		try {
+			adminService.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		inwardTempMaterials.setItemImage(fileName);
+		inwardTempMaterials.setItemName(itemName);
+		inwardTempMaterials.setImagePath("/Company/" + companyName + "/Inward_Materials/");
+		inwardTempMaterials.setItemId(ItemId);
+		inwardTempMaterials.setUsername(inward.getUsername());
+		inwardTempMaterials.setSubTotal(inwardTempMaterials.getCostRate() * inwardTempMaterials.getQuantity());
+
+		inwardTempMaterialsRepository.save(inwardTempMaterials);
 	}
 
 	@Override
-	public List<InwardTempMaterials> getInwardTempMaterialList(String username) {
+	public void saveInwardMaterials(InwardDto inward) {
+
+		List<InwardTempMaterials> inwardTempMaterials = inwardTempMaterialsRepository
+				.findByUsername(inward.getUsername());
+
+		for (InwardTempMaterials inwardTempMaterial : inwardTempMaterials) {
+
+			InwardMaterials inwardMaterials = modelMapper.map(inwardTempMaterial, InwardMaterials.class);
+
+			double subTotal = inwardMaterials.getSubTotal();
+			double gst = (subTotal / 100) * inward.getIgst();
+
+			BigDecimal bd = new BigDecimal(subTotal + gst);
+			bd = bd.setScale(2, RoundingMode.HALF_UP);
+			double roundedNumber = bd.doubleValue();
+
+			inwardMaterials.setSupplier(inward.getSuppliedOn());
+			inwardMaterials.setSuppliedOn(inward.getSuppliedOn());
+			inwardMaterials.setGstType(inward.getGstType());
+			inwardMaterials.setIgst(inward.getIgst());
+			inwardMaterials.setSgst(inward.getSgst());
+			inwardMaterials.setCgst(inward.getCgst());
+			inwardMaterials.setGrandTotal(roundedNumber);
+			inwardMaterials.setInvoice(inward.getInvoice());
+			inwardMaterials.setReceivedBy(inward.getReceivedBy());
+			inwardMaterials.setReceivedDate(inward.getReceivedDate());
+
+			inwardMaterialsRepository.save(inwardMaterials);
+			inwardTempMaterialsRepository.deleteById(inwardTempMaterial.getTempMaterialId());
+		}
+
+	}
+
+	@Override
+	public List<InwardTempMaterials> getInwardTempMaterials(String username) {
 		return inwardTempMaterialsRepository.findByUsername(username);
 	}
 
 	@Override
-	public void deleteTempBundleMaterial(Long tempBunleId) {
-		inwardTempMaterialsRepository.deleteById(tempBunleId);
-	}
-
-	@Override
-	public void saveInwardMaterials(InwardMaterialBundles inwardMaterial) {
-
-		InwardMaterialBundles newInwardMaterial = inwardMaterialBundlesRepository.save(inwardMaterial);
-
-		List<InwardTempMaterials> inwardMaterialTemp = inwardTempMaterialsRepository
-				.findByUsername(inwardMaterial.getUsername());
-
-		for (InwardTempMaterials tempInwardMaterial : inwardMaterialTemp) {
-
-			InwardMaterials inwardMaterialBundle = modelMapper.map(tempInwardMaterial, InwardMaterials.class);
-			inwardMaterialBundle.setMaterialBundle(newInwardMaterial);
-			inwardMaterialsRepository.save(inwardMaterialBundle);
-
-		}
-		inwardTempMaterialsRepository.deleteAll();
-
-		List<InwardMaterials> listOfMaterials = inwardMaterialsRepository.findByMaterialBundle(newInwardMaterial);
-
-		newInwardMaterial.setNoOfMaterials(listOfMaterials.size());
-
-		inwardMaterialBundlesRepository.save(inwardMaterial);
-
-	}
-
-	@Override
-	public InwardMaterials getMaterialById(Long bundleId) {
-		return inwardMaterialsRepository.findByMaterialId(bundleId);
-	}
-
-	@Override
-	public List<InwardMaterials> getInwardMaterialList() {
+	public List<InwardMaterials> getInwardAllMaterialsList() {
 		return inwardMaterialsRepository.findAll();
 	}
 
 	@Override
-	public List<InwardItemDto> getBundledMaterialsById(Long bundleId) {
-
-		InwardMaterialBundles inwardMaterial = inwardMaterialBundlesRepository.findByBundleId(bundleId);
-
-		List<InwardItemDto> newMaterials = inwardMaterialsRepository.findByMaterialBundle(inwardMaterial).stream()
-				.map(s -> {
-
-					InwardItemDto iIdto = new InwardItemDto();
-
-					iIdto.setSupplierName(inwardMaterial.getSupplierName());
-					iIdto.setItemId(s.getItemId());
-					iIdto.setItemName(s.getItemName());
-					iIdto.setAliasName(s.getAliasName());
-					iIdto.setMaterialImage(s.getMaterialImage());
-					iIdto.setImagePath(s.getImagePath());
-					iIdto.setCategoryName(s.getCategoryName());
-					iIdto.setBrand(s.getBrand());
-					iIdto.setHsnCode(s.getHsnCode());
-					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-					iIdto.setTotalQuantity(s.getTotalQuantity());
-					iIdto.setTotalAmount(s.getTotalAmount());
-					iIdto.setCostRate(s.getCostRate());
-					iIdto.setMrp(s.getMrp());
-					iIdto.setEntryDate(s.getEntryDate());
-					iIdto.setDescription(s.getDescription());
-					iIdto.setDateCreated(s.getDateCreated());
-					iIdto.setLastUpdated(s.getLastUpdated());
-					iIdto.setSupplierName(inwardMaterial.getSupplierName());
-					iIdto.setSuppliedOn(inwardMaterial.getSuppliedOn());
-					iIdto.setGstType(inwardMaterial.getGstType());
-					iIdto.setIgst(inwardMaterial.getIgst());
-					iIdto.setSgst(inwardMaterial.getSgst());
-					iIdto.setCgst(inwardMaterial.getCgst());
-					iIdto.setSubTotal(inwardMaterial.getSubTotal());
-					iIdto.setGrandTotal(inwardMaterial.getGrandTotal());
-					iIdto.setInvoiceNo(inwardMaterial.getInvoiceNo());
-					iIdto.setReceivedBy(inwardMaterial.getReceivedBy());
-					iIdto.setReceivedDate(inwardMaterial.getReceivedDate());
-					iIdto.setUsername(inwardMaterial.getUsername());
-					iIdto.setMaterialId(s.getMaterialId());
-					iIdto.setBundleId(s.getMaterialBundle().getBundleId());
-
-					return iIdto;
-				}).collect(Collectors.toList());
-
-		return newMaterials;
+	public void deleteTempMaterial(Long materialId) {
+		inwardTempMaterialsRepository.deleteById(materialId);
 	}
 
 	@Override
-	public List<InwardItemDto> getInwarAllMaterialList() {
-
-		List<InwardMaterialBundles> materials = inwardMaterialBundlesRepository.findAll();
-
-		List<InwardItemDto> newMaterials = inwardMaterialsRepository.findAll().stream().map(s -> {
-			InwardItemDto iIdto = new InwardItemDto();
-			for (InwardMaterialBundles material : materials) {
-				if (s.getMaterialBundle().equals(material)) {
-					iIdto.setSupplierName(material.getSupplierName());
-					iIdto.setItemId(s.getItemId());
-					iIdto.setItemName(s.getItemName());
-					iIdto.setAliasName(s.getAliasName());
-					iIdto.setMaterialImage(s.getMaterialImage());
-					iIdto.setImagePath(s.getImagePath());
-					iIdto.setCategoryName(s.getCategoryName());
-					iIdto.setBrand(s.getBrand());
-					iIdto.setHsnCode(s.getHsnCode());
-					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-					iIdto.setTotalQuantity(s.getTotalQuantity());
-					iIdto.setTotalAmount(s.getTotalAmount());
-					iIdto.setCostRate(s.getCostRate());
-					iIdto.setMrp(s.getMrp());
-					iIdto.setEntryDate(s.getEntryDate());
-					iIdto.setDescription(s.getDescription());
-					iIdto.setDateCreated(s.getDateCreated());
-					iIdto.setLastUpdated(s.getLastUpdated());
-					iIdto.setSupplierName(material.getSupplierName());
-					iIdto.setSuppliedOn(material.getSuppliedOn());
-					iIdto.setGstType(material.getGstType());
-					iIdto.setIgst(material.getIgst());
-					iIdto.setSgst(material.getSgst());
-					iIdto.setCgst(material.getCgst());
-					iIdto.setSubTotal(material.getSubTotal());
-					iIdto.setGrandTotal(material.getGrandTotal());
-					iIdto.setInvoiceNo(material.getInvoiceNo());
-					iIdto.setReceivedBy(material.getReceivedBy());
-					iIdto.setReceivedDate(material.getReceivedDate());
-					iIdto.setUsername(material.getUsername());
-					iIdto.setMaterialId(s.getMaterialId());
-					iIdto.setBundleId(s.getMaterialBundle().getBundleId());
-				}
-			}
-			return iIdto;
-		}).collect(Collectors.toList());
-
-		return newMaterials;
-	}
-
-	@Override
-	public boolean deleteBundleMaterial(Long materialId) {
-
-		boolean deletedAll = false;
-
-		InwardMaterials iI = inwardMaterialsRepository.findByMaterialId(materialId);
-
-		double subTotal = (iI.getMaterialBundle().getSubTotal() - iI.getTotalAmount());
-
-		double gstVal = (subTotal / 100) * iI.getMaterialBundle().getIgst();
-
-		InwardMaterialBundles inwardMaterial = inwardMaterialBundlesRepository
-				.findByBundleId(iI.getMaterialBundle().getBundleId());
-
-		inwardMaterial.setSubTotal(subTotal);
-		inwardMaterial.setGrandTotal(subTotal + gstVal);
-
-		Long materialsId = iI.getMaterialBundle().getBundleId();
-
-		List<InwardMaterials> inwardMaterials = inwardMaterialsRepository.findAll().stream()
-				.filter(f -> f.getMaterialBundle().equals(iI.getMaterialBundle())).collect(Collectors.toList());
-
+	public void deleteMaterial(Long materialId) {
 		inwardMaterialsRepository.deleteById(materialId);
 
-		List<InwardMaterials> inwardMaterialsCount = inwardMaterialsRepository.findAll().stream()
-				.filter(f -> f.getMaterialBundle().equals(iI.getMaterialBundle())).collect(Collectors.toList());
-
-		inwardMaterial.setNoOfMaterials(inwardMaterialsCount.size());
-		inwardMaterialBundlesRepository.save(inwardMaterial);
-
-		if (inwardMaterials.size() == 1) {
-			inwardMaterialBundlesRepository.deleteById(materialsId);
-			deletedAll = true;
-		}
-		return deletedAll;
 	}
 
 	@Override
@@ -249,391 +172,244 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveInwardSpare(InwardSpareTempBundle inwardSpareTemp) {
-		inwardSpareTempBundleRepository.save(inwardSpareTemp);
+	public InwardMaterials getInwardMaterial(Long id) {
+		return inwardMaterialsRepository.findByMaterialId(id);
 	}
 
 	@Override
-	public List<InwardSpareTempBundle> getInwardTempSpareList(String username) {
-		return inwardSpareTempBundleRepository.findByUsername(username);
+	public InwardApprovedMaterials getApprovedInwardMaterialById(Long id) {
+		return inwardApprovedMaterialsRepository.findByApprovedMaterialId(id);
 	}
 
 	@Override
-	public void deleteTempBundleSpare(Long tempBunleId) {
-		inwardSpareTempBundleRepository.deleteById(tempBunleId);
+	public List<InwardApprovedMaterials> getApprovedMaterialsLists() {
+		return inwardApprovedMaterialsRepository.findAll();
 	}
 
+	/***** Spares *****/
+
 	@Override
-	public void saveInwardSpares(InwardSpare inwardSpare) {
+	public void saveInwardTempSpares(InwardDto inward, MultipartFile file) {
 
-		InwardSpare newInwardSpare = inwardSpareRepository.save(inwardSpare);
+		String companyName = "";
+		Long ItemId = Long.parseLong(inward.getItemName());
+		Company company = adminService.getCompanyByUsername(inward.getUsername());
 
-		List<InwardSpareTempBundle> inwardSpareTemp = inwardSpareTempBundleRepository
-				.findByUsername(newInwardSpare.getUsername());
-
-		for (InwardSpareTempBundle tempInwardSpare : inwardSpareTemp) {
-			InwardSpareBundle inwardSpareBundle = modelMapper.map(tempInwardSpare, InwardSpareBundle.class);
-			inwardSpareBundle.setInwardSpare(newInwardSpare);
-			inwardSpareBundleRepository.save(inwardSpareBundle);
+		if (company != null) {
+			companyName = company.getCompanyName();
+		} else {
+			companyName = "Admin";
 		}
-		inwardSpareTempBundleRepository.deleteAll();
 
-		List<InwardSpareBundle> listOfSpares = inwardSpareBundleRepository.findByInwardSpare(newInwardSpare);
+		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-		newInwardSpare.setNoOfSpares(listOfSpares.size());
+		InwardTempSpares inwardTempSpares = modelMapper.map(inward, InwardTempSpares.class);
 
-		inwardSpareRepository.save(newInwardSpare);
+		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
+		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Spares\\";
 
-	}
-
-	@Override
-	public InwardSpareBundle getSpareById(Long bundleId) {
-		return inwardSpareBundleRepository.findBybundleId(bundleId);
-	}
-
-	@Override
-	public List<InwardSpareBundle> getInwardSpareList() {
-		return inwardSpareBundleRepository.findAll();
-	}
-
-	@Override
-	public List<InwardItemDto> getBundledSparesById(Long bundleId) {
-
-		InwardSpare inwardSpare = inwardSpareRepository.findByAllSparesId(bundleId);
-
-		List<InwardItemDto> newSpares = inwardSpareBundleRepository.findByInwardSpare(inwardSpare).stream().map(s -> {
-
-			InwardItemDto iIdto = new InwardItemDto();
-
-			iIdto.setSupplierName(inwardSpare.getSupplierName());
-			iIdto.setItemId(s.getItemId());
-			iIdto.setItemName(s.getItemName());
-			iIdto.setAliasName(s.getAliasName());
-			iIdto.setSpareImage(s.getSpareImage());
-			iIdto.setImagePath(s.getImagePath());
-			iIdto.setCategoryName(s.getCategoryName());
-			iIdto.setBrand(s.getBrand());
-			iIdto.setHsnCode(s.getHsnCode());
-			iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-			iIdto.setTotalQuantity(s.getTotalQuantity());
-			iIdto.setTotalAmount(s.getTotalAmount());
-			iIdto.setCostRate(s.getCostRate());
-			iIdto.setMrp(s.getMrp());
-			iIdto.setEntryDate(s.getEntryDate());
-			iIdto.setDescription(s.getDescription());
-			iIdto.setDateCreated(s.getDateCreated());
-			iIdto.setLastUpdated(s.getLastUpdated());
-			iIdto.setSupplierName(inwardSpare.getSupplierName());
-			iIdto.setSuppliedOn(inwardSpare.getSuppliedOn());
-			iIdto.setGstType(inwardSpare.getGstType());
-			iIdto.setIgst(inwardSpare.getIgst());
-			iIdto.setSgst(inwardSpare.getSgst());
-			iIdto.setCgst(inwardSpare.getCgst());
-			iIdto.setSubTotal(inwardSpare.getSubTotal());
-			iIdto.setGrandTotal(inwardSpare.getGrandTotal());
-			iIdto.setInvoiceNo(inwardSpare.getInvoiceNo());
-			iIdto.setReceivedBy(inwardSpare.getReceivedBy());
-			iIdto.setReceivedDate(inwardSpare.getReceivedDate());
-			iIdto.setUsername(inwardSpare.getUsername());
-			iIdto.setBundleId(s.getBundleId());
-
-			return iIdto;
-		}).collect(Collectors.toList());
-
-		return newSpares;
-	}
-
-	@Override
-	public List<InwardItemDto> getInwardAllSpareList() {
-
-		List<InwardSpare> spares = inwardSpareRepository.findAll();
-
-		List<InwardItemDto> newSpares = inwardSpareBundleRepository.findAll().stream().map(s -> {
-			InwardItemDto iIdto = new InwardItemDto();
-			for (InwardSpare spare : spares) {
-				if (s.getInwardSpare().equals(spare)) {
-					iIdto.setSupplierName(spare.getSupplierName());
-					iIdto.setItemId(s.getItemId());
-					iIdto.setItemName(s.getItemName());
-					iIdto.setAliasName(s.getAliasName());
-					iIdto.setSpareImage(s.getSpareImage());
-					iIdto.setImagePath(s.getImagePath());
-					iIdto.setCategoryName(s.getCategoryName());
-					iIdto.setBrand(s.getBrand());
-					iIdto.setHsnCode(s.getHsnCode());
-					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-					iIdto.setTotalQuantity(s.getTotalQuantity());
-					iIdto.setTotalAmount(s.getTotalAmount());
-					iIdto.setCostRate(s.getCostRate());
-					iIdto.setMrp(s.getMrp());
-					iIdto.setEntryDate(s.getEntryDate());
-					iIdto.setDescription(s.getDescription());
-					iIdto.setDateCreated(s.getDateCreated());
-					iIdto.setLastUpdated(s.getLastUpdated());
-					iIdto.setSupplierName(spare.getSupplierName());
-					iIdto.setSuppliedOn(spare.getSuppliedOn());
-					iIdto.setGstType(spare.getGstType());
-					iIdto.setIgst(spare.getIgst());
-					iIdto.setSgst(spare.getSgst());
-					iIdto.setCgst(spare.getCgst());
-					iIdto.setSubTotal(spare.getSubTotal());
-					iIdto.setGrandTotal(spare.getGrandTotal());
-					iIdto.setInvoiceNo(spare.getInvoiceNo());
-					iIdto.setReceivedBy(spare.getReceivedBy());
-					iIdto.setReceivedDate(spare.getReceivedDate());
-					iIdto.setUsername(spare.getUsername());
-					iIdto.setBundleId(s.getBundleId());
-				}
-			}
-			return iIdto;
-		}).collect(Collectors.toList());
-
-		return newSpares;
-	}
-
-	@Override
-	public boolean deleteBundleSpare(Long spareId) {
-
-		boolean deletedAll = false;
-
-		InwardSpareBundle iI = inwardSpareBundleRepository.findBybundleId(spareId);
-
-		double subTotal = (iI.getInwardSpare().getSubTotal() - iI.getTotalAmount());
-
-		double gstVal = (subTotal / 100) * iI.getInwardSpare().getIgst();
-
-		InwardSpare inwardSpare = inwardSpareRepository.findByAllSparesId(iI.getInwardSpare().getAllSparesId());
-
-		inwardSpare.setSubTotal(subTotal);
-		inwardSpare.setGrandTotal(subTotal + gstVal);
-
-		Long sparesId = iI.getInwardSpare().getAllSparesId();
-
-		List<InwardSpareBundle> inwardSpares = inwardSpareBundleRepository.findAll().stream()
-				.filter(f -> f.getInwardSpare().equals(iI.getInwardSpare())).collect(Collectors.toList());
-
-		inwardSpareBundleRepository.deleteById(spareId);
-
-		List<InwardSpareBundle> inwardSparesCount = inwardSpareBundleRepository.findAll().stream()
-				.filter(f -> f.getInwardSpare().equals(iI.getInwardSpare())).collect(Collectors.toList());
-
-		inwardSpare.setNoOfSpares(inwardSparesCount.size());
-
-		inwardSpareRepository.save(inwardSpare);
-
-		if (inwardSpares.size() == 1) {
-			inwardSpareRepository.deleteById(sparesId);
-			deletedAll = true;
+		try {
+			adminService.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return deletedAll;
+
+		inwardTempSpares.setItemImage(fileName);
+		inwardTempSpares.setItemName(itemName);
+		inwardTempSpares.setImagePath("/Company/" + companyName + "/Inward_Spares/");
+		inwardTempSpares.setItemId(ItemId);
+		inwardTempSpares.setUsername(inward.getUsername());
+		inwardTempSpares.setSubTotal(inwardTempSpares.getCostRate() * inwardTempSpares.getQuantity());
+
+		inwardTempSparesRepository.save(inwardTempSpares);
+
+	}
+
+	@Override
+	public void saveInwardSpares(InwardDto inward) {
+
+		List<InwardTempSpares> inwardTempSpares = inwardTempSparesRepository.findByUsername(inward.getUsername());
+
+		for (InwardTempSpares inwardTempSpare : inwardTempSpares) {
+
+			InwardSpares inwardSpares = modelMapper.map(inwardTempSpare, InwardSpares.class);
+
+			double subTotal = inwardSpares.getSubTotal();
+			double gst = (subTotal / 100) * inward.getIgst();
+
+			BigDecimal bd = new BigDecimal(subTotal + gst);
+			bd = bd.setScale(2, RoundingMode.HALF_UP);
+			double roundedNumber = bd.doubleValue();
+
+			inwardSpares.setSupplier(inward.getSuppliedOn());
+			inwardSpares.setSuppliedOn(inward.getSuppliedOn());
+			inwardSpares.setGstType(inward.getGstType());
+			inwardSpares.setIgst(inward.getIgst());
+			inwardSpares.setSgst(inward.getSgst());
+			inwardSpares.setCgst(inward.getCgst());
+			inwardSpares.setGrandTotal(roundedNumber);
+			inwardSpares.setInvoice(inward.getInvoice());
+			inwardSpares.setReceivedBy(inward.getReceivedBy());
+			inwardSpares.setReceivedDate(inward.getReceivedDate());
+
+			inwardSparesRepository.save(inwardSpares);
+			inwardTempSparesRepository.deleteById(inwardTempSpare.getTempSpareId());
+		}
+
+	}
+
+	@Override
+	public List<InwardTempSpares> getInwardTempSpares(String username) {
+		return inwardTempSparesRepository.findByUsername(username);
+	}
+
+	@Override
+	public List<InwardSpares> getInwardAllSparesList() {
+		return inwardSparesRepository.findAll();
+	}
+
+	@Override
+	public void deleteTempSpare(Long spareId) {
+		inwardTempSparesRepository.deleteById(spareId);
+	}
+
+	@Override
+	public void deleteSpare(Long spareId) {
+		inwardSparesRepository.deleteById(spareId);
 	}
 
 	@Override
 	public void deleteAllSpares() {
-		inwardSpareTempBundleRepository.deleteAll();
+		inwardTempSparesRepository.deleteAll();
 	}
 
 	@Override
-	public void saveInwardTools(InwardToolsTempBundle inwardToolsTemp) {
-		inwardToolsTempBundleRepository.save(inwardToolsTemp);
+	public InwardSpares getInwardSpare(Long id) {
+		return inwardSparesRepository.findBySpareId(id);
 	}
 
 	@Override
-	public List<InwardToolsTempBundle> getInwardTempToolsList(String username) {
-		return inwardToolsTempBundleRepository.findByUsername(username);
+	public InwardApprovedSpares getApprovedInwardSpareById(Long id) {
+		return inwardApprovedSparesRepository.findByApprovedSpareId(id);
 	}
 
 	@Override
-	public void deleteTempBundleTools(Long tempBunleId) {
-
-		inwardToolsTempBundleRepository.deleteById(tempBunleId);
+	public List<InwardApprovedSpares> getApprovedSparesLists() {
+		return inwardApprovedSparesRepository.findAll();
 	}
 
+	/***** Tools *****/
+
 	@Override
-	public void saveInwardAllTools(InwardTools inwardTools) {
+	public void saveInwardTempTools(InwardDto inward, MultipartFile file) {
 
-		InwardTools newInwardTools = inwardToolsRepository.save(inwardTools);
+		String companyName = "";
+		Long ItemId = Long.parseLong(inward.getItemName());
+		Company company = adminService.getCompanyByUsername(inward.getUsername());
 
-		List<InwardToolsTempBundle> inwardToolsTemp = inwardToolsTempBundleRepository
-				.findByUsername(newInwardTools.getUsername());
-
-		for (InwardToolsTempBundle tempInwardTools : inwardToolsTemp) {
-			InwardToolsBundle inwardToolsBundle = modelMapper.map(tempInwardTools, InwardToolsBundle.class);
-			inwardToolsBundle.setInwardTools(newInwardTools);
-			inwardToolsBundleRepository.save(inwardToolsBundle);
+		if (company != null) {
+			companyName = company.getCompanyName();
+		} else {
+			companyName = "Admin";
 		}
-		inwardToolsTempBundleRepository.deleteAll();
 
-		List<InwardToolsBundle> listOfTools = inwardToolsBundleRepository.findByInwardTools(newInwardTools);
+		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-		newInwardTools.setNoOfTools(listOfTools.size());
+		InwardTempTools inwardTempTools = modelMapper.map(inward, InwardTempTools.class);
 
-		inwardToolsRepository.save(newInwardTools);
-	}
+		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
+		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Tools\\";
 
-	@Override
-	public InwardToolsBundle getToolsById(Long bundleId) {
-		return inwardToolsBundleRepository.findBybundleId(bundleId);
-	}
-
-	@Override
-	public List<InwardToolsBundle> getInwardToolsList() {
-		return inwardToolsBundleRepository.findAll();
-	}
-
-	@Override
-	public List<InwardItemDto> getBundledToolsById(Long bundleId) {
-
-		InwardTools inwardTools = inwardToolsRepository.findByAllToolsId(bundleId);
-
-		List<InwardItemDto> newTools = inwardToolsBundleRepository.findByInwardTools(inwardTools).stream().map(s -> {
-
-			InwardItemDto iIdto = new InwardItemDto();
-
-			iIdto.setSupplierName(inwardTools.getSupplierName());
-			iIdto.setItemId(s.getItemId());
-			iIdto.setItemName(s.getItemName());
-			iIdto.setAliasName(s.getAliasName());
-			iIdto.setToolsImage(s.getToolsImage());
-			iIdto.setImagePath(s.getImagePath());
-			iIdto.setCategoryName(s.getCategoryName());
-			iIdto.setBrand(s.getBrand());
-			iIdto.setHsnCode(s.getHsnCode());
-			iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-			iIdto.setTotalQuantity(s.getTotalQuantity());
-			iIdto.setTotalAmount(s.getTotalAmount());
-			iIdto.setCostRate(s.getCostRate());
-			iIdto.setMrp(s.getMrp());
-			iIdto.setEntryDate(s.getEntryDate());
-			iIdto.setDescription(s.getDescription());
-			iIdto.setDateCreated(s.getDateCreated());
-			iIdto.setLastUpdated(s.getLastUpdated());
-			iIdto.setSupplierName(inwardTools.getSupplierName());
-			iIdto.setSuppliedOn(inwardTools.getSuppliedOn());
-			iIdto.setGstType(inwardTools.getGstType());
-			iIdto.setIgst(inwardTools.getIgst());
-			iIdto.setSgst(inwardTools.getSgst());
-			iIdto.setCgst(inwardTools.getCgst());
-			iIdto.setSubTotal(inwardTools.getSubTotal());
-			iIdto.setGrandTotal(inwardTools.getGrandTotal());
-			iIdto.setInvoiceNo(inwardTools.getInvoiceNo());
-			iIdto.setReceivedBy(inwardTools.getReceivedBy());
-			iIdto.setReceivedDate(inwardTools.getReceivedDate());
-			iIdto.setUsername(inwardTools.getUsername());
-			iIdto.setBundleId(s.getBundleId());
-
-			return iIdto;
-		}).collect(Collectors.toList());
-
-		return newTools;
-	}
-
-	@Override
-	public List<InwardItemDto> getInwardAllToolsList() {
-
-		List<InwardTools> tools = inwardToolsRepository.findAll();
-
-		List<InwardItemDto> newTools = inwardToolsBundleRepository.findAll().stream().map(s -> {
-			InwardItemDto iIdto = new InwardItemDto();
-			for (InwardTools tool : tools) {
-				if (s.getInwardTools().equals(tool)) {
-					iIdto.setSupplierName(tool.getSupplierName());
-					iIdto.setItemId(s.getItemId());
-					iIdto.setItemName(s.getItemName());
-					iIdto.setAliasName(s.getAliasName());
-					iIdto.setToolsImage(s.getToolsImage());
-					iIdto.setImagePath(s.getImagePath());
-					iIdto.setCategoryName(s.getCategoryName());
-					iIdto.setBrand(s.getBrand());
-					iIdto.setHsnCode(s.getHsnCode());
-					iIdto.setUnitOfMeasure(s.getUnitOfMeasure());
-					iIdto.setTotalQuantity(s.getTotalQuantity());
-					iIdto.setTotalAmount(s.getTotalAmount());
-					iIdto.setCostRate(s.getCostRate());
-					iIdto.setMrp(s.getMrp());
-					iIdto.setEntryDate(s.getEntryDate());
-					iIdto.setDescription(s.getDescription());
-					iIdto.setDateCreated(s.getDateCreated());
-					iIdto.setLastUpdated(s.getLastUpdated());
-					iIdto.setSupplierName(tool.getSupplierName());
-					iIdto.setSuppliedOn(tool.getSuppliedOn());
-					iIdto.setGstType(tool.getGstType());
-					iIdto.setIgst(tool.getIgst());
-					iIdto.setSgst(tool.getSgst());
-					iIdto.setCgst(tool.getCgst());
-					iIdto.setSubTotal(tool.getSubTotal());
-					iIdto.setGrandTotal(tool.getGrandTotal());
-					iIdto.setInvoiceNo(tool.getInvoiceNo());
-					iIdto.setReceivedBy(tool.getReceivedBy());
-					iIdto.setReceivedDate(tool.getReceivedDate());
-					iIdto.setUsername(tool.getUsername());
-					iIdto.setBundleId(s.getBundleId());
-				}
-			}
-			return iIdto;
-		}).collect(Collectors.toList());
-
-		return newTools;
-	}
-
-	@Override
-	public boolean deleteBundleTools(Long toolsId) {
-
-		boolean deletedAll = false;
-
-		InwardToolsBundle iI = inwardToolsBundleRepository.findBybundleId(toolsId);
-
-		double subTotal = (iI.getInwardTools().getSubTotal() - iI.getTotalAmount());
-
-		double gstVal = (subTotal / 100) * iI.getInwardTools().getIgst();
-
-		InwardTools inwardTools = inwardToolsRepository.findByAllToolsId(iI.getInwardTools().getAllToolsId());
-
-		inwardTools.setSubTotal(subTotal);
-		inwardTools.setGrandTotal(subTotal + gstVal);
-
-		Long lastToolsId = iI.getInwardTools().getAllToolsId();
-
-		List<InwardToolsBundle> allInwardTools = inwardToolsBundleRepository.findAll().stream()
-				.filter(f -> f.getInwardTools().equals(iI.getInwardTools())).collect(Collectors.toList());
-
-		inwardToolsBundleRepository.deleteById(toolsId);
-
-		List<InwardToolsBundle> inwardToolsCount = inwardToolsBundleRepository.findAll().stream()
-				.filter(f -> f.getInwardTools().equals(iI.getInwardTools())).collect(Collectors.toList());
-
-		inwardTools.setNoOfTools(inwardToolsCount.size());
-
-		inwardToolsRepository.save(inwardTools);
-
-		if (allInwardTools.size() == 1) {
-			inwardToolsRepository.deleteById(lastToolsId);
-			deletedAll = true;
+		try {
+			adminService.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return deletedAll;
+
+		inwardTempTools.setItemImage(fileName);
+		inwardTempTools.setItemName(itemName);
+		inwardTempTools.setImagePath("/Company/" + companyName + "/Inward_Tools/");
+		inwardTempTools.setItemId(ItemId);
+		inwardTempTools.setUsername(inward.getUsername());
+		inwardTempTools.setSubTotal(inwardTempTools.getCostRate() * inwardTempTools.getQuantity());
+
+		inwardTempToolsRepository.save(inwardTempTools);
+
+	}
+
+	@Override
+	public void saveInwardTools(InwardDto inward) {
+
+		List<InwardTempTools> inwardTempTools = inwardTempToolsRepository.findByUsername(inward.getUsername());
+
+		for (InwardTempTools inwardTempTool : inwardTempTools) {
+
+			InwardTools inwardTools = modelMapper.map(inwardTempTool, InwardTools.class);
+
+			double subTotal = inwardTools.getSubTotal();
+			double gst = (subTotal / 100) * inward.getIgst();
+
+			BigDecimal bd = new BigDecimal(subTotal + gst);
+			bd = bd.setScale(2, RoundingMode.HALF_UP);
+			double roundedNumber = bd.doubleValue();
+
+			inwardTools.setSupplier(inward.getSuppliedOn());
+			inwardTools.setSuppliedOn(inward.getSuppliedOn());
+			inwardTools.setGstType(inward.getGstType());
+			inwardTools.setIgst(inward.getIgst());
+			inwardTools.setSgst(inward.getSgst());
+			inwardTools.setCgst(inward.getCgst());
+			inwardTools.setGrandTotal(roundedNumber);
+			inwardTools.setInvoice(inward.getInvoice());
+			inwardTools.setReceivedBy(inward.getReceivedBy());
+			inwardTools.setReceivedDate(inward.getReceivedDate());
+
+			inwardToolsRepository.save(inwardTools);
+			inwardTempToolsRepository.deleteById(inwardTempTool.getTempToolId());
+		}
+	}
+
+	@Override
+	public List<InwardTempTools> getInwardTempTools(String username) {
+		return inwardTempToolsRepository.findByUsername(username);
+	}
+
+	@Override
+	public List<InwardTools> getInwardAllToolsList() {
+		return inwardToolsRepository.findAll();
+	}
+
+	@Override
+	public void deleteTempTool(Long toolId) {
+		inwardTempToolsRepository.deleteById(toolId);
+	}
+
+	public void deleteTool(Long toolId) {
+		inwardToolsRepository.deleteById(toolId);
 	}
 
 	@Override
 	public void deleteAllTools() {
-		inwardToolsTempBundleRepository.deleteAll();
+		inwardTempToolsRepository.deleteAll();
 	}
 
 	@Override
-	public List<InwardMaterialBundles> getMaterialsBundlesList() {
-
-		return inwardMaterialBundlesRepository.findAll();
+	public InwardTools getInwardTool(Long id) {
+		return inwardToolsRepository.findByToolId(id);
 	}
 
 	@Override
-	public List<InwardSpare> getSparesBundlesList() {
-
-		return inwardSpareRepository.findAll();
+	public InwardApprovedTools getApprovedInwardToolById(Long id) {
+		return inwardApprovedToolsRepository.findByApprovedToolId(id);
 	}
 
 	@Override
-	public List<InwardTools> getToolsBundlesList() {
-
-		return inwardToolsRepository.findAll();
+	public List<InwardApprovedTools> getApprovedToolsLists() {
+		return inwardApprovedToolsRepository.findAll();
 	}
 
 }

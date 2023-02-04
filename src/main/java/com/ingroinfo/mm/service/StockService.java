@@ -1,89 +1,87 @@
 package com.ingroinfo.mm.service;
 
 import java.util.List;
-import com.ingroinfo.mm.dto.InwardItemDto;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.entity.InwardApprovedMaterials;
+import com.ingroinfo.mm.entity.InwardApprovedSpares;
+import com.ingroinfo.mm.entity.InwardApprovedTools;
 import com.ingroinfo.mm.entity.InwardMaterials;
+import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTempMaterials;
-import com.ingroinfo.mm.entity.InwardSpare;
-import com.ingroinfo.mm.entity.InwardSpareBundle;
-import com.ingroinfo.mm.entity.InwardSpareTempBundle;
+import com.ingroinfo.mm.entity.InwardTempSpares;
+import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.InwardToolsBundle;
-import com.ingroinfo.mm.entity.InwardToolsTempBundle;
-import com.ingroinfo.mm.entity.InwardMaterialBundles;
 
 public interface StockService {
-
-	void saveInwardMaterial(InwardTempMaterials inwardMaterialTemp);
-
-	List<InwardTempMaterials> getInwardTempMaterialList(String username);
-
-	void deleteTempBundleMaterial(Long tempBunleId);
 	
-	void saveInwardMaterials(InwardMaterialBundles inwardMaterial);
+	/******** Materials *********/
 
-	List<InwardMaterials> getInwardMaterialList();
-	
-	List<InwardItemDto> getBundledMaterialsById(Long bundleId);
+	void saveInwardTempMaterials(InwardDto inward, MultipartFile file);
 
-	List<InwardItemDto> getInwarAllMaterialList();
-	
-	List<InwardMaterialBundles> getMaterialsBundlesList();
-	
-	InwardMaterials getMaterialById(Long bundleId);
+	void saveInwardMaterials(InwardDto inward);
 
-	boolean deleteBundleMaterial(Long materialId);
-	
+	List<InwardTempMaterials> getInwardTempMaterials(String username);
+
+	List<InwardMaterials> getInwardAllMaterialsList();
+
+	void deleteTempMaterial(Long materialId);
+
+	void deleteMaterial(Long materialId);
+
 	void deleteAllMaterials();
-	
-	void saveInwardSpare(InwardSpareTempBundle inwardSpareTemp);
 
-	List<InwardSpareTempBundle> getInwardTempSpareList(String username);
+	InwardMaterials getInwardMaterial(Long id);
 
-	void deleteTempBundleSpare(Long tempBunleId);
-	
-	void saveInwardSpares(InwardSpare inwardSpare);
+	InwardApprovedMaterials getApprovedInwardMaterialById(Long id);
 
-	List<InwardSpareBundle> getInwardSpareList();
+	List<InwardApprovedMaterials> getApprovedMaterialsLists();
 	
-	List<InwardItemDto> getBundledSparesById(Long bundleId);
+	
+	/******** Spares *********/
 
-	List<InwardItemDto> getInwardAllSpareList();
-	
-	List<InwardSpare> getSparesBundlesList();
+	void saveInwardTempSpares(InwardDto inward, MultipartFile file);
 
-	boolean deleteBundleSpare(Long spareId);
-	
+	void saveInwardSpares(InwardDto inward);
+
+	List<InwardTempSpares> getInwardTempSpares(String username);
+
+	List<InwardSpares> getInwardAllSparesList();
+
+	void deleteTempSpare(Long spareId);
+
+	void deleteSpare(Long spareId);
+
 	void deleteAllSpares();
-	
-	void saveInwardTools(InwardToolsTempBundle inwardToolsTemp);
 
-	List<InwardToolsTempBundle> getInwardTempToolsList(String username);
+	InwardSpares getInwardSpare(Long id);
 
-	void deleteTempBundleTools(Long tempBunleId);
-	
-	void saveInwardAllTools(InwardTools inwardTools);
+	InwardApprovedSpares getApprovedInwardSpareById(Long id);
 
-	List<InwardToolsBundle> getInwardToolsList();
-	
-	List<InwardItemDto> getBundledToolsById(Long bundleId);
+	List<InwardApprovedSpares> getApprovedSparesLists();
 
-	List<InwardItemDto> getInwardAllToolsList();
-	
-	List<InwardTools> getToolsBundlesList();
+	/******** Tools *********/
 
-	boolean deleteBundleTools(Long toolsId);
-	
+	void saveInwardTempTools(InwardDto inward, MultipartFile file);
+
+	void saveInwardTools(InwardDto inward);
+
+	List<InwardTempTools> getInwardTempTools(String username);
+
+	List<InwardTools> getInwardAllToolsList();
+
+	void deleteTempTool(Long toolId);
+
+	void deleteTool(Long toolId);
+
 	void deleteAllTools();
 
-	InwardSpareBundle getSpareById(Long bundleId);
+	InwardTools getInwardTool(Long id);
 
-	InwardToolsBundle getToolsById(Long bundleId);
+	InwardApprovedTools getApprovedInwardToolById(Long id);
 
-	
-
-	
-
-	
+	List<InwardApprovedTools> getApprovedToolsLists();
 
 }

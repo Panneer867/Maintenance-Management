@@ -81,13 +81,13 @@ $(document).ready(function() {
 
 
 	$(function() {
-		if (window.location.href.match('/inward/material')) {
+		if (window.location.href.match('/inward/materials')) {
 			$("#inward-material-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	
 	$(function() {
-		if (window.location.href.match('/inward/spare')) {
+		if (window.location.href.match('/inward/spares')) {
 			$("#inward-spare-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});

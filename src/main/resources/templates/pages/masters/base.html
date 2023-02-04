@@ -267,7 +267,7 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="inward-material-active">
-										<a th:href="@{/stocks/inward/material}" class="m-menu__link ">
+										<a th:href="@{/stocks/inward/materials/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -277,7 +277,7 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="inward-spare-active">
-										<a th:href="@{/stocks/inward/spare}" class="m-menu__link ">
+										<a th:href="@{/stocks/inward/spares/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -288,7 +288,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/inward/tools' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/stocks/inward/tools}" class="m-menu__link ">
+										<a th:href="@{/stocks/inward/tools/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>

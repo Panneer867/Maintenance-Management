@@ -27,20 +27,20 @@ public class InwardTempMaterials {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long materialId;
+	private Long tempMaterialId;
 	private Long itemId;
 	private String itemName;
 	private String aliasName;
-	private String materialImage;
+	private String itemImage;
 	private String imagePath;
-	private String categoryName;
+	private String category;
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
-	private Long totalQuantity;
-	private Long totalAmount;
-	private Long costRate;
-	private Long mrp;
+	private int quantity;
+	private Double subTotal;
+	private Double costRate;
+	private Double mrpRate;
 	private String entryDate;
 	private String description;
 	private String username;

@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var subTotal = parseFloat($(".get-item-sub-total-material").text()) || 0;
 
 
-	$("#sub-total-material").val((subTotal).toFixed(2));
+
 	$(".set-item-grand-total-material").text(0);
 
 	$("#get-igst-material").prop('disabled', true);
@@ -19,7 +19,7 @@ $(document).ready(function() {
 		} else {
 
 			$(".set-item-grand-total-material").text(subTotal);
-			$("#grand-total-material").val(subTotal);
+
 
 			$("#get-igst-material").prop('disabled', true);
 			$("#get-igst-material").val(0);
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		var grandTotal = parseFloat(subTotal) + parseFloat(gstVal);
 
 		$(".set-item-grand-total-material").text((grandTotal).toFixed(2));
-		$("#grand-total-material").val((grandTotal).toFixed(2));
+
 	});
 
 

@@ -1,14 +1,17 @@
 package com.ingroinfo.mm.entity;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +22,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_inward_materials")
-public class InwardMaterials {
+@Table(name = "mm_inward_temp_tools")
+public class InwardTempTools {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long materialId;
+	private Long tempToolId;
 	private Long itemId;
 	private String itemName;
 	private String aliasName;
@@ -35,21 +38,11 @@ public class InwardMaterials {
 	private String hsnCode;
 	private String unitOfMeasure;
 	private int quantity;
+	private Double subTotal;
 	private Double costRate;
 	private Double mrpRate;
 	private String entryDate;
 	private String description;
-	private String supplier;
-	private String suppliedOn;
-	private String gstType;
-	private Double igst;
-	private Double sgst;
-	private Double cgst;
-	private Double subTotal;
-	private Double grandTotal;
-	private String invoice;
-	private String receivedBy;
-	private String receivedDate;
 	private String username;
 	
 	@Column(name = "date_created")
@@ -59,5 +52,5 @@ public class InwardMaterials {
 	@Column(name = "last_updated")
 	@UpdateTimestamp
 	private Date lastUpdated;
-
+	
 }

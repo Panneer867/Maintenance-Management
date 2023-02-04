@@ -13,5 +13,3 @@ function deleteAll(href) {
 function viewImg(src) {
 	$('#viewRef').attr('src', src);
 }
-
-

@@ -1,22 +1,14 @@
 package com.ingroinfo.mm.entity;
 
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +24,22 @@ public class InwardTools {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long allToolsId;
-	private String supplierName;
+	private Long toolId;
+	private Long itemId;
+	private String itemName;
+	private String aliasName;
+	private String itemImage;
+	private String imagePath;
+	private String category;
+	private String brand;
+	private String hsnCode;
+	private String unitOfMeasure;
+	private int quantity;
+	private Double costRate;
+	private Double mrpRate;
+	private String entryDate;
+	private String description;
+	private String supplier;
 	private String suppliedOn;
 	private String gstType;
 	private Double igst;
@@ -41,16 +47,11 @@ public class InwardTools {
 	private Double cgst;
 	private Double subTotal;
 	private Double grandTotal;
-	private String invoiceNo;
+	private String invoice;
 	private String receivedBy;
 	private String receivedDate;
 	private String username;
-	private int noOfTools;
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "inwardTools")
-	private List<InwardToolsBundle> inwardToolsBundle;
-
+	
 	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;

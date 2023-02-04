@@ -7,12 +7,9 @@ $(document).ready(function() {
 		"responsive": true,
 		"autoWidth": false,
 		"scrollX": true,
-
-	}).columns.adjust();
-
+	});
 
 	$('.dropify').dropify();
-
 
 });
 
