@@ -501,18 +501,40 @@ public class AdminController {
 		}
 
 		model.addAttribute("userRoles", new UserRolesDto());
-
 		return "/pages/admin/user_roles";
 	}
 
 	@PostMapping("/user/roles/update")
 	@PreAuthorize("hasAuthority('EDIT_USER_ROLES')")
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
-
+		
 		adminService.AssignRoles(dto);
 		session.setAttribute("message", new Message("User Roles has been updated successfully !", "success"));
-
 		return "redirect:/admin/user/roles";
+	}
+
+	@GetMapping("/backup/client")
+	public String clientBackup() {
+
+		return "/pages/admin/clientside-backup";
+	}
+
+	@GetMapping("/backup/server")
+	public String serverBackup() {
+
+		return "/pages/admin/serverside-backup";
+	}
+
+	@GetMapping("/excel/import-export")
+	public String excel() {
+
+		return "/pages/admin/excel_import_export";
+	}
+
+	@GetMapping("/device/control")
+	public String deviceControl() {
+
+		return "/pages/admin/device_control";
 	}
 
 	@GetMapping("/user/change-password")
@@ -520,26 +542,4 @@ public class AdminController {
 
 		return "/pages/admin/change_password";
 	}
-
-	@GetMapping("/backup")
-	@PreAuthorize("hasAuthority('BACKUP')")
-	public String backup() {
-
-		return "/pages/admin/backup";
-	}
-
-	@GetMapping("/excel/import-export")
-	@PreAuthorize("hasAuthority('EXCEL_IMPEXP')")
-	public String excel() {
-
-		return "/pages/admin/excel_import_export";
-	}
-
-	@GetMapping("/device/control")
-	@PreAuthorize("hasAuthority('DEVICE_CONTROL')")
-	public String deviceControl() {
-
-		return "/pages/admin/device_control";
-	}
-
 }

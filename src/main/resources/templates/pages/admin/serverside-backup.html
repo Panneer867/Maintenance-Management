@@ -1,0 +1,106 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h4 class="text-center text-white mt-2 p-1 bg-primary">
+			Backup
+		</h4>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/admin/home}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb ">
+							<div class="link text-black"><span aria-current="location">Backup</span></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Server Backup</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8">
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/admin/backup/client}">
+							Client Backup
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/admin/backup/server}">
+							Server Backup
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-8 mx-auto my-2">
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+				</div>
+				<div class="card-body">
+					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
+						<div class="row pt-3">
+							<div class="form-group row">
+								<div class="col-sm-2"></div>
+								<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Backup
+									Directory</label>
+								<div class="col-sm-1 px-3">
+									<select class="form-control form-control-sm" name="state" id="states"
+										data-error="Provide this field !" required>
+										<option value="C:">C:</option>
+										<option value="D:">D:</option>
+										<option value="E:" selected>E:</option>
+										<option value="F:">F:</option>
+										<option value="F:">G:</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control form-control-sm"
+										value="/Maintenance_Management/backup/" disabled />
+								</div>
+								<div class="col-sm-2">
+									<div class="form-check">
+										<input class="form-check-input my_checkbox" type="checkbox" value=""
+											id="checkboxId">
+										<label class="form-check-label py-1" for="flexCheckDefault">
+											Daily
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="form-group row">
+								<div class="col-sm-2"></div>
+								<div class="col-sm-8">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Date and Time</label>
+										<div class="col-sm-8">
+											<input type="datetime-local" id="timeId" class="form-control form-control-sm" />
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="row pt-2">
+							<div class="col-12 text-center">
+								<button type="submit" id="nowId" class="btn btn-success btn-sm">Backup Now</button>
+								<button type="submit" id="setId" class="btn btn-primary btn-sm text-white">Set
+									Backup</button>
+								<button type="submit" id="setId" class="btn btn-info btn-sm text-white">View
+									Schedules</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
