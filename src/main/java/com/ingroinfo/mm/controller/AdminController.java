@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,10 +45,10 @@ public class AdminController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
-	@ModelAttribute
-	private void UserDetailsService(Model model, Principal principal) {
-		model.addAttribute("getLoggedUser", principal.getName());
-	}
+//	@ModelAttribute
+//	private void UserDetailsService(Model model, Principal principal) {
+//		model.addAttribute("getLoggedUser", principal.getName());
+//	}
 
 	@GetMapping("/home")
 	@PreAuthorize("hasAuthority('ADMIN_HOME')")
@@ -507,7 +509,7 @@ public class AdminController {
 	@PostMapping("/user/roles/update")
 	@PreAuthorize("hasAuthority('EDIT_USER_ROLES')")
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
-		
+
 		adminService.AssignRoles(dto);
 		session.setAttribute("message", new Message("User Roles has been updated successfully !", "success"));
 		return "redirect:/admin/user/roles";
@@ -517,6 +519,13 @@ public class AdminController {
 	public String clientBackup() {
 
 		return "/pages/admin/clientside-backup";
+	}
+
+	@GetMapping("/backup/client/download")
+	public ResponseEntity<InputStreamResource> clientBackup(@RequestParam String username,
+			@RequestParam String password) {
+
+		return adminService.clientBackup(username, password);
 	}
 
 	@GetMapping("/backup/server")

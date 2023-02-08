@@ -1,5 +1,8 @@
 package com.ingroinfo.mm.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -10,13 +13,22 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.ingroinfo.mm.backup.Backup;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
@@ -35,6 +47,8 @@ import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
+
+import lombok.Getter;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -888,9 +902,58 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Company getCompanyByUsername(String name) {
-
 		User user = userRepository.findByUsername(name);
 		return user.getCompany();
+	}
+	
+	 @Autowired Environment environment;
+
+	@Override
+	public ResponseEntity<InputStreamResource> clientBackup(String username, String password) {
+
+		String dbUsername = environment.getProperty("spring.datasource.username");
+		String dbPassword = environment.getProperty("spring.datasource.password");
+
+		if (!username.equals(dbUsername) || !password.equals(dbPassword)) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
+		Thread thread = new Thread(new Backup(username, password));
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		File dir = new File("E:\\BACKUP\\MMDB");
+		File[] files = dir.listFiles();
+		if (files == null || files.length == 0) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		File lastModifiedFile = files[0];
+		for (int i = 1; i < files.length; i++) {
+			if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+				lastModifiedFile = files[i];
+			}
+		}
+		String fileName = lastModifiedFile.getName();
+		File file = new File("E:\\BACKUP\\MMDB\\" + fileName);
+
+		if (!file.exists()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		InputStreamResource resource = null;
+		try {
+			resource = new InputStreamResource(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
+				.contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
+
 	}
 
 }

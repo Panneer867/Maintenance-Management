@@ -2,6 +2,8 @@ package com.ingroinfo.mm.service;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
@@ -114,5 +116,7 @@ public interface AdminService {
 	Long getRoleIdByUserId(Long id);
 
 	Company getCompanyByUsername(String name);
+
+	ResponseEntity<InputStreamResource> clientBackup(String username, String password);
 
 }
