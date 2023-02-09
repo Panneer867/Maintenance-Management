@@ -8,7 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
+
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
@@ -37,18 +41,21 @@ import com.ingroinfo.mm.dto.UserRolesDto;
 @RequestMapping("/admin")
 public class AdminController {
 
+	private static final ModelMapper modelMapper = new ModelMapper();
+
 	@Autowired
 	public ModelMapperConfig mapper;
 
 	@Autowired
 	private AdminService adminService;
 
-	private static final ModelMapper modelMapper = new ModelMapper();
+	@Autowired
+	Environment environment;
 
-//	@ModelAttribute
-//	private void UserDetailsService(Model model, Principal principal) {
-//		model.addAttribute("getLoggedUser", principal.getName());
-//	}
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
 
 	@GetMapping("/home")
 	@PreAuthorize("hasAuthority('ADMIN_HOME')")
@@ -521,11 +528,34 @@ public class AdminController {
 		return "/pages/admin/clientside-backup";
 	}
 
-	@GetMapping("/backup/client/download")
-	public ResponseEntity<InputStreamResource> clientBackup(@RequestParam String username,
-			@RequestParam String password) {
+	@PostMapping("/backup/client/download")
+	public String clientBackupDownload(@RequestParam("username") String username,
+			@RequestParam("password") String password, HttpSession session) {
 
-		return adminService.clientBackup(username, password);
+		String expectedUsername = environment.getProperty("spring.datasource.username");
+		String expectedPassword = environment.getProperty("spring.datasource.password");
+
+		if (username.equals(expectedUsername) && password.equals(expectedPassword)) {
+			session.setAttribute("username", username);
+			session.setAttribute("password", password);
+			return "redirect:/admin/download/backup";
+
+		} else {
+			session.setAttribute("message", new Message("Incorrect username or password!", "danger"));
+			return "redirect:/admin/backup/client";
+		}
+	}
+
+	@GetMapping("/download/backup")
+	public ResponseEntity<InputStreamResource> downloadClientBackup(HttpSession session) {
+
+		String username = (String) session.getAttribute("username");
+		String password = (String) session.getAttribute("password");
+
+		session.setAttribute("message", new Message("Downloading backup...", "success"));
+
+		ResponseEntity<InputStreamResource> backup = adminService.clientBackup(username, password);
+		return backup;
 	}
 
 	@GetMapping("/backup/server")

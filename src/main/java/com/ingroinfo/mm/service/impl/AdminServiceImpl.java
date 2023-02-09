@@ -13,11 +13,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,8 +44,6 @@ import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
-
-import lombok.Getter;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -905,18 +900,9 @@ public class AdminServiceImpl implements AdminService {
 		User user = userRepository.findByUsername(name);
 		return user.getCompany();
 	}
-	
-	 @Autowired Environment environment;
 
 	@Override
 	public ResponseEntity<InputStreamResource> clientBackup(String username, String password) {
-
-		String dbUsername = environment.getProperty("spring.datasource.username");
-		String dbPassword = environment.getProperty("spring.datasource.password");
-
-		if (!username.equals(dbUsername) || !password.equals(dbPassword)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
 
 		Thread thread = new Thread(new Backup(username, password));
 		thread.start();
@@ -924,6 +910,7 @@ public class AdminServiceImpl implements AdminService {
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		File dir = new File("E:\\BACKUP\\MMDB");
@@ -949,6 +936,7 @@ public class AdminServiceImpl implements AdminService {
 			resource = new InputStreamResource(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())

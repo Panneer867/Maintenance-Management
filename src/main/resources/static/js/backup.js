@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+	$("#mesage-incorrect").hide();
+	$("#mesage-failed").hide();
+	$("#mesage-ok").hide();
+
 	if (!$('#checkboxId').is(':checked')) {
 		$("#timeId").prop("disabled", true);
 		$("#setId").prop("disabled", true);
@@ -19,4 +23,6 @@ $(document).ready(function() {
 		}
 
 	});
+
 });
+

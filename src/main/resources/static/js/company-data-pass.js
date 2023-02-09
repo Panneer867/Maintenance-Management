@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	document.getElementById('icomid').value = document.getElementById('ccomid').value;
 	document.getElementById('companyName').value = document.getElementById('ccomname').value;
 	var input = document.getElementById("ccomname").value,
