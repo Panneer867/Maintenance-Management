@@ -7,14 +7,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Backup extends Thread {
+import org.springframework.stereotype.Component;
 
+@Component
+public class BackupThread extends Thread {
 	private String username;
 	private String password;
 
-	public Backup(String username, String password) {
+	public BackupThread(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+
+	public BackupThread() {
 	}
 
 	@Override
@@ -31,14 +36,14 @@ public class Backup extends Thread {
 			FileOutputStream fileOutputStream = new FileOutputStream(backupFile, false);
 			PrintStream printStream = new PrintStream(fileOutputStream);
 
-			String createDirectory = "MKDIR E:\\BACKUP";
-			String createSubDirectory = "MKDIR E:\\BACKUP\\MMDB";
+			String createDirectoryCommand = "MKDIR E:\\BACKUP";
+			String createSubDirectoryCommand = "MKDIR E:\\BACKUP\\MMDB";
 			String exportCommand = "EXP " + username + "/" + password + " owner=" + username
-					+ "  file=E:\\BACKUP\\MMDB\\" + username + "-" + currentDate.trim().replace(" ", "")
-					+ ".DMP Log = BackUp.Log;";
+					+ " file=E:\\BACKUP\\MMDB\\" + username + "-" + currentDate.trim().replace(" ", "")
+					+ ".DMP Log=Backup.log;";
 
-			printStream.println(createDirectory);
-			printStream.println(createSubDirectory);
+			printStream.println(createDirectoryCommand);
+			printStream.println(createSubDirectoryCommand);
 			printStream.println(exportCommand);
 			printStream.println("EXIT");
 			printStream.close();
@@ -48,10 +53,8 @@ public class Backup extends Thread {
 			Runtime runtime = Runtime.getRuntime();
 			Process process = runtime.exec(command);
 			process.waitFor();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }

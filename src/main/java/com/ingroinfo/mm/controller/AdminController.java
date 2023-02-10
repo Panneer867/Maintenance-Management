@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
+import com.ingroinfo.mm.entity.Backup;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
@@ -559,9 +558,28 @@ public class AdminController {
 	}
 
 	@GetMapping("/backup/server")
-	public String serverBackup() {
-
+	public String serverBackup(Model model) {
+		model.addAttribute("backup", new Backup());
 		return "/pages/admin/serverside-backup";
+	}
+
+	@PostMapping("/backup/server/setup")
+	public String serverBackupSetup(@ModelAttribute("backup") Backup backup, HttpSession session) {
+
+		System.out.println("Drive = " + backup.getDrive());
+		System.out.println("Path = " + backup.getPath());
+		System.out.println("Schedule = " + backup.getSchedule());
+		System.out.println("Time = " + backup.getTime());
+
+		if (backup.getTime().length() == 0) {
+			session.setAttribute("message", new Message("Select proper time !", "danger"));
+
+			return "redirect:/admin/backup/server";
+		}
+
+		adminService.saveBackupSchedule(backup);
+		session.setAttribute("message", new Message("Backup has been successfully scheduled!", "success"));
+		return "redirect:/admin/backup/server";
 	}
 
 	@GetMapping("/excel/import-export")

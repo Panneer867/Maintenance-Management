@@ -37,20 +37,29 @@
 				</ul>
 			</div>
 		</div>
+		<div class="col-8 mx-auto">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+		</div>
 		<div class="col-8 mx-auto my-2">
 			<div class="card bl-cr">
 				<div class="card-header text-center heading-bg text-white">
+					<h4 class="mb-0">Server backup / Time Scheduler</h4>
 				</div>
 				<div class="card-body">
-					<form class="p-0 mb-0" th:action="@{/inward/material/add}" method="post">
-						<div class="row pt-3">
-							<div class="form-group row">
-								<div class="col-sm-2"></div>
-								<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Backup
-									Directory</label>
-								<div class="col-sm-1 px-3">
-									<select class="form-control form-control-sm" name="state" id="states"
-										data-error="Provide this field !" required>
+					<form class="p-0 mb-0" th:action="@{/admin/backup/server/setup}" th:object="${backup}"
+						method="post">
+						<div class="row">
+							<div class="col-3"></div>
+							<div class="col-1 px-3">
+								<div class="form-group">
+									<label for="staticEmail" class="col-form-label">Drive<strong
+											class="text-danger">*</strong></label>
+									<select class="form-control form-control-sm " name="drive" required>
 										<option value="C:">C:</option>
 										<option value="D:">D:</option>
 										<option value="E:" selected>E:</option>
@@ -58,33 +67,40 @@
 										<option value="F:">G:</option>
 									</select>
 								</div>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm"
-										value="/Maintenance_Management/backup/" disabled />
-								</div>
-								<div class="col-sm-2">
-									<div class="form-check">
-										<input class="form-check-input my_checkbox" type="checkbox" value=""
-											id="checkboxId">
-										<label class="form-check-label py-1" for="flexCheckDefault">
-											Daily
-										</label>
-									</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group">
+									<label for="staticEmail" class="col-form-label">Folder Name<strong
+											class="text-danger">*</strong></label>
+									<input type="text" name="path" class="form-control form-control-sm" required />
 								</div>
 							</div>
-						</div>
-						<div class="row pt-3">
-							<div class="form-group row">
-								<div class="col-sm-2"></div>
-								<div class="col-sm-8">
-									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Date and Time</label>
-										<div class="col-sm-8">
-											<input type="datetime-local" id="timeId" class="form-control form-control-sm" />
-										</div>
-									</div>
+							<div class="col-2 mt-4">
+								<div class="form-check mt-3">
+									<input class="form-check-input my_checkbox" type="checkbox" name="schedule"
+										value="Daily" id="checkboxId">
+									<label class="form-check-label py-1">
+										Daily
+									</label>
 								</div>
-								
+							</div>
+							<div class="col-4"></div>
+						</div>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-7">
+								<div class="form-group row">
+									<div class="col-sm-3"></div>
+									<label for="staticEmail" class="col-sm-2 col-form-label ">Time</label>
+									<div class="col-sm-5">
+										<input type="time" name="time" id="timeId"
+											class="form-control form-control-sm" />
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+
+							</div>
+							<div class="col-3">
 							</div>
 						</div>
 						<div class="row pt-2">
@@ -92,8 +108,8 @@
 								<button type="submit" id="nowId" class="btn btn-success btn-sm">Backup Now</button>
 								<button type="submit" id="setId" class="btn btn-primary btn-sm text-white">Set
 									Backup</button>
-								<button type="submit" id="setId" class="btn btn-info btn-sm text-white">View
-									Schedules</button>
+								<a href="#" class="btn btn-info btn-sm text-white">View
+									Schedules</a>
 							</div>
 						</div>
 					</form>

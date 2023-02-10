@@ -517,10 +517,25 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		/* User */
 
-		createAdminIfNotFound("Admin", "Admin", "Admin", "ingroinfo@gmail.com", "999999999", "A", "Admin",
+		createAdminIfNotFound("Admin", "Admin", "Admin", "ingroinfo@gmail.com", "999999999", "A", "Admin", 1L,
 				Arrays.asList(admin));
 
 		alreadySetup = true;
+	}
+
+	@Transactional
+	User createAdminIfNotFound(String name, String username, String password, String email, String mobile,
+			String userType, String designation, Long ubarmsUserId, Collection<Role> roles) {
+
+		User user = userRepository.findByUsername(username);
+		String encryptPassword = getEncodedPassword(password);
+
+		if (user == null) {
+			user = new User(name, username, encryptPassword, email, mobile, userType, designation, ubarmsUserId);
+			user.setRoles(roles);
+			userRepository.save(user);
+		}
+		return user;
 	}
 
 	@Transactional
@@ -575,21 +590,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			bank = new Bank(bankName);
 			bankRepository.save(bank);
 		}
-	}
-
-	@Transactional
-	User createAdminIfNotFound(String name, String username, String password, String email, String mobile,
-			String userType, String designation, Collection<Role> roles) {
-
-		User user = userRepository.findByUsername(username);
-		String encryptPassword = getEncodedPassword(password);
-
-		if (user == null) {
-			user = new User(name, username, encryptPassword, email, mobile, userType, designation);
-			user.setRoles(roles);
-			userRepository.save(user);
-		}
-		return user;
 	}
 
 }

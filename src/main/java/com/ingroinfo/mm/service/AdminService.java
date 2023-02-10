@@ -12,6 +12,7 @@ import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
 import com.ingroinfo.mm.dto.UserRolesDto;
+import com.ingroinfo.mm.entity.Backup;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
@@ -118,5 +119,7 @@ public interface AdminService {
 	Company getCompanyByUsername(String name);
 
 	ResponseEntity<InputStreamResource> clientBackup(String username, String password);
+
+	void saveBackupSchedule(Backup backupScheduler);
 
 }

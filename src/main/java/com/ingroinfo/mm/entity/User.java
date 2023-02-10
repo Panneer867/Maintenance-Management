@@ -38,9 +38,9 @@ public class User {
 	private String email;
 	private String mobile;
 	private String userType;
-	private String designation;
+	private String designation;	
 	private String remarks;
-
+	private Long ubarmsUserId;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id")
@@ -63,7 +63,7 @@ public class User {
 	private Collection<Role> roles;
 
 	public User(String name, String username, String password, String email, String mobile, String userType,
-			String designation) {
+			String designation, Long ubarmsUserId) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -72,6 +72,7 @@ public class User {
 		this.mobile = mobile;
 		this.userType = userType;
 		this.designation = designation;
+		this.ubarmsUserId = ubarmsUserId;
 	}
 
 }
