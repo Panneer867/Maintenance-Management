@@ -30,6 +30,7 @@ import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.BackupService;
 import com.ingroinfo.mm.configuration.ModelMapperConfig;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
@@ -47,6 +48,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private BackupService backupService;
 
 	@Autowired
 	Environment environment;
@@ -577,7 +581,7 @@ public class AdminController {
 			return "redirect:/admin/backup/server";
 		}
 
-		adminService.saveBackupSchedule(backup);
+		backupService.saveBackupSchedule(backup);
 		session.setAttribute("message", new Message("Backup has been successfully scheduled!", "success"));
 		return "redirect:/admin/backup/server";
 	}

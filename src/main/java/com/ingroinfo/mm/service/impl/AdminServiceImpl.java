@@ -26,7 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.backup.BackupThread;
-import com.ingroinfo.mm.dao.BackupScheduleRepository;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
@@ -38,7 +37,6 @@ import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
 import com.ingroinfo.mm.dto.UserRoleIdDto;
 import com.ingroinfo.mm.dto.UserRolesDto;
-import com.ingroinfo.mm.entity.Backup;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
@@ -77,9 +75,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BranchRepository branchRepository;
-
-	@Autowired
-	private BackupScheduleRepository backupScheduleRepository;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
@@ -949,29 +944,5 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	@Override
-	public void saveBackupSchedule(Backup backupScheduler) {
-		
-		List<Backup> schedulers = backupScheduleRepository.findAll();
-
-		if (!schedulers.isEmpty()) {
-			
-			for (int i = schedulers.size() - 1; i > 0; i--) {
-				int id = schedulers.get(i).getBackupId();
-				backupScheduleRepository.deleteById(id);
-			}
-
-			Backup currentScheduler = schedulers.get(0);
-			currentScheduler.setDrive(backupScheduler.getDrive());
-			currentScheduler.setPath(backupScheduler.getPath());
-			currentScheduler.setSchedule(backupScheduler.getSchedule());
-			currentScheduler.setTime(backupScheduler.getTime());
-
-			backupScheduleRepository.save(currentScheduler);
-		} else {
-			backupScheduleRepository.save(backupScheduler);
-		}
-
-	}
-
+	
 }
