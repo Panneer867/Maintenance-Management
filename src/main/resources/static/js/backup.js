@@ -1,11 +1,10 @@
 $(document).ready(function() {
 
-	$("#mesage-incorrect").hide();
-	$("#mesage-failed").hide();
-	$("#mesage-ok").hide();
 
 	if (!$('#checkboxId').is(':checked')) {
-		$("#timeId").prop("disabled", true);
+		$("#timeOneId").prop("disabled", true);
+		$("#timeTwoId").prop("disabled", true);
+		$("#timeThreeId").prop("disabled", true);
 		$("#setId").prop("disabled", true);
 	}
 
@@ -13,13 +12,18 @@ $(document).ready(function() {
 	$('#checkboxId').click(function() {
 
 		if (!$('#checkboxId').is(':checked')) {
-			$("#timeId").prop("disabled", true);
+			$("#timeOneId").prop("disabled", true);
 			$("#setId").prop("disabled", true);
 			$("#nowId").prop("disabled", false);
+			$("#timeTwoId").prop("disabled", true);
+			$("#timeThreeId").prop("disabled", true);
+
 		} else {
-			$("#timeId").prop("disabled", false);
+			$("#timeOneId").prop("disabled", false);
 			$("#setId").prop("disabled", false);
 			$("#nowId").prop("disabled", true);
+			$("#timeTwoId").prop("disabled", false);
+			$("#timeThreeId").prop("disabled", false);
 		}
 
 	});

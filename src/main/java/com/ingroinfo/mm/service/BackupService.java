@@ -5,8 +5,9 @@ import com.ingroinfo.mm.entity.Backup;
 
 public interface BackupService {
 
-	void scheduleBackup();
+	void startBackupThread();
 
 	void saveBackupSchedule(Backup backup);
 
+	void generateBackup(String path);
 }

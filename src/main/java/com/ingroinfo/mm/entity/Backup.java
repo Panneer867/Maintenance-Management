@@ -22,7 +22,9 @@ public class Backup {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int backupId;
 	private String schedule;
-	private String time;
+	private String timeOne;
+	private String timeTwo;
+	private String timeThree;
 	private String drive;
 	private String path;
 	

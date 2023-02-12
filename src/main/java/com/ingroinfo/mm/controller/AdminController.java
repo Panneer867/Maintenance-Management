@@ -48,7 +48,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
 	@Autowired
 	private BackupService backupService;
 
@@ -528,7 +528,7 @@ public class AdminController {
 	@GetMapping("/backup/client")
 	public String clientBackup() {
 
-		return "/pages/admin/clientside-backup";
+		return "/pages/admin/client-backup";
 	}
 
 	@PostMapping("/backup/client/download")
@@ -539,8 +539,6 @@ public class AdminController {
 		String expectedPassword = environment.getProperty("spring.datasource.password");
 
 		if (username.equals(expectedUsername) && password.equals(expectedPassword)) {
-			session.setAttribute("username", username);
-			session.setAttribute("password", password);
 			return "redirect:/admin/download/backup";
 
 		} else {
@@ -552,32 +550,44 @@ public class AdminController {
 	@GetMapping("/download/backup")
 	public ResponseEntity<InputStreamResource> downloadClientBackup(HttpSession session) {
 
-		String username = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
+		String path = (String) session.getAttribute("backupPath");
 
-		session.setAttribute("message", new Message("Downloading backup...", "success"));
-
-		ResponseEntity<InputStreamResource> backup = adminService.clientBackup(username, password);
-		return backup;
+		if (path == null) {
+			path = "E:\\MMDB";
+		}
+		return adminService.clientBackup(path);
 	}
 
 	@GetMapping("/backup/server")
 	public String serverBackup(Model model) {
 		model.addAttribute("backup", new Backup());
-		return "/pages/admin/serverside-backup";
+		return "/pages/admin/server-backup";
 	}
 
 	@PostMapping("/backup/server/setup")
 	public String serverBackupSetup(@ModelAttribute("backup") Backup backup, HttpSession session) {
 
-		System.out.println("Drive = " + backup.getDrive());
-		System.out.println("Path = " + backup.getPath());
-		System.out.println("Schedule = " + backup.getSchedule());
-		System.out.println("Time = " + backup.getTime());
+		System.out.println("" + backup.getDrive());
+		System.out.println("" + backup.getPath());
+		System.out.println("" + backup.getSchedule());
+		System.out.println("" + backup.getTimeOne());
+		System.out.println("" + backup.getTimeTwo());
+		System.out.println("" + backup.getTimeThree());
 
-		if (backup.getTime().length() == 0) {
-			session.setAttribute("message", new Message("Select proper time !", "danger"));
+		if (backup.getSchedule() == null) {
+			String path = backup.getDrive() + "\\" + backup.getPath();
+			session.setAttribute("backupPath", path);
+			session.setAttribute("message", new Message("Downloading backup...", "success"));
+			return "redirect:/admin/download/backup";
+		}
 
+		boolean invalidTime = backup.getTimeOne().length() == 0 || backup.getTimeTwo().length() == 0
+				|| backup.getTimeThree().length() == 0 || backup.getTimeOne().equals(backup.getTimeTwo())
+				|| backup.getTimeTwo().equals(backup.getTimeThree())
+				|| backup.getTimeThree().equals(backup.getTimeOne());
+
+		if (invalidTime) {
+			session.setAttribute("message", new Message("Please select a proper/unique time!", "danger"));
 			return "redirect:/admin/backup/server";
 		}
 

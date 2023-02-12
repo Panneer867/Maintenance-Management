@@ -25,7 +25,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.ingroinfo.mm.backup.BackupThread;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
@@ -44,6 +43,7 @@ import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.State;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.BackupService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -75,6 +75,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BranchRepository branchRepository;
+
+	@Autowired
+	private BackupService backupService;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
@@ -902,18 +905,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ResponseEntity<InputStreamResource> clientBackup(String username, String password) {
+	public ResponseEntity<InputStreamResource> clientBackup(String path) {
 
-		Thread thread = new Thread(new BackupThread(username, password));
-		thread.start();
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		String fullPath = path + "\\BACKUP";
 
-		File dir = new File("E:\\BACKUP\\MMDB");
+		backupService.generateBackup(path);
+
+		File dir = new File(fullPath);
 		File[] files = dir.listFiles();
 		if (files == null || files.length == 0) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -925,7 +923,7 @@ public class AdminServiceImpl implements AdminService {
 			}
 		}
 		String fileName = lastModifiedFile.getName();
-		File file = new File("E:\\BACKUP\\MMDB\\" + fileName);
+		File file = new File(fullPath + "\\" + fileName);
 
 		if (!file.exists()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -944,5 +942,4 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	
 }

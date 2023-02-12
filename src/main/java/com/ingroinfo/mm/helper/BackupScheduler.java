@@ -1,4 +1,4 @@
-package com.ingroinfo.mm.backup;
+package com.ingroinfo.mm.helper;
 
 
 import javax.annotation.PostConstruct;
@@ -16,7 +16,7 @@ public class BackupScheduler {
 
 	@PostConstruct
 	public void scheduleBackup() {
-		backupService.scheduleBackup();
+		backupService.startBackupThread();
 	}
 
 }

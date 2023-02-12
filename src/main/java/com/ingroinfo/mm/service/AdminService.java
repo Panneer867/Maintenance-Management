@@ -117,8 +117,6 @@ public interface AdminService {
 
 	Company getCompanyByUsername(String name);
 
-	ResponseEntity<InputStreamResource> clientBackup(String username, String password);
-
-	
+	ResponseEntity<InputStreamResource> clientBackup(String path);
 
 }
