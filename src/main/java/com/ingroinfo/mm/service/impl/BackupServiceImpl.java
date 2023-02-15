@@ -3,12 +3,15 @@ package com.ingroinfo.mm.service.impl;
 import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -143,6 +146,38 @@ public class BackupServiceImpl implements BackupService {
 			driveLetters.add(driveLetter);
 		}
 		return driveLetters;
+	}
+
+	@Override
+	public Backup getBackupSchedule() {
+		Optional<Backup> backupOptional = backupScheduleRepository.findAll().stream().findFirst();
+		if (backupOptional.isPresent()) {
+
+			backupOptional.get().setTimeOne(timeParser(backupOptional.get().getTimeOne()));
+			backupOptional.get().setTimeTwo(timeParser(backupOptional.get().getTimeTwo()));
+			backupOptional.get().setTimeThree(timeParser(backupOptional.get().getTimeThree()));
+			
+			return backupOptional.get();
+		} else {
+			Backup b = new Backup();
+			String na = "NA";
+			b.setDrive(na);
+			b.setPath(na);
+			b.setSchedule(na);
+			b.setTimeOne(na);
+			b.setTimeTwo(na);
+			b.setTimeThree(na);
+			return b;
+		}
+	}
+
+	private String timeParser(String timeStr) {
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime localTime = LocalTime.parse(timeStr, inputFormatter);
+
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("h:mm a");
+		return localTime.format(outputFormatter);
+
 	}
 
 }

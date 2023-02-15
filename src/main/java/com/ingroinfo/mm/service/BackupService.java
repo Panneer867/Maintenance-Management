@@ -13,4 +13,6 @@ public interface BackupService {
 	void generateBackup(String path);
 
 	List<String> getLocalDriveLetters();
+
+	Backup getBackupSchedule();
 }

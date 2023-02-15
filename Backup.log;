@@ -276,7 +276,6 @@ ORA-01455: converting column overflows integer datatype
 EXP-00056: ORACLE error 1403 encountered
 ORA-01403: no data found
 . . exporting table            MM_PRIVILEGE_MASTER         28 rows exported
-EXP-00091: Exporting questionable statistics.
 . . exporting table            MM_PUMP_MAINTENANCE          0 rows exported
 EXP-00008: ORACLE error 1455 encountered
 ORA-01455: converting column overflows integer datatype
@@ -293,7 +292,6 @@ ORA-01455: converting column overflows integer datatype
 EXP-00056: ORACLE error 1403 encountered
 ORA-01403: no data found
 . . exporting table             MM_ROLE_PRIVILEGES         28 rows exported
-EXP-00091: Exporting questionable statistics.
 . . exporting table            MM_SAFTY_PRECAUTION          0 rows exported
 EXP-00008: ORACLE error 1455 encountered
 ORA-01455: converting column overflows integer datatype
@@ -355,7 +353,6 @@ ORA-01455: converting column overflows integer datatype
 EXP-00056: ORACLE error 1403 encountered
 ORA-01403: no data found
 . . exporting table                 MM_USERS_ROLES          1 rows exported
-EXP-00091: Exporting questionable statistics.
 . . exporting table             MM_USER_MANAGEMENT          1 rows exported
 EXP-00008: ORACLE error 1455 encountered
 ORA-01455: converting column overflows integer datatype

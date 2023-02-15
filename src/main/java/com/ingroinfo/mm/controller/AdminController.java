@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.entity.Backup;
@@ -556,7 +557,7 @@ public class AdminController {
 		if (path == null) {
 
 			List<String> drives = backupService.getLocalDriveLetters();
-			String drive = drives.get(drives.size() - 1);
+			String drive = drives.get(0);
 			path = drive + "\\MMDB";
 		}
 		return adminService.clientBackup(path);
@@ -593,6 +594,12 @@ public class AdminController {
 		backupService.saveBackupSchedule(backup);
 		session.setAttribute("message", new Message("Backup has been successfully scheduled!", "success"));
 		return "redirect:/admin/backup/server";
+	}
+	
+	@GetMapping("/get/backup/schedule")
+	public @ResponseBody Backup viewSchedule(Model model) {
+		
+		return backupService.getBackupSchedule();
 	}
 
 	@GetMapping("/excel/import-export")

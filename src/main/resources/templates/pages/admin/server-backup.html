@@ -71,6 +71,9 @@
 									<label for="staticEmail" class="col-form-label">Folder Name<strong
 											class="text-danger">*</strong></label>
 									<input type="text" name="path" class="form-control form-control-sm" required />
+									<small class="text-danger">
+										Ex: MyFolder/SubFolder
+									</small>
 								</div>
 							</div>
 							<div class="col-2 mt-4">
@@ -123,13 +126,59 @@
 								<button type="submit" id="nowId" class="btn btn-success btn-sm">Backup Now</button>
 								<button type="submit" id="setId" class="btn btn-primary btn-sm text-white">Set
 									Backup</button>
-								<a href="#" class="btn btn-info btn-sm text-white">View
+								<a href="#" id="view-schedule" data-target="#viewBackup" data-toggle="modal"
+									class="btn btn-info btn-sm text-white">View
 									Schedules</a>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
+		</div>
+
+		<div class="modal fade" id="viewBackup" tabindex="-1" role="dialog" aria-labelledby="viewBackup"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document" style="margin-top: 180px;">
+				<div class="modal-content">
+					<div class="modal-header p-2 heading-bg text-white font-weight-bold">
+						<h5>View Schedules</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body bl-cr font-weight-bold">
+
+						<div class="row">
+							<div class="col">
+								<label for="staticEmail" class="col-form-label">Drive</label>
+								<input type="text" id="get-drive" class="form-control-plaintext" required style="color: #fbff00;"/>
+							</div>
+							<div class="col"><label for="staticEmail" class="col-form-label">Folder Name</label>
+								<input type="text" id="get-path" class="form-control-plaintext" required style="color: #fbff00;"/>
+							</div>
+							<div class="col"><label for="staticEmail" class="col-form-label">Schedule</label>
+								<input type="text" id="get-schedule" class="form-control-plaintext" required style="color: #fbff00;"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col"><label for="staticEmail" class="col-form-label ">Time 1</label>
+
+								<input type="text" name="timeOne" id="get-timeOne" class="form-control-plaintext" style="color: #fbff00;" />
+							</div>
+							<div class="col"><label for="staticEmail" class="col-form-label ">Time 2</label>
+
+								<input type="text" name="timeTwo" id="get-timeTwo" class="form-control-plaintext" style="color: #fbff00;"/>
+							</div>
+							<div class="col"><label for="staticEmail" class="col-form-label ">Time 3</label>
+
+								<input type="text" name="timeThree" id="get-timeThree" class="form-control-plaintext" style="color: #fbff00;"/>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
 		</div>
 	</section>
 </body>

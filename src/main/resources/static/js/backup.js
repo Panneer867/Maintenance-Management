@@ -28,5 +28,24 @@ $(document).ready(function() {
 
 	});
 
+
+	$("#view-schedule").on("click", function() {
+
+		$.ajax({
+			type: "GET",
+			url: "/admin/get/backup/schedule",
+			dataType: "json",
+			success: function(data) {
+				$('#get-schedule').val(data.schedule);
+				$('#get-timeOne').val(data.timeOne);
+				$('#get-timeTwo').val(data.timeTwo);
+				$('#get-timeThree').val(data.timeThree);
+				$('#get-drive').val(data.drive);
+				$('#get-path').val(data.path);
+			}
+
+		});
+	});
+
 });
 
