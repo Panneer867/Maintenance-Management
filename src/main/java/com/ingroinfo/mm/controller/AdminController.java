@@ -573,13 +573,6 @@ public class AdminController {
 	@PostMapping("/backup/server/setup")
 	public String serverBackupSetup(@ModelAttribute("backup") Backup backup, HttpSession session) {
 
-		System.out.println("" + backup.getDrive());
-		System.out.println("" + backup.getPath());
-		System.out.println("" + backup.getSchedule());
-		System.out.println("" + backup.getTimeOne());
-		System.out.println("" + backup.getTimeTwo());
-		System.out.println("" + backup.getTimeThree());
-
 		if (backup.getSchedule() == null) {
 			String path = backup.getDrive() + "\\" + backup.getPath();
 			session.setAttribute("backupPath", path);
