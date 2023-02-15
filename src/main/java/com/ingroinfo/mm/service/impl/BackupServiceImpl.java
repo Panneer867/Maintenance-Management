@@ -3,6 +3,7 @@ package com.ingroinfo.mm.service.impl;
 import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.stereotype.Service;
 import com.ingroinfo.mm.dao.BackupScheduleRepository;
 import com.ingroinfo.mm.entity.Backup;
@@ -24,17 +25,16 @@ public class BackupServiceImpl implements BackupService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BackupServiceImpl.class);
 	private final BackupScheduleRepository backupScheduleRepository;
-	private final Environment environment;
+	private final DataSourceProperties dataSourceProperties;
 
-	public BackupServiceImpl(BackupScheduleRepository backupScheduleRepository, Environment environment) {
-
+	public BackupServiceImpl(BackupScheduleRepository backupScheduleRepository,
+			DataSourceProperties dataSourceProperties) {
 		this.backupScheduleRepository = backupScheduleRepository;
-		this.environment = environment;
+		this.dataSourceProperties = dataSourceProperties;
 	}
 
 	@Override
 	public void saveBackupSchedule(Backup backup) {
-
 		List<Backup> backups = backupScheduleRepository.findAll();
 		Backup currentScheduler;
 
@@ -57,7 +57,6 @@ public class BackupServiceImpl implements BackupService {
 
 	@Override
 	public void startBackupThread() {
-
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
@@ -69,10 +68,10 @@ public class BackupServiceImpl implements BackupService {
 
 					String path = firstBackup.getDrive() + "\\" + firstBackup.getPath();
 
-					List<Object> backupTimes = Arrays.asList(firstBackup.getTimeOne(), firstBackup.getTimeTwo(),
+					List<String> backupTimes = Arrays.asList(firstBackup.getTimeOne(), firstBackup.getTimeTwo(),
 							firstBackup.getTimeThree());
 
-					Set<Object> uniqueBackupTimes = new HashSet<>(backupTimes);
+					Set<String> uniqueBackupTimes = new HashSet<>(backupTimes);
 					if (backupTimes.size() == uniqueBackupTimes.size()) {
 						scheduleBackup(firstBackup.getTimeOne(), path);
 						scheduleBackup(firstBackup.getTimeTwo(), path);
@@ -83,11 +82,9 @@ public class BackupServiceImpl implements BackupService {
 				}
 			}
 		}, 0, 60 * 1000);
-
 	}
 
 	private void scheduleBackup(String backupTime, String path) {
-
 		Calendar calendar = Calendar.getInstance();
 		String[] timeParts = backupTime.split(":");
 		int hour = Integer.parseInt(timeParts[0]);
@@ -112,8 +109,6 @@ public class BackupServiceImpl implements BackupService {
 
 		Date now = new Date();
 		String currentDate = new SimpleDateFormat("dd-MMM-yy~hh-mm aa").format(now);
-		String username = environment.getProperty("spring.datasource.username");
-		String password = environment.getProperty("spring.datasource.password");
 
 		File backupFile = new File("Export.bat");
 		try (PrintWriter writer = new PrintWriter(backupFile)) {
@@ -121,8 +116,10 @@ public class BackupServiceImpl implements BackupService {
 			String pathBackup = path + "\\BACKUP";
 			writer.println("MKDIR " + pathBackup);
 			String formattedCommand = String.format(
-					"EXP %s/%s owner=%s file=" + pathBackup + "\\%s-%s.DMP Log=Backup.log;", username, password,
-					username, username, currentDate.trim().replace(" ", ""));
+					"EXP %s/%s owner=%s file=" + pathBackup + "\\%s-%s.DMP Log=Backup.log;",
+					dataSourceProperties.getUsername(), dataSourceProperties.getPassword(),
+					dataSourceProperties.getUsername(), dataSourceProperties.getUsername(),
+					currentDate.trim().replace(" ", ""));
 			writer.println(formattedCommand);
 			writer.println("EXIT");
 		} catch (Exception e) {
@@ -134,6 +131,18 @@ public class BackupServiceImpl implements BackupService {
 		} catch (Exception e) {
 			LOGGER.error("Error during backup process", e);
 		}
+	}
+
+	@Override
+	public List<String> getLocalDriveLetters() {
+
+		List<String> driveLetters = new ArrayList<String>();
+		File[] roots = File.listRoots();
+		for (File root : roots) {
+			String driveLetter = root.getAbsolutePath().substring(0, 2);
+			driveLetters.add(driveLetter);
+		}
+		return driveLetters;
 	}
 
 }

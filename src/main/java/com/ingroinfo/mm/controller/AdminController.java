@@ -3,6 +3,7 @@ package com.ingroinfo.mm.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
@@ -553,13 +554,18 @@ public class AdminController {
 		String path = (String) session.getAttribute("backupPath");
 
 		if (path == null) {
-			path = "E:\\MMDB";
+
+			List<String> drives = backupService.getLocalDriveLetters();
+			String drive = drives.get(drives.size() - 1);
+			path = drive + "\\MMDB";
 		}
 		return adminService.clientBackup(path);
 	}
 
 	@GetMapping("/backup/server")
 	public String serverBackup(Model model) {
+		model.addAttribute("driveLetters", backupService.getLocalDriveLetters());
+
 		model.addAttribute("backup", new Backup());
 		return "/pages/admin/server-backup";
 	}

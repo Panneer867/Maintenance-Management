@@ -87,7 +87,8 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Designation<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Designation<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<select class="form-select" name="designation"
 													data-error="Select this field !" required>
@@ -108,7 +109,8 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">User
 												Role<strong class="text-danger">*</strong></label>
 											<div class="col-sm-8">
-												<select class="form-select" name="roleId" data-error="Select user role !" required>
+												<select class="form-select" name="roleId"
+													data-error="Select user role !" required>
 													<option value="" selected>Select</option>
 													<option th:each="role : ${roles}" th:value="${role.id}"
 														th:utext="${role.name}" />
@@ -121,7 +123,8 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Name<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Name<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<input type="text" class="form-control form-control-sm" name="name"
 													data-error="Provide this field !" required />
@@ -131,7 +134,8 @@
 									</div>
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Mobile<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Mobile<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<input type="number" class="form-control form-control-sm" name="mobile"
 													oninput="this.value=this.value.slice(0,this.maxLength)"
@@ -144,7 +148,8 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Email<strong class="text-danger">*</strong></label>
+											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Email<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<input type="email" class="form-control form-control-sm" name="email"
 													data-error="Provide a valid email !" required />
@@ -155,7 +160,8 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Username<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Username<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<input type="text" class="form-control form-control-sm" name="username"
 													data-error="Provide this field !" required />
@@ -168,7 +174,8 @@
 									<div class="col-6">
 										<div class="form-group row">
 											<label for="staticEmail"
-												class="col-sm-4 col-form-label pr-0">Password<strong class="text-danger">*</strong></label>
+												class="col-sm-4 col-form-label pr-0">Password<strong
+													class="text-danger">*</strong></label>
 											<div class="col-sm-8">
 												<input type="password" class="form-control form-control-sm"
 													id="inputPassword"
@@ -196,10 +203,11 @@
 									</div>
 									<div class="col-12">
 										<div class="form-group row">
-											<label for="staticEmail" 
+											<label for="staticEmail"
 												class="col-sm-2 col-form-label pr-0">Remarks</label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control form-control-sm" name="remarks" />
+												<input type="text" class="form-control form-control-sm"
+													name="remarks" />
 											</div>
 										</div>
 									</div>

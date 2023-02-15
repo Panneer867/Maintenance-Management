@@ -59,12 +59,10 @@
 								<div class="form-group">
 									<label for="staticEmail" class="col-form-label">Drive<strong
 											class="text-danger">*</strong></label>
-									<select class="form-control form-control-sm " name="drive" required>
-										<option value="C:">C:</option>
-										<option value="D:">D:</option>
-										<option value="E:" selected>E:</option>
-										<option value="F:">F:</option>
-										<option value="F:">G:</option>
+									<select class="form-control" name="drive" required>
+										<option value="" selected>Select</option>
+										<option th:each="driveLetter : ${driveLetters}" th:value="${driveLetter}"
+											th:utext="${driveLetter}" />
 									</select>
 								</div>
 							</div>
@@ -87,7 +85,7 @@
 							<div class="col-4"></div>
 						</div>
 						<div class="row mt-3">
-						<div class="col-1"></div>
+							<div class="col-1"></div>
 							<div class="col-3">
 								<div class="form-group row">
 
@@ -119,21 +117,19 @@
 								</div>
 							</div>
 							<div class="col-2"></div>
-
 						</div>
+						<div class="row my-3">
+							<div class="col-12 text-center">
+								<button type="submit" id="nowId" class="btn btn-success btn-sm">Backup Now</button>
+								<button type="submit" id="setId" class="btn btn-primary btn-sm text-white">Set
+									Backup</button>
+								<a href="#" class="btn btn-info btn-sm text-white">View
+									Schedules</a>
+							</div>
+						</div>
+					</form>
 				</div>
-				<div class="row my-3">
-					<div class="col-12 text-center">
-						<button type="submit" id="nowId" class="btn btn-success btn-sm">Backup Now</button>
-						<button type="submit" id="setId" class="btn btn-primary btn-sm text-white">Set
-							Backup</button>
-						<a href="#" class="btn btn-info btn-sm text-white">View
-							Schedules</a>
-					</div>
-				</div>
-				</form>
 			</div>
-		</div>
 		</div>
 	</section>
 </body>

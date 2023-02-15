@@ -64,10 +64,9 @@
 						<td th:text="${company.website}"></td>
 						<td th:text="${#dates.format(company.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
 						<td>
-							<a th:href="@{'/admin/company/edit/' + ${company.companyId}}"
-								class="btn btn-info p-1 mx-2" id="editCompany" data-bs-toggle="tooltip"
-								data-bs-placement="top" title="Edit Company"><span
-									class="glyphicon glyphicon-edit"></span></a>
+							<a th:href="@{'/admin/company/edit/' + ${company.companyId}}" class="btn btn-info p-1 mx-2"
+								id="editCompany" data-bs-toggle="tooltip" data-bs-placement="top"
+								title="Edit Company"><span class="glyphicon glyphicon-edit"></span></a>
 							<a th:href="@{'/admin/company/view/' + ${company.companyId}}"
 								class="btn btn-success p-1 mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
 								title="View Company"><span class="glyphicon glyphicon-eye-open"></span></a>
