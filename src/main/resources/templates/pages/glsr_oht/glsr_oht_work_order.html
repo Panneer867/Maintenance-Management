@@ -1,0 +1,238 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+
+		<div class="col -11 mt-2">
+			<div class="tab-content" id="pills-tabContent">
+
+				<div class="card bl-cr">
+					<div class="card-header heading-bg">
+						<h3 class="text-center text-white">View GLSR OTH Work Order</h3>
+<!--						<a class="btn bg-primary text-white float-left"  onclick="goBack();" style="margin-top: -30px;"> <b>BACK</b></a>
+-->					</div>
+					<div class="card-body font-weight-bold">
+						<form th:object="${genWorkOrder}">
+							<div class="row">
+							
+							<!--<input type="hidden" name="indentNo" th:value="${genWorkOrder.generateWorkId}">-->
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Indent No</label>
+									<input type="text" class="form-control bg-white" id="indentNo" name="indentNo"
+										placeholder="Indent No" readonly >
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Indent Department</label>
+									<input type="text" class="form-control bg-white" id="indentDepartement"
+										name="indentDepartement" placeholder="Indent Department" readonly >
+									
+								</div>
+								<!--	<div class="form-group col-md-3">
+																			<label for="inputEmail4">Indent Date</label>
+																			<input type="date" class="form-control" id="inputEmail4" placeholder="Indent Date">
+																		</div>-->
+
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Work Order Number</label>
+									<input type="number" class="form-control" id="workOrderNumber"
+										name="workOrderNumber" placeholder="Work Order Number" >
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Work Order Date</label>
+									<input type="text" class="form-control" id="workOrderDate" name="workOrderDate" >
+								</div>
+							
+							</div>
+
+							<div class="row mt-3">
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Division</label>
+									<input type="text" class="form-control" id="division" name="division" 
+										placeholder="Division">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Sub Division</label>
+									<input type="text" class="form-control" id="subDivision" name="subDivision" 
+										placeholder="Sub Division">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputEmail4">Work Order Scope</label>
+									<input type="text" class="form-control" id="workOrderScope" name="workOrderScope" 
+										placeholder="Work Order Scope">
+								</div>
+							</div>
+
+							<div class="row mt-3">
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Work Order Issued By</label>
+									<input type="text" class="form-control" id="workOrderIssuBy" name="workOrderIssuBy" 
+										placeholder="Work Order Issued By">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Work Priority</label>
+									<input type="text" class="form-control" id="workPriority" name="workPriority" 
+										placeholder="Work Priority">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Work Order Cost</label>
+									<input type="text" class="form-control" id="workOrderCost" name="workOrderCost"
+										placeholder="Work Order Cost">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Contact</label>
+									<input type="text" class="form-control" id="contact" name="contact" 
+										placeholder="Contact">
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="form-group col-md-6">
+									<label for="inputEmail4">Work Site</label>
+									<input type="text" class="form-control" id="workSite" name="workSite" 
+										placeholder="Work Site">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Expected Start Date</label>
+									<input type="text" class="form-control" id="expectedStartDate" 
+										name="expectedStartDate" placeholder="Expected Start Date">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Expected End Date</label>
+									<input type="text" class="form-control" id="expectedEndDate" name="expectedEndDate" 
+										placeholder="Expected End Date">
+								</div>
+							</div>
+
+
+							<!--*********************** PART / MATERIAL ISSUED  Start ********************-->
+							<div class="col-md-12 mt-3">
+								<div class="card bl-cr">
+									<div class="card-header" style="background-color: blueviolet;height: 35px;">
+										<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
+									</div>
+									<div class="card-body">
+										<table
+											class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+											<thead class="table-dark">
+												<tr>
+													<th>Category</th>
+													<th>Item</th>
+													<th>HSNCode</th>
+													<th>Unit of Meassure</th>
+													<th>Qty</th>
+													<th>Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr>
+													<td>Sonya Frost</td>
+													<td>Software Engineer</td>
+													<td>Edinburgh</td>
+													<td>23</td>
+													<td>2008-12-13</td>
+													<td>$103,600</td>
+												</tr>
+
+											</tbody>
+											<tbody>
+												<tr>
+													<td colspan="4" class="font-weight-bold text-center">TOTAL</td>
+													<td colspan="1" class="font-weight-bold text-center">qty</td>
+													<td colspan="1" class="font-weight-bold text-center">Amount</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<!--*********************** LABOUR / TIMES  Start ********************-->
+							<div class="col-md-12 mt-3">
+								<div class="card bl-cr ">
+									<div class="card-header" style="background-color: blueviolet;height: 35px;">
+										<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
+									</div>
+									<div class="card-body">
+										<table
+											class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+											<thead class="table-dark">
+											
+												<tr>
+													<th>Employee Categorty</th>
+													<th>Qty</th>
+													<th>Days</th>
+													<th>Timing</th>
+													<th>Start date</th>
+													<th>Total Hour</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="genworkorder: ${listofgenWork}">
+													<td th:text="${genworkorder.employeeCategorty}"></td>
+													<td th:text="${genworkorder.labourQty}"></td>
+													<td th:text="${genworkorder.days}"></td>
+													<td th:text="${genworkorder.time}"></td>
+													<td th:text="${genworkorder.totalHours}"></td>
+													<td th:text="${genworkorder.vehicleNumber}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+
+
+							<!--**************************** VEHICLE/TIMING Start *********************************-->
+							<div class="col-md-12 mt-3">
+								<div class="card bl-cr">
+									<div class="card-header " style="background-color: blueviolet;height: 35px;">
+										<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
+									</div>
+									<div class="card-body">
+										<table
+											class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+											<thead class="table-dark">
+											
+												<tr>
+													<th>Vehicle Type</th>
+													<th>Vehicle Number</th>
+													<th>Driver Name</th>
+													<th>Driver Contact No</th>
+													<th>ODO Meter Reading</th>
+													<th>Start Time</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="genworkorder: ${listofgenWork}">
+													<td th:text="${genworkorder.vehicleType}"></td>
+													<td th:text="${genworkorder.vehicleNumber}"></td>
+													<td th:text="${genworkorder.driverName}"></td>
+													<td th:text="${genworkorder.driverContactNumber}"></td>
+													<td th:text="${genworkorder.odoMeterReading}"></td>
+													<td th:text="${genworkorder.startTime}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!--<div class=" text-center mt-4">
+								<button type="submit" class="btn btn-primary w-25 text-center">Submit</button>
+								<button type="button" class="btn btn-primary w-25 text-center">Print</button>
+							</div>-->
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>

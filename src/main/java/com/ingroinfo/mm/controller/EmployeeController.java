@@ -1,5 +1,6 @@
 package com.ingroinfo.mm.controller;
 
+import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class EmployeeController {
 	public ModelMapperConfig mapper;
 	
 	
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
 
 	@GetMapping("/master")
 	public String show(Model model) {

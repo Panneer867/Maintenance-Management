@@ -1004,14 +1004,14 @@
 							<div class="m-menu__submenu">
 								<span class="m-menu__arrow"></span>
 								<ul class="m-menu__subnav">
-									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+									<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
 										<a href="#" class="m-menu__link ">
 											<span class="m-menu__link-text">
 												O&M Work Monitoring
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+									<!--<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
 										data-menu-submenu-toggle="hover">
 										<a href="#" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -1060,8 +1060,8 @@
 												</li>
 											</ul>
 										</div>
-									</li>
-									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+									</li>-->
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-meter"
 										data-menu-submenu-toggle="hover">
 										<a href="#" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -1075,8 +1075,7 @@
 										<div class="m-menu__submenu">
 											<span class="m-menu__arrow"></span>
 											<ul class="m-menu__subnav">
-												<li class="m-menu__item  sub-menu-hover align-list"
-													aria-haspopup="true">
+												<li class="m-menu__item  sub-menu-hover align-list" aria-haspopup="true">
 													<a href="#" class="m-menu__link ">
 														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 															<span></span>
@@ -1086,9 +1085,10 @@
 														</span>
 													</a>
 												</li>
-												<li class="m-menu__item  sub-menu-hover align-list"
-													aria-haspopup="true">
-													<a href="#" class="m-menu__link ">
+												<li class="m-menu__item  sub-menu-hover align-list"	aria-haspopup="true" 
+													th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/monitor/meter/replacement}"
+														class="m-menu__link ">
 														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 															<span></span>
 														</i>
@@ -1100,25 +1100,337 @@
 											</ul>
 										</div>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
-										<a href="#" class="m-menu__link ">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-handpump"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Hand Pump Maintance
+												Handpump
 											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
 										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/index}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/indent}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/work-order}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump WorkOrder
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/work-update}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/inspection}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/monitor/meter/replacement' ? 'm-menu__item--active sub-menu-active':''}">
+													<a th:href="@{/handpump/history}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Handpump History
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
-										<a href="#" class="m-menu__link ">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-borewell"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
 												Borewell Maintance
 											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
 										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/index}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/indent}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/work-order}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell WorkOrder
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/work-update}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/inspection}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/borewell/history}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Borewell History
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												GLSR OHT Maintance
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/index}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/indent}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/work-order}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT WorkOrder
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/work-update}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/inspection}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/glsr-oht/history}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															GLSR OHT History
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+										data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Level Control Maintance
+											</span>
+											<i class="m-menu__ver-arrow la la-angle-right"></i>
+										</a>
+										<div class="m-menu__submenu">
+											<span class="m-menu__arrow"></span>
+											<ul class="m-menu__subnav">
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/index}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control Index
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/indent}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control Indent
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/work-order}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control WorkOrder
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/work-update}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control Work Update
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/inspection}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control Inspection
+														</span>
+													</a>
+												</li>
+												<li class="m-menu__item  sub-menu-hover align-list"
+													aria-haspopup="true">
+													<a th:href="@{/levels-control/history}" class="m-menu__link ">
+														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+															<span></span>
+														</i>
+														<span class="m-menu__link-text">
+															Level Control History
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
 									</li>
 									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
 										data-menu-submenu-toggle="hover">

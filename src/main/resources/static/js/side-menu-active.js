@@ -78,7 +78,20 @@ $(document).ready(function() {
 			$("#expand-workorder").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
+	
+	$(function() {
+		if (window.location.href.match('/moniter')) {
+			$("#expand-moniter").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/meter')) {
+			$("#expand-meter").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
 
+/**************Stocks top tabs *************** */
 
 	$(function() {
 		if (window.location.href.match('/inward/materials')) {
@@ -103,5 +116,7 @@ $(document).ready(function() {
 			$("#approvals-stocks-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
+	
+	/**************end of Stocks top tabs *************** */
 });
 

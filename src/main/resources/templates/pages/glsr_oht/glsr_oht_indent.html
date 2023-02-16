@@ -1,0 +1,257 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GLSR OHT Indent | Material Mangement</title>
+</head>
+
+<body>
+	<section>
+		<div class="col-10 mt-4 mx-auto">
+			<!-- form Start-->
+			<div class="card text-center bl-cr">
+				<div class="card-header heading-bg text-white fs-4">
+					GLSR OHT Indent
+				</div>
+				<div class="card-body font-weight-bold">
+
+					<!-- Message Alert Field -->
+					<!--<div th:if="${session.message}" class="alert_field">
+						<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+							role="alert">
+							<span th:text="${session.message.content}"></span>
+						</div>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					</div>-->
+					<!-- End of Message Alert Field -->
+
+					<div class="col-6 mx-auto">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-4 col-form-label pr-0">GLSR OHT ID</label>
+							<div class="col-sm-4 px-0">
+							<!--th:action="@{/pump/getPumpMaster}" method="get"-->
+								<form class="form-inline" >
+									<input class="form-control form-control-sm " type="search" name="pumpId"
+										placeholder="Enter Pump Id" aria-label="Search">
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--th:action="@{/pump/savepump-maintenance}" method="post" th:object="${pumps}"-->
+					<!--th:value="${pumps.pumpId}"-->
+					<form >
+						<div class="row ">
+							<div class="col-3 text-start">
+								<label for="pumpId" class="col-sm-10 col-form-label">Type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+										 readonly required name="pumpId">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pumpType" class="col-sm-8 col-form-label">Size</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+										 readonly required name="pumpType">
+								</div>
+							</div>
+
+							<div class="col-6 text-start">
+								<label for="pumpDetails" class="col-sm-10 col-form-label">Details</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpDetails"
+									 required name="pumpDetails">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="purchaseDate" class="col-sm-10 col-form-label">Build Date</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="purchaseDate"
+										 readonly required name="purchaseDate">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pumpWarranty" class="col-sm-8 col-form-label">Location</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pumpWarranty"
+										 readonly required name="pumpWarranty">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pumpStonName" class="col-sm-10 col-form-label">Warranty</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpStonName" 
+									required name="pumpStonName">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="nextMaintenTime" class="col-sm-10 col-form-label"></label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpStonName" 
+									required name="pumpStonName">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col text-start">
+								<label for="manufactureName" class="col-sm-12 col-form-label">Next Maintanance Time</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureName"
+										 readonly required name="manufactureName">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="manufactureContact" class="col-sm-12 col-form-label">Water Type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureContact"
+										 readonly required name="manufactureContact">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="manufactureAddr" class="col-sm-10 col-form-label">Installed Motor</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureAddr"
+										 readonly required name="manufactureAddr">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="workInterval" class="col-sm-10 col-form-label">Motor Type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="workInterval"
+									 required name="workInterval">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col text-start">
+								<label for="pumpPower" class="col-sm-12 col-form-label">Installed Motor Power</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpPower"
+									 required name="pumpPower">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pumpLocation" class="col-sm-12 col-form-label">Water Supply Area</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpLocation" 
+									required name="pumpLocation">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="waterSource" class="col-sm-10 col-form-label">Contractor Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="waterSource" 
+									required name="waterSource">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="scheduleType" class="col-sm-10 col-form-label">Contractor Contact</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="scheduleType" 
+									required name="scheduleType">
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row ">
+							<div class="col-3 text-start">
+								<label for="supplierOrderNo" class="col-sm-12 col-form-label">Contractor Address</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="supplierOrderNo" 
+									required name="supplierOrderNo">
+								</div>
+							</div>
+							<div class="col-3 text-start">
+								<label for="deliveryDate" class="col-sm-12 col-form-label">Contractor Order Number</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" id="deliveryDate" 
+									required name="deliveryDate">
+								</div>
+							</div>
+							<div class="col-3 text-start">
+								<label for="installDate" class="col-sm-10 col-form-label">Work Compltion Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" id="installDate" 
+									required name="installDate">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pumpMark" class="col-sm-12 col-form-label">Langitude</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pumpMark" 
+									required name="pumpMark">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="longitude" class="col-sm-12 col-form-label">Latitude</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="longitude" 
+									required name="longitude" value="-------">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="latitude" class="col-sm-8 col-form-label">GRID</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="latitude"
+									 required name="latitude" value="-------">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="distributonTo" class="col-sm-10 col-form-label">GMIS_ID</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="distributonTo" 
+									required name="distributonTo">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="grid" class="col-sm-12 col-form-label">Ward No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="grid"
+									 required name="grid">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							
+							<div class="col-6 text-start">
+								<label for="gmisId" class="col-sm-12 col-form-label">Ward Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="gmisId" 
+									required name="gmisId">
+								</div>
+							</div>							
+						</div>						
+
+						<div class="mt-4">
+							<button type="submit" class="btn btn-primary">Submit</button>							
+							<a href="#" class="btn btn-success">View</a>
+							<button type="reset" class="btn btn-warning">Reset</button>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<!-- form END-->
+
+
+	</section>
+
+
+</body>
+
+</html>
