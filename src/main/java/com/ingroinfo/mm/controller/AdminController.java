@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,13 @@ import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.BackupService;
+import com.ingroinfo.mm.service.DesignationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ingroinfo.mm.configuration.ModelMapperConfig;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
+import com.ingroinfo.mm.dto.DesignationDto;
 import com.ingroinfo.mm.dto.UserDto;
 import com.ingroinfo.mm.dto.UserRolesDto;
 
@@ -56,6 +61,9 @@ public class AdminController {
 
 	@Autowired
 	Environment environment;
+
+	@Autowired
+	private DesignationService designationService;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -100,8 +108,9 @@ public class AdminController {
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
 				+ fileExtension.get();
-		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
-		company.setPath("C:\\Company\\" + company.getCompanyName());
+		String drive = backupService.getLocalDriveLetters().get(0);
+		String uploadDir = drive + "\\Company\\" + company.getCompanyName() + "\\logo";
+		company.setPath(drive + "\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
 		if (company.getEnableApp().length() == 0) {
@@ -172,11 +181,13 @@ public class AdminController {
 		}
 
 		Company company = adminService.getCompanyById(companyDto.getCompanyId());
-		String oldfolder = "C:\\Company\\" + company.getCompanyName() + "\\";
+		String drive = backupService.getLocalDriveLetters().get(0);
+		String oldfolder = drive + "\\Company\\" + company.getCompanyName() + "\\";
 		File files = new File(oldfolder);
 
 		mapper.modelMapper().map(companyDto, company);
-		String folder = "C:\\Company\\" + companyDto.getCompanyName() + "\\";
+		
+		String folder = drive + "\\Company\\" + companyDto.getCompanyName() + "\\";
 		if (!oldfolder.equalsIgnoreCase(folder)) {
 			File rename = new File(folder);
 			files.renameTo(rename);
@@ -200,7 +211,8 @@ public class AdminController {
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
 				+ tokens.get();
-		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
+		String drive = backupService.getLocalDriveLetters().get(0);
+		String uploadDir =  drive + "\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setLogo(fileName);
 		adminService.saveFile(uploadDir, fileName, file);
 		adminService.saveCompany(company);
@@ -346,6 +358,8 @@ public class AdminController {
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
+		List<DesignationDto> designationDtos = this.designationService.getAllDesignations();
+		model.addAttribute("designations", designationDtos);
 
 		return "/pages/admin/create_user";
 	}
@@ -595,10 +609,10 @@ public class AdminController {
 		session.setAttribute("message", new Message("Backup has been successfully scheduled!", "success"));
 		return "redirect:/admin/backup/server";
 	}
-	
+
 	@GetMapping("/get/backup/schedule")
 	public @ResponseBody Backup viewSchedule(Model model) {
-		
+
 		return backupService.getBackupSchedule();
 	}
 
@@ -618,5 +632,22 @@ public class AdminController {
 	public String changePassword() {
 
 		return "/pages/admin/change_password";
+	}
+
+	// get EmployeeIds From UBARMS
+	@ResponseBody
+	@GetMapping("/user/getIds/{designation}")
+	ResponseEntity<List<UserDto>> getUserDataFromUbarms(@PathVariable String designation)
+			throws JsonMappingException, JsonProcessingException {
+		List<UserDto> userDtos = this.adminService.getUserIdsFromUbarms(designation);
+		return new ResponseEntity<List<UserDto>>(userDtos, HttpStatus.OK);
+	}
+
+	// GET Employee Details By User Id From UBARMS
+	@ResponseBody
+	@GetMapping("/user/getDtls/{ubarmsUserId}")
+	ResponseEntity<UserDto> getUserDetailsFromUbarms(@PathVariable Long ubarmsUserId) {
+		UserDto userDto = this.adminService.getUserDtlsFromUbarms(ubarmsUserId);
+		return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
 	}
 }

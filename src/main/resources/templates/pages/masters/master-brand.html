@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="pages/masters/base::layout(~{::section})">
+
+<body>
+	<section>
+		<!-- form Start-->
+		<div class="mx-auto col-12 mt-5">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+
+
+			<div class="card bl-cr">
+				<div class="card-header text-center heading-bg text-white">
+					<h3 class="mb-0">Brand Master</h3>
+				</div>
+				<div class="card-body pl-5 pr-5 font-weight-bold">
+					<form th:action="@{/masters/saveBrand-master}" method="post">
+						<div class="row text-center">                          
+							<div class="col-auto text-start">
+								<label class="text-left">Brand Name</label>								
+							</div>
+						    <div class="col-sm-3">
+						      <input class="form-control form-control-sm bg-white" type="text" name="brandName"
+									required placeholder="Enter Brand Name"> 
+						    </div>
+							<div class="col-auto text-start">
+								<label for="brandDtls">Brand Details</label>								
+							</div>
+							<div class="col-sm-5"> 
+							  <input class="form-control form-control-sm" type="text" name="brandDtls" 
+							  required placeholder="Enter Brand Details">
+							</div>
+						</div>
+						<div class="mt-4 text-center">
+							<button type="submit" href="#" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/masters/brandMaster-history}" class="btn btn-success">View</a>
+						</div>					  
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<!-- form END-->
+
+		<!-- History Table Start-->
+
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Brand Master History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+				<thead class="table-dark">
+					<tr>
+						<th class="text-center" scope="col">ID</th>
+						<th class="text-center" scope="col">Brand Name</th>
+						<th class="text-center" scope="col">Brand Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="brands : ${listOfBrands}">
+						<td><a href="#" th:onclick="|deleteBrandMaster(${brands.brandMasterId})|">
+								<span th:text="${'BM'+brands.brandMasterId}"></span></a>
+						</td>
+						<td th:text="${brands.brandName}"></td>
+						<td th:text="${brands.brandDtls}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- History Table END-->
+
+	</section>
+</body>
+
+</html>

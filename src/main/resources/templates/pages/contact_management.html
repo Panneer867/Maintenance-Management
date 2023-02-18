@@ -2,179 +2,126 @@
 
 <body>
 	<section>
-		<form class="col-sm-12 mt-2">
+		<div class="col-sm-12 mt-2">
 			<div class="card bl-cr">
 				<div class="card-header heading-bg">
 					<h3 class="text-center text-white">Contact Mangement</h3>
 				</div>
 				<div class="card-body font-weight-bold">
-					<div class="row">
-						<div class="col">
-							<div class="row">
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Contact ID</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Contact ID">
+					<form method="post" th:action="@{/contact/savecontactangement}">
+						<div class="row">
+							<div class="col">
+								<div class="row">
+									<div class="form-group col-md-4">
+										<label for="contactId">Contact ID</label>
+										<input type="text" class="form-control" id="contactId" name="contactId"
+											placeholder="Contact ID">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="division">Division</label>
+										<input type="text" class="form-control" id="division" name="division"
+											placeholder="Division">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="subDivision">Sub-Division</label>
+										<input type="text" class="form-control" id="subDivision" name="subDivision"
+											placeholder="Sub-Division">
+									</div>
 								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Division</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Division">
-								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Sub-Division</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Sub-Division">
-								</div>
-							</div>
 
-							<div class="row mt-2 ">
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Department</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Department">
+								<div class="row mt-2 ">
+									<div class="form-group col-md-4">
+										<label for="dept">Department</label>
+										<input type="text" class="form-control" id="dept" name="dept"
+											placeholder="Department">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="desig">Designation</label>
+										<input type="text" class="form-control" id="desig" name="desig"
+											placeholder="Designation">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="name">Name</label>
+										<input type="text" class="form-control" id="name" name="name"
+											placeholder="Name">
+									</div>
 								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Designation</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Designation">
-								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Name</label>
-									<input type="text" class="form-control" id="inputEmail4" placeholder="Name">
-								</div>
-							</div>
 
-							<div class="row mt-2 ">
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Mobile Number</label>
-									<input type="number" class="form-control" id="inputEmail4"
-										placeholder="Mobile Number">
-								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Email ID</label>
-									<input type="email" class="form-control" id="inputEmail4" placeholder="Email ID">
-								</div>
-								<div class="form-group col-md-4">
-									<label for="inputEmail4">Employee Status</label>
-									<input type="text" class="form-control" id="inputEmail4"
-										placeholder="Employee Status">
+								<div class="row mt-2 ">
+									<div class="form-group col-md-4">
+										<label for="mobileNo">Mobile Number</label>
+										<input type="number" class="form-control" id="mobileNo" name="mobileNo"
+											placeholder="Mobile Number">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="emailId">Email ID</label>
+										<input type="email" class="form-control" id="emailId" name="emailId"
+											placeholder="Email ID">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="empStatus">Employee Status</label>
+										<input type="text" class="form-control" id="empStatus" name="empStatus"
+											placeholder="Employee Status">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-3">
-							<!--<label for="formGroupExampleInput">Preview</label>
+							<div class="col-3">
+								<!--<label for="formGroupExampleInput">Preview</label>
 							<img th:src="@{/images/qr_code.png}" class="rounded mx-auto d-block" alt="...">-->
-							<div id="profile-container">
-								<image id="profileImage" th:src="@{/images/profile1.png}" />
+								<div id="profile-container">
+									<image id="profileImage" th:src="@{/images/profile1.png}" />
+								</div>
+								<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" capture>
+
 							</div>
-							<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required=""
-								capture>
-
 						</div>
-					</div>
 
-					<div class="text-center mt-3">
-						<button type="button" class="btn btn-primary">Submit</button>
-						<!--<button type="button" class="btn btn-primary">Escala Task</button>-->
-					</div>
-
+						<div class="text-center mt-3">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a type="button" th:href="@{/contact/viewcontact}" class="btn btn-primary">View</a>
+						</div>
+					</form>
 				</div>
 			</div>
-		</form>
-		<h5 class="text-center text-white mt-2 p-1 bg-primary">Contact Mangement Details</h5>
-		
-						<table
-							class="table table-stock table-bordered table table-success table-striped table-hover my-4 vehiceltable-size"
-							id="generatLabour">
-							<thead>
-								<tr>
-									<th>Division</th>
-									<th>Sub-Division</th>
-									<th>Department</th>
-									<th>Designation</th>
-									<th>Name</th>
-									<th>Mobile Number</th>
-									<th>Email ID</th>
-									<th>Employee Status</th>
-									<th>Photo</th>
-								</tr>
-							</thead>
-							<tbody class="vehicel-table-scroll">
-								<tr>
-									<td>1</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>61</td>
-									<td>2011-04-25</td>
-									<td>$320,800</td>
-									<td>2</td>
-									<td>Sales Assistant</td>
-									<td>San Francisco</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Sales Assistant</td>
-									<td>San Francisco</td>
-									<td>59</td>
-									<td>2012-08-06</td>
-									<td>$137,500</td>
-									<td>3</td>
-									<td>Integration Specialist</td>
-									<td>Tokyo</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Integration Specialist</td>
-									<td>Tokyo</td>
-									<td>55</td>
-									<td>2010-10-14</td>
-									<td>$327,900</td>
-									<td>4</td>
-									<td>Javascript Developer</td>
-									<td>San Francisco</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Javascript Developer</td>
-									<td>San Francisco</td>
-									<td>39</td>
-									<td>2009-09-15</td>
-									<td>$205,500</td>
-									<td>5</td>
-									<td>Software Engineer</td>
-									<td>Edinburgh</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>Software Engineer</td>
-									<td>Edinburgh</td>
-									<td>23</td>
-									<td>2008-12-13</td>
-									<td>$103,600</td>
-									<td>6</td>
-									<td>Office Manager</td>
-									<td>London</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>Office Manager</td>
-									<td>London</td>
-									<td>30</td>
-									<td>2008-12-19</td>
-									<td>$90,560</td>
-									<td>7</td>
-									<td>Customer Support</td>
-									<td>New York</td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>Customer Support</td>
-									<td>New York</td>
-									<td>27</td>
-									<td>2011-01-25</td>
-									<td>$112,000</td>
-									<td>1</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-								</tr>
-							</tbody>
-						</table>
+		</div>
+	
+	
+		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
+			<h5 class="text-center text-white mt-2 p-1 bg-primary">Contact Mangement Details</h5>
+			<table
+				class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+				<thead class="table-dark">
+					<tr>
+						<th style="width: 15px;">Id</th>
+						<th>Divis</th>
+						<th>Sub-Division</th>
+						<th>Department</th>
+						<th>Designation</th>
+						<th>Name</th>
+						<th>Mobile No</th>
+						<th>Email ID</th>
+						<th>Emp Status</th>
+						<th>Photo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="contact: ${contactMang}">
+						<td th:text="${contact.contactId}"></td>
+						<td th:text="${contact.division}"></td>
+						<td th:text="${contact.subDivision}"></td>
+						<td th:text="${contact.dept}"></td>
+						<td th:text="${contact.desig}"></td>
+						<td th:text="${contact.name}"></td>
+						<td th:text="${contact.mobileNo}"></td>
+						<td th:text="${contact.emailId}"></td>
+						<td th:text="${contact.empStatus}"></td>
+						<td th:text="${contact.imageUpload}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+		</div>
 	</section>
 
 

@@ -1,10 +1,15 @@
 package com.ingroinfo.mm.service.impl;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +30,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.BankRepository;
 import com.ingroinfo.mm.dao.BranchRepository;
 import com.ingroinfo.mm.dao.CompanyRepository;
@@ -940,6 +952,63 @@ public class AdminServiceImpl implements AdminService {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
 				.contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
 
+	}
+	
+	@Override
+	public List<UserDto> getUserIdsFromUbarms(String designation) throws JsonMappingException, JsonProcessingException {
+		String json = "";
+		try {
+			URL url = new URL("http://localhost:9595/ubarms/arms/getEmployeesmm/"+designation);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+			String output;
+			while ((output = br.readLine()) != null) {
+				json += output;
+			}
+
+			conn.disconnect();
+
+		} catch (MalformedURLException e) {
+			System.out.println("Connection Failed !!"+e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Connection Failed !!"+e.getMessage());
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNode = mapper.readTree(json);
+		JsonNode data = jsonNode.get("employeeDtlsFormMM");
+		String jsonData = data.toString();
+
+		ObjectMapper mapper1 = new ObjectMapper();
+		ObjectMapper mapper2 = mapper1.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		List<UserDto> userids = mapper2.readValue(jsonData, new TypeReference<List<UserDto>>() {
+		});
+
+		return userids;
+	}
+
+	@Override
+	public UserDto getUserDtlsFromUbarms(Long ubarmsUserId) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		UserDto userDto = null;
+
+		try {
+			userDto = mapper.readValue(
+					new URL("http://localhost:9595/ubarms/arms/getempDtlsmm/" + ubarmsUserId), UserDto.class);
+			//System.out.println(consumersDto);
+		} catch (Exception e) {
+			System.out.println("Exception : " + e.getMessage());
+		}
+		return userDto;		
 	}
 
 }

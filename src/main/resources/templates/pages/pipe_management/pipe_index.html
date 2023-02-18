@@ -1,0 +1,301 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pipe Index | Material Mangement</title>
+</head>
+
+<body>
+	<section>
+		<div class="col-12 mt-4 mx-auto">
+			<!-- form Start-->
+			<div class="card text-center bl-cr">
+				<div class="card-header heading-bg text-white fs-4">
+					Pipe Index
+				</div>
+				<div class="card-body font-weight-bold">
+
+					<!--<!-- Message Alert Field -->
+					<div th:if="${session.message}" class="alert_field">
+						<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+							role="alert">
+							<span th:text="${session.message.content}"></span>
+						</div>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					</div>
+					<!-- End of Message Alert Field -->
+
+					<!--<div class="col-6 mx-auto">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Pipe ID</label>
+							<div class="col-sm-4 px-0">
+								<form class="form-inline"  method="get">
+									<input class="form-control form-control-sm " type="search" name="pipeId"
+										placeholder="Enter Pipe Id" aria-label="Search">
+								</form>
+							</div>
+						</div>
+					</div>-->
+					<form th:action="@{/pipe/savepipe-index}" method="post" th:object="${pipes}">
+						<div class="row ">
+							<div class="col-3 text-start">
+								<label for="pipeId" class="col-sm-10 col-form-label">Pipe Id</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pipeId"
+										   name="pipeId">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeType" class="col-sm-8 col-form-label">Pipe Type</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pipeType"
+										name="pipeType">
+								</div>
+							</div>
+
+							<div class="col-6 text-start">
+								<label for="pipeDetails" class="col-sm-10 col-form-label">Pipe Details</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipeDetails"
+									  name="pipeDetails">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="purchaseDate" class="col-sm-10 col-form-label">Pipe Purchased Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm bg-white" id="purchaseDate"
+								  name="purchaseDate">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeWarranty" class="col-sm-8 col-form-label">Pipe Warranty</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="pipeWarranty"
+										  name="pipeWarranty">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeStonName" class="col-sm-10 col-form-label">Pipe Station Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipeStonName" 
+									 name="pipeStonName">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="nextMaintenTime" class="col-sm-10 col-form-label">Next Mainten Time</label>
+								<div class="col">
+									<select class="form-select form-select-sm"  name="nextMaintenTime">
+										<option>Emergency</option>
+										<option>Routine</option>
+										<option>Pro-Active</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col text-start">
+								<label for="manufactureName" class="col-sm-8 col-form-label">MRF Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureName"
+									 name="manufactureName">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="manufactureContact" class="col-sm-8 col-form-label">MRF Contact</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureContact"
+										 name="manufactureContact">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="manufactureAddr" class="col-sm-10 col-form-label">MRF Address</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" id="manufactureAddr"
+										 name="manufactureAddr">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="workInterval" class="col-sm-10 col-form-label">Work Interval of Pipe</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="workInterval"
+									  name="workInterval">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col text-start">
+								<label for="pipePower" class="col-sm-8 col-form-label">Pipe Power</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipePower"
+									  name="pipePower">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeLocation" class="col-sm-8 col-form-label">Pipe Location</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipeLocation" 
+									 name="pipeLocation">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="waterSource" class="col-sm-10 col-form-label">Water Source</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="waterSource" 
+									 name="waterSource">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="scheduleType" class="col-sm-10 col-form-label">schedule types </label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="scheduleType" 
+									 name="scheduleType">
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row ">
+							<div class="col-3 text-start">
+								<label for="supplierOrderNo" class="col-sm-8 col-form-label">Supply Order No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="supplierOrderNo" 
+									 name="supplierOrderNo">
+								</div>
+							</div>
+							<div class="col-3 text-start">
+								<label for="deliveryDate" class="col-sm-8 col-form-label">Devlivery Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" id="deliveryDate" 
+									 name="deliveryDate">
+								</div>
+							</div>
+							<div class="col-3 text-start">
+								<label for="installDate" class="col-sm-10 col-form-label">Installed Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" id="installDate" 
+									 name="installDate">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeMark" class="col-sm-8 col-form-label">Pipe Mark</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipeMark" 
+									 name="pipeMark">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="longitude" class="col-sm-8 col-form-label">Langitude</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="longitude" 
+									 name="longitude" value="-------">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="latitude" class="col-sm-8 col-form-label">Latitude</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="latitude"
+									  name="latitude" value="-------">
+								</div>
+							</div>
+							<div class="col-6 text-start">
+								<label for="distributonTo" class="col-sm-10 col-form-label">Distribution to</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="distributonTo" 
+									 name="distributonTo">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="grid" class="col-sm-12 col-form-label">GRID</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="grid"
+									  name="grid">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="gmisId" class="col-sm-12 col-form-label">GMIS_ID</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="gmisId" 
+									 name="gmisId">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="wardNo" class="col-sm-10 col-form-label">Ward No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="wardNo" 
+									 name="wardNo">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="WardName" class="col-sm-10 col-form-label">Ward Name</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="WardName"
+									  name="WardName">
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+							<div class="col text-start">
+								<label for="siteEnginner" class="col-sm-12 col-form-label">Site Engineer</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="siteEnginner"
+									  name="siteEnginner">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="teamCode" class="col-sm-12 col-form-label">Team Code</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="teamCode"
+									  name="teamCode">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="siteSuperviser" class="col-sm-10 col-form-label">Site Superwiser </label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="siteSuperviser" 
+									 name="siteSuperviser">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="pipeStonNo" class="col-sm-10 col-form-label">Pipe Station No</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="pipeStonNo" 
+									 name="pipeStonNo">
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-4">
+							<button type="submit" class="btn btn-primary">Submit</button>							
+							<a href="#" class="btn btn-success">Invoice Print</a>
+							<button type="reset" class="btn btn-warning">Reset</button>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<!-- form END-->
+
+
+	</section>
+
+
+</body>
+
+</html>

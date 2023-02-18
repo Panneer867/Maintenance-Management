@@ -1,408 +1,547 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
 <body>
 	<section>
 		<!-- Main layout-->
 		<div class="d-flex justify-content-end ">
 			<!--Content layout-->
 			<div class="col text-left mt-3">
-			 <!-- Card Start-->
-				 <div class="card text-center bl-cr">
-					<div class="card-header heading-bg text-white fs-4"><h3>Consumer Master Details</h3></div>
-					<div class="card-body font-weight-bold">					  				
-					    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-							  <li class="nav-item" role="presentation">
-							    <button class="nav-link active costdtls-button" id="pills-customerInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-customerInfo" type="button" role="tab" aria-controls="pills-customerInfo" aria-selected="true"><h5>Coustomer Info</h5></button>
-							  </li>
-							  <li class="nav-item" role="presentation">
-							    <button class="nav-link costdtls-button" id="pills-addressInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-addressInfo" type="button" role="tab" aria-controls="pills-addressInfo" aria-selected="false"><h5>Address Info</h5></button>
-							  </li>
-							  <li class="nav-item" role="presentation">
-							    <button class="nav-link costdtls-button" id="pills-tariffId-tab" data-bs-toggle="pill" data-bs-target="#pills-tariffId" type="button" role="tab" aria-controls="pills-tariffId" aria-selected="false"><h5>Tariff & Id</h5></button>
-							  </li>
-							  <li class="nav-item" role="presentation">
-							    <button class="nav-link costdtls-button" id="pills-datesInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-datesInfo" type="button" role="tab" aria-controls="pills-datesInfo" aria-selected="false"><h5>Dates Info</h5></button>
-							  </li>
-							  <li class="nav-item" role="presentation">
-							    <button class="nav-link costdtls-button" id="pills-departInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-departInfo" type="button" role="tab" aria-controls="pills-departInfo" aria-selected="false"><h5>Dept. Info</h5></button>
-							  </li>
-							  <div class="container-fluid customer-search-container pt-2 mt-2">
-							    <form class="d-flex customer-search customer-search-sm" role="search">
-							      <input class="form-control form-control-sm me-2" type="search" id="getconsumer-data-from-billing" placeholder="Enter Consumer Id" aria-label="Search">
-							      <button class="btn btn-outline-success" type="submit">Search</button>
-							    </form>
-							  </div>
-							</ul>
-							
-							<div class="tab-content" id="pills-tabContent">
-							  <div class="tab-pane fade show active" id="pills-customerInfo" role="tabpanel" aria-labelledby="pills-customerInfo-tab" tabindex="0" style="margin-left: 124px;">
-							    <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">First Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">House Type</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="lastName" class="col-sm-2 col-form-label text-left">Last Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="lastName">
-								    </div>
-								    <label for="mobileNo" class="col-sm-2 col-form-label text-left">Mobile No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="mobileNo">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="relationType" class="col-sm-2 col-form-label text-left">Relation Type</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="relationType">
-								    </div>
-								    <label for="phoneNo" class="col-sm-2 col-form-label text-left">Phone No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="phoneNo">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="relationName" class="col-sm-2 col-form-label text-left">Relation Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="relationName">
-								    </div>
-								    <label for="emailId" class="col-sm-2 col-form-label text-left">Email Id</label>
-								    <div class="col-sm-3">
-								      <input type="email" class="form-control form-control-sm" id="emailId">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="noOfFamily" class="col-sm-2 col-form-label text-left">No of family Members</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="noOfFamily">
-								    </div>
-								    <label for="refContcatNo" class="col-sm-2 col-form-label text-left">Ref. Contact No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="refContcatNo">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="noOfHouseHold" class="col-sm-2 col-form-label text-left">No of House Hold</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="noOfHouseHold">
-								    </div>
-								    <label for="latitude" class="col-sm-2 col-form-label text-left">Latitude</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="latitude">
-								    </div>
-								  </div>
-								  <div class="mb-3  row">
-								    <label for="adhaarNo" class="col-sm-2 col-form-label text-left">Adhaar No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="adhaarNo">
-								    </div>
-								    <label for="longitude" class="col-sm-2 col-form-label text-left">Longitude</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="longitude">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="gender" class="col-sm-2 col-form-label text-left">Gender</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="gender">
-								    </div>								    
-								  </div>
-							  </div>
-							  <div class="tab-pane fade" id="pills-addressInfo" role="tabpanel" aria-labelledby="pills-addressInfo-tab" tabindex="0" style="margin-left: 124px;">
-							    <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-10 col-form-label text-center text-danger">Present Address</label>								    								    						   								    
+				<!-- Card Start-->
+				<div class="card text-center bl-cr">
+					<div class="card-header heading-bg text-white fs-4">
+						<h3>Consumer Master Details</h3>
+					</div>
+					<div class="card-body font-weight-bold">
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+							<li class="nav-item bg-dark rounded" role="presentation">
+								<button class="nav-link active costdtls-button text-white " id="pills-customerInfo-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-customerInfo" type="button" role="tab"
+									aria-controls="pills-customerInfo" aria-selected="true">
+									<h5>Coustomer Info</h5>
+								</button>
+							</li>
+							<li class="nav-item bg-dark rounded" role="presentation">
+								<button class="nav-link costdtls-button text-white" id="pills-addressInfo-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-addressInfo" type="button" role="tab"
+									aria-controls="pills-addressInfo" aria-selected="false">
+									<h5>Address Info</h5>
+								</button>
+							</li>
+							<li class="nav-item bg-dark rounded" role="presentation">
+								<button class="nav-link costdtls-button text-white" id="pills-tariffId-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-tariffId" type="button" role="tab"
+									aria-controls="pills-tariffId" aria-selected="false">
+									<h5>Tariff & Id</h5>
+								</button>
+							</li>
+							<li class="nav-item bg-dark rounded" role="presentation">
+								<button class="nav-link costdtls-button text-white" id="pills-datesInfo-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-datesInfo" type="button" role="tab"
+									aria-controls="pills-datesInfo" aria-selected="false">
+									<h5>Dates Info</h5>
+								</button>
+							</li>
+							<li class="nav-item bg-dark rounded" role="presentation">
+								<button class="nav-link costdtls-button text-white" id="pills-departInfo-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-departInfo" type="button" role="tab"
+									aria-controls="pills-departInfo" aria-selected="false">
+									<h5>Dept. Info</h5>
+								</button>
+							</li>
+
+							<!-- Message Alert Field -->
+							<div th:if="${session.message}" class="alert_field mt-2" style="margin-left: 307px;">
+								<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+									role="alert">
+									<span th:text="${session.message.content}"></span>
 								</div>
-							    <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">House No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Gis Ward</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Layout</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Election Ward</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Cross</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Revenue Ward</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Street</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Zone</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Main</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">City</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Area Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">State</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Ward Number</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Country</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Ward Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Pincode</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">DMA No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">DMA Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Spot SL No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>								    
-								  </div>
-							  </div>
-							  <div class="tab-pane fade" id="pills-tariffId" role="tabpanel" aria-labelledby="pills-tariffId-tab" tabindex="0" style="margin-left: 124px;">
-							  <div class="mb-3 row">
-								    <label for="ConsumerIdNumbers" class="col-sm-7 col-form-label text-center text-danger">Consumer Id Numbers</label>	
-								    <label for="tariffDescriptions" class="col-sm-5 col-form-label text-left text-danger">Tariff Descriptions</label>							    								    						   								    
+								<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+							</div>
+							<!-- End of Message Alert Field -->
+
+							<div class="container-fluid customer-search-container pt-2 mt-2">
+								<form class="d-flex customer-search" th:action="@{/billing/get/consumers}" method="get">
+									<input class="form-control form-control-sm me-2" name="consumerId"
+										placeholder="Enter Consumer Id" aria-label="Search">
+									<button class="btn btn-outline-success" type="submit">Search</button>
+								</form>
+							</div>
+						</ul>
+
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-customerInfo" role="tabpanel"
+								aria-labelledby="pills-customerInfo-tab" tabindex="0" style="margin-left: 124px;">
+								<div class="mb-3 row">
+									<label for="firstName" class="col-sm-2 col-form-label text-left">First Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.firstName}" id="firstName">
+									</div>
+									<label for="houseType" class="col-sm-2 col-form-label text-left">House Type</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.houseType}" id="houseType">
+									</div>
 								</div>
-							    <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Consumer Type</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Tariff</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Consumer Id</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Tariff Code</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">PID No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Tariff Desc</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">IMIS Id</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Pipe Size</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Tap No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Fixed Charges</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">DMA Id</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Pre Fix Avarage Consumption</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">External Id</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Last 6 Month Avarage</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Waste Water</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Consumer Status</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Meter Type</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Remarks</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>								  
-							  </div>
-							  <div class="tab-pane fade" id="pills-datesInfo" role="tabpanel" aria-labelledby="pills-datesInfo-tab" tabindex="0" style="margin-left: 313px;">
-							     <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Application Date</label>
-								    <div class="col-sm-4">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>								   
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Senction Date</label>
-								    <div class="col-sm-4">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>								   
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Reading Day</label>
-								    <div class="col-sm-4">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>								   
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Date Of Entry</label>
-								    <div class="col-sm-4">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>								   
-								  </div>	
-							  </div>
-							  <div class="tab-pane fade" id="pills-departInfo" role="tabpanel" aria-labelledby="pills-departInfo-tab" tabindex="0" style="margin-left: 124px;">
-							   <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Ledger No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Book No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Folio No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Device No</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Sub Division</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Uploaded Document Type</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Division</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Uploaded Document</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">EE Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">AEE Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>
-								  <div class="mb-3 row">
-								    <label for="firstName" class="col-sm-2 col-form-label text-left">Mr Name</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="firstName">
-								    </div>
-								    <label for="houseType" class="col-sm-2 col-form-label text-left">Mr Id</label>
-								    <div class="col-sm-3">
-								      <input type="text" class="form-control form-control-sm" id="houseType">
-								    </div>
-								  </div>	
-							  </div>
-							</div>					 
-					  </div>
-				  </div>
-			<!-- Card End-->	
+								<div class="mb-3 row">
+									<label for="lastName" class="col-sm-2 col-form-label text-left">Last Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.lastName}" id="lastName">
+									</div>
+									<label for="mobileNo" class="col-sm-2 col-form-label text-left">Mobile No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.mobileNo}" id="mobileNo">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="relationType" class="col-sm-2 col-form-label text-left">Relation
+										Type</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.relationType}" id="relationType">
+									</div>
+									<label for="phoneNo" class="col-sm-2 col-form-label text-left">Phone No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.phoneNo}" id="phoneNo">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="relationName" class="col-sm-2 col-form-label text-left">Relation
+										Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.relationName}" id="relationName">
+									</div>
+									<label for="emailId" class="col-sm-2 col-form-label text-left">Email Id</label>
+									<div class="col-sm-3">
+										<input type="email" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.emailId}" id="emailId">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="noOfFamily" class="col-sm-2 col-form-label text-left">No of family
+										Members</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.noOfFamily}" id="noOfFamily">
+									</div>
+									<label for="refContcatNo" class="col-sm-2 col-form-label text-left">Ref. Contact
+										No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.refcontactNo}" id="refContcatNo">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="noOfHouseHold" class="col-sm-2 col-form-label text-left">No of House
+										Hold</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.noOfhouse}" id="noOfHouseHold">
+									</div>
+									<label for="latitude" class="col-sm-2 col-form-label text-left">Latitude</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.latitude}" id="latitude">
+									</div>
+								</div>
+								<div class="mb-3  row">
+									<label for="adhaarNo" class="col-sm-2 col-form-label text-left">Adhaar No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.adhaarNo}" id="adhaarNo">
+									</div>
+									<label for="longitude" class="col-sm-2 col-form-label text-left">Longitude</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.longitude}" id="longitude">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="gender" class="col-sm-2 col-form-label text-left">Gender</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.gender}" id="gender">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-addressInfo" role="tabpanel"
+								aria-labelledby="pills-addressInfo-tab" tabindex="0" style="margin-left: 124px;">
+								<div class="mb-3 row">
+									<label for="presentAdd"
+										class="col-sm-10 col-form-label text-center text-danger">Present Address</label>
+								</div>
+								<div class="mb-3 row">
+									<label for="houseNo" class="col-sm-2 col-form-label text-left">House No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.houseNo}" id="houseNo">
+									</div>
+									<label for="gisWard" class="col-sm-2 col-form-label text-left">Gis Ward</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.gisWard}" id="gisWard">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="layout" class="col-sm-2 col-form-label text-left">Layout</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.layout}" id="layout">
+									</div>
+									<label for="electonWard" class="col-sm-2 col-form-label text-left">Election
+										Ward</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.electonWard}" id="electonWard">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="cross" class="col-sm-2 col-form-label text-left">Cross</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.cross}" id="cross">
+									</div>
+									<label for="revnewWard" class="col-sm-2 col-form-label text-left">Revenue
+										Ward</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.revnewWard}" id="revnewWard">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="street" class="col-sm-2 col-form-label text-left">Street</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.street}" id="street">
+									</div>
+									<label for="zone" class="col-sm-2 col-form-label text-left">Zone</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.zone}" id="zone">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="main" class="col-sm-2 col-form-label text-left">Main</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.main}" id="main">
+									</div>
+									<label for="city" class="col-sm-2 col-form-label text-left">City</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.city}" id="city">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="areaName" class="col-sm-2 col-form-label text-left">Area Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.areaName}" id="areaName">
+									</div>
+									<label for="state" class="col-sm-2 col-form-label text-left">State</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.state}" id="state">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="wardNo" class="col-sm-2 col-form-label text-left">Ward Number</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.wardNo}" id="wardNo">
+									</div>
+									<label for="country" class="col-sm-2 col-form-label text-left">Country</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.country}" id="country">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="wardName" class="col-sm-2 col-form-label text-left">Ward Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.wardName}" id="wardName">
+									</div>
+									<label for="pincode" class="col-sm-2 col-form-label text-left">Pincode</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.pincode}" id="pincode">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="dmaNo" class="col-sm-2 col-form-label text-left">DMA No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.dmaNo}" id="dmaNo">
+									</div>
+									<label for="dmaName" class="col-sm-2 col-form-label text-left">DMA Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.dmaName}" id="dmaName">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="spotslNo" class="col-sm-2 col-form-label text-left">Spot SL No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.spotslNo}" id="spotslNo">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-tariffId" role="tabpanel"
+								aria-labelledby="pills-tariffId-tab" tabindex="0" style="margin-left: 124px;">
+								<div class="mb-3 row">
+									<label for="ConsumerIdNumbers"
+										class="col-sm-7 col-form-label text-center text-danger">Consumer Id
+										Numbers</label>
+									<label for="tariffDescriptions"
+										class="col-sm-5 col-form-label text-left text-danger">Tariff
+										Descriptions</label>
+								</div>
+								<div class="mb-3 row">
+									<label for="consumertype" class="col-sm-2 col-form-label text-left">Consumer
+										Type</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.consumertype}" id="consumertype">
+									</div>
+									<label for="tariff" class="col-sm-2 col-form-label text-left">Tariff</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.tariff}" id="tariff">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="consumerId" class="col-sm-2 col-form-label text-left">Consumer
+										Id</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.consumerId}" id="consumerId">
+									</div>
+									<label for="tariffCode" class="col-sm-2 col-form-label text-left">Tariff
+										Code</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.tariffCode}" id="tariffCode">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="pidNo" class="col-sm-2 col-form-label text-left">PID No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.pidNo}" id="pidNo">
+									</div>
+									<label for="tariffDesc" class="col-sm-2 col-form-label text-left">Tariff
+										Desc</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.tariffDesc}" id="tariffDesc">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="imsisId" class="col-sm-2 col-form-label text-left">IMIS Id</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.imsisId}" id="imsisId">
+									</div>
+									<label for="pipeSize" class="col-sm-2 col-form-label text-left">Pipe Size</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.pipeSize}" id="pipeSize">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="tapNo" class="col-sm-2 col-form-label text-left">Tap No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.tapNo}" id="tapNo">
+									</div>
+									<label for="fixedCharged" class="col-sm-2 col-form-label text-left">Fixed
+										Charges</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.fixedCharged}" id="fixedCharged">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="dmaId" class="col-sm-2 col-form-label text-left">DMA Id</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.dmaId}" id="dmaId">
+									</div>
+									<label for="preFixAvg" class="col-sm-2 col-form-label text-left">Pre Fix Avarage
+										Consumption</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.preFixAvg}" id="preFixAvg">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="externalId" class="col-sm-2 col-form-label text-left">External
+										Id</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.externalId}" id="externalId">
+									</div>
+									<label for="lastSixAvr" class="col-sm-2 col-form-label text-left">Last 6 Month
+										Avarage</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.lastSixAvr}" id="lastSixAvr">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="wasteWater" class="col-sm-2 col-form-label text-left">Waste
+										Water</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.wasteWater}" id="wasteWater">
+									</div>
+									<label for="consumerSts" class="col-sm-2 col-form-label text-left">Consumer
+										Status</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.consumerSts}" id="consumerSts">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="meterType" class="col-sm-2 col-form-label text-left">Meter Type</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.meterType}" id="meterType">
+									</div>
+									<label for="remarks" class="col-sm-2 col-form-label text-left">Remarks</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.remarks}" id="remarks">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-datesInfo" role="tabpanel"
+								aria-labelledby="pills-datesInfo-tab" tabindex="0" style="margin-left: 313px;">
+								<div class="mb-3 row">
+									<label for="applicationDate" class="col-sm-2 col-form-label text-left">Application
+										Date</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.applicationDate}" id="applicationDate">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="senctionDate" class="col-sm-2 col-form-label text-left">Senction
+										Date</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.senctionDate}" id="senctionDate">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="readingDay" class="col-sm-2 col-form-label text-left">Reading
+										Day</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.readingDay}" id="readingDay">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="dateOfEntry" class="col-sm-2 col-form-label text-left">Date Of
+										Entry</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.dateOfEntry}" id="dateOfEntry">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-departInfo" role="tabpanel"
+								aria-labelledby="pills-departInfo-tab" tabindex="0" style="margin-left: 124px;">
+								<div class="mb-3 row">
+									<label for="ledgerNo" class="col-sm-2 col-form-label text-left">Ledger No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.ledgerNo}" id="ledgerNo">
+									</div>
+									<label for="bookNo" class="col-sm-2 col-form-label text-left">Book No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.bookNo}" id="bookNo">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="folioNo" class="col-sm-2 col-form-label text-left">Folio No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.folioNo}" id="folioNo">
+									</div>
+									<label for="deviceNo" class="col-sm-2 col-form-label text-left">Device No</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.deviceNo}" id="deviceNo">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="subDivision" class="col-sm-2 col-form-label text-left">Sub
+										Division</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.subDivision}" id="subDivision">
+									</div>
+									<label for="uploadDocType" class="col-sm-2 col-form-label text-left">Uploaded
+										Document Type</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.uploadDocType}" id="uploadDocType">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="division" class="col-sm-2 col-form-label text-left">Division</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.division}" id="division">
+									</div>
+									<label for="uploadDocType" class="col-sm-2 col-form-label text-left">Uploaded
+										Document</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.uploadDocType}" id="uploadDocType">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="eeName" class="col-sm-2 col-form-label text-left">EE Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.eeName}" id="eeName">
+									</div>
+									<label for="aeeName" class="col-sm-2 col-form-label text-left">AEE Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.aeeName}" id="aeeName">
+									</div>
+								</div>
+								<div class="mb-3 row">
+									<label for="mrName" class="col-sm-2 col-form-label text-left">Mr Name</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.mrName}" id="mrName">
+									</div>
+									<label for="mrId" class="col-sm-2 col-form-label text-left">Mr Id</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${getConsumerData.mrId}" id="mrId">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- Card End-->
 			</div>
 		</div>
 	</section>
 </body>
-</html>			
+
+</html>

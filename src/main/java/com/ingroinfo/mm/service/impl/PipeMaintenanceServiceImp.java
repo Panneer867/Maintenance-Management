@@ -2,17 +2,18 @@ package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ingroinfo.mm.dao.PipeIndexRepository;
 import com.ingroinfo.mm.dao.PipeMaintenanceInspectionRepository;
 import com.ingroinfo.mm.dao.PipeMaintenanceRepository;
 import com.ingroinfo.mm.dao.PipeMaintenanceUpdateRepository;
+import com.ingroinfo.mm.dto.PipeIndexDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceInspectionDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceUpdateDto;
+import com.ingroinfo.mm.entity.PipeIndex;
 import com.ingroinfo.mm.entity.PipeMaintenance;
 import com.ingroinfo.mm.entity.PipeMaintenanceInspection;
 import com.ingroinfo.mm.entity.PipeMaintenanceUpdate;
@@ -26,6 +27,9 @@ public class PipeMaintenanceServiceImp implements PipeMaintenanceService {
 	
 	@Autowired
 	private  PipeMaintenanceRepository pipeMaintenanceRepo;
+	
+	@Autowired
+	private PipeIndexRepository pipeIndexRepo; 
 	
 	@Autowired
 	private PipeMaintenanceUpdateRepository pipeMaintenanceUpdateRepo;
@@ -91,6 +95,14 @@ public class PipeMaintenanceServiceImp implements PipeMaintenanceService {
 	   PipeMaintenanceInspection pMaintenanceInspection	= this.modelMapper.map(pipeMaintenanceInspection, PipeMaintenanceInspection.class);
 		this.pipeMaintenanceInspectionRepo.save(pMaintenanceInspection);
 	   return this.modelMapper.map(pMaintenanceInspection, PipeMaintenanceInspectionDto.class);
+	}
+
+
+	@Override
+	public PipeIndexDto savePipeIndex(PipeIndexDto pipeIndexDto) {
+		PipeIndex pipeIndex = this.modelMapper.map(pipeIndexDto, PipeIndex.class);
+		this.pipeIndexRepo.save(pipeIndex);
+		return this.modelMapper.map(pipeIndex, PipeIndexDto.class);
 	}
 
 

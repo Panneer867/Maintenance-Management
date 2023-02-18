@@ -1,502 +1,609 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
-  <body>
+
+<body>
 	<section>
-	<h3 class="text-center text-white mt-2 p-1 bg-primary">Salary Generator
+	<form  class="forms-sample" th:action="@{/employee/saveEmpSalary}" method="post">
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Salary Generator
 		</h3>
-	  <form>
-	     <div class="mt-2">
-	 <div class="row">
-	 <div class="col-11 mx-auto">
-		<div class="card  bl-cr mt-3">
-			<div class="card-header text-center heading-bg text-white py-2">
+		
+			<div class="mt-2">
+			<ul class="nav nav-pills justify-content-end py-1 mb-2 mx-4" id="pills-tab" role="tablist">
+
+				<li class="nav-item" role="presentation">
+					   <a th:href="@{/employee/salaryManagement}" class="nav-link active text-center mx-5 py-2 text-white hvr bg-dark" style="width:160px;">
+              <i class="fa fa-money"></i>
+               Salary Management
+               </a> 
+				</li>
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+					tabindex="0">
+					 <div class="mt-2">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+				<div class="row">
+					<div class="col-11 mx-auto">
+						<div class="card  bl-cr">
+							<div class="card-header text-center heading-bg text-white py-2">
 								<h4 class="mb-0">Employee Data</h4>
 							</div>
-		  <div class="card-body">
-			 
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Department <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                           <select class="form-control" name="department" id="department" data-error="Select gender !" required>
-                                       <option value="" selected>select</option>
-                                        <option th:each="emp : ${listOfEmployees}" th:value="${emp.department}" th:utext="${emp.department}"/>
-                                    </select>
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-4">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Emp Code</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Emp Code">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Basic Salary</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Basic Salary">
-                                    </div>
-                                 </div>
-                                  </div>
-                              
-                          
-                            </div>
-				
-                      <!-- ***************************** 2th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Emp Name">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">PAN No</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="PAN No">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">	HRA</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="HRA">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 3th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Designation</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Designation">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">	ESI number</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="ESI number">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Conveyance</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Conveyance">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 4th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Bank Account No</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Bank Account No">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">	PF number</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="PF number">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="SPL Allow">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 5th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Mobile No</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Mobile No">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">PF</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="PF">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="LTA Allow">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 6th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Date of Join</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Date of Join">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Income Tax</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Income Tax">
-                                    </div>
-                                 </div>
-                              </div>
-                            
-                      </div>
-                 
-		               <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(128, 128, 64);"><small>WORKING DAYS</small></h3>
-                      <!-- ***************************** 7th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Total Working Days</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Total Working Days">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Total Leaves</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Total Leaves">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4  text-center mt-1">
-		   	                       <button type="button" class="btn btn-success ">Generate Salary</button>   
-		  	                </div>
-                      </div>
-                    <!-- ***************************** 8th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Date <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                       <input type="Date" class="form-control" id="customerName" name="customerName" placeholder="Date ">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Earning Days</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Earning Days">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 text-center">
-		   	                       <button type="button" class="btn btn-primary ">Clear</button>   
-		  	                </div>
-                      </div>
-                       
-				
-	   </div>	
-	 </div>
-	 </div>
-	    <!-- ***************************** 2nd Card  ***************************-->
-	  <div class="col-12">
-		<div class="card  bl-cr mt-3">
-				<div class="card-header bg-dark  text-white  py-1">
-						<label for="inputEmail3" class="col-sm-3 col-form-label ">Earnings</label>
-				    	<label for="inputEmail3" class="col-sm-3 col-form-label ">Actual Earnings</label>
-						<label for="inputEmail3" class="col-sm-3 col-form-label ">Deductions</label>
-						<label for="inputEmail3" class="col-sm-2 col-form-label ">NetPay</label>
-				</div>
-	      <div class="card-body">		
-                     <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Basic Salary</label>
-                                    <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Basic Salary">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Actual Salary</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Actual Salary">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">PF</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="PF">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Gross Pay</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Gross Pay">
-                                    </div>
-                                 </div>
-                                  </div>
-                          
-                            </div>
-							 <!-- ***************************** 2th Row  ***************************-->
-					<div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">DA</label>
-                                    <div class="col-sm-7">
-                                           <input type="text" class="form-control" id="customerName" name="customerName" placeholder="DA">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">DA</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="DA">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">ESI</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="ESI">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Gross Deduct</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Gross Deduct">
-                                    </div>
-                                 </div>
-                                  </div>
-                          
-                            </div>
-                            		 <!-- ***************************** 3th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">HRA</label>
-                                    <div class="col-sm-7">
-                                           <input type="text" class="form-control" id="customerName" name="customerName" placeholder="HRA">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">HRA</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="HRA">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Prof.TAX</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Prof.TAX">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Net Pay</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Net Pay">
-                                    </div>
-                                 </div>
-                                  </div>
-                          
-                            </div>
-                            		 <!-- ***************************** 4th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Conveyance</label>
-                                    <div class="col-sm-7">
-                                           <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Conveyance">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Conveyance</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Conveyance">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">TDS</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="TDS">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  
-                          
-                            </div>
-                            		 <!-- ***************************** 5th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Medical</label>
-                                    <div class="col-sm-7">
-                                           <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Medical">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Medical</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Medical">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  
-                          
-                            </div>
-                            		 <!-- ***************************** 6th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">SPL Allow </label>
-                                    <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="customerName" name="customerName" placeholder="SPL Allow">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="SPL Allow">
-                                    </div>
-                                 </div>
-                                  </div>
-                               
-                             
-                          
-                            </div>
-                            		 <!-- ***************************** 7th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Telephone Allow</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Telephone Allow">
-                                    </div>
-                                 </div>
-                                  </div>
-                                 
-                            </div>
-                            		 <!-- ***************************** 8th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="LTA Allow">
-                                    </div>
-                                 </div>
-                                  </div>
-                                 
-                          
-                            </div>
-                            		 <!-- ***************************** 9th Row  ***************************-->
-                      <div class="row">
-                              <div class="col-md-3">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Total Earnings</label>
-                                    <div class="col-sm-7">
-                                           <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Total Earnings">
-                                    </div>
-                                 </div>
-                   
-                              </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Actual Earnings</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Actual Earnings">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Total Deductions</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Total Deductions">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Total Net Pay</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Total Net Pay">
-                                    </div>
-                                 </div>
-                                  </div>
-                          
-                            </div>
-							</div>
+							<div class="card-body">
 							
-	   </div>
-	 </div>
-	 
-	 
-   </div>
-	     </div>
-   </form>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Department
+												<strong class="text-danger ">*</strong></label>
+											<div class="col-sm-7">
+												<select class="form-select" name="department" id="changeDepartmentName"
+													data-error="Select gender !" required>
+													<option value="" selected>select</option>
+													<option th:each="emp : ${deptList}" th:value="${emp.departmentName}"
+														th:text="${emp.departmentName}" />
+												</select>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">Emp Code</label>
+											<div class="col-sm-7">
+												<select class="form-select" id="allEmployeeCode" name="employeeId" required>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Basic
+												Salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-basicSalary"
+													name="empBaiscSal" placeholder="Basic Salary" readonly>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+								<!-- ***************************** 2th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empName"
+													name="empName" placeholder="Emp Name" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">PAN No</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-panNO"
+													name="panNo" placeholder="PAN No" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Gross
+												Salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empSalary"
+													name="empSalary" placeholder="HRA" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 3th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName"
+												class="col-sm-5  col-form-label">Designation</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-designation"
+													name="designation" placeholder="Designation" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label"> ESI
+												number</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-esiNumber"
+													name="esiNumber" placeholder="ESI number" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName"
+												class="col-sm-5  col-form-label">Conveyance</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empCon"
+													name="empCon" placeholder="Conveyance" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 4th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Bank Account
+												No</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-bankAccNo"
+													name="bankAccNo" placeholder="Bank Account No" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label"> PF
+												number</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-pfNo"
+													name="pfNo" placeholder="PF number" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-salEmphra"
+													name="salEmphra" placeholder="SPL Allow" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 5th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Mobile No</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-contactNo"
+													name="contactNo" placeholder="Mobile No" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empPf"
+													name="Pf" placeholder="PF" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empSplAllow"
+													name="salSplAllow" placeholder="LTA Allow" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ***************************** 6th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Date of
+												Join</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-dateOfJoin"
+													name="dateOfJoin" placeholder="Date of Join" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Income
+												Tax</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-inCometax"
+													name="inCometax" placeholder="Income Tax" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-lta"
+													name="lta" placeholder="LTA Allow" readonly>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<h3 class="text-center text-white mt-1 py-1"
+									style="background-color: rgb(128, 128, 64);"><small>WORKING DAYS</small></h3>
+								<!-- ***************************** 7th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4 mt-1">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Total Working
+												Days</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalWorkingDays"
+													name="workingDay" placeholder="Total Working Days" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4 mt-1">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Total
+												Leaves</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalSanEmpLeave"
+													name="totalLeave" placeholder="Total Leaves" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4  text-center mt-1">
+										<button type="button" id="salary-Generator" class="btn btn-success">Generate
+											Salary</button>
+									</div>
+								</div>
+								<!-- ***************************** 8th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-4">
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Earning
+												Days</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalEaringDays"
+													name="totalEaringDay" placeholder="Earning Days" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4 text-center">
+										<button type="button" class="btn btn-primary">Clear</button>
+									</div>
+								</div>
+
+
+							
+							
+							
+								</div>
+						</div>
+					</div>
+					<!-- ***************************** 2nd Card  ***************************-->
+					<div class="col-12">
+						<div class="card  bl-cr mt-3">
+							<div class="card-header bg-dark  text-white  py-1">
+								<label for="inputEmail3" class="col-sm-3 col-form-label ">Earnings</label>
+								<label for="inputEmail3" class="col-sm-3 col-form-label ">Actual Earnings</label>
+								<label for="inputEmail3" class="col-sm-3 col-form-label ">Deductions</label>
+								<label for="inputEmail3" class="col-sm-2 col-form-label ">NetPay</label>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Basic
+												Salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white"
+													id="salary-empBasicSalary" name="basicSalary"
+													placeholder="Basic Salary" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">Actual
+												Salary</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="actualSalary"
+													name="actualSalary" placeholder="Actual Salary" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-pfAmount"
+													name="empPf" placeholder="PF" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Gross Pay</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="slary-Grosspay"
+													name="grossPay" placeholder="Gross Pay" readonly>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- ***************************** 2th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-da"
+													name="da" placeholder="DA" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empda"
+													name="empDa" placeholder="DA" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">ESI</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-esi"
+													name="empEsi" placeholder="ESI" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Gross
+												Deduct</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-GrossDeduct"
+													name="grossDeduct" placeholder="Gross Deduct" readonly>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- ***************************** 3th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-hra"
+													name="empHra" placeholder="HRA" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-emphra"
+													name="actualHra" placeholder="HRA" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Prof.TAX</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-profTax"
+													name="profTax" placeholder="Prof.TAX" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Net Pay</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-netpay"
+													name="netPay" placeholder="Net Pay" readonly>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- ***************************** 4th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName"
+												class="col-sm-5  col-form-label">Conveyance</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white"
+													id="salary-convencyance" name="convencyance"
+													placeholder="Conveyance" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName"
+												class="col-sm-5  col-form-label">Conveyance</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empConv"
+													name="convn" placeholder="Conveyance" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">TDS</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control " id="salary-tds"
+													name="empTds" placeholder="TDS" required>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<!-- ***************************** 5th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-medical"
+													name="medical" placeholder="Medical" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empMA"
+													name="ma" placeholder="Medical" readonly>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<!-- ***************************** 6th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow
+											</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-splAllow"
+													name="empSplAllow" placeholder="SPL Allow" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-empSpl"
+													name="actualSpclAllow" placeholder="SPL Allow" readonly>
+											</div>
+										</div>
+									</div>
+
+
+
+								</div>
+								<!-- ***************************** 7th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">Telephone
+												Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-telAllow"
+													name="telAllowance" placeholder="Telephone Allow" readonly>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- ***************************** 8th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-emplta"
+													name="ltaAllow" placeholder="LTA Allow" readonly>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<!-- ***************************** 9th Row  ***************************-->
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label ">Total
+												Earnings</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalEarnings"
+													name="totalEarn" placeholder="Total Earnings" readonly>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row ">
+											<label for="customerName" class="col-sm-5  col-form-label">Actual
+												Earnings</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalActualEarn"
+													name="actualEarnings" placeholder="Actual Earnings" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Total
+												Deductions</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="totalDeduction"
+													name="totalDeductions" placeholder="Total Deductions" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group row">
+											<label for="customerName" class="col-sm-5  col-form-label">Total Net
+												Pay</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control bg-white" id="salary-totalnetpay"
+													name="totalNetPay" placeholder="Total Net Pay" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center mt-5">
+										<button type="submit" class="btn btn-primary w-25 text-center">Submit</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+				</div>
+			</div>
+			</div>
+	</form>
 	</section>
-			  
-    
-  </body>
+
+
+</body>
+
 </html>

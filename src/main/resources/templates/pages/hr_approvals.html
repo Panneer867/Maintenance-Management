@@ -1,282 +1,343 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
-  <body>
+
+<body>
 	<section>
-	<h3 class="text-center text-white mt-2 p-1 bg-primary">Leave Information
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Leave Information
 		</h3>
-	 
-   <div class="row">
-	 <div class="col-11 mx-auto">
-	 <div class="row">
-	 <div class="col-9">
-		<div class="card bl-cr mt-3">
-			 <div class="card-header text-center heading-bg text-white py-2">
+			<!-- Message Alert Field -->
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<!-- End of Message Alert Field -->
+		<div class="row">
+			<div class="col-11 mx-auto">
+				<div class="row">
+					<div class="col-9">
+						<div class="card bl-cr mt-3">
+							<div class="card-header text-center heading-bg text-white py-2">
 								<h4 class="mb-0">Employee Data</h4>
 							</div>
-		      <div class="card-body">
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">EMP Code <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                     <input type="text" class="form-control" id="hrleave-empId" name="employeeCode"  placeholder="empCode">
-                                    </div>
-                                 </div>
-                              </div>
-                                  <div class="col-md-4">
-                                    <div class="form-group row ">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-empName" name="empName"  placeholder="Emp Name">
-                                    </div>
-                                 </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                      <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Designation</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-designation" name="designation"  placeholder="Designation">
-                                    </div>
-                                 </div>
-                                  </div>
-                              
-                          
-                            </div>
-				
-                      <!-- ***************************** 2th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Father Name</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-fatherName" name="fatherName"  placeholder="Father Name">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Department </label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-department" name="department"  placeholder="Department ">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">	House No </label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-houseNo" name="houseNo"  placeholder="House No">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 3th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Date Of Join</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-dateOfJoin" name="dateOfJoin"  placeholder="Date Of Join">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Address</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-address" name="address"  placeholder="Address">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Ref Con. No</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-refContactNo" name="refContactNo"  placeholder="Ref Contact No">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      <!-- ***************************** 4th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Contact No</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-contactNo" name="contactNo"  placeholder="Contact No(mobile)">
-                                    </div>
-                                 </div>
-                              </div>
-                             
-                      </div>
-                      
-					
-                      <!-- ***************************** Leave Status Per Year Starts ***************************-->
-					
-			                <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(128, 128, 64);"><small>Leave Status Per Year </small></h3>
-		              
-                      <!-- ***************************** 1st Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">SL</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-Asl" name="sl"  placeholder="SL">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">CL</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-Acl" name="cl"  placeholder="CL">
-                                    </div>
-                                 </div>
-                              </div>
-                             <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="hrleave-Alwp" name="lwp"  placeholder="LWP">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                <!-- ***************************** Sanctioned Leave Starts ***************************-->       
-			                  <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(64, 128, 128);"><small>Sanctioned Leave </small></h3>
-		          
-                      <!-- ***************************** 1st Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">SL</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="emp-Ssl" name="Ssl"  placeholder="SL">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">CL</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="emp-Scl" name="Scl"  placeholder="CL">
-                                    </div>
-                                 </div>
-                              </div>
-                             <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="emp-Slwp" name="Slwp"  placeholder="LWP">
-                                    </div>
-                                 </div>
-                              </div>
-                      </div>
-                      
-                       <!-- ***************************** Department Approval Starts ***************************-->
+							<div class="card-body">
+							<form  th:action="@{/employee/saveApprvlLeave}" method="post"  th:object="${leaveUpdate}">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">EMP Code
+													<strong class="text-danger ">*</strong></label>
+												<div class="col-sm-7"> 
+													<input type="hidden" class="form-control" 
+												  name="empLeaveId" th:value="${leaveData.empLeaveId}" placeholder="empLeaveId">                          
+													<input type="text" class="form-control bg-white" 
+												  name="employeeCode" th:value="${leaveData.employeeCode}" placeholder="empCode" readonly required>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row ">
+												<label for="customerName" class="col-sm-5  col-form-label">Emp
+													Name</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-empName"
+												    name="empName" th:value="${leaveData.empName}" placeholder="Emp Name" readonly required>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName"
+													class="col-sm-5  col-form-label">Designation</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-designation"
+												name="designation" th:value="${empdesign}" placeholder="Designation" readonly>
+												</div>
+											</div>
+										</div>
 
-			                <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(255, 128, 128);"><small>Department Approval</small></h3>
-		             
-                      <!-- ***************************** 1st Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Department Head <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                         <select class="form-control" data-error="Select gender !" id="deptHead" name="deptHead">
-                                       <option value="" selected>Select</option>
-                                       <option value="Yes">Yes</option>
-                                       <option value="No">No</option>
-                                     
-                                    </select>
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Remark</label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="remark" name="remark"  placeholder="Remark">
-                                    </div>
-                                 </div>
-                              </div>
-                            
-                      </div>
-			                <h3 class="text-center text-white mt-1 py-1" style="background-color: rgb(128, 128, 128);"><small>Leave Process</small></h3>
-		             
-                      <!-- ***************************** 2th Row  ***************************-->
-					 <div class="row">
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Date  <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                       <input type="Date" class="form-control" id="leaveDate" name="leaveDate"  placeholder="Date ">
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">No of Days <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="noOfLeave" name="noOfLeave"  placeholder="No of Days">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row">
-                                    <label for="customerName" class="col-sm-5  col-form-label">Leave Type <strong class="text-danger ">*</strong></label>
-                                    <div class="col-sm-7">
-                                         <select class="form-control" data-error="Select gender !" id="leaveType" name="leaveType">
-                                       <option value="" selected>Select</option>
-                                       <option value="SL">SL</option>
-                                       <option value="CL">CL</option>
-                                       <option value="LWP">LWP</option>
-                                    </select>
-                                    </div>
-                                 </div>
-                              </div>
-                               <div class="text-center mb-2">
-		                      <button type="button" class="btn btn-sucess">Leave Letter</button>
-		   	   
-	 	                      </div>    
-                      </div>
-                      
-                      	
-                <div class="card-footer text-center">
-		   	    <button type="submit" id="emp-details" class="btn btn-primary">Submit</button> 
-	 	 </div>    
-	 	  
-	   </div>
-			 
-	   </div>	
-	 </div>
-	 <!-- Table Start-->
-        	<div class="col-3 mt-3">
-                        <table  class="table table-stock table-bordered text-center table-primary table-striped table-hover">
-                           <thead class="table-dark">
-                              <tr>
-                                  <th class="text-white text-center fs-6">EmpID</th>
-                                 <th class="text-white text-center fs-6">EmpName</th>
-                                 <th class="text-white text-center fs-6">Dept</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr class="fs-6" th:each="employee: ${listOfEmployees}">
-						     <td> <a href="#" th:onclick="|empDataForHrLeave(${employee.employeeId})|">
-						          <span th:text="${employee.employeeCode}"></span></a></td>
-							  <td th:text = "${employee.empName}"></td>
-							  <td th:text = "${employee.department}"></td>
-                              </tr>
-                           </tbody>
-                        </table>   
-                     </div>
-        <!-- Table End-->
-                  </div>
-	   </div>
-        </div>
-    
+
+									</div>
+
+									<!-- ***************************** 2th Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Father
+													Name</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-fatherName"
+													 name="fatherName" th:value="${empFather}"  placeholder="Father Name" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Department
+												</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-department"
+															name="department" th:value="${leaveData.department}" placeholder="Department" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label"> House No
+												</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" 
+													name="houseNo" th:value="${empHouseNo}" placeholder="House No" readonly>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- ***************************** 3th Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Date Of
+													Join</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" 
+															name="dateOfJoin" th:value="${empdateofJoin}" placeholder="Date Of Join" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName"
+													class="col-sm-5  col-form-label">Address</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" 
+													 name="address" th:value="${empAddress}" placeholder="Address" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Ref Con.
+													No</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" 
+															name="refContactNo" th:value="${refConNo}" placeholder="Ref Contact No" readonly>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- ***************************** 4th Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Contact
+													No</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" 
+														name="contactNo" th:value="${conNo}" placeholder="Contact No(mobile)" readonly>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+
+									<!-- ***************************** Leave Status Per Year Starts ***************************-->
+
+									<h3 class="text-center text-white mt-1 py-1"
+										style="background-color: rgb(128, 128, 64);"><small>Leave Status Per Year
+										</small></h3>
+
+									<!-- ***************************** 1st Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">SL</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-sickLeave" 
+													th:value="${leaveData.sickLeave}" name="sickLeave"	placeholder="SL" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">CL</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-causalLeave"
+													th:value="${leaveData.causalLeave}"	name="causalLeave" placeholder="CL" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">LWP</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-annualLwp" 
+												th:value="${leaveData.annualLwp}" name="annualLwp"	placeholder="LWP" readonly>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- ***************************** Sanctioned Leave Starts ***************************-->
+									<h3 class="text-center text-white mt-1 py-1"
+										style="background-color: rgb(64, 128, 128);"><small>Sanctioned Leave </small>
+									</h3>
+
+									<!-- ***************************** 1st Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">SL</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-sacnSickLeave" 
+													 th:value="${leaveData.sacnSickLeave}" name="sacnSickLeave"	placeholder="SL" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">CL</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-sacnCausalLeave" 
+														 th:value="${leaveData.sacnCausalLeave}" name="sacnCausalLeave" placeholder="CL" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">LWP</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-sacnLwp"
+														th:value="${leaveData.sacnLwp}" name="sacnLwp" placeholder="LWP" readonly>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- ***************************** Department Approval Starts ***************************-->
+
+									<h3 class="text-center text-white mt-1 py-1"
+										style="background-color: rgb(255, 128, 128);"><small>Department Approval</small>
+									</h3>
+
+									<!-- ***************************** 1st Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Dept Head
+													<strong class="text-danger ">*</strong></label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-deptHead"
+														name="deptHead" th:value="${leaveData.deptHead}" placeholder="LWP" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName"
+													class="col-sm-5  col-form-label">Remark</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control bg-white" id="aprl-remark"
+													th:value="${leaveData.remark}"	 name="remark" placeholder="Remark" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">HR
+													Approval<strong class="text-danger ">*</strong></label>
+												<div class="col-sm-7">
+													<select class="form-select" data-error="Select Option !"
+														id="hrApproval" name="hrApproval" required>
+														<option value="" selected>Select</option>
+														<option value="YES">Yes</option>
+														<option value="NO">No</option>
+													</select>												
+												</div>
+											</div>
+										</div>
+									</div>
+									<h3 class="text-center text-white mt-1 py-1"
+										style="background-color: rgb(128, 128, 128);"><small>Leave Process</small></h3>
+
+									<!-- ***************************** 2th Row  ***************************-->
+									<div class="row">
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">Date <strong
+														class="text-danger ">*</strong></label>
+												<div class="col-sm-7">
+													<input type="Date" class="form-control" id="aprl-leaveDate"
+														name="hrDate" placeholder="Date " required>												
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="customerName" class="col-sm-5  col-form-label">No of Days
+													<strong class="text-danger ">*</strong></label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="aprl-noOfLeave"
+														th:value="${leaveData.noOfLeave}"  name="noOfLeave" placeholder="No of Days"
+														 required>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 mt-1">
+											<div class="form-group row">
+												<label for="leaveType" class="col-sm-5  col-form-label">Leave Type
+													<strong class="text-danger ">*</strong></label>
+												<div class="col-sm-7">
+													<select class="form-select" 
+													 name="leaveType" th:value="${leaveData.leaveType}" required>
+														<option value="" selected>Select</option>
+									  					<option value="SL">SL</option>
+									  					<option value="CL">CL</option>
+									 				    <option value="LWP">LWP</option>
+													</select>													
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer text-center">
+										<button type="submit"  class="btn btn-primary">Submit</button>
+									</div>
+							</form>
+							</div>
+
+						</div>
+					</div>
+					<!-- Table Start-->
+					<div class="col-3 mt-3">
+						<table
+							class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+							<thead class="table-dark">
+								<tr>
+									<th class="text-white text-center fs-6">EmpID</th>
+									<th class="text-white text-center fs-6">EmpName</th>
+								<!--	<th class="text-white text-center fs-6">Dept</th>-->
+									<th class="text-white text-center fs-6">Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="fs-7" th:each="employee: ${listOfEmployees}">
+									<td> <a th:href="@{'/employee/apprvlLeave/'+${employee.empLeaveId}}">
+											<span th:text="${employee.employeeCode}"></span></a></td>
+									<td th:text="${employee.empName}"></td>
+								<!--	<td th:text="${employee.department}"></td>-->
+									<td th:text="${employee.leaveDate}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- Table End-->
+				</div>
+			</div>
+		</div>
+
 
 	</section>
-			  
-    
-  </body>
+
+
+</body>
+
 </html>

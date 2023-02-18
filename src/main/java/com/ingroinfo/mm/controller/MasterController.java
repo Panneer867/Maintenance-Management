@@ -1,5 +1,6 @@
 package com.ingroinfo.mm.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.ingroinfo.mm.dto.BrandMasterDto;
 import com.ingroinfo.mm.dto.CategoryDto;
 import com.ingroinfo.mm.dto.DepartmentDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
@@ -53,6 +55,7 @@ import com.ingroinfo.mm.dto.WaterSourceDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
 import com.ingroinfo.mm.dto.WorkStatusDto;
 import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.BrandMasterService;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.DepartmentIdMasterService;
 import com.ingroinfo.mm.service.DepartmentService;
@@ -174,6 +177,8 @@ public class MasterController {
 	private DesignationService designationService;
 	@Autowired
 	private SupplierDtlsService supplierDtlsService;
+	@Autowired
+	private BrandMasterService brandMasterService;
 
 	@GetMapping("/barcode")
 	public String openMasterBarcodePage(Model model) {
@@ -243,7 +248,15 @@ public class MasterController {
 
 	@GetMapping("/companymaster")
 	public String openMasterCompanyPage(Model model) {
+		model.addAttribute("title", "Master | Company | Manintenance Management");
 		return "/pages/masters/master-company";
+	}
+	
+	@GetMapping("/brand-master")
+	public String openMasterBrandPage(Model model) {
+		model.addAttribute("show", null);
+		model.addAttribute("title", "Master | Brand | Manintenance Management");
+		return "/pages/masters/master-brand";
 	}
 
 	@GetMapping("/dislocation")
@@ -478,8 +491,17 @@ public class MasterController {
 
 	// Handler For Open Designation Master Page
 	@GetMapping("/designation")
-	public String openDesignation(Model model) {
+	public String openDesignation(Model model) throws IOException {
 		model.addAttribute("show", null);
+		List<DesignationDto> designationDtos = designationService.getDesignationsFormUbarms();
+		try {
+			if (!designationDtos.isEmpty()) {
+				model.addAttribute("ubmdesigList", designationDtos);
+			}
+		} catch (Exception e) {
+			System.out.println("DesignationList Not Found !!"+e.getMessage());
+			model.addAttribute("ubmdesigList", new DesignationDto());
+		}
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
 	}
@@ -1463,9 +1485,18 @@ public class MasterController {
 	// Handler For Display Designation Master History
 	@GetMapping("/desigHistory")
 	public String displayDesignationMasterHistory(Model model) {
-		List<DesignationDto> listOfDesignation = this.designationService.getAllDesignations();
-		model.addAttribute("listOfDesignation", listOfDesignation);
-		model.addAttribute("show", "show");
+		try {
+			List<DesignationDto> listOfDesignation = this.designationService.getAllDesignations();
+			model.addAttribute("listOfDesignation", listOfDesignation);
+			model.addAttribute("show", "show");
+			List<DesignationDto> designationDtos = this.designationService.getDesignationsFormUbarms();
+			if (!designationDtos.isEmpty()) {
+				model.addAttribute("ubmdesigList", designationDtos);
+			}			
+		} catch (Exception e) {
+			System.out.println("Designation Not Found !!"+e.getMessage());
+		}
+		
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
 	}
@@ -1487,6 +1518,24 @@ public class MasterController {
 		model.addAttribute("title", "Master | Supplier | Manintenance Management");
 		return "/pages/masters/supplier-details";
 	}
+	
+	//Handler For Save Brand Master Data
+	@PostMapping("/saveBrand-master")
+	public String saveBrandMaster(BrandMasterDto brandMasterDto,HttpSession session) {
+		this.brandMasterService.saveBrandMaster(brandMasterDto);
+		session.setAttribute("message", new Message("Data Saved Successfully !! " ,"success"));
+		return "redirect:/masters/brand-master";
+	}
+	
+	//Handler For Display Brand Master History
+	@GetMapping("/brandMaster-history")
+	public String displayBrandMasterHistory(Model model) {
+		List<BrandMasterDto> listOfBrandMaster = this.brandMasterService.getAllBrandMasters();
+		model.addAttribute("listOfBrands", listOfBrandMaster);
+		model.addAttribute("show", "show");
+		model.addAttribute("title", "Master | Brand | Manintenance Management");
+		return "/pages/masters/master-brand";
+	}
 
 	// Delete Department Master
 	@RequestMapping("/deleteDeptMaster/{depMasterId}")
@@ -1500,6 +1549,13 @@ public class MasterController {
 	public String deleteCategory(@PathVariable("catid") Long catid) {
 		this.categoryService.deleteCategory(catid);
 		return "redirect:/masters/categoryhistory";
+	}
+	
+	//Delete Brand Master
+	@RequestMapping("/deleteBrand/{brandMasterId}")
+	public String deleteBrandMaster(@PathVariable Long brandMasterId) {
+		this.brandMasterService.deleteBrandMaster(brandMasterId);
+		return "redirect:/masters/brandMaster-history";
 	}
 
 	// Delete Distribution Location

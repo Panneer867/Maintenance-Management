@@ -2,269 +2,412 @@
 
 <body>
 	<section>
-		<form class="col-sm-11 mt-2 mx-auto">
-			<div class="card bl-cr">
-				<div class="card-header" style="background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);">
-					<h3 class="text-center text-white mb-0">JE Task Details</h3>
-				</div>
-				<div class="card-body font-weight-bold">
 
-					
-					<div class="row mt-1 ">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Complaint No</label>
-							<input type="number" class="form-control" id="inputEmail4" placeholder="Complaint No">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Docket No</label>
-							<input type="number" class="form-control" id="inputEmail4" placeholder="Docket No">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Complaint Date</label>
-							<input type="date" class="form-control" id="inputEmail4" placeholder="Complaint Date">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Complaint Received By</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Complaint Received By">
-						</div>
-					</div>
-					<!--***********Row 2**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">First Name</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="First Name">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Last Name</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Last Name">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">House No</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="House No">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Cross</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Cross">
-						</div>
-					</div>
+		<div class="row mt-3">
+			<div class="col">
+				<div class="card bl-cr">
 
-					<!--***********Row 3**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Main</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Main">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Land Mark</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Land Mark">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Zone</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Zone">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Ward</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Ward">
-						</div>
+					<div class="card-header"
+						style="background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);">
+						<h3 class="text-center text-white mb-0">JE Task Details</h3>
 					</div>
-					<!--***********Row 4**********-->
-					<div class="row mt-2">
+					<!-- Message Alert Field -->
+					<div th:if="${session.message}" class="alert_field mt-2">
+						<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+							role="alert">
+							<span th:text="${session.message.content}"></span>
+						</div>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					</div>
+					<!-- End of Message Alert Field -->
+					<div class="card-body font-weight-bold">
 
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Tariff</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Tariff">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Service Location</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Service Location">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">DMA</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="DMA">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">PinCode</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="PinCode">
-						</div>
-					</div>
-					<!--***********Row 5**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Gender</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Gender">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Contact No Mobile</label>
-							<input type="number" class="form-control" id="inputEmail4" placeholder="Contact No Mobile">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Contact No Landline</label>
-							<input type="number" class="form-control" id="inputEmail4"
-								placeholder="Contact No Landline">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Ref Contact No</label>
-							<input type="number" class="form-control" id="inputEmail4" placeholder="Ref Contact No">
-						</div>
-					</div>
-					<!--***********Row 6**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Email Id</label>
-							<input type="email" class="form-control" id="inputEmail4" placeholder="Email Id">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Registration of Complaints</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Registration of Complaints">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Functional Business Department</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Functional Business Department">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Complaint Category Department</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Complaint Category Department">
-						</div>
-					</div>
-					<!--***********Row 7**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Sub Category</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Sub Category">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Complaint Status</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Complaint Status">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Job Code</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Job Code">
-						</div>
-
-					</div>
-
-					<!--***********Text Area**********-->
-					<div class="row mt-2">
-					<div class="form-group col-md-12">
-							<label for="inputEmail4">Complaint Details</label>
-							<textarea type="text" class="form-control" id="inputEmail4" placeholder="SLG Duration "></textarea>
-						</div>
-						</div>
-					<!--***********Row 8**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Service Level Guarantee(SLG)</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Service Level Guarantee(SLG)">
-						</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">SLG Duration</label>
-								<input type="text" class="form-control" id="inputEmail4" placeholder="SLG Duration ">
+						<form th:action="@{/task/submitJeeInvest}" method="post">
+							<div class="row mt-1 ">
+								<div class="form-group col-md-3">
+									<label for="inputEmail4">Complaint No</label>
+									<input type="text" class="form-control form-control-sm bg-white"
+										th:value="${complDtls.complNo}" id="inputEmail4" name="complNo" readonly
+										placeholder="Complaint No">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="docketNo">Docket No</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="docketNo"
+										th:value="${complDtls.docketNo}" name="docketNo" readonly
+										placeholder="Docket No">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="complDate">Complaint Date</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="complDate"
+										th:value="${complDtls.complDate}" name="complDate" readonly
+										placeholder="Complaint Date">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="recivedBy">Complaint Received By</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="recivedBy"
+										th:value="${complDtls.recivedBy}" name="recivedBy" readonly
+										placeholder="Complaint Received By">
+								</div>
 							</div>
+							<!--***********Row 2**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-3">
+									<label for="firstname">First Name</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="firstname"
+										th:value="${complDtls.firstname}" name="firstname" readonly
+										placeholder="First Name">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="lastname">Last Name</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="lastname"
+										th:value="${complDtls.lastname}" name="lastname" readonly
+										placeholder="Last Name">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="houseNo">House No</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="houseNo"
+										th:value="${complDtls.houseNo}" name="houseNo" readonly placeholder="House No">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="cross">cross</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="cross"
+										th:value="${complDtls.cross}" name="cross" readonly placeholder="Cross">
+								</div>
+							</div>
+
+							<!--***********Row 3**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-3">
+									<label for="main">Main</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="main"
+										th:value="${complDtls.main}" name="main" readonly placeholder="Main">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="landMark">Land Mark</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="landMark"
+										th:value="${complDtls.landMark}" name="landMark" readonly
+										placeholder="Land Mark">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="zone">Zone</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="zone"
+										th:value="${complDtls.zone}" name="zone" readonly placeholder="Zone">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ward">Ward</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="ward"
+										th:value="${complDtls.ward}" name="ward" readonly placeholder="Ward">
+								</div>
+							</div>
+							<!--***********Row 4**********-->
+							<div class="row mt-2">
+
+								<div class="form-group col-md-3">
+									<label for="trraif">Tariff</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="trraif"
+										th:value="${complDtls.trraif}" name="trraif" readonly placeholder="Tariff">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="serviceLocat">Service Location</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="serviceLocat"
+										th:value="${complDtls.serviceLocat}" name="serviceLocat" readonly
+										placeholder="Service Location">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="dma">DMA</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="dma"
+										th:value="${complDtls.dma}" name="dma" readonly placeholder="DMA">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="pinCode">PinCode</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="pinCode"
+										th:value="${complDtls.pinCode}" name="pinCode" readonly placeholder="PinCode">
+								</div>
+							</div>
+							<!--***********Row 5**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-3">
+									<label for="gender">Gender</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="gender"
+										th:value="${complDtls.gender}" name="gender" readonly placeholder="Gender">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="mobileNo">Contact No Mobile</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="mobileNo"
+										th:value="${complDtls.mobileNo}" name="mobileNo" readonly
+										placeholder="Contact No Mobile">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="landLineNo">Contact No Landline</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="landLineNo"
+										th:value="${complDtls.landLineNo}" name="landLineNo" readonly
+										placeholder="Contact No Landline">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="refcontactNo">Ref Contact No</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="refcontactNo"
+										th:value="${complDtls.refcontactNo}" name="refcontactNo" readonly
+										placeholder="Ref Contact No">
+								</div>
+							</div>
+							<!--***********Row 6**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-4">
+									<label for="emailid">Email Id</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="emailid"
+										th:value="${complDtls.emailid}" name="emailid" readonly placeholder="Email Id">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="regOfCompl">Registration of Complaints</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="regOfCompl"
+										th:value="${complDtls.regOfCompl}" name="regOfCompl" readonly
+										placeholder="Registration of Complaints">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="businessDept">Functional Business Department</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="businessDept"
+										th:value="${complDtls.businessDept}" name="businessDept" readonly
+										placeholder="Functional Business Department">
+								</div>
+
+							</div>
+							<!--***********Row 7**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-4">
+									<label for="department">Compl Category Dept</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="department"
+										th:value="${complDtls.department}" name="department" readonly
+										placeholder="Complaint Category Department">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="subCategory">Sub Category</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="subCategory"
+										th:value="${complDtls.subCategory}" name="subCategory" readonly
+										placeholder="Sub Category">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="complStatus">Complaint Status</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="complStatus"
+										th:value="${complDtls.complStatus}" name="complStatus" readonly
+										placeholder="Complaint Status">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="jobCode">Job Code</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="jobCode"
+										th:value="${complDtls.jobCode}" name="jobCode" readonly placeholder="Job Code">
+								</div>
+
+							</div>
+
+							<!--***********Text Area**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-12">
+									<label for="complDetails">Complaint Details</label>
+									<textarea type="text" class="form-control form-control-sm bg-white"
+										id="complDetails" th:field="*{complDtls.complDetails}" name="complDetails"
+										readonly placeholder="Write Complaint Details Here"></textarea>
+								</div>
+							</div>
+							<!--***********Row 8**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-4">
+									<label for="slg">Service Level Guarantee(SLG)</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="slg"
+										th:value="${complDtls.slg}" name="slg" readonly
+										placeholder="Service Level Guarantee(SLG)">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="slgDuration">SLG Duration</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="slgDuration"
+										th:value="${complDtls.slgDuration}" name="slgDuration" readonly
+										placeholder="SLG Duration ">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="city">City</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="city"
+										th:value="${complDtls.city}" name="city" readonly
+										placeholder="Enter City">
+								</div>
+							</div>
+
+							<h5 class="text-center text-white mt-2 p-1 bg-primary">Investigation Report Details</h5>
+							<!--***********Row 9**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-3">
+									<label for="assignDate">Assigned Date</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="assignDate"
+										th:value="${complDtls.assignDate}" name="assignDate" readonly
+										placeholder="Assigned Date">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="visitedDate">Field Visit Date</label>
+									<input type="date" class="form-control form-control-sm bg-white" id="visitedDate"
+										name="visitedDate" required>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="nameOfEngg">Name of Engg</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="nameOfEngg"
+										th:value="${complDtls.nameOfEngg}" name="nameOfEngg" readonly
+										placeholder="Name of Engg">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="serviceStat">Name of Service Station</label>
+									<input type="text" class="form-control form-control-sm bg-white" id="serviceStat"
+										th:value="${complDtls.serviceStat}" name="serviceStat" readonly
+										placeholder="Name of Service Station">
+								</div>
+							</div>
+
+							<!--***********Text Area**********-->
+
+							<div class="row mt-2">
+								<div class="form-group col-md-12">
+									<label for="fieldVisitedRemark">Field Visit Remarks</label>
+									<textarea type="text" class="form-control form-control-sm " id="fieldVisitedRemark"
+										placeholder="Write Remarks After Visited" name="fieldVisitedRemark"
+										required></textarea>
+								</div>
+							</div>
+
+							<!--***********Text Area**********-->
+							<div class="row mt-2">
+								<div class="form-group col-md-12">
+									<label for="jobDoneRemark">Job Done Remarks</label>
+									<textarea type="text" class="form-control form-control-sm " id="jobDoneRemark"
+										placeholder="Write Job Done Remarks" name="jobDoneRemark" required></textarea>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-3 mt-2">
+									<label for="jobDoneNotDone">Job done/not done</label>
+									<select class="form-select" id="job-done-notdone" name="jobDoneNotDone"
+										onchange="showDiv('tutorial', this)"
+										aria-label="Example select with button addon">
+										<option value="Y">Done</option>
+										<option value="N">Not Done </option>
+
+									</select>
+								</div>
+
+								<div class="form-group col-md-8 mt-4 ">
+									<button type="submit" id="gen-emplabours-submit"
+										class="btn btn-primary w-25 text-center">Without</button>
+									<a type="submit" th:href="@{/workorder/budget-estimation}"
+										class="btn btn-primary w-25 text-center">With Metrials</a>
+								</div>
+							</div>
+
+
+
+							<div id="tutorial">
+								<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
+								<!--***********Row 10**********-->
+								<div class="row mt-2">
+									<div class="form-group col-md-3">
+										<label for="esclatedFrom">Escalated From</label>
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="esclatedFrom" th:value="${complDtls.esclatedFrom}" name="esclatedFrom"
+											placeholder="Escalated From" readonly>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="esclatedFromId">Escalated From Id </label>
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="esclatedFromId" th:value="${complDtls.esclatedFromId}"
+											name="esclatedFromId" placeholder="Escalated From Id " readonly>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="esclatedFromName">Escalated From Name</label>
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="esclatedFromName" th:value="${complDtls.esclatedFromName}"
+											name="esclatedFromName" placeholder="Escalated From Name" readonly>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="esclatedDate">Escalated Date </label>
+										<input type="date" class="form-control form-control-sm" id="esclatedDate"
+											name="esclatedDate">
+									</div>
+								</div>
+								<!--***********Row 11**********-->
+								<div class="row mt-2">
+									<div class="form-group col-md-4">
+										<label for="esclatedTo">Escalated To</label>
+										<input type="text" class="form-control form-control-sm bg-white" id="esclatedTo"
+											th:value="${complDtls.esclatedTo}" placeholder="Escalated To" readonly
+											name="esclatedTo">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="esclatedToId">Escalated To Id</label>
+										<select class="form-select form-select-sm" id="esclated-to-id"
+											name="esclatedToId"></select>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="esclationToName">Escalated To Name</label>
+										<input type="text" class="form-control form-control-sm bg-white"
+											name="esclatedToName" id="esclation-to-name" placeholder="Escalated To Name"
+											readonly>
+									</div>
+
+								</div>
+
+								<!--***********Text Area**********-->
+								<div class="row mt-2">
+									<div class="form-group col-md-12">
+										<label for="esclatedReason">Escalated Reason</label>
+										<textarea type="text" class="form-control form-control-sm " id="esclatedReason"
+											placeholder="Write Escalated Reason Here" name="esclatedReason"></textarea>
+									</div>
+								</div>
+
+							</div>
+							<div class="text-center mt-2">
+								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>
+								<a type="button" id="esclate-invest-data" th:href="@{/task/exlateComplain}" class="btn btn-primary">Escala Task</a>
+							</div>
+
+						</form>
 					</div>
-
-					<h5 class="text-center text-white mt-2 p-1 bg-primary">Investigation Report Details</h5>
-					<!--***********Row 9**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Assigned Date</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Assigned Date">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Field Visit Date</label>
-							<input type="date" class="form-control" id="inputEmail4" placeholder="Field Visit Date">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Name of Engg</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Name of Engg">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Name of Service Station</label>
-							<input type="text" class="form-control" id="inputEmail4"
-								placeholder="Name of Service Station">
-						</div>
-					</div>
-
-					<!--***********Text Area**********-->
-					
-					<div class="row mt-2">
-					<div class="form-group col-md-12">
-							<label for="inputEmail4">Field Visit Remarks</label>
-							<textarea type="text" class="form-control" id="inputEmail4" placeholder="SLG Duration "></textarea>
-						</div>
-						</div>
-					
-					<!--***********Text Area**********-->
-					<div class="row mt-2">
-					<div class="form-group col-md-12">
-							<label for="inputEmail4">Job Done Remarks</label>
-							<textarea type="text" class="form-control" id="inputEmail4" placeholder="SLG Duration "></textarea>
-						</div>
-						</div>
-					
-					<div class="form-group col-md-3 mt-2">
-						<label for="inputEmail4">Job done/not done</label>
-						<input type="text" class="form-control" id="inputEmail4" placeholder="Job done/not done">
-					</div>
-
-					<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
-					<!--***********Row 10**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Escalated From</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated From">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Escalated From Id </label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated From Id ">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Escalated From Name</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated From Name">
-						</div>
-						<div class="form-group col-md-3">
-							<label for="inputEmail4">Escalated Date </label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated Date ">
-						</div>
-					</div>
-					<!--***********Row 11**********-->
-					<div class="row mt-2">
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Escalated To</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated To">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Escalated To Id</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated To Id">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputEmail4">Escalated To Name</label>
-							<input type="text" class="form-control" id="inputEmail4" placeholder="Escalated To Name">
-						</div>
-
-					</div>
-
-					<!--***********Text Area**********-->
-					<div class="row mt-2">
-					<div class="form-group col-md-12">
-							<label for="inputEmail4">Escalated Reason</label>
-							<textarea type="text" class="form-control" id="inputEmail4" placeholder="SLG Duration "></textarea>
-						</div>
-						</div>
-					
-
-					<div class="text-center mt-2">
-						<button type="button" class="btn btn-primary">Submit</button>
-						<!--<button type="button" class="btn btn-primary">Escala Task</button>-->
-					</div>
-
 				</div>
 			</div>
-		</form>
+			<div class="col-4">
+				<div class="card text-center">
+					<div class="card-header heading-bg text-white fs-6 ">
+						Updates
+					</div>
+
+					<div class="card-body">
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th class="text-center fs-5" scope="col-sm">Compl No</th>
+									<th class="text-center fs-5" scope="col-sm">Compl Date</th>
+									<th class="text-center fs-5" scope="col-sm">Department</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="allCompl : ${jeComplainList}" class="text-center">
+									<td class="fs-6">
+										<a href="#" th:href="@{'/task/jeComplDtls/'+ ${allCompl.complNo}}"
+											th:text="${'CN'+allCompl.complNo}"></a>
+									</td>
+									<td class="fs-6" th:text="${allCompl.complDate}"></td>
+									<td class="fs-6" th:text="${allCompl.department}"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<script>
+			function showDiv(divId, element) {
+				document.getElementById(divId).style.display = element.value == 'N' ? 'block' : 'none';
+			}
+		</script>
+
 	</section>
 
 

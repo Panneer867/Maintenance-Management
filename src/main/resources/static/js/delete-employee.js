@@ -1,7 +1,9 @@
 
 // Message while Deleting Employee 
-function deleteEmployee(cid){	
-	swal({		  
+
+function deleteEmpMaster(cid){
+	alert(cid);
+	swal({		 
 		  text: "Are you sure ? You Want To Delete This !!",		 
 		  buttons: true,
 		  dangerMode: true,

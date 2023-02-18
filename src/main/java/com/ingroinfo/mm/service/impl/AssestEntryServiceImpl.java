@@ -1,12 +1,9 @@
 package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ingroinfo.mm.dao.AssestEntryRepository;
 import com.ingroinfo.mm.dto.AssestEntryDto;
 import com.ingroinfo.mm.entity.AssestEntry;
@@ -30,11 +27,15 @@ public class AssestEntryServiceImpl implements AssestEntryService{
 	}
 
 	@Override
-	public List<AssestEntryDto> findAllAssestEntry() {
-		List<AssestEntry> idAssestEntrys = this.assestEntryRepository.findAll();
-		List<AssestEntryDto> idAssestDto = idAssestEntrys.stream().map((idAssest)->
-		this.modelMapper.map(idAssestEntrys, AssestEntryDto.class)).collect(Collectors.toList());
-		return idAssestDto;
+	public List<AssestEntry> findAllAssestEntry() {
+		
+		return this.assestEntryRepository.findAll();
+	}
+
+	@Override
+	public AssestEntryDto getAssestEntryById(Long assestEntryId) {
+		AssestEntry assestEntry =	this.assestEntryRepository.findById(assestEntryId).get();
+		return this.modelMapper.map(assestEntry, AssestEntryDto.class);
 	}
 
 }

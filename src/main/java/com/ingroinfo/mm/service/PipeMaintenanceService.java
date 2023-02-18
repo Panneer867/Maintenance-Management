@@ -2,7 +2,7 @@ package com.ingroinfo.mm.service;
 
 import java.util.List;
 
-
+import com.ingroinfo.mm.dto.PipeIndexDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceInspectionDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceUpdateDto;
@@ -10,8 +10,17 @@ import com.ingroinfo.mm.dto.PipeMaintenanceUpdateDto;
 public interface PipeMaintenanceService {
 
 	
-	// Save info
+	// Save Pipe Maintenance
 	PipeMaintenanceDto savePipeMaintenance(PipeMaintenanceDto pipeMaintenanceDto);
+	
+	//Save Pipe Index
+	PipeIndexDto savePipeIndex(PipeIndexDto pipeIndexDto);
+	
+	//save Pipe Maintenance Update Page
+	PipeMaintenanceUpdateDto savePipeMaintenanceUpdate(PipeMaintenanceUpdateDto pipeMaintenanceUpdate);
+		
+	//save Pipe Maintenance Inspection Page
+	PipeMaintenanceInspectionDto savePipeMaintenanceInspection(PipeMaintenanceInspectionDto pipeMaintenanceInspection);
 
 	//To Show All in Pipe Maintenance to  Maintenance Update
 	List<PipeMaintenanceDto> findAllPipeMaintenance();
@@ -26,10 +35,8 @@ public interface PipeMaintenanceService {
 	//show single Data on Pipe Maintenance Update 
 	PipeMaintenanceUpdateDto getPipeMaintenanceUpdateById(Long pipeUpdateId);
 	
-	//save Pipe Maintenance Update Page
-	PipeMaintenanceUpdateDto savePipeMaintenanceUpdate(PipeMaintenanceUpdateDto pipeMaintenanceUpdate);
 	
-	//save Pipe Maintenance Inspection Page
-	PipeMaintenanceInspectionDto savePipeMaintenanceInspection(PipeMaintenanceInspectionDto pipeMaintenanceInspection);
+	
+	
 	
 }

@@ -25,7 +25,7 @@ public class EmployeeMasterDto {
 	private String panNO;
 	private String esiNumber;
 	private String refContactNo;
-	private String profile;
+	private String employeeImage;
 	private String emptype;
 	private String empStatus;
 	private String company;

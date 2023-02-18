@@ -1,0 +1,495 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Material Mangement</title>
+</head>
+
+<body>
+	<section>
+
+		<!-- form Start-->
+		<div class="row mt-3">
+			<div class="col">
+
+				<div class="card text-center bl-cr">
+					<div class="card-header heading-bg text-white fs-4">
+						Leakage Maintenance Work Update
+					</div>
+					<div class="card-body font-weight-bold">
+
+						<!-- Message Alert Field -->
+						<div th:if="${session.message}" class="alert_field">
+							<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+								role="alert">
+								<span th:text="${session.message.content}"></span>
+							</div>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+						<!-- End of Message Alert Field -->
+
+						<form method="post" th:action="@{/leakage/saveleakageMainteUpdate}">
+
+
+							<div class="row ">
+								<h5 class="card-title mt-1 bg-primary py-1 text-white">Enter Work Order Details</h5>
+								<hr>
+
+								<div class="col text-start">
+									<label for="leakgworkOrderNumber" class="col-sm-10 col-form-label">Work order
+										number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm"
+											id="leakgworkOrderNumber" name="leakgworkOrderNumber">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgworkOrdeDate" class="col-sm-10 col-form-label">Work order
+										Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgworkOrdeDate"
+											name="leakgworkOrdeDate">
+									</div>
+								</div>
+
+								<div class="col-6 text-start">
+									<label for="leakgworkOrderScope" class="col-sm-10 col-form-label">Work Order
+										Scope</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgworkOrderScope"
+											name="leakgworkOrderScope">
+									</div>
+								</div>
+
+							</div>
+
+							<h5 class="card-title mt-5 bg-primary py-1 text-white">Leakage Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgIndentNo" class="col-sm-10 col-form-label">Indent No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgIndentNo"
+											name="leakgIndentNo">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgIndentDate" class="col-sm-10 col-form-label">Indent
+										Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgIndentDate"
+											name="leakgIndentDate">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgIndentReason" class="col-sm-10 col-form-label">Indent
+										Reason</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgIndentReason"
+											name="leakgIndentReason">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgType" class="col-sm-10 col-form-label">Type</label>
+									<div class="col">
+										<select class="form-control form-control-sm form-control form-control-sm-sm"
+											id="leakgType" name="leakgType">
+											<option>Emergency</option>
+											<option>Routine</option>
+											<option>Pro-Active</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgMainSupplyLine" class="col-sm-10 col-form-label">Main Supply
+										Line</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgMainSupplyLine"
+											name="leakgMainSupplyLine">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgArea" class="col-sm-10 col-form-label"> Area</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgArea"
+											name="leakgArea">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgLengMeterKm" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLengMeterKm"
+											name="leakgLengMeterKm">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgMaintenanceType" class="col-sm-10 col-form-label">Maintenance
+										Type</label>
+									<div class="col">
+										<select class="form-control form-control-sm form-control form-control-sm-sm"
+											id="leakgMaintenanceType" name="leakgMaintenanceType">
+											<option>Pipe-Main Line</option>
+											<option>Bulk Meter supply Zone</option>
+											<option>Distriubution Line</option>
+											<option>HSC Zone</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgLangitude" class="col-sm-8 col-form-label">Langitude</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLangitude"
+											name="leakgLangitude">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgLatitude" class="col-sm-8 col-form-label">Latitude</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLatitude"
+											name="leakgLatitude">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="lengMeterKm" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="lengMeterKm"
+											name="lengMeterKm">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgSupplyZone" class="col-sm-10 col-form-label">Supply zone</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgSupplyZone"
+											name="leakgSupplyZone">
+									</div>
+								</div>
+
+							</div>
+
+							<h5 class="card-title mt-5 bg-primary py-1 text-white ">Pipe Details</h5>
+							<hr>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgLineStartNode" class="col-sm-10 col-form-label">Line Start
+										Node</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLineStartNode"
+											name="leakgLineStartNode">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgLineEndNode" class="col-sm-8 col-form-label">Line End Node</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLineEndNode"
+											name="leakgLineEndNode">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgLenthMeterKM" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLenthMeterKM"
+											name="leakgLenthMeterKM">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgAsstsID" class="col-sm-10 col-form-label">Assts ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgAsstsID"
+											name="leakgAsstsID">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgLineType" class="col-sm-8 col-form-label">Line Type</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgLineType"
+											name="leakgLineType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgDiameter" class="col-sm-8 col-form-label">Diameter</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgDiameter"
+											name="leakgDiameter">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgpressureRange" class="col-sm-10 col-form-label"> pressure
+										Range</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgpressureRange"
+											name="leakgpressureRange">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgDeductionInstrum" class="col-sm-12 col-form-label">Deduction
+										Instrument</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm"
+											id="leakgDeductionInstrum" name="leakgDeductionInstrum">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgGRID" class="col-sm-8 col-form-label">GRID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgGRID"
+											name="leakgGRID">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgGMIS_ID" class="col-sm-8 col-form-label">GMIS_ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgGMIS_ID"
+											name="leakgGMIS_ID">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgWardNo" class="col-sm-10 col-form-label">Ward No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgWardNo"
+											name="leakgWardNo">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgWardName" class="col-sm-10 col-form-label">Ward Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="leakgWardName"
+											name="leakgWardName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col-6 text-start">
+
+									<label for="leakgMaintenanceReasons" class="col-sm-8 col-form-label"> Pipe
+										maintenance
+										reasons</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-lg "
+											id="leakgMaintenanceReasons" name="leakgMaintenanceReasons">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="leakgBreakdownDate" class="col-sm-12 col-form-label">Breakdown
+										Date</label>
+									<div class="col">
+										<input type="date" class="form-control form-control-sm" id="leakgBreakdownDate"
+											name="leakgBreakdownDate">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="leakgBreakdownTime" class="col-sm-12 col-form-label">Breakdown
+										Time</label>
+									<div class="col">
+										<input type="time" class="form-control form-control-sm" id="leakgBreakdownTime"
+											name="leakgBreakdownTime">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="siteEngineer" class="col-sm-10 col-form-label">Site Engineer</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="siteEngineer"
+											name="siteEngineer">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="teamCode" class="col-sm-10 col-form-label">TEAM CODE</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="teamCode"
+											name="teamCode">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+								<div class="col-4 text-start">
+
+									<label for="siteSuperwiser" class="col-sm-8 col-form-label">Site Superwiser</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm " id="siteSuperwiser"
+											name="siteSuperwiser">
+									</div>
+								</div>
+								<div class="col-4 text-start">
+
+									<label for="workStatus" class="col-sm-8 col-form-label">Work Status</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm " id="workStatus"
+											name="workStatus">
+									</div>
+								</div>
+
+							</div>
+							<div class="text-center mt-3">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">Invoice Print</a>
+							</div>
+
+
+
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="col-3">
+
+				<div class="card text-center">
+					<div class="card-header heading-bg text-white fs-6">
+						Updates
+					</div>
+
+					<div class="card-body">
+
+
+
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th scope="col">Date</th>
+									<th scope="col">Wo No</th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Emergency</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Emergency</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Routine</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Emergency</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Routine</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Pro-Active</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Routine</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Routine</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Routine</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Emergency</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Pro-Active</td>
+								</tr>
+								<tr>
+									<td>1/12/22</td>
+									<td>123</td>
+									<td>Pro-Active</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- form END-->
+
+
+
+
+	</section>
+
+
+</body>
+
+</html>

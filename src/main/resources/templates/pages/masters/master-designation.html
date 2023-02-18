@@ -23,8 +23,12 @@
 								<label for="designation" class="col-form-label">Designation</label>
 							</div>
 							<div class="col-sm-3">
-								<input type="text" id="designation" class="form-control form-control-sm"
-									placeholder="Enter Designation" name="designation" required>
+								<select type="text" id="designation" class="form-select form-select-sm" name="designation">
+								<option th:each="desigList:${ubmdesigList}"
+								         th:value="${desigList.designation}"
+								         th:text="${desigList.designation}" >
+								</option>
+								</select>		
 							</div>
 							<div class="col-auto">
 								<label for="designationDesc" class="col-form-label">Description</label>

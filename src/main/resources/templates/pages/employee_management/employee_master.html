@@ -2,454 +2,584 @@
 
 <body>
 	<section>
-	<div class="mt-2">
-		<ul class="nav nav-pills justify-content-end py-1 mb-2 mx-4" id="pills-tab" role="tablist">
+		<div class="mt-2">
+			<ul class="nav nav-pills justify-content-end py-1 mb-2 mx-4" id="pills-tab" role="tablist">
 
 				<li class="nav-item" role="presentation">
-					   <a th:href="@{/employee/management}" class="nav-link active  mx-2 py-2 text-white hvr bg-dark" style="width:160px;">
-              <i class="fas fa-users"></i>
-              Employee Management
-               </a> 
+					<a th:href="@{/employee/management}"
+						class="nav-link active  text-center mx-2 py-2 text-white hvr bg-dark" style="width:170px;">
+						<i class="fas fa-users"></i>
+						Employee Management
+					</a>
 				</li>
 			</ul>
 			<div class="tab-content" id="pills-tabContent">
 				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
 					tabindex="0">
-					<div class="alert alert-success text-center my-0 mx-4 p-1  font-weight-bold" role="alert" th:if="${param.success}" >
-                       Employee information submitted successfully  !
-                    </div>
-                    <div class="alert alert-danger text-center my-0 mx-4 p-1  font-weight-bold" role="alert" th:if="${param.delete}" >
-                       Employee information delete successfully  !
-                    </div>
-		<!-- form Start-->
-		 <div class="mx-auto col-12 mt-2">
-		
-			<div class="card bl-cr">
-				<div class="card-header text-center heading-bg text-white py-2">
-					<h3 class="mb-0">Employee Master</h3>
-				</div>
-				<div class="card-body pl-5 pr-5 font-weight-bold">
-				   <form class="forms-sample" data-toggle="validator" action="#" th:action="@{/employee/saveEmployee}" role="form"  method="post" >
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="empCode" class="col-sm-8 col-form-label">EMP ID</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" name="employeeCode"
-							    id="empCode"   placeholder="Enter EMP Code" required>
+					<div class="mt-2">
+						<!-- Message Alert Field -->
+						<div th:if="${session.message}" class="alert_field">
+							<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
+								role="alert">
+								<span th:text="${session.message.content}"></span>
 							</div>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 						</div>
-						<div class="col text-start">
-							<label for="empName" class="col-sm-10 col-form-label">Emp Name</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empName"  id="empName"   placeholder="Enter Emp Name" required>
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="fatherName" class="col-sm-10 col-form-label">Father Name</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="fatherName" id="fatherName"   placeholder="Enter Father Name" required>
-							</div>
-						</div>
-					</div>
-				
-					<div class="col-3">
-					
-						<div class="col text-start">
+						<!-- End of Message Alert Field -->
+						<!-- form Start-->
+						<div class="mx-auto col-12 mt-2">
 
-							<label for="department" class="col-sm-8 col-form-label">Department</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="department"  id="department"   placeholder="Enter Department" required>
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="designation" class="col-sm-10 col-form-label">Designation</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="designation"  id="designation"   placeholder="Enter Designation"  required>
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="company" class="col-sm-10 col-form-label">Company /Division</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"
-								name="company"   id="company"   placeholder="Enter Company /Division" required>
-							</div>
-						</div>
-					</div>
-						<div class="col-3">
-					
-						<div class="col text-start">
+							<div class="card bl-cr">
+								<div class="card-header text-center heading-bg text-white py-2">
+									<h3 class="mb-0">Employee Master</h3>
+								</div>
+								<div class="card-body pl-5 pr-5 font-weight-bold">
+									<form data-toggle="validator" th:action="@{/employee/saveEmployee}"
+										th:object="${employee}" method="post" enctype="multipart/form-data">
+										<div class="row">
+											<div class="col-3">
+												<div class="col text-start">
+													<label for="empCode" class="col-sm-10 col-form-label">EMP ID<strong
+															class="text-danger ">*</strong></label>
+													<div class="col form-group py-1">
+														<input type="text" class="form-control form-control-sm bg-white"
+															name="employeeCode" id="empCode" th:value="${empId}"
+															required readonly>
+															<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+												<div class="form-group col text-start">
+													<label for="empName" class="col-sm-10 col-form-label">Emp
+														Name</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="empName" id="empName" data-minlength="3"
+															data-error="Minimum 3 characters required !"
+															placeholder="Enter Emp Name" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+												<div class="form-group col text-start">
+													<label for="fatherName" class="col-sm-10 col-form-label">Father Name
+														<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="fatherName" id="fatherName" data-minlength="3"
+															data-error="Minimum 3 characters required !"
+															placeholder="Enter Father Name" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
 
-							<label for="emptype" class="col-sm-8 col-form-label">Emp Type</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="emptype" id="emptype"   placeholder="Enter Emp Type" required>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="department"
+														class="col-sm-8 col-form-label">Department<strong
+															class="text-danger ">*</strong></label>
+													<div class="col">
+														<select class="form-select" id="department" name="department"
+																data-error="Provide this field !"	required>
+															<option value="" selected>select</option>
+															<option th:each="emp : ${DeptList}"
+																th:text="${emp.departmentName}"
+																th:value="${emp.departmentName}">
+															</option>															
+														</select>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+												<div class="form-group col text-start">
+													<label for="designation"
+														class="col-sm-10 col-form-label">Designation<strong
+															class="text-danger">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="designation" id="designation" data-minlength="3" data-error="Minimum 3 characters required !"
+															placeholder="Enter Designation" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+													
+												</div>
+												<div class="form-group col text-start">
+													<label for="company" class="col-sm-10 col-form-label">Company
+														/Division</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="company" id="company" data-minlength="3" data-error="Minimum 3 characters required !"
+															placeholder="Enter Company /Division" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="emptype" class="col-sm-8 col-form-label">Emp
+														Type</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="emptype" id="emptype" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter Emp Type"
+															required>
+														<div class="help-block with-errors text-danger"></div>	
+													</div>
+												</div>
+												<div class="form-group col text-start">
+													<label for="empStatus" class="col-sm-10 col-form-label">Emp
+														Status</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="empStatus" id="empStatus" data-minlength="3" data-error="Minimum 3 characters required !" 
+															placeholder="Enter Emp Status" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+												<div class=" form-group col text-start">
+													<label for="personName" class="col-sm-10 col-form-label">Ref Person
+														Name </label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="personName" id="personName" data-minlength="3" data-error="Minimum 3 characters required !" 
+															placeholder="Enter Ref Person Name" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col text-center">
+												<label for="staticEmail">Photo</label>
+												<input name="employeeImage" type="file" class="dropify" 
+													data-height="150" required/>
+											</div>
+										</div>
+										<!-- ***************************** 2th Row  ***************************-->
+										<div class="row">
+											<div class="col-3 py-1">
+												<div class="form-group col text-start">
+													<label for="houseNo" class="col-sm-8 col-form-label">House No<strong
+															class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm" data-error="House No required !" 
+															name="houseNo" id="houseNo" placeholder="Enter House No"
+															required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="branch" class="col-sm-10 col-form-label">Branch /Sub
+														Division</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="branch" id="branch"
+															placeholder="Enter Branch /Sub Division" required  data-error="Minimum 3 characters required !">
+															<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="aadharNo" class="col-sm-8 col-form-label">Aadhar
+														No<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="aadharNo" id="aadharNo" placeholder="Enter Aadhar No"
+															maxlength="12"  pattern="^([0-9]){12}$"  required data-error= "Invalid Number !">
+															<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="endDate" class="col-sm-10 col-form-label">End
+														Date</label>
+													<div class="col">
+														<input type="date" class="form-control form-control-sm"
+															name="endDate" id="endDate" placeholder="Enter End Date"
+															 data-error="Provide a End Date !" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- ***************************** 3th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="address" class="col-sm-8 col-form-label">Address<strong
+															class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="address" id="address" data-error="Provide a address !" placeholder="Enter Address"
+															required>
+															<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col">
+													<label for="qualification"
+														class="col-sm-10 col-form-label">Qualification</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="qualification"  data-error=" Provide a valid Qualification!" id="qualification"
+															placeholder="Enter Qualification" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="panNO" class="col-sm-10 col-form-label">PAN NO <strong
+															class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="panNO" id="panNO" placeholder="Enter PAN NO"
+															maxlength="15" required>
+												<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group  col text-start">
+													<label for="salary" class="col-sm-10 col-form-label"> Total
+														Salary</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="salary" id="salary" onkeyup="sal()"
+															placeholder="Enter Total Salary" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- ***************************** 4th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="state" class="col-sm-8 col-form-label">State</label>
+													<div class="col">
+														<select class="form-select" name="state" id="states"
+															data-error="Provide this field !" required>
+															<option value="" selected>Select</option>
+															<option th:each="ob:${states}" th:value="${ob[0]}"
+																th:text="${ob[1]}">
+															</option>
+														</select>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="dateOfBirth" class="col-sm-10 col-form-label">Date of
+														birth<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="date" class="form-control form-control-sm"
+															name="dateOfBirth" id="dateOfBirth" data-error="Provide this field !"
+															placeholder="Enter Date of birth" required>
+																<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="dlNo" class="col-sm-10 col-form-label">DL No <strong
+															class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="dlNo" id="dlNo" placeholder="Enter DL No" data-error="Provide a DL No  !"
+															maxlength="15" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="col text-start">
+													<label for="basicSalary" class="col-sm-10 col-form-label">Basic
+														Salary </label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm bg-white"
+															name="basicSalary" id="basicSalary"
+															placeholder="Total basicSalary" readonly>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<!-- ***************************** 5th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="city" class="col-sm-8 col-form-label">City</label>
+													<div class="col">
+														<select class="form-select" name="city" id="cities"
+															data-error="Select this List !" required>
+															<option value="" selected>Select</option>
+														</select>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="gender" class="col-sm-10 col-form-label">Gender</label>
+													<div class="col">
+														<select class="form-select form-control-sm" name="gender"
+															id="gender" data-error="Select gender !" required>
+															<option value="" selected>Select</option>
+															<option value="Male">Male</option>
+															<option value="Female">Female</option>
+															<option value="Other">Other</option>
+														</select>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="passportNo" class="col-sm-10 col-form-label">Passport No
+														<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="passportNo" id="passportNo" data-error="Provide a Passport No  !"
+															placeholder="Enter Passport No" maxlength="15" required>
+													 <div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="sl" class="col-sm-10 col-form-label">SL</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="sl" id="sl" onkeyup="sum()" data-error="Provide a SL No  !" placeholder="Enter SL"
+															maxlength="2" required>
+															<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- ***************************** 6th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="pinCode" class="col-sm-8 col-form-label">PinCode</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="pinCode" id="pinCode" placeholder="Enter PinCode"
+														data-error="Provide a PinCode No  !"	maxlength="6" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="dateOfJoin" class="col-sm-10 col-form-label">Date Of
+														Join </label>
+													<div class="col">
+														<input type="date" class="form-control form-control-sm"
+															name="dateOfJoin" id="dateOfJoin" data-error="Provide a Date Of Join  !"
+															placeholder="Enter Date Of Join " required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="pfNo" class="col-sm-10 col-form-label">PF No<strong
+															class="text-danger ">*</strong> </label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="pfNo" id="pfNo" placeholder="Enter PF No "
+															data-error="Provide a PF No !" maxlength="17" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="cl" class="col-sm-10 col-form-label">CL</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="cl" id="cl" onkeyup="sum()" placeholder="Enter CL"
+															data-error="Provide a CL No !" maxlength="2" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- ***************************** 7th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="contactNo" class="col-sm-8 col-form-label">Contact
+														No<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="contactNo" id="contactNo" data-error="Provide a Contact No !"
+															placeholder="Enter Contact No" maxlength="10" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="bankName" class="col-sm-8 col-form-label">Bank
+														Name</label>
+													<div class="col">
+														<select class="form-select" name="bankName" id="bankName" 
+															data-error="Select Bank Name !" required>
+															<option value="" selected>select</option>
+															<option th:each="banks : ${banks}" th:value="${banks.name}"
+																th:utext="${banks.name}" />
+														</select>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="esiNumber" class="col-sm-10 col-form-label"> ESI
+														Number<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="esiNumber" id="esiNumber" data-error="Provide a ESI Number!"
+															placeholder="Enter ESI Number" required maxlength="15">
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="lwp" class="col-sm-10 col-form-label">LWP </label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="lwp" id="lwp" onkeyup="sum()" placeholder="Enter LWP"
+															data-error="Provide a LWP No !" maxlength="2" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- ***************************** 8th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="bloodGroup" class="col-sm-8 col-form-label">Blood
+														Group</label>
+													<div class="col">
+														<select class="form-select form-control-sm" name="bloodGroup"
+															id="bloodGroup" data-error="Select blood group !" required>
+															<option value="" selected>select</option>
+															<option value="(A+)">(A+)</option>
+															<option value="(A-)">(A-)</option>
+															<option value="(B+)">(B+)</option>
+															<option value="(B-)">(B-)</option>
+															<option value="(O+)">(O+)</option>
+															<option value="(O-)">(O-)</option>
+															<option value="(AB+)">(AB+)</option>
+															<option value="(AB-)">(AB-)</option>
+														</select>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="bankAccNo" class="col-sm-8 col-form-label">Bank Acc
+														No<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="bankAccNo" id="bankAccNo" data-error="Provide a Bank Acc No !"
+															placeholder="Enter Bank Acc No" required maxlength="17">
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="refContactNo" class="col-sm-10 col-form-label">Ref
+														Contact No<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="refContactNo" id="refContactNo"  data-error="Provide a Ref Contact No !"
+															placeholder="Enter Ref Contact No" required maxlength="10">
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="col text-start">
+													<label for="totalLeave" class="col-sm-10 col-form-label">Total
+														leave</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm bg-white"
+															name="totalLeave" id="totalLeave" placeholder="Total leave"
+															required readonly="true">
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- ***************************** 9th Row  ***************************-->
+										<div class="row ">
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="maritalstatus" class="col-sm-10 col-form-label">Marital
+														status </label>
+													<div class="col">
+														<select class="form-select form-control-sm" name="maritalstatus"
+															id="maritalstatus" data-error="Select Marital Status !"
+															required>
+															<option value="" selected>select</option>
+															<option value="Single">Single</option>
+															<option value="Married">Married</option>
+															<option value="Divorced">Divorced</option>
+														</select>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="ifscCode" class="col-sm-8 col-form-label">IFSC
+														CODE</label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="ifscCode" id="ifscCode" placeholder="Enter IFSC CODE"
+														 data-error="Provide a IFSC No !"	maxlength="15" required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer text-center mt-5">
+											<button type="submit"
+												class="btn btn-primary w-25 text-center">Submit</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
-						<div class="col text-start">
-							<label for="empStatus" class="col-sm-10 col-form-label">Emp Status</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empStatus"  id="empStatus"   placeholder="Enter Emp Status" required>
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="personName" class="col-sm-10 col-form-label">Ref Person Name </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empCode"  id="personName"   placeholder="Enter Ref Person Name" required>
-							</div>
-						</div>
+						<!-- form END-->
 					</div>
-					<div class="col text-center">
-					 <label for="staticEmail">Photo</label>
-                              <input name="profile" type="file" class="dropify"
-													data-height="130" />
-					</div>
-						</div>
-						<!-- ***************************** 2th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="houseNo" class="col-sm-8 col-form-label">House No</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="houseNo" id="houseNo" placeholder="Enter House No" required >
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="branch" class="col-sm-10 col-form-label">Branch /Sub Division</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-							name="branch" id="branch"   placeholder="Enter Branch /Sub Division" required>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="aadharNo" class="col-sm-8 col-form-label">Aadhar No</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="aadharNo" id="aadharNo"   placeholder="Enter Aadhar No" maxlength="12" required >
-							</div>
-						</div>
-				    </div>
-				    	<div class="col-3">
-						<div class="col text-start">
-							<label for="endDate" class="col-sm-10 col-form-label">End Date</label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" 
-								name="endDate"  id="endDate"   placeholder="Enter End Date" required>
-							</div>
-						</div>
-				    	</div>
-					</div>
-					
-							<!-- ***************************** 3th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="address" class="col-sm-8 col-form-label">Address</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="address" id="address"  placeholder="Enter Address" required>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="qualification" class="col-sm-10 col-form-label">Qualification</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-							name="qualification" id="qualification"   placeholder="Enter Qualification" required>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="panNO" class="col-sm-10 col-form-label">PAN NO </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empCode"  id="panNO"   placeholder="Enter PAN NO" maxlength="15" required>
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="salary" class="col-sm-10 col-form-label"> Total Salary</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="salary"  id="salary"  onkeyup="sal()"  placeholder="Enter Total Salary" required>
-							</div>
-						</div>
-				    </div>
-					</div>
-							<!-- ***************************** 4th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="state" class="col-sm-8 col-form-label">State</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empCode" id="state" placeholder="Enter State" required>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="dateOfBirth" class="col-sm-10 col-form-label">Date of birth</label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" 
-								name="dateOfBirth" id="dateOfBirth"   placeholder="Enter Date of birth" required>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="dlNo" class="col-sm-10 col-form-label">DL No </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="dlNo" id="dlNo"   placeholder="Enter DL No" maxlength="15" required>
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="basicSalary" class="col-sm-10 col-form-label">Basic Salary </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="basicSalary"  id="basicSalary"   placeholder="Total basicSalary"  readonly>
-							</div>
-						</div>
-				    </div>
-					</div>
-					
-				
-						<!-- ***************************** 5th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="city" class="col-sm-8 col-form-label">City</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="city" id="city"   placeholder="Enter City" required>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="gender" class="col-sm-10 col-form-label">Gender</label>
-							<div class="col">
-								  <select class="form-control form-control-sm"   name="gender" id="gender"  data-error="Select gender !" required>
-                                       <option value="" selected>Select</option>
-                                       <option value="Male">Male</option>
-                                       <option value="Female">Female</option>
-                                       <option value="Other">Other</option>
-                                    </select>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="passportNo" class="col-sm-10 col-form-label">Passport No </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="passportNo"   id="passportNo"   placeholder="Enter Passport No" maxlength="15" required>
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="sl" class="col-sm-10 col-form-label">SL</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-							name="sl" id="sl" onkeyup="sum()"  placeholder="Enter SL" maxlength="2" required>
-							</div>
-						</div>
-				    </div>
-					</div>
-					
-						<!-- ***************************** 6th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="pinCode" class="col-sm-8 col-form-label">PinCode</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"  name="pinCode"  id="pinCode"
-								  placeholder="Enter PinCode"  maxlength="6" required>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="dateOfJoin" class="col-sm-10 col-form-label">Date Of Join </label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" 
-								name="dateOfJoin"  id="dateOfJoin"   placeholder="Enter Date Of Join " required>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="pfNo" class="col-sm-10 col-form-label">PF No </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empCode" id="pfNo"   placeholder="Enter PF No " maxlength="17" required>
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="cl" class="col-sm-10 col-form-label">CL</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="cl"  id="cl"  onkeyup="sum()"  placeholder="Enter CL" maxlength="2" required >
-							</div>
-						</div>
-				    </div>
-					</div>
-							<!-- ***************************** 7th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="contactNo" class="col-sm-8 col-form-label">Contact No(mobile)</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"  name="contactNo"   id="contactNo"
-								  placeholder="Enter Contact No"  maxlength="10" required>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="bankName" class="col-sm-8 col-form-label">Bank Name</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="bankName"   id="bankName"   placeholder="Enter Bank Name" required>
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="esiNumber" class="col-sm-10 col-form-label"> ESI Number</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-							name="esiNumber" id="esiNumber"   placeholder="Enter ESI Number" required maxlength="15">
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="lwp" class="col-sm-10 col-form-label">LWP </label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm"
-							name="lwp" id="lwp"  onkeyup="sum()" placeholder="Enter LWP" maxlength="2" required>
-							</div>
-						</div>
-				    </div>
-					</div>
-							<!-- ***************************** 8th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-						<div class="col text-start">
-							<label for="bloodGroup" class="col-sm-8 col-form-label">Blood Group</label>
-							<div class="col">
-								<select class="form-control form-control-sm"  name="bloodGroup" id="bloodGroup"  data-error="Select blood group !" required>
-                                                         <option value="" selected>select</option>
-                                                         <option value="(A+)">(A+)</option>
-                                                         <option value="(A-)">(A-)</option>
-                                                         <option value="(B+)">(B+)</option>
-                                                         <option value="(B-)">(B-)</option>
-                                                         <option value="(O+)">(O+)</option>
-                                                         <option value="(O-)">(O-)</option>
-                                                         <option value="(AB+)">(AB+)</option>
-                                                         <option value="(AB-)">(AB-)</option>
-                                                      </select>
-							</div>
-						</div>
-					
-					</div>
-					<div class="col-3">
-						<div class="col text-start">
-						<label for="bankAccNo" class="col-sm-8 col-form-label">Bank Acc No</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="bankAccNo"  id="bankAccNo"   placeholder="Enter Bank Acc No" required maxlength="17">
-							</div>
-						</div>
-					</div>
-				<div class="col-3">
-						<div class="col text-start">
-							<label for="refContactNo" class="col-sm-10 col-form-label">Ref Contact No</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="empCode" id="refContactNo"   placeholder="Enter Ref Contact No" required maxlength="10">
-							</div>
-						</div>
-				    </div>
-				    <div class="col-3">
-						<div class="col text-start">
-							<label for="totalLeave" class="col-sm-10 col-form-label">Total leave</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="totalLeave"  id="totalLeave"   placeholder="Total leave" required readonly="true">
-							</div>
-						</div>
-				    </div>
-					</div>
-							<!-- ***************************** 9th Row  ***************************-->
-					<div class="row ">
-					<div class="col-3">
-							<div class="col text-start">
-							<label for="maritalstatus" class="col-sm-10 col-form-label">Marital status </label>
-							<div class="col">
-								<select class="form-control form-control-sm"  name="maritalstatus" id="maritalstatus"  data-error="Select Marital Status !" required>
-                                       <option value="" selected>select</option>
-                                       <option value="Single">Single</option>
-                                       <option value="Married">Married</option>
-                                       <option value="Divorced">Divorced</option>
-                                    </select>
-							</div>
-						</div>
-					</div>
-						<div class="col-3">
-						<div class="col text-start">
-							<label for="ifscCode" class="col-sm-8 col-form-label">IFSC CODE</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								name="ifscCode" id="ifscCode"   placeholder="Enter IFSC CODE" maxlength="15" required>
-							</div>
-						</div>
-					</div>
-					</div>	
-					  
-					  <div class="text-center mt-4">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-		              </div>
-				</form>
 				</div>
+
+
 			</div>
-		 </div>
-		<!-- form END-->
-	</div>
-			</div>
-	
-           
-         </div>	
-	
+		</div>
 	</section>
 
 
 </body>
+
 </html>

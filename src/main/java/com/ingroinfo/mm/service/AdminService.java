@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
@@ -118,5 +120,11 @@ public interface AdminService {
 	Company getCompanyByUsername(String name);
 
 	ResponseEntity<InputStreamResource> clientBackup(String path);
+
+	// Get User Ids Form Ubarms
+	List<UserDto> getUserIdsFromUbarms(String designation) throws JsonMappingException, JsonProcessingException;
+
+	// Get User Details From UBARMS
+	UserDto getUserDtlsFromUbarms(Long ubarmsUserId);
 
 }
