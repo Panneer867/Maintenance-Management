@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 	document.getElementById('icomid').value = document.getElementById('ccomid').value;
 	document.getElementById('companyName').value = document.getElementById('ccomname').value;
 	var input = document.getElementById("ccomname").value,
@@ -19,12 +19,18 @@ $(document).ready(function() {
 	document.getElementById('imobile').value = document.getElementById('cmobile').value;
 	document.getElementById('ifax').value = document.getElementById('cfax').value;
 	document.getElementById('iwebsite').value = document.getElementById('cwebsite').value;
+	document.getElementById('iabout').value = document.getElementById('cabout').value;
 
 	if (document.getElementById('cenableApp').value === 'on') {
 		$('#ienableApp').prop('checked', true);
 	}
 
-	document.getElementById('setId').value = document.getElementById('ccomid').value;
+
 	document.getElementById('inoofbranch').value = document.getElementById('cnoofbranch').value;
-	
+
+
+	$("#click-logo").click(function() {
+		document.getElementById('setId').value = document.getElementById('ccomid').value;
+	});
+
 });

@@ -96,9 +96,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		List<Privilege> ownerPrivileges = Arrays.asList(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u,
 				v, w, x, y, z, a1, b1);
 
+		List<Privilege> companyAccess = Arrays.asList(a, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, a1,
+				b1);
+
+		List<Privilege> branchAccess = Arrays.asList(a, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, a1, b1);
+
 		/* Roles */
 
 		Role admin = createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
+		createRoleIfNotFound("ROLE_COMPANY", "Company level access", companyAccess);
+		createRoleIfNotFound("ROLE_BRANCH", "Branch level access", branchAccess);
 
 		/* States */
 

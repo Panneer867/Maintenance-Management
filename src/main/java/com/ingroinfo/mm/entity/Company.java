@@ -45,6 +45,7 @@ public class Company {
 	private String enableApp;
 	private String path;
 	private String logo;
+	private String about;
 	private String noOfBranch;
 	
 	@JsonIgnore

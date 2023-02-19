@@ -6,7 +6,6 @@
 
 		<div class="row mt-2">
 			<div class="col-6" dir="ltr">
-
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
@@ -28,8 +27,7 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
-							th:href="@{/admin/branch/list}"><span
-								class="glyphicon glyphicon-th-list pr-1"></span>
+							th:href="@{/admin/branch/list}"><span class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Branch
 						</a>
 					</li>
@@ -37,124 +35,132 @@
 			</div>
 		</div>
 
-		<div class="col-10 mx-auto my-auto">
-
-
+		<div class="col-9 mx-auto my-auto">
 			<div class="card bg-secondary">
 				<div class="card-header text-center heading-bg text-white">
 					<h4 class="mb-0">View Branch Details</h4>
 				</div>
 				<div class="card-body font-weight-bold">
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-10">
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Branch
+											Name</label>
+										<div class="col-sm-8 px-0">
 
-					
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Branch
-										Name</label>
-									<div class="col-sm-8 px-0">
-										
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.branchName}" />
-										
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.branchName}" />
+
+										</div>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Company</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.company.companyName}" />
+
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Company</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext"
-											th:value="${branchDetails.company.companyName}" />
-										
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Username</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${user.username}" />
+
+										</div>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Email</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.email}" />
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Address</label>
+										<div class="col-sm-10 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.address}" />
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">State</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.state}" />
+
+										</div>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">City</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.city}" />
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Pincode</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.pincode}" />
+
+										</div>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Phone</label>
+										<div class="col-sm-8 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.mobile}" />
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group row">
+
+										<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Remarks</label>
+										<div class="col-sm-10 px-0">
+											<input type="text" class="form-control-plaintext"
+												th:value="${branchDetails.remarks}" />
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Username</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${user.username}" />
-										
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Email</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.email}" />
-										
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Address</label>
-									<div class="col-sm-10 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.address}" />
-										
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">State</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.state}" />
-										
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">City</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.city}" />
-										
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label pr-0 ">Pincode</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.pincode}" />
-										
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Phone</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.mobile}" />
-										
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group row">
-									
-									<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Remarks</label>
-									<div class="col-sm-10 px-0">
-										<input type="text" class="form-control-plaintext" th:value="${branchDetails.remarks}" />
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					
+					</div>
 				</div>
 			</div>
 		</div>

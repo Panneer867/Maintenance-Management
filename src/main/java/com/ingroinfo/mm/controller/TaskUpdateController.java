@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -210,6 +209,13 @@ public class TaskUpdateController {
 		}
 		session.setAttribute("message", new Message("Jee Investigation Completed !!","success"));
 		return "redirect:/task/je";
+	}
+	
+	//Submit Jee Esclation Data
+	@RequestMapping("/exlateComplain/{complNo}")
+	public String submitJeeInvestigation(@PathVariable String complNo) {
+		
+		return null;
 	}
 
 	@GetMapping("/work-complete")

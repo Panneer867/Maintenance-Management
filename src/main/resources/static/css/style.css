@@ -134,3 +134,6 @@ table .vehicel-table-scroll {
 	scroll-behavior: smooth;
 	height: 600px;
 }
+#tutorial{
+	display:none;
+}

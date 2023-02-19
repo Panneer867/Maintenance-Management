@@ -9,7 +9,6 @@ $(document).ready(function() {
 
 	if (input != null) {
 		input.onkeyup = function() { display(this.value, match); };
-
 	}
 
 });	

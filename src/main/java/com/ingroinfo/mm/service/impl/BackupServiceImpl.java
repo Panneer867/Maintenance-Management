@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -134,18 +133,6 @@ public class BackupServiceImpl implements BackupService {
 		} catch (Exception e) {
 			LOGGER.error("Error during backup process", e);
 		}
-	}
-
-	@Override
-	public List<String> getLocalDriveLetters() {
-
-		List<String> driveLetters = new ArrayList<String>();
-		File[] roots = File.listRoots();
-		for (File root : roots) {
-			String driveLetter = root.getAbsolutePath().substring(0, 2);
-			driveLetters.add(driveLetter);
-		}
-		return driveLetters;
 	}
 
 	@Override

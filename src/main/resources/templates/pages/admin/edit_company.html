@@ -29,8 +29,7 @@
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-danger"
-							th:href="@{/admin/company/list}"><span
-								class="glyphicon glyphicon-th-list pr-1"></span>
+							th:href="@{/admin/company/list}"><span class="glyphicon glyphicon-th-list pr-1"></span>
 							Manage Company
 						</a>
 					</li>
@@ -62,82 +61,75 @@
 										<div class="col-sm-9 px-0">
 											<input type="hidden" id="ccomid" th:value="${companyDetails.companyId}" />
 											<input type="hidden" id="icomid" name="companyId" />
-											<input type="hidden" id="ccomname" th:value="${companyDetails.companyName}" />
-											<input type="text" class="form-control form-control-sm" name="companyName"
-												id="companyName" data-minlength="3" data-error="Min 3 chars required !"
-												required />
+											<input type="hidden" id="ccomname"
+												th:value="${companyDetails.companyName}" />
+											<input type="text" class="form-control" name="companyName" id="companyName"
+												data-minlength="3" data-error="Min 3 chars required !" required />
 											<div class="help-block with-errors text-danger mb-0"></div>
 
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-6">
-										<div class="form-group row mb-1">
+								<div class="col-12">
+									<div class="row">
+										<div class="col-6">
 											<div class="form-group row">
 												<label for="staticEmail"
-													class="col-sm-7 col-form-label pr-0 pl-5">Username<strong
+													class="col-sm-6 col-form-label pr-0">Username<strong
 														class="text-danger">*</strong></label>
-												<div class="col-sm-5 px-0">
+												<div class="col-sm-6 px-0">
 													<input type="hidden" id="cusername" th:value="${user.username}" />
 													<input type="text" name="username" id="iusername"
-														class="form-control form-control-sm"
-														data-error="Provide this field !" required />
+														class="form-control" data-error="Provide this field !"
+														required />
 													<div class="help-block with-errors text-danger mb-0"></div>
 												</div>
 											</div>
 										</div>
-									</div>
-
-									<div class="col-6">
-										<div class="form-group row mb-1">
-											<label for="staticEmail"
-												class="col-sm-6 col-form-label pr-0 text-center float-left">Password<strong
-													class="text-danger">*</strong></label>
-											<div class="col-sm-5 px-0">
-												<input type="password" class="form-control form-control-sm"
-													id="inputPassword"
-													pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-													data-error="Password must be alphanumeric !" />
-												<div class="help-block with-errors text-danger mb-0"></div>
-												<small class="text-primary">
-													Min 6 characters required.
-												</small>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0 text-center">Email<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cemail"
+														th:value="${companyDetails.email}" />
+													<input type="email" name="email" id="iemail" class="form-control"
+														data-error="Provide vaild email !" required />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-								<div class="row">
-									<div class="col-6">
-										<div class="form-group row mb-0">
+								<div class="col-12">
+									<div class="row">
+										<div class="col-6">
 											<div class="form-group row">
 												<label for="staticEmail"
-													class="col-sm-7 col-form-label pr-0 pl-5">Confirm
-													Password<strong class="text-danger">*</strong></label>
-												<div class="col-sm-5 px-0">
-													<input type="password" name="password"
-														class="form-control form-control-sm" id="password"
-														data-match="#inputPassword"
-														data-match-error="oops,doesn't match!"
-														data-error="Provide confirm password !" />
+													class="col-sm-6 col-form-label pr-0">Password<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="password" class="form-control" id="inputPassword"
+														pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+														data-error="Must be Alphanumeric !" />
 													<div class="help-block with-errors text-danger mb-0"></div>
 												</div>
 											</div>
 										</div>
-									</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0 text-center">Confirm
+													Password<strong class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="password" name="password" class="form-control"
+														id="password" data-match="#inputPassword"
+														data-match-error="oops,doesn't match!"
+														data-error="Provide confirm password !" />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
 
-									<div class="col-6">
-										<div class="form-group row mb-0">
-											<label for="staticEmail"
-												class="col-sm-6 col-form-label pr-0 text-center">Email<strong
-													class="text-danger">*</strong></label>
-											<div class="col-sm-5 px-0">
-												<input type="hidden" id="cemail" th:value="${companyDetails.email}" />
-												<input type="email" name="email" id="iemail"
-													class="form-control form-control-sm"
-													data-error="Provide vaild email !" required />
-												<div class="help-block with-errors text-danger mb-0"></div>
 											</div>
 										</div>
 									</div>
@@ -148,89 +140,126 @@
 												class="text-danger">*</strong></label>
 										<div class="col-sm-9 px-0">
 											<input type="hidden" id="caddress" th:value="${companyDetails.address}" />
-											<input type="text" name="address" id="iaddress"
-												class="form-control form-control-sm" data-error="Provide this field !"
-												required />
+											<input type="text" name="address" id="iaddress" class="form-control"
+												data-error="Provide this field !" required />
 											<div class="help-block with-errors text-danger mb-0"></div>
 
 										</div>
 									</div>
 								</div>
 								<div class="col-12">
-									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">State<strong
-												class="text-danger">*</strong></label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="cstate" th:value="${companyDetails.state}" />
-											<input type="text" name="state" id="istate"
-												class="form-control form-control-sm" data-error="Provide this field !"
-												required />
-
-											<div class="help-block with-errors text-danger mb-0"></div>
-
+									<div class="row">
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0">State<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cstate"
+														th:value="${companyDetails.state}" />
+													<input type="text" name="state" id="istate" class="form-control"
+														data-error="Provide this field !" required />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
+											</div>
 										</div>
-										<label for="staticEmail"
-											class="col-sm-3 col-form-label pr-0 text-center">City<strong
-												class="text-danger">*</strong></label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="ccity" th:value="${companyDetails.city}" />
-											<input type="text" name="city" id="icity"
-												class="form-control form-control-sm" data-error="Provide this field !"
-												required />
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0 text-center">City<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="ccity" th:value="${companyDetails.city}" />
+													<input type="text" name="city" id="icity" class="form-control"
+														data-error="Provide this field !" required />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
 
-											<div class="help-block with-errors text-danger mb-0"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="row">
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0">Pincode<strong
+														class="text-danger">*</strong></label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cpincode"
+														th:value="${companyDetails.pincode}" />
+													<input type="number" name="pincode" id="ipincode"
+														class="form-control" data-error="Provide this field !"
+														oninput="this.value=this.value.slice(0,this.maxLength)"
+														maxlength="6" required />
+													<div class="help-block with-errors text-danger mb-0"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0 text-center">Phone</label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cmobile"
+														th:value="${companyDetails.mobile}" />
+													<input type="number" name="mobile" id="imobile"
+														oninput="this.value=this.value.slice(0,this.maxLength)"
+														maxlength="10" class="form-control" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="row">
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-6 col-form-label pr-0">Fax
+													No</label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cfax" th:value="${companyDetails.fax}" />
+													<input type="number" name="fax" id="ifax"
+														oninput="this.value=this.value.slice(0,this.maxLength)"
+														maxlength="10" class="form-control" />
+												</div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-6 col-form-label pr-0 text-center">Website</label>
+												<div class="col-sm-6 px-0">
+													<input type="hidden" id="cwebsite"
+														th:value="${companyDetails.website}" />
+													<input type="text" id="iwebsite" name="website"
+														class="form-control" />
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Pincode<strong
+										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Remarks<strong
 												class="text-danger">*</strong></label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="cpincode" th:value="${companyDetails.pincode}" />
-											<input type="number" name="pincode" id="ipincode"
-												class="form-control form-control-sm" data-error="Provide this field !"
-												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6"
-												required />
+										<div class="col-sm-9 px-0">
+											<input type="hidden" id="cabout" th:value="${companyDetails.about}" />
+											<textarea class="form-control" name="about" rows="3" id="iabout"></textarea>
 											<div class="help-block with-errors text-danger mb-0"></div>
-										</div>
-										<label for="staticEmail"
-											class="col-sm-3 col-form-label pr-0 text-center">Phone</label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="cmobile" th:value="${companyDetails.mobile}" />
-											<input type="number" name="mobile" id="imobile"
-												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
-												class="form-control form-control-sm" />
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-3 col-form-label pr-0">Fax No</label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="cfax" th:value="${companyDetails.fax}" />
-											<input type="number" name="fax" id="ifax"
-												oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10"
-												class="form-control form-control-sm" />
-										</div>
-										<label for="staticEmail"
-											class="col-sm-3 col-form-label pr-0 text-center">Website</label>
-										<div class="col-sm-3 px-0">
-											<input type="hidden" id="cwebsite" th:value="${companyDetails.website}" />
-											<input type="text" id="iwebsite" name="website"
-												class="form-control form-control-sm" />
+
 										</div>
 									</div>
 								</div>
 							</div>
-
 							<div class="col-3 text-center">
 								<div class="form-group ">
 									<label for="staticEmail">Company Logo</label><br>
 									<img th:src="@{'/Company/'+ ${companyDetails.companyName} +'/logo/'+ ${companyDetails.logo}}"
 										width="130" alt="image" /><br>
 									<a data-toggle="modal" data-target="#editLogo"
-										class="btn btn-sm btn-secondary mt-3 text-dark">Change Logo</a>
+										class="btn btn-sm btn-secondary mt-3 text-dark" id="click-logo">Change Logo</a>
 								</div>
 								<div class="form-check form-switch mt-4">
 									<input type="hidden" id="cenableApp" th:value="${companyDetails.enableApp}"
@@ -248,8 +277,7 @@
 								<div class="form-group">
 									<label for="staticEmail">No of Branch</label>
 									<input type="hidden" id="cnoofbranch" th:value="${companyDetails.noOfBranch}" />
-									<input type="number"
-										class="col-sm-5 form-control form-control-sm mx-auto text-center"
+									<input type="number" class="col-sm-5 form-control mx-auto text-center"
 										id="inoofbranch" name="noOfBranch" />
 								</div>
 							</div>
@@ -278,10 +306,9 @@
 							<div class="row justify-content-center">
 								<div class="col-8">
 									<div class="form-group text-center">
-										<label class="font-weight-bold">Comapny Logo</label>
-										<input type="hidden" id="setId" name="companyId" />
-										<input type="file" name="logo" data-height="100" class="dropify" />
-										<small class="text-info"> Logo [Size: 225x90]</small>
+										<label class="font-weight-bold">Company Logo</label>
+										<input type="file" name="logo" class="dropify" />
+										<small class="text-info">Logo [Size: 225x90]</small>
 									</div>
 								</div>
 							</div>

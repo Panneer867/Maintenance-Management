@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -119,20 +120,13 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void registerCompany(User user) {
 
-		String roleName = "ROLE_" + user.getName().toUpperCase() + "_COMPANY";
-		String description = "This is " + user.getName() + " company role";
+		String roleName = "ROLE_COMPANY";
 		Role role = roleRepository.findByName(roleName);
-
-		if (role == null) {
-			role = new Role(roleName, description);
-			roleRepository.save(role);
-		}
-
 		userRoleEntry(role.getId());
-
 		user.setRoles(Arrays.asList(role));
 		user.setBranch(null);
 		user.setUserType("C");
+		user.setDesignation("Company");
 		register(user);
 
 	}
@@ -140,23 +134,15 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void registerBranch(User user) {
 
-		String roleName = "ROLE_" + user.getName().toUpperCase() + "_BRANCH";
-		String description = "This is " + user.getName() + " branch role";
+		String roleName = "ROLE_BRANCH";
 		Role role = roleRepository.findByName(roleName);
-
-		if (role == null) {
-			role = new Role(roleName, description);
-			roleRepository.save(role);
-		}
-
 		userRoleEntry(role.getId());
-
 		user.setRoles(Arrays.asList(role));
 		user.setUserType("B");
+		user.setDesignation("Branch");
 		register(user);
 
 		try {
-
 			User admin = userRepository.findByUserType("C");
 			String sql = "INSERT INTO MM_USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 			jdbcTemplate.update(sql, admin.getUserId(), role.getId());
@@ -262,26 +248,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteCompanyById(Long companyId) {
 
-		Company company = companyRepository.findByCompanyId(companyId);
-
-		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equalsIgnoreCase(company.getEmail()))
-				.findFirst().get();
-
-		Collection<Role> roles = userRepository.findByUserId(user.getUserId()).getRoles();
-		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
-
-		for (int i = 0; i < roleId.size(); i++) {
-			deleteRoleById(roleId.get(i));
-		}
-
-		try {
-
-			String sql = "DELETE FROM MM_USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
-			jdbcTemplate.update(sql, user.getUserId(), roleId);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		companyRepository.deleteById(companyId);
 	}
 
@@ -325,28 +291,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteBranch(Long branchId) {
-
-		Branch branch = branchRepository.findByBranchId(branchId);
-
-		User user = userRepository.findAll().stream().filter(o -> o.getEmail().equals(branch.getEmail())).findFirst()
-				.get();
-
-		Collection<Role> roles = userRepository.findByUserId(user.getUserId()).getRoles();
-		List<Long> roleId = roles.stream().map(role -> role.getId()).collect(Collectors.toList());
-
-		for (int i = 0; i < roleId.size(); i++) {
-			deleteRoleById(roleId.get(i));
-		}
-
-		try {
-
-			String sql = "DELETE FROM MM_USERS_ROLES WHERE USER_ID= ? AND ROLE_ID = ?";
-			jdbcTemplate.update(sql, user.getUserId(), roleId);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		branchRepository.deleteById(branchId);
 	}
 
@@ -917,6 +861,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<String> getLocalDriveLetters() {
+
+		List<String> driveLetters = new ArrayList<String>();
+		File[] roots = File.listRoots();
+		for (File root : roots) {
+			String driveLetter = root.getAbsolutePath().substring(0, 2);
+			driveLetters.add(driveLetter);
+		}
+		return driveLetters;
+	}
+
+	@Override
 	public ResponseEntity<InputStreamResource> clientBackup(String path) {
 
 		String fullPath = path + "\\BACKUP";
@@ -953,12 +909,12 @@ public class AdminServiceImpl implements AdminService {
 				.contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
 
 	}
-	
+
 	@Override
 	public List<UserDto> getUserIdsFromUbarms(String designation) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getEmployeesmm/"+designation);
+			URL url = new URL("http://localhost:9595/ubarms/arms/getEmployeesmm/" + designation);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -977,9 +933,9 @@ public class AdminServiceImpl implements AdminService {
 			conn.disconnect();
 
 		} catch (MalformedURLException e) {
-			System.out.println("Connection Failed !!"+e.getMessage());
+			System.out.println("Connection Failed !!" + e.getMessage());
 		} catch (IOException e) {
-			System.out.println("Connection Failed !!"+e.getMessage());
+			System.out.println("Connection Failed !!" + e.getMessage());
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -1002,13 +958,13 @@ public class AdminServiceImpl implements AdminService {
 		UserDto userDto = null;
 
 		try {
-			userDto = mapper.readValue(
-					new URL("http://localhost:9595/ubarms/arms/getempDtlsmm/" + ubarmsUserId), UserDto.class);
-			//System.out.println(consumersDto);
+			userDto = mapper.readValue(new URL("http://localhost:9595/ubarms/arms/getempDtlsmm/" + ubarmsUserId),
+					UserDto.class);
+			// System.out.println(consumersDto);
 		} catch (Exception e) {
 			System.out.println("Exception : " + e.getMessage());
 		}
-		return userDto;		
+		return userDto;
 	}
 
 }

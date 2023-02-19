@@ -54,8 +54,8 @@
 					<form class="p-0 mb-0" th:action="@{/admin/backup/server/setup}" th:object="${backup}"
 						method="post">
 						<div class="row">
-							<div class="col-3"></div>
-							<div class="col-1 px-3">
+							<div class="col-2"></div>
+							<div class="col-2 px-3">
 								<div class="form-group">
 									<label for="staticEmail" class="col-form-label">Drive<strong
 											class="text-danger">*</strong></label>
@@ -70,7 +70,7 @@
 								<div class="form-group">
 									<label for="staticEmail" class="col-form-label">Folder Name<strong
 											class="text-danger">*</strong></label>
-									<input type="text" name="path" class="form-control form-control-sm" required />
+									<input type="text" name="path" class="form-control" required />
 									<small class="text-danger">
 										Ex: MyFolder/SubFolder
 									</small>
@@ -95,7 +95,7 @@
 									<label for="staticEmail" class="col-sm-4 col-form-label ">Time 1</label>
 									<div class="col-sm-8">
 										<input type="time" name="timeOne" id="timeOneId"
-											class="form-control form-control-sm" />
+											class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -105,7 +105,7 @@
 									<label for="staticEmail" class="col-sm-4 col-form-label ">Time 2</label>
 									<div class="col-sm-8">
 										<input type="time" name="timeTwo" id="timeTwoId"
-											class="form-control form-control-sm" />
+											class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -115,7 +115,7 @@
 									<label for="staticEmail" class="col-sm-4 col-form-label ">Time 3</label>
 									<div class="col-sm-8">
 										<input type="time" name="timeThree" id="timeThreeId"
-											class="form-control form-control-sm" />
+											class="form-control" />
 									</div>
 								</div>
 							</div>

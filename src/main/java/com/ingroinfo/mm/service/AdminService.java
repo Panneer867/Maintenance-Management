@@ -121,6 +121,8 @@ public interface AdminService {
 
 	ResponseEntity<InputStreamResource> clientBackup(String path);
 
+	List<String> getLocalDriveLetters();
+
 	// Get User Ids Form Ubarms
 	List<UserDto> getUserIdsFromUbarms(String designation) throws JsonMappingException, JsonProcessingException;
 

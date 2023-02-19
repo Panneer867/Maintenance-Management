@@ -108,7 +108,10 @@ public class AdminController {
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
 				+ fileExtension.get();
-		String drive = backupService.getLocalDriveLetters().get(0);
+
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+
 		String uploadDir = drive + "\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setPath(drive + "\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
@@ -143,10 +146,11 @@ public class AdminController {
 
 	@GetMapping("/company/edit/{id}")
 	@PreAuthorize("hasAuthority('EDIT_COMPANY')")
-	public String companyEdit(@PathVariable Long id, Model model) {
+	public String companyEdit(@PathVariable Long id, Model model, HttpSession httpSession) {
 
 		model.addAttribute("companyDetails", adminService.getCompanyById(id));
 		model.addAttribute("company", new CompanyDto());
+		httpSession.setAttribute("getCompanyId", id);
 		model.addAttribute("user", adminService.getUserByEmail(adminService.getCompanyById(id).getEmail()));
 
 		return "/pages/admin/edit_company";
@@ -181,12 +185,14 @@ public class AdminController {
 		}
 
 		Company company = adminService.getCompanyById(companyDto.getCompanyId());
-		String drive = backupService.getLocalDriveLetters().get(0);
+
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+
 		String oldfolder = drive + "\\Company\\" + company.getCompanyName() + "\\";
 		File files = new File(oldfolder);
 
 		mapper.modelMapper().map(companyDto, company);
-		
 		String folder = drive + "\\Company\\" + companyDto.getCompanyName() + "\\";
 		if (!oldfolder.equalsIgnoreCase(folder)) {
 			File rename = new File(folder);
@@ -202,17 +208,18 @@ public class AdminController {
 	}
 
 	@PostMapping("/company/edit/logo")
-	public String companyLogo(@RequestParam("logo") MultipartFile file, @RequestParam String companyId,
-			HttpSession session) throws IOException {
+	public String companyLogo(@RequestParam("logo") MultipartFile file, HttpSession session) throws IOException {
+		Long companyId = (Long) session.getAttribute("getCompanyId");
 
-		Company company = adminService.getCompanyById(Long.parseLong(companyId));
+		Company company = adminService.getCompanyById(companyId);
 
 		Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 10000) + "."
 				+ tokens.get();
-		String drive = backupService.getLocalDriveLetters().get(0);
-		String uploadDir =  drive + "\\Company\\" + company.getCompanyName() + "\\logo";
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+		String uploadDir = drive + "\\Company\\" + company.getCompanyName() + "\\logo";
 		company.setLogo(fileName);
 		adminService.saveFile(uploadDir, fileName, file);
 		adminService.saveCompany(company);
@@ -275,8 +282,15 @@ public class AdminController {
 			session.setAttribute("message", new Message("Branch has been created successfully !!", "success"));
 
 		} else {
-			session.setAttribute("message",
-					new Message("Only " + company.getNoOfBranch() + " no of branches are allowed !", "danger"));
+
+			if (company.getNoOfBranch().equals("0")) {
+				session.setAttribute("message", new Message(
+						"Please contact the administrator as no branches have been assigned during the company creation process.",
+						"danger"));
+			} else {
+				session.setAttribute("message",
+						new Message("Only " + company.getNoOfBranch() + " no of branches are allowed !", "danger"));
+			}
 
 			return "redirect:/admin/branch/create";
 		}
@@ -570,7 +584,7 @@ public class AdminController {
 
 		if (path == null) {
 
-			List<String> drives = backupService.getLocalDriveLetters();
+			List<String> drives = adminService.getLocalDriveLetters();
 			String drive = drives.get(0);
 			path = drive + "\\MMDB";
 		}
@@ -579,7 +593,7 @@ public class AdminController {
 
 	@GetMapping("/backup/server")
 	public String serverBackup(Model model) {
-		model.addAttribute("driveLetters", backupService.getLocalDriveLetters());
+		model.addAttribute("driveLetters", adminService.getLocalDriveLetters());
 
 		model.addAttribute("backup", new Backup());
 		return "/pages/admin/server-backup";

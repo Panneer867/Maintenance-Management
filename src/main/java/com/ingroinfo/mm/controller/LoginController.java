@@ -19,22 +19,18 @@ import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.BackupService;
 
 @Controller
 public class LoginController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
-
+	
 	@Autowired
 	private AdminService adminService;
 
-	@Autowired
-	private BackupService backupService;
-
 	@GetMapping("/login")
 	public String login() {
-
+		
 		return "/login";
 	}
 
@@ -63,19 +59,17 @@ public class LoginController {
 
 		Company company = modelMapper.map(companyDto, Company.class);
 		User user = modelMapper.map(companyDto, User.class);
-		String drive = backupService.getLocalDriveLetters().get(0);
+
 		Optional<String> fileExtension = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 				.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
 		String fileName = company.getCompanyName() + "_" + ThreadLocalRandom.current().nextInt(1, 1000) + "."
 				+ fileExtension.get();
-		String uploadDir = drive + "\\Company\\" + company.getCompanyName() + "\\logo";
-		company.setPath(drive + "\\Company\\" + company.getCompanyName());
+		String uploadDir = "C:\\Company\\" + company.getCompanyName() + "\\logo";
+		company.setPath("C:\\Company\\" + company.getCompanyName());
 		company.setLogo(fileName);
 		company.setState(adminService.getState(companyDto.getState()));
-		if (company.getEnableApp().length() == 0) {
-			company.setEnableApp("off");
-		}
+		if(company.getEnableApp().length() == 0) {company.setEnableApp("off");}
 		user.setName(company.getCompanyName());
 
 		if (companyDto.getNoOfBranch().length() == 0) {
@@ -93,16 +87,16 @@ public class LoginController {
 
 		return "redirect:/login?success";
 	}
-
+	
 	@GetMapping("/access-denied")
 	public String accessDenied() {
-
+		
 		return "/access_denied";
 	}
-
+	
 	@GetMapping("/server-error")
 	public String serverError() {
-
+		
 		return "/server_error";
 	}
 

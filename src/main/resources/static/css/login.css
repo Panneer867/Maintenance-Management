@@ -93,3 +93,16 @@ span.captcha {
 	background-color: #ffff;
 	border-radius: 10px;
 }
+
+.login-center {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -60%);
+	margin-top: 20px;
+	margin-bottom: 20px;
+	left: calc(90% - 50px);
+}
+
+.wid-msg {
+	width: 334px;
+}

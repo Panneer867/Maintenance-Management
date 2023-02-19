@@ -225,8 +225,7 @@
 								<div class="form-group col-md-3">
 									<label for="city">City</label>
 									<input type="text" class="form-control form-control-sm bg-white" id="city"
-										th:value="${complDtls.city}" name="city" readonly
-										placeholder="Enter City">
+										th:value="${complDtls.city}" name="city" readonly placeholder="Enter City">
 								</div>
 							</div>
 
@@ -296,9 +295,6 @@
 										class="btn btn-primary w-25 text-center">With Metrials</a>
 								</div>
 							</div>
-
-
-
 							<div id="tutorial">
 								<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
 								<!--***********Row 10**********-->
@@ -361,10 +357,14 @@
 							</div>
 							<div class="text-center mt-2">
 								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>
-								<a type="button" id="esclate-invest-data" th:href="@{/task/exlateComplain}" class="btn btn-primary">Escala Task</a>
+								<a th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}" class="esclate-button">
+									<button class="btn btn-primary" id="esclate-invest-data" type="button">Escala Task</button>
+								</a>
+								<!--<a type="button" th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}"
+									class="btn btn-primary esclate-invest-data">Escala Task</a>-->
 							</div>
-
 						</form>
+
 					</div>
 				</div>
 			</div>
