@@ -372,8 +372,7 @@ public class AdminController {
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
-		List<DesignationDto> designationDtos = this.designationService.getAllDesignations();
-		model.addAttribute("designations", designationDtos);
+		model.addAttribute("designations", designationService.getAllDesignations());
 
 		return "/pages/admin/create_user";
 	}
