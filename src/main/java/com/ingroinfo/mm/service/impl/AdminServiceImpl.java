@@ -108,7 +108,6 @@ public class AdminServiceImpl implements AdminService {
 			int count = jdbcTemplate.update(checkSql);
 
 			if (count == 0) {
-
 				String sql = "INSERT INTO MM_USERS_ROLES (USER_ID,ROLE_ID) VALUES (?, ?)";
 				jdbcTemplate.update(sql, adminUserId, roleId);
 			}

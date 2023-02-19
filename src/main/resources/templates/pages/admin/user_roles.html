@@ -28,7 +28,7 @@
 		</div>
 		<div class="card">
 			<div class="card-header text-center heading-bg text-white">
-				<h5 class="mb-0">User Role (Email, SMS, Text Notification) </h5>
+				<h5 class="mb-0">User Roles</h5>
 			</div>
 			<div class="card-body font-weight-bold">
 				<form class="p-0 mb-0" th:action="@{/admin/user/roles/update}" data-toggle="validator"
@@ -49,507 +49,263 @@
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-one" role="tabpanel"
 							aria-labelledby="pills-one-tab" tabindex="0">
-							<div class="row mt-3">
-								<div class="col-6">
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Admin Pages
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-3">
-													<input type="checkbox" class="form-check-input" id="admin-page">
-													<input type="hidden" name="adminpage" id="set-admin-page">
-													<label class="form-check-label" for="admin-page">Admin Home</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="company-management" />
-													<input type="hidden" name="companyManagement"
-														id="set-company-management">
-													<label class="form-check-label" for="company-management">Company
-														Management</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="branch-management" />
-													<input type="hidden" name="branchManagement"
-														id="set-branch-management">
-													<label class="form-check-label" for="branch-management">Branch
-														Management</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="user-management" />
-													<input type="hidden" name="userManagement" id="set-user-management">
-													<label class="form-check-label" for="user-management">User
-														Management</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="role-management" />
-													<input type="hidden" name="roleManagement" id="set-role-management">
-													<label class="form-check-label" for="role-management">Role
-														Management</label>
-												</div>
-											</div>
+							<div class="row mt-4">
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Admin
+										Pages
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-3">
+											<input type="checkbox" class="form-check-input" id="admin-page">
+											<input type="hidden" name="adminpage" id="set-admin-page">
+											<label class="form-check-label" for="admin-page">Admin Home</label>
 										</div>
-										<div class="col-2 p-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="company-management" />
+											<input type="hidden" name="companyManagement" id="set-company-management">
+											<label class="form-check-label" for="company-management">Company
+												Management</label>
 										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="branch-management" />
+											<input type="hidden" name="branchManagement" id="set-branch-management">
+											<label class="form-check-label" for="branch-management">Branch
+												Management</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="user-management" />
+											<input type="hidden" name="userManagement" id="set-user-management">
+											<label class="form-check-label" for="user-management">User
+												Management</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="role-management" />
+											<input type="hidden" name="roleManagement" id="set-role-management">
+											<label class="form-check-label" for="role-management">Role
+												Management</label>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Role Management
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="create-role" />
-													<input type="hidden" name="createRole" id="set-create-role">
-													<label class="form-check-label" for="create-role">Create
-														Role</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="edit-role" />
-													<input type="hidden" name="editRole" id="set-edit-role">
-													<label class="form-check-label" for="edit-role">Edit
-														Role</label>
-												</div>
-												
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="delete-role" />
-													<input type="hidden" name="deleteRole" id="set-delete-role">
-													<label class="form-check-label" for="delete-role">Delete
-														Role</label>
-												</div>
 
-											</div>
-										</div>
-										<div class="col-2 p-0">
-
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">User Roles
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="view-userRoles" />
-													<input type="hidden" name="userRoles" id="set-view-userRoles">
-													<label class="form-check-label" for="view-userRoles">User Roles</label>
-												</div>
-												
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="update-userRoles" />
-													<input type="hidden" name="updateUserRoles" id="set-update-userRoles">
-													<label class="form-check-label" for="update-userRoles">Assign Permission</label>
-												</div>
-
-											</div>
-										</div>
-										<div class="col-2 p-0">
-
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Task Management
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="task-je" />
-													<input type="hidden" name="taskJe" id="set-task-je">
-													<label class="form-check-label" for="task-je">JE Investigation</label>
-												</div>
-												
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-aee" />
-													<input type="hidden" name="taskAee" id="set-task-aee">
-													<label class="form-check-label" for="task-aee">AEE Investigation</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-ee" />
-													<input type="hidden" name="taskEe" id="set-task-ee">
-													<label class="form-check-label" for="task-ee">EE Investigation</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-commissioner" />
-													<input type="hidden" name="taskCommissioner" id="set-task-commissioner">
-													<label class="form-check-label" for="task-commissioner">Commissioner Investigation</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-workcomplete" />
-													<input type="hidden" name="taskWorkcomplete" id="set-task-workcomplete">
-													<label class="form-check-label" for="task-workcomplete">Work Complete</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-jobcard" />
-													<input type="hidden" name="taskJobcard" id="set-task-jobcard">
-													<label class="form-check-label" for="task-jobcard">Job Card Update</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="task-complainthistory" />
-													<input type="hidden" name="taskComplainthistory" id="set-task-complainthistory">
-													<label class="form-check-label" for="task-complainthistory">Complaint History</label>
-												</div>
-
-											</div>
-										</div>
-										<div class="col-2 p-0">
-
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-									</div>
-									
 								</div>
-								<div class="col-6">
-										<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Company Management
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="create-company" />
-													<input type="hidden" name="createCompany" id="set-create-company">
-													<label class="form-check-label" for="create-company">Create
-														Company</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="edit-company" />
-													<input type="hidden" name="editCompany" id="set-edit-company">
-													<label class="form-check-label" for="edit-company">Edit
-														Company</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="view-company" />
-													<input type="hidden" name="viewCompany" id="set-view-company">
-													<label class="form-check-label" for="view-company">View
-														Company</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="delete-company" />
-													<input type="hidden" name="deleteCompany" id="set-delete-company">
-													<label class="form-check-label" for="delete-company">Delete
-														Company</label>
-												</div>
-
-											</div>
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Company
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="create-company" />
+											<input type="hidden" name="createCompany" id="set-create-company">
+											<label class="form-check-label" for="create-company">Create
+												Company</label>
 										</div>
-										<div class="col-2 p-0">
-
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="edit-company" />
+											<input type="hidden" name="editCompany" id="set-edit-company">
+											<label class="form-check-label" for="edit-company">Edit
+												Company</label>
 										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="view-company" />
+											<input type="hidden" name="viewCompany" id="set-view-company">
+											<label class="form-check-label" for="view-company">View
+												Company</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="delete-company" />
+											<input type="hidden" name="deleteCompany" id="set-delete-company">
+											<label class="form-check-label" for="delete-company">Delete
+												Company</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Branch
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="create-branch" />
+											<input type="hidden" name="createBranch" id="set-create-branch">
+											<label class="form-check-label" for="create-branch">Create
+												Branch</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="edit-branch" />
+											<input type="hidden" name="editBranch" id="set-edit-branch">
+											<label class="form-check-label" for="edit-branch">Edit
+												Branch</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="view-branch" />
+											<input type="hidden" name="viewBranch" id="set-view-branch">
+											<label class="form-check-label" for="view-branch">View
+												Branch</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="delete-branch" />
+											<input type="hidden" name="deleteBranch" id="set-delete-branch">
+											<label class="form-check-label" for="delete-branch">Delete
+												Branch</label>
+										</div>
+
+
+									</div>
+
+								</div>
+								
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">User
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="create-user" />
+											<input type="hidden" name="createUser" id="set-create-user">
+											<label class="form-check-label" for="create-user">Create
+												User</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="edit-user" />
+											<input type="hidden" name="editUser" id="set-edit-user">
+											<label class="form-check-label" for="edit-user">Edit
+												User</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="delete-user" />
+											<input type="hidden" name="deleteUser" id="set-delete-user">
+											<label class="form-check-label" for="delete-user">Delete
+												User</label>
+										</div>
+
+
+									</div>
+
+								</div>
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Role
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="create-role" />
+											<input type="hidden" name="createRole" id="set-create-role">
+											<label class="form-check-label" for="create-role">Create
+												Role</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="edit-role" />
+											<input type="hidden" name="editRole" id="set-edit-role">
+											<label class="form-check-label" for="edit-role">Edit
+												Role</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="delete-role" />
+											<input type="hidden" name="deleteRole" id="set-delete-role">
+											<label class="form-check-label" for="delete-role">Delete
+												Role</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">User
+										Roles
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="view-userRoles" />
+											<input type="hidden" name="userRoles" id="set-view-userRoles">
+											<label class="form-check-label" for="view-userRoles">User
+												Roles</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="update-userRoles" />
+											<input type="hidden" name="updateUserRoles" id="set-update-userRoles">
+											<label class="form-check-label" for="update-userRoles">Assign
+												Permission</label>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Branch Management
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="create-branch" />
-													<input type="hidden" name="createBranch" id="set-create-branch">
-													<label class="form-check-label" for="create-branch">Create
-														Branch</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="edit-branch" />
-													<input type="hidden" name="editBranch" id="set-edit-branch">
-													<label class="form-check-label" for="edit-branch">Edit
-														Branch</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="view-branch" />
-													<input type="hidden" name="viewBranch" id="set-view-branch">
-													<label class="form-check-label" for="view-branch">View
-														Branch</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="delete-branch" />
-													<input type="hidden" name="deleteBranch" id="set-delete-branch">
-													<label class="form-check-label" for="delete-branch">Delete
-														Branch</label>
-												</div>
-												
+								</div>
+								
+							</div>
+							<div class="row mt-3">
+							<div class="col-4">
 
-											</div>
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Task
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-je" />
+											<input type="hidden" name="taskJe" id="set-task-je">
+											<label class="form-check-label" for="task-je">JE
+												Investigation</label>
 										</div>
-										<div class="col-2 p-0">
 
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-aee" />
+											<input type="hidden" name="taskAee" id="set-task-aee">
+											<label class="form-check-label" for="task-aee">AEE
+												Investigation</label>
 										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-ee" />
+											<input type="hidden" name="taskEe" id="set-task-ee">
+											<label class="form-check-label" for="task-ee">EE
+												Investigation</label>
 										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-commissioner" />
+											<input type="hidden" name="taskCommissioner" id="set-task-commissioner">
+											<label class="form-check-label" for="task-commissioner">Commissioner
+												Investigation</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-workcomplete" />
+											<input type="hidden" name="taskWorkcomplete" id="set-task-workcomplete">
+											<label class="form-check-label" for="task-workcomplete">Work
+												Complete</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="task-jobcard" />
+											<input type="hidden" name="taskJobcard" id="set-task-jobcard">
+											<label class="form-check-label" for="task-jobcard">Job Card
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="task-complainthistory" />
+											<input type="hidden" name="taskComplainthistory"
+												id="set-task-complainthistory">
+											<label class="form-check-label" for="task-complainthistory">Complaint
+												History</label>
+										</div>
+
 									</div>
-									<div class="row">
-										<div class="col-8 pr-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">User Management
-											</h3>
-											<div class="px-5">
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="create-user" />
-													<input type="hidden" name="createUser" id="set-create-user">
-													<label class="form-check-label" for="create-user">Create
-														User</label>
-												</div>
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input" id="edit-user" />
-													<input type="hidden" name="editUser" id="set-edit-user">
-													<label class="form-check-label" for="edit-user">Edit
-														User</label>
-												</div>
-												
-												<div class="form-check form-switch mt-2">
-													<input type="checkbox" class="form-check-input"
-														id="delete-user" />
-													<input type="hidden" name="deleteUser" id="set-delete-user">
-													<label class="form-check-label" for="delete-user">Delete
-														User</label>
-												</div>
-												
 
-											</div>
-										</div>
-										<div class="col-2 p-0">
+								</div>
+								
+								<div class="col-4">
 
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">SMS
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-										<div class="col-2 pl-0">
-											<h3 class="col-form-label bg-dark text-white font-weight-bold text-center">EMAIL
-											</h3>
-											<div class="form-check form-switch mt-3 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											<div class="form-check form-switch mt-2 d-flex justify-content-center">
-												<input type="checkbox" class="form-check-input" />
-											</div>
-											
-										</div>
-									</div>
+
+								</div>
+								<div class="col-4">
+
+
+
 								</div>
 							</div>
-
 						</div>
 						<div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab"
 							tabindex="0">
@@ -560,11 +316,11 @@
 
 						</div>
 					</div>
-					<ul class="nav nav-pills justify-content-end py-1 mb-0" id="pills-tab" role="tablist">
+					<!--<ul class="nav nav-pills justify-content-end py-1 mb-0" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<button class="nav-link active mx-1 py-2 text-white hvr bg-dark text-white" id="pills-one-tab"
-								data-bs-toggle="pill" data-bs-target="#pills-one" type="button" role="tab"
-								aria-controls="pills-one" aria-selected="true">
+							<button class="nav-link active mx-1 py-2 text-white hvr bg-dark text-white"
+								id="pills-one-tab" data-bs-toggle="pill" data-bs-target="#pills-one" type="button"
+								role="tab" aria-controls="pills-one" aria-selected="true">
 								1
 							</button>
 						</li>
@@ -582,7 +338,7 @@
 								3
 							</button>
 						</li>
-					</ul>
+					</ul>-->
 					<div class="text-center mt-3">
 						<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
 

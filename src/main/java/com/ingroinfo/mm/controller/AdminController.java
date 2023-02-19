@@ -2,6 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.entity.Backup;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
+import com.ingroinfo.mm.entity.Designation;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
@@ -372,7 +374,9 @@ public class AdminController {
 		model.addAttribute("branches", adminService.getAllBranches());
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
-		model.addAttribute("designations", designationService.getAllDesignations());
+
+		List<DesignationDto> designations = designationService.getAllDesignations();
+		model.addAttribute("designations", designations);
 
 		return "/pages/admin/create_user";
 	}
@@ -550,6 +554,17 @@ public class AdminController {
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
 
 		adminService.AssignRoles(dto);
+
+		try {
+			for (Field field : dto.getClass().getDeclaredFields()) {
+				field.setAccessible(true);
+				Object value = field.get(dto);
+				System.out.println(String.format("%-20s : %-5s", field.getName(), value));
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
 		session.setAttribute("message", new Message("User Roles has been updated successfully !", "success"));
 		return "redirect:/admin/user/roles";
 	}

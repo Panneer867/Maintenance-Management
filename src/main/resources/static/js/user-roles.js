@@ -174,7 +174,7 @@ $(document).ready(function() {
 					}
 
 					if (jsonobject.updateUserRoles != null) {
-						$('#set-branch-management').val("120");
+						$('#set-update-userRoles').val("120");
 						$('#update-userRoles').prop('checked', true);
 					} else {
 						$('#set-update-userRoles').val("120N");
