@@ -58,7 +58,7 @@ public class StockController {
 	@GetMapping("/inward/materials/entry")
 	public String inwardMaterials(Model model, Principal principal) {
 
-		model.addAttribute("title", "Inward Materials | Maintenance Management");
+		model.addAttribute("title", "Inward Materials Entry | Maintenance Management");
 		model.addAttribute("inward", new InwardDto());
 
 		List<InwardTempMaterials> tempMaterials = stockService.getInwardTempMaterials(principal.getName());
@@ -187,7 +187,7 @@ public class StockController {
 	@GetMapping("/inward/spares/entry")
 	public String inwardSpares(Model model, Principal principal) {
 
-		model.addAttribute("title", "Inward Spares | Maintenance Management");
+		model.addAttribute("title", "Inward Spares Entry | Maintenance Management");
 		model.addAttribute("inward", new InwardDto());
 
 		List<InwardTempSpares> tempSpares = stockService.getInwardTempSpares(principal.getName());
@@ -306,7 +306,7 @@ public class StockController {
 	@GetMapping("/inward/spares/chart")
 	public String inwardSpareChart(Model model, Principal principal) {
 
-		model.addAttribute("title", "Inward Spare Chart | Maintenance Management");
+		model.addAttribute("title", "Inward Spares Chart | Maintenance Management");
 		return "/pages/stock_management/inward_spares_chart";
 	}
 	
@@ -317,7 +317,7 @@ public class StockController {
 	@GetMapping("/inward/tools/entry")
 	public String inwardTools(Model model, Principal principal) {
 
-		model.addAttribute("title", "Inward Tools | Maintenance Management");
+		model.addAttribute("title", "Inward Tools Entry | Maintenance Management");
 		model.addAttribute("inward", new InwardDto());
 
 		List<InwardTempTools> tempTools = stockService.getInwardTempTools(principal.getName());
@@ -433,10 +433,50 @@ public class StockController {
 	}
 
 	@GetMapping("/inward/tools/chart")
-	public String inwardToolChart(Model model, Principal principal) {
+	public String inwardToolChart(Model model) {
 
 		model.addAttribute("title", "Inward Tools Chart | Maintenance Management");
 		return "/pages/stock_management/inward_tools_chart";
 	}
+	
+	@GetMapping("/outward/materials/entry")
+	public String outwardMaterials(Model model) {
+		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
+		return "/pages/stock_management/outward_materials";
+	}
 
+	@GetMapping("/outward/spares/entry")
+	public String outwardSpares(Model model) {
+		model.addAttribute("title", "Outward Spares Entry | Maintenance Management");
+		return "/pages/stock_management/outward_spares";
+	}
+
+	@GetMapping("/outward/tools/entry")
+	public String outwardTools(Model model) {
+		model.addAttribute("title", "Outward Tools Entry | Maintenance Management");
+		return "/pages/stock_management/outward_tools";
+	}
+
+	@GetMapping("/materials/return")
+	public String materialReturn(Model model) {
+		model.addAttribute("title", "Materials Return Page | Maintenance Management");
+		return "/pages/stock_management/materials_return";
+	}
+
+	@GetMapping("/spares/return")
+	public String sparesReturn(Model model) {
+		model.addAttribute("title", "Spares Return Page | Maintenance Management");
+		return "/pages/stock_management/spares_return";
+	}
+
+	@GetMapping("/tools/return")
+	public String toolsReturn(Model model) {
+		model.addAttribute("title", "Tools Return Page | Maintenance Management");
+		return "/pages/stock_management/tools_return";
+	}
+	
+	@GetMapping("/reject/damage")
+	public String stockRejectDamage() {
+		return "/pages/stock_management/stock_return_damage";
+	}
 }
