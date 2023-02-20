@@ -2,6 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class MeterReplaceController {
 	}
 	
 		@GetMapping("/replacement")
+		@PreAuthorize("hasAuthority('METER_REPLACEMENT')")
 		public String borewellIndex(Model model) {
 			return "/pages/meter_maintenance/meter_replacement";
 		}

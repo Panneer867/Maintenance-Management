@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,28 +31,33 @@ public class LeakageController {
 	}
 	
 	@GetMapping("/dashboard")
+	@PreAuthorize("hasAuthority('LEAKAGE_DASHBOARD')")
 	public String dashboard() {
 		return "/pages/leakage/dashboard";
 	}
 	
 	
 	@GetMapping("/index")
+	@PreAuthorize("hasAuthority('LEAKAGE_INDENET')")
 	public String LeakageIntent() {
 		return "/pages/leakage/leakage_intent";
 	}
 	
 	@GetMapping("/maintenance")
+	@PreAuthorize("hasAuthority('LEAKAGE_MAINTENANCE')")
 	public String LeakageMaintenance(Model model) {
 		model.addAttribute("title", "Leakage Maintenance Update| Manintenance Management");
 		return "/pages/leakage/leakage_maintenance_update";
 	}
 	
 	@GetMapping("/work")
+	@PreAuthorize("hasAuthority('LEAKAGE_WORK_INSPECTION')")
 	public String LeakageWork() {
 		return "/pages/leakage/leakage_work";
 	}
 	
 	@GetMapping("/maintenance-history")
+	@PreAuthorize("hasAuthority('LEAKAGE_HISTORY')")
 	public String MaintenanceHistory() {
 		return "/pages/leakage/leakage_maintenance_history";
 	}

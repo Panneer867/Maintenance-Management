@@ -3,6 +3,7 @@ package com.ingroinfo.mm.controller;
 import java.security.Principal;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class Approvals {
 	}
 
 	@GetMapping("/stocks")
+	@PreAuthorize("hasAuthority('STOCKS_APPROVALS')")
 	public String stockApprovals(Model model) {
 		model.addAttribute("title", "Stock Approvals | Maintenance Mangement");
 		return "/pages/stock_management/stock_approvals";

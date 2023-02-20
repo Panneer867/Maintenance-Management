@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,11 +66,13 @@ public class EmployeeController {
 	private IdMasterService idMasterService;
 
 	@GetMapping("/dashboard")
+	@PreAuthorize("hasAuthority('EMPLOYEE_DASHBOARD')")
 	public String employeeDashboard() {
 		return "/pages/employee_management/employee_dashboard";
 	}
 
 	@GetMapping("/master")
+	@PreAuthorize("hasAuthority('EMPLOYEE_MASTER')")
 	public String show(Model model, HttpSession session) {
 
 		model.addAttribute("show", null);
@@ -107,6 +110,7 @@ public class EmployeeController {
 	
 
 	@GetMapping("/attendenceTracker")
+	@PreAuthorize("hasAuthority('EMPLOYEE_ATTENDANCE')")
 	public String attendence(Model model) {
 		List<EmployeeMasterDto> listOfEmployees = this.employeeMasterService.getAllemployeeMaster();
 		model.addAttribute("listOfEmployees", listOfEmployees);
@@ -114,6 +118,7 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/salary-generate")
+	@PreAuthorize("hasAuthority('EMPLOYEE_SALARY')")
 	public String salaryGenerate(Model model) {
 		model.addAttribute("deptList", departService.findAllDepartment());
 		return "/pages/employee_management/salary_generate";
@@ -126,6 +131,7 @@ public class EmployeeController {
 		
 	}
 	@GetMapping("/inspection")
+	@PreAuthorize("hasAuthority('EMPLOYEE_INSPECTION')")
 	public String employeeInspection(Model model) {
 		List<EmployeeMasterDto> listOfEmployees = this.employeeMasterService.getAllemployeeMaster();
 		model.addAttribute("listOfEmployees", listOfEmployees);
@@ -134,6 +140,7 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/leave")
+	@PreAuthorize("hasAuthority('EMPLOYEE_LEAVE')")
 	public String leave(Model model) {
 		List<EmployeeMasterDto> listOfEmployees = this.employeeMasterService.getAllemployeeMaster();
 		model.addAttribute("listOfEmployees", listOfEmployees);

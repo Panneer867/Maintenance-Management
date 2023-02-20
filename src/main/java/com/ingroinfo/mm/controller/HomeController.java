@@ -3,6 +3,7 @@ package com.ingroinfo.mm.controller;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,9 @@ public class HomeController {
 		return "/dashboard";
 	}	
 	
-	@GetMapping("/contact-management")
-	public String contactMangement() {
-		return "/pages/contact_management";
-	}
 	
 	@GetMapping("/approval")
+	@PreAuthorize("hasAuthority('APPROVALS')")
 	public String hrApprovals(Model model) {
 		String keyword = "NO";
 		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);

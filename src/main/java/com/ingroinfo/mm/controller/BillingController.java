@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class BillingController {
 
 	// Handler For Opening Consumer Details Page
 	@GetMapping("/consumer-master")
+	@PreAuthorize("hasAuthority('CONSUMER_MASTER')")
 	public String openConsumerMasterPage(Model model) {
 		model.addAttribute("getConsumerData", new ConsumersDto());
 		model.addAttribute("title", "Billing | Consumer | Maintenance Management");
@@ -46,6 +48,7 @@ public class BillingController {
 
 	// Handler For Opening Device Details Page
 	@GetMapping("/meter-details")
+	@PreAuthorize("hasAuthority('METER_DETAILS')")
 	public String openMeterDetailsPage(Model model) {
 		model.addAttribute("meterDtls", new MeterDtlsDto());
 		model.addAttribute("title", "Billing | Meter | Maintenance Management");
@@ -89,6 +92,7 @@ public class BillingController {
 
 	// Handler For Opening Consumer Transactions Details Page
 	@GetMapping("/transactions")
+	@PreAuthorize("hasAuthority('CONSUMER_TRANSACTION')")
 	public String openTransactionPage(Model model) {
 		model.addAttribute("title", "Billing | Transaction | Maintenance Management");
 		model.addAttribute("consumerData", new ConsumersDto());

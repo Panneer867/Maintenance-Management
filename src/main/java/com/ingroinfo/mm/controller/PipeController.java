@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class PipeController {
 	PipeMaintenanceService pipeMaintenanceService;
 
 	@GetMapping("/dashboard")
+	@PreAuthorize("hasAuthority('PIPE_DASHBOARD')")
 	public String pipeDashboard() {
 		return "/pages/pipe_management/pipe_dashboard";
 	}
@@ -49,11 +51,13 @@ public class PipeController {
 	}
 
 	@GetMapping("/maintenance-indent")
+	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_INDENT')")
 	public String maintenanceIndent() {
 		return "/pages/pipe_management/pipe_maintenance_indent";
 	}
 
 	@GetMapping("/maintenance-work-update")
+	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_UPDATE')")
 	public String pipeMaintenanceWorkUpdate(Model model) {
 		List<PipeMaintenanceDto> listofPipe = this.pipeMaintenanceService.findAllPipeMaintenance();
 		model.addAttribute("listofpipe", listofPipe);
@@ -62,6 +66,7 @@ public class PipeController {
 	}
 
 	@GetMapping("/maintenance-inspection")
+	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_INSPECTION')")
 	public String maintenanceInspection(Model model) {
 		List<PipeMaintenanceUpdateDto> listofPipeMaintenUpdateDtos = this.pipeMaintenanceService
 				.findAllPipeMaintenanceUpdate();
@@ -71,6 +76,7 @@ public class PipeController {
 	}
 
 	@GetMapping("/maintenance-history")
+	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_HISTORY')")
 	public String maintenanceHistory() {
 		return "/pages/pipe_management/pipe_maintenance_history";
 	}

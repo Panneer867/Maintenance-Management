@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class AssetController {
 	AssestEntryService assestEntryService;
 	
 	@GetMapping("/entry")
+	@PreAuthorize("hasAuthority('ASSET_MANAGEMENT')")
 	public String assetEntry(Model model) {
 		List<AssestEntry> listofassest = this.assestEntryService.findAllAssestEntry();
 		model.addAttribute("assestlist",listofassest);

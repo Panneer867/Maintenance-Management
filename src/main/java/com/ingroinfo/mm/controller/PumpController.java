@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class PumpController {
 	
 	//Handler For Open dashBoard
 	@GetMapping("/dashboard")
+	@PreAuthorize("hasAuthority('PUMP_DASHBOARD')")
 	public String openDashboard(Model model) {
 		model.addAttribute("title", "Pump | Dashboard | Manintenance Management");
 		return "/pages/pump_house/pump-dashboard";
@@ -43,6 +45,7 @@ public class PumpController {
 	
 	//Handler For Open Maintenance Page
 	@GetMapping("/maintenance")
+	@PreAuthorize("hasAuthority('PUMP_MAINTENANCE')")
 	public String pumpMaster(Model model) {
 		model.addAttribute("title", "Pump | Maintenance | Manintenance Management");
 		model.addAttribute("pumps", new PumpMasterDto());
@@ -75,6 +78,7 @@ public class PumpController {
 	
 	//handler For Open Pump Maintenance Indent Page
 	@GetMapping("/maintenance-intent")
+	@PreAuthorize("hasAuthority('PUMP_INDENT')")
 	public String pumpMaintenanceIntent(Model model) {		
 		List<PumpMaintenanceDto> listOfPumpMainens = this.pumpMaintenService.getAllMaintenance();
 		model.addAttribute("listOfPumpMainens", listOfPumpMainens);

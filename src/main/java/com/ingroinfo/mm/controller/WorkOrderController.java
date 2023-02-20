@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,6 +64,7 @@ public class WorkOrderController {
 
 	/***************** genrateWorkOrder********** */
 	@GetMapping("/generate")
+	@PreAuthorize("hasAuthority('GENERATE_WORKORDER')")
 	public String genrateWorkOrder(Model model) {
 		// Show the Generate Work Order Date
 		List<GenerateWorkOrderDto> listOfGenWorks = this.generateWorkOrdeService.findAllGenerateWorkOrder();
@@ -280,6 +282,7 @@ public class WorkOrderController {
 
 	/***************** HoldWorkOrder Start********** */
 	@GetMapping("/hold")
+	@PreAuthorize("hasAuthority('HOLD_WORKORDER')")
 	public String holdWorkOrder(Model model) {
 		List<HoldWorkOrderDto> listOfHoldWorks = this.holdWorkOrdeService.findAllHoldWorkOrder();
 		model.addAttribute("listofholdWork", listOfHoldWorks);
@@ -298,6 +301,7 @@ public class WorkOrderController {
 
 	/***************** CancelWorkOrder Start********** */
 	@GetMapping("/cancel")
+	@PreAuthorize("hasAuthority('CANCEL_WORKORDER')")
 	public String cancelWorkOrder(Model model) {
 		List<CancelWorkOrderDto> listOfCancelWorks = this.cancelWorkOrdeService.findAllCancelWorkOrder();
 		model.addAttribute("listOfCancelWorks", listOfCancelWorks);
@@ -315,6 +319,7 @@ public class WorkOrderController {
 	/***************** CancelWorkOrder End********** */
 
 	@GetMapping("/budget-estimation")
+	@PreAuthorize("hasAuthority('WORK_ESTIMATION')")
 	public String workEstimationBudget() {
 		return "/pages/work_orders/work_estimation_budget";
 	}
