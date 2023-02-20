@@ -25,7 +25,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">EMP ID <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                      <select class="form-select" id="leave-empId" name="employeeCode" required >
+                                      <select class="form-select form-control-sm" id="leave-empId" name="employeeCode" required >
                                        <option value=""  selected >select</option>
                                        <option  th:each="emp : ${listOfEmployees}"                                      		    
                                      	        th:text="${emp.employeeCode}"
@@ -39,7 +39,7 @@
                                     <div class="form-group row ">
                                     <label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white" id="leave-empName" 
+                                       <input type="text" class="form-control form-control-sm bg-white" id="leave-empName" 
                                        name="empName" placeholder="Emp Name" readonly>
                                     </div>
                                  </div>
@@ -48,7 +48,7 @@
                                       <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Designation</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-designation" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-designation" 
                                         name="designation"  placeholder="Designation" readonly>
                                     </div>
                                  </div>
@@ -61,7 +61,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Father Name</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-fatherName" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-fatherName" 
                                        name="fatherName"  placeholder="Father Name" readonly>
                                     </div>
                                  </div>
@@ -70,7 +70,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Department </label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-department"  name="department" placeholder="Department" readonly>
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-department"  name="department" placeholder="Department" readonly>
                                     </div>
                                  </div>
                               </div>
@@ -78,7 +78,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">	House No </label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-houseNo" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-houseNo" 
                                        name="houseNo" placeholder="House No" readonly>
                                     </div>
                                  </div>
@@ -90,7 +90,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Date Of Join</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-dateOfJoin"  
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-dateOfJoin"  
                                        name="dateOfJoin"  placeholder="Date Of Join" readonly>
                                     </div>
                                  </div>
@@ -99,7 +99,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Address</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-address" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-address" 
                                        name="address" placeholder="Address" readonly>
                                     </div>
                                  </div>
@@ -108,7 +108,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Ref Contact No</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white" id="leave-refContactNo" 
+                                       <input type="text" class="form-control form-control-sm bg-white" id="leave-refContactNo" 
                                        name="refContactNo"   placeholder="Ref Contact No" readonly>
                                     </div>
                                  </div>
@@ -120,7 +120,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Contact No</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-contactNo" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-contactNo" 
                                        name="contactNo" placeholder="Contact No(mobile)" readonly>
                                     </div>
                                  </div>
@@ -136,7 +136,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">SL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="leave-Asl" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="leave-Asl" 
                                        name="sickLeave" placeholder="SL" readonly>
                                     </div>
                                  </div>
@@ -145,7 +145,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">CL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white" id="leave-Acl"  
+                                       <input type="text" class="form-control form-control-sm bg-white" id="leave-Acl"  
                                        name="causalLeave"  placeholder="CL" readonly>
                                     </div>
                                  </div>
@@ -154,7 +154,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"   id="leave-Alwp"  
+                                       <input type="text" class="form-control form-control-sm bg-white"   id="leave-Alwp"  
                                        name="annualLwp" placeholder="LWP" readonly>
                                     </div>
                                  </div>
@@ -170,7 +170,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">SL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="totalSacnSickLeave" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="totalSacnSickLeave" 
                                        name="sacnSickLeave" placeholder="SL" readonly>
                                     </div>
                                  </div>
@@ -179,7 +179,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">CL</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="totalSacnCausalLeave" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="totalSacnCausalLeave" 
                                        name="sacnCausalLeave" placeholder="CL" readonly>
                                     </div>
                                  </div>
@@ -188,7 +188,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">LWP</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control bg-white"  id="totalSacnLwp" 
+                                       <input type="text" class="form-control form-control-sm bg-white"  id="totalSacnLwp" 
                                        name="sacnLwp"  placeholder="sacnLwp" readonly>
                                     </div>
                                  </div>
@@ -204,7 +204,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Department Head <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                         <select class="form-select" data-error="Select Option !"  id="deptHead" 
+                                         <select class="form-select form-control-sm" data-error="Select Option !"  id="deptHead" 
                                          name="deptHead" required>
                                        <option value="" selected>Select</option>
                                        <option value="Yes">Yes</option>
@@ -218,8 +218,8 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Remark</label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="remark" name="remark"  
-                                       placeholder="Remark" data-minlength="3" data-error="Minimum 3 characters required !" required>
+                                       <input type="text" class="form-control form-control-sm" id="remark" name="remark"  
+                                       placeholder="Enter Remark" data-minlength="3" data-error="Minimum 3 characters required !" required>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
@@ -237,7 +237,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Date  <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="Date" class="form-control" id="leaveDate" 
+                                       <input type="Date" class="form-control form-control-sm" id="leaveDate" 
                                        name="leaveDate"  placeholder="Date" required>
                                      <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -247,8 +247,8 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">No of Days <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control" id="noOfLeave" 
-                                       name="noOfLeave"  placeholder="No of Days" data-error="Provide a number !" maxlength="2" required>
+                                       <input type="number" class="form-control form-control-sm" id="noOfLeave" 
+                                       name="noOfLeave"  placeholder="Enter No of Days" data-error="Provide a number !" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="3" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
@@ -257,7 +257,7 @@
                                  <div class="form-group row">
                                     <label for="customerName" class="col-sm-5  col-form-label">Leave Type <strong class="text-danger ">*</strong></label>
                                     <div class="col-sm-7">
-                                    <select class="form-select" data-error="Select Leave Type !" 
+                                    <select class="form-select form-control-sm" data-error="Select Leave Type !" 
                                          name="leaveType" id="leaveType" required>
                                       <option value="" selected>Select</option>
 									  <option value="SL">SL</option>
@@ -269,28 +269,7 @@
                                  </div>
                               </div>
                       </div>
-                      	<!-- <div class="row">
-                      	  <div class="col-md-4"> 
-                              </div>
-                              <div class="col-md-4 mt-1">
-                                 <div class="form-group row"> 
-                                    <div class="col-sm-7 text-center">
-                                         <button type="button" class="btn btn-success ">Leave Letter</button>
-                                    </div>
-                                 </div>
-                              </div>
-                            
-                             <div class="col-md-4">
-                                   <div class="form-group">
-                              <label for="profile" class="font-weight-bold"></label>
-                              <input type="file"  accept="image/*" 
-                                 data-error="Select profile picture !"  style="margin-left: -200px;margin-top: 7px;">
-                              
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                              </div>
-                            
-                      </div>-->
+                      	
                 <div class="mt-4 text-center">		   	 	
 		   	    <button type="submit" class="btn btn-primary">Submit</button>		   	    
 		  	 </div>   

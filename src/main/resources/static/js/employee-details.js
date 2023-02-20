@@ -155,7 +155,32 @@ $("#allEmployeeCode").change(function (e) {
          var earingDays = daysInMonth - totalSanLeave;
          // alert(earingDays);
          $("#totalEaringDays").val(earingDays);
-       
+         
+       $("#salary-empBasicSalary").val("");
+       $("#actualSalary").val("");
+       $("#salary-pfAmount").val("");
+       $("#slary-Grosspay").val("");
+       $("#salary-da").val("");
+       $("#salary-empda").val("");
+       $("#salary-esi").val("");
+       $("#salary-GrossDeduct").val("");
+       $("#salary-hra").val(""); 
+       $("#salary-emphra").val("");
+       $("#salary-profTax").val("");
+       $("#salary-netpay").val("");
+       $("#salary-convencyance").val("");
+       $("#salary-empConv").val("");
+       $("#salary-tds").val("");
+       $("#salary-medical").val("");
+       $("#salary-employeeMA").val("");
+       $("#salary-splAllow").val("");
+       $("#salary-empSpl").val("");
+       $("#salary-telAllow").val("");
+       $("#salary-emplta").val("");
+       $("#totalEarnings").val("");
+       $("#totalActualEarn").val("");
+       $("#totalDeduction").val("");
+       $("#salary-totalnetpay").val("");
         }
     });
 
@@ -230,7 +255,7 @@ $("#allEmployeeCode").change(function (e) {
 	        $("#salary-empConv").val(empConv);
 	        
 	        // Medical value
-	          $("#salary-empMA").val(empMA);
+	          $("#salary-employeeMA").val(empMA);
 	          
 	       // SPL Allow value
 	    	 var empsplAllow = parseFloat(empspl - leaveAmount).toFixed(2);

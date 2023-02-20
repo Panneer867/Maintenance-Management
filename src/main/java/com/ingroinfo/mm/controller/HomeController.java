@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.ingroinfo.mm.dto.EmployeeMasterDto;
+import com.ingroinfo.mm.dto.EmployeeLeaveDto;
 import com.ingroinfo.mm.service.EmployeeMasterService;
 
 @Controller
@@ -34,8 +34,12 @@ public class HomeController {
 	
 	@GetMapping("/approval")
 	public String hrApprovals(Model model) {
-		List<EmployeeMasterDto> listOfEmployees = this.employeeMasterService.getAllemployeeMaster();
-		model.addAttribute("listOfEmployees", listOfEmployees);
+		String keyword = "NO";
+		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
+		model.addAttribute("listOfEmployees", listOfEmployees);		
+		model.addAttribute("leaveData", new EmployeeLeaveDto());
 		return "/pages/hr_approvals";
 	}
+	
+	
 }

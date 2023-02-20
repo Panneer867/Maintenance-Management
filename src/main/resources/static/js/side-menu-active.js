@@ -90,6 +90,50 @@ $(document).ready(function() {
 			$("#expand-meter").addClass("m-menu__item--open m-menu__item--expanded");
 		}
 	});
+	
+	$(function() {
+		if (window.location.href.match('/handpump')) {
+			$("#expand-handpump").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/borewell')) {
+			$("#expand-borewell").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/glsr-oht')) {
+			$("#expand-glsr-oht").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/levels-control')) {
+			$("#expand-level-control").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 /**************Stocks top tabs *************** */
 

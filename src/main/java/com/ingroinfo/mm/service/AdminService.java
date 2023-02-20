@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ingroinfo.mm.dto.BranchDto;
 import com.ingroinfo.mm.dto.CompanyDto;
 import com.ingroinfo.mm.dto.UserDto;
-import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.Bank;
 import com.ingroinfo.mm.entity.Branch;
 
@@ -102,10 +101,6 @@ public interface AdminService {
 	boolean roleNameCheck(String roleName, Long id);
 
 	void updateRole(Role privilege);
-
-	void AssignRoles(UserRolesDto dto);
-
-	UserRolesDto getUserRoles(Long roleId);
 
 	User getUserById(Long id);
 

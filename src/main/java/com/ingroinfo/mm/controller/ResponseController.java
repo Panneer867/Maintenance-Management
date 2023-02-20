@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ingroinfo.mm.dao.EmployeeMasterRepository;
 import com.ingroinfo.mm.dto.UserRolesDto;
+import com.ingroinfo.mm.entity.EmployeeMaster;
 import com.ingroinfo.mm.entity.HsnCode;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.HsnCodeService;
-
+import com.ingroinfo.mm.service.UserRolesService;
 
 @RestController
 @RequestMapping("/get")
@@ -23,10 +25,16 @@ public class ResponseController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
 	@Autowired
 	private HsnCodeService hsnCodeService;
 	
+	@Autowired
+	private UserRolesService userRolesService;
+
+	@Autowired
+	private EmployeeMasterRepository employeeMasterRepository;
+
 	@GetMapping("/city")
 	public String getCities(@RequestParam Integer stateId) {
 
@@ -55,12 +63,16 @@ public class ResponseController {
 
 	@GetMapping("/user/roles/{id}")
 	public UserRolesDto getUserRoles(@PathVariable Long id) {
-		return adminService.getUserRoles(id);
+		return userRolesService.getUserRoles(id);
 	}
-	
+
 	@GetMapping("/item/hsn/{id}")
 	public HsnCode getItemHsn(@PathVariable Long id) {
 		return hsnCodeService.getHsnById(id);
 	}
 
+	@GetMapping("/test")
+	public EmployeeMaster getEmployees(@RequestParam Long id) {
+		return employeeMasterRepository.findByEmployeeId(id);
+	}
 }

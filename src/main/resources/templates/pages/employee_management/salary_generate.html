@@ -2,7 +2,7 @@
 
 <body>
 	<section>
-	<form  class="forms-sample" th:action="@{/employee/saveEmpSalary}" method="post">
+	<form data-toggle="validator" class="forms-sample" th:action="@{/employee/saveEmpSalary}" method="post" enctype="multipart/form-data">
 		<h3 class="text-center text-white mt-2 p-1 bg-primary">Salary Generator
 		</h3>
 		
@@ -39,10 +39,10 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Department
+											<label for="department" class="col-sm-5  col-form-label">Department
 												<strong class="text-danger ">*</strong></label>
 											<div class="col-sm-7">
-												<select class="form-select" name="department" id="changeDepartmentName"
+												<select class="form-select form-control-sm" name="department" id="changeDepartmentName"
 													data-error="Select gender !" required>
 													<option value="" selected>select</option>
 													<option th:each="emp : ${deptList}" th:value="${emp.departmentName}"
@@ -54,20 +54,20 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">Emp Code</label>
+											<label for="employeeId" class="col-sm-5  col-form-label">Emp Code</label>
 											<div class="col-sm-7">
-												<select class="form-select" id="allEmployeeCode" name="employeeId" required>
+												<select class="form-select form-control-sm" id="allEmployeeCode" name="employeeId" required>
 												</select>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Basic
+											<label for="empBaiscSal" class="col-sm-5  col-form-label">Basic
 												Salary</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-basicSalary"
-													name="empBaiscSal" placeholder="Basic Salary" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-basicSalary"
+													name="empBaiscSal" placeholder="Basic Salary" readonly required>
 											</div>
 										</div>
 									</div>
@@ -81,8 +81,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empName"
-													name="empName" placeholder="Emp Name" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empName"
+													name="empName" placeholder="Emp Name" readonly required>
 											</div>
 										</div>
 									</div>
@@ -90,8 +90,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">PAN No</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-panNO"
-													name="panNo" placeholder="PAN No" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-panNO"
+													name="panNo" placeholder="PAN No" readonly required>
 											</div>
 										</div>
 									</div>
@@ -100,8 +100,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Gross
 												Salary</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empSalary"
-													name="empSalary" placeholder="HRA" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSalary"
+													name="empSalary" placeholder="HRA" readonly required>
 											</div>
 										</div>
 									</div>
@@ -113,8 +113,8 @@
 											<label for="customerName"
 												class="col-sm-5  col-form-label">Designation</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-designation"
-													name="designation" placeholder="Designation" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-designation"
+													name="designation" placeholder="Designation" readonly required>
 											</div>
 										</div>
 									</div>
@@ -123,8 +123,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label"> ESI
 												number</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-esiNumber"
-													name="esiNumber" placeholder="ESI number" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-esiNumber"
+													name="esiNumber" placeholder="ESI number" readonly required>
 											</div>
 										</div>
 									</div>
@@ -133,8 +133,8 @@
 											<label for="customerName"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empCon"
-													name="empCon" placeholder="Conveyance" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empCon"
+													name="empCon" placeholder="Conveyance" readonly required>
 											</div>
 										</div>
 									</div>
@@ -146,8 +146,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Bank Account
 												No</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-bankAccNo"
-													name="bankAccNo" placeholder="Bank Account No" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-bankAccNo"
+													name="bankAccNo" placeholder="Bank Account No" readonly required>
 											</div>
 										</div>
 									</div>
@@ -156,8 +156,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label"> PF
 												number</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-pfNo"
-													name="pfNo" placeholder="PF number" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-pfNo"
+													name="pfNo" placeholder="PF number" readonly required>
 											</div>
 										</div>
 									</div>
@@ -165,8 +165,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-salEmphra"
-													name="salEmphra" placeholder="SPL Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-salEmphra"
+													name="salEmphra" placeholder="SPL Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -177,8 +177,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Mobile No</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-contactNo"
-													name="contactNo" placeholder="Mobile No" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-contactNo"
+													name="contactNo" placeholder="Mobile No" readonly required>
 											</div>
 										</div>
 									</div>
@@ -186,8 +186,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empPf"
-													name="Pf" placeholder="PF" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empPf"
+													name="Pf" placeholder="PF" readonly required>
 											</div>
 										</div>
 									</div>
@@ -195,8 +195,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empSplAllow"
-													name="salSplAllow" placeholder="LTA Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSplAllow"
+													name="salSplAllow" placeholder="LTA Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -208,8 +208,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Date of
 												Join</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-dateOfJoin"
-													name="dateOfJoin" placeholder="Date of Join" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-dateOfJoin"
+													name="dateOfJoin" placeholder="Date of Join" readonly required>
 											</div>
 										</div>
 									</div>
@@ -218,8 +218,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Income
 												Tax</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-inCometax"
-													name="inCometax" placeholder="Income Tax" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-inCometax"
+													name="inCometax" placeholder="Income Tax" readonly required>
 											</div>
 										</div>
 									</div>
@@ -227,8 +227,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-lta"
-													name="lta" placeholder="LTA Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-lta"
+													name="lta" placeholder="LTA Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -244,8 +244,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Total Working
 												Days</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalWorkingDays"
-													name="workingDay" placeholder="Total Working Days" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalWorkingDays"
+													name="workingDay" placeholder="Total Working Days" readonly required>
 											</div>
 										</div>
 									</div>
@@ -254,8 +254,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Total
 												Leaves</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalSanEmpLeave"
-													name="totalLeave" placeholder="Total Leaves" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalSanEmpLeave"
+													name="totalLeave" placeholder="Total Leaves" readonly required>
 											</div>
 										</div>
 									</div>
@@ -273,20 +273,16 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Earning
 												Days</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalEaringDays"
-													name="totalEaringDay" placeholder="Earning Days" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalEaringDays"
+													name="totalEaringDay" placeholder="Earning Days" readonly required>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-4 text-center">
-										<button type="button" class="btn btn-primary">Clear</button>
+										<button type="reset" class="btn btn-primary">Clear</button>
 									</div>
 								</div>
 
-
-							
-							
-							
 								</div>
 						</div>
 					</div>
@@ -306,9 +302,9 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Basic
 												Salary</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white"
+												<input type="text" class="form-control form-control-sm bg-white"
 													id="salary-empBasicSalary" name="basicSalary"
-													placeholder="Basic Salary" readonly>
+													placeholder="Basic Salary" readonly required>
 											</div>
 										</div>
 
@@ -318,8 +314,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Actual
 												Salary</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="actualSalary"
-													name="actualSalary" placeholder="Actual Salary" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="actualSalary"
+													name="actualSalary" placeholder="Actual Salary" readonly required>
 											</div>
 										</div>
 									</div>
@@ -327,8 +323,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-pfAmount"
-													name="empPf" placeholder="PF" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-pfAmount"
+													name="empPf" placeholder="PF" readonly required>
 											</div>
 										</div>
 									</div>
@@ -336,8 +332,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Gross Pay</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="slary-Grosspay"
-													name="grossPay" placeholder="Gross Pay" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="slary-Grosspay"
+													name="grossPay" placeholder="Gross Pay" readonly required>
 											</div>
 										</div>
 									</div>
@@ -349,8 +345,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-da"
-													name="da" placeholder="DA" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-da"
+													name="da" placeholder="DA" readonly required>
 											</div>
 										</div>
 
@@ -359,8 +355,8 @@
 										<div class="form-group row ">
 											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empda"
-													name="empDa" placeholder="DA" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empda"
+													name="empDa" placeholder="DA" readonly required>
 											</div>
 										</div>
 									</div>
@@ -368,8 +364,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">ESI</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-esi"
-													name="empEsi" placeholder="ESI" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-esi"
+													name="empEsi" placeholder="ESI" readonly required>
 											</div>
 										</div>
 									</div>
@@ -378,8 +374,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Gross
 												Deduct</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-GrossDeduct"
-													name="grossDeduct" placeholder="Gross Deduct" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-GrossDeduct"
+													name="grossDeduct" placeholder="Gross Deduct" readonly required>
 											</div>
 										</div>
 									</div>
@@ -391,8 +387,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-hra"
-													name="empHra" placeholder="HRA" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-hra"
+													name="empHra" placeholder="HRA" readonly required>
 											</div>
 										</div>
 
@@ -401,8 +397,8 @@
 										<div class="form-group row ">
 											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-emphra"
-													name="actualHra" placeholder="HRA" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-emphra"
+													name="actualHra" placeholder="HRA" readonly required>
 											</div>
 										</div>
 									</div>
@@ -410,8 +406,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Prof.TAX</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-profTax"
-													name="profTax" placeholder="Prof.TAX" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-profTax"
+													name="profTax" placeholder="Prof.TAX" readonly required>
 											</div>
 										</div>
 									</div>
@@ -419,8 +415,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Net Pay</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-netpay"
-													name="netPay" placeholder="Net Pay" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-netpay"
+													name="netPay" placeholder="Net Pay" readonly required>
 											</div>
 										</div>
 									</div>
@@ -433,9 +429,9 @@
 											<label for="customerName"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white"
+												<input type="text" class="form-control form-control-sm bg-white"
 													id="salary-convencyance" name="convencyance"
-													placeholder="Conveyance" readonly>
+													placeholder="Conveyance" readonly required>
 											</div>
 										</div>
 
@@ -445,8 +441,8 @@
 											<label for="customerName"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empConv"
-													name="convn" placeholder="Conveyance" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empConv"
+													name="convn" placeholder="Conveyance" readonly required>
 											</div>
 										</div>
 									</div>
@@ -454,8 +450,9 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">TDS</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control " id="salary-tds"
-													name="empTds" placeholder="TDS" required>
+												<input type="number" class="form-control form-control-sm " id="salary-tds"
+													name="empTds" placeholder="TDS" data-error=" Provide a Amount!" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="20" required >
+														<div class="help-block with-errors text-danger"></div>
 											</div>
 										</div>
 									</div>
@@ -468,8 +465,8 @@
 										<div class="form-group row">
 											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-medical"
-													name="medical" placeholder="Medical" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-medical"
+													name="medical" placeholder="Medical" readonly required>
 											</div>
 										</div>
 
@@ -478,8 +475,8 @@
 										<div class="form-group row ">
 											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empMA"
-													name="ma" placeholder="Medical" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-employeeMA"
+													name="ma" placeholder="Medical" readonly required>
 											</div>
 										</div>
 									</div>
@@ -493,8 +490,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow
 											</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-splAllow"
-													name="empSplAllow" placeholder="SPL Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-splAllow"
+													name="empSplAllow" placeholder="SPL Allow" readonly required>
 											</div>
 										</div>
 
@@ -503,8 +500,8 @@
 										<div class="form-group row ">
 											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-empSpl"
-													name="actualSpclAllow" placeholder="SPL Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSpl"
+													name="actualSpclAllow" placeholder="SPL Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -521,8 +518,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Telephone
 												Allow</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-telAllow"
-													name="telAllowance" placeholder="Telephone Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-telAllow"
+													name="telAllowance" placeholder="Telephone Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -536,8 +533,8 @@
 										<div class="form-group row ">
 											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-emplta"
-													name="ltaAllow" placeholder="LTA Allow" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-emplta"
+													name="ltaAllow" placeholder="LTA Allow" readonly required>
 											</div>
 										</div>
 									</div>
@@ -551,8 +548,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label ">Total
 												Earnings</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalEarnings"
-													name="totalEarn" placeholder="Total Earnings" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalEarnings"
+													name="totalEarn" placeholder="Total Earnings" readonly required>
 											</div>
 										</div>
 
@@ -562,8 +559,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Actual
 												Earnings</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalActualEarn"
-													name="actualEarnings" placeholder="Actual Earnings" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalActualEarn"
+													name="actualEarnings" placeholder="Actual Earnings" readonly required>
 											</div>
 										</div>
 									</div>
@@ -572,8 +569,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Total
 												Deductions</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="totalDeduction"
-													name="totalDeductions" placeholder="Total Deductions" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="totalDeduction"
+													name="totalDeductions" placeholder="Total Deductions" readonly required>
 											</div>
 										</div>
 									</div>
@@ -582,8 +579,8 @@
 											<label for="customerName" class="col-sm-5  col-form-label">Total Net
 												Pay</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control bg-white" id="salary-totalnetpay"
-													name="totalNetPay" placeholder="Total Net Pay" readonly>
+												<input type="text" class="form-control form-control-sm bg-white" id="salary-totalnetpay"
+													name="totalNetPay" placeholder="Total Net Pay" readonly required>
 											</div>
 										</div>
 									</div>

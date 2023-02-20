@@ -27,6 +27,12 @@ public interface TaskUpdateService {
 	//Save JEE Investigation Report
 	ComplaintDto saveComplaint(ComplaintDto complaintDto);
 	
-	//Send JEE Investigation Data To UBARMS
-	ComplaintDto sendJeeInvestigation(ComplaintDto complaintDto);
+	//Send  Investigation Data To UBARMS
+	ComplaintDto submitInvestigations(ComplaintDto complaintDto);
+	
+	//get Complain Details By Complain No
+	ComplaintDto getComplainDataByComplainNo(String complNo);
+
+	//Send  Esclatations Data To UBARMS
+	ComplaintDto submitEsclations(ComplaintDto complaintDto);
 }

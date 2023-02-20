@@ -314,13 +314,7 @@ public class EmployeeController {
 
 	@GetMapping("/apprvlLeave/{empLeaveId}")
 	public String ShowApproval(@PathVariable long empLeaveId, Model model) {
-
-		/*
-		 * String keyword = "NO"; List<EmployeeLeaveDto> listOfEmployees =
-		 * this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
-		 * model.addAttribute("listOfEmployees", listOfEmployees);
-		 */
-
+		String keyword = "NO";
 		EmployeeLeave empLeaveDto = this.employeeMasterService.getEmployeeLeaveById(empLeaveId);
 		model.addAttribute("leaveData", empLeaveDto);
 
@@ -332,6 +326,9 @@ public class EmployeeController {
 
 		int sanLwp = employeeLeaveRepository.getSancationLwpByLeaveType(empLeaveDto.getEmployeeCode());
 		empLeaveDto.setSacnLwp(sanLwp);
+		
+		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
+		model.addAttribute("listOfEmployees", listOfEmployees);	
 
 		String employeeFather = empLeaveDto.getEmployeeMaster().getFatherName();
 		String empDesignation = empLeaveDto.getEmployeeMaster().getDesignation();

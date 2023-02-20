@@ -6,7 +6,6 @@ $(document).ready(function() {
 	$('.mytable').DataTable({
 		"responsive": true,
 		"autoWidth": false,
-		"scrollX": true,
 	});
 
 	$('.dropify').dropify();

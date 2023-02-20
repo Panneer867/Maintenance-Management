@@ -48,8 +48,8 @@
                            <tbody>
                              <tr  th:each="employee: ${employees}">
 							  <td  th:text = "${employee.employeeCode}" class="text-center"></td>
-							      <td class="py-1">
-                                 <img th:src="@{'/Company/'+ ${employee.department} +'/Employees/'+ ${employee.employeeImage}}" style="width:70px;height:70px;border-radius:50%" alt="image"/>
+							      <td class="py-1" >
+                                 <img th:src="@{'/Company/'+ ${employee.department} +'/Employees/'+ ${employee.employeeImage}}" style="width:70px;height:60px;border-radius:50%" alt="image"/>
                               </td>
 							  <td th:text = "${employee.empName}" class="text-center"></td>
 							  <td th:text = "${employee.contactNo}"  class="text-center"></td>
@@ -76,7 +76,7 @@
                         <h5 class="modal-title" id="editModal">Edit Employee Details</h5>
                            <div style="margin-left: 490px;">
                            <label for="exampleInputCity1" class="font-weight-bold pr-1">Emp ID</label>
-                           <input type="text" class="bg-danger border-danger text-white" id="empCodeCopy" style="width: 38px;" disabled/>
+                           <input type="text" class="bg-danger border-danger text-white" id="empCodeCopy" style="width: 45px;" disabled/>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -95,7 +95,7 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="salaryCopy">Salary<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" id="salaryCopy" name="salary"  onkeyup="editSal()"  data-error="Invalid Amount !" maxlength="15" placeholder="Enter Admin name" required>
+                                 <input type="number" class="form-control" id="salaryCopy" name="salary"  onkeyup="editSal()"  oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="20" data-error="Invalid Amount !" placeholder="Enter Admin name" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
@@ -159,7 +159,7 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="bankAccNoCopy">Bank Acc No<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" id="bankAccNoCopy" name="bankAccNo"  data-error="Provide valid Bank AccNo !"  maxlength="18" placeholder="Enter aadhaar no" required>
+                                 <input type="number" class="form-control" id="bankAccNoCopy" name="bankAccNo"  data-error="Provide valid Bank AccNo !" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="17" placeholder="Enter aadhaar no" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
@@ -173,7 +173,7 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="ifscCodeCopy">IFSC CODE<strong class="text-danger ">*</strong></label>
-                              <input type="text" class="form-control" id="ifscCodeCopy" name="ifscCode"   maxlength="18" data-error="Provide valid IFSC Code !"  placeholder="Enter ifscCode no" required>
+                              <input type="text" class="form-control" id="ifscCodeCopy" name="ifscCode"  pattern="^[a-zA-Z0-9]+$" maxlength="11"  data-error="Provide valid IFSC Code !"  placeholder="Enter ifscCode no" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
@@ -182,21 +182,21 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="slCopy">SL<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" data-error="Provide valid Number !"  id="slCopy" name="sl" onkeyup="sumEditLeave()" maxlength="2" placeholder="Enter SL no" required>
+                                 <input type="number" class="form-control" data-error="Provide valid Number !"  id="slCopy" name="sl" onkeyup="sumEditLeave()" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="3" placeholder="Enter SL no" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="clCopy">CL<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" id="clCopy" name="cl" onkeyup="sumEditLeave()"  maxlength="2"  data-error="Provide valid Number !" placeholder="Provide valid Number" required>
+                                 <input type="number" class="form-control" id="clCopy" name="cl" onkeyup="sumEditLeave()"  maxlength="3" oninput="this.value=this.value.slice(0,this.maxLength)" data-error="Provide valid Number !" placeholder="Provide valid Number" required>
                                    <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="lwpCopy">LWP<strong class="text-danger ">*</strong></label>
-                                <input type="text" class="form-control"  id="lwpCopy" name="lwp" onkeyup="sumEditLeave()"  maxlength="2"  data-error="Provide valid Number !" placeholder="Provide valid Number" required>
+                                <input type="number" class="form-control"  id="lwpCopy" name="lwp" onkeyup="sumEditLeave()"  maxlength="3" oninput="this.value=this.value.slice(0,this.maxLength)" data-error="Provide valid Number !" placeholder="Provide valid Number" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
@@ -205,7 +205,7 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="dlNoCopy">Driving License<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" id="dlNoCopy" name="dlNo"  data-error="Provide valid Driving License No !" placeholder="Enter Driving License no" required>
+                                 <input type="text" class="form-control" id="dlNoCopy" name="dlNo"  data-error="Provide valid Driving License No !" pattern="^[a-zA-Z0-9]+$" maxlength="15"  placeholder="Enter Driving License no" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>

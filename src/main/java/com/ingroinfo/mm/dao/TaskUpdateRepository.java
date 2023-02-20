@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.Complaints;
 @Repository
 public interface TaskUpdateRepository extends JpaRepository<Complaints, Long> {
 
+	Complaints findByComplNo(String complNo);
+
 }

@@ -26,17 +26,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ingroinfo.mm.entity.Backup;
 import com.ingroinfo.mm.entity.Branch;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.Designation;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.BackupService;
 import com.ingroinfo.mm.service.DesignationService;
+import com.ingroinfo.mm.service.UserRolesService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ingroinfo.mm.configuration.ModelMapperConfig;
@@ -60,6 +59,9 @@ public class AdminController {
 
 	@Autowired
 	private BackupService backupService;
+	
+	@Autowired
+	private UserRolesService userRolesService;
 
 	@Autowired
 	Environment environment;
@@ -553,7 +555,7 @@ public class AdminController {
 	@PreAuthorize("hasAuthority('EDIT_USER_ROLES')")
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
 
-		adminService.AssignRoles(dto);
+		userRolesService.AssignRoles(dto);
 
 		try {
 			for (Field field : dto.getClass().getDeclaredFields()) {
@@ -606,6 +608,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/backup/server")
+	@PreAuthorize("hasAuthority('SERVER_BACKUP')")
 	public String serverBackup(Model model) {
 		model.addAttribute("driveLetters", adminService.getLocalDriveLetters());
 
@@ -645,12 +648,14 @@ public class AdminController {
 	}
 
 	@GetMapping("/excel/import-export")
+	@PreAuthorize("hasAuthority('IMPORT_EXPORT')")
 	public String excel() {
 
 		return "/pages/admin/excel_import_export";
 	}
 
 	@GetMapping("/device/control")
+	@PreAuthorize("hasAuthority('DEVICE_CONTROL')")
 	public String deviceControl() {
 
 		return "/pages/admin/device_control";

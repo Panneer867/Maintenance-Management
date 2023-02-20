@@ -57,55 +57,68 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		if (alreadySetup)
 			return;
 
-		/* Privileges */
+		/* All Privileges */
 
 		/* Admin Pages */
 
-		Privilege a = createPrivilegeIfNotFound(100, "ADMIN_HOME");
-		Privilege b = createPrivilegeIfNotFound(101, "COMPANY_MANAGEMENT");
-		Privilege c = createPrivilegeIfNotFound(102, "CREATE_COMPANY");
-		Privilege d = createPrivilegeIfNotFound(103, "EDIT_COMPANY");
-		Privilege e = createPrivilegeIfNotFound(104, "VIEW_COMPANY");
-		Privilege f = createPrivilegeIfNotFound(105, "DELETE_COMPANY");
-		Privilege g = createPrivilegeIfNotFound(106, "BRANCH_MANAGEMENT");
-		Privilege h = createPrivilegeIfNotFound(107, "CREATE_BRANCH");
-		Privilege i = createPrivilegeIfNotFound(108, "EDIT_BRANCH");
-		Privilege j = createPrivilegeIfNotFound(109, "VIEW_BRANCH");
-		Privilege k = createPrivilegeIfNotFound(110, "DELETE_BRANCH");
-		Privilege l = createPrivilegeIfNotFound(111, "USER_MANAGEMENT");
-		Privilege m = createPrivilegeIfNotFound(112, "CREATE_USER");
-		Privilege n = createPrivilegeIfNotFound(113, "EDIT_USER");
-		Privilege o = createPrivilegeIfNotFound(114, "DELETE_USER");
-		Privilege p = createPrivilegeIfNotFound(115, "ROLE_MANAGEMENT");
-		Privilege q = createPrivilegeIfNotFound(116, "CREATE_ROLE");
-		Privilege r = createPrivilegeIfNotFound(117, "EDIT_ROLE");
-		Privilege s = createPrivilegeIfNotFound(118, "DELETE_ROLE");
-		Privilege t = createPrivilegeIfNotFound(119, "USER_ROLES");
-		Privilege u = createPrivilegeIfNotFound(120, "EDIT_USER_ROLES");
+		Privilege adminpage = createPrivilegeIfNotFound(100, "ADMIN_HOME");
+		Privilege companyManagement = createPrivilegeIfNotFound(101, "COMPANY_MANAGEMENT");
+		Privilege createCompany = createPrivilegeIfNotFound(102, "CREATE_COMPANY");
+		Privilege editCompany = createPrivilegeIfNotFound(103, "EDIT_COMPANY");
+		Privilege viewCompany = createPrivilegeIfNotFound(104, "VIEW_COMPANY");
+		Privilege deleteCompany = createPrivilegeIfNotFound(105, "DELETE_COMPANY");
+		Privilege branchManagement = createPrivilegeIfNotFound(106, "BRANCH_MANAGEMENT");
+		Privilege createBranch = createPrivilegeIfNotFound(107, "CREATE_BRANCH");
+		Privilege editBranch = createPrivilegeIfNotFound(108, "EDIT_BRANCH");
+		Privilege viewBranch = createPrivilegeIfNotFound(109, "VIEW_BRANCH");
+		Privilege deleteBranch = createPrivilegeIfNotFound(110, "DELETE_BRANCH");
+		Privilege userManagement = createPrivilegeIfNotFound(111, "USER_MANAGEMENT");
+		Privilege createUser = createPrivilegeIfNotFound(112, "CREATE_USER");
+		Privilege editUser = createPrivilegeIfNotFound(113, "EDIT_USER");
+		Privilege deleteUser = createPrivilegeIfNotFound(114, "DELETE_USER");
+		Privilege roleManagement = createPrivilegeIfNotFound(115, "ROLE_MANAGEMENT");
+		Privilege createRole = createPrivilegeIfNotFound(116, "CREATE_ROLE");
+		Privilege editRole = createPrivilegeIfNotFound(117, "EDIT_ROLE");
+		Privilege deleteRole = createPrivilegeIfNotFound(118, "DELETE_ROLE");
+		Privilege userRoles = createPrivilegeIfNotFound(119, "USER_ROLES");
+		Privilege updateUserRoles = createPrivilegeIfNotFound(120, "EDIT_USER_ROLES");
+		Privilege importExport = createPrivilegeIfNotFound(121, "IMPORT_EXPORT");
+		Privilege deviceControl = createPrivilegeIfNotFound(122, "DEVICE_CONTROL");
+		Privilege serverBackup = createPrivilegeIfNotFound(123, "SERVER_BACKUP");
 
 		/* Task Management Pages */
 
-		Privilege v = createPrivilegeIfNotFound(200, "TASK_JE");
-		Privilege w = createPrivilegeIfNotFound(201, "TASK_AEE");
-		Privilege x = createPrivilegeIfNotFound(202, "TASK_EE");
-		Privilege y = createPrivilegeIfNotFound(203, "TASK_COMMISSIONER");
-		Privilege z = createPrivilegeIfNotFound(204, "TASK_WORKCOMPLETE");
-		Privilege a1 = createPrivilegeIfNotFound(205, "TASK_JOBCARD");
-		Privilege b1 = createPrivilegeIfNotFound(206, "TASK_COMPLAINTHISTORY");
+		Privilege taskJe = createPrivilegeIfNotFound(200, "TASK_JE");
+		Privilege taskAee = createPrivilegeIfNotFound(201, "TASK_AEE");
+		Privilege taskEe = createPrivilegeIfNotFound(202, "TASK_EE");
+		Privilege taskCommissioner = createPrivilegeIfNotFound(203, "TASK_COMMISSIONER");
+		Privilege taskWorkcomplete = createPrivilegeIfNotFound(204, "TASK_WORKCOMPLETE");
+		Privilege taskJobcard = createPrivilegeIfNotFound(205, "TASK_JOBCARD");
+		Privilege taskComplainthistory = createPrivilegeIfNotFound(206, "TASK_COMPLAINTHISTORY");
 
-		List<Privilege> ownerPrivileges = Arrays.asList(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u,
-				v, w, x, y, z, a1, b1);
+		/* Assigning Privileges */
 
-		List<Privilege> companyAccess = Arrays.asList(a, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, a1,
-				b1);
+		List<Privilege> adminPrivileges = Arrays.asList(adminpage, companyManagement, createCompany, editCompany,
+				viewCompany, deleteCompany, branchManagement, createBranch, editBranch, viewBranch, deleteBranch,
+				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
+				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
+				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory);
 
-		List<Privilege> branchAccess = Arrays.asList(a, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, a1, b1);
+		List<Privilege> companyPrivileges = Arrays.asList(adminpage, branchManagement, createBranch, editBranch,
+				viewBranch, deleteBranch, userManagement, createUser, editUser, deleteUser, roleManagement, createRole,
+				editRole, deleteRole, userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe,
+				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory);
+
+		List<Privilege> branchPrivileges = Arrays.asList(adminpage, userManagement, createUser, editUser, deleteUser,
+				roleManagement, createRole, editRole, deleteRole, userRoles, updateUserRoles, importExport,
+				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard,
+				taskComplainthistory);
 
 		/* Roles */
 
-		Role admin = createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", ownerPrivileges);
-		createRoleIfNotFound("ROLE_COMPANY", "Company level access", companyAccess);
-		createRoleIfNotFound("ROLE_BRANCH", "Branch level access", branchAccess);
+		Role admin = createRoleIfNotFound("ROLE_ADMIN", "Admin has full access", adminPrivileges);
+		createRoleIfNotFound("ROLE_COMPANY", "Company level access", companyPrivileges);
+		createRoleIfNotFound("ROLE_BRANCH", "Branch level access", branchPrivileges);
 
 		/* States */
 

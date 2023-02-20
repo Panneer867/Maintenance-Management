@@ -54,8 +54,8 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="empName" id="empName" data-minlength="3"
-															data-error="Minimum 3 characters required !"
-															placeholder="Enter Emp Name" required>
+															data-error="Minimum 3 and only  characters required !" pattern="^[A-Za-z]+[A-Za-z ]*$"
+															oninput="this.value = this.value.toUpperCase()" placeholder="Enter Emp Name" required>
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -65,8 +65,8 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="fatherName" id="fatherName" data-minlength="3"
-															data-error="Minimum 3 characters required !"
-															placeholder="Enter Father Name" required>
+															data-error="Minimum 3 and only  characters required !" pattern="^[A-Za-z]+[A-Za-z ]*$"
+															oninput="this.value = this.value.toUpperCase()" placeholder="Enter Father Name" required>
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -78,7 +78,7 @@
 														class="col-sm-8 col-form-label">Department<strong
 															class="text-danger ">*</strong></label>
 													<div class="col">
-														<select class="form-select" id="department" name="department"
+														<select class="form-select form-control-sm" id="department" name="department"
 																data-error="Provide this field !"	required>
 															<option value="" selected>select</option>
 															<option th:each="emp : ${DeptList}"
@@ -95,8 +95,8 @@
 															class="text-danger">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="designation" id="designation" data-minlength="3" data-error="Minimum 3 characters required !"
-															placeholder="Enter Designation" required>
+															name="designation" id="designation" data-minlength="3" data-error="Minimum 3 and only characters required !"
+															pattern="^[A-Za-z]+[A-Za-z ]*$"  placeholder="Enter Designation" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 													
@@ -106,8 +106,8 @@
 														/Division</label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="company" id="company" data-minlength="3" data-error="Minimum 3 characters required !"
-															placeholder="Enter Company /Division" required>
+															name="company" id="company" data-minlength="3" data-error="Minimum 3 and only characters required !"
+														pattern="^[A-Za-z]+[A-Za-z ]*$"	placeholder="Enter Company /Division" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -118,8 +118,8 @@
 														Type</label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="emptype" id="emptype" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter Emp Type"
-															required>
+															name="emptype" id="emptype" data-minlength="3" data-error="Minimum 3 and only characters required !" placeholder="Enter Emp Type"
+															pattern="^[A-Za-z]+[A-Za-z ]*$" required>
 														<div class="help-block with-errors text-danger"></div>	
 													</div>
 												</div>
@@ -128,8 +128,8 @@
 														Status</label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="empStatus" id="empStatus" data-minlength="3" data-error="Minimum 3 characters required !" 
-															placeholder="Enter Emp Status" required>
+															name="empStatus" id="empStatus" data-minlength="3" data-error="Minimum 3 and only characters required !" 
+															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Emp Status" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -138,8 +138,8 @@
 														Name </label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="personName" id="personName" data-minlength="3" data-error="Minimum 3 characters required !" 
-															placeholder="Enter Ref Person Name" required>
+															name="personName" id="personName" data-minlength="3" data-error="Minimum 3 and only characters required !" 
+															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Ref Person Name" required>
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -172,7 +172,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="branch" id="branch"
-															placeholder="Enter Branch /Sub Division" required  data-error="Minimum 3 characters required !">
+															placeholder="Enter Branch /Sub Division" required pattern="^[A-Za-z]+[A-Za-z ]*$" data-error="Minimum 3 and only characters required !">
 															<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -225,7 +225,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="qualification"  data-error=" Provide a valid Qualification!" id="qualification"
-															placeholder="Enter Qualification" required>
+															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Qualification" required>
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -237,7 +237,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="panNO" id="panNO" placeholder="Enter PAN NO"
-															maxlength="15" required>
+															maxlength="10" pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}"   data-error=" Provide a valid PAN NO!" required>
 												<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -247,9 +247,9 @@
 													<label for="salary" class="col-sm-10 col-form-label"> Total
 														Salary</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="salary" id="salary" onkeyup="sal()"
-															placeholder="Enter Total Salary" required>
+														<input type="number" class="form-control form-control-sm"
+															name="salary" id="salary" onkeyup="sal()"   data-error=" Provide a valid Amount!"
+															placeholder="Enter Total Salary" 	oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="20" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -261,7 +261,7 @@
 												<div class="form-group col text-start">
 													<label for="state" class="col-sm-8 col-form-label">State</label>
 													<div class="col">
-														<select class="form-select" name="state" id="states"
+														<select class="form-select form-control-sm" name="state" id="states"
 															data-error="Provide this field !" required>
 															<option value="" selected>Select</option>
 															<option th:each="ob:${states}" th:value="${ob[0]}"
@@ -291,8 +291,8 @@
 															class="text-danger ">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="dlNo" id="dlNo" placeholder="Enter DL No" data-error="Provide a DL No  !"
-															maxlength="15" required>
+															name="dlNo" id="dlNo"  placeholder="Enter DL No" data-error="Provide a DL No  !"
+															pattern="^[a-zA-Z0-9]+$" maxlength="15" required>
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -317,7 +317,7 @@
 												<div class="form-group col text-start">
 													<label for="city" class="col-sm-8 col-form-label">City</label>
 													<div class="col">
-														<select class="form-select" name="city" id="cities"
+														<select class="form-select form-control-sm" name="city" id="cities"
 															data-error="Select this List !" required>
 															<option value="" selected>Select</option>
 														</select>
@@ -348,7 +348,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="passportNo" id="passportNo" data-error="Provide a Passport No  !"
-															placeholder="Enter Passport No" maxlength="15" required>
+															placeholder="Enter Passport No" maxlength="12" required>
 													 <div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -357,9 +357,9 @@
 												<div class="form-group col text-start">
 													<label for="sl" class="col-sm-10 col-form-label">SL</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="sl" id="sl" onkeyup="sum()" data-error="Provide a SL No  !" placeholder="Enter SL"
-															maxlength="2" required>
+															oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="3" required>
 															<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -372,9 +372,9 @@
 												<div class="form-group col text-start">
 													<label for="pinCode" class="col-sm-8 col-form-label">PinCode</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="pinCode" id="pinCode" placeholder="Enter PinCode"
-														data-error="Provide a PinCode No  !"	maxlength="6" required>
+														data-error="Provide a PinCode No  !"	oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -399,7 +399,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="pfNo" id="pfNo" placeholder="Enter PF No "
-															data-error="Provide a PF No !" maxlength="17" required>
+															data-error="Provide a PF No !" pattern="[A-Z]{2}/\d{5}/\d{7}$" maxlength="16"   required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -408,9 +408,9 @@
 												<div class="form-group col text-start">
 													<label for="cl" class="col-sm-10 col-form-label">CL</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="cl" id="cl" onkeyup="sum()" placeholder="Enter CL"
-															data-error="Provide a CL No !" maxlength="2" required>
+															data-error="Provide a CL No !" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="3" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -425,7 +425,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="contactNo" id="contactNo" data-error="Provide a Contact No !"
-															placeholder="Enter Contact No" maxlength="10" required>
+															placeholder="Enter Contact No" pattern="[7-9]{1}[0-9]{9}" maxlength="10" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -436,7 +436,7 @@
 													<label for="bankName" class="col-sm-8 col-form-label">Bank
 														Name</label>
 													<div class="col">
-														<select class="form-select" name="bankName" id="bankName" 
+														<select class="form-select form-control-sm" name="bankName" id="bankName" 
 															data-error="Select Bank Name !" required>
 															<option value="" selected>select</option>
 															<option th:each="banks : ${banks}" th:value="${banks.name}"
@@ -451,9 +451,9 @@
 													<label for="esiNumber" class="col-sm-10 col-form-label"> ESI
 														Number<strong class="text-danger ">*</strong></label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="esiNumber" id="esiNumber" data-error="Provide a ESI Number!"
-															placeholder="Enter ESI Number" required maxlength="15">
+															placeholder="Enter ESI Number" oninput="this.value=this.value.slice(0,this.maxLength)" required maxlength="10">
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -462,9 +462,9 @@
 												<div class="form-group col text-start">
 													<label for="lwp" class="col-sm-10 col-form-label">LWP </label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="lwp" id="lwp" onkeyup="sum()" placeholder="Enter LWP"
-															data-error="Provide a LWP No !" maxlength="2" required>
+															data-error="Provide a LWP No !" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="3" required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -499,9 +499,9 @@
 													<label for="bankAccNo" class="col-sm-8 col-form-label">Bank Acc
 														No<strong class="text-danger ">*</strong></label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+														<input type="number" class="form-control form-control-sm"
 															name="bankAccNo" id="bankAccNo" data-error="Provide a Bank Acc No !"
-															placeholder="Enter Bank Acc No" required maxlength="17">
+															placeholder="Enter Bank Acc No" required oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="17">
 														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -512,8 +512,8 @@
 														Contact No<strong class="text-danger ">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="refContactNo" id="refContactNo"  data-error="Provide a Ref Contact No !"
-															placeholder="Enter Ref Contact No" required maxlength="10">
+															name="refContactNo" id="refContactNo" pattern="[7-9]{1}[0-9]{9}" maxlength="10" data-error="Provide a Ref Contact No !"
+															placeholder="Enter Ref Contact No" required >
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -556,7 +556,7 @@
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
 															name="ifscCode" id="ifscCode" placeholder="Enter IFSC CODE"
-														 data-error="Provide a IFSC No !"	maxlength="15" required>
+														 data-error="Provide a Valid IFSC No !"	pattern="^[a-zA-Z0-9]+$" maxlength="11"  required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>

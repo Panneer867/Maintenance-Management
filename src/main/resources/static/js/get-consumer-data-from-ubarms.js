@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	
-	$("#esclate-invest-data").prop('disabled', true);
-	$("a.esclate-button").on('click', false);
+	$("#esclate-invest-data").prop('disabled', true);	
 	
 	$("#user-designation").change(function() {
 		var designation = $("#user-designation").val();
@@ -65,8 +64,7 @@ $(document).ready(function() {
 			alert("Complaint No Not Found !!")
 			
 			$("#submit-invest-data").prop('disabled', true);
-			$("#esclate-invest-data").prop('disabled', true);
-	        $("a.esclate-button").on('click', false);
+			$("#esclate-invest-data").prop('disabled', true);	     
 			
 			return false;
 		}	
@@ -74,8 +72,7 @@ $(document).ready(function() {
        if(jobSts =='N'){
 		   
 		  $("#submit-invest-data").prop('disabled', true);
-		  $("#esclate-invest-data").prop('disabled', false);	   
-		  $("a.esclate-button").off("click");
+		  $("#esclate-invest-data").prop('disabled', false);	   		
 		  		 
 		  var s = '<option value=" ">--Select--</option>';
 		  
@@ -128,6 +125,25 @@ $(document).ready(function() {
 		}
 		if(esclatedReason == ""){
 			alert("Please Enter Esclation Reason !!");
+			return false;
+		}		
+	});
+	
+	$("#submit-invest-data").click(function() {
+		var visitedDate  = $("#visitedDate").val();
+		var fieldVisitedRemark  = $("#fieldVisitedRemark").val();
+		var jobDoneRemark = $("#jobDoneRemark").val();
+		
+		if(visitedDate == ""){
+			alert("Please Enter Visited Date !!");
+			return false;
+		}
+		if(fieldVisitedRemark == ""){
+			alert("Please Write Visited Remark !!");
+			return false;
+		}
+		if(jobDoneRemark == ""){
+			alert("Please Write Job Done Remark !!");
 			return false;
 		}		
 	});

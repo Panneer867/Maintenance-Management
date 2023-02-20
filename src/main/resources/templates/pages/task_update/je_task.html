@@ -241,7 +241,7 @@
 								<div class="form-group col-md-3">
 									<label for="visitedDate">Field Visit Date</label>
 									<input type="date" class="form-control form-control-sm bg-white" id="visitedDate"
-										name="visitedDate" required>
+										name="visitedDate">
 								</div>
 								<div class="form-group col-md-3">
 									<label for="nameOfEngg">Name of Engg</label>
@@ -263,8 +263,8 @@
 								<div class="form-group col-md-12">
 									<label for="fieldVisitedRemark">Field Visit Remarks</label>
 									<textarea type="text" class="form-control form-control-sm " id="fieldVisitedRemark"
-										placeholder="Write Remarks After Visited" name="fieldVisitedRemark"
-										required></textarea>
+										placeholder="Write Remarks After Visited" name="fieldVisitedRemark">
+									</textarea>
 								</div>
 							</div>
 
@@ -273,7 +273,7 @@
 								<div class="form-group col-md-12">
 									<label for="jobDoneRemark">Job Done Remarks</label>
 									<textarea type="text" class="form-control form-control-sm " id="jobDoneRemark"
-										placeholder="Write Job Done Remarks" name="jobDoneRemark" required></textarea>
+										placeholder="Write Job Done Remarks" name="jobDoneRemark"></textarea>
 								</div>
 							</div>
 							<div class="row">
@@ -356,12 +356,8 @@
 
 							</div>
 							<div class="text-center mt-2">
-								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>
-								<a th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}" class="esclate-button">
-									<button class="btn btn-primary" id="esclate-invest-data" type="button">Escala Task</button>
-								</a>
-								<!--<a type="button" th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}"
-									class="btn btn-primary esclate-invest-data">Escala Task</a>-->
+								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>								
+								<button type="submit" id="esclate-invest-data" class="btn btn-primary">Escala Task</button>													
 							</div>
 						</form>
 

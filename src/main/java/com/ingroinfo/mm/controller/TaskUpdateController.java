@@ -200,24 +200,30 @@ public class TaskUpdateController {
 	//submit Jee Investigations Data
 	@PostMapping("/submitJeeInvest")
 	public String submitJeeInvestigationReport(@ModelAttribute ComplaintDto complaintDto,HttpSession session) {
-		complaintDto.setComplStatus("Completed");		
-		this.taskUpdateService.saveComplaint(complaintDto);
-		try {
-			this.taskUpdateService.sendJeeInvestigation(complaintDto);
-		} catch (Exception e) {
-		 System.out.println("Something Wrong "+e.getMessage());	
-		}
-		session.setAttribute("message", new Message("Jee Investigation Completed !!","success"));
-		return "redirect:/task/je";
-	}
-	
-	//Submit Jee Esclation Data
-	@RequestMapping("/exlateComplain/{complNo}")
-	public String submitJeeInvestigation(@PathVariable String complNo) {
 		
-		return null;
-	}
-
+		if (complaintDto.getEsclatedDate() !="") {
+			complaintDto.setComplStatus("Escalate");
+			this.taskUpdateService.saveComplaint(complaintDto);
+			
+			try {
+				this.taskUpdateService.submitEsclations(complaintDto);
+			} catch (Exception e) {
+				System.out.println("Something Wrong "+e.getMessage());	
+			}			
+			session.setAttribute("message", new Message("JE Investigation Esclated To AEE !!","danger"));
+		}else {
+			complaintDto.setComplStatus("Completed");		
+			this.taskUpdateService.saveComplaint(complaintDto);
+			try {
+				this.taskUpdateService.submitInvestigations(complaintDto);
+			} catch (Exception e) {
+			 System.out.println("Something Wrong "+e.getMessage());	
+			}
+			session.setAttribute("message", new Message("JE Investigation Sucessfully Completed !!","success"));
+		}	
+		return "redirect:/task/je";
+	}	
+	
 	@GetMapping("/work-complete")
 	@PreAuthorize("hasAuthority('TASK_WORKCOMPLETE')")
 	public String workComplete() {
