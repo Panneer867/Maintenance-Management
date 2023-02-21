@@ -100,7 +100,8 @@
 										<div class="form-check form-switch mt-2">
 											<input type="checkbox" class="form-check-input" id="import-export" />
 											<input type="hidden" name="importExport" id="set-import-export">
-											<label class="form-check-label" for="import-export">Excel Import/Export</label>
+											<label class="form-check-label" for="import-export">Excel
+												Import/Export</label>
 										</div>
 
 										<div class="form-check form-switch mt-2">
@@ -114,7 +115,7 @@
 											<label class="form-check-label" for="server-backup">Server Backup</label>
 										</div>
 
-										
+
 									</div>
 
 								</div>
@@ -186,7 +187,7 @@
 									</div>
 
 								</div>
-								
+
 							</div>
 							<div class="row mt-3">
 								<div class="col-4">
@@ -301,15 +302,766 @@
 
 									</div>
 								</div>
-								
+
 							</div>
 							<div class="row mt-3">
-							<div class="col-4">
+								<div class="col-4">
 
-									
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Asset Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="asset-management" />
+											<input type="hidden" name="assetManagement" id="set-asset-management">
+											<label class="form-check-label" for="asset-management">Assest
+												Management</label>
+										</div>
+
+
+									</div>
 
 								</div>
-								
+
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Stock Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="stock-available" />
+											<input type="hidden" name="stockAvailable" id="set-stock-available">
+											<label class="form-check-label" for="stock-available">Stock
+												Available</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="inward-matierals" />
+											<input type="hidden" name="inwardMatierals" id="set-inward-matierals">
+											<label class="form-check-label" for="inward-matierals">Inward
+												Matierals</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="inward-spares" />
+											<input type="hidden" name="inwardSpares" id="set-inward-spares">
+											<label class="form-check-label" for="inward-tools">Inward Spares</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="inward-tools" />
+											<input type="hidden" name="inwardTools" id="set-inward-tools">
+											<label class="form-check-label" for="inward-tools">Inward Tools &
+												Equipment</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="outward-materials" />
+											<input type="hidden" name="outwardMaterials" id="set-outward-materials">
+											<label class="form-check-label" for="outward-materials">Outward Materials
+												Issue</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="outward-spares" />
+											<input type="hidden" name="outwardSpares" id="set-outward-spares">
+											<label class="form-check-label" for="outward-spares">Outward Spares
+												Issue</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="outward-tools" />
+											<input type="hidden" name="outwardTools" id="set-outward-tools">
+											<label class="form-check-label" for="outward-tools">Outward Tools
+												Issue</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="matierals-return" />
+											<input type="hidden" name="matieralsReturn" id="set-matierals-return">
+											<label class="form-check-label" for="matierals-return">Stock Matierals
+												Return</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="spares-return" />
+											<input type="hidden" name="sparesReturn" id="set-spares-return">
+											<label class="form-check-label" for="spares-return">Stock Spares
+												Return</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="tools-return" />
+											<input type="hidden" name="toolsReturn" id="set-tools-return">
+											<label class="form-check-label" for="tools-return">Stock Tools
+												Return</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="reject-damage-return" />
+											<input type="hidden" name="rejectDamageReturn"
+												id="set-reject-damage-return">
+											<label class="form-check-label" for="reject-damage-return">Reject/Damage
+												Return</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="stock-approvals" />
+											<input type="hidden" name="stockApprovals" id="set-stock-approvals">
+											<label class="form-check-label" for="stock-approvals">Stock
+												Approvals</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Work Orders
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="generate-work-order" />
+											<input type="hidden" name="generateWorkOrder" id="set-generate-work-order">
+											<label class="form-check-label" for="generate-work-order">Generate Work
+												Order</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="hold-work-order" />
+											<input type="hidden" name="holdWorkOrder" id="set-hold-work-order">
+											<label class="form-check-label" for="hold-work-order">Hold Work
+												Order</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="cancel-work-order" />
+											<input type="hidden" name="cancelWorkOrder" id="set-cancel-work-order">
+											<label class="form-check-label" for="cancel-work-order">Cancel Work
+												Order</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="work-estmation" />
+											<input type="hidden" name="workEstmation" id="set-work-estmation">
+											<label class="form-check-label" for="work-estmation">Work Estimation</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Employee
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-dashBoard" />
+											<input type="hidden" name="employeeDashBoard" id="set-employee-dashBoard">
+											<label class="form-check-label" for="employee-dashBoard">Employee
+												DashBoard</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-master" />
+											<input type="hidden" name="employeeMaster" id="set-employee-master">
+											<label class="form-check-label" for="employee-master">Employee
+												Master</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-attendance" />
+											<input type="hidden" name="attendance" id="set-employee-attendance">
+											<label class="form-check-label" for="employee-attendance">Attendnace</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-salary" />
+											<input type="hidden" name="salary" id="set-employee-salary">
+											<label class="form-check-label" for="employee-salary">Salary</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-inspection" />
+											<input type="hidden" name="inspection" id="set-employee-inspection">
+											<label class="form-check-label" for="employee-inspection">Inspection</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="employee-leave" />
+											<input type="hidden" name="leave" id="set-employee-leave">
+											<label class="form-check-label" for="employee-leave">Leave</label>
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Billing
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="cons-master-details" />
+											<input type="hidden" name="consMasterDetails" id="set-cons-master-details">
+											<label class="form-check-label" for="cons-master-details">Cons Master
+												Details</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="cons-trans-details" />
+											<input type="hidden" name="consTransDetails" id="set-cons-trans-details">
+											<label class="form-check-label" for="cons-trans-details">Cons Trans
+												Details</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="meter-details" />
+											<input type="hidden" name="meterDetails" id="set-meter-details">
+											<label class="form-check-label" for="meter-details">Meter Details</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="wards-consumption" />
+											<!--<input type="hidden" name="wardsConsumption" id="set-wards-consumption">-->
+											<label class="form-check-label" for="wards-consumption">Wards
+												Consumption</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="dma-payment" />
+											<!--<input type="hidden" name="dmaPayment" id="set-dma-payment">-->
+											<label class="form-check-label" for="dma-payment">DMA Payment</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="billing-dcb" />
+											<!--<input type="hidden" name="dcb" id="set-billing-dcb">-->
+											<label class="form-check-label" for="billing-dcb">DCB</label>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Pump Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="pump-dashboard" />
+											<input type="hidden" name="pumpDashboard" id="set-pump-dashboard">
+											<label class="form-check-label" for="pump-dashboard">Pump Dashboard</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="pump-maintenance" />
+											<input type="hidden" name="pumpMaintenance" id="set-pump-maintenance">
+											<label class="form-check-label" for="pump-maintenance">Pump
+												Maintenance</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pump-maintenance-indent" />
+											<!--<input type="hidden" name="pumpMaintenanceIndent" id="set-pump-maintenance-indent">-->
+											<label class="form-check-label" for="pump-maintenance-indent">Maintenance
+												Indent</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pump-maintenance-update" />
+											<!--<input type="hidden" name="pumpMaintenanceUpdate" id="set-pump-maintenance-update">-->
+											<label class="form-check-label" for="pump-maintenance-update">Maintenance
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pump-maintenance-inspection" />
+											<!--<input type="hidden" name="pumpMaintenanceInspection" id="set-pump-maintenance-inspection">-->
+											<label class="form-check-label"
+												for="pump-maintenance-inspection">Maintenance
+												Inspection</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pump-maintenance-history" />
+											<!--<input type="hidden" name="pumpMaintenanceHistory" id="set-pump-maintenance-history">-->
+											<label class="form-check-label" for="pump-maintenance-history">Maintenance
+												History</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Pipe Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="pipe-dashboard" />
+											<input type="hidden" name="pipeDashboard" id="set-pipe-dashboard">
+											<label class="form-check-label" for="pipe-dashboard">Pipe Dashboard</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pipe-maintenance-indent" />
+											<input type="hidden" name="pipeMaintenanceIndent"
+												id="set-pipe-maintenance-indent">
+											<label class="form-check-label" for="pipe-maintenance-indent">Maintenance
+												Indent</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pipe-maintenance-update" />
+											<input type="hidden" name="pipeMaintenanceUpdate"
+												id="set-pipe-maintenance-update">
+											<label class="form-check-label" for="pipe-maintenance-update">Maintenance
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pipe-maintenance-inspection" />
+											<input type="hidden" name="pipeMaintenanceInspection"
+												id="set-pipe-maintenance-inspection">
+											<label class="form-check-label"
+												for="pipe-maintenance-inspection">Maintenance
+												Inspection</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="pipe-maintenance-history" />
+											<input type="hidden" name="pipeMaintenanceHistory"
+												id="set-pipe-maintenance-history">
+											<label class="form-check-label" for="pipe-maintenance-history">Maintenance
+												History</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Vehicle
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="vehicle-tracking-mangement" />
+											<input type="hidden" name="vehicleTrackingMangement"
+												id="set-vehicle-tracking-mangement">
+											<label class="form-check-label" for="vehicle-tracking-mangement">Tracking
+												Mangement</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="vehicle-history" />
+											<input type="hidden" name="vehicleHistory" id="set-vehicle-history">
+											<label class="form-check-label" for="vehicle-history">Vehicle
+												History</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="vehicle-fuel-management" />
+											<!--<input type="hidden" name="vehicleFuelManagement" id="set-vehicle-fuel-management">-->
+											<label class="form-check-label" for="vehicle-fuel-management">Fuel
+												Management</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="vehicle-index" />
+											<input type="hidden" name="vehicleIndex" id="set-vehicle-index">
+											<label class="form-check-label" for="vehicle-index">Vehicle Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="vehicle-management-index" />
+											<input type="hidden" name="vehicleManagementIndex"
+												id="set-vehicle-management-index">
+											<label class="form-check-label" for="vehicle-management-index">Management
+												Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="vehicle-inspection" />
+											<input type="hidden" name="vehicleInspection" id="set-vehicle-inspection">
+											<label class="form-check-label" for="vehicle-inspection">Vehicle
+												Inspection</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="vehicle-work-order-view" />
+											<input type="hidden" name="vehicleWorkOrderView"
+												id="set-vehicle-work-order-view">
+											<label class="form-check-label" for="vehicle-work-order-view">Work Order
+												View</label>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Leakage
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="leakage-dashboard" />
+											<input type="hidden" name="leakageDashboard" id="set-leakage-dashboard">
+											<label class="form-check-label" for="leakage-dashboard">Leakage
+												Dashboard</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="leakage-indent" />
+											<input type="hidden" name="leakageIndent" id="set-leakage-indent">
+											<label class="form-check-label" for="leakage-indent">Leakage Indent</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="leakage-maintenance-update" />
+											<input type="hidden" name="leakageMaintenanceUpdate"
+												id="set-leakage-maintenance-update">
+											<label class="form-check-label" for="leakage-maintenance-update">Maintenance
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="leakage-work-inspection" />
+											<input type="hidden" name="leakageWorkInspection"
+												id="set-leakage-work-inspection">
+											<label class="form-check-label" for="leakage-work-inspection">Work
+												Inspection</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="leakage-leakage-history" />
+											<input type="hidden" name="leakageLeakageHistory"
+												id="set-leakage-leakage-history">
+											<label class="form-check-label" for="leakage-leakage-history">Leakage
+												History</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Meter Management
+									</h3>
+									<div class="px-5">
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="testing-maintenance" />
+											<!--<input type="hidden" name="testingMaintenance" id="set-testing-maintenance">-->
+											<label class="form-check-label" for="testing-maintenance">Testing /
+												Maintenance</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="meter-replace" />
+											<input type="hidden" name="meterReplace" id="set-meter-replace">
+											<label class="form-check-label" for="meter-replace">Meter
+												Replacement</label>
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Hand Pump
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="hand-pump-index" />
+											<input type="hidden" name="handPumpIndex" id="set-hand-pump-index">
+											<label class="form-check-label" for="hand-pump-index">Hand Pump
+												Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="hand-pump-indent" />
+											<input type="hidden" name="handPumpIndent" id="set-hand-pump-indent">
+											<label class="form-check-label" for="hand-pump-indent">Hand Pump
+												Indent</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="hand-pump-work-order" />
+											<input type="hidden" name="handPumpWorkOrder" id="set-hand-pump-work-order">
+											<label class="form-check-label" for="hand-pump-work-order">Work
+												Orders</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="hand-pump-work-update" />
+											<input type="hidden" name="handPumpWorkUpdate"
+												id="set-hand-pump-work-update">
+											<label class="form-check-label" for="hand-pump-work-update">Work
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="hand-pump-inspection" />
+											<input type="hidden" name="handPumpHandPumpInspection"
+												id="set-hand-pump-inspection">
+											<label class="form-check-label" for="hand-pump-inspection">Hand Pump
+												Inspection</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="hand-pump-maintenance-history" />
+											<input type="hidden" name="handPumpMaintenanceHistory"
+												id="set-hand-pump-maintenance-history">
+											<label class="form-check-label"
+												for="hand-pump-maintenance-history">Maintenance History</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Borewell
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="borewell-index" />
+											<input type="hidden" name="borewellIndex" id="set-borewell-index">
+											<label class="form-check-label" for="borewell-index">Borewell Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="borewell-indent" />
+											<input type="hidden" name="borewellIndent" id="set-borewell-indent">
+											<label class="form-check-label" for="borewell-indent">Borewell
+												Indent</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="borewell-work-order" />
+											<input type="hidden" name="borewellWorkOrder" id="set-borewell-work-order">
+											<label class="form-check-label" for="borewell-work-order">Borewell Work
+												Orders</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="borewell-work-update" />
+											<input type="hidden" name="borewellWorkUpdate"
+												id="set-borewell-work-update">
+											<label class="form-check-label" for="borewell-work-update">Borewell Work
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="borewell-inspection" />
+											<input type="hidden" name="borewellHandPumpInspection"
+												id="set-borewell-inspection">
+											<label class="form-check-label" for="borewell-inspection">Borewell
+												Inspection</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="borewell-maintenance-history" />
+											<input type="hidden" name="borewellMaintenanceHistory"
+												id="set-borewell-maintenance-history">
+											<label class="form-check-label" for="borewell-maintenance-history">Borewell
+												History</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">GLSR OHT
+										Management
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="glsroht-index" />
+											<input type="hidden" name="glsrohtIndex" id="set-glsroht-index">
+											<label class="form-check-label" for="glsroht-index">GLSR OHT Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="glsroht-indent" />
+											<input type="hidden" name="glsrohtIndent" id="set-glsroht-indent">
+											<label class="form-check-label" for="glsroht-indent">GLSR OHT Indent</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="glsroht-work-order" />
+											<input type="hidden" name="glsrohtWorkOrder" id="set-glsroht-work-order">
+											<label class="form-check-label" for="glsroht-work-order">GLSR OHT Work
+												Orders</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="glsroht-work-update" />
+											<input type="hidden" name="glsrohtWorkUpdate" id="set-glsroht-work-update">
+											<label class="form-check-label" for="glsroht-work-update">GLSR OHT
+												WorkOrder</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="glsroht-inspection" />
+											<input type="hidden" name="glsrohtHandPumpInspection"
+												id="set-glsroht-inspection">
+											<label class="form-check-label" for="glsroht-inspection">GLSR OHT
+												Inspection</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="glsroht-maintenance-history" />
+											<input type="hidden" name="glsrohtMaintenanceHistory"
+												id="set-glsroht-maintenance-history">
+											<label class="form-check-label" for="glsroht-maintenance-history">GLSR OHT
+												History</label>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Levels Control
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="levels-control-index" />
+											<input type="hidden" name="levelsControlIndex"
+												id="set-levels-control-index">
+											<label class="form-check-label" for="levels-control-index">Level Control
+												Index</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="levels-control-indent" />
+											<input type="hidden" name="levelsControlIndent"
+												id="set-levels-control-indent">
+											<label class="form-check-label" for="levels-control-indent">Level Control
+												Indent</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="levels-control-work-order" />
+											<input type="hidden" name="levelsControlWorkOrder"
+												id="set-levels-control-work-order">
+											<label class="form-check-label" for="levels-control-work-order">Level
+												Control
+												Work Order</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="levels-control-work-update" />
+											<input type="hidden" name="levelsControlWorkUpdate"
+												id="set-levels-control-work-update">
+											<label class="form-check-label" for="levels-control-work-update">Level
+												Control Work
+												Update</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="levels-control-inspection" />
+											<input type="hidden" name="levelsControlInspection"
+												id="set-levels-control-inspection">
+											<label class="form-check-label" for="levels-control-inspection">Level
+												Control
+												Inspection</label>
+										</div>
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input"
+												id="levels-control-history" />
+											<input type="hidden" name="levelsControlHistory"
+												id="set-levels-control-history">
+											<label class="form-check-label" for="levels-control-history">Level Control
+												History</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Water Storage
+									</h3>
+									<div class="px-5">
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="water-storage-glsr" />
+											<!--<input type="hidden" name="waterStorageGlsr" id="set-water-storage-glsr">-->
+											<label class="form-check-label" for="water-storage-glsr">GLSR</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="water-storage-oht" />
+											<!--<input type="hidden" name="waterStorageoht" id="set-water-storage-oht">-->
+											<label class="form-check-label" for="water-storage-oht">OHT</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Contact
+										Management
+									</h3>
+									<div class="px-5">
+
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="contact-management" />
+											<input type="hidden" name="contactManagement" id="set-contact-management">
+											<label class="form-check-label" for="contact-management">Contact
+												Management</label>
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="col-4">
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Approvals
+									</h3>
+									<div class="px-5">
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="approvals" />
+											<input type="hidden" name="approvals" id="set-approvals">
+											<label class="form-check-label" for="approvals">Approvals</label>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">MIS Reports
+									</h3>
+									<div class="px-5">
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="daily-report" />
+											<input type="hidden" name="dailyReport" id="set-daily-report">
+											<label class="form-check-label" for="daily-report">Daily Report</label>
+										</div>
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="monthly-report" />
+											<input type="hidden" name="monthlyReport" id="set-monthly-report">
+											<label class="form-check-label" for="monthly-report">Daily Report</label>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-4">
+
+									<h3 class="col-form-label bg-dark text-white font-weight-bold pl-5">Masters
+									</h3>
+									<div class="px-5">
+
+
+										<div class="form-check form-switch mt-2">
+											<input type="checkbox" class="form-check-input" id="masters" />
+											<input type="hidden" name="masters" id="set-masters">
+											<label class="form-check-label" for="masters">Masters</label>
+										</div>
+
+									</div>
+
+								</div>
+
 								<div class="col-4">
 
 
@@ -320,6 +1072,7 @@
 
 								</div>
 							</div>
+
 						</div>
 						<div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab"
 							tabindex="0">

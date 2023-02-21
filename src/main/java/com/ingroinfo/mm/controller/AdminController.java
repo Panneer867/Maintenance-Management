@@ -2,7 +2,6 @@ package com.ingroinfo.mm.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +58,7 @@ public class AdminController {
 
 	@Autowired
 	private BackupService backupService;
-	
+
 	@Autowired
 	private UserRolesService userRolesService;
 
@@ -556,16 +555,6 @@ public class AdminController {
 	public String updateUserRoles(@ModelAttribute("userRoles") UserRolesDto dto, HttpSession session) {
 
 		userRolesService.AssignRoles(dto);
-
-		try {
-			for (Field field : dto.getClass().getDeclaredFields()) {
-				field.setAccessible(true);
-				Object value = field.get(dto);
-				System.out.println(String.format("%-20s : %-5s", field.getName(), value));
-			}
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
 
 		session.setAttribute("message", new Message("User Roles has been updated successfully !", "success"));
 		return "redirect:/admin/user/roles";

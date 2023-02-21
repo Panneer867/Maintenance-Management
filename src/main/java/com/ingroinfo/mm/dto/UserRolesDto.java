@@ -55,15 +55,16 @@ public class UserRolesDto {
 
 	private String stockAvailable; // 400
 	private String inwardMatierals; // 401
-	private String inwardTools; // 402
-	private String outwardMaterials; // 403
-	private String outwardSpares; // 404
-	private String outwardTools; // 405
-	private String matieralsReturn; // 406
-	private String sparesReturn; // 407
-	private String toolsReturn; // 408
-	private String rejectDamageReturn; // 409
-	private String stockApprovals; // 410
+	private String inwardSpares; // 402
+	private String inwardTools; // 403
+	private String outwardMaterials; // 404
+	private String outwardSpares; // 405
+	private String outwardTools; // 406
+	private String matieralsReturn; // 407
+	private String sparesReturn; // 408
+	private String toolsReturn; // 409
+	private String rejectDamageReturn; // 410
+	private String stockApprovals; // 411
 
 	private String generateWorkOrder; // 500
 	private String holdWorkOrder; // 501
@@ -80,28 +81,29 @@ public class UserRolesDto {
 	private String consMasterDetails; // 700
 	private String consTransDetails; // 701
 	private String meterDetails; // 702
-	private String wardsConsumption; // 703
-	private String dmaPayment; // 704
-	private String dcb; // 705
-
+	/*
+	 * private String wardsConsumption; // 703 private String dmaPayment; // 704
+	 * private String dcb; // 705
+	 */
 	private String pumpDashboard; // 800
 	private String pumpMaintenance; // 801
-	private String pumpMaintenanceIndent; // 802
-	private String pumpMaintenanceUpdate; // 803
-	private String pumpMaintenanceInspection; // 804
-	private String pumpMaintenanceHistory; // 805
-
+	/*
+	 * private String pumpMaintenanceIndent; // 802 private String
+	 * pumpMaintenanceUpdate; // 803 private String pumpMaintenanceInspection; //
+	 * 804 private String pumpMaintenanceHistory; // 805
+	 */
 	private String pipeDashboard; // 900
-	private String pipeMaintenance; // 901
-	private String pipeMaintenanceIndent; // 902
-	private String pipeMaintenanceUpdate; // 903
-	private String pipeMaintenanceInspection; // 904
-	private String pipeMaintenanceHistory; // 905
+	private String pipeMaintenanceIndent; // 901
+	private String pipeMaintenanceUpdate; // 902
+	private String pipeMaintenanceInspection; // 903
+	private String pipeMaintenanceHistory; // 904
 
 	private String vehicleTrackingMangement; // 1100
-	private String vehicleHistory; // 1101
-	private String vehicleFuelManagement; // 1102
-	private String vehicleIndex; // 1103
+	private String vehicleHistory;
+	// 1101
+	/*
+	 * private String vehicleFuelManagement; // 1102
+	 */ private String vehicleIndex; // 1103
 	private String vehicleManagementIndex; // 1104
 	private String vehicleInspection; // 1105
 	private String vehicleWorkOrderView; // 1106
@@ -112,8 +114,9 @@ public class UserRolesDto {
 	private String leakageWorkInspection; // 1203
 	private String leakageLeakageHistory; // 1204
 
-	private String testingMaintenance; // 1300
-	private String meterReplace; // 1301
+	/*
+	 * private String testingMaintenance; // 1300
+	 */ private String meterReplace; // 1301
 
 	private String handPumpIndex; // 1400
 	private String handPumpIndent; // 1401
@@ -124,10 +127,10 @@ public class UserRolesDto {
 
 	private String borewellIndex; // 1500
 	private String borewellIndent; // 1501
-	private String borewellWorkOrder; // 1503
-	private String borewellWorkUpdate; // 1504
-	private String borewellHandPumpInspection; // 1505
-	private String borewellMaintenanceHistory; // 1506
+	private String borewellWorkOrder; // 1502
+	private String borewellWorkUpdate; // 1503
+	private String borewellHandPumpInspection; // 1504
+	private String borewellMaintenanceHistory; // 1505
 
 	private String glsrohtIndex; // 1600
 	private String glsrohtIndent; // 1601
@@ -143,9 +146,10 @@ public class UserRolesDto {
 	private String levelsControlInspection; // 1704
 	private String levelsControlHistory; // 1705
 
-	private String waterStorageGlsr; // 1800
-	private String waterStorageoht; // 1801
-
+	/*
+	 * private String waterStorageGlsr; // 1800 private String waterStorageoht; //
+	 * 1801
+	 */
 	private String contactManagement; // 1900
 
 	private String approvals; // 2100

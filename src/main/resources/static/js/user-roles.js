@@ -267,12 +267,12 @@ $(document).ready(function() {
 
 					/* Asset Management User Roles */
 
-					if (jsonobject.assestManagement != null) {
-						$('#set-task-complainthistory').val("300");
-						$('#task-complainthistory').prop('checked', true);
+					if (jsonobject.assetManagement != null) {
+						$('#set-asset-management').val("300");
+						$('#asset-management').prop('checked', true);
 					} else {
-						$('#set-task-complainthistory').val("300N");
-						$('#task-complainthistory').prop('checked', false);
+						$('#set-asset-management').val("300N");
+						$('#asset-management').prop('checked', false);
 					}
 
 					/* Stock Management User Roles */
@@ -288,70 +288,77 @@ $(document).ready(function() {
 						$('#set-inward-matierals').val("401");
 						$('#inward-matierals').prop('checked', true);
 					} else {
-						$('#set-task-complainthistory').val("401N");
+						$('#set-inward-matierals').val("401N");
 						$('#inward-matierals').prop('checked', false);
 					}
+					if (jsonobject.inwardSpares != null) {
+						$('#set-inward-spares').val("402");
+						$('#inward-spares').prop('checked', true);
+					} else {
+						$('#set-inward-spares').val("402N");
+						$('#inward-spares').prop('checked', false);
+					}
 					if (jsonobject.inwardTools != null) {
-						$('#set-inward-tools').val("402");
+						$('#set-inward-tools').val("403");
 						$('#inward-tools').prop('checked', true);
 					} else {
-						$('#set-inward-tools').val("402N");
+						$('#set-inward-tools').val("403N");
 						$('#inward-tools').prop('checked', false);
 					}
 					if (jsonobject.outwardMaterials != null) {
-						$('#set-outward-materials').val("403");
+						$('#set-outward-materials').val("404");
 						$('#outward-materials').prop('checked', true);
 					} else {
-						$('#set-outward-materials').val("403N");
+						$('#set-outward-materials').val("404N");
 						$('#outward-materials').prop('checked', false);
 					}
 					if (jsonobject.outwardSpares != null) {
-						$('#set-outward-spares').val("404");
+						$('#set-outward-spares').val("405");
 						$('#outward-spares').prop('checked', true);
 					} else {
-						$('#set-outward-spares').val("404N");
+						$('#set-outward-spares').val("405N");
 						$('#outward-spares').prop('checked', false);
 					}
 					if (jsonobject.outwardTools != null) {
-						$('#set-outward-tools').val("405");
+						$('#set-outward-tools').val("406");
 						$('#outward-tools').prop('checked', true);
 					} else {
-						$('#set-outward-tools').val("405N");
+						$('#set-outward-tools').val("406N");
 						$('#outward-tools').prop('checked', false);
 					}
 					if (jsonobject.matieralsReturn != null) {
-						$('#set-matierals-return').val("406");
+						$('#set-matierals-return').val("407");
 						$('#matierals-return').prop('checked', true);
 					} else {
-						$('#set-matierals-return').val("406N");
+						$('#set-matierals-return').val("407N");
 						$('#matierals-return').prop('checked', false);
 					}
 					if (jsonobject.sparesReturn != null) {
-						$('#set-spares-return').val("407");
+						$('#set-spares-return').val("408");
 						$('#spares-return').prop('checked', true);
 					} else {
-						$('#set-spares-return').val("407N");
+						$('#set-spares-return').val("408N");
 						$('#spares-return').prop('checked', false);
 					}
 					if (jsonobject.toolsReturn != null) {
-						$('#set-tools-return').val("408");
+						$('#set-tools-return').val("409");
 						$('#tools-return').prop('checked', true);
 					} else {
-						$('#set-tools-return').val("408N");
+						$('#set-tools-return').val("409N");
 						$('#tools-return').prop('checked', false);
 					}
 					if (jsonobject.rejectDamageReturn != null) {
-						$('#set-reject-damage-return').val("409");
+						$('#set-reject-damage-return').val("410");
 						$('#reject-damage-return').prop('checked', true);
 					} else {
-						$('#set-reject-damage-return').val("409N");
+						$('#set-reject-damage-return').val("410N");
 						$('#reject-damage-return').prop('checked', false);
 					}
 					if (jsonobject.stockApprovals != null) {
-						$('#set-stock-approvals').val("410");
+						$('#set-stock-approvals').val("411");
 						$('#stock-approvals').prop('checked', true);
 					} else {
-						$('#set-stock-approvals').val("410N");
+						$('#set-stock-approvals').val("411N");
 						$('#stock-approvals').prop('checked', false);
 					}
 
@@ -454,7 +461,7 @@ $(document).ready(function() {
 						$('#set-meter-details').val("702N");
 						$('#meter-details').prop('checked', false);
 					}
-					if (jsonobject.wardsConsumption != null) {
+					/*if (jsonobject.wardsConsumption != null) {
 						$('#set-wards-consumption').val("703");
 						$('#wards-consumption').prop('checked', true);
 					} else {
@@ -474,7 +481,7 @@ $(document).ready(function() {
 					} else {
 						$('#set-billing-dcb').val("705N");
 						$('#billing-dcb').prop('checked', false);
-					}
+					}*/
 
 
 					/* Pump Management User Roles */
@@ -500,7 +507,7 @@ $(document).ready(function() {
 						$('#set-pump-maintenance-indent').val("802N");
 						$('#pump-maintenance-indent').prop('checked', false);
 					}
-					if (jsonobject.pumpMaintenanceUpdate != null) {
+					/*if (jsonobject.pumpMaintenanceUpdate != null) {
 						$('#set-pump-maintenance-update').val("803");
 						$('#pump-maintenance-update').prop('checked', true);
 					} else {
@@ -520,7 +527,7 @@ $(document).ready(function() {
 					} else {
 						$('#set-pump-maintenance-history').val("805N");
 						$('#pump-maintenance-history').prop('checked', false);
-					}
+					}*/
 
 					/* Pipe Management User Roles */
 
@@ -531,39 +538,32 @@ $(document).ready(function() {
 						$('#set-pipe-dashboard').val("900N");
 						$('#pipe-dashboard').prop('checked', false);
 					}
-					if (jsonobject.pipeMaintenance != null) {
-						$('#set-pipe-maintenance').val("901");
-						$('#pipe-maintenance').prop('checked', true);
-					} else {
-						$('#set-pipe-maintenance').val("901N");
-						$('#pipe-maintenance').prop('checked', false);
-					}
 					if (jsonobject.pipeMaintenanceIndent != null) {
-						$('#set-pipe-maintenance-indent').val("902");
+						$('#set-pipe-maintenance-indent').val("901");
 						$('#pipe-maintenance-indent').prop('checked', true);
 					} else {
-						$('#set-pipe-maintenance-indent').val("902N");
+						$('#set-pipe-maintenance-indent').val("901N");
 						$('#pipe-maintenance-indent').prop('checked', false);
 					}
 					if (jsonobject.pipeMaintenanceUpdate != null) {
-						$('#set-pipe-maintenance-update').val("903");
+						$('#set-pipe-maintenance-update').val("902");
 						$('#pipe-maintenance-update').prop('checked', true);
 					} else {
-						$('#set-pipe-maintenance-update').val("903N");
+						$('#set-pipe-maintenance-update').val("902N");
 						$('#pipe-maintenance-update').prop('checked', false);
 					}
 					if (jsonobject.pipeMaintenanceInspection != null) {
-						$('#set-pipe-maintenance-inspection').val("904");
+						$('#set-pipe-maintenance-inspection').val("903");
 						$('#pipe-maintenance-inspection').prop('checked', true);
 					} else {
-						$('#set-pipe-maintenance-inspection').val("904N");
+						$('#set-pipe-maintenance-inspection').val("903N");
 						$('#pipe-maintenance-inspection').prop('checked', false);
 					}
 					if (jsonobject.pipeMaintenanceHistory != null) {
-						$('#set-pipe-maintenance-history').val("905");
+						$('#set-pipe-maintenance-history').val("904");
 						$('#pipe-maintenance-history').prop('checked', true);
 					} else {
-						$('#set-pipe-maintenance-history').val("905N");
+						$('#set-pipe-maintenance-history').val("904N");
 						$('#pipe-maintenance-history').prop('checked', false);
 					}
 
@@ -660,13 +660,13 @@ $(document).ready(function() {
 
 					/* Meter Management User Roles */
 
-					if (jsonobject.testingMaintenance != null) {
+					/*if (jsonobject.testingMaintenance != null) {
 						$('#set-testing-maintenance').val("1300");
 						$('#testing-maintenance').prop('checked', true);
 					} else {
 						$('#set-testing-maintenance').val("1300N");
 						$('#testing-maintenance').prop('checked', false);
-					}
+					}*/
 					if (jsonobject.meterReplace != null) {
 						$('#set-meter-replace').val("1301");
 						$('#meter-replace').prop('checked', true);
@@ -737,41 +737,41 @@ $(document).ready(function() {
 						$('#borewell-indent').prop('checked', false);
 					}
 					if (jsonobject.borewellWorkOrder != null) {
-						$('#set-borewell-work-order').val("1503");
+						$('#set-borewell-work-order').val("1502");
 						$('#borewell-work-order').prop('checked', true);
 					} else {
-						$('#set-borewell-work-order').val("1503N");
+						$('#set-borewell-work-order').val("1502N");
 						$('#borewell-work-order').prop('checked', false);
 					}
 					if (jsonobject.borewellWorkUpdate != null) {
-						$('#set-borewell-work-update').val("1504");
+						$('#set-borewell-work-update').val("1503");
 						$('#borewell-work-update').prop('checked', true);
 					} else {
-						$('#set-borewell-work-update').val("1504N");
+						$('#set-borewell-work-update').val("1503N");
 						$('#borewell-work-update').prop('checked', false);
 					}
 					if (jsonobject.borewellHandPumpInspection != null) {
-						$('#set-borewell-inspection').val("1505");
+						$('#set-borewell-inspection').val("1504");
 						$('#borewell-inspection').prop('checked', true);
 					} else {
-						$('#set-borewell-inspection').val("1505N");
+						$('#set-borewell-inspection').val("1504N");
 						$('#borewell-inspection').prop('checked', false);
 					}
 					if (jsonobject.borewellMaintenanceHistory != null) {
-						$('#set-borewell-maintenance-history').val("1506");
+						$('#set-borewell-maintenance-history').val("1505");
 						$('#borewell-maintenance-history').prop('checked', true);
 					} else {
-						$('#set-borewell-maintenance-history').val("1506N");
+						$('#set-borewell-maintenance-history').val("1505N");
 						$('#borewell-maintenance-history').prop('checked', false);
 					}
 
 					/* glsroht Management User Roles */
 
 					if (jsonobject.glsrohtIndex != null) {
-						$('#set-borewell-index').val("1600");
+						$('#set-glsroht-index').val("1600");
 						$('#glsroht-index').prop('checked', true);
 					} else {
-						$('#set-borewell-index').val("1600N");
+						$('#set-glsroht-index').val("1600N");
 						$('#glsroht-index').prop('checked', false);
 					}
 					if (jsonobject.glsrohtIndent != null) {
@@ -857,7 +857,7 @@ $(document).ready(function() {
 
 					/* Water Storage User Roles */
 
-					if (jsonobject.waterStorageGlsr != null) {
+					/*if (jsonobject.waterStorageGlsr != null) {
 						$('#set-water-storage-glsr').val("1800");
 						$('#water-storage-glsr').prop('checked', true);
 					} else {
@@ -870,7 +870,7 @@ $(document).ready(function() {
 					} else {
 						$('#set-water-storage-oht').val("1801N");
 						$('#water-storage-oht').prop('checked', false);
-					}
+					}*/
 
 					/* Contact Management User Roles */
 
@@ -908,7 +908,7 @@ $(document).ready(function() {
 						$('#set-monthly-report').val("2201N");
 						$('#monthly-report').prop('checked', false);
 					}
-					
+
 					/* Masters User Roles */
 
 					if (jsonobject.masters != null) {

@@ -140,32 +140,35 @@ $(document).ready(function() {
 	$('#inward-matierals').click(function() {
 		$('#set-inward-matierals').val($('#inward-matierals').is(':checked') ? 401 : "401N");
 	});
+	$('#inward-spares').click(function() {
+		$('#set-inward-spares').val($('#inward-spares').is(':checked') ? 402 : "402N");
+	});
 	$('#inward-tools').click(function() {
-		$('#set-inward-tools').val($('#inward-tools').is(':checked') ? 402 : "402N");
+		$('#set-inward-tools').val($('#inward-tools').is(':checked') ? 403 : "403N");
 	});
 	$('#outward-materials').click(function() {
-		$('#set-outward-materials').val($('#outward-materials').is(':checked') ? 403 : "403N");
+		$('#set-outward-materials').val($('#outward-materials').is(':checked') ? 404 : "404N");
 	});
 	$('#outward-spares').click(function() {
-		$('#set-outward-spares').val($('#outward-spares').is(':checked') ? 404 : "404N");
+		$('#set-outward-spares').val($('#outward-spares').is(':checked') ? 405 : "405N");
 	});
 	$('#outward-tools').click(function() {
-		$('#set-outward-tools').val($('#outward-tools').is(':checked') ? 405 : "405N");
+		$('#set-outward-tools').val($('#outward-tools').is(':checked') ? 406 : "406N");
 	});
 	$('#matierals-return').click(function() {
-		$('#set-matierals-return').val($('#matierals-return').is(':checked') ? 406 : "406N");
+		$('#set-matierals-return').val($('#matierals-return').is(':checked') ? 407 : "407N");
 	});
 	$('#spares-return').click(function() {
-		$('#set-spares-return').val($('#spares-return').is(':checked') ? 407 : "407N");
+		$('#set-spares-return').val($('#spares-return').is(':checked') ? 408 : "408N");
 	});
 	$('#tools-return').click(function() {
-		$('#set-tools-return').val($('#tools-return').is(':checked') ? 408 : "408N");
+		$('#set-tools-return').val($('#tools-return').is(':checked') ? 409 : "409N");
 	});
 	$('#reject-damage-return').click(function() {
-		$('#set-reject-damage-return').val($('#reject-damage-return').is(':checked') ? 409 : "409N");
+		$('#set-reject-damage-return').val($('#reject-damage-return').is(':checked') ? 410 : "410N");
 	});
 	$('#stock-approvals').click(function() {
-		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 410 : "410N");
+		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 411 : "411N");
 	});
 
 	/* Work Order User Roles */
@@ -215,7 +218,7 @@ $(document).ready(function() {
 	$('#meter-details').click(function() {
 		$('#set-meter-details').val($('#meter-details').is(':checked') ? 702 : "702N");
 	});
-	$('#wards-consumption').click(function() {
+	/*$('#wards-consumption').click(function() {
 		$('#set-wards-consumption').val($('#wards-consumption').is(':checked') ? 703 : "703N");
 	});
 	$('#dma-payment').click(function() {
@@ -223,7 +226,7 @@ $(document).ready(function() {
 	});
 	$('#billing-dcb').click(function() {
 		$('#set-billing-dcb').val($('#billing-dcb').is(':checked') ? 705 : "705N");
-	});
+	});*/
 
 	/* Pump Management User Roles */
 
@@ -236,7 +239,7 @@ $(document).ready(function() {
 	$('#pump-maintenance-indent').click(function() {
 		$('#set-pump-maintenance-indent').val($('#pump-maintenance-indent').is(':checked') ? 802 : "802N");
 	});
-	$('#pump-maintenance-update').click(function() {
+	/*$('#pump-maintenance-update').click(function() {
 		$('#set-pump-maintenance-update').val($('#pump-maintenance-update').is(':checked') ? 803 : "803N");
 	});
 	$('#pump-maintenance-inspection').click(function() {
@@ -244,27 +247,25 @@ $(document).ready(function() {
 	});
 	$('#pump-maintenance-history').click(function() {
 		$('#set-pump-maintenance-history').val($('#pump-maintenance-history').is(':checked') ? 805 : "805N");
-	});
+	});*/
 
 	/* Pipe Management User Roles */
 
 	$('#pipe-dashboard').click(function() {
 		$('#set-pipe-dashboard').val($('#pipe-dashboard').is(':checked') ? 900 : "900N");
 	});
-	$('#pipe-maintenance').click(function() {
-		$('#set-pipe-maintenance').val($('#pipe-maintenance').is(':checked') ? 901 : "901N");
-	});
+
 	$('#pipe-maintenance-indent').click(function() {
-		$('#set-pipe-maintenance-indent').val($('#pipe-maintenance-indent').is(':checked') ? 902 : "902N");
+		$('#set-maintenance-indent').val($('#pipe-maintenance-indent').is(':checked') ? 901 : "901N");
 	});
 	$('#pipe-maintenance-update').click(function() {
-		$('#set-pipe-maintenance-update').val($('#pipe-maintenance-update').is(':checked') ? 903 : "903N");
+		$('#set-pipe-maintenance-update').val($('#pipe-maintenance-update').is(':checked') ? 902 : "902N");
 	});
 	$('#pipe-maintenance-inspection').click(function() {
-		$('#set-pipe-maintenance-inspection').val($('#pipe-maintenance-inspection').is(':checked') ? 904 : "904N");
+		$('#set-pipe-maintenance-inspection').val($('#pipe-maintenance-inspection').is(':checked') ? 903 : "903N");
 	});
 	$('#pipe-maintenance-history').click(function() {
-		$('#set-pipe-maintenance-history').val($('#pipe-maintenance-history').is(':checked') ? 905 : "905N");
+		$('#set-pipe-maintenance-history').val($('#pipe-maintenance-history').is(':checked') ? 904 : "904N");
 	});
 
 	/* Vehicle Management User Roles */
@@ -275,9 +276,9 @@ $(document).ready(function() {
 	$('#vehicle-history').click(function() {
 		$('#set-vehicle-history').val($('#vehicle-history').is(':checked') ? 1101 : "1101N");
 	});
-	$('#vehicle-fuel-management').click(function() {
+	/*$('#vehicle-fuel-management').click(function() {
 		$('#set-vehicle-fuel-management').val($('#vehicle-fuel-management').is(':checked') ? 1102 : "1102N");
-	});
+	});*/
 	$('#vehicle-index').click(function() {
 		$('#set-vehicle-index').val($('#vehicle-index').is(':checked') ? 1103 : "1103N");
 	});
@@ -311,9 +312,9 @@ $(document).ready(function() {
 
 	/* Meter Management User Roles */
 
-	$('#testing-maintenance').click(function() {
+	/*$('#testing-maintenance').click(function() {
 		$('#set-testing-maintenance').val($('#testing-maintenance').is(':checked') ? 1300 : "1300N");
-	});
+	});*/
 	$('#meter-replace').click(function() {
 		$('#set-meter-replace').val($('#meter-replace').is(':checked') ? 1301 : "1301N");
 	});
@@ -348,16 +349,16 @@ $(document).ready(function() {
 		$('#set-borewell-indent').val($('#borewell-indent').is(':checked') ? 1501 : "1501N");
 	});
 	$('#borewell-work-order').click(function() {
-		$('#set-borewell-work-order').val($('#borewell-work-order').is(':checked') ? 1503 : "1503N");
+		$('#set-borewell-work-order').val($('#borewell-work-order').is(':checked') ? 1502 : "1502N");
 	});
 	$('#borewell-work-update').click(function() {
-		$('#set-borewell-work-update').val($('#borewell-work-update').is(':checked') ? 1504 : "1504N");
+		$('#set-borewell-work-update').val($('#borewell-work-update').is(':checked') ? 1503 : "1503N");
 	});
 	$('#borewell-inspection').click(function() {
-		$('#set-borewell-inspection').val($('#borewell-inspection').is(':checked') ? 1505 : "1505N");
+		$('#set-borewell-inspection').val($('#borewell-inspection').is(':checked') ? 1504 : "1504N");
 	});
 	$('#borewell-maintenance-history').click(function() {
-		$('#set-borewell-maintenance-history').val($('#borewell-maintenance-history').is(':checked') ? 1506 : "1506N");
+		$('#set-borewell-maintenance-history').val($('#borewell-maintenance-history').is(':checked') ? 1505 : "1505N"); 5
 	});
 
 	/* glsroht Management User Roles */
@@ -404,12 +405,12 @@ $(document).ready(function() {
 
 	/* Water Storage User Roles */
 
-	$('#water-storage-glsr').click(function() {
+	/*$('#water-storage-glsr').click(function() {
 		$('#set-water-storage-glsr').val($('#water-storage-glsr').is(':checked') ? 1800 : "1800N");
 	});
 	$('#water-storage-oht').click(function() {
 		$('#set-water-storage-oht').val($('#water-storage-oht').is(':checked') ? 1801 : "1801N");
-	});
+	});*/
 
 	/* Contact Management User Roles */
 

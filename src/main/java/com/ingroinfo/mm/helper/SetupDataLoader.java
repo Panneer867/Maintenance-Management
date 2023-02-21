@@ -96,23 +96,199 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		Privilege taskJobcard = createPrivilegeIfNotFound(205, "TASK_JOBCARD");
 		Privilege taskComplainthistory = createPrivilegeIfNotFound(206, "TASK_COMPLAINTHISTORY");
 
+		/* Asset Management User Roles */
+
+		Privilege assestManagement = createPrivilegeIfNotFound(300, "ASSET_MANAGEMENT");
+
+		/* Stock Management User Roles */
+
+		Privilege stockAvailable = createPrivilegeIfNotFound(400, "STOCKS_AVAILABLE");
+		Privilege inwardMatierals = createPrivilegeIfNotFound(401, "INWARD_MATERIALS");
+		Privilege inwardSpares = createPrivilegeIfNotFound(402, "INWARD_SPARES");
+		Privilege inwardTools = createPrivilegeIfNotFound(403, "INWARD_TOOLS");
+		Privilege outwardMaterials = createPrivilegeIfNotFound(404, "OUTWARD_MATERIALS");
+		Privilege outwardSpares = createPrivilegeIfNotFound(405, "OUTWARD_SPARES");
+		Privilege outwardTools = createPrivilegeIfNotFound(406, "OUTWARD_TOOLS");
+		Privilege matieralsReturn = createPrivilegeIfNotFound(407, "MATERIALS_RETURN");
+		Privilege sparesReturn = createPrivilegeIfNotFound(408, "SPARES_RETURN");
+		Privilege toolsReturn = createPrivilegeIfNotFound(409, "TOOLS_RETURN");
+		Privilege rejectDamageReturn = createPrivilegeIfNotFound(410, "REJECT_DAMAGE_RETURN");
+		Privilege stockApprovals = createPrivilegeIfNotFound(411, "STOCKS_APPROVALS");
+
+		/* Work Order User Roles */
+
+		Privilege generateWorkOrder = createPrivilegeIfNotFound(500, "GENERATE_WORKORDER");
+		Privilege holdWorkOrder = createPrivilegeIfNotFound(501, "HOLD_WORKORDER");
+		Privilege cancelWorkOrder = createPrivilegeIfNotFound(502, "CANCEL_WORKORDER");
+		Privilege workEstmation = createPrivilegeIfNotFound(503, "WORK_ESTIMATION");
+
+		/* Employee Management User Roles */
+
+		Privilege employeeDashBoard = createPrivilegeIfNotFound(600, "EMPLOYEE_DASHBOARD");
+		Privilege employeeMaster = createPrivilegeIfNotFound(601, "EMPLOYEE_MASTER");
+		Privilege attendance = createPrivilegeIfNotFound(602, "EMPLOYEE_ATTENDANCE");
+		Privilege salary = createPrivilegeIfNotFound(603, "EMPLOYEE_SALARY");
+		Privilege inspection = createPrivilegeIfNotFound(604, "EMPLOYEE_INSPECTION");
+		Privilege leave = createPrivilegeIfNotFound(605, "EMPLOYEE_LEAVE");
+
+		/* Billing Management User Roles */
+
+		Privilege consMasterDetails = createPrivilegeIfNotFound(700, "CONSUMER_MASTER");
+		Privilege consTransDetails = createPrivilegeIfNotFound(701, "CONSUMER_TRANSACTION");
+		Privilege meterDetails = createPrivilegeIfNotFound(702, "METER_DETAILS");
+
+		/* Pump Management User Roles */
+
+		Privilege pumpDashboard = createPrivilegeIfNotFound(800, "PUMP_DASHBOARD");
+		Privilege pumpMaintenance = createPrivilegeIfNotFound(801, "PUMP_MAINTENANCE");
+		Privilege pumpMaintenanceIndent = createPrivilegeIfNotFound(802, "PUMP_INDENT");
+
+		/* Pipe Management User Roles */
+
+		Privilege pipeDashboard = createPrivilegeIfNotFound(900, "PIPE_DASHBOARD");
+		Privilege pipeMaintenanceIndent = createPrivilegeIfNotFound(901, "PIPE_MAINTENANCE_INDENT");
+		Privilege pipeMaintenanceUpdate = createPrivilegeIfNotFound(902, "PIPE_MAINTENANCE_UPDATE");
+		Privilege pipeMaintenanceInspection = createPrivilegeIfNotFound(903, "PIPE_MAINTENANCE_INSPECTION");
+		Privilege pipeMaintenanceHistory = createPrivilegeIfNotFound(904, "PIPE_MAINTENANCE_HISTORY");
+
+		/* Vehicle Management User Roles */
+
+		Privilege vehicleTrackingMangement = createPrivilegeIfNotFound(1100, "VEHICLE_MANAGEMENT");
+		Privilege vehicleHistory = createPrivilegeIfNotFound(1101, "VEHICLE_HISTORY");
+		Privilege vehicleIndex = createPrivilegeIfNotFound(1103, "VEHICLE_INDEX");
+		Privilege vehicleManagementIndex = createPrivilegeIfNotFound(1104, "VEHICLE_MANAGEMENT_INDEX");
+		Privilege vehicleInspection = createPrivilegeIfNotFound(1105, "VEHICLE_INSPECTION");
+		Privilege vehicleWorkOrderView = createPrivilegeIfNotFound(1106, "VEHICLE_WORKORDER");
+
+		/* Leakage Management User Roles */
+
+		Privilege leakageDashboard = createPrivilegeIfNotFound(1200, "LEAKAGE_DASHBOARD");
+		Privilege leakageIndent = createPrivilegeIfNotFound(1201, "LEAKAGE_INDENET");
+		Privilege leakageMaintenanceUpdate = createPrivilegeIfNotFound(1202, "LEAKAGE_MAINTENANCE");
+		Privilege leakageWorkInspection = createPrivilegeIfNotFound(1203, "LEAKAGE_WORK_INSPECTION");
+		Privilege leakageLeakageHistory = createPrivilegeIfNotFound(1204, "LEAKAGE_HISTORY");
+
+		/* Meter Management User Roles */
+
+		Privilege meterReplace = createPrivilegeIfNotFound(1301, "METER_REPLACEMENT");
+
+		/* Hand Pump Management User Roles */
+
+		Privilege handPumpIndex = createPrivilegeIfNotFound(1400, "HANDPUMP_INDEX");
+		Privilege handPumpIndent = createPrivilegeIfNotFound(1401, "HANDPUMP_INDENT");
+		Privilege handPumpWorkOrder = createPrivilegeIfNotFound(1402, "HANDPUMP_WORKORDER");
+		Privilege handPumpWorkUpdate = createPrivilegeIfNotFound(1403, "HANDPUMP_WORKUPDATE");
+		Privilege handPumpHandPumpInspection = createPrivilegeIfNotFound(1404, "HANDPUMP_INSPECTION");
+		Privilege handPumpMaintenanceHistory = createPrivilegeIfNotFound(1405, "HANDPUMP_HISTORY");
+
+		/* Borewell Management User Roles */
+
+		Privilege borewellIndex = createPrivilegeIfNotFound(1500, "BOREWELL_INDEX");
+		Privilege borewellIndent = createPrivilegeIfNotFound(1501, "BOREWELL_INDENT");
+		Privilege borewellWorkOrder = createPrivilegeIfNotFound(1502, "BOREWELL_WORKORDER");
+		Privilege borewellWorkUpdate = createPrivilegeIfNotFound(1503, "BOREWELL_WORKUPDATE");
+		Privilege borewellHandPumpInspection = createPrivilegeIfNotFound(1504, "BOREWELL_INSPECTION");
+		Privilege borewellMaintenanceHistory = createPrivilegeIfNotFound(1505, "BOREWELL_HISTORY");
+
+		/* glsroht Management User Roles */
+
+		Privilege glsrohtIndex = createPrivilegeIfNotFound(1600, "GLSR_OHT_INDEX");
+		Privilege glsrohtIndent = createPrivilegeIfNotFound(1601, "GLSR_OHT_INDENT");
+		Privilege glsrohtWorkOrder = createPrivilegeIfNotFound(1602, "GLSR_OHT_WORKORDER");
+		Privilege glsrohtWorkUpdate = createPrivilegeIfNotFound(1603, "GLSR_OHT_WORKUPDATE");
+		Privilege glsrohtHandPumpInspection = createPrivilegeIfNotFound(1604, "GLSR_OHT_INSPECTION");
+		Privilege glsrohtMaintenanceHistory = createPrivilegeIfNotFound(1605, "GLSR_OHT_HISTORY");
+
+		/* Levels Control User Roles */
+
+		Privilege levelsControlIndex = createPrivilegeIfNotFound(1700, "LEVELS_CONTROL_INDEX");
+		Privilege levelsControlIndent = createPrivilegeIfNotFound(1701, "LEVELS_CONTROL_INDENT");
+		Privilege levelsControlWorkOrder = createPrivilegeIfNotFound(1702, "LEVELS_CONTROL_WORKORDER");
+		Privilege levelsControlWorkUpdate = createPrivilegeIfNotFound(1703, "LEVELS_CONTROL_WORKUPDATE");
+		Privilege levelsControlInspection = createPrivilegeIfNotFound(1704, "LEVELS_CONTROL_INSPECTION");
+		Privilege levelsControlHistory = createPrivilegeIfNotFound(1705, "LEVELS_CONTROL_HISTORY");
+
+		/* Contact Management User Roles */
+
+		Privilege contactManagement = createPrivilegeIfNotFound(1900, "CONTACT_MANAGEMENT");
+
+		/* Approvals User Roles */
+
+		Privilege approvals = createPrivilegeIfNotFound(2100, "APPROVALS");
+
+		/* MIS Reports User Roles */
+
+		Privilege dailyReport = createPrivilegeIfNotFound(2200, "MIS_DAILY_REPORT");
+		Privilege monthlyReport = createPrivilegeIfNotFound(2201, "MIS_MONTHLY_REPORT");
+
+		/* Masters User Roles */
+
+		Privilege masters = createPrivilegeIfNotFound(2300, "MASTERS");
+
 		/* Assigning Privileges */
 
 		List<Privilege> adminPrivileges = Arrays.asList(adminpage, companyManagement, createCompany, editCompany,
 				viewCompany, deleteCompany, branchManagement, createBranch, editBranch, viewBranch, deleteBranch,
 				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
 				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
-				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory);
+				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
+				inwardMatierals, inwardSpares, inwardTools, outwardMaterials, outwardSpares, outwardTools,
+				matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn, stockApprovals, generateWorkOrder,
+				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
+				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard, pumpMaintenance,
+				pumpMaintenanceIndent, pipeDashboard, pipeMaintenanceIndent, pipeMaintenanceUpdate,
+				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
+				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
+				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
+				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
+				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
+				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
+				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
+				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,
+				contactManagement, approvals, dailyReport, monthlyReport, masters);
 
-		List<Privilege> companyPrivileges = Arrays.asList(adminpage, branchManagement, createBranch, editBranch,
-				viewBranch, deleteBranch, userManagement, createUser, editUser, deleteUser, roleManagement, createRole,
-				editRole, deleteRole, userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe,
-				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory);
+		List<Privilege> companyPrivileges = Arrays.asList(adminpage, companyManagement, createCompany, editCompany,
+				viewCompany, deleteCompany, branchManagement, createBranch, editBranch, viewBranch, deleteBranch,
+				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
+				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
+				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
+				inwardMatierals, inwardSpares, inwardTools, outwardMaterials, outwardSpares, outwardTools,
+				matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn, stockApprovals, generateWorkOrder,
+				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
+				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard, pumpMaintenance,
+				pumpMaintenanceIndent, pipeDashboard, pipeMaintenanceIndent, pipeMaintenanceUpdate,
+				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
+				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
+				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
+				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
+				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
+				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
+				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
+				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,
+				contactManagement, approvals, dailyReport, monthlyReport, masters);
 
-		List<Privilege> branchPrivileges = Arrays.asList(adminpage, userManagement, createUser, editUser, deleteUser,
-				roleManagement, createRole, editRole, deleteRole, userRoles, updateUserRoles, importExport,
-				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard,
-				taskComplainthistory);
+		List<Privilege> branchPrivileges = Arrays.asList(adminpage, companyManagement, createCompany, editCompany,
+				viewCompany, deleteCompany, branchManagement, createBranch, editBranch, viewBranch, deleteBranch,
+				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
+				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
+				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
+				inwardMatierals, inwardSpares, inwardTools, outwardMaterials, outwardSpares, outwardTools,
+				matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn, stockApprovals, generateWorkOrder,
+				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
+				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard, pumpMaintenance,
+				pumpMaintenanceIndent, pipeDashboard, pipeMaintenanceIndent, pipeMaintenanceUpdate,
+				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
+				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
+				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
+				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
+				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
+				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
+				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
+				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,
+				contactManagement, approvals, dailyReport, monthlyReport, masters);
 
 		/* Roles */
 
