@@ -128,7 +128,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardMaterials.setSupplier(inward.getSuppliedOn());
+			inwardMaterials.setSupplier(inward.getSupplier());
 			inwardMaterials.setSuppliedOn(inward.getSuppliedOn());
 			inwardMaterials.setGstType(inward.getGstType());
 			inwardMaterials.setIgst(inward.getIgst());
@@ -243,7 +243,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardSpares.setSupplier(inward.getSuppliedOn());
+			inwardSpares.setSupplier(inward.getSupplier());
 			inwardSpares.setSuppliedOn(inward.getSuppliedOn());
 			inwardSpares.setGstType(inward.getGstType());
 			inwardSpares.setIgst(inward.getIgst());
@@ -357,7 +357,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardTools.setSupplier(inward.getSuppliedOn());
+			inwardTools.setSupplier(inward.getSupplier());
 			inwardTools.setSuppliedOn(inward.getSuppliedOn());
 			inwardTools.setGstType(inward.getGstType());
 			inwardTools.setIgst(inward.getIgst());
