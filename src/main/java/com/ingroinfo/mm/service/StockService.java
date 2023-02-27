@@ -84,4 +84,8 @@ public interface StockService {
 
 	List<InwardApprovedTools> getApprovedToolsLists();
 
+	List<Long> getWorkOrders();
+
+	List<InwardApprovedMaterials> getWorkOrderItems(Long workOrderId);
+
 }

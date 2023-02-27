@@ -298,18 +298,17 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/materials/entry' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="outward-stocks">
 										<a th:href="@{/stocks/outward/materials/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Outward Materials Issue
+												Outward Stocks
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										<!--<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/spares/entry' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/outward/spares/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -320,7 +319,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+								<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/tools/entry' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/outward/tools/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -363,7 +362,7 @@
 												Stock Tools Return
 											</span>
 										</a>
-									</li>
+									</li>-->
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/reject/damage' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/reject/damage}" class="m-menu__link ">

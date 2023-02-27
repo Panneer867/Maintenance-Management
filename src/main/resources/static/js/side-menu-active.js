@@ -161,6 +161,13 @@ $(document).ready(function() {
 		}
 	});
 	
+	
+	$(function() {
+		if (window.location.href.match('/stocks/outward')) {
+			$("#outward-stocks").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	
 	/**************end of Stocks top tabs *************** */
 });
 

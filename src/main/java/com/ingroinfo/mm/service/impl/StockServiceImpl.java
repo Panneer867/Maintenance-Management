@@ -3,9 +3,12 @@ package com.ingroinfo.mm.service.impl;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import com.ingroinfo.mm.dao.InwardTempMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardTempSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
+import com.ingroinfo.mm.dao.WorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
@@ -31,6 +35,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.StockService;
@@ -72,6 +77,9 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
+
+	@Autowired
+	private WorkOrdersRepository workOrdersRepository;
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -410,6 +418,28 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<InwardApprovedTools> getApprovedToolsLists() {
 		return inwardApprovedToolsRepository.findAll();
+	}
+
+	@Override
+	public List<Long> getWorkOrders() {
+
+		return workOrdersRepository.findAll().stream().map(orders -> orders.getWorkOrderId()).distinct()
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<InwardApprovedMaterials> getWorkOrderItems(Long workOrderId) {
+		
+		List<WorkOrders> workOrders = workOrdersRepository.findByWorkOrderId(workOrderId);
+		List<Long> itemIds = workOrders.stream().map(WorkOrders::getItemId).distinct().collect(Collectors.toList());
+		List<InwardApprovedMaterials> inwardApprovedMaterials = new ArrayList<>();
+		
+		for (Long itemId : itemIds) {
+			List<InwardApprovedMaterials> iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
+			inwardApprovedMaterials.addAll(iam);
+		}
+		
+		return inwardApprovedMaterials;
 	}
 
 }
