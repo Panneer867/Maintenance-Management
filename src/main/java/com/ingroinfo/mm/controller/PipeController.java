@@ -45,14 +45,15 @@ public class PipeController {
 		return "/pages/pipe_management/pipe_index";
 	}
 	
-	@GetMapping("/pipe-viewwork")
+	@GetMapping("/viewwork")
 	public String pipeViewWork() {
 		return "/pages/pipe_management/pipe_viewwork";
 	}
 
 	@GetMapping("/maintenance-indent")
 	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_INDENT')")
-	public String maintenanceIndent() {
+	public String maintenanceIndent(Model model) {
+		model.addAttribute("title", "Pipe | Indent | Maintenance Management");
 		return "/pages/pipe_management/pipe_maintenance_indent";
 	}
 

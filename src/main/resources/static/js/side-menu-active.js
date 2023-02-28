@@ -161,13 +161,32 @@ $(document).ready(function() {
 		}
 	});
 	
+	/**************end of Stocks top tabs *************** */
+	
+	/**************Strat of Task Updated tabs *************** */
 	
 	$(function() {
-		if (window.location.href.match('/stocks/outward')) {
-			$("#outward-stocks").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/task/je')) {
+			$("#task-update-je").addClass("m-menu__item--active sub-menu-active");
+		}
+	});	
+	$(function() {
+		if (window.location.href.match('/task/aee')) {
+			$("#task-update-aee").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/task/ee')) {
+			$("#task-update-ee").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/task/commissioner')) {
+			$("#task-update-com").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	
-	/**************end of Stocks top tabs *************** */
 });
+
+
 

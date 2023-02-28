@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +31,9 @@ import com.ingroinfo.mm.service.BillingService;
 
 @Service
 public class BillingServiceImpl implements BillingService {
+	
+	@Value("${ubarmsApi}")
+	String ubarmsUrl;
 
 	@Override
 	public ConsumersDto getConsumerData(String consumerId) {
@@ -39,7 +44,7 @@ public class BillingServiceImpl implements BillingService {
 
 		try {
 			consumersDto = mapper.readValue(
-					new URL("http://localhost:9595/ubarms/arms/getconsumerformm/" + consumerId), ConsumersDto.class);
+					new URL(ubarmsUrl + "getconsumerformm/" + consumerId), ConsumersDto.class);
 			//System.out.println(consumersDto);
 		} catch (Exception e) {
 			System.out.println("Exception : " + e.getMessage());
@@ -55,7 +60,7 @@ public class BillingServiceImpl implements BillingService {
 		MeterDtlsDto meterDtlsDto = null;
 		try {
 			 meterDtlsDto = mapper.readValue(
-					new URL("http://localhost:9595/ubarms/arms/getmeterDtlsmm/" + consumerId), MeterDtlsDto.class);
+					new URL(ubarmsUrl + "getmeterDtlsmm/" + consumerId), MeterDtlsDto.class);
 			//System.out.println(meterDtlsDto);
 		} catch (Exception e) {
 			System.out.println("Connection Failed !!"+e.getMessage());
@@ -69,7 +74,7 @@ public class BillingServiceImpl implements BillingService {
 		
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getTransactionFormm/"+consumerId);
+			URL url = new URL( ubarmsUrl + "getTransactionFormm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -112,7 +117,7 @@ public class BillingServiceImpl implements BillingService {
 		
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getcashHistoryFormm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getcashHistoryFormm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -152,7 +157,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<RebateHistoryDto> getRebateHistory(String consumerId) throws IOException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getRebatehistorymm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getRebatehistorymm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -191,7 +196,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<IntrestWaveOffDto> getInterestWaveOff(String consumerId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getintrestWavehistory/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getintrestWavehistory/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -230,7 +235,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<WrongPostingDto> getWrongPostingDtls(String consumerId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getwrongpostingmm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getwrongpostingmm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -269,7 +274,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<ChequeBounceDto> getChequeBounceDtls(String consumerId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getchequebouncemm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getchequebouncemm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -308,7 +313,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<ReconnectionsDto> getReconnectionDtls(String consumerId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getreconnectionmm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getreconnectionmm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -347,7 +352,7 @@ public class BillingServiceImpl implements BillingService {
 	public List<DisconnectionsDto> getDisConnectionDtls(String consumerId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getdisconnectionmm/"+consumerId);
+			URL url = new URL(ubarmsUrl + "getdisconnectionmm/"+consumerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");

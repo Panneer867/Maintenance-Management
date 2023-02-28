@@ -35,4 +35,10 @@ public interface TaskUpdateService {
 
 	//Send  Esclatations Data To UBARMS
 	ComplaintDto submitEsclations(ComplaintDto complaintDto);
+	
+	//get List of complaint data by Department and Complain Status and UserId wise
+	List<ComplaintDto> getComplainByDeptComplStsUserId(String department,String complSts,Long userId);
+	
+	//get List of complaint data by Department and Complain Status wise
+	List<ComplaintDto> getComplainByDeptComplSts(String department,String complSts);
 }

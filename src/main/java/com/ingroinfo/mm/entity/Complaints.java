@@ -91,7 +91,7 @@ public class Complaints {
 	@Column(name = "ESCLATE_FROM_NAME")
 	private String esclatedFromName;
 	@Column(name = "ESCLATE_FROM_ID")
-	private String esclatedFromId;
+	private String esclatedFromId;		
 	@Column(name = "ESCLATE_TO")
 	private String esclatedTo;
 	
@@ -111,4 +111,8 @@ public class Complaints {
 	private String esclatedToName;
 	@Column(name = "ESCLATED_RESON")
 	private String esclatedReason;
+	@Column(name = "ESCLATED_TYPE")
+	private String esclationType;
+	@Column(name = "ESCLATED_LAVEL")
+	private String esclationLavel;
 }

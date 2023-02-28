@@ -2,9 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,11 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ingroinfo.mm.dto.ComplaintDto;
+import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 import com.ingroinfo.mm.dto.PumpMasterDto;
+import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.DepartmentIdMasterService;
 import com.ingroinfo.mm.service.PumpMaintenanceService;
-import com.ingroinfo.mm.service.PumpMasterService;
+import com.ingroinfo.mm.service.TaskUpdateService;
 
 @Controller
 @RequestMapping("/pump")
@@ -31,9 +34,13 @@ public class PumpController {
 	}
 	
 	@Autowired
-	private PumpMasterService pumpMasterService; 	
+	private DepartmentIdMasterService deptIdMasterService;			
 	@Autowired
 	private PumpMaintenanceService pumpMaintenService;
+	@Autowired
+	private TaskUpdateService taskUpdateService;
+	@Autowired
+	private AdminService adminService;
 	
 	//Handler For Open dashBoard
 	@GetMapping("/dashboard")
@@ -47,26 +54,11 @@ public class PumpController {
 	@GetMapping("/maintenance")
 	@PreAuthorize("hasAuthority('PUMP_MAINTENANCE')")
 	public String pumpMaster(Model model) {
-		model.addAttribute("title", "Pump | Maintenance | Manintenance Management");
+		model.addAttribute("title", "Pump | Index | Manintenance Management");
 		model.addAttribute("pumps", new PumpMasterDto());
 		return "/pages/pump_house/pump_maintenance";
 	}
-	
-	//Handler For get Pipe Master Data
-	@GetMapping("/getPumpMaster")
-	public String getPumpDataFromMaster(String pumpId,Model model,HttpSession session) {
-		try {
-			PumpMasterDto pumpMasterDto = this.pumpMasterService.getPumpDataByPumpId(pumpId);
-			model.addAttribute("pumps", pumpMasterDto); 
-		} catch (Exception e) {
-			System.out.println("Exception :: "+e.getMessage());
-			session.setAttribute("message", new Message("Pump Id Is Not Present !!","danger"));
-			return "redirect:/pump/maintenance";
-		}
-		model.addAttribute("title", "Pump | Maintenance | Manintenance Management");
-		return "/pages/pump_house/pump_maintenance";
-	}
-	
+			
 	//Handler For Saving Pump Maintenance Data
 	@PostMapping("/savepump-maintenance")
 	public String savePumpMaintenance(PumpMaintenanceDto pumpMaintenDto,HttpSession session) {
@@ -77,13 +69,32 @@ public class PumpController {
 	}
 	
 	//handler For Open Pump Maintenance Indent Page
-	@GetMapping("/maintenance-intent")
+	@GetMapping("/maintenance/indent")
 	@PreAuthorize("hasAuthority('PUMP_INDENT')")
-	public String pumpMaintenanceIntent(Model model) {		
-		List<PumpMaintenanceDto> listOfPumpMainens = this.pumpMaintenService.getAllMaintenance();
-		model.addAttribute("listOfPumpMainens", listOfPumpMainens);
-		model.addAttribute("pumpMaintenData", new PumpMaintenanceDto());
-		model.addAttribute("title", "Pump | Maintenance Indent | Manintenance Management");
+	public String pumpMaintenanceIntent(Model model,Principal principal) {				
+		model.addAttribute("pumpMaintenData", new PumpMaintenanceDto());	
+		User user = adminService.getUserByUsername(principal.getName());
+		String masterIdName="Indent Id";
+		String deptName ="Pump Dept";
+		Long userId = user.getUbarmsUserId();
+		String complSts = "NeedMaterial";
+		try {
+			
+			if (userId.equals(1L) ) {
+				List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(deptName, complSts);
+				model.addAttribute("complList", complaintDtos);
+			}else {
+				List<ComplaintDto> complaintDtos= this.taskUpdateService.getComplainByDeptComplStsUserId(deptName, complSts, userId);
+				model.addAttribute("complList", complaintDtos);
+			}
+			
+			DepartmentIdMasterDto departmentIdMasterDto = this.deptIdMasterService.getByMasterIdNameAndDeptName(masterIdName, deptName);			
+			model.addAttribute("deptMaster", departmentIdMasterDto);
+		} catch (Exception e) {
+			
+		}
+		
+		model.addAttribute("title", "Pump | Indent | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_intent";
 	}
 	
@@ -98,19 +109,22 @@ public class PumpController {
 		return "/pages/pump_house/pump_maintenance_intent";
 	}
 	
-	@GetMapping("/maintenance-work")
-	public String pumpMaintenanceWork() {
-		return "/pages/pump_house/pump_maintanace_work";
+	@GetMapping("/maintenance/update")
+	public String pumpMaintenanceUpdate(Model model) {
+		model.addAttribute("title", "Pump | Update | Manintenance Management");
+		return "/pages/pump_house/pump_maintenance_update";
 	}
 	
-	@GetMapping("/maintenance-inspection")
-	public String pumpMaintenanceInspection() {
-		return "/pages/pump_house/pump_maintanace_inspection";
+	@GetMapping("/maintenance/inspection")
+	public String pumpMaintenanceInspection(Model model) {
+		model.addAttribute("title", "Pump | Inspection | Manintenance Management");
+		return "/pages/pump_house/pump_maintenance_inspection";
 	}
 	
-	@GetMapping("/maintenance-history")
-	public String pumpMaintenanceHistory() {
-		return "/pages/pump_house/pump_maintanace_history";
+	@GetMapping("/maintenance/history")
+	public String pumpMaintenanceHistory(Model model) {
+		model.addAttribute("title", "Pump | History | Manintenance Management");
+		return "/pages/pump_house/pump_maintenance_history";
 	}
 
 }

@@ -24,6 +24,7 @@
 								<label for="category" class="col-sm-3 col-form-label">Category</label>
 								<div class="col-sm-6">
 									<select class="form-select form-select-sm" name="category" required>
+									    <option value="">--Select--</option>
 										<option th:each="category:${listOfCategory}" th:value="${category.categoryName}"
 											th:text="${category.categoryName}">
 										</option>
@@ -34,14 +35,14 @@
 								<label for="itemName" class="col-sm-3 col-form-label">Item Name</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control form-control-sm" id="itemName"
-										name="itemName" required>
+										name="itemName" required placeholder="Enter Item Name">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="hsnCode" class="col-sm-3 col-form-label">HSN Code</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control form-control-sm" id="hsnCode" name="hsnCode"
-										required maxlength="8">
+										required maxlength="8" placeholder="Enter HsnCode ">
 								</div>
 							</div>
 						</div>

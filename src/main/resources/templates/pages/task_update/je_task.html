@@ -262,9 +262,8 @@
 							<div class="row mt-2">
 								<div class="form-group col-md-12">
 									<label for="fieldVisitedRemark">Field Visit Remarks</label>
-									<textarea type="text" class="form-control form-control-sm " id="fieldVisitedRemark"
-										placeholder="Write Remarks After Visited" name="fieldVisitedRemark">
-									</textarea>
+									<textarea type="text" class="form-control form-control-sm " id="field-visit-remark"
+										placeholder="Write Job Done Remarks" name="fieldVisitedRemark"></textarea>
 								</div>
 							</div>
 
@@ -277,23 +276,27 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group col-md-3 mt-2">
-									<label for="jobDoneNotDone">Job done/not done</label>
+								<div class="form-group col-md-4 mt-2">
+									<label for="jobDoneNotDone">Job Done/Not Done/Esclate</label>
 									<select class="form-select" id="job-done-notdone" name="jobDoneNotDone"
 										onchange="showDiv('tutorial', this)"
 										aria-label="Example select with button addon">
+										<option value="">--Select--</option>
 										<option value="Y">Done</option>
-										<option value="N">Not Done </option>
-
+										<option value="N">Not Done</option>
+                                        <option value="E">Esclate</option>
 									</select>
 								</div>
-
-								<div class="form-group col-md-8 mt-4 ">
-									<button type="submit" id="gen-emplabours-submit"
-										class="btn btn-primary w-25 text-center">Without</button>
-									<a type="submit" th:href="@{/workorder/budget-estimation}"
-										class="btn btn-primary w-25 text-center">With Metrials</a>
+								
+								<div class="form-group col-md-7" style="padding-left: 99px;top: 30px;right: 41px;">								 
+								  <button type="submit" id="with-material-button" class="btn btn-primary">With Material</button>
 								</div>
+								
+
+								<!--<div class="form-group col-md-8" id="material-link" style="padding-left: 131px;top: 30px;">								    									
+									<a type="submit" th:href="@{'/task/open-indent/'+${complDtls.complNo}}"
+									   class="btn btn-primary w-25 text-center">With Metrials</a>
+								</div>-->
 							</div>
 							<div id="tutorial">
 								<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
@@ -382,7 +385,7 @@
 							<tbody>
 								<tr th:each="allCompl : ${jeComplainList}" class="text-center">
 									<td class="fs-6">
-										<a href="#" th:href="@{'/task/jeComplDtls/'+ ${allCompl.complNo}}"
+										<a href="#" th:href="@{'/task/je/ComplDtls/'+ ${allCompl.complNo}}"
 											th:text="${'CN'+allCompl.complNo}"></a>
 									</td>
 									<td class="fs-6" th:text="${allCompl.complDate}"></td>
@@ -400,7 +403,7 @@
 
 		<script>
 			function showDiv(divId, element) {
-				document.getElementById(divId).style.display = element.value == 'N' ? 'block' : 'none';
+				document.getElementById(divId).style.display = element.value == 'E' ? 'block' : 'none';
 			}
 		</script>
 

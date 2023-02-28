@@ -6,11 +6,11 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -20,8 +20,6 @@ import com.ingroinfo.mm.dao.InwardTempMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardTempSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.WorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
@@ -33,8 +31,6 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.StockService;
@@ -76,12 +72,6 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
-
-	@Autowired
-	private WorkOrdersRepository workOrdersRepository;
-
-	@Autowired
-	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -138,7 +128,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardMaterials.setSupplier(inward.getSupplier());
+			inwardMaterials.setSupplier(inward.getSuppliedOn());
 			inwardMaterials.setSuppliedOn(inward.getSuppliedOn());
 			inwardMaterials.setGstType(inward.getGstType());
 			inwardMaterials.setIgst(inward.getIgst());
@@ -253,7 +243,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardSpares.setSupplier(inward.getSupplier());
+			inwardSpares.setSupplier(inward.getSuppliedOn());
 			inwardSpares.setSuppliedOn(inward.getSuppliedOn());
 			inwardSpares.setGstType(inward.getGstType());
 			inwardSpares.setIgst(inward.getIgst());
@@ -367,7 +357,7 @@ public class StockServiceImpl implements StockService {
 			bd = bd.setScale(2, RoundingMode.HALF_UP);
 			double roundedNumber = bd.doubleValue();
 
-			inwardTools.setSupplier(inward.getSupplier());
+			inwardTools.setSupplier(inward.getSuppliedOn());
 			inwardTools.setSuppliedOn(inward.getSuppliedOn());
 			inwardTools.setGstType(inward.getGstType());
 			inwardTools.setIgst(inward.getIgst());
@@ -420,38 +410,6 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<InwardApprovedTools> getApprovedToolsLists() {
 		return inwardApprovedToolsRepository.findAll();
-	}
-
-	@Override
-	public List<Long> getWorkOrders() {
-
-		return workOrdersRepository.findAll().stream().map(orders -> orders.getWorkOrderId()).distinct()
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<TempWorkOrderItems> getWorkOrderItems(Long workOrderId) {
-
-		List<WorkOrders> workOrders = workOrdersRepository.findByWorkOrderId(workOrderId);
-		List<Long> itemIds = workOrders.stream().map(WorkOrders::getItemId).collect(Collectors.toList());
-		int i = 1;
-		for (Long itemId : itemIds) {
-
-			if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderId(itemId, workOrderId).isEmpty()) {
-				InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
-				TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
-				tempWorkOrderItems.setWorkOrderId(workOrderId);
-				tempWorkOrderItems.setSlNo(i);
-				tempWorkOrderItems.setQty(1);
-				tempWorkOrderItems.setTotalCost(iam.getMrpRate());
-				tempWorkOrderItemsRepository.save(tempWorkOrderItems);
-				i++;
-			}
-
-		}
-		List<TempWorkOrderItems> listTempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderId(workOrderId);
-
-		return listTempWorkOrderItems;
 	}
 
 }

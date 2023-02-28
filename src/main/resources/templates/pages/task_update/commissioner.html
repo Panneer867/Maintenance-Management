@@ -22,7 +22,7 @@
 					<!-- End of Message Alert Field -->
 					<div class="card-body font-weight-bold">
 
-						<form th:action="@{/task/submitJeeInvest}" method="post">
+						<form th:action="@{/task/submitComissInvest}" method="post">
 							<div class="row mt-1 ">
 								<div class="form-group col-md-3">
 									<label for="inputEmail4">Complaint No</label>
@@ -276,92 +276,14 @@
 										placeholder="Write Job Done Remarks" name="jobDoneRemark" required></textarea>
 								</div>
 							</div>
-							<div class="row">
-								<div class="form-group col-md-3 mt-2">
-									<label for="jobDoneNotDone">Job done/not done</label>
-									<select class="form-select" id="job-done-notdone" name="jobDoneNotDone"
-										onchange="showDiv('tutorial', this)"
-										aria-label="Example select with button addon">
-										<option value="Y">Done</option>
-										<option value="N">Not Done </option>
-
-									</select>
-								</div>
-
-								<div class="form-group col-md-8 mt-4 ">
-									<button type="submit" id="gen-emplabours-submit"
-										class="btn btn-primary w-25 text-center">Without</button>
+							<div class="row">								
+								<div class="form-group col-md-8 mt-4 ">									
 									<a type="submit" th:href="@{/workorder/budget-estimation}"
 										class="btn btn-primary w-25 text-center">With Metrials</a>
 								</div>
-							</div>
-							<div id="tutorial">
-								<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
-								<!--***********Row 10**********-->
-								<div class="row mt-2">
-									<div class="form-group col-md-3">
-										<label for="esclatedFrom">Escalated From</label>
-										<input type="text" class="form-control form-control-sm bg-white"
-											id="esclatedFrom" th:value="${complDtls.esclatedFrom}" name="esclatedFrom"
-											placeholder="Escalated From" readonly>
-									</div>
-									<div class="form-group col-md-3">
-										<label for="esclatedFromId">Escalated From Id </label>
-										<input type="text" class="form-control form-control-sm bg-white"
-											id="esclatedFromId" th:value="${complDtls.esclatedFromId}"
-											name="esclatedFromId" placeholder="Escalated From Id " readonly>
-									</div>
-									<div class="form-group col-md-3">
-										<label for="esclatedFromName">Escalated From Name</label>
-										<input type="text" class="form-control form-control-sm bg-white"
-											id="esclatedFromName" th:value="${complDtls.esclatedFromName}"
-											name="esclatedFromName" placeholder="Escalated From Name" readonly>
-									</div>
-									<div class="form-group col-md-3">
-										<label for="esclatedDate">Escalated Date </label>
-										<input type="date" class="form-control form-control-sm" id="esclatedDate"
-											name="esclatedDate">
-									</div>
-								</div>
-								<!--***********Row 11**********-->
-								<div class="row mt-2">
-									<div class="form-group col-md-4">
-										<label for="esclatedTo">Escalated To</label>
-										<input type="text" class="form-control form-control-sm bg-white" id="esclatedTo"
-											th:value="${complDtls.esclatedTo}" placeholder="Escalated To" readonly
-											name="esclatedTo">
-									</div>
-									<div class="form-group col-md-4">
-										<label for="esclatedToId">Escalated To Id</label>
-										<select class="form-select form-select-sm" id="esclated-to-id"
-											name="esclatedToId"></select>
-									</div>
-									<div class="form-group col-md-4">
-										<label for="esclationToName">Escalated To Name</label>
-										<input type="text" class="form-control form-control-sm bg-white"
-											name="esclatedToName" id="esclation-to-name" placeholder="Escalated To Name"
-											readonly>
-									</div>
-
-								</div>
-
-								<!--***********Text Area**********-->
-								<div class="row mt-2">
-									<div class="form-group col-md-12">
-										<label for="esclatedReason">Escalated Reason</label>
-										<textarea type="text" class="form-control form-control-sm " id="esclatedReason"
-											placeholder="Write Escalated Reason Here" name="esclatedReason"></textarea>
-									</div>
-								</div>
-
-							</div>
+							</div>							
 							<div class="text-center mt-2">
-								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>
-								<a th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}" class="esclate-button">
-									<button class="btn btn-primary" id="esclate-invest-data" type="button">Escala Task</button>
-								</a>
-								<!--<a type="button" th:href="@{'/task/exlateComplain/'+${complDtls.complNo}}"
-									class="btn btn-primary esclate-invest-data">Escala Task</a>-->
+								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>								
 							</div>
 						</form>
 
@@ -375,7 +297,7 @@
 					</div>
 
 					<div class="card-body">
-						<table class="table table-sm">
+						<table class="table table-sm MasterTable">
 							<thead>
 								<tr>
 									<th class="text-center fs-5" scope="col-sm">Compl No</th>
@@ -386,7 +308,7 @@
 							<tbody>
 								<tr th:each="allCompl : ${comComplainList}" class="text-center">
 									<td class="fs-6">
-										<a href="#" th:href="@{'/task/comissComplDtls/'+ ${allCompl.complNo}}"
+										<a href="#" th:href="@{'/task/commissioner/ComplDtls/'+ ${allCompl.complNo}}"
 											th:text="${'CN'+allCompl.complNo}"></a>
 									</td>
 									<td class="fs-6" th:text="${allCompl.complDate}"></td>
@@ -399,18 +321,7 @@
 				</div>
 
 			</div>
-		</div>
-
-
-		<script>
-			function showDiv(divId, element) {
-				document.getElementById(divId).style.display = element.value == 'N' ? 'block' : 'none';
-			}
-		</script>
-
+		</div>		
 	</section>
-
-
 </body>
-
 </html>

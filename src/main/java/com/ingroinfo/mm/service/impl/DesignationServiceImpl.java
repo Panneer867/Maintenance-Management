@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,6 +30,9 @@ public class DesignationServiceImpl implements DesignationService {
 	private DesignationRepository designationRepo;
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Value("${ubarmsApi}")
+	String ubarmsUrl;
 	
 	@Override
 	public DesignationDto saveDesignation(DesignationDto designationDto) {
@@ -55,7 +59,7 @@ public class DesignationServiceImpl implements DesignationService {
 	public List<DesignationDto> getDesignationsFormUbarms() throws JsonMappingException, JsonProcessingException,IOException {	
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getdesignationformm");
+			URL url = new URL(ubarmsUrl + "getdesignationformm");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");

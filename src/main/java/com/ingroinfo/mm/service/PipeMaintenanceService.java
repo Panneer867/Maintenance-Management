@@ -9,6 +9,8 @@ import com.ingroinfo.mm.dto.PipeMaintenanceUpdateDto;
 
 public interface PipeMaintenanceService {
 
+	//Get MaxIndent No
+	String getMaxIndentNo();
 	
 	// Save Pipe Maintenance
 	PipeMaintenanceDto savePipeMaintenance(PipeMaintenanceDto pipeMaintenanceDto);

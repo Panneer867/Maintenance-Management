@@ -106,6 +106,12 @@ public class PipeMaintenanceServiceImp implements PipeMaintenanceService {
 	}
 
 
+	@Override
+	public String getMaxIndentNo() {		
+		return null;
+	}
+
+
 
 
 

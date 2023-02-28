@@ -22,29 +22,29 @@
 							<div class="col text-start">
 								<label for="division" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="division" name="division" required>
+									<input type="text" class="form-control form-control-sm" id="division"
+										name="division" required placeholder="Enter Division Name">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="section" class="col-sm-8 col-form-label">Section</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="section" name="section" required>
+									<input type="text" class="form-control form-control-sm" id="section" name="section"
+										required placeholder="Enter Section Name">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="siteEnginner" class="col-sm-10 col-form-label">Site Engineer</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="siteEnginner" name="siteEnginner" required>
+									<input type="text" class="form-control form-control-sm" id="siteEnginner"
+										name="siteEnginner" required placeholder="Enter Site Enginner Name">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="siteSuperwiser" class="col-sm-10 col-form-label">Site Superwiser</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="siteSuperwiser" name="siteSuperwiser" required>
+									<input type="text" class="form-control form-control-sm" id="siteSuperwiser"
+										name="siteSuperwiser" required placeholder="Enter Site Superwiser Name">
 								</div>
 							</div>
 						</div>
@@ -57,18 +57,19 @@
 			</div>
 		</div>
 		<!-- form End-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Team Code History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Division</th>
 						<th class="text-center" scope="col">Section</th>
 						<th class="text-center" scope="col">Site Enginner</th>
-						<th class="text-center" scope="col">Site Superwiser</th>						
+						<th class="text-center" scope="col">Site Superwiser</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -77,15 +78,15 @@
 								<span th:text="${'WS'+teamcode.teamCodeId}"></span></a>
 						</td>
 						<td th:text="${teamcode.division}"></td>
-						<td th:text="${teamcode.section}"></td>	
+						<td th:text="${teamcode.section}"></td>
 						<td th:text="${teamcode.siteEnginner}"></td>
-						<td th:text="${teamcode.siteSuperwiser}"></td>							
+						<td th:text="${teamcode.siteSuperwiser}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

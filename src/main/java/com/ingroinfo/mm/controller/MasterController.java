@@ -56,6 +56,7 @@ import com.ingroinfo.mm.dto.WaterSourceDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
 import com.ingroinfo.mm.dto.WorkStatusDto;
 import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.BrandMasterService;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.DepartmentIdMasterService;
@@ -180,6 +181,8 @@ public class MasterController {
 	private SupplierDtlsService supplierDtlsService;
 	@Autowired
 	private BrandMasterService brandMasterService;
+	@Autowired
+	private AdminService adminService;
 
 	@GetMapping("/barcode")
 	@PreAuthorize("hasAuthority('MASTERS')")
@@ -189,12 +192,12 @@ public class MasterController {
 	}
 
 	@GetMapping("/department")
-	public String openMasterDepartmentPage(Model model) {
+	public String openMasterDepartmentPage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Department | Manintenance Management");
 		
 		try {
-			String maxdepartmentId = this.departmentService.getMaxDepartmentId();
+			String maxdepartmentId = this.departmentService.getMaxDepartmentId();		     
 			if (maxdepartmentId != null) {
 				int newStartId = Integer.parseInt(maxdepartmentId) + 1;
 				model.addAttribute("maxdeptId", newStartId+"");
@@ -205,6 +208,16 @@ public class MasterController {
 				model.addAttribute("maxdeptId", stratNo);
 			}
 		} catch (Exception e) {
+			session.setAttribute("message", new Message("Department Id Is Not Pressent Please Add Id First !!","danger"));
+			 System.out.println("Exception :: " + e.getMessage ()); 
+		}
+		try {
+			List<DepartmentDto> departmentDtos= this.departmentService.getDepartmentsFromUbarms();
+		     if (departmentDtos !=null) {
+				model.addAttribute("departmentList", departmentDtos);
+			}
+		} catch (Exception e) {
+			session.setAttribute("message", new Message("Ubarms Server Is Not Running !!","danger"));
 			 System.out.println("Exception :: " + e.getMessage ()); 
 		}
 		return "/pages/masters/master-department";
@@ -226,7 +239,7 @@ public class MasterController {
 	}
 
 	@GetMapping("/category")
-	public String openMasterCategoryPage(Model model) {
+	public String openMasterCategoryPage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Category | Manintenance Management");
 		
@@ -242,6 +255,7 @@ public class MasterController {
 				model.addAttribute("maxcategoryid", stratNo);
 			}
 		} catch (Exception e) {
+			session.setAttribute("message", new Message("Category Id Is Not Pressent Please Add Id First !!","danger"));
 			 System.out.println("Exception :: " + e.getMessage ()); 
 		}
 		
@@ -350,7 +364,7 @@ public class MasterController {
 				model.addAttribute("masterItemId", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Master Item Id Is Not Present Add Id First !!","info"));
+			session.setAttribute("message", new Message("Master Item Id Is Not Present Add Id First !!","danger"));
 			System.out.println("Exception :: " + e.getMessage ()); 
 		}
 		
@@ -358,7 +372,7 @@ public class MasterController {
 	}
 
 	@GetMapping("/metermanufacture")
-	public String openMeterManufacturePage(Model model) {
+	public String openMeterManufacturePage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Meter Manufacture | Manintenance Management");
 		try {
@@ -373,6 +387,7 @@ public class MasterController {
 				model.addAttribute("meterIdNo", stratNo);
 			}
 		} catch (Exception e) {
+			session.setAttribute("message", new Message("Meter Id Is Not Pressent Please Add Id First !!","danger"));
 			System.out.println("Exception ::"+e.getMessage());
 		}		
 		return "/pages/masters/meter-manufacture";
@@ -421,7 +436,7 @@ public class MasterController {
 				model.addAttribute("masterpumpid", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!","info"));
+			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!","danger"));
 			System.out.println("Exception :: "+e.getMessage());
 		}		
 		return "/pages/masters/master-pumps";
@@ -477,7 +492,7 @@ public class MasterController {
 				model.addAttribute("masterbranchid", startNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First","info"));
+			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First","danger"));
 			System.out.println("Exception :: "+e.getMessage());
 		}		
 		model.addAttribute("title", "Master | Store/Branch | Manintenance Management");
@@ -488,6 +503,7 @@ public class MasterController {
 	public String openSupplierDetailsPage(Model model) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Supplier | Manintenance Management");
+		model.addAttribute("states", adminService.getAllStates());
 		return "/pages/masters/supplier-details";
 	}
 
@@ -537,7 +553,7 @@ public class MasterController {
 	}
 
 	@GetMapping("/mastervehicle")
-	public String openVehicleMasterDetailsPage(Model model) {
+	public String openVehicleMasterDetailsPage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Vehicle | Manintenance Management");
 		
@@ -553,6 +569,7 @@ public class MasterController {
 				model.addAttribute("vehicleMasterId", stratNo);
 			}
 		} catch (Exception e) {
+			session.setAttribute("message", new Message("Vehicle Id Is Not Present !! Please Add Id First !!","danger"));
 			 System.out.println("Exception :: " + e.getMessage ()); 
 		}
 		
@@ -590,7 +607,11 @@ public class MasterController {
 	// Handler For Save Department Data
 	@PostMapping("/saveDepartment")
 	public String saveDepartmentMaster(DepartmentDto departmentDto, HttpSession session) {
-		this.departmentService.saveDepartment(departmentDto);
+		if (departmentDto.getDepartmentId() !="" && departmentDto.getDepartmentName() !="") {
+			this.departmentService.saveDepartment(departmentDto);
+		}else {
+			return "redirect:/masters/department";
+		}		
 		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
 		return "redirect:/masters/department";
 	}
@@ -614,6 +635,14 @@ public class MasterController {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception :: "+e.getMessage());
+		}
+		try {
+			List<DepartmentDto> departmentDtos= this.departmentService.getDepartmentsFromUbarms();
+		     if (departmentDtos !=null) {
+				model.addAttribute("departmentList", departmentDtos);
+			}
+		} catch (Exception e) {			
+			 System.out.println("Exception :: " + e.getMessage ()); 
 		}
 		
 		model.addAttribute("title", "Master | Department | Manintenance Management");
@@ -1506,6 +1535,7 @@ public class MasterController {
 	// Handler For Submit Supplier Details Data
 	@PostMapping("/saveSupplier")
 	public String submitSupplierDetails(SupplierDtlsDto supplierDtlsDto, HttpSession session) {
+		supplierDtlsDto.setState(adminService.getState(supplierDtlsDto.getState()));
 		this.supplierDtlsService.saveSupplierDtls(supplierDtlsDto);
 		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
 		return "redirect:/masters/supplierdetails";
@@ -1517,6 +1547,7 @@ public class MasterController {
 		List<SupplierDtlsDto> listOfSupplierDtls = this.supplierDtlsService.getAllSupplierDtls();
 		model.addAttribute("listOfSupplierDtls", listOfSupplierDtls);
 		model.addAttribute("show", "show");
+		model.addAttribute("states", adminService.getAllStates());
 		model.addAttribute("title", "Master | Supplier | Manintenance Management");
 		return "/pages/masters/supplier-details";
 	}

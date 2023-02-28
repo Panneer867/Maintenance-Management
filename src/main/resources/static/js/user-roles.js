@@ -211,7 +211,7 @@ $(document).ready(function() {
 
 					if (jsonobject.taskJe != null) {
 						$('#set-task-je').val("200");
-						$('#task-je').prop('checked', true);
+						$('#task-je').prop('checked', true);						
 					} else {
 						$('#set-task-je').val("200N");
 						$('#task-je').prop('checked', false);

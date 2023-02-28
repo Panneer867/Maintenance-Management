@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -59,7 +60,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -69,24 +69,21 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private UserRepository userRepository;
-
 	@Autowired
 	private RoleRepository roleRepository;
-
 	@Autowired
 	private StateRepository stateRepository;
-
 	@Autowired
 	private BankRepository bankRepository;
-
 	@Autowired
 	private CompanyRepository companyRepository;
-
 	@Autowired
 	private BranchRepository branchRepository;
-
 	@Autowired
 	private BackupService backupService;
+	
+	@Value("${ubarmsApi}")
+	String ubarmsUrl;
 
 	private void register(User user) {
 		user.setPassword(getEncodedPassword(user.getPassword()));
@@ -620,7 +617,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<UserDto> getUserIdsFromUbarms(String designation) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getEmployeesmm/" + designation);
+			URL url = new URL(ubarmsUrl + "getEmployeesmm/" + designation);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -664,7 +661,7 @@ public class AdminServiceImpl implements AdminService {
 		UserDto userDto = null;
 
 		try {
-			userDto = mapper.readValue(new URL("http://localhost:9595/ubarms/arms/getempDtlsmm/" + ubarmsUserId),
+			userDto = mapper.readValue(new URL(ubarmsUrl + "getempDtlsmm/" + ubarmsUserId),
 					UserDto.class);
 			// System.out.println(consumersDto);
 		} catch (Exception e) {

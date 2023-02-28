@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ComplaintDto {
 
+	private Long complId;
 	private String complNo;
 	private String complDate;
 	private String department;
@@ -43,7 +44,7 @@ public class ComplaintDto {
 	
 	private String esclatedFrom;
 	private String esclatedFromName;
-	private String esclatedFromId;
+	private String esclatedFromId;		
 	private String esclatedTo;
 	
 	private String visitedDate;
@@ -54,4 +55,6 @@ public class ComplaintDto {
 	private String esclatedToId;
 	private String esclatedToName;
 	private String esclatedReason;
+	private String esclationType;
+	private String esclationLavel;
 }

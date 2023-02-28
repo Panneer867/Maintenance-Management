@@ -18,5 +18,9 @@ public interface DepartmentIdMasterService {
 	List<DepartmentIdMasterDto> getByMasterIdName(String masterIdName);
 	
 	//get Data by MasterId
-	DepartmentIdMasterDto getDeptIdMasterByDepMasterId(Long depMasterId);
+	DepartmentIdMasterDto getDeptIdMasterByDepMasterId(Long depMasterId);	
+	
+	//Get Department Id Master Data By Department Id Name And Department Name
+	DepartmentIdMasterDto getByMasterIdNameAndDeptName(String masterIdName,String deptName); 
+	
 }

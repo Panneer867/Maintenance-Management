@@ -24,22 +24,22 @@
 							</div>
 							<div class="col-sm-2">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="5" name="supplierId" required>
+									maxlength="5" name="supplierId" required placeholder="Enter Supplier Id">
 							</div>
 							<div class="col-auto">
 								<label for="inputPassword6" class="col-form-label">Recipt No</label>
 							</div>
 							<div class="col-sm-2" style="left: 29px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="12" name="reciptNo" required>
+									maxlength="12" name="reciptNo" required placeholder="Enter Recipt No">
 							</div>
 							<div class="col-auto" style="left:43px;">
 								<label for="inputPassword6" class="col-form-label">Supplier Name</label>
 							</div>
 							<div class="col-sm-3" style="left: 44px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="supplierName" required>
-							</div>								
+									name="supplierName" required placeholder="Enter Supplier Name">
+							</div>
 						</div>
 						<div class="row align-items-center pt-2">
 							<div class="col-auto">
@@ -47,83 +47,90 @@
 							</div>
 							<div class="col-sm-2" style="left:7px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="gstType" required>
+									name="gstType" required placeholder="Enter GST Type">
 							</div>
 							<div class="col-auto" style="left:9px;">
 								<label for="inputPassword6" class="col-form-label">Contact Number</label>
 							</div>
 							<div class="col-sm-2">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="10" name="contactNo" required>
+									maxlength="10" name="contactNo" required placeholder="Enter Contact No">
 							</div>
 							<div class="col-auto" style="left: 13px;">
 								<label for="inputPassword6" class="col-form-label">Supplier Address</label>
 							</div>
 							<div class="col-sm-3">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="supplierAdd" required>
-							</div>								
+									name="supplierAdd" required placeholder="Enter Supplier Address">
+							</div>
 						</div>
 						<div class="row align-items-center pt-2">
 							<div class="col-auto">
 								<label for="inputPassword6" class="col-form-label">GSTIN</label>
 							</div>
 							<div class="col-sm-2" style="left:24px;">
-								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="gstIn" required>
+								<input type="text" id="inputPassword6" class="form-control form-control-sm" name="gstIn"
+									required placeholder="Enter GSTIN No ">
 							</div>
 							<div class="col-auto" style="left:28px;">
 								<label for="inputPassword6" class="col-form-label">Phone Number</label>
 							</div>
 							<div class="col-sm-2" style="left:26px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="10" name="phoneNo" required>
+									maxlength="10" name="phoneNo" required placeholder="Enter Phone No">
 							</div>
 							<div class="col-auto" style="left:42px;">
 								<label for="inputPassword6" class="col-form-label">Email Id</label>
 							</div>
 							<div class="col-sm-3" style="left: 80px;">
 								<input type="email" id="inputPassword6" class="form-control form-control-sm"
-									name="emailId" required>
-							</div>								
+									name="emailId" required placeholder="Enter Email Id">
+							</div>
 						</div>
 						<div class="row align-items-center pt-2">
 							<div class="col-auto">
 								<label for="inputPassword6" class="col-form-label">State</label>
 							</div>
 							<div class="col-sm-2" style="left:31px;">
-								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="state" required>
+								<select class="form-select form-select-sm" name="state" id="rstates"
+									data-error="Provide this field !" required>
+									<option value="" selected>Select</option>
+									<option th:each="ob:${states}" th:value="${ob[0]}" th:text="${ob[1]}">
+									</option>
+								</select>
 							</div>
 							<div class="col-auto" style="left:36px;">
 								<label for="inputPassword6" class="col-form-label">City</label>
 							</div>
 							<div class="col-sm-2" style="left:96px;">
-								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="city" required>
+								<select class="form-select form-select-sm" name="city" id="rcities"
+									data-error="Provide this field !" required>
+									<option value="" selected>Select</option>
+								</select>
 							</div>
 							<div class="col-auto" style="left:112px;">
 								<label for="inputPassword6" class="col-form-label">Pincode</label>
 							</div>
 							<div class="col-sm-3" style="left:149px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="6" name="pincode" required>
-							</div>								
-						</div>	
+									maxlength="6" name="pincode" required placeholder="Enter PinCode">
+							</div>
+						</div>
 						<div class="pt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit </button>
 							<a th:href="@{/masters/supplierHistory}" class="btn btn-success">View</a>
-						</div>																													
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Supplier Details History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">Id</th>
@@ -148,13 +155,13 @@
 						<td th:text="${supplydtls.supplierAdd}+ ',' 
 						             +${supplydtls.state} +','+${supplydtls.city} 
 						             +','+${supplydtls.pincode}">
-					    </td>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

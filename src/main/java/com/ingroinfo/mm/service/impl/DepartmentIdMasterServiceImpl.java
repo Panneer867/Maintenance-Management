@@ -53,6 +53,10 @@ public class DepartmentIdMasterServiceImpl implements DepartmentIdMasterService 
 		return this.modelMapper.map(departmentIdMaster, DepartmentIdMasterDto.class);
 	}
 
+	@Override
+	public DepartmentIdMasterDto getByMasterIdNameAndDeptName(String masterIdName, String deptName) {
+		DepartmentIdMaster departmentIdMaster = this.deptIdMasterRepo.getByDeptIdNameAndDeptName(masterIdName, deptName);
+		return this.modelMapper.map(departmentIdMaster, DepartmentIdMasterDto.class);
+	}
 	
-
 }

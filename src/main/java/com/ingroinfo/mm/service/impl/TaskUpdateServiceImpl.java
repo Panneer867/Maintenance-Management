@@ -7,8 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -38,12 +39,15 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Value("${ubarmsApi}")
+	String ubarmsUrl;
+
 	@Override
 	public List<ComplaintDto> getListOfJeComplaint(Long userId)
 			throws JsonMappingException, JsonProcessingException, IOException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getjecomplainsmm/" + userId);
+			URL url = new URL(ubarmsUrl + "getjecomplainsmm/" + userId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -88,8 +92,7 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 		ComplaintDto complaintDto = null;
 
 		try {
-			complaintDto = mapper.readValue(new URL("http://localhost:9595/ubarms/arms/getComplainDtls/" + complNo),
-					ComplaintDto.class);
+			complaintDto = mapper.readValue(new URL(ubarmsUrl + "getComplainDtls/" + complNo), ComplaintDto.class);
 		} catch (Exception e) {
 			System.out.println("Exception : " + e.getMessage());
 		}
@@ -100,7 +103,7 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 	public List<ComplaintDto> getListOfAeeComplaint(Long userId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getaeecomplainsmm/" + userId);
+			URL url = new URL(ubarmsUrl + "getaeecomplainsmm/" + userId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -141,7 +144,7 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 	public List<ComplaintDto> getListOfEeComplaint(Long userId) throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/geteecomplainsmm/" + userId);
+			URL url = new URL(ubarmsUrl + "geteecomplainsmm/" + userId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -183,7 +186,7 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 			throws JsonMappingException, JsonProcessingException {
 		String json = "";
 		try {
-			URL url = new URL("http://localhost:9595/ubarms/arms/getcommisscomplainsmm/" + userId);
+			URL url = new URL(ubarmsUrl + "getcommisscomplainsmm/" + userId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -235,8 +238,8 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ComplaintDto> httpEntity = new HttpEntity<>(complaintDto, headers);
-		ResponseEntity<ComplaintDto> newCResponseEntity = restTemplate.postForEntity(
-				"http://localhost:9595/ubarms/arms/submitInvestigations", httpEntity, ComplaintDto.class);
+		ResponseEntity<ComplaintDto> newCResponseEntity = restTemplate.postForEntity(ubarmsUrl + "submitInvestigations",
+				httpEntity, ComplaintDto.class);
 
 		if (newCResponseEntity.getStatusCode() == HttpStatus.CREATED) {
 			complaintDto2 = newCResponseEntity.getBody();
@@ -260,14 +263,29 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ComplaintDto> httpEntity = new HttpEntity<>(complaintDto, headers);
-		ResponseEntity<ComplaintDto> newCResponseEntity = restTemplate.postForEntity(
-				"http://localhost:9595/ubarms/arms/submitEsclations", httpEntity, ComplaintDto.class);
-
+		ResponseEntity<ComplaintDto> newCResponseEntity = restTemplate.postForEntity(ubarmsUrl + "submitEsclations",
+				httpEntity, ComplaintDto.class);
 		if (newCResponseEntity.getStatusCode() == HttpStatus.CREATED) {
 			complaintDto2 = newCResponseEntity.getBody();
 		}
 
 		return complaintDto2;
+	}
+	
+	@Override
+	public List<ComplaintDto> getComplainByDeptComplStsUserId(String department, String complSts, Long userId) {		
+		 List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplStsUserId(department, complSts, userId);
+		 List<ComplaintDto> complaintDtos = complaints.stream().map((complain)-> 
+		 this.modelMapper.map(complain, ComplaintDto.class)).collect(Collectors.toList());
+		return complaintDtos;
+	}
+
+	@Override
+	public List<ComplaintDto> getComplainByDeptComplSts(String department, String complSts) {
+		List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplSts(department, complSts);
+		List<ComplaintDto> complaintDtos = complaints.stream().map((complaint) -> 
+		this.modelMapper.map(complaint, ComplaintDto.class)).collect(Collectors.toList());
+		return complaintDtos;
 	}
 
 }

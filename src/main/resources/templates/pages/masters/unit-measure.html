@@ -22,13 +22,13 @@
 							<div class="form-group row">
 								<label for="unitType" class="col-auto col-form-label">Units Type</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control form-control-sm" 
-									id="unitType" name="unitType" required>
+									<input type="text" class="form-control form-control-sm" id="unitType"
+										name="unitType" required placeholder="Enter Unit Type">
 								</div>
 								<label for="description" class="col-auto col-form-label">Description</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control form-control-sm" 
-									id="description" name="description" required>
+									<input type="text" class="form-control form-control-sm" id="description"
+										name="description" required placeholder="Write Description">
 								</div>
 							</div>
 						</div>
@@ -41,16 +41,17 @@
 			</div>
 		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Units Of Measures History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Unit Type</th>
-						<th class="text-center" scope="col">Description</th>											
+						<th class="text-center" scope="col">Description</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -59,13 +60,13 @@
 								<span th:text="${'TM'+unitmeaseu.unitMeasureId}"></span></a>
 						</td>
 						<td th:text="${unitmeaseu.unitType}"></td>
-						<td th:text="${unitmeaseu.description}"></td>												
+						<td th:text="${unitmeaseu.description}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 
