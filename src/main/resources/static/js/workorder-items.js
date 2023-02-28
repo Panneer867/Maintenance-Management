@@ -10,22 +10,37 @@ $(function() {
 		quantity.itemId = $row.find(".item-id").text();
 		quantity.mrpRate = $row.find('input.price').val();
 
-		if ($button.find('i').hasClass('fa-plus')) {
+		$.ajax({
+			type: 'POST',
+			url: '/stocks/get/quantity/' + quantity.itemId,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var stockQty = JSON.parse(json);
 
-			$.ajax({
-				type: 'POST',
-				url: '/stocks/get/quantity/' + quantity.itemId,
-				success: function(data) {
-					var json = JSON.stringify(data);
-					var stockQty = JSON.parse(json);
-
+				if ($button.find('i').hasClass('fa-plus')) {
 					var newQty = parseFloat(oldQty) + 1;
-					if (stockQty > newQty) {
+					quantity.qty = newQty;
 
+
+					var json = JSON.stringify(quantity);
+					console.log(json);
+					$.ajax({
+						url: '/stocks/outward/item/quantity',
+						method: 'POST',
+						data: json,
+						contentType: "application/json; charset=utf-8",
+						success: function() {
+						},
+						error: function(e) {
+							alert('error occured while posting data' + e);
+						}
+					});
+
+				} else {
+					if (oldQty > 1) {
+						var newQty = parseFloat(oldQty) - 1;
 						quantity.qty = newQty;
-
 						var json = JSON.stringify(quantity);
-
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
 							method: 'POST',
@@ -37,35 +52,12 @@ $(function() {
 								alert('error occured while posting data' + e);
 							}
 						});
-					}
-					else {
-						newQty = stockQty;
-						alert('Current available stock is ' + stockQty);
+					} else {
+						newQty = 1;
 					}
 				}
-			});
-		} else {
-			if (oldQty > 1) {
-				var newQty = parseFloat(oldQty) - 1;
-				quantity.qty = newQty;
-				var json = JSON.stringify(quantity);
-				$.ajax({
-					url: '/stocks/outward/item/quantity',
-					method: 'POST',
-					data: json,
-					contentType: "application/json; charset=utf-8",
-					success: function() {
-					},
-					error: function(e) {
-						alert('error occured while posting data' + e);
-					}
-				});
-			} else {
-				newQty = 1;
 			}
-			
-		}
-		
+		});
 		$button.parent().parent().find("input").val(newQty);
 		calculate();
 	});
