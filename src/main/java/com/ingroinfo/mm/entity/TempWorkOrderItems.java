@@ -10,18 +10,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "mm_work_orders")
-public class WorkOrders {
+@Table(name = "mm_temp_workorder_items")
+public class TempWorkOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long stocksId;
+	private Long tempWorkorderItemId;
+	private int qty;
+	private int slNo;
 	private Long itemId;
+	private String itemName;
+	private String aliasName;
+	private String itemImage;
+	private String imagePath;
+	private String category;
+	private String unitOfMeasure;
+	private Double totalCost;
+	private Double mrpRate;
+	private String description;
 	private Long workOrderId;
-
+	
 }

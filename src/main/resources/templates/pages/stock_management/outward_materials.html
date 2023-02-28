@@ -62,49 +62,80 @@
 									<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
 									</h3>
 
-									<table class="table table-stock table-bordered table table-striped table-hover">
-										<thead class="table-dark">
+									<table
+										class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
+										<thead class="bg-dark text-white">
 											<tr>
+												<th class="all">Sl No</th>
 												<th class="all">Item ID</th>
-												<th class="all">Category</th>
 												<th class="all">Item</th>
-												<th class="all">Image</th>
-												<th class="all">Brand</th>
-												<th class="all">HSN</th>
-												<th class="all">Unit(M)</th>
-												<th class="all">Cost</th>
-												<th class="all">MRP</th>
-												<th class="all text-center">Quantity</th>
-												<th class="all">Total</th>
+												<th class="all text-center">Stocks</th>
 
+												<th class="all">Image</th>
+
+												<th class="all" style="width: 12%;">MRP</th>
+												<th class="all" style="width: 15%;">Quantity</th>
+												<th class="all" style="width: 12%;">Total</th>
+												<th class="all" style="width: 5%;">Action</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody class="add-item">
 											<tr th:each="getWorkOrderItem: ${getWorkOrderItems}">
-												<td th:text="${getWorkOrderItem.itemId}"></td>
-												<td th:text="${getWorkOrderItem.category}"></td>
+												<td th:text="${getWorkOrderItem.slNo}"></td>
+												<td class="item-id" th:text="${getWorkOrderItem.itemId}"></td>
+												<td class="sl_no"><label class="mb-0"
+														th:text="${getWorkOrderItem.itemName}"></label></td>
+												<td class="text-center"><span th:if="${getWorkOrderItem.qty} > 0"
+														class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
+													<span th:if="${getWorkOrderItem.qty} <= 0"
+														class="bg-danger p-1 rounded font-weight-bold text-white">Not
+														Available</span>
+												</td>
 
-												<td th:text="${getWorkOrderItem.itemName}"></td>
 												<td class="text-center thumb">
 													<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
 														alt="image" />
 												</td>
 
-												<td th:text="${getWorkOrderItem.brand}"></td>
-												<td th:text="${getWorkOrderItem.hsnCode}"></td>
-
-												<td th:text="${getWorkOrderItem.unitOfMeasure}"></td>
-												<td>&#8377;<label class="px-1"
-														th:text="${getWorkOrderItem.costRate}"></label>
+												<td>
+													<div class="row text-center">
+														<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"
+															style="font-size: 13px; width: 0;"> </i>
+														<input type="text" id="price" class="price"
+															th:value="${getWorkOrderItem.mrpRate}"
+															style="border: none; color: black; background: transparent; outline: 0;"
+															disabled />
+													</div>
 												</td>
-												<td>&#8377;<label class="px-1"
-														th:text="${getWorkOrderItem.mrpRate}"></label>
+												<td>
+													<div class="row pl-3">
+														<div class="outer-button" style="width: 30px;">
+															<div class="dec button">
+																<i class="fa fa-minus bg-danger"
+																	style="font-size: 0.6em; color: #fff; padding: 5px; "></i>
+															</div>
+														</div>
+														<input type="number" id="qty" th:value="${getWorkOrderItem.qty}"
+															class="qty text-center"
+															style="border: none; color: black; background: transparent; outline: 0; width: 35%;"
+															disabled />
+														<div class="outer-button" style="width: 20px;">
+															<div class="inc button"><i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i>
+															</div>
+														</div>
+													</div>
 												</td>
-												<td class="text-center"><input type="number"
-														th:value="${getWorkOrderItem.quantity}" class="text-center"
-														style="width: 50px;" min="1" max="999" onKeyPress="if(this.value.length==3) return false;"></td>
-												<td>&#8377;<label class="px-1"
-														th:text="${getWorkOrderItem.subTotal}"></label>
+												<td>
+													<div class="row">
+														<i class="fa fa-inr pr-1 pl-3" aria-hidden="true"
+															style="font-size: 13px; padding-top: 4px;width: 0;"></i>
+														<input type="text" class="cost"
+															style="border: none; color: black; background: transparent; outline: 0;"
+															disabled />
+													</div>
+												</td>
+												<td class="text-center"><i
+														class="glyphicon glyphicon-trash remove-item text-danger"></i>
 												</td>
 											</tr>
 										</tbody>

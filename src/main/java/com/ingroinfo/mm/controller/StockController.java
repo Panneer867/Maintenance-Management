@@ -2,6 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
+import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.WorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.InwardMaterials;
 import com.ingroinfo.mm.entity.InwardSpares;
@@ -24,6 +30,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.HsnCodeService;
@@ -50,6 +57,15 @@ public class StockController {
 
 	@Autowired
 	private HsnCodeService hsnCodeService;
+
+	@Autowired
+	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
+
+	@Autowired
+	private WorkOrdersRepository workOrdersRepository;
+	
+	@Autowired
+	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
@@ -453,17 +469,48 @@ public class StockController {
 	}
 
 	@GetMapping("/outward/get/{workOrderId}")
-	public String outwardStocks(@PathVariable Long workOrderId,Model model) {
-		
+	public String outwardStocks(@PathVariable Long workOrderId, Model model) {
+
 		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
-		
+
 		model.addAttribute("workOrders", stockService.getWorkOrders());
-		
+
 		model.addAttribute("workOrderNo", workOrderId);
 
 		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderId));
-		
+
 		return "/pages/stock_management/outward_materials";
+	}
+
+	@PostMapping("/outward/item/quantity")
+	public @ResponseBody void quantity(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
+		if (tempWorkOrderItems.getItemId() != null) {
+			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository
+					.findByItemId(tempWorkOrderItems.getItemId());
+			DecimalFormat df = new DecimalFormat("#.##");
+			TempWorkOrderItem.setTotalCost(
+					Double.parseDouble(df.format(tempWorkOrderItems.getMrpRate() * tempWorkOrderItems.getQty())));
+			TempWorkOrderItem.setQty(tempWorkOrderItems.getQty());
+			tempWorkOrderItemsRepository.save(TempWorkOrderItem);
+		}
+	}
+
+	@PostMapping("/outward/item/delete")
+	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
+		Long itemId = tempWorkOrderItems.getItemId();
+		if (itemId != null) {
+			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository.findByItemId(itemId);
+			Long stockId = workOrdersRepository.findByItemId(itemId).getStocksId();
+
+			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.getTempWorkorderItemId());
+			workOrdersRepository.deleteById(stockId);
+		}
+	}
+	
+	@PostMapping("/get/quantity/{itemId}")
+	public @ResponseBody int getQuantity(@PathVariable Long itemId) {
+
+		return inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
 	}
 
 	@GetMapping("/outward/spares/entry")

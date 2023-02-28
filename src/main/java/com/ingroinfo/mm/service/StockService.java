@@ -14,9 +14,10 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempWorkOrderItems;
 
 public interface StockService {
-	
+
 	/******** Materials *********/
 
 	void saveInwardTempMaterials(InwardDto inward, MultipartFile file);
@@ -38,8 +39,7 @@ public interface StockService {
 	InwardApprovedMaterials getApprovedInwardMaterialById(Long id);
 
 	List<InwardApprovedMaterials> getApprovedMaterialsLists();
-	
-	
+
 	/******** Spares *********/
 
 	void saveInwardTempSpares(InwardDto inward, MultipartFile file);
@@ -86,6 +86,6 @@ public interface StockService {
 
 	List<Long> getWorkOrders();
 
-	List<InwardApprovedMaterials> getWorkOrderItems(Long workOrderId);
+	List<TempWorkOrderItems> getWorkOrderItems(Long workOrderId);
 
 }

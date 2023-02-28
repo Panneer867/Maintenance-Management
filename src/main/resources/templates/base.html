@@ -19,6 +19,7 @@
 	<link th:href="@{/css/cards.css}" rel="stylesheet">
 	<link th:href="@{/css/style.css}" rel="stylesheet">
 	<link th:href="@{/css/tabs.css}" rel="stylesheet">
+	<link th:href="@{/css/workorder-table.css}" rel="stylesheet">
 
 	<!-- Javascript -->
 	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js}"></script>
@@ -308,7 +309,7 @@
 											</span>
 										</a>
 									</li>
-										<!--<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+									<!--<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/spares/entry' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/outward/spares/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -388,7 +389,7 @@
 								</ul>
 							</div>
 						</li>
-						
+
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-workorder"
 							data-menu-submenu-toggle="hover">
 							<a href="#" class="m-menu__link m-menu__toggle">
@@ -542,7 +543,7 @@
 											</span>
 										</a>
 									</li>
-									
+
 								</ul>
 							</div>
 						</li>
@@ -1633,7 +1634,7 @@
 	<script th:src="@{/js/get-spares-details.js}"></script>
 	<script th:src="@{/js/get-tools-details.js}"></script>
 	<script th:src="@{/js/backup.js}"></script>
-
+	<script th:src="@{/js/workorder-items.js}"></script>
 </body>
 
 </html>
