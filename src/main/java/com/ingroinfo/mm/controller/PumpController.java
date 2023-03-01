@@ -51,8 +51,8 @@ public class PumpController {
 	}
 	
 	//Handler For Open Maintenance Page
-	@GetMapping("/maintenance")
-	@PreAuthorize("hasAuthority('PUMP_MAINTENANCE')")
+	@GetMapping("/maintenance/index")
+	@PreAuthorize("hasAuthority('PUMP_INDEX')")
 	public String pumpMaster(Model model) {
 		model.addAttribute("title", "Pump | Index | Manintenance Management");
 		model.addAttribute("pumps", new PumpMasterDto());
@@ -109,22 +109,34 @@ public class PumpController {
 		return "/pages/pump_house/pump_maintenance_intent";
 	}
 	
+	@GetMapping("/maintenance/view")
+	@PreAuthorize("hasAuthority('PUMP_VIEW')")
+	public String pumpViewWork(Model model) {
+		model.addAttribute("title", "Pump | View | Manintenance Management");
+		return "/pages/pump_house/pump_viewwork";
+	}
+	
 	@GetMapping("/maintenance/update")
+	@PreAuthorize("hasAuthority('PUMP_UPDATE')")
 	public String pumpMaintenanceUpdate(Model model) {
 		model.addAttribute("title", "Pump | Update | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_update";
 	}
 	
 	@GetMapping("/maintenance/inspection")
+	@PreAuthorize("hasAuthority('PUMP_INSPECTION')")
 	public String pumpMaintenanceInspection(Model model) {
 		model.addAttribute("title", "Pump | Inspection | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_inspection";
 	}
 	
 	@GetMapping("/maintenance/history")
+	@PreAuthorize("hasAuthority('PUMP_HISTORY')")
 	public String pumpMaintenanceHistory(Model model) {
 		model.addAttribute("title", "Pump | History | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_history";
 	}
+	
+	
 
 }

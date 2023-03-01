@@ -4,7 +4,6 @@ $(function() {
 
 		var $button = $(this);
 		var oldQty = $button.parent().parent().find("input").val();
-
 		var quantity = {};
 		var $row = $(this).closest("tr");
 		quantity.itemId = $row.find(".item-id").text();
@@ -18,24 +17,29 @@ $(function() {
 				var stockQty = JSON.parse(json);
 
 				if ($button.find('i').hasClass('fa-plus')) {
-					var newQty = parseFloat(oldQty) + 1;
-					quantity.qty = newQty;
 
 
-					var json = JSON.stringify(quantity);
-					console.log(json);
-					$.ajax({
-						url: '/stocks/outward/item/quantity',
-						method: 'POST',
-						data: json,
-						contentType: "application/json; charset=utf-8",
-						success: function() {
-						},
-						error: function(e) {
-							alert('error occured while posting data' + e);
-						}
-					});
+					var newQty1 = parseFloat(oldQty) + 1;
+					if (stockQty >= newQty1) {
+						var newQty = parseFloat(oldQty) + 1;
+						quantity.qty = newQty;
+						var json = JSON.stringify(quantity);
+						$.ajax({
+							url: '/stocks/outward/item/quantity',
+							method: 'POST',
+							data: json,
+							contentType: "application/json; charset=utf-8",
+							success: function() {
+							},
+							error: function(e) {
+								alert('error occured while posting data' + e);
 
+							}
+						});
+					} else {
+						alert('Available stocks is ' + stockQty + ' cant add more than that !');
+						newQty = stockQty;
+					}
 				} else {
 					if (oldQty > 1) {
 						var newQty = parseFloat(oldQty) - 1;
@@ -56,10 +60,11 @@ $(function() {
 						newQty = 1;
 					}
 				}
+
+				$button.parent().parent().find("input").val(newQty);
+				calculate();
 			}
 		});
-		$button.parent().parent().find("input").val(newQty);
-		calculate();
 	});
 
 	function calculate() {

@@ -41,24 +41,26 @@ public class PipeController {
 	}
 
 	@GetMapping("/pipe-index")
+	@PreAuthorize("hasAuthority('PIPE_INDEX')")
 	public String pipeIndex() {
 		return "/pages/pipe_management/pipe_index";
 	}
 	
 	@GetMapping("/viewwork")
+	@PreAuthorize("hasAuthority('PIPE_VIEW')")
 	public String pipeViewWork() {
 		return "/pages/pipe_management/pipe_viewwork";
 	}
 
 	@GetMapping("/maintenance-indent")
-	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_INDENT')")
+	@PreAuthorize("hasAuthority('PIPE_INDENT')")
 	public String maintenanceIndent(Model model) {
 		model.addAttribute("title", "Pipe | Indent | Maintenance Management");
 		return "/pages/pipe_management/pipe_maintenance_indent";
 	}
 
 	@GetMapping("/maintenance-work-update")
-	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_UPDATE')")
+	@PreAuthorize("hasAuthority('PIPE_UPDATE')")
 	public String pipeMaintenanceWorkUpdate(Model model) {
 		List<PipeMaintenanceDto> listofPipe = this.pipeMaintenanceService.findAllPipeMaintenance();
 		model.addAttribute("listofpipe", listofPipe);
@@ -67,7 +69,7 @@ public class PipeController {
 	}
 
 	@GetMapping("/maintenance-inspection")
-	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_INSPECTION')")
+	@PreAuthorize("hasAuthority('PIPE_INSPECTION')")
 	public String maintenanceInspection(Model model) {
 		List<PipeMaintenanceUpdateDto> listofPipeMaintenUpdateDtos = this.pipeMaintenanceService
 				.findAllPipeMaintenanceUpdate();
@@ -77,7 +79,7 @@ public class PipeController {
 	}
 
 	@GetMapping("/maintenance-history")
-	@PreAuthorize("hasAuthority('PIPE_MAINTENANCE_HISTORY')")
+	@PreAuthorize("hasAuthority('PIPE_HISTORY')")
 	public String maintenanceHistory() {
 		return "/pages/pipe_management/pipe_maintenance_history";
 	}

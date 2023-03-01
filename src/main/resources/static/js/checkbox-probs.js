@@ -233,39 +233,48 @@ $(document).ready(function() {
 	$('#pump-dashboard').click(function() {
 		$('#set-pump-dashboard').val($('#pump-dashboard').is(':checked') ? 800 : "800N");
 	});
-	$('#pump-maintenance').click(function() {
-		$('#set-pump-maintenance').val($('#pump-maintenance').is(':checked') ? 801 : "801N");
+	$('#pump-maintenance-index').click(function() {
+		$('#set-pump-maintenance-index').val($('#pump-maintenance-index').is(':checked') ? 801 : "801N");
 	});
 	$('#pump-maintenance-indent').click(function() {
 		$('#set-pump-maintenance-indent').val($('#pump-maintenance-indent').is(':checked') ? 802 : "802N");
 	});
-	/*$('#pump-maintenance-update').click(function() {
-		$('#set-pump-maintenance-update').val($('#pump-maintenance-update').is(':checked') ? 803 : "803N");
+	$('#pump-maintenance-view').click(function() {
+		$('#set-pump-maintenance-view').val($('#pump-maintenance-view').is(':checked') ? 803 : "803N");
+	});
+	$('#pump-maintenance-update').click(function() {
+		$('#set-pump-maintenance-update').val($('#pump-maintenance-update').is(':checked') ? 804 : "804N");
 	});
 	$('#pump-maintenance-inspection').click(function() {
-		$('#set-pump-maintenance-inspection').val($('#pump-maintenance-inspection').is(':checked') ? 804 : "804N");
+		$('#set-pump-maintenance-inspection').val($('#pump-maintenance-inspection').is(':checked') ? 805 : "805N");
 	});
 	$('#pump-maintenance-history').click(function() {
-		$('#set-pump-maintenance-history').val($('#pump-maintenance-history').is(':checked') ? 805 : "805N");
-	});*/
+		$('#set-pump-maintenance-history').val($('#pump-maintenance-history').is(':checked') ? 806 : "806N");
+	});
+
 
 	/* Pipe Management User Roles */
 
 	$('#pipe-dashboard').click(function() {
 		$('#set-pipe-dashboard').val($('#pipe-dashboard').is(':checked') ? 900 : "900N");
 	});
-
+	$('#pipe-maintenance-index').click(function() {
+		$('#set-pipe-maintenance-index').val($('#pipe-maintenance-index').is(':checked') ? 901 : "901N");
+	});
 	$('#pipe-maintenance-indent').click(function() {
-		$('#set-maintenance-indent').val($('#pipe-maintenance-indent').is(':checked') ? 901 : "901N");
+		$('#set-pipe-maintenance-indent').val($('#pipe-maintenance-indent').is(':checked') ? 902 : "902N");
+	});
+	$('#pipe-maintenance-view').click(function() {
+		$('#set-pipe-maintenance-view').val($('#pipe-maintenance-view').is(':checked') ? 903 : "903N");
 	});
 	$('#pipe-maintenance-update').click(function() {
-		$('#set-pipe-maintenance-update').val($('#pipe-maintenance-update').is(':checked') ? 902 : "902N");
+		$('#set-pipe-maintenance-update').val($('#pipe-maintenance-update').is(':checked') ? 904 : "904N");
 	});
 	$('#pipe-maintenance-inspection').click(function() {
-		$('#set-pipe-maintenance-inspection').val($('#pipe-maintenance-inspection').is(':checked') ? 903 : "903N");
+		$('#set-pipe-maintenance-inspection').val($('#pipe-maintenance-inspection').is(':checked') ? 905 : "905N");
 	});
 	$('#pipe-maintenance-history').click(function() {
-		$('#set-pipe-maintenance-history').val($('#pipe-maintenance-history').is(':checked') ? 904 : "904N");
+		$('#set-pipe-maintenance-history').val($('#pipe-maintenance-history').is(':checked') ? 906 : "906N");
 	});
 
 	/* Vehicle Management User Roles */

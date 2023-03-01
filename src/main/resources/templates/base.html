@@ -663,8 +663,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/pump/maintenance}" class="m-menu__link ">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/index' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/pump/maintenance/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -681,6 +681,17 @@
 											</i>
 											<span class="m-menu__link-text">
 												Maintenance Indent
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/view' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/pump/maintenance/view}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Maintenance View
 											</span>
 										</a>
 									</li>

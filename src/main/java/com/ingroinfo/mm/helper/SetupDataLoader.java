@@ -140,16 +140,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		/* Pump Management User Roles */
 
 		Privilege pumpDashboard = createPrivilegeIfNotFound(800, "PUMP_DASHBOARD");
-		Privilege pumpMaintenance = createPrivilegeIfNotFound(801, "PUMP_MAINTENANCE");
+		Privilege pumpMaintenanceIndex = createPrivilegeIfNotFound(801, "PUMP_INDEX");
 		Privilege pumpMaintenanceIndent = createPrivilegeIfNotFound(802, "PUMP_INDENT");
+		Privilege pumpMaintenanceView = createPrivilegeIfNotFound(803, "PUMP_VIEW");
+		Privilege pumpMaintenanceUpdate = createPrivilegeIfNotFound(804, "PUMP_UPDATE");
+		Privilege pumpMaintenanceInspection = createPrivilegeIfNotFound(805, "PUMP_INSPECTION");
+		Privilege pumpMaintenanceHistory = createPrivilegeIfNotFound(806, "PUMP_HISTORY");
 
 		/* Pipe Management User Roles */
 
 		Privilege pipeDashboard = createPrivilegeIfNotFound(900, "PIPE_DASHBOARD");
-		Privilege pipeMaintenanceIndent = createPrivilegeIfNotFound(901, "PIPE_MAINTENANCE_INDENT");
-		Privilege pipeMaintenanceUpdate = createPrivilegeIfNotFound(902, "PIPE_MAINTENANCE_UPDATE");
-		Privilege pipeMaintenanceInspection = createPrivilegeIfNotFound(903, "PIPE_MAINTENANCE_INSPECTION");
-		Privilege pipeMaintenanceHistory = createPrivilegeIfNotFound(904, "PIPE_MAINTENANCE_HISTORY");
+		Privilege pipeMaintenanceIndex = createPrivilegeIfNotFound(901, "PIPE_INDEX");
+		Privilege pipeMaintenanceIndent = createPrivilegeIfNotFound(902, "PIPE_INDENT");
+		Privilege pipeMaintenanceView = createPrivilegeIfNotFound(903, "PIPE_VIEW");
+		Privilege pipeMaintenanceUpdate = createPrivilegeIfNotFound(904, "PIPE_UPDATE");
+		Privilege pipeMaintenanceInspection = createPrivilegeIfNotFound(905, "PIPE_INSPECTION");
+		Privilege pipeMaintenanceHistory = createPrivilegeIfNotFound(906, "PIPE_HISTORY");
 
 		/* Vehicle Management User Roles */
 
@@ -235,18 +241,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				inwardMatierals, inwardSpares, inwardTools, outwardMaterials, outwardSpares, outwardTools,
 				matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn, stockApprovals, generateWorkOrder,
 				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
-				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard, pumpMaintenance,
-				pumpMaintenanceIndent, pipeDashboard, pipeMaintenanceIndent, pipeMaintenanceUpdate,
-				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
-				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
-				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
-				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
-				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
-				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
-				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
-				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
-				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,
-				contactManagement, approvals, dailyReport, monthlyReport, masters);
+				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard,
+				pumpMaintenanceIndex, pumpMaintenanceIndent, pumpMaintenanceView, pumpMaintenanceUpdate,
+				pumpMaintenanceInspection, pumpMaintenanceHistory, pipeDashboard, pipeMaintenanceIndex,
+				pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate, pipeMaintenanceInspection,
+				pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory, vehicleIndex, vehicleManagementIndex,
+				vehicleInspection, vehicleWorkOrderView, leakageDashboard, leakageIndent, leakageMaintenanceUpdate,
+				leakageWorkInspection, leakageLeakageHistory, leakageLeakageHistory, meterReplace, handPumpIndex,
+				handPumpIndent, handPumpWorkOrder, handPumpWorkUpdate, handPumpHandPumpInspection,
+				handPumpMaintenanceHistory, borewellIndex, borewellIndent, borewellWorkOrder, borewellWorkUpdate,
+				borewellHandPumpInspection, borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder,
+				glsrohtWorkUpdate, glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex,
+				levelsControlIndent, levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection,
+				levelsControlHistory, contactManagement, approvals, dailyReport, monthlyReport, masters);
 
 		List<Privilege> companyPrivileges = Arrays.asList(adminpage, branchManagement, createBranch, editBranch,
 				viewBranch, deleteBranch, userManagement, createUser, editUser, deleteUser, roleManagement, createRole,
@@ -256,13 +263,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				outwardSpares, outwardTools, matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn,
 				stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard,
 				employeeMaster, attendance, salary, inspection, leave, consMasterDetails, consTransDetails,
-				meterDetails, pumpDashboard, pumpMaintenance, pumpMaintenanceIndent, pipeDashboard,
-				pipeMaintenanceIndent, pipeMaintenanceUpdate, pipeMaintenanceInspection, pipeMaintenanceHistory,
-				vehicleTrackingMangement, vehicleHistory, vehicleIndex, vehicleManagementIndex, vehicleInspection,
-				vehicleWorkOrderView, leakageDashboard, leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection,
-				leakageLeakageHistory, leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent,
-				handPumpWorkOrder, handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory,
-				borewellIndex, borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
+				meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView, pumpMaintenanceUpdate,
+				pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent, pipeDashboard,
+				pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate,
+				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
+				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
+				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
+				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
+				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
 				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
 				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
 				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,
@@ -275,13 +284,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				outwardMaterials, outwardSpares, outwardTools, matieralsReturn, sparesReturn, toolsReturn,
 				rejectDamageReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
 				employeeDashBoard, employeeMaster, attendance, salary, inspection, leave, consMasterDetails,
-				consTransDetails, meterDetails, pumpDashboard, pumpMaintenance, pumpMaintenanceIndent, pipeDashboard,
-				pipeMaintenanceIndent, pipeMaintenanceUpdate, pipeMaintenanceInspection, pipeMaintenanceHistory,
-				vehicleTrackingMangement, vehicleHistory, vehicleIndex, vehicleManagementIndex, vehicleInspection,
-				vehicleWorkOrderView, leakageDashboard, leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection,
-				leakageLeakageHistory, leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent,
-				handPumpWorkOrder, handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory,
-				borewellIndex, borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
+				consTransDetails, meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView,
+				pumpMaintenanceUpdate, pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent,
+				pipeDashboard, pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate,
+				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
+				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
+				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
+				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
+				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,
 				borewellMaintenanceHistory, glsrohtIndex, glsrohtIndent, glsrohtWorkOrder, glsrohtWorkUpdate,
 				glsrohtHandPumpInspection, glsrohtMaintenanceHistory, levelsControlIndex, levelsControlIndent,
 				levelsControlWorkOrder, levelsControlWorkUpdate, levelsControlInspection, levelsControlHistory,

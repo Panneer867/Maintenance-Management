@@ -86,17 +86,20 @@ public class UserRolesDto {
 	 * private String dcb; // 705
 	 */
 	private String pumpDashboard; // 800
-	private String pumpMaintenance; // 801
-	/*
-	 * private String pumpMaintenanceIndent; // 802 private String
-	 * pumpMaintenanceUpdate; // 803 private String pumpMaintenanceInspection; //
-	 * 804 private String pumpMaintenanceHistory; // 805
-	 */
+	private String pumpMaintenanceIndex; // 801
+	private String pumpMaintenanceIndent; // 802
+	private String pumpMaintenanceView; // 803
+	private String pumpMaintenanceUpdate; // 804
+	private String pumpMaintenanceInspection; // 805
+	private String pumpMaintenanceHistory; // 806	
+	
 	private String pipeDashboard; // 900
-	private String pipeMaintenanceIndent; // 901
-	private String pipeMaintenanceUpdate; // 902
-	private String pipeMaintenanceInspection; // 903
-	private String pipeMaintenanceHistory; // 904
+	private String pipeMaintenanceIndex; // 901
+	private String pipeMaintenanceIndent; // 902	
+	private String pipeMaintenanceView; // 903
+	private String pipeMaintenanceUpdate; // 904
+	private String pipeMaintenanceInspection; // 905
+	private String pipeMaintenanceHistory; // 906
 
 	private String vehicleTrackingMangement; // 1100
 	private String vehicleHistory;

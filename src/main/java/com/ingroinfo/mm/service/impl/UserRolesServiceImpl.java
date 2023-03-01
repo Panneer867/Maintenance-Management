@@ -385,26 +385,36 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getPumpDashboard());
 		}
-		if (dto.getPumpMaintenance().contains("N")) {
-			deleteRole(roleId, dto.getPumpMaintenance());
+		if (dto.getPumpMaintenanceIndex().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceIndex());
 		} else {
-			createRole(roleId, dto.getPumpMaintenance());
-		} /*
-			 * if (dto.getPumpMaintenanceIndent().contains("N")) { deleteRole(roleId,
-			 * dto.getPumpMaintenanceIndent()); } else { createRole(roleId,
-			 * dto.getPumpMaintenanceIndent()); }
-			 * 
-			 * if (dto.getPumpMaintenanceUpdate().contains("N")) { deleteRole(roleId,
-			 * dto.getPumpMaintenanceUpdate()); } else { createRole(roleId,
-			 * dto.getPumpMaintenanceUpdate()); } if
-			 * (dto.getPumpMaintenanceInspection().contains("N")) { deleteRole(roleId,
-			 * dto.getPumpMaintenanceInspection()); } else { createRole(roleId,
-			 * dto.getPumpMaintenanceInspection()); } if
-			 * (dto.getPumpMaintenanceHistory().contains("N")) { deleteRole(roleId,
-			 * dto.getPumpMaintenanceHistory()); } else { createRole(roleId,
-			 * dto.getPumpMaintenanceHistory()); }
-			 */
-
+			createRole(roleId, dto.getPumpMaintenanceIndex());
+		}
+		if (dto.getPumpMaintenanceIndent().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceIndent());
+		} else {
+			createRole(roleId, dto.getPumpMaintenanceIndent());
+		}
+		if (dto.getPumpMaintenanceView().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceView());
+		} else {
+			createRole(roleId, dto.getPumpMaintenanceView());
+		}
+		if (dto.getPumpMaintenanceUpdate().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceUpdate());
+		} else {
+			createRole(roleId, dto.getPumpMaintenanceUpdate());
+		}
+		if (dto.getPumpMaintenanceInspection().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceInspection());
+		} else {
+			createRole(roleId, dto.getPumpMaintenanceInspection());
+		}
+		if (dto.getPumpMaintenanceHistory().contains("N")) {
+			deleteRole(roleId, dto.getPumpMaintenanceHistory());
+		} else {
+			createRole(roleId, dto.getPumpMaintenanceHistory());
+		}
 		/* Pipe Management */
 
 		if (dto.getPipeDashboard().contains("N")) {
@@ -412,10 +422,20 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getPipeDashboard());
 		}
+		if (dto.getPipeMaintenanceIndex().contains("N")) {
+			deleteRole(roleId, dto.getPipeMaintenanceIndex());
+		} else {
+			createRole(roleId, dto.getPipeMaintenanceIndex());
+		}
 		if (dto.getPipeMaintenanceIndent().contains("N")) {
 			deleteRole(roleId, dto.getPipeMaintenanceIndent());
 		} else {
 			createRole(roleId, dto.getPipeMaintenanceIndent());
+		}
+		if (dto.getPipeMaintenanceView().contains("N")) {
+			deleteRole(roleId, dto.getPipeMaintenanceView());
+		} else {
+			createRole(roleId, dto.getPipeMaintenanceView());
 		}
 		if (dto.getPipeMaintenanceUpdate().contains("N")) {
 			deleteRole(roleId, dto.getPipeMaintenanceUpdate());
@@ -859,27 +879,35 @@ public class UserRolesServiceImpl implements UserRolesService {
 					else if (pageNo == 800) {
 						pages.setPumpDashboard(String.valueOf(pageNo));
 					} else if (pageNo == 801) {
-						pages.setPumpMaintenance(String.valueOf(pageNo));
-					} /*
-						 * else if (pageNo == 802) {
-						 * pages.setPumpMaintenanceIndent(String.valueOf(pageNo)); } else if (pageNo ==
-						 * 803) { pages.setPumpMaintenanceUpdate(String.valueOf(pageNo)); } else if
-						 * (pageNo == 804) { pages.setPumpMaintenanceInspection(String.valueOf(pageNo));
-						 * } else if (pageNo == 805) {
-						 * pages.setPumpMaintenanceHistory(String.valueOf(pageNo)); }
-						 */
+						pages.setPumpMaintenanceIndex(String.valueOf(pageNo));
+
+					} else if (pageNo == 802) {
+						pages.setPumpMaintenanceIndent(String.valueOf(pageNo));
+					} else if (pageNo == 803) {
+						pages.setPumpMaintenanceView(String.valueOf(pageNo));
+					} else if (pageNo == 804) {
+						pages.setPumpMaintenanceUpdate(String.valueOf(pageNo));
+					} else if (pageNo == 805) {
+						pages.setPumpMaintenanceInspection(String.valueOf(pageNo));
+					} else if (pageNo == 806) {
+						pages.setPumpMaintenanceHistory(String.valueOf(pageNo));
+					}
 
 					/* Pipe Management */
 
 					else if (pageNo == 900) {
 						pages.setPipeDashboard(String.valueOf(pageNo));
 					} else if (pageNo == 901) {
-						pages.setPipeMaintenanceIndent(String.valueOf(pageNo));
+						pages.setPipeMaintenanceIndex(String.valueOf(pageNo));
 					} else if (pageNo == 902) {
-						pages.setPipeMaintenanceUpdate(String.valueOf(pageNo));
+						pages.setPipeMaintenanceIndent(String.valueOf(pageNo));
 					} else if (pageNo == 903) {
-						pages.setPipeMaintenanceInspection(String.valueOf(pageNo));
+						pages.setPipeMaintenanceView(String.valueOf(pageNo));
 					} else if (pageNo == 904) {
+						pages.setPipeMaintenanceUpdate(String.valueOf(pageNo));
+					} else if (pageNo == 905) {
+						pages.setPipeMaintenanceInspection(String.valueOf(pageNo));
+					} else if (pageNo == 906) {
 						pages.setPipeMaintenanceHistory(String.valueOf(pageNo));
 					}
 
