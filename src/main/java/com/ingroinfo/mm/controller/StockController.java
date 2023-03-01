@@ -2,6 +2,7 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
+import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.WorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.InwardMaterials;
 import com.ingroinfo.mm.entity.InwardSpares;
@@ -24,6 +30,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.HsnCodeService;
@@ -51,6 +58,15 @@ public class StockController {
 	@Autowired
 	private HsnCodeService hsnCodeService;
 
+	@Autowired
+	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
+
+	@Autowired
+	private WorkOrdersRepository workOrdersRepository;
+	
+	@Autowired
+	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
+
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
 	public String availableStocks() {
@@ -75,7 +91,7 @@ public class StockController {
 
 			model.addAttribute("subTotal", subTotal);
 		}
-		
+
 		model.addAttribute("tempMaterials", tempMaterials);
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
@@ -152,7 +168,7 @@ public class StockController {
 
 		return "/pages/stock_management/inward_materials_list";
 	}
-	
+
 	@GetMapping("/inward/materials/list/approved")
 	public String inwardApprovedMaterialList(Model model, Principal principal) {
 
@@ -183,10 +199,9 @@ public class StockController {
 		model.addAttribute("title", "Inward Material Chart | Maintenance Management");
 		return "/pages/stock_management/inward_materials_chart";
 	}
-	
+
 	/******************************************************************/
-	
-	
+
 	@GetMapping("/inward/spares/entry")
 	@PreAuthorize("hasAuthority('INWARD_SPARES')")
 	public String inwardSpares(Model model, Principal principal) {
@@ -200,12 +215,12 @@ public class StockController {
 			model.addAttribute("emptyList", "No Spares");
 			model.addAttribute("subTotal", 0);
 		} else {
-			Double subTotal = tempSpares.stream().filter(f -> f.getSubTotal() != null)
-					.mapToDouble(o -> o.getSubTotal()).sum();
+			Double subTotal = tempSpares.stream().filter(f -> f.getSubTotal() != null).mapToDouble(o -> o.getSubTotal())
+					.sum();
 
 			model.addAttribute("subTotal", subTotal);
 		}
-		
+
 		model.addAttribute("tempSpares", tempSpares);
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
@@ -282,7 +297,7 @@ public class StockController {
 
 		return "/pages/stock_management/inward_spares_list";
 	}
-	
+
 	@GetMapping("/inward/spares/list/approved")
 	public String inwardApprovedSpareList(Model model, Principal principal) {
 
@@ -313,11 +328,9 @@ public class StockController {
 		model.addAttribute("title", "Inward Spares Chart | Maintenance Management");
 		return "/pages/stock_management/inward_spares_chart";
 	}
-	
-	
-/******************************************************************/
-	
-	
+
+	/******************************************************************/
+
 	@GetMapping("/inward/tools/entry")
 	@PreAuthorize("hasAuthority('INWARD_TOOLS')")
 	public String inwardTools(Model model, Principal principal) {
@@ -331,12 +344,12 @@ public class StockController {
 			model.addAttribute("emptyList", "No Tools");
 			model.addAttribute("subTotal", 0);
 		} else {
-			Double subTotal = tempTools.stream().filter(f -> f.getSubTotal() != null)
-					.mapToDouble(o -> o.getSubTotal()).sum();
+			Double subTotal = tempTools.stream().filter(f -> f.getSubTotal() != null).mapToDouble(o -> o.getSubTotal())
+					.sum();
 
 			model.addAttribute("subTotal", subTotal);
 		}
-		
+
 		model.addAttribute("tempTools", tempTools);
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
@@ -358,8 +371,8 @@ public class StockController {
 	}
 
 	@PostMapping("/inward/tools/entry/addAll")
-	public String addTools(@ModelAttribute("inward") InwardDto inward, BindingResult bindingResult,
-			HttpSession session, Principal principal) throws IOException {
+	public String addTools(@ModelAttribute("inward") InwardDto inward, BindingResult bindingResult, HttpSession session,
+			Principal principal) throws IOException {
 
 		List<InwardTempTools> inwardToolList = stockService.getInwardTempTools(principal.getName());
 
@@ -412,7 +425,7 @@ public class StockController {
 
 		return "/pages/stock_management/inward_tools_list";
 	}
-	
+
 	@GetMapping("/inward/tools/list/approved")
 	public String inwardApprovedToolList(Model model, Principal principal) {
 
@@ -443,12 +456,61 @@ public class StockController {
 		model.addAttribute("title", "Inward Tools Chart | Maintenance Management");
 		return "/pages/stock_management/inward_tools_chart";
 	}
-	
+
 	@GetMapping("/outward/materials/entry")
 	@PreAuthorize("hasAuthority('OUTWARD_MATERIALS')")
 	public String outwardMaterials(Model model) {
+
 		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
+
+		model.addAttribute("workOrders", stockService.getWorkOrders());
+
 		return "/pages/stock_management/outward_materials";
+	}
+
+	@GetMapping("/outward/get/{workOrderId}")
+	public String outwardStocks(@PathVariable Long workOrderId, Model model) {
+
+		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
+
+		model.addAttribute("workOrders", stockService.getWorkOrders());
+
+		model.addAttribute("workOrderNo", workOrderId);
+
+		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderId));
+
+		return "/pages/stock_management/outward_materials";
+	}
+
+	@PostMapping("/outward/item/quantity")
+	public @ResponseBody void quantity(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
+		if (tempWorkOrderItems.getItemId() != null) {
+			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository
+					.findByItemId(tempWorkOrderItems.getItemId());
+			DecimalFormat df = new DecimalFormat("#.##");
+			TempWorkOrderItem.setTotalCost(
+					Double.parseDouble(df.format(tempWorkOrderItems.getMrpRate() * tempWorkOrderItems.getQty())));
+			TempWorkOrderItem.setQty(tempWorkOrderItems.getQty());
+			tempWorkOrderItemsRepository.save(TempWorkOrderItem);
+		}
+	}
+
+	@PostMapping("/outward/item/delete")
+	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
+		Long itemId = tempWorkOrderItems.getItemId();
+		if (itemId != null) {
+			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository.findByItemId(itemId);
+			Long stockId = workOrdersRepository.findByItemId(itemId).getStocksId();
+
+			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.getTempWorkorderItemId());
+			workOrdersRepository.deleteById(stockId);
+		}
+	}
+	
+	@PostMapping("/get/quantity/{itemId}")
+	public @ResponseBody int getQuantity(@PathVariable Long itemId) {
+
+		return inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
 	}
 
 	@GetMapping("/outward/spares/entry")
@@ -485,7 +547,7 @@ public class StockController {
 		model.addAttribute("title", "Tools Return Page | Maintenance Management");
 		return "/pages/stock_management/tools_return";
 	}
-	
+
 	@GetMapping("/reject/damage")
 	@PreAuthorize("hasAuthority('REJECT_DAMAGE_RETURN')")
 	public String stockRejectDamage() {

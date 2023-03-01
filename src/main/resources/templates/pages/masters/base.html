@@ -146,8 +146,7 @@
 										</a>
 									</li>
 
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/je' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-je">
 										<a th:href="@{/task/je}" class="m-menu__link">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -157,8 +156,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/aee' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-aee">
 										<a th:href="@{/task/aee}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -168,8 +166,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/ee' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-ee">										
 										<a th:href="@{/task/ee}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -179,8 +176,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/commissioner' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-com">									
 										<a th:href="@{/task/commissioner}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -298,18 +294,17 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/materials/entry' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="outward-stocks">
 										<a th:href="@{/stocks/outward/materials/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Outward Materials Issue
+												Outward Stocks
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+									<!--<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/spares/entry' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/outward/spares/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -320,7 +315,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+								<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/outward/tools/entry' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/outward/tools/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -363,7 +358,7 @@
 												Stock Tools Return
 											</span>
 										</a>
-									</li>
+									</li>-->
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/reject/damage' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/stocks/reject/damage}" class="m-menu__link ">
@@ -390,6 +385,7 @@
 							</div>
 						</li>
 
+						
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-workorder"
 							data-menu-submenu-toggle="hover">
 							<a href="#" class="m-menu__link m-menu__toggle">
@@ -543,7 +539,7 @@
 											</span>
 										</a>
 									</li>
-
+									
 								</ul>
 							</div>
 						</li>
@@ -567,7 +563,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/consumer-master' ? 'm-menu__item--active sub-menu-active':''}">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/consumer-master'
+										|| #httpServletRequest.getRequestURI() == '/billing/get/consumers' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/billing/consumer-master}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -578,7 +575,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/transactions' ? 'm-menu__item--active sub-menu-active':''}">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/transactions'
+										|| #httpServletRequest.getRequestURI() == '/billing/get/transactions' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/billing/transactions}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -589,7 +587,8 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/meter-details' ? 'm-menu__item--active sub-menu-active':''}">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/meter-details' 
+										|| #httpServletRequest.getRequestURI() == '/billing/get/meter' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/billing/meter-details}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -708,7 +707,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/history' ? 'm-menu__item--active sub-menu-active':''}">
-										<a href="#" th:href="@{/pump/maintenance/history}" class="m-menu__link ">
+										<a th:href="@{/pump/maintenance/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -751,6 +750,17 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/pipe-index' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/pipe/pipe-index}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Maintenance Index
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/maintenance-indent' ? 'm-menu__item--active sub-menu-active':''}">
 										<a th:href="@{/pipe/maintenance-indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -758,6 +768,17 @@
 											</i>
 											<span class="m-menu__link-text">
 												Maintenance Indent
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
+										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/viewwork' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/pipe/viewwork}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Maintenance View
 											</span>
 										</a>
 									</li>
@@ -1331,7 +1352,7 @@
 											</ul>
 										</div>
 									</li>
-									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
 										id="expand-level-control" data-menu-submenu-toggle="hover">
 										<a href="#" class="m-menu__link m-menu__toggle">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -1535,186 +1556,17 @@
 								</span>
 							</a>
 						</li>
+
+
 					</ul>
 				</div>
 			</div>
+
 			<div class="m-grid__item m-grid__item--fluid m-wrapper pl-3 pr-2">
 				<div th:replace="${content}"></div>
 			</div>
-
-			<div class="mt-3 master-sidebar scroll-hide">
-				<div class="container ">
-					<div class="bar opened dark">
-						<div class="icon" onclick="window.location='/masters/brand-master'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/brand-master' 
-							|| #httpServletRequest.getRequestURI() == '/masters/brandMaster-history' ? 'active':''}">
-							<span class="text">Brand Master</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/schedule'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/schedule'
-							|| #httpServletRequest.getRequestURI() == '/masters/disschedulehistory' ? 'active':''}">
-							<span class="text">Distribution Schedule</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/dislocation'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/dislocation' 
-							|| #httpServletRequest.getRequestURI() == '/masters/dislocationhistory'? 'active':''}">
-							<span class="text">Distribution Location</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/divsubdivision'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/divsubdivision' 
-							|| #httpServletRequest.getRequestURI() == '/masters/divsubdivhistory' ? 'active':''}">
-							<span class="text">Division Sub-Division</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/dmaward'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/dmaward' 
-							|| #httpServletRequest.getRequestURI() == '/masters/dmawardhistory' ? 'active':''}">
-							<span class="text">DMA-Ward</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/empperformance'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/empperformance' 
-							|| #httpServletRequest.getRequestURI() == '/masters/empperformhistory' ? 'active':''}">
-							<span class="text">Employee Performance</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/hsncode'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/hsncode' 
-							|| #httpServletRequest.getRequestURI() == '/masters/hsncodehistory' ? 'active':''}">
-							<span class="text">HSN CODE</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/leakagetype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/leakagetype' 
-							|| #httpServletRequest.getRequestURI() == '/masters/leakageHistory' ? 'active':''}">
-							<span class="text">Leakage Type</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/maintenactivity'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/maintenactivity' 
-							|| #httpServletRequest.getRequestURI() == '/masters/maintenactivehistory' ? 'active':''}">
-							<span class="text">Maintenance Activities</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/maintenfrequency'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/maintenfrequency' 
-							|| #httpServletRequest.getRequestURI() == '/masters/maintanfreqhistory' ? 'active':''}">
-							<span class="text">Maintance Frequency</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/maintenperformance'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/maintenperformance' 
-							|| #httpServletRequest.getRequestURI() == '/masters/maintenperformhistory' ? 'active':''}">
-							<span class="text">Maintance Performance</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/maintentype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/maintentype' 
-							|| #httpServletRequest.getRequestURI() == '/masters/maintentypehistory' ? 'active':''}">
-							<span class="text">Maintance Type</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/barcode'"
-							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/barcode' ? 'active':''}">
-							<span class="text">Master Barcode</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/category'
-							|| #httpServletRequest.getRequestURI() == '/masters/categoryhistory' ? 'active':''}">
-							<span class="text">Master Category</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/companymaster'"
-							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/companymaster' ? 'active':''}">
-							<span class="text">Master Company</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/department'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/department' 
-							|| #httpServletRequest.getRequestURI() == '/masters/deparmentHistory' ? 'active':''}">
-							<span class="text">Master Department</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/departmentId'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/departmentId'
-							|| #httpServletRequest.getRequestURI() == '/masters/departmentIdHistory' ? 'active':''}">
-							<span class="text">Master Department Id</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/designation'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/designation'
-							|| #httpServletRequest.getRequestURI() == '/masters/desigHistory' ? 'active':''}">
-							<span class="text">Master Designation</span>
-						</div>
-						<div class="icon" id="master-id-sidebar" onclick="window.location='/masters/idmasterhistory'"
-							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/idmasterhistory'
-							|| #httpServletRequest.getRequestURI() == '/masters/idmaster'? 'active':''}">
-							<span class="text">Master Id</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/masteritem'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/masteritem' 
-							|| #httpServletRequest.getRequestURI() == '/masters/itemhistory' ? 'active':''}">
-							<span class="text">Master Item</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/masterpumps'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/masterpumps' 
-							|| #httpServletRequest.getRequestURI() == '/masters/pumpshistory' ? 'active':''}">
-							<span class="text">Master Pumps</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/mastertax'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/mastertax' 
-							|| #httpServletRequest.getRequestURI() == '/masters/taxMasterHistory' ? 'active':''}">
-							<span class="text">Master Tax</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/metermanufacture'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/metermanufacture' 
-							|| #httpServletRequest.getRequestURI() == '/masters/metermanufacthistory' ? 'active':''}">
-							<span class="text">Meter Manufacture</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/metertype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/metertype' 
-							|| #httpServletRequest.getRequestURI() == '/masters/metertypehistory' ? 'active':''}">
-							<span class="text">Meter Type</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/notifialert'"
-							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/notifialert' ? 'active':''}">
-							<span class="text">Notifications/Alerts</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/pipemanufacture'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/pipemanufacture' 
-							|| #httpServletRequest.getRequestURI() == '/masters/pipemanufacthistory' ? 'active':''}">
-							<span class="text">Pipe Manufacture</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/pressuretype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/pressuretype' 
-							|| #httpServletRequest.getRequestURI() == '/masters/pressurehistory' ? 'active':''}">
-							<span class="text">Pressure Type</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/saftyprecaution'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/saftyprecaution'
-							|| #httpServletRequest.getRequestURI() == '/masters/safetyhistory' ? 'active':''}">
-							<span class="text">Safety Precautions</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/servicearea'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/servicearea'
-							|| #httpServletRequest.getRequestURI() == '/masters/serviceareahistory' ? 'active':''}">
-							<span class="text">Service Area</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/serviceprogtype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/serviceprogtype' 
-							|| #httpServletRequest.getRequestURI() == '/masters/serviceProgrechistory' ? 'active':''}">
-							<span class="text">Service Progress Type</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/serviceprovider'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/serviceprovider' 
-							|| #httpServletRequest.getRequestURI() == '/masters/serviceprovhistory' ? 'active':''}">
-							<span class="text">Service Provider</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/sparepart'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/sparepart' 
-							|| #httpServletRequest.getRequestURI() == '/masters/partsequipmenthistory' ? 'active':''}">
-							<span class="text">Spare Parts/Equipments</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/storebranch'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/storebranch' 
-							|| #httpServletRequest.getRequestURI() == '/masters/storebranchistory' ? 'active':''}">
-							<span class="text">Store/Branch Name</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/supplierdetails'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/supplierdetails' 
-							|| #httpServletRequest.getRequestURI() == '/masters/supplierHistory'? 'active':''}">
-							<span class="text">Supplier Details</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/taskstatus'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/taskstatus' 
-							|| #httpServletRequest.getRequestURI() == '/masters/taskStatusHistory' ? 'active':''}">
-							<span class="text">Task Status</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/teamcode'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/teamcode'
-							|| #httpServletRequest.getRequestURI() == '/masters/teamcodeHistory' ? 'active':''}">
-							<span class="text">Team Code</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/unitmeasure'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/unitmeasure' 
-							|| #httpServletRequest.getRequestURI() == '/masters/unitMeasureHistory' ? 'active':''}">
-							<span class="text">Units Of measures</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/mastervehicle'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/mastervehicle'
-							|| #httpServletRequest.getRequestURI() == '/masters/vehicleDtlsHistory'  ? 'active':''}">
-							<span class="text">Vehicle masters Details</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/watersouce'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/watersouce' 
-							|| #httpServletRequest.getRequestURI() == '/masters/waterSourceHistory' ? 'active':''}">
-							<span class="text">Water Source</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/workpriority'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/workpriority' 
-							|| #httpServletRequest.getRequestURI() == '/masters/workPriorityHistory' ? 'active':''}">
-							<span class="text">Work Priority</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/workstatus'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/workstatus' 
-							|| #httpServletRequest.getRequestURI() == '/masters/workStatusHistory' ? 'active':''}">
-							<span class="text">Work Status</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
+
 		<footer class="m-grid__item	m-footer">
 			<div class="m-container m-container--fluid m-container--full-height m-page__container">
 				<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
