@@ -22,8 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.WorkOrdersRepository;
+import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.InwardMaterials;
 import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTempMaterials;
@@ -31,6 +32,7 @@ import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
+import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.HsnCodeService;
@@ -62,8 +64,8 @@ public class StockController {
 	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
 
 	@Autowired
-	private WorkOrdersRepository workOrdersRepository;
-	
+	private WorkOrderItemsRequestRepository workOrderItemsRequestRepository;
+
 	@Autowired
 	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
 
@@ -463,7 +465,13 @@ public class StockController {
 
 		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
 
-		model.addAttribute("workOrders", stockService.getWorkOrders());
+		List<Long> workOrders = stockService.getWorkOrders();
+
+		model.addAttribute("workOrders", workOrders);
+
+		if (workOrders.size() == 0) {
+			model.addAttribute("emptyList", "No Work Order Items");
+		}
 
 		return "/pages/stock_management/outward_materials";
 	}
@@ -475,9 +483,21 @@ public class StockController {
 
 		model.addAttribute("workOrders", stockService.getWorkOrders());
 
+		model.addAttribute("emptyList", null);
+
 		model.addAttribute("workOrderNo", workOrderId);
 
 		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderId));
+		
+		model.addAttribute("workorder", new WorkOrders());
+
+		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderId);
+		
+		if (qty.size() != 0) {
+			model.addAttribute("stockQuantities", qty);
+		} else {
+			model.addAttribute("stockQuantities", null);
+		}
 
 		return "/pages/stock_management/outward_materials";
 	}
@@ -500,17 +520,22 @@ public class StockController {
 		Long itemId = tempWorkOrderItems.getItemId();
 		if (itemId != null) {
 			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository.findByItemId(itemId);
-			Long stockId = workOrdersRepository.findByItemId(itemId).getStocksId();
-
+			Long stockId = workOrderItemsRequestRepository.findByItemId(itemId).getStocksId();
 			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.getTempWorkorderItemId());
-			workOrdersRepository.deleteById(stockId);
+			workOrderItemsRequestRepository.deleteById(stockId);
 		}
 	}
-	
+
 	@PostMapping("/get/quantity/{itemId}")
 	public @ResponseBody int getQuantity(@PathVariable Long itemId) {
-
 		return inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+	}
+	
+	@PostMapping("/outward/workorder/items")
+	public String workOrerItems(@ModelAttribute("workorder") WorkOrders workOrders, BindingResult bindingResult, HttpSession session) {
+		stockService.saveWorkOrder(workOrders);
+		session.setAttribute("message", new Message("Workorder Items has been successfully placed !", "success"));
+		return "redirect:/stocks/outward/materials/entry";
 	}
 
 	@GetMapping("/outward/spares/entry")

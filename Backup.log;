@@ -1,0 +1,453 @@
+
+Connected to: Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+Export done in WE8MSWIN1252 character set and AL16UTF16 NCHAR character set
+server uses AL32UTF8 character set (possible charset conversion)
+
+About to export specified users ...
+. exporting pre-schema procedural objects and actions
+. exporting foreign function library names for user MAINTENANCE_MANAGEMENT 
+. exporting PUBLIC type synonyms
+. exporting private type synonyms
+. exporting object type definitions for user MAINTENANCE_MANAGEMENT 
+About to export MAINTENANCE_MANAGEMENT's objects ...
+. exporting database links
+. exporting sequence numbers
+. exporting cluster definitions
+. about to export MAINTENANCE_MANAGEMENT's tables via Conventional Path ...
+. . exporting table                MM_ASSEST_ENTRY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_BACKUP_SCHEDULER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                        MM_BANK         33 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                      MM_BRANCH          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_BRAND_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table           MM_CANCEL_WORK_ORDER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_CATEGORY_MASTER          3 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                        MM_CITY        339 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                     MM_COMPANY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                  MM_COMPLAINTS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table           MM_CONTACT_MANGEMENT          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_DEPARTMENT_ID_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table           MM_DEPARTMENT_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table          MM_DESIGNATION_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_DISTRIBUTION_LOCATION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_DISTRIBUTION_SCHEDULE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_DIVISION_SUBDIVISION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                    MM_DMA_WARD          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table         MM_EMPLOYEE_INSPECTION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table              MM_EMPLOYEE_LEAVE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_EMPLOYEE_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_EMPLOYEE_PERFORMANCE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_EMPLOYEE_SALARY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table      MM_GENERATE_CATEGORY_WORK          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_GENERATE_LABOURS_WORK          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_GENERATE_VEHICLE_WORK          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                    MM_HANDPUMP          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_HOLD_WORK_ORDER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                    MM_HSN_CODE          6 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                   MM_ID_MASTER          2 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table   MM_INWARD_APPROVED_MATERIALS          5 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table      MM_INWARD_APPROVED_SPARES          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_INWARD_APPROVED_TOOLS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_INWARD_MATERIALS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table   MM_INWARD_REJECTED_MATERIALS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table      MM_INWARD_REJECTED_SPARES          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_INWARD_REJECTED_TOOLS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table               MM_INWARD_SPARES          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table       MM_INWARD_TEMP_MATERIALS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table          MM_INWARD_TEMP_SPARES          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table           MM_INWARD_TEMP_TOOLS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_INWARD_TOOLS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_ITEM_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table  MM_LEAKAGE_MAINTENANCE_UPDATE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_LEAKAGE_TYPE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                       MM_LEAVE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table              MM_LEVEL_CONTROLS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_MAINTENANCE_ACTIVITY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table     MM_MAINTENANCE_PERFORMANCE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_MAINTENANCE_TYPE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table         MM_MANITANCE_FREQUENCY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table           MM_METER_MANUFACTURE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                  MM_METER_TYPE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_PASSWORD_RESET_TOKEN          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                  MM_PIPE_INDEX          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_PIPE_MAINTENANCE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table MM_PIPE_MAINTENANCE_INSPECTION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table     MM_PIPE_MAINTENANCE_UPDATE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_PIPE_MANUFACTURE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table               MM_PRESSURE_TYPE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_PRIVILEGE_MASTER        112 rows exported
+. . exporting table            MM_PUMP_MAINTENANCE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_PUMP_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_ROLE_MASTER          3 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_ROLE_PRIVILEGES        324 rows exported
+. . exporting table            MM_SAFTY_PRECAUTION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_SERVICE_AREA          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_SERVICE_PROGRESS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_SERVICE_PROVIDER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_SPARE_EQUIPMENT          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                       MM_STATE         34 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_STORE_BRANCH          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table            MM_SUPPLIER_DETAILS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_TASK_STATUS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                  MM_TAX_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                   MM_TEAM_CODE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table        MM_TEMP_WORKORDER_ITEMS          5 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_UNIT_MEASURE          4 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_USERS_ROLES          1 rows exported
+. . exporting table             MM_USER_MANAGEMENT          1 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table              MM_VECHILE_MASTER          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                MM_WATER_SOURCE          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                  MM_WORKORDERS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table             MM_WORKORDER_ITEMS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table     MM_WORKORDER_ITEMS_REQUEST          5 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table              MM_WORK_ESTMATION          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table               MM_WORK_PRIORITY          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. . exporting table                 MM_WORK_STATUS          0 rows exported
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00056: ORACLE error 1403 encountered
+ORA-01403: no data found
+. exporting synonyms
+. exporting views
+. exporting stored procedures
+. exporting operators
+. exporting referential integrity constraints
+EXP-00008: ORACLE error 1455 encountered
+ORA-01455: converting column overflows integer datatype
+EXP-00000: Export terminated unsuccessfully

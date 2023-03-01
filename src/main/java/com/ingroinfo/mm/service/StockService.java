@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -14,7 +15,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.TempWorkOrderItems;
+import com.ingroinfo.mm.entity.WorkOrders;
 
 public interface StockService {
 
@@ -83,9 +84,15 @@ public interface StockService {
 	InwardApprovedTools getApprovedInwardToolById(Long id);
 
 	List<InwardApprovedTools> getApprovedToolsLists();
+	
+	/******** Workorders *********/
 
 	List<Long> getWorkOrders();
 
-	List<TempWorkOrderItems> getWorkOrderItems(Long workOrderId);
+	List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderId);
+
+	List<WorkOrderItemsDto> checkStockQuantity(Long workOrderId);
+
+	void saveWorkOrder(WorkOrders workOrders);
 
 }

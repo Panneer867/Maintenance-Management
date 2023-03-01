@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,13 +17,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_temp_workorder_items")
-public class TempWorkOrderItems {
+@Table(name = "mm_workorder_items")
+public class WorkOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tempWorkorderItemId;
-	private int qty;
 	private int finalQuantity;
 	private int slNo;
 	private Long itemId;
@@ -35,5 +36,9 @@ public class TempWorkOrderItems {
 	private Double mrpRate;
 	private String description;
 	private Long workOrderId;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "workorder_id")
+	private WorkOrders workorderId;
+
 }

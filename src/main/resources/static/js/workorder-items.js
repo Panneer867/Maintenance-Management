@@ -33,12 +33,26 @@ $(function() {
 							},
 							error: function(e) {
 								alert('error occured while posting data' + e);
-
 							}
 						});
+
+
 					} else {
 						alert('Available stocks is ' + stockQty + ' cant add more than that !');
 						newQty = stockQty;
+						quantity.qty = stockQty;
+						var json = JSON.stringify(quantity);
+						$.ajax({
+							url: '/stocks/outward/item/quantity',
+							method: 'POST',
+							data: json,
+							contentType: "application/json; charset=utf-8",
+							success: function() {
+							},
+							error: function(e) {
+								alert('error occured while posting data' + e);
+							}
+						});
 					}
 				} else {
 					if (oldQty > 1) {
@@ -79,13 +93,22 @@ $(function() {
 			subtotalVal += parseFloat($(this).val());
 		});
 		$('.subtotal').text((subtotalVal).toFixed(2));
-		$('#sub-total').val((subtotalVal).toFixed(2));
 		$(".gstamt").text(((subtotalVal / 100) * 18).toFixed(2));
-		$("#gst-amt").val(((subtotalVal / 100) * 18).toFixed(2));
 		var vatVal = ((subtotalVal / 100) * 18).toFixed(2);
 		var total = parseFloat(subtotalVal) + parseFloat(vatVal);
 		$(".grandtotal").text((total).toFixed(2));
-		$("#grand-total").val((total).toFixed(2));
+
+		var ss = parseFloat($(".subtotal").text()) || 0;
+
+		var gst = parseFloat($("#get-igst-outward").val()) || 0;
+		if (gst === 0) {
+			$(".set-item-grand-total-outward").text((ss).toFixed(2));
+		} else {
+
+			var gstVal = ((ss / 100) * parseFloat(gst));
+			var grandTotal = parseFloat(ss) + parseFloat(gstVal);
+			$(".set-item-grand-total-outward").text((grandTotal).toFixed(2));
+		}
 	}
 	$(".remove-item").click(function() {
 		if (confirm("Do you really want to remove this item?")) {
@@ -109,5 +132,57 @@ $(function() {
 		}
 	});
 });
+
+var subTotal = parseFloat($("#get-item-sub-total-outward").text()) || 0;
+
+
+$("#sub-total-outward").val((subTotal).toFixed(2));
+$(".set-item-grand-total-outward").text(0);
+
+$("#get-igst-outward").prop('disabled', true);
+$("#get-cgst-outward").prop('disabled', true);
+$("#get-sgst-outward").prop('disabled', true);
+
+$('#select-gst-outward').change(function() {
+	if ($(this).val() === 'Taxable') {
+
+		$("#get-igst-outward").prop('disabled', false);
+
+	} else {
+		$("#grand-total-outward").val(subTotal);
+
+		$("#get-igst-outward").prop('disabled', true);
+		$("#get-igst-outward").val(0);
+		$("#get-cgst-outward").val(0);
+		$("#get-sgst-outward").val(0);
+
+		$("#get-imp-cgst-outward").val(0);
+		$("#get-imp-sgst-outward").val(0);
+
+		var ss = parseFloat($("#get-item-sub-total-outward").text()) || 0;
+		$(".set-item-grand-total-outward").text((ss).toFixed(2));
+	};
+});
+
+$(".calculate-outward").bind("keyup change", function() {
+	var gst = parseFloat($("#get-igst-outward").val()) || 0;
+	var ss = parseFloat($("#get-item-sub-total-outward").text()) || 0;
+	var value = gst / 2;
+	if (!isNaN(value) && value !== Infinity) {
+
+		$("#get-cgst-outward").val((value).toFixed(2));
+		$("#get-sgst-outward").val((value).toFixed(2));
+
+		$("#get-imp-cgst-outward").val((value).toFixed(2));
+		$("#get-imp-sgst-outward").val((value).toFixed(2));
+	}
+
+	var gstVal = ((ss / 100) * parseFloat(gst));
+	var grandTotal = parseFloat(ss) + parseFloat(gstVal);
+
+	$(".set-item-grand-total-outward").text((grandTotal).toFixed(2));
+	$("#grand-total-outward").val((grandTotal).toFixed(2));
+});
+
 
 
