@@ -34,6 +34,6 @@ public class TempWorkOrderItems {
 	private Double totalCost;
 	private Double mrpRate;
 	private String description;
-	private Long workOrderId;
+	private Long workOrderNo;
 	
 }

@@ -22,24 +22,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_workorders")
-public class WorkOrders {
+@Table(name = "mm_work_order_removed_items")
+public class WorkOrderRemovedItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long orderId;
-	private String supplier;
-	private String billedOn;
-	private String gstType;
-	private Double igst;
-	private Double sgst;
-	private Double cgst;
-	private Double subTotal;
-	private Double grandTotal;
+	private Long workOrderItemRemovedId;
+	private Long itemId;
+	private int requestedQuantity;
+	private int stockQuantity;
+	private String Availability;
 	private Long workOrderNo;
+	private String remarks;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrderId")
-	private List<WorkOrderItems> workOrderItems;
 
 }

@@ -32,13 +32,12 @@ public class WorkOrderItems {
 	private String imagePath;
 	private String category;
 	private String unitOfMeasure;
-	private Double totalCost;
 	private Double mrpRate;
 	private String description;
-	private Long workOrderId;
+	private Long workOrderNo;
 
 	@ManyToOne
 	@JoinColumn(name = "workorder_id")
-	private WorkOrders workorderId;
+	private WorkOrders workOrderId;
 
 }

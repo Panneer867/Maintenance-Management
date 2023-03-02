@@ -22,6 +22,6 @@ public class WorkOrderItemsRequest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long stocksId;
 	private Long itemId;
-	private Long workOrderId;
+	private Long workOrderNo;
 	private int quantity;
 }

@@ -25,6 +25,8 @@ import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
+import com.ingroinfo.mm.dao.WorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.Company;
@@ -38,7 +40,9 @@ import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
+import com.ingroinfo.mm.entity.WorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
+import com.ingroinfo.mm.entity.WorkOrderRemovedItems;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.HsnCodeService;
@@ -87,10 +91,16 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
-	
+
 	@Autowired
 	private WorkOrderItemsRepository workOrderItemsRepository;
-	
+
+	@Autowired
+	private WorkOrdersRepository workOrdersRepository;
+
+	@Autowired
+	private WorkOrderRemovedItemsRepository workOrderRemovedItemsRepository;
+
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
 
@@ -431,21 +441,21 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public List<Long> getWorkOrders() {
+	public List<Long> getWorkOrdersNos() {
 
-		return workOrderItemsRequestRepository.findAll().stream().map(orders -> orders.getWorkOrderId()).distinct()
+		return workOrderItemsRequestRepository.findAll().stream().map(orders -> orders.getWorkOrderNo()).distinct()
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderId) {
-		
-		List<TempWorkOrderItems> WorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderId(workOrderId);
-		for(TempWorkOrderItems Items :WorkOrderItems) {
+	public List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderNo) {
+
+		List<TempWorkOrderItems> WorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+		for (TempWorkOrderItems Items : WorkOrderItems) {
 			tempWorkOrderItemsRepository.deleteById(Items.getTempWorkorderItemId());
 		}
 
-		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderId(workOrderId);
+		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderNo(workOrderNo);
 		List<Long> itemIds = workOrders.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
 
 		Map<Long, Integer> itemQuantity = workOrders.stream()
@@ -453,11 +463,11 @@ public class StockServiceImpl implements StockService {
 		int i = 1;
 		for (Long itemId : itemIds) {
 
-			if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderId(itemId, workOrderId).isEmpty()) {
+			if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 				InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
 				TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
 
-				tempWorkOrderItems.setWorkOrderId(workOrderId);
+				tempWorkOrderItems.setWorkOrderNo(workOrderNo);
 				tempWorkOrderItems.setSlNo(i);
 				tempWorkOrderItems.setQty(itemQuantity.get(itemId));
 				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
@@ -473,7 +483,7 @@ public class StockServiceImpl implements StockService {
 			}
 
 		}
-		List<TempWorkOrderItems> listTempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderId(workOrderId);
+		List<TempWorkOrderItems> listTempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
 
 		List<WorkOrderItemsDto> wOIDto = new ArrayList<WorkOrderItemsDto>();
 		for (TempWorkOrderItems listTempWorkOrderItem : listTempWorkOrderItems) {
@@ -489,7 +499,7 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<WorkOrderItemsDto> checkStockQuantity(Long workOrderId) {
 
-		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderId(workOrderId);
+		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderNo(workOrderId);
 		List<Long> itemIds = workOrders.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
 		Map<Long, Integer> itemQuantity = workOrders.stream()
 				.collect(Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
@@ -511,8 +521,60 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public void saveWorkOrder(WorkOrders workOrders) {
-		workOrderItemsRepository.save(null);
-		
+		WorkOrders savedWorkOrder = workOrdersRepository.save(workOrders);
+		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository
+				.findByWorkOrderNo(savedWorkOrder.getWorkOrderNo());
+
+		tempWorkOrderItems.forEach(tempWorkOrderItem -> {
+			WorkOrderItems orderItem = modelMapper.map(tempWorkOrderItem, WorkOrderItems.class);
+			orderItem.setWorkOrderId(savedWorkOrder);
+			workOrderItemsRepository.save(orderItem);
+
+			int requiredQty = tempWorkOrderItem.getFinalQuantity();
+			InwardApprovedMaterials masterItem = inwardApprovedMaterialsRepository
+					.findByItemId(tempWorkOrderItem.getItemId());
+			int stockQty = masterItem.getQuantity();
+			masterItem.setQuantity(stockQty - requiredQty);
+			inwardApprovedMaterialsRepository.save(masterItem);
+
+			tempWorkOrderItemsRepository.deleteById(tempWorkOrderItem.getTempWorkorderItemId());
+			WorkOrderItemsRequest workOrderItemsRequest = workOrderItemsRequestRepository
+					.findByWorkOrderNoAndItemId(savedWorkOrder.getWorkOrderNo(), tempWorkOrderItem.getItemId());
+			workOrderItemsRequestRepository.deleteById(workOrderItemsRequest.getStocksId());
+		});
 	}
 
+	@Override
+	public boolean notAvailableItems(Long workOrderNo) {
+		List<WorkOrderItemsDto> workOrderItems = getWorkOrderItems(workOrderNo);
+		for (WorkOrderItemsDto workOrderItem : workOrderItems) {
+			if (workOrderItem.getStockAvailable() == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void saveRemovedItems(Long itemId) {
+		WorkOrderRemovedItems removedItem = new WorkOrderRemovedItems();
+		Long workOrderNo = tempWorkOrderItemsRepository.findByItemId(itemId).getWorkOrderNo();
+		int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+		int requiredQuantity = tempWorkOrderItemsRepository.findByItemId(itemId).getQty();
+
+		removedItem.setItemId(itemId);
+		removedItem.setRequestedQuantity(requiredQuantity);
+		removedItem.setStockQuantity(stockQuantity);
+		removedItem.setWorkOrderNo(workOrderNo);
+
+		if (stockQuantity == 0) {
+			removedItem.setAvailability("Not Available in Stock");
+			removedItem.setRemarks("The item is not available, so it has been removed from the list.");
+		} else {
+			removedItem.setAvailability("Available in Stock");
+			removedItem.setRemarks("User removed the item from the list because it was no longer needed.");
+		}
+
+		workOrderRemovedItemsRepository.save(removedItem);
+	}
 }

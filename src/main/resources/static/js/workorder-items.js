@@ -167,6 +167,8 @@ $('#select-gst-outward').change(function() {
 $(".calculate-outward").bind("keyup change", function() {
 	var gst = parseFloat($("#get-igst-outward").val()) || 0;
 	var ss = parseFloat($("#get-item-sub-total-outward").text()) || 0;
+	var workorder = parseInt($("#get-workorder-no").val()) || 0;
+
 	var value = gst / 2;
 	if (!isNaN(value) && value !== Infinity) {
 
@@ -181,7 +183,10 @@ $(".calculate-outward").bind("keyup change", function() {
 	var grandTotal = parseFloat(ss) + parseFloat(gstVal);
 
 	$(".set-item-grand-total-outward").text((grandTotal).toFixed(2));
-	$("#grand-total-outward").val((grandTotal).toFixed(2));
+	$("#set-workorder-no").val(workorder);
+	$("#get-sub-total-outward").val((ss).toFixed(2));
+	$("#get-grand-total-outward").val((grandTotal).toFixed(2));
+
 });
 
 

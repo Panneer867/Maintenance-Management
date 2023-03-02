@@ -9,9 +9,9 @@ import com.ingroinfo.mm.entity.TempWorkOrderItems;
 @Repository
 public interface TempWorkOrderItemsRepository extends JpaRepository<TempWorkOrderItems, Long> {
 
-	List<TempWorkOrderItems> findByWorkOrderId(Long workOrderId);
+	List<TempWorkOrderItems> findByWorkOrderNo(Long workOrderNo);
 
-	Optional<TempWorkOrderItems> findByItemIdAndWorkOrderId(Long itemId, Long workOrderId);
+	Optional<TempWorkOrderItems> findByItemIdAndWorkOrderNo(Long itemId, Long workOrderNo);
 
 	TempWorkOrderItems findByItemId(Long itemId);
 

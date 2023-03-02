@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.InwardMaterials;
@@ -32,6 +33,7 @@ import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
+import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CategoryService;
@@ -465,34 +467,36 @@ public class StockController {
 
 		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
 
-		List<Long> workOrders = stockService.getWorkOrders();
+		List<Long> workOrdersNos = stockService.getWorkOrdersNos();
 
-		model.addAttribute("workOrders", workOrders);
+		model.addAttribute("workOrdersNos", workOrdersNos);
 
-		if (workOrders.size() == 0) {
-			model.addAttribute("emptyList", "No Work Order Items");
+		model.addAttribute("workOrderItems", "No Work Order Items");
+
+		if (workOrdersNos.size() == 0) {
+			model.addAttribute("emptyList", "No Work Orders");
 		}
 
 		return "/pages/stock_management/outward_materials";
 	}
 
-	@GetMapping("/outward/get/{workOrderId}")
-	public String outwardStocks(@PathVariable Long workOrderId, Model model) {
+	@GetMapping("/outward/get/{workOrderNo}")
+	public String outwardStocks(@PathVariable Long workOrderNo, Model model) {
 
 		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
 
-		model.addAttribute("workOrders", stockService.getWorkOrders());
+		model.addAttribute("workOrdersNos", stockService.getWorkOrdersNos());
 
-		model.addAttribute("emptyList", null);
+		model.addAttribute("workOrderNo", workOrderNo);
 
-		model.addAttribute("workOrderNo", workOrderId);
+		model.addAttribute("workOrderItems", null);
 
-		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderId));
-		
+		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderNo));
+
 		model.addAttribute("workorder", new WorkOrders());
 
-		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderId);
-		
+		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderNo);
+
 		if (qty.size() != 0) {
 			model.addAttribute("stockQuantities", qty);
 		} else {
@@ -518,9 +522,11 @@ public class StockController {
 	@PostMapping("/outward/item/delete")
 	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
 		Long itemId = tempWorkOrderItems.getItemId();
+		
 		if (itemId != null) {
 			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository.findByItemId(itemId);
-			Long stockId = workOrderItemsRequestRepository.findByItemId(itemId).getStocksId();
+			Long stockId = workOrderItemsRequestRepository.findByItemId(itemId).getStocksId();			
+			stockService.saveRemovedItems(itemId);			
 			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.getTempWorkorderItemId());
 			workOrderItemsRequestRepository.deleteById(stockId);
 		}
@@ -530,11 +536,24 @@ public class StockController {
 	public @ResponseBody int getQuantity(@PathVariable Long itemId) {
 		return inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
 	}
-	
+
 	@PostMapping("/outward/workorder/items")
-	public String workOrerItems(@ModelAttribute("workorder") WorkOrders workOrders, BindingResult bindingResult, HttpSession session) {
-		stockService.saveWorkOrder(workOrders);
-		session.setAttribute("message", new Message("Workorder Items has been successfully placed !", "success"));
+	public String workOrerItems(@ModelAttribute("workorder") WorkOrders workOrders, BindingResult bindingResult,
+			HttpSession session) {
+		Long workOrderNo = workOrders.getWorkOrderNo();
+		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
+
+		if (itemAvailability) {
+			session.setAttribute("message", new Message("To place the order, please remove the items that are not available from the list.", "danger"));
+			return "redirect:/stocks/outward/get/" + workOrderNo;
+		}
+		if (workOrders.getWorkOrderNo() != 0 && workOrders.getWorkOrderNo() != null) {
+			stockService.saveWorkOrder(workOrders);
+			session.setAttribute("message", new Message("Workorder Items has been successfully placed !", "success"));
+		} else {
+			session.setAttribute("message", new Message("Workorder Number is null !", "danger"));
+			return "redirect:/stocks/outward/materials/entry";
+		}
 		return "redirect:/stocks/outward/materials/entry";
 	}
 

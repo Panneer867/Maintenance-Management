@@ -57,17 +57,14 @@
 													Number</label>
 												<div class="col-sm-7 px-0">
 													<input type="text" class="form-control text-center font-weight-bold"
-														th:value="${workOrderNo}" readonly />
+														th:value="${workOrderNo}" id="get-workorder-no" readonly />
 												</div>
 											</div>
 										</div>
 										<div class="col-4"></div>
 									</div>
-
-
 									<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
 									</h3>
-
 									<table
 										class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
 										<thead class="bg-dark text-white">
@@ -76,9 +73,7 @@
 												<th class="all">Item ID</th>
 												<th class="all">Item</th>
 												<th class="all text-center">Stocks</th>
-
 												<th class="all">Image</th>
-
 												<th class="all" style="width: 12%;">MRP</th>
 												<th class="all" style="width: 15%;">Quantity</th>
 												<th class="all" style="width: 12%;">Total</th>
@@ -150,11 +145,10 @@
 										</tbody>
 									</table>
 									<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
-										th:if="${emptyList != null}">
-										[[${emptyList}]]</div>
-									<div class="row" th:if="${emptyList == null}">
-										<form th:action="@{/stocks/outward/workorder/items}" method="post"
-											th:object="${workorder}">
+										th:if="${workOrderItems != null}">No Work Order Items</div>
+									<form th:action="@{/stocks/outward/workorder/items}" method="post"
+										th:object="${workorder}" th:if="${workOrderItems == null}">
+										<div class="row">
 											<div class="col-8">
 												<div class="row">
 													<div class="col-4">
@@ -258,6 +252,8 @@
 														<label class="font-weight-bold mb-0">&#8377;<label
 																class=" pl-2 font-weight-bold mb-0 subtotal"
 																id="get-item-sub-total-outward"></label></label>
+														<input type="hidden" name="subTotal"
+															id="get-sub-total-outward" />
 													</div>
 												</div>
 												<div class="row text-white">
@@ -267,11 +263,20 @@
 													<div class="col-6 bg-primary row py-2 rounded-bottom">
 														<label class="font-weight-bold mb-0">&#8377;<label
 																class=" pl-2 font-weight-bold mb-0 set-item-grand-total-outward"></label></label>
+														<input type="hidden" name="grandTotal"
+															id="get-grand-total-outward" />
 													</div>
 												</div>
 											</div>
-										</form>
-									</div>
+											<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
+											<div class="col-12 text-center mt-3">
+												<button type="submit"
+													class="btn btn-success btn-sm mr-3">Submit</button>
+												<button type="reset"
+													class="btn btn-secondary btn-sm mr-3">Reset</button>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -286,10 +291,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="workOrder: ${workOrders}">
-										<td th:text="${workOrder}"></td>
+									<tr th:each="workOrderNo: ${workOrdersNos}">
+										<td th:text="${workOrderNo}"></td>
 										<td class="text-center">
-											<a th:href="@{'/stocks/outward/get/' + ${workOrder}}"
+											<a th:href="@{'/stocks/outward/get/' + ${workOrderNo}}"
 												class="btn btn-success p-1 mx-2">Indent</a>
 										</td>
 									</tr>
@@ -298,27 +303,27 @@
 							<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
 								th:if="${emptyList != null}">
 								No Work Orders</div>
-							<div class="alert alert-danger text-center my-2 py-1" role="alert"
-								th:if="${stockQuantities != null}">
-								The quantity exceeds the available stock.</div>
-							<table
-								class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4"
-								th:if="${stockQuantities != null}">
-								<thead class="table-warning">
-									<tr>
-										<th>Item ID</th>
-										<th> Requested</th>
-										<th>Available</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="stockQuantity: ${stockQuantities}">
-										<td th:text="${stockQuantity.itemId}"></td>
-										<td th:text="${stockQuantity.stockRequested}"></td>
-										<td th:text="${stockQuantity.stockAvailable}"></td>
-									</tr>
-								</tbody>
-							</table>
+							<div th:if="${stockQuantities != null}">
+								<div class="alert alert-danger text-center my-2 py-1" role="alert">
+									The quantity exceeds the available stock.</div>
+								<table
+									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+									<thead class="table-warning">
+										<tr>
+											<th>Item ID</th>
+											<th> Requested</th>
+											<th>Available</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="stockQuantity: ${stockQuantities}">
+											<td th:text="${stockQuantity.itemId}"></td>
+											<td th:text="${stockQuantity.stockRequested}"></td>
+											<td th:text="${stockQuantity.stockAvailable}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -330,7 +335,6 @@
 				</div>
 				<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
 					tabindex="0">
-
 				</div>
 			</div>
 		</div>

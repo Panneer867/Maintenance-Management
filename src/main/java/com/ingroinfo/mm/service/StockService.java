@@ -15,6 +15,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrders;
 
 public interface StockService {
@@ -87,12 +88,15 @@ public interface StockService {
 	
 	/******** Workorders *********/
 
-	List<Long> getWorkOrders();
+	List<Long> getWorkOrdersNos();
 
-	List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderId);
+	List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderNo);
 
-	List<WorkOrderItemsDto> checkStockQuantity(Long workOrderId);
+	List<WorkOrderItemsDto> checkStockQuantity(Long workOrderNo);
 
 	void saveWorkOrder(WorkOrders workOrders);
 
+	boolean notAvailableItems(Long workOrderNo);
+
+	void saveRemovedItems(Long itemId);
 }
