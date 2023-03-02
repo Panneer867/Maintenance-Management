@@ -135,7 +135,7 @@ public class StockServiceImpl implements StockService {
 		inwardTempMaterials.setItemId(ItemId);
 		inwardTempMaterials.setUsername(inward.getUsername());
 		inwardTempMaterials.setSubTotal(inwardTempMaterials.getCostRate() * inwardTempMaterials.getQuantity());
-
+		inwardTempMaterials.setStockType("ML");
 		inwardTempMaterialsRepository.save(inwardTempMaterials);
 	}
 
@@ -250,7 +250,7 @@ public class StockServiceImpl implements StockService {
 		inwardTempSpares.setItemId(ItemId);
 		inwardTempSpares.setUsername(inward.getUsername());
 		inwardTempSpares.setSubTotal(inwardTempSpares.getCostRate() * inwardTempSpares.getQuantity());
-
+		inwardTempSpares.setStockType("SP");
 		inwardTempSparesRepository.save(inwardTempSpares);
 
 	}
@@ -364,7 +364,7 @@ public class StockServiceImpl implements StockService {
 		inwardTempTools.setItemId(ItemId);
 		inwardTempTools.setUsername(inward.getUsername());
 		inwardTempTools.setSubTotal(inwardTempTools.getCostRate() * inwardTempTools.getQuantity());
-
+		inwardTempTools.setStockType("TE");
 		inwardTempToolsRepository.save(inwardTempTools);
 
 	}
@@ -528,6 +528,7 @@ public class StockServiceImpl implements StockService {
 		tempWorkOrderItems.forEach(tempWorkOrderItem -> {
 			WorkOrderItems orderItem = modelMapper.map(tempWorkOrderItem, WorkOrderItems.class);
 			orderItem.setWorkOrderId(savedWorkOrder);
+			orderItem.setTotalCost(orderItem.getFinalQuantity() * orderItem.getMrpRate());
 			workOrderItemsRepository.save(orderItem);
 
 			int requiredQty = tempWorkOrderItem.getFinalQuantity();
@@ -556,11 +557,11 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveRemovedItems(Long itemId) {
+	public void saveRemovedItems(Long itemId, Long workOrderNo) {
 		WorkOrderRemovedItems removedItem = new WorkOrderRemovedItems();
-		Long workOrderNo = tempWorkOrderItemsRepository.findByItemId(itemId).getWorkOrderNo();
 		int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
-		int requiredQuantity = tempWorkOrderItemsRepository.findByItemId(itemId).getQty();
+		int requiredQuantity = tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).get()
+				.getQty();
 
 		removedItem.setItemId(itemId);
 		removedItem.setRequestedQuantity(requiredQuantity);
@@ -576,5 +577,16 @@ public class StockServiceImpl implements StockService {
 		}
 
 		workOrderRemovedItemsRepository.save(removedItem);
+	}
+
+	@Override
+	public boolean getTempWorkOrderItems(Long workOrderNo) {
+		boolean flag = false;
+		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+
+		if (tempWorkOrderItems.size() == 0) {
+			flag = true;
+		}
+		return flag;
 	}
 }

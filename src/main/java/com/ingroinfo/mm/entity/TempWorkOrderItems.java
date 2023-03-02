@@ -35,5 +35,6 @@ public class TempWorkOrderItems {
 	private Double mrpRate;
 	private String description;
 	private Long workOrderNo;
-	
+	private String stockType;
+
 }

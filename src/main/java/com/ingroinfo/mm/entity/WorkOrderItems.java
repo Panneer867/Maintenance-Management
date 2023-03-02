@@ -33,8 +33,10 @@ public class WorkOrderItems {
 	private String category;
 	private String unitOfMeasure;
 	private Double mrpRate;
+	private Double totalCost;
 	private String description;
 	private Long workOrderNo;
+	private String stockType;
 
 	@ManyToOne
 	@JoinColumn(name = "workorder_id")

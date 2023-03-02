@@ -1,17 +1,10 @@
 package com.ingroinfo.mm.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +27,7 @@ public class WorkOrderRemovedItems {
 	private String Availability;
 	private Long workOrderNo;
 	private String remarks;
+	private String stockType;
 	
 
 }

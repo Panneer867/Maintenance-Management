@@ -15,14 +15,14 @@ $(function() {
 			success: function(data) {
 				var json = JSON.stringify(data);
 				var stockQty = JSON.parse(json);
-
+				var workorder = parseInt($("#get-workorder-no").val());
 				if ($button.find('i').hasClass('fa-plus')) {
-
-
 					var newQty1 = parseFloat(oldQty) + 1;
 					if (stockQty >= newQty1) {
+
 						var newQty = parseFloat(oldQty) + 1;
 						quantity.qty = newQty;
+						quantity.workOrderNo = workorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -35,12 +35,11 @@ $(function() {
 								alert('error occured while posting data' + e);
 							}
 						});
-
-
 					} else {
 						alert('Available stocks is ' + stockQty + ' cant add more than that !');
 						newQty = stockQty;
 						quantity.qty = stockQty;
+						quantity.workOrderNo = workorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -58,6 +57,7 @@ $(function() {
 					if (oldQty > 1) {
 						var newQty = parseFloat(oldQty) - 1;
 						quantity.qty = newQty;
+						quantity.workOrderNo = workorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -114,7 +114,9 @@ $(function() {
 		if (confirm("Do you really want to remove this item?")) {
 			var item = {};
 			var $row = $(this).closest("tr");
+			var workorder = parseInt($("#get-workorder-no").val());
 			item.itemId = $row.find(".item-id").text();
+			item.workOrderNo = workorder;
 			var json = JSON.stringify(item);
 			$(this).parent().parent().remove();
 			calculate();

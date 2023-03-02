@@ -44,6 +44,7 @@ public class InwardTempSpares {
 	private String entryDate;
 	private String description;
 	private String username;
+	private String stockType;
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

@@ -23,5 +23,6 @@ public class WorkOrderItemsRequest {
 	private Long stocksId;
 	private Long itemId;
 	private Long workOrderNo;
+	private String stockType;
 	private int quantity;
 }

@@ -51,6 +51,7 @@ public class InwardSpares {
 	private String receivedBy;
 	private String receivedDate;
 	private String username;
+	private String stockType;
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

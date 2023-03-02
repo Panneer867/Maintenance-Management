@@ -15,7 +15,6 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrders;
 
 public interface StockService {
@@ -98,5 +97,7 @@ public interface StockService {
 
 	boolean notAvailableItems(Long workOrderNo);
 
-	void saveRemovedItems(Long itemId);
+	void saveRemovedItems(Long itemId, Long workOrderNo);
+
+	boolean getTempWorkOrderItems(Long workOrderNo);
 }

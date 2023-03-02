@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.InwardMaterials;
@@ -33,7 +33,6 @@ import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CategoryService;
@@ -508,26 +507,31 @@ public class StockController {
 
 	@PostMapping("/outward/item/quantity")
 	public @ResponseBody void quantity(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
-		if (tempWorkOrderItems.getItemId() != null) {
-			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository
-					.findByItemId(tempWorkOrderItems.getItemId());
+		Long itemId = tempWorkOrderItems.getItemId();
+		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
+		if (itemId != null) {
+			Optional<TempWorkOrderItems> TempWorkOrderItem = tempWorkOrderItemsRepository
+					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 			DecimalFormat df = new DecimalFormat("#.##");
-			TempWorkOrderItem.setTotalCost(
+			TempWorkOrderItem.get().setTotalCost(
 					Double.parseDouble(df.format(tempWorkOrderItems.getMrpRate() * tempWorkOrderItems.getQty())));
-			TempWorkOrderItem.setQty(tempWorkOrderItems.getQty());
-			tempWorkOrderItemsRepository.save(TempWorkOrderItem);
+			TempWorkOrderItem.get().setFinalQuantity(tempWorkOrderItems.getQty());
+			tempWorkOrderItemsRepository.save(TempWorkOrderItem.get());
 		}
 	}
 
 	@PostMapping("/outward/item/delete")
 	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
 		Long itemId = tempWorkOrderItems.getItemId();
-		
+		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
+
 		if (itemId != null) {
-			TempWorkOrderItems TempWorkOrderItem = tempWorkOrderItemsRepository.findByItemId(itemId);
-			Long stockId = workOrderItemsRequestRepository.findByItemId(itemId).getStocksId();			
-			stockService.saveRemovedItems(itemId);			
-			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.getTempWorkorderItemId());
+			Optional<TempWorkOrderItems> TempWorkOrderItem = tempWorkOrderItemsRepository
+					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
+			Long stockId = workOrderItemsRequestRepository.findByWorkOrderNoAndItemId(workOrderNo, itemId)
+					.getStocksId();
+			stockService.saveRemovedItems(itemId, workOrderNo);
+			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.get().getTempWorkorderItemId());
 			workOrderItemsRequestRepository.deleteById(stockId);
 		}
 	}
@@ -542,9 +546,17 @@ public class StockController {
 			HttpSession session) {
 		Long workOrderNo = workOrders.getWorkOrderNo();
 		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
+		boolean workOrderItemsSize = stockService.getTempWorkOrderItems(workOrderNo);
+
+		if (workOrderItemsSize) {
+			session.setAttribute("message",
+					new Message("To place an order, you need to have at least one item required !", "danger"));
+			return "redirect:/stocks/outward/get/" + workOrderNo;
+		}
 
 		if (itemAvailability) {
-			session.setAttribute("message", new Message("To place the order, please remove the items that are not available from the list.", "danger"));
+			session.setAttribute("message", new Message(
+					"To place the order, please remove the items that are not available from the list.", "danger"));
 			return "redirect:/stocks/outward/get/" + workOrderNo;
 		}
 		if (workOrders.getWorkOrderNo() != 0 && workOrders.getWorkOrderNo() != null) {
