@@ -63,12 +63,12 @@ public class ApprovalSeviceImpl implements ApprovalService {
 	public void saveMaterial(InwardDto inwardItemDto) {
 
 		InwardApprovedMaterials inwardApprovedMaterials = modelMapper.map(inwardItemDto, InwardApprovedMaterials.class);
+		inwardApprovedMaterials.setStockType("ML");
 		InwardApprovedMaterials newApprovedMaterials = inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
 
 		if (newApprovedMaterials != null) {
 			inwardMaterialsRepository.deleteById(inwardItemDto.getMaterialId());
 		}
-
 	}
 
 	@Override
@@ -83,7 +83,6 @@ public class ApprovalSeviceImpl implements ApprovalService {
 		if (rejectedMaterial != null) {
 			inwardMaterialsRepository.deleteById(id);
 		}
-
 	}
 
 	/**************************** Spares ********************************/
@@ -91,12 +90,12 @@ public class ApprovalSeviceImpl implements ApprovalService {
 	public void saveSpare(InwardDto inwardItemDto) {
 
 		InwardApprovedSpares inwardApprovedSpares = modelMapper.map(inwardItemDto, InwardApprovedSpares.class);
+		inwardApprovedSpares.setStockType("SP");
 		InwardApprovedSpares newApprovedSpares = inwardApprovedSparesRepository.save(inwardApprovedSpares);
 
 		if (newApprovedSpares != null) {
 			inwardSparesRepository.deleteById(inwardItemDto.getSpareId());
 		}
-
 	}
 
 	@Override
@@ -111,7 +110,6 @@ public class ApprovalSeviceImpl implements ApprovalService {
 		if (rejectedSpare != null) {
 			inwardSparesRepository.deleteById(id);
 		}
-
 	}
 
 	/**************************** Tools ********************************/
@@ -119,6 +117,7 @@ public class ApprovalSeviceImpl implements ApprovalService {
 	@Override
 	public void saveTool(InwardDto inwardItemDto) {
 		InwardApprovedTools inwardApprovedTools = modelMapper.map(inwardItemDto, InwardApprovedTools.class);
+		inwardApprovedTools.setStockType("TE");
 		InwardApprovedTools newApprovedTools = inwardApprovedToolsRepository.save(inwardApprovedTools);
 
 		if (newApprovedTools != null) {

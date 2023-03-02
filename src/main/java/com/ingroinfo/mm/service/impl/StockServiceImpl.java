@@ -456,14 +456,18 @@ public class StockServiceImpl implements StockService {
 		}
 
 		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderNo(workOrderNo);
-		List<Long> itemIds = workOrders.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
-
+		
+		Map<Long, String> itemIds = workOrders.stream()
+				.collect(Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getStockType("ML")));
 		Map<Long, Integer> itemQuantity = workOrders.stream()
 				.collect(Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
 		int i = 1;
 		for (Long itemId : itemIds) {
 
 			if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+				
+				
+				
 				InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
 				TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
 

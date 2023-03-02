@@ -59,7 +59,6 @@ public class Approvals {
 		String username = principal.getName();
 		inwardItemDto.setApprovedBy(username);
 		inwardItemDto.setUsername(username);
-
 		approvalService.saveMaterial(inwardItemDto);
 		session.setAttribute("message", new Message("Material has been approved successfully !", "success"));
 
