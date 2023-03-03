@@ -54,7 +54,9 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 
 	@Override
 	public List<ItemMasterDto> getAllItemNames(String stockType) {
-		return this.itemMasterRepo.findByStockType(stockType);
+		List<ItemMasterDto> itemMasterDtos = this.itemMasterRepo.findByStockType(stockType).stream().map((itemMaster) -> 
+		this.modelMapper.map(itemMaster, ItemMasterDto.class)).collect(Collectors.toList());
+		return itemMasterDtos;
 	}
 
 }

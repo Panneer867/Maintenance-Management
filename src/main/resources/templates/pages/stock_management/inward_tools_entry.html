@@ -74,7 +74,7 @@
 											<div class="col-sm-8">
 												<select class="form-select" id="itemId" name="itemName" required>
 													<option value="" selected>Select</option>
-													<option th:each="item : ${items}" th:value="${item.hsnCodeId}"
+													<option th:each="item : ${items}" th:value="${item.itemName}"
 														th:utext="${item.itemName}" />
 												</select>
 											</div>
@@ -93,12 +93,7 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Category</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="category" required>
-													<option value="" selected>Select</option>
-													<option th:each="category : ${categories}"
-														th:value="${category.categoryName}"
-														th:utext="${category.categoryName}" />
-												</select>
+												<input type="text" name="category" class="form-control" required/>
 											</div>
 										</div>
 									</div>
@@ -138,7 +133,7 @@
 													<option value="" selected>Select</option>
 													<option th:each="unitOfMeasure : ${unitOfMeasures}"
 														th:value="${unitOfMeasure.unitType}"
-														th:utext="${unitOfMeasure.unitType}" />
+														th:utext="${unitOfMeasure.unitType}"/>
 												</select>
 											</div>
 										</div>
