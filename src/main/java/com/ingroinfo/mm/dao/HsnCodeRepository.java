@@ -9,4 +9,6 @@ public interface HsnCodeRepository extends JpaRepository<HsnCode, Long> {
 
 	HsnCode findByhsnCodeId(Long id);
 
+	HsnCode findByCategory(String category);
+
 }

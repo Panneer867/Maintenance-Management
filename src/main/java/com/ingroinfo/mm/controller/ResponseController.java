@@ -12,11 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.EmployeeMasterRepository;
 import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.EmployeeMaster;
-import com.ingroinfo.mm.entity.HsnCode;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.UserRolesService;
 
 @RestController
@@ -26,9 +24,6 @@ public class ResponseController {
 	@Autowired
 	private AdminService adminService;
 
-	@Autowired
-	private HsnCodeService hsnCodeService;
-	
 	@Autowired
 	private UserRolesService userRolesService;
 
@@ -64,11 +59,6 @@ public class ResponseController {
 	@GetMapping("/user/roles/{id}")
 	public UserRolesDto getUserRoles(@PathVariable Long id) {
 		return userRolesService.getUserRoles(id);
-	}
-
-	@GetMapping("/item/hsn/{id}")
-	public HsnCode getItemHsn(@PathVariable Long id) {
-		return hsnCodeService.getHsnById(id);
 	}
 
 	@GetMapping("/test")

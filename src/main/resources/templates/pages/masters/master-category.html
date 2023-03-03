@@ -31,7 +31,7 @@
 							<div class="col-auto text-start">
 								<label for="categoryName">Category Name</label>								
 							</div>
-							<div class="col-sm-6"> 
+							<div class="col-sm-5"> 
 							  <input class="form-control form-control-sm" type="text" name="categoryName" 
 							  required placeholder="Enter Category Name">
 							</div>
@@ -56,7 +56,7 @@
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Category ID</th>
+						<th class="text-center" scope="col">Category ID</th>						
 						<th class="text-center" scope="col">Category Name</th>
 					</tr>
 				</thead>
@@ -65,7 +65,7 @@
 						<td><a href="#" th:onclick="|deleteCategory(${category.catid})|">
 								<span th:text="${'CI'+category.catid}"></span></a>
 						</td>
-						<td th:text="${category.categoryId}"></td>
+						<td th:text="${category.categoryId}"></td>						
 						<td th:text="${category.categoryName}"></td>
 					</tr>
 				</tbody>

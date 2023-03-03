@@ -40,8 +40,9 @@ public class HsnCodeServiceImpl implements HsnCodeService {
 	}
 
 	@Override
-	public HsnCode getHsnById(Long id) {
-		return hsnCodeRepo.findByhsnCodeId(id);
+	public HsnCodeDto getHsnCodeByCategory(String category) {
+		HsnCode hsnCode = this.hsnCodeRepo.findByCategory(category);
+		return this.modelMapper.map(hsnCode, HsnCodeDto.class);
 	}
 
 }

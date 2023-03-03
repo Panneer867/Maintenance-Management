@@ -9,5 +9,7 @@ public interface InwardApprovedSparesRepository extends JpaRepository<InwardAppr
 
 	InwardApprovedSpares findByApprovedSpareId(Long id);
 
+	InwardApprovedSpares findByItemId(Long itemId);
+
 
 }

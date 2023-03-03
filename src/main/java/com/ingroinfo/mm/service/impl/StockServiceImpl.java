@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +46,6 @@ import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrderRemovedItems;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.StockService;
 
 @Service
@@ -55,9 +55,6 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private AdminService adminService;
-
-	@Autowired
-	private HsnCodeService hsnCodeService;
 
 	@Autowired
 	private InwardTempMaterialsRepository inwardTempMaterialsRepository;
@@ -119,8 +116,8 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempMaterials inwardTempMaterials = modelMapper.map(inward, InwardTempMaterials.class);
 
-		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
-		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String fileName = inward.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+				+ tokens.get();
 		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Materials\\";
 
 		try {
@@ -130,7 +127,7 @@ public class StockServiceImpl implements StockService {
 		}
 
 		inwardTempMaterials.setItemImage(fileName);
-		inwardTempMaterials.setItemName(itemName);
+		inwardTempMaterials.setItemName(inward.getItemName());
 		inwardTempMaterials.setImagePath("/Company/" + companyName + "/Inward_Materials/");
 		inwardTempMaterials.setItemId(ItemId);
 		inwardTempMaterials.setUsername(inward.getUsername());
@@ -234,8 +231,8 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempSpares inwardTempSpares = modelMapper.map(inward, InwardTempSpares.class);
 
-		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
-		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String fileName = inward.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+				+ tokens.get();
 		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Spares\\";
 
 		try {
@@ -245,7 +242,7 @@ public class StockServiceImpl implements StockService {
 		}
 
 		inwardTempSpares.setItemImage(fileName);
-		inwardTempSpares.setItemName(itemName);
+		inwardTempSpares.setItemName(inward.getItemName());
 		inwardTempSpares.setImagePath("/Company/" + companyName + "/Inward_Spares/");
 		inwardTempSpares.setItemId(ItemId);
 		inwardTempSpares.setUsername(inward.getUsername());
@@ -348,8 +345,8 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempTools inwardTempTools = modelMapper.map(inward, InwardTempTools.class);
 
-		String itemName = hsnCodeService.getHsnById(ItemId).getItemName();
-		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
+		String fileName = inward.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+				+ tokens.get();
 		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Tools\\";
 
 		try {
@@ -359,7 +356,7 @@ public class StockServiceImpl implements StockService {
 		}
 
 		inwardTempTools.setItemImage(fileName);
-		inwardTempTools.setItemName(itemName);
+		inwardTempTools.setItemName(inward.getItemName());
 		inwardTempTools.setImagePath("/Company/" + companyName + "/Inward_Tools/");
 		inwardTempTools.setItemId(ItemId);
 		inwardTempTools.setUsername(inward.getUsername());
@@ -455,39 +452,112 @@ public class StockServiceImpl implements StockService {
 			tempWorkOrderItemsRepository.deleteById(Items.getTempWorkorderItemId());
 		}
 
-		List<WorkOrderItemsRequest> workOrders = workOrderItemsRequestRepository.findByWorkOrderNo(workOrderNo);
-		
-		Map<Long, String> itemIds = workOrders.stream()
-				.collect(Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getStockType("ML")));
-		Map<Long, Integer> itemQuantity = workOrders.stream()
-				.collect(Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
-		int i = 1;
-		for (Long itemId : itemIds) {
+		List<WorkOrderItemsRequest> workOrderItemsRequest = workOrderItemsRequestRepository
+				.findByWorkOrderNo(workOrderNo);
 
-			if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
-				
-				
-				
-				InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
-				TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
+		// Define the list of StockTypes to filter by
+		List<String> stockTypes = Arrays.asList("ML", "SP", "TE");
 
-				tempWorkOrderItems.setWorkOrderNo(workOrderNo);
-				tempWorkOrderItems.setSlNo(i);
-				tempWorkOrderItems.setQty(itemQuantity.get(itemId));
-				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
-				int quantity = itemQuantity.get(itemId);
-				if (stockQuantity >= quantity) {
-					tempWorkOrderItems.setFinalQuantity(quantity);
-				} else {
-					tempWorkOrderItems.setFinalQuantity(stockQuantity);
+		// Group the items by StockType
+		Map<String, List<WorkOrderItemsRequest>> groupedMap = workOrderItemsRequest.stream()
+				.filter(item -> stockTypes.contains(item.getStockType()))
+				.collect(Collectors.groupingBy(WorkOrderItemsRequest::getStockType));
+
+		// Access the lists for each StockType
+		List<WorkOrderItemsRequest> mlList = groupedMap.get("ML");
+		List<WorkOrderItemsRequest> spList = groupedMap.get("SP");
+		List<WorkOrderItemsRequest> teList = groupedMap.get("TE");
+
+		// Create a new list of lists and add the three lists to it
+		List<List<WorkOrderItemsRequest>> listOfLists = new ArrayList<>();
+		listOfLists.add(mlList);
+		listOfLists.add(spList);
+		listOfLists.add(teList);
+
+		for (int i = 0; i < listOfLists.size(); i++) {
+			if (i == 0 && mlList != null) {
+				List<Long> itemIds = mlList.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
+
+				Map<Long, Integer> itemQuantity = mlList.stream().collect(
+						Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
+
+				for (Long itemId : itemIds) {
+					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+						InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
+						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
+						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
+						tempWorkOrderItems.setQty(itemQuantity.get(itemId));
+						int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+						int quantity = itemQuantity.get(itemId);
+						if (stockQuantity >= quantity) {
+							tempWorkOrderItems.setFinalQuantity(quantity);
+						} else {
+							tempWorkOrderItems.setFinalQuantity(stockQuantity);
+						}
+						tempWorkOrderItems.setTotalCost(iam.getMrpRate());
+						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+					}
 				}
-				tempWorkOrderItems.setTotalCost(iam.getMrpRate());
-				tempWorkOrderItemsRepository.save(tempWorkOrderItems);
-				i++;
 			}
+			if (i == 1 && spList != null) {
+				List<Long> itemIds = spList.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
 
+				Map<Long, Integer> itemQuantity = spList.stream().collect(
+						Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
+
+				for (Long itemId : itemIds) {
+
+					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+						InwardApprovedSpares iam = inwardApprovedSparesRepository.findByItemId(itemId);
+						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
+						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
+						tempWorkOrderItems.setQty(itemQuantity.get(itemId));
+						int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+						int quantity = itemQuantity.get(itemId);
+						if (stockQuantity >= quantity) {
+							tempWorkOrderItems.setFinalQuantity(quantity);
+						} else {
+							tempWorkOrderItems.setFinalQuantity(stockQuantity);
+						}
+						tempWorkOrderItems.setTotalCost(iam.getMrpRate());
+						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+					}
+				}
+			}
+			if (i == 2 && teList != null) {
+				List<Long> itemIds = teList.stream().map(WorkOrderItemsRequest::getItemId).collect(Collectors.toList());
+
+				Map<Long, Integer> itemQuantity = teList.stream().collect(
+						Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
+
+				for (Long itemId : itemIds) {
+					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+						InwardApprovedTools iam = inwardApprovedToolsRepository.findByItemId(itemId);
+						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
+						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
+						tempWorkOrderItems.setQty(itemQuantity.get(itemId));
+						int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+						int quantity = itemQuantity.get(itemId);
+						if (stockQuantity >= quantity) {
+							tempWorkOrderItems.setFinalQuantity(quantity);
+						} else {
+							tempWorkOrderItems.setFinalQuantity(stockQuantity);
+						}
+						tempWorkOrderItems.setTotalCost(iam.getMrpRate());
+						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+					}
+				}
+			}
 		}
+
 		List<TempWorkOrderItems> listTempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+
+		int count = 1;
+		for (int i = 0; i < listTempWorkOrderItems.size(); i++) {
+			listTempWorkOrderItems.get(i).setSlNo(count);
+			tempWorkOrderItemsRepository.save(listTempWorkOrderItems.get(i));
+			count++;
+		}
 
 		List<WorkOrderItemsDto> wOIDto = new ArrayList<WorkOrderItemsDto>();
 		for (TempWorkOrderItems listTempWorkOrderItem : listTempWorkOrderItems) {
@@ -496,7 +566,6 @@ public class StockServiceImpl implements StockService {
 			newwOIDto.setStockAvailable(stockQuantity);
 			wOIDto.add(newwOIDto);
 		}
-
 		return wOIDto;
 	}
 

@@ -9,5 +9,7 @@ public interface InwardApprovedToolsRepository extends JpaRepository<InwardAppro
 
 	InwardApprovedTools findByApprovedToolId(Long id);
 
+	InwardApprovedTools findByItemId(Long itemId);
+
 
 }

@@ -6,7 +6,6 @@ import lombok.Data;
 public class HsnCodeDto {
 
 	private Long hsnCodeId;
-	private String category;
-	private String itemName;
+	private String category;	
 	private String hsnCode;
 }

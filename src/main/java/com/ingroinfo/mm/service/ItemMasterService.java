@@ -16,5 +16,8 @@ public interface ItemMasterService {
 	
 	//get Max Item Id
 	String getMaxItemId();
+
+	//Get Item List By Category Name
+	List<ItemMasterDto> getItemListByCategory(String category);
 	
 }

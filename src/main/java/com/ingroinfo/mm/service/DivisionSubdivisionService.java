@@ -14,4 +14,11 @@ public interface DivisionSubdivisionService {
 	
 	//Delete
 	void deleteDivSubDiv(Long divsubId);
+	
+	//Get Distinct Divisions
+	List<String> getDistinctDivisions();
+
+	//Get SubDivisionList By Division
+	List<DivisionSubdivisionDto> getSubDivisionListByDivision(String division);
+	
 }

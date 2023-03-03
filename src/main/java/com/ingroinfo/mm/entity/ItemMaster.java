@@ -16,6 +16,9 @@ public class ItemMaster {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long itemMasterId;
 	private String itemId;
+	private String category;
+	private String hsnCode;
 	private String itemName;
+	private String stockType;
 	private String description;
 }

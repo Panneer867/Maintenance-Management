@@ -29,16 +29,20 @@ public interface TaskUpdateService {
 	
 	//Send  Investigation Data To UBARMS
 	ComplaintDto submitInvestigations(ComplaintDto complaintDto);
-	
-	//get Complain Details By Complain No
-	ComplaintDto getComplainDataByComplainNo(String complNo);
-
+		
 	//Send  Esclatations Data To UBARMS
 	ComplaintDto submitEsclations(ComplaintDto complaintDto);
 	
 	//get List of complaint data by Department and Complain Status and UserId wise
-	List<ComplaintDto> getComplainByDeptComplStsUserId(String department,String complSts,Long userId);
+	List<ComplaintDto> getComplainByDeptComplStsUserId(String department,String complSts,String userId);
 	
 	//get List of complaint data by Department and Complain Status wise
 	List<ComplaintDto> getComplainByDeptComplSts(String department,String complSts);
+	
+	//get Complain Details By Complain No
+	ComplaintDto getComplainDataByComplainNo(String complNo);
+	
+	//Get Complaint Details By complainId
+	ComplaintDto getComplaintDtlsByComplaintId(Long complId);
+
 }

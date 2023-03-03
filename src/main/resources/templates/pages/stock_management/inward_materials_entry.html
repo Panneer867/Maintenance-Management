@@ -40,7 +40,7 @@
 							Inward Materials List
 						</a>
 					</li>
-					
+
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/materials/list/approved}">
@@ -74,8 +74,8 @@
 											<div class="col-sm-8">
 												<select class="form-select" id="itemId" name="itemName" required>
 													<option value="" selected>Select</option>
-													<option th:each="item : ${items}" th:value="${item.hsnCodeId}"
-														th:utext="${item.itemName}" />
+													<!--<option th:each="item : ${items}" th:value="${item.hsnCodeId}"
+														th:utext="${item.itemName}" />-->
 												</select>
 											</div>
 										</div>
@@ -85,7 +85,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
 												Name</label>
 											<div class="col-sm-8 px-0">
-												<input type="text" name="aliasName" class="form-control" required/>
+												<input type="text" name="aliasName" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -93,12 +93,9 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Category</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="category" required>
-													<option value="" selected>Select</option>
-													<option th:each="category : ${categories}"
-														th:value="${category.categoryName}"
-														th:utext="${category.categoryName}" />
-												</select>
+												<input type="hidden" id="get-category" name="category" />
+												<input type="text" id="get-categoryName" class="form-control" disabled
+													required />
 											</div>
 										</div>
 									</div>
@@ -109,13 +106,9 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="brand" required>
-													<option value="" selected>Select</option>
-													<option value="Astral Pipes">Astral Pipes</option>
-													<option value="Appllo">Appllo</option>
-													<option value="FinOlex">FinOlex</option>
-													<option value="Ashirvad">Ashirvad</option>
-												</select>
+												<input type="hidden" id="get-brand" name="brand" />
+												<input type="text" id="get-brandName" class="form-control" disabled
+													required />
 											</div>
 										</div>
 									</div>
@@ -125,7 +118,8 @@
 											</label>
 											<div class="col-sm-8">
 												<input type="hidden" id="get-hsncode" name="hsnCode" />
-												<input type="text" id="get-hsn" class="form-control" disabled required/>
+												<input type="text" id="get-hsn" class="form-control" disabled
+													required />
 											</div>
 										</div>
 									</div>
@@ -155,7 +149,8 @@
 														<span class="input-group-text py-2 font-weight-bold"
 															style="border-radius: 0;">&#8377;</span>
 													</div>
-													<input type="number" name="costRate" class="form-control" required/>
+													<input type="number" name="costRate" class="form-control"
+														required />
 												</div>
 											</div>
 										</div>
@@ -170,7 +165,7 @@
 														<span class="input-group-text py-2 font-weight-bold"
 															style="border-radius: 0;">&#8377;</span>
 													</div>
-													<input type="number" name="mrpRate" class="form-control" required/>
+													<input type="number" name="mrpRate" class="form-control" required />
 												</div>
 											</div>
 										</div>
@@ -180,7 +175,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">
 												Quantity</label>
 											<div class="col-sm-8">
-												<input type="number" name="quantity" class="form-control" required/>
+												<input type="number" name="quantity" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -191,7 +186,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Entry
 												Date</label>
 											<div class="col-sm-8">
-												<input type="date" name="entryDate" class="form-control" required/>
+												<input type="date" name="entryDate" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -200,7 +195,7 @@
 											<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
 												style="width: 110px;">Description</label>
 											<div class="col-sm-10 px-0">
-												<input type="text" name="description" class="form-control" required/>
+												<input type="text" name="description" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -291,7 +286,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
 											</label>
 											<div class="col-sm-8">
-												<input type="text" name="supplier" class="form-control" required/>
+												<input type="text" name="supplier" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -300,7 +295,7 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label"
 												style="width: 95px;">Supplied On</label>
 											<div class="col-sm-7">
-												<input type="date" name="suppliedOn" class="form-control" required/>
+												<input type="date" name="suppliedOn" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -371,7 +366,7 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
 											<div class="col-sm-8">
-												<input type="text" name="invoice" class="form-control" required/>
+												<input type="text" name="invoice" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -380,7 +375,7 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">Received
 												By</label>
 											<div class="col-sm-7">
-												<input type="text" name="receivedBy" class="form-control" required/>
+												<input type="text" name="receivedBy" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -390,12 +385,12 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">Received
 												Date</label>
 											<div class="col-sm-7">
-												<input type="date" name="receivedDate" class="form-control" required/>
+												<input type="date" name="receivedDate" class="form-control" required />
 											</div>
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row mt-3">
 									<div class="col-12 text-center">
 										<button type="submit" class="btn btn-success btn-sm">Submit</button>

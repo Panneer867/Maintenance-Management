@@ -2,11 +2,9 @@ package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ingroinfo.mm.dao.ItemMasterRepository;
 import com.ingroinfo.mm.dto.ItemMasterDto;
 import com.ingroinfo.mm.entity.ItemMaster;
@@ -45,6 +43,13 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 	public String getMaxItemId() {
 		String maxItemId = this.itemMasterRepo.getMaxItemId();
 		return maxItemId;
+	}
+
+	@Override
+	public List<ItemMasterDto> getItemListByCategory(String category) {
+		List<ItemMaster> itemMasterDtos = this.itemMasterRepo.findByCategory(category);
+		return itemMasterDtos.stream().map((items) -> 
+		this.modelMapper.map(items, ItemMasterDto.class)).collect(Collectors.toList());		
 	}
 
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 public class CategoryDto {
 
 	private Long catid;
-	private String categoryId;
+	private String categoryId;	
 	private String categoryName;
 }

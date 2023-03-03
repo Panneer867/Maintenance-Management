@@ -273,7 +273,7 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 	}
 	
 	@Override
-	public List<ComplaintDto> getComplainByDeptComplStsUserId(String department, String complSts, Long userId) {		
+	public List<ComplaintDto> getComplainByDeptComplStsUserId(String department, String complSts, String userId) {		
 		 List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplStsUserId(department, complSts, userId);
 		 List<ComplaintDto> complaintDtos = complaints.stream().map((complain)-> 
 		 this.modelMapper.map(complain, ComplaintDto.class)).collect(Collectors.toList());
@@ -286,6 +286,12 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 		List<ComplaintDto> complaintDtos = complaints.stream().map((complaint) -> 
 		this.modelMapper.map(complaint, ComplaintDto.class)).collect(Collectors.toList());
 		return complaintDtos;
+	}
+
+	@Override
+	public ComplaintDto getComplaintDtlsByComplaintId(Long complId) {
+		Complaints complaints = this.taskUpdateRepo.findById(complId).get();		
+		return this.modelMapper.map(complaints, ComplaintDto.class);
 	}
 
 }

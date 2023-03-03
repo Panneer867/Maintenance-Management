@@ -194,8 +194,7 @@ public class MasterController {
 	@GetMapping("/department")
 	public String openMasterDepartmentPage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
-		model.addAttribute("title", "Master | Department | Manintenance Management");
-		
+		model.addAttribute("title", "Master | Department | Manintenance Management");		
 		try {
 			String maxdepartmentId = this.departmentService.getMaxDepartmentId();		     
 			if (maxdepartmentId != null) {
@@ -243,6 +242,12 @@ public class MasterController {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Category | Manintenance Management");
 		
+		try {
+			List<BrandMasterDto> brandMasterDtos = this.brandMasterService.getAllBrandMasters();
+			model.addAttribute("brandList", brandMasterDtos);
+		} catch (Exception e) {
+			System.out.println("Something Wrong !!"+e.getMessage());
+		}
 		try {
 			String maxCategoryId = this.categoryService.getMaxCategoryId();
 			if (maxCategoryId != null) {
@@ -351,6 +356,13 @@ public class MasterController {
 	public String openMasterItemPage(Model model,HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Item | Manintenance Management");
+		
+		try {
+			List<CategoryDto> categoryDtos =this.categoryService.findAllCategory();
+			model.addAttribute("categoryList", categoryDtos);
+		} catch (Exception e) {
+			System.out.println("Something went Wrong "+e.getMessage());
+		}
 		
 		try {
 			String maxItemId = this.itemMasterService.getMaxItemId();
@@ -511,6 +523,7 @@ public class MasterController {
 	@GetMapping("/designation")
 	public String openDesignation(Model model) throws IOException {
 		model.addAttribute("show", null);
+		model.addAttribute("ubmdesigList", new DesignationDto());
 		List<DesignationDto> designationDtos = designationService.getDesignationsFormUbarms();
 		try {
 			if (!designationDtos.isEmpty()) {
@@ -518,7 +531,7 @@ public class MasterController {
 			}
 		} catch (Exception e) {
 			System.out.println("DesignationList Not Found !!"+e.getMessage());
-			model.addAttribute("ubmdesigList", new DesignationDto());
+			
 		}
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
@@ -811,6 +824,12 @@ public class MasterController {
 		model.addAttribute("listOfCategory", listOfCategoryDtos);
 		model.addAttribute("show", "show");
 		try {
+			List<BrandMasterDto> brandMasterDtos = this.brandMasterService.getAllBrandMasters();
+			model.addAttribute("brandList", brandMasterDtos);
+		} catch (Exception e) {
+			System.out.println("Something Wrong !!"+e.getMessage());
+		}
+		try {
 			String maxCategoryId = this.categoryService.getMaxCategoryId();
 			if (maxCategoryId != null) {
 				int newStartId = Integer.parseInt(maxCategoryId) + 1;
@@ -1025,7 +1044,13 @@ public class MasterController {
 		List<ItemMasterDto> listOfItems = this.itemMasterService.getAllItems();
 		model.addAttribute("listOfItems", listOfItems);
 		model.addAttribute("show", "show");
-		model.addAttribute("title", "Master | Item | Manintenance Management");
+		model.addAttribute("title", "Master | Item | Manintenance Management");		
+		try {
+			List<CategoryDto> categoryDtos =this.categoryService.findAllCategory();
+			model.addAttribute("categoryList", categoryDtos);
+		} catch (Exception e) {
+			System.out.println("Something went Wrong "+e.getMessage());
+		}
 		try {
 			String maxItemId = this.itemMasterService.getMaxItemId();
 			if (maxItemId != null) {
@@ -1820,6 +1845,22 @@ public class MasterController {
 	public String deleteWaterSource(@PathVariable Long wateSourceId) {
 		this.waterSourceService.deleteWaterCource(wateSourceId);
 		return "redirect:/masters/waterSourceHistory";
+	}
+			
+	//Get HsnCode By Category
+	@ResponseBody
+	@GetMapping("/get/hsnCode/{category}")
+	public ResponseEntity<HsnCodeDto> getHsnCodeByCategory(@PathVariable String category){
+		HsnCodeDto hsnCodeDto = hsnCodeService.getHsnCodeByCategory(category);
+		return new ResponseEntity<HsnCodeDto>(hsnCodeDto,HttpStatus.OK);
+	}
+	
+	//Get Item List By Category Name
+	@ResponseBody
+	@GetMapping("/get/items/{category}")
+	public ResponseEntity<List<ItemMasterDto>> getItemsByCategory(@PathVariable String category){
+		List<ItemMasterDto> itemMasterDtos = this.itemMasterService.getItemListByCategory(category);
+		return new ResponseEntity<List<ItemMasterDto>>(itemMasterDtos,HttpStatus.OK);
 	}
 
 }

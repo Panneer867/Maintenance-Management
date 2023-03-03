@@ -18,11 +18,11 @@
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
 					<form th:action="@{/masters/savehsncode}" method="post">
-						<div class="mx-auto col-6 text-start">
+						<div class="mx-auto col-10 text-start">
 
 							<div class="form-group row">
-								<label for="category" class="col-sm-3 col-form-label">Category</label>
-								<div class="col-sm-6">
+								<label for="category" class="col-sm-2 col-form-label">Category</label>
+								<div class="col-sm-4">
 									<select class="form-select form-select-sm" name="category" required>
 									    <option value="">--Select--</option>
 										<option th:each="category:${listOfCategory}" th:value="${category.categoryName}"
@@ -30,21 +30,12 @@
 										</option>
 									</select>
 								</div>
-							</div>
-							<div class="form-group row">
-								<label for="itemName" class="col-sm-3 col-form-label">Item Name</label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" id="itemName"
-										name="itemName" required placeholder="Enter Item Name">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="hsnCode" class="col-sm-3 col-form-label">HSN Code</label>
-								<div class="col-sm-6">
+								<label for="hsnCode" class="col-sm-2 col-form-label">HSN Code</label>
+								<div class="col-sm-4">
 									<input type="text" class="form-control form-control-sm" id="hsnCode" name="hsnCode"
 										required maxlength="8" placeholder="Enter HsnCode ">
 								</div>
-							</div>
+							</div>														
 						</div>
 
 						<div class="mt-4 text-center">
@@ -66,8 +57,7 @@
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Category</th>
-						<th class="text-center" scope="col">Item Name</th>
+						<th class="text-center" scope="col">Category</th>						
 						<th class="text-center" scope="col">Hsn Code</th>
 					</tr>
 				</thead>
@@ -76,8 +66,7 @@
 						<td><a href="#" th:onclick="|deleteHsnCode(${hsncode.hsnCodeId})|">
 								<span th:text="${'HC'+hsncode.hsnCodeId}"></span></a>
 						</td>
-						<td th:text="${hsncode.category}"></td>
-						<td th:text="${hsncode.itemName}"></td>
+						<td th:text="${hsncode.category}"></td>						
 						<td th:text="${hsncode.hsnCode}"></td>
 					</tr>
 				</tbody>

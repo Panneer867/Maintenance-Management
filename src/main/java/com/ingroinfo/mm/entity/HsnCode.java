@@ -16,7 +16,6 @@ public class HsnCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long hsnCodeId;
-	private String category;
-	private String itemName;
+	private String category;	
 	private String hsnCode;
 }
