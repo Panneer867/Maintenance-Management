@@ -35,8 +35,10 @@ import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.BrandMasterService;
 import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.HsnCodeService;
+import com.ingroinfo.mm.service.ItemMasterService;
 import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.service.UnitMeasureService;
 
@@ -60,6 +62,12 @@ public class StockController {
 
 	@Autowired
 	private HsnCodeService hsnCodeService;
+	
+	@Autowired
+	private BrandMasterService brandService;
+	
+	@Autowired
+	private ItemMasterService itemMasterService;
 
 	@Autowired
 	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
@@ -99,9 +107,9 @@ public class StockController {
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
 
-		model.addAttribute("categories", categoryService.findAllCategory());
-
-		model.addAttribute("items", hsnCodeService.findAllHsnCode());
+		model.addAttribute("items", itemMasterService.getAllItemNames("ML"));
+		
+		model.addAttribute("brands", brandService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_materials_entry";
 	}

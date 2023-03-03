@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.ingroinfo.mm.dto.ItemMasterDto;
 import com.ingroinfo.mm.entity.ItemMaster;
 
 @Repository
@@ -13,4 +15,6 @@ public interface ItemMasterRepository extends JpaRepository<ItemMaster, Long> {
 	String getMaxItemId();
 
 	List<ItemMaster> findByCategory(String category);
+
+	List<ItemMasterDto> findByStockType(String stockType);
 }

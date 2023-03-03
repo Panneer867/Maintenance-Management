@@ -52,4 +52,9 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 		this.modelMapper.map(items, ItemMasterDto.class)).collect(Collectors.toList());		
 	}
 
+	@Override
+	public List<ItemMasterDto> getAllItemNames(String stockType) {
+		return this.itemMasterRepo.findByStockType(stockType);
+	}
+
 }

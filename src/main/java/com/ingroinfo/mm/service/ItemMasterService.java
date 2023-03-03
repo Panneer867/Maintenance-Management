@@ -19,5 +19,8 @@ public interface ItemMasterService {
 
 	//Get Item List By Category Name
 	List<ItemMasterDto> getItemListByCategory(String category);
+
+	//Get Item List By Stock Type
+	List<ItemMasterDto> getAllItemNames(String stockType);
 	
 }
