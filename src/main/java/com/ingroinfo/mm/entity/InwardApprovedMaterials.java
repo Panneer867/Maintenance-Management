@@ -26,7 +26,7 @@ public class InwardApprovedMaterials {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long approvedMaterialId;
 	private Long materialId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;
@@ -53,7 +53,7 @@ public class InwardApprovedMaterials {
 	private String receivedDate;
 	private String username;
 	private String stockType;
-	
+
 	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;

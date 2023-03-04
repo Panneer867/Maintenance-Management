@@ -9,7 +9,9 @@ public interface InwardApprovedMaterialsRepository extends JpaRepository<InwardA
 
 	InwardApprovedMaterials findByApprovedMaterialId(Long id);
 
-	InwardApprovedMaterials findByItemId(Long itemId);
+	InwardApprovedMaterials findByItemId(String itemId);
+
+	InwardApprovedMaterials findByItemIdAndStockType(String itemId, String string);
 
 
 }

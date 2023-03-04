@@ -9,7 +9,9 @@ public interface InwardApprovedSparesRepository extends JpaRepository<InwardAppr
 
 	InwardApprovedSpares findByApprovedSpareId(Long id);
 
-	InwardApprovedSpares findByItemId(Long itemId);
+	InwardApprovedSpares findByItemId(String itemId);
+
+	InwardApprovedSpares findByItemIdAndStockType(String itemId, String string);
 
 
 }

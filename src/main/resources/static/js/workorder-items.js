@@ -1,7 +1,6 @@
 $(function() {
 	calculate();
 	$(".button").on("click", function() {
-
 		var $button = $(this);
 		var oldQty = $button.parent().parent().find("input").val();
 		var quantity = {};
@@ -19,7 +18,6 @@ $(function() {
 				if ($button.find('i').hasClass('fa-plus')) {
 					var newQty1 = parseFloat(oldQty) + 1;
 					if (stockQty >= newQty1) {
-
 						var newQty = parseFloat(oldQty) + 1;
 						quantity.qty = newQty;
 						quantity.workOrderNo = workorder;

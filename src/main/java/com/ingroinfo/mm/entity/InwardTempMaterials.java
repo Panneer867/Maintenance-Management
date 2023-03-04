@@ -28,7 +28,7 @@ public class InwardTempMaterials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tempMaterialId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

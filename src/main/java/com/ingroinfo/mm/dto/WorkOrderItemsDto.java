@@ -11,7 +11,7 @@ public class WorkOrderItemsDto {
 	private int qty;
 	private int finalQuantity;
 	private int slNo;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

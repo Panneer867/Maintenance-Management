@@ -26,7 +26,7 @@ public class InwardRejectedMaterials {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long rejectMaterialId;
 	private Long materialId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

@@ -26,7 +26,7 @@ public class InwardApprovedSpares {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long approvedSpareId;
 	private Long spareId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

@@ -26,7 +26,7 @@ public class InwardApprovedTools {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long approvedToolId;
 	private Long toolId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

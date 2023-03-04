@@ -11,8 +11,8 @@ public interface TempWorkOrderItemsRepository extends JpaRepository<TempWorkOrde
 
 	List<TempWorkOrderItems> findByWorkOrderNo(Long workOrderNo);
 
-	Optional<TempWorkOrderItems> findByItemIdAndWorkOrderNo(Long itemId, Long workOrderNo);
+	Optional<TempWorkOrderItems> findByItemIdAndWorkOrderNo(String itemId, Long workOrderNo);
 
-	TempWorkOrderItems findByItemId(Long itemId);
+	TempWorkOrderItems findByItemId(String itemId);
 
 }

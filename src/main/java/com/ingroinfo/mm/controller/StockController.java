@@ -22,10 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
+import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
+import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.InwardApprovedMaterials;
+import com.ingroinfo.mm.entity.InwardApprovedSpares;
+import com.ingroinfo.mm.entity.InwardApprovedTools;
 import com.ingroinfo.mm.entity.InwardMaterials;
 import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTempMaterials;
@@ -36,8 +41,6 @@ import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrders;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.BrandMasterService;
-import com.ingroinfo.mm.service.CategoryService;
-import com.ingroinfo.mm.service.HsnCodeService;
 import com.ingroinfo.mm.service.ItemMasterService;
 import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.service.UnitMeasureService;
@@ -58,14 +61,8 @@ public class StockController {
 	private UnitMeasureService unitMeasureService;
 
 	@Autowired
-	private CategoryService categoryService;
-
-	@Autowired
-	private HsnCodeService hsnCodeService;
-	
-	@Autowired
 	private BrandMasterService brandService;
-	
+
 	@Autowired
 	private ItemMasterService itemMasterService;
 
@@ -77,6 +74,12 @@ public class StockController {
 
 	@Autowired
 	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
+
+	@Autowired
+	private InwardApprovedSparesRepository inwardApprovedSparesRepository;
+
+	@Autowired
+	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
@@ -108,7 +111,7 @@ public class StockController {
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
 
 		model.addAttribute("items", itemMasterService.getAllItemNames("ML"));
-		
+
 		model.addAttribute("brands", brandService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_materials_entry";
@@ -236,9 +239,9 @@ public class StockController {
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
 
-		model.addAttribute("categories", categoryService.findAllCategory());
+		model.addAttribute("items", itemMasterService.getAllItemNames("SP"));
 
-		model.addAttribute("items", hsnCodeService.findAllHsnCode());
+		model.addAttribute("brands", brandService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_spares_entry";
 	}
@@ -365,9 +368,9 @@ public class StockController {
 
 		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
 
-		model.addAttribute("categories", categoryService.findAllCategory());
+		model.addAttribute("items", itemMasterService.getAllItemNames("TE"));
 
-		model.addAttribute("items", hsnCodeService.findAllHsnCode());
+		model.addAttribute("brands", brandService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_tools_entry";
 	}
@@ -515,7 +518,7 @@ public class StockController {
 
 	@PostMapping("/outward/item/quantity")
 	public @ResponseBody void quantity(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
-		Long itemId = tempWorkOrderItems.getItemId();
+		String itemId = tempWorkOrderItems.getItemId();
 		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
 		if (itemId != null) {
 			Optional<TempWorkOrderItems> TempWorkOrderItem = tempWorkOrderItemsRepository
@@ -530,7 +533,7 @@ public class StockController {
 
 	@PostMapping("/outward/item/delete")
 	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
-		Long itemId = tempWorkOrderItems.getItemId();
+		String itemId = tempWorkOrderItems.getItemId();
 		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
 
 		if (itemId != null) {
@@ -545,8 +548,25 @@ public class StockController {
 	}
 
 	@PostMapping("/get/quantity/{itemId}")
-	public @ResponseBody int getQuantity(@PathVariable Long itemId) {
-		return inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+	public @ResponseBody int getQuantity(@PathVariable String itemId) {
+
+		int quantity = 0;
+
+		InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository.findByItemId(itemId);
+		InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository.findByItemId(itemId);
+		InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository.findByItemId(itemId);
+
+		if (inwardApprovedMaterials != null) {
+			quantity = inwardApprovedMaterials.getQuantity();
+		}
+		if (inwardApprovedSpares != null) {
+			quantity = inwardApprovedSpares.getQuantity();
+		}
+		if (inwardApprovedTools != null) {
+			quantity = inwardApprovedTools.getQuantity();
+		}
+
+		return quantity;
 	}
 
 	@PostMapping("/outward/workorder/items")

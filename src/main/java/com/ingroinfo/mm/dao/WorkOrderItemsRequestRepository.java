@@ -8,10 +8,10 @@ import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 @Repository
 public interface WorkOrderItemsRequestRepository extends JpaRepository<WorkOrderItemsRequest, Long> {
 
-	WorkOrderItemsRequest findByItemId(Long itemId);
+	WorkOrderItemsRequest findByItemId(String itemId);
 
 	List<WorkOrderItemsRequest> findByWorkOrderNo(Long workOrderNo);
 
-	WorkOrderItemsRequest findByWorkOrderNoAndItemId(Long workOrderNo, Long itemId);
+	WorkOrderItemsRequest findByWorkOrderNoAndItemId(Long workOrderNo, String itemId);
 
 }

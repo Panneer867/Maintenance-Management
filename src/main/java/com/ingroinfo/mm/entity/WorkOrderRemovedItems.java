@@ -21,7 +21,7 @@ public class WorkOrderRemovedItems {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long workOrderItemRemovedId;
-	private Long itemId;
+	private String itemId;
 	private int requestedQuantity;
 	private int stockQuantity;
 	private String Availability;

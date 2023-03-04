@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.EmployeeMasterRepository;
+import com.ingroinfo.mm.dao.ItemMasterRepository;
 import com.ingroinfo.mm.dto.UserRolesDto;
 import com.ingroinfo.mm.entity.EmployeeMaster;
+import com.ingroinfo.mm.entity.ItemMaster;
 import com.ingroinfo.mm.entity.Role;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.service.AdminService;
@@ -29,6 +31,9 @@ public class ResponseController {
 
 	@Autowired
 	private EmployeeMasterRepository employeeMasterRepository;
+
+	@Autowired
+	private ItemMasterRepository itemMasterRepository;
 
 	@GetMapping("/city")
 	public String getCities(@RequestParam Integer stateId) {
@@ -60,8 +65,11 @@ public class ResponseController {
 	public UserRolesDto getUserRoles(@PathVariable Long id) {
 		return userRolesService.getUserRoles(id);
 	}
-	
-	
+
+	@GetMapping("/item/details/{id}")
+	public ItemMaster getItemDetails(@PathVariable Long id) {
+		return itemMasterRepository.findById(id).get();
+	}
 
 	@GetMapping("/test")
 	public EmployeeMaster getEmployees(@RequestParam Long id) {

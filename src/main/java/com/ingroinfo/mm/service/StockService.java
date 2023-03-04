@@ -97,7 +97,7 @@ public interface StockService {
 
 	boolean notAvailableItems(Long workOrderNo);
 
-	void saveRemovedItems(Long itemId, Long workOrderNo);
+	void saveRemovedItems(String itemId, Long workOrderNo);
 
 	boolean getTempWorkOrderItems(Long workOrderNo);
 }

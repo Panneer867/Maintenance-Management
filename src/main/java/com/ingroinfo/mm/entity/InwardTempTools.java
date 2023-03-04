@@ -28,7 +28,7 @@ public class InwardTempTools {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tempToolId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

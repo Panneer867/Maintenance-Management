@@ -22,7 +22,7 @@ import com.ingroinfo.mm.service.StockService;
 
 @Controller
 @RequestMapping("/approvals")
-public class Approvals {
+public class StockApprovals {
 
 	@Autowired
 	private StockService stockService;

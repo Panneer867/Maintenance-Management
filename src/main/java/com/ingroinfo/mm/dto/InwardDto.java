@@ -16,7 +16,7 @@ public class InwardDto {
 	private Long materialId;
 	private Long spareId;
 	private Long toolId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String category;

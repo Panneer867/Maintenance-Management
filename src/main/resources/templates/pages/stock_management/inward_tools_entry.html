@@ -40,7 +40,7 @@
 							Inward Tools List
 						</a>
 					</li>
-					
+
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/tools/list/approved}">
@@ -74,7 +74,7 @@
 											<div class="col-sm-8">
 												<select class="form-select" id="itemId" name="itemName" required>
 													<option value="" selected>Select</option>
-													<option th:each="item : ${items}" th:value="${item.itemName}"
+													<option th:each="item : ${items}" th:value="${item.itemMasterId}"
 														th:utext="${item.itemName}" />
 												</select>
 											</div>
@@ -85,7 +85,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
 												Name</label>
 											<div class="col-sm-8 px-0">
-												<input type="text" name="aliasName" class="form-control" required/>
+												<input type="text" name="aliasName" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -93,7 +93,9 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Category</label>
 											<div class="col-sm-8">
-												<input type="text" name="category" class="form-control" required/>
+												<input type="hidden" id="get-category" name="category" />
+												<input type="text" id="get-categoryName" class="form-control" disabled
+													required />
 											</div>
 										</div>
 									</div>
@@ -102,25 +104,24 @@
 								<div class="row mt-3">
 									<div class="col-4">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+											<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
+											</label>
 											<div class="col-sm-8">
-												<select class="form-select" name="brand" required>
-													<option value="" selected>Select</option>
-													<option value="Astral Pipes">Astral Pipes</option>
-													<option value="Appllo">Appllo</option>
-													<option value="FinOlex">FinOlex</option>
-													<option value="Ashirvad">Ashirvad</option>
-												</select>
+												<input type="hidden" id="get-hsncode" name="hsnCode" />
+												<input type="text" id="get-hsn" class="form-control" disabled
+													required />
 											</div>
 										</div>
 									</div>
 									<div class="col-4">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
-											</label>
+											<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
 											<div class="col-sm-8">
-												<input type="hidden" id="get-hsncode" name="hsnCode" />
-												<input type="text" id="get-hsn" class="form-control" disabled required/>
+												<select class="form-select" name="brand" required>
+													<option value="" selected>Select</option>
+													<option th:each="brand : ${brands}" th:value="${brand.brandName}"
+														th:utext="${brand.brandName}" />
+												</select>
 											</div>
 										</div>
 									</div>
@@ -133,7 +134,7 @@
 													<option value="" selected>Select</option>
 													<option th:each="unitOfMeasure : ${unitOfMeasures}"
 														th:value="${unitOfMeasure.unitType}"
-														th:utext="${unitOfMeasure.unitType}"/>
+														th:utext="${unitOfMeasure.unitType}" />
 												</select>
 											</div>
 										</div>
@@ -150,7 +151,8 @@
 														<span class="input-group-text py-2 font-weight-bold"
 															style="border-radius: 0;">&#8377;</span>
 													</div>
-													<input type="number" name="costRate" class="form-control" required/>
+													<input type="number" name="costRate" class="form-control"
+														required />
 												</div>
 											</div>
 										</div>
@@ -165,7 +167,7 @@
 														<span class="input-group-text py-2 font-weight-bold"
 															style="border-radius: 0;">&#8377;</span>
 													</div>
-													<input type="number" name="mrpRate" class="form-control" required/>
+													<input type="number" name="mrpRate" class="form-control" required />
 												</div>
 											</div>
 										</div>
@@ -175,7 +177,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">
 												Quantity</label>
 											<div class="col-sm-8">
-												<input type="number" name="quantity" class="form-control" required/>
+												<input type="number" name="quantity" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -186,7 +188,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Entry
 												Date</label>
 											<div class="col-sm-8">
-												<input type="date" name="entryDate" class="form-control" required/>
+												<input type="date" name="entryDate" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -195,7 +197,7 @@
 											<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
 												style="width: 110px;">Description</label>
 											<div class="col-sm-10 px-0">
-												<input type="text" name="description" class="form-control" required/>
+												<input type="text" name="description" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -234,8 +236,7 @@
 						<th class="all">MRP</th>
 						<th class="all">Qty</th>
 						<th class="all">Total</th>
-						<th class="all" width="80px"><button
-								th:onclick="|deleteAll('/stocks/inward/tools/deleteAll')|"
+						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/tools/deleteAll')|"
 								class="btn text-danger p-0 font-weight-bold" data-toggle="modal"
 								data-target="#delAllTools" data-bs-toggle="tooltip" data-bs-placement="top"
 								title="Remove Tool">Clear All</button>
@@ -262,8 +263,7 @@
 
 						<td class="text-center">
 
-							<button
-								th:onclick="|deleteId('/stocks/inward/tools/delete/${tempTool.tempToolId}')|"
+							<button th:onclick="|deleteId('/stocks/inward/tools/delete/${tempTool.tempToolId}')|"
 								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delTool"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 									class="glyphicon glyphicon-trash"></span></button>
@@ -286,7 +286,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
 											</label>
 											<div class="col-sm-8">
-												<input type="text" name="supplier" class="form-control" required/>
+												<input type="text" name="supplier" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -295,7 +295,7 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label"
 												style="width: 95px;">Supplied On</label>
 											<div class="col-sm-7">
-												<input type="date" name="suppliedOn" class="form-control" required/>
+												<input type="date" name="suppliedOn" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -366,7 +366,7 @@
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
 											<div class="col-sm-8">
-												<input type="text" name="invoice" class="form-control" required/>
+												<input type="text" name="invoice" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -375,7 +375,7 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">Received
 												By</label>
 											<div class="col-sm-7">
-												<input type="text" name="receivedBy" class="form-control" required/>
+												<input type="text" name="receivedBy" class="form-control" required />
 											</div>
 										</div>
 									</div>
@@ -385,12 +385,12 @@
 											<label for="staticEmail" class="col-sm-5 col-form-label">Received
 												Date</label>
 											<div class="col-sm-7">
-												<input type="date" name="receivedDate" class="form-control" required/>
+												<input type="date" name="receivedDate" class="form-control" required />
 											</div>
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row mt-3">
 									<div class="col-12 text-center">
 										<button type="submit" class="btn btn-success btn-sm">Submit</button>
@@ -425,8 +425,7 @@
 			</form>
 		</div>
 
-		<div class="modal fade" id="delTool" tabindex="-1" role="dialog" aria-labelledby="delTool"
-			aria-hidden="true">
+		<div class="modal fade" id="delTool" tabindex="-1" role="dialog" aria-labelledby="delTool" aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
 				<div class="modal-content">
 					<div class="modal-header p-2">

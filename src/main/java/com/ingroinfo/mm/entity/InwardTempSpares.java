@@ -28,7 +28,7 @@ public class InwardTempSpares {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tempSpareId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;

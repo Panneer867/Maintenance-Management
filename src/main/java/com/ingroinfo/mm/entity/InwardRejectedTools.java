@@ -26,7 +26,7 @@ public class InwardRejectedTools {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long rejectToolId;
 	private Long toolId;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;
