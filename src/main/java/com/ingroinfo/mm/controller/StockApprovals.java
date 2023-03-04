@@ -64,12 +64,12 @@ public class StockApprovals {
 
 		return "redirect:/approvals/stocks/materials";
 	}
-	
+
 	@GetMapping("/inward/approved/materials/get/{id}")
 	public @ResponseBody InwardApprovedMaterials getInwardMaterials(@PathVariable("id") Long id) {
 		return stockService.getApprovedInwardMaterialById(id);
 	}
-	
+
 	@GetMapping("/stocks/materials/reject/{id}")
 	public String rejectMaterial(@PathVariable("id") Long id, HttpSession session) {
 
@@ -79,10 +79,9 @@ public class StockApprovals {
 		return "redirect:/approvals/stocks/materials";
 
 	}
-	
+
 	/****************** Spares ***************/
-	
-	
+
 	@GetMapping("/stocks/spares")
 	public String approveSpares(Model model) {
 
@@ -106,12 +105,12 @@ public class StockApprovals {
 
 		return "redirect:/approvals/stocks/spares";
 	}
-	
+
 	@GetMapping("/inward/approved/spares/get/{id}")
 	public @ResponseBody InwardApprovedSpares getInwardSpares(@PathVariable("id") Long id) {
 		return stockService.getApprovedInwardSpareById(id);
 	}
-	
+
 	@GetMapping("/stocks/spares/reject/{id}")
 	public String rejectSpare(@PathVariable("id") Long id, HttpSession session) {
 
@@ -122,10 +121,8 @@ public class StockApprovals {
 
 	}
 
-	
-/****************** Tools ***************/
-	
-	
+	/****************** Tools ***************/
+
 	@GetMapping("/stocks/tools")
 	public String approveTools(Model model) {
 
@@ -149,12 +146,12 @@ public class StockApprovals {
 
 		return "redirect:/approvals/stocks/tools";
 	}
-	
+
 	@GetMapping("/inward/approved/tools/get/{id}")
 	public @ResponseBody InwardApprovedTools getInwardTools(@PathVariable("id") Long id) {
 		return stockService.getApprovedInwardToolById(id);
 	}
-	
+
 	@GetMapping("/stocks/tools/reject/{id}")
 	public String rejectTool(@PathVariable("id") Long id, HttpSession session) {
 
@@ -163,6 +160,16 @@ public class StockApprovals {
 
 		return "redirect:/approvals/stocks/tools";
 
+	}
+
+	/****************** Outward Stocks ***************/
+
+	@GetMapping("/outward/stocks")
+	public String approveOutwardStocks(Model model) {
+
+		model.addAttribute("title", "Outward Stocks Approvals | Maintenance Mangement");
+		model.addAttribute("approval", new InwardDto());
+		return "/pages/stock_management/outward_stocks_approval";
 	}
 
 }

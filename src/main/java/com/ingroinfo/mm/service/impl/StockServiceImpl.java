@@ -28,7 +28,7 @@ import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
-import com.ingroinfo.mm.dao.WorkOrdersRepository;
+import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.Company;
@@ -45,7 +45,7 @@ import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrderRemovedItems;
-import com.ingroinfo.mm.entity.WorkOrders;
+import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.StockService;
 
@@ -94,7 +94,7 @@ public class StockServiceImpl implements StockService {
 	private WorkOrderItemsRepository workOrderItemsRepository;
 
 	@Autowired
-	private WorkOrdersRepository workOrdersRepository;
+	private TempWorkOrderNosRepository tempWorkOrdersRepository;
 
 	@Autowired
 	private WorkOrderRemovedItemsRepository workOrderRemovedItemsRepository;
@@ -633,8 +633,8 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveWorkOrder(WorkOrders workOrders) {
-		WorkOrders savedWorkOrder = workOrdersRepository.save(workOrders);
+	public void saveWorkOrder(TempWorkOrderNos workOrders) {
+		TempWorkOrderNos savedWorkOrder = tempWorkOrdersRepository.save(workOrders);
 		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository
 				.findByWorkOrderNo(savedWorkOrder.getWorkOrderNo());
 
@@ -737,5 +737,25 @@ public class StockServiceImpl implements StockService {
 			flag = true;
 		}
 		return flag;
+	}
+
+	@Override
+	public List<TempWorkOrderNos> getOutwardWorkOrders() {		
+		return tempWorkOrdersRepository.findAll();
+	}
+
+	@Override
+	public void deleteOutwardWorkorder(Long id) {
+		tempWorkOrdersRepository.deleteById(id);		
+	}
+
+	@Override
+	public List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo) {	
+		return workOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+	}
+
+	@Override
+	public TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo) {	
+		return tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
 	}
 }

@@ -1,0 +1,411 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Materials List
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Outward Stocks</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8">
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward}">
+							Outward Stocks
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/chart}">
+							Outward Stocks Chart
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/list}">
+							Outward Stocks List
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/outward/list/approved}">
+							Outward Stocks Approved List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div th:if="${session.message}" class="alert_field">
+			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+				<span th:text="${session.message.content}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<table
+			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+			<thead class="table-dark">
+				<tr>
+
+					<th class="all">Item ID</th>
+					<th class="all">Category</th>
+					<th class="all">Item</th>
+					<th class="all">Supplier</th>
+					<th class="all">Qty</th>
+					<th class="all">Cost</th>
+					<th class="all">MRP</th>
+					<th class="all">Sub Total</th>
+					<th class="all">GST</th>
+					<th class="all">Grand Total</th>
+					<th class="all">Entry Date</th>
+					<th class="all">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="approvedMaterialsList: ${approvedMaterialsLists}">
+
+					<td th:text="${approvedMaterialsList.itemId}"></td>
+					<td th:text="${approvedMaterialsList.category}"></td>
+					<td th:text="${approvedMaterialsList.itemName}"></td>
+					<td th:text="${approvedMaterialsList.supplier}"></td>
+					<td th:text="${approvedMaterialsList.quantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.mrpRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.subTotal}"></label></td>
+					<td><label class="px-1" th:text="${approvedMaterialsList.igst}"></label>%</td>
+					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.grandTotal}"></label></td>
+					<td th:text="${approvedMaterialsList.entryDate}"></td>
+					<td class="text-center">
+						<button
+							th:onclick="|getMaterialDetails('/approvals/inward/approved/materials/get/${approvedMaterialsList.approvedMaterialId}')|"
+							class="btn btn-success p-1 mx-2" data-toggle="modal"
+							data-target="#material-detail">View</button>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="modal fade" id="material-detail" tabindex="-1" role="dialog" aria-labelledby="material-detail"
+			aria-hidden="true">
+			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
+				<div class="modal-content">
+					<form class="mb-0" th:action="@{/approvals/stocks/material/approved}" th:object="${inwardItem}"
+						method="post">
+						<div class="modal-header p-2">
+							<h4 class="mx-auto my-2">Material Details</h4>
+							<label class="mb-0 text-dark font-weight-bold">Item ID
+							</label>
+
+							<input type="text" class="form-control-plaintext text-primary text-center col-1"
+								id="approved-mat-itemId" disabled />
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="row">
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-itemName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
+													Name</label>
+												<div class="col-sm-8 px-0">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-aliasName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">Category</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-category" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-brand" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
+												</label>
+												<div class="col-sm-8">
+
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-hsnCode" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
+													Measure</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-unitOfMeasure" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Cost
+													Rate</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number" class="form-control text-primary"
+															id="approved-mat-costRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">MRP
+												</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number"
+															class="form-control text-primary text-primary"
+															id="approved-mat-mrpRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">
+													Quantity</label>
+												<div class="col-sm-8">
+													<input type="number" class="form-control text-primary"
+														id="approved-mat-quantity" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-supplier" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Supplied On</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="approved-mat-suppliedOn" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-gstType" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">GST/IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="number" class="form-control text-primary"
+															id="approved-mat-igst" required disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="approved-mat-sgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="approved-mat-cgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-invoice" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													By</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-receivedBy" disabled />
+												</div>
+											</div>
+										</div>
+
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													Date</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="approved-mat-receivedDate" disabled />
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Entry
+													Date</label>
+												<div class="col-sm-8">
+													<input type="date" class="form-control text-primary"
+														id="approved-mat-entryDate" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-8">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
+													style="width: 110px;">Description</label>
+												<div class="col-sm-10 px-0">
+													<input type="text" class="form-control text-primary"
+														id="approved-mat-description" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-3 text-center">
+									<label for="staticEmail">Material Image</label><br>
+									<img id="approved-mat-itemImage" alt="image" width="250" />
+									<div class="mb-4 w-75 ml-5" style="position: absolute;bottom: 0;">
+										<div class="row text-white">
+											<div class="col-5 bg-dark py-2 rounded-top">
+												<label class="font-weight-bold mb-0">Subtotal</label>
+											</div>
+											<div class="col-7 bg-dark row py-2 rounded-top text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="approved-mat-subTotal"></label></label>
+											</div>
+										</div>
+										<div class="row text-white">
+											<div class="col-5 bg-primary py-2 rounded-bottom">
+												<label class="font-weight-bold mb-0">Grand Total</label>
+											</div>
+											<div class="col-7 bg-primary row py-2 rounded-bottom text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="approved-mat-grandTotal"></label></label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer p-2 ">
+							<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+	</section>
+</body>
+
+</html>

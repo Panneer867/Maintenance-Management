@@ -22,13 +22,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_workorders")
-public class WorkOrders {
+@Table(name = "mm_temp_workorder_nos")
+public class TempWorkOrderNos {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long orderId;
-	private String supplier;
 	private String billedOn;
 	private String gstType;
 	private Double igst;

@@ -38,6 +38,12 @@
 							Outward Stocks List
 						</a>
 					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/outward/list/approved}">
+							Outward Stocks Approved List
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -156,16 +162,8 @@
 							<div class="row">
 								<div class="col-8">
 									<div class="row">
-										<div class="col-4">
-											<div class="form-group row">
-												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
-												</label>
-												<div class="col-sm-8">
-													<input type="text" name="supplier" class="form-control" required />
-												</div>
-											</div>
-										</div>
-										<div class="col-4">
+										
+										<div class="col-6">
 											<div class="form-group row">
 												<label for="staticEmail" class="col-sm-5 col-form-label"
 													style="width: 95px;">Billed On</label>
@@ -174,7 +172,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-4">
+										<div class="col-6">
 											<div class="form-group row">
 												<label for="staticEmail" class="col-sm-5 col-form-label">GST
 													Type<strong class="text-danger">*</strong></label>

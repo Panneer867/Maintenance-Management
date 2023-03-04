@@ -40,6 +40,6 @@ public class WorkOrderItems {
 
 	@ManyToOne
 	@JoinColumn(name = "workorder_id")
-	private WorkOrders workOrderId;
+	private TempWorkOrderNos workOrderId;
 
 }

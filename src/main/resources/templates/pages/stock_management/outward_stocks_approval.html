@@ -1,0 +1,471 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stocks Approvals</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Outward Stock Approvals</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8">
+
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/outward/list/approved}">
+							Outward Stocks Approved List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div th:if="${session.message}" class="alert_field">
+			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+				<span th:text="${session.message.content}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<table class="table table-stock table-bordered table table-info table-striped table-hover mytable w-100 mt-4">
+			<thead class="table-dark">
+				<tr>
+					<th class="all">Item ID</th>
+					<th class="all">Category</th>
+					<th class="all">Item</th>
+					<th class="all">Image</th>
+					<th class="all">Qty</th>
+					<th class="all">Cost</th>
+					<th class="all">MRP</th>
+					<th class="all">Sub Total</th>
+					<th class="all">GST</th>
+					<th class="all">Grand Total</th>
+					<th class="all">Entry </th>
+					<th class="all">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="sparesList: ${sparesLists}">
+					<td th:text="${sparesList.ItemId}"></td>
+					<td th:text="${sparesList.category}"></td>
+					<td th:text="${sparesList.itemName}"></td>
+					<td class="text-center img-box"
+						th:attr="onclick=|viewImg('${sparesList.imagePath}${sparesList.itemImage}')|"
+						data-toggle="modal" data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top"
+						title="Click to View">
+						<img th:src="@{${sparesList.imagePath} + ${sparesList.itemImage}}" alt="image" />
+					</td>
+
+
+					<td th:text="${sparesList.quantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${sparesList.costRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${sparesList.mrpRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${sparesList.subTotal}"></label></td>
+					<td><label class="px-1" th:text="${sparesList.igst}"></label>%</td>
+					<td>&#8377;<label class="px-1" th:text="${sparesList.grandTotal}"></label></td>
+					<td th:text="${sparesList.entryDate}"></td>
+
+					<td class="text-center">
+
+						<button th:onclick="|getSpareDetails('/stocks/inward/spares/get/${sparesList.spareId}')|"
+							class="btn btn-success p-1 mx-2" data-toggle="modal" data-target="#spare-detail"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><span
+								class="glyphicon glyphicon-ok"></span></button>
+
+						<button th:onclick="|deleteId('/approvals/stocks/spares/reject/${sparesList.spareId}')|"
+							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
+								class="glyphicon glyphicon-remove"></span></button>
+					</td>
+
+
+				</tr>
+			</tbody>
+		</table>
+		<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h4 class="mx-auto">Spare Image</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-1">
+						<img th:id="viewRef" width="794" alt="image" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="delInwardItem" tabindex="-1" role="dialog" aria-labelledby="delInwardItem"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document" style="margin-top: 180px;">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h4>Reject Item</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Are you sure, you want to reject this Item?
+					</div>
+					<div class="modal-footer p-2">
+						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Remove</a>
+						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="spare-detail" tabindex="-1" role="dialog" aria-labelledby="spare-detail"
+			aria-hidden="true">
+			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
+				<div class="modal-content">
+					<form class="mb-0" th:action="@{/approvals/stocks/spares/approve}" th:object="${approval}"
+						method="post">
+
+						<input type="hidden" name="spareId" id="approve-sap-spareId" />
+						<input type="hidden" name="itemName" id="approve-sap-itemName" />
+						<input type="hidden" name="itemId" id="approve-sap-itemId" />
+						<input type="hidden" name="aliasName" id="approve-sap-aliasName" />
+						<input type="hidden" name="category" id="approve-sap-category" />
+						<input type="hidden" name="brand" id="approve-sap-brand" />
+						<input type="hidden" name="hsnCode" id="approve-sap-hsnCode" />
+						<input type="hidden" name="unitOfMeasure" id="approve-sap-unitOfMeasure" />
+						<input type="hidden" name="costRate" id="approve-sap-costRate" />
+						<input type="hidden" name="mrpRate" id="approve-sap-mrpRate" />
+						<input type="hidden" name="quantity" id="approve-sap-quantity" />
+						<input type="hidden" name="supplier" id="approve-sap-supplier" />
+						<input type="hidden" name="suppliedOn" id="approve-sap-suppliedOn" />
+						<input type="hidden" name="gstType" id="approve-sap-gstType" />
+						<input type="hidden" name="igst" id="approve-sap-igst" />
+						<input type="hidden" name="sgst" id="approve-sap-sgst" />
+						<input type="hidden" name="cgst" id="approve-sap-cgst" />
+						<input type="hidden" name="invoice" id="approve-sap-invoice" />
+						<input type="hidden" name="receivedBy" id="approve-sap-receivedBy" />
+						<input type="hidden" name="receivedDate" id="approve-sap-receivedDate" />
+						<input type="hidden" name="entryDate" id="approve-sap-entryDate" />
+						<input type="hidden" name="description" id="approve-sap-description" />
+						<input type="hidden" name="subTotal" id="approve-sap-subTotal" />
+						<input type="hidden" name="grandTotal" id="approve-sap-grandTotal" />
+						<input type="hidden" name="imagePath" id="approve-sap-imagePath" />
+						<input type="hidden" name="itemImage" id="approve-sap-itemImage" />
+
+						<div class="modal-header p-2">
+							<h4 class="mx-auto my-2">Spare Approval</h4>
+							<label class="mb-0 text-dark font-weight-bold">Item ID
+							</label>
+
+							<input type="text" class="form-control-plaintext text-primary text-center col-1"
+								id="copy-approve-sap-itemId" disabled />
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="row">
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-itemName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Alias
+													Name</label>
+												<div class="col-sm-8 px-0">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-aliasName" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">Category</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-category" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-brand" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
+												</label>
+												<div class="col-sm-8">
+
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-hsnCode" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
+													Measure</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-unitOfMeasure" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Cost
+													Rate</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number" class="form-control text-primary"
+															id="copy-approve-sap-costRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">MRP
+												</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text py-2 font-weight-bold"
+																style="border-radius: 0;">&#8377;</span>
+														</div>
+														<input type="number"
+															class="form-control text-primary text-primary"
+															id="copy-approve-sap-mrpRate" disabled />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">
+													Quantity</label>
+												<div class="col-sm-8">
+													<input type="number" class="form-control text-primary"
+														id="copy-approve-sap-quantity" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
+												</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-supplier" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Supplied On</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="copy-approve-sap-suppliedOn" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-gstType" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail"
+													class="col-sm-4 col-form-label">GST/IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="number" class="form-control text-primary"
+															id="copy-approve-sap-igst" required disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="copy-approve-sap-sgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+
+														<input type="number" class="form-control text-primary"
+															id="copy-approve-sap-cgst" disabled />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-invoice" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													By</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-receivedBy" disabled />
+												</div>
+											</div>
+										</div>
+
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">Received
+													Date</label>
+												<div class="col-sm-7">
+													<input type="date" class="form-control text-primary"
+														id="copy-approve-sap-receivedDate" disabled />
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Entry
+													Date</label>
+												<div class="col-sm-8">
+													<input type="date" class="form-control text-primary"
+														id="copy-approve-sap-entryDate" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-8">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
+													style="width: 110px;">Description</label>
+												<div class="col-sm-10 px-0">
+													<input type="text" class="form-control text-primary"
+														id="copy-approve-sap-description" disabled />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-3 text-center">
+									<label for="staticEmail">Spare Image</label><br>
+									<img id="copy-approve-sap-itemImage" alt="image" width="250" />
+									<div class="mb-4 w-75 ml-5" style="position: absolute;bottom: 0;">
+										<div class="row text-white">
+											<div class="col-5 bg-dark py-2 rounded-top">
+												<label class="font-weight-bold mb-0">Subtotal</label>
+											</div>
+											<div class="col-7 bg-dark row py-2 rounded-top text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="copy-approve-sap-subTotal"></label></label>
+											</div>
+										</div>
+										<div class="row text-white">
+											<div class="col-5 bg-primary py-2 rounded-bottom">
+												<label class="font-weight-bold mb-0">Grand Total</label>
+											</div>
+											<div class="col-7 bg-primary row py-2 rounded-bottom text-left">
+												<label class="font-weight-bold mb-0">&#8377;<label
+														class=" pl-2 font-weight-bold mb-0"
+														id="copy-approve-sap-grandTotal"></label></label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer p-2 ">
+							<button type="submit" class="btn btn-sm btn-success">Approve</button>
+							<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

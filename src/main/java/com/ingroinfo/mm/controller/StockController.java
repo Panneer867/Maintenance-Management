@@ -38,7 +38,7 @@ import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.WorkOrders;
+import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.BrandMasterService;
 import com.ingroinfo.mm.service.ItemMasterService;
@@ -470,6 +470,8 @@ public class StockController {
 		model.addAttribute("title", "Inward Tools Chart | Maintenance Management");
 		return "/pages/stock_management/inward_tools_chart";
 	}
+	
+	/******************************************************************/
 
 	@GetMapping("/outward")
 	@PreAuthorize("hasAuthority('OUTWARD_STOCKS')")
@@ -503,7 +505,7 @@ public class StockController {
 
 		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderNo));
 
-		model.addAttribute("workorder", new WorkOrders());
+		model.addAttribute("workorder", new TempWorkOrderNos());
 
 		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderNo);
 
@@ -548,7 +550,7 @@ public class StockController {
 	}
 
 	@PostMapping("/get/quantity/{itemId}")
-	public @ResponseBody int getQuantity(@PathVariable String itemId) {
+	public @ResponseBody int getQuantity(@PathVariable("itemId") String itemId) {
 
 		int quantity = 0;
 
@@ -570,7 +572,7 @@ public class StockController {
 	}
 
 	@PostMapping("/outward/workorder/items")
-	public String workOrerItems(@ModelAttribute("workorder") WorkOrders workOrders, BindingResult bindingResult,
+	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrderNos workOrders, BindingResult bindingResult,
 			HttpSession session) {
 		Long workOrderNo = workOrders.getWorkOrderNo();
 		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
@@ -597,5 +599,45 @@ public class StockController {
 		return "redirect:/stocks/outward";
 	}
 
+	@GetMapping("/outward/chart")
+	public String outwardChart(Model model) {
+		model.addAttribute("title", "Outward Stocks Chart | Maintenance Management");
+		return "/pages/stock_management/outward_stocks_chart";
+	}
+
+	@GetMapping("/outward/list")
+	public String outwardList(Model model) {
+		model.addAttribute("title", "Outward Stocks List | Maintenance Management");
+		
+		model.addAttribute("outwardStocksLists", stockService.getOutwardWorkOrders());
+		return "/pages/stock_management/outward_stocks_list";
+	}
+	
+	@GetMapping("/outward/list/items/{workOrderNo}")
+	public String outwardListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model) {
+		
+		model.addAttribute("title", "Outward Stocks Workorder Items | Maintenance Management");
+		
+		model.addAttribute("outwardStocksListItems", stockService.getOutwardWorkOrderItems(workOrderNo));
+		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));		
+		return "/pages/stock_management/outward_stocks_list_items";
+	}
+	
+	@GetMapping("/outward/list/delete/{id}")
+	public String deleteOutwardList(@PathVariable("id") Long id, HttpSession session) {
+
+		stockService.deleteOutwardWorkorder(id);
+		session.setAttribute("message", new Message("WorkOrder has been successfully rejected !", "success"));
+
+		return "redirect:/stocks/outward/list";
+
+	}
+
+	@GetMapping("/outward/list/approved")
+	public String outwardApprovedList(Model model, Principal principal) {
+		model.addAttribute("title", "Outward Stocks Approved List | Maintenance Management");
+		return "/pages/stock_management/outward_stocks_approved_list";
+	}
+	
 	
 }
