@@ -255,40 +255,10 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getInwardTools());
 		}
-		if (dto.getOutwardMaterials().contains("N")) {
-			deleteRole(roleId, dto.getOutwardMaterials());
+		if (dto.getOutwardStocks().contains("N")) {
+			deleteRole(roleId, dto.getOutwardStocks());
 		} else {
-			createRole(roleId, dto.getOutwardMaterials());
-		}
-		if (dto.getOutwardSpares().contains("N")) {
-			deleteRole(roleId, dto.getOutwardSpares());
-		} else {
-			createRole(roleId, dto.getOutwardSpares());
-		}
-		if (dto.getOutwardTools().contains("N")) {
-			deleteRole(roleId, dto.getOutwardTools());
-		} else {
-			createRole(roleId, dto.getOutwardTools());
-		}
-		if (dto.getMatieralsReturn().contains("N")) {
-			deleteRole(roleId, dto.getMatieralsReturn());
-		} else {
-			createRole(roleId, dto.getMatieralsReturn());
-		}
-		if (dto.getSparesReturn().contains("N")) {
-			deleteRole(roleId, dto.getSparesReturn());
-		} else {
-			createRole(roleId, dto.getSparesReturn());
-		}
-		if (dto.getToolsReturn().contains("N")) {
-			deleteRole(roleId, dto.getToolsReturn());
-		} else {
-			createRole(roleId, dto.getToolsReturn());
-		}
-		if (dto.getRejectDamageReturn().contains("N")) {
-			deleteRole(roleId, dto.getRejectDamageReturn());
-		} else {
-			createRole(roleId, dto.getRejectDamageReturn());
+			createRole(roleId, dto.getOutwardStocks());
 		}
 		if (dto.getStockApprovals().contains("N")) {
 			deleteRole(roleId, dto.getStockApprovals());
@@ -815,20 +785,8 @@ public class UserRolesServiceImpl implements UserRolesService {
 					} else if (pageNo == 403) {
 						pages.setInwardTools(String.valueOf(pageNo));
 					} else if (pageNo == 404) {
-						pages.setOutwardMaterials(String.valueOf(pageNo));
+						pages.setOutwardStocks(String.valueOf(pageNo));
 					} else if (pageNo == 405) {
-						pages.setOutwardSpares(String.valueOf(pageNo));
-					} else if (pageNo == 406) {
-						pages.setOutwardTools(String.valueOf(pageNo));
-					} else if (pageNo == 407) {
-						pages.setMatieralsReturn(String.valueOf(pageNo));
-					} else if (pageNo == 408) {
-						pages.setSparesReturn(String.valueOf(pageNo));
-					} else if (pageNo == 409) {
-						pages.setToolsReturn(String.valueOf(pageNo));
-					} else if (pageNo == 410) {
-						pages.setRejectDamageReturn(String.valueOf(pageNo));
-					} else if (pageNo == 411) {
 						pages.setStockApprovals(String.valueOf(pageNo));
 					}
 

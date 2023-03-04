@@ -471,11 +471,11 @@ public class StockController {
 		return "/pages/stock_management/inward_tools_chart";
 	}
 
-	@GetMapping("/outward/materials/entry")
-	@PreAuthorize("hasAuthority('OUTWARD_MATERIALS')")
+	@GetMapping("/outward")
+	@PreAuthorize("hasAuthority('OUTWARD_STOCKS')")
 	public String outwardMaterials(Model model) {
 
-		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
+		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
 		List<Long> workOrdersNos = stockService.getWorkOrdersNos();
 
@@ -487,13 +487,13 @@ public class StockController {
 			model.addAttribute("emptyList", "No Work Orders");
 		}
 
-		return "/pages/stock_management/outward_materials";
+		return "/pages/stock_management/outward_stocks";
 	}
 
 	@GetMapping("/outward/get/{workOrderNo}")
 	public String outwardStocks(@PathVariable Long workOrderNo, Model model) {
 
-		model.addAttribute("title", "Outward Materials Entry | Maintenance Management");
+		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
 		model.addAttribute("workOrdersNos", stockService.getWorkOrdersNos());
 
@@ -513,7 +513,7 @@ public class StockController {
 			model.addAttribute("stockQuantities", null);
 		}
 
-		return "/pages/stock_management/outward_materials";
+		return "/pages/stock_management/outward_stocks";
 	}
 
 	@PostMapping("/outward/item/quantity")
@@ -594,47 +594,8 @@ public class StockController {
 			session.setAttribute("message", new Message("Workorder Number is null !", "danger"));
 			return "redirect:/stocks/outward/materials/entry";
 		}
-		return "redirect:/stocks/outward/materials/entry";
+		return "redirect:/stocks/outward";
 	}
 
-	@GetMapping("/outward/spares/entry")
-	@PreAuthorize("hasAuthority('OUTWARD_SPARES')")
-	public String outwardSpares(Model model) {
-		model.addAttribute("title", "Outward Spares Entry | Maintenance Management");
-		return "/pages/stock_management/outward_spares";
-	}
-
-	@GetMapping("/outward/tools/entry")
-	@PreAuthorize("hasAuthority('OUTWARD_TOOLS')")
-	public String outwardTools(Model model) {
-		model.addAttribute("title", "Outward Tools Entry | Maintenance Management");
-		return "/pages/stock_management/outward_tools";
-	}
-
-	@GetMapping("/materials/return")
-	@PreAuthorize("hasAuthority('MATERIALS_RETURN')")
-	public String materialReturn(Model model) {
-		model.addAttribute("title", "Materials Return Page | Maintenance Management");
-		return "/pages/stock_management/materials_return";
-	}
-
-	@GetMapping("/spares/return")
-	@PreAuthorize("hasAuthority('SPARES_RETURN')")
-	public String sparesReturn(Model model) {
-		model.addAttribute("title", "Spares Return Page | Maintenance Management");
-		return "/pages/stock_management/spares_return";
-	}
-
-	@GetMapping("/tools/return")
-	@PreAuthorize("hasAuthority('TOOLS_RETURN')")
-	public String toolsReturn(Model model) {
-		model.addAttribute("title", "Tools Return Page | Maintenance Management");
-		return "/pages/stock_management/tools_return";
-	}
-
-	@GetMapping("/reject/damage")
-	@PreAuthorize("hasAuthority('REJECT_DAMAGE_RETURN')")
-	public String stockRejectDamage() {
-		return "/pages/stock_management/stock_return_damage";
-	}
+	
 }

@@ -146,29 +146,11 @@ $(document).ready(function() {
 	$('#inward-tools').click(function() {
 		$('#set-inward-tools').val($('#inward-tools').is(':checked') ? 403 : "403N");
 	});
-	$('#outward-materials').click(function() {
-		$('#set-outward-materials').val($('#outward-materials').is(':checked') ? 404 : "404N");
-	});
-	$('#outward-spares').click(function() {
-		$('#set-outward-spares').val($('#outward-spares').is(':checked') ? 405 : "405N");
-	});
-	$('#outward-tools').click(function() {
-		$('#set-outward-tools').val($('#outward-tools').is(':checked') ? 406 : "406N");
-	});
-	$('#matierals-return').click(function() {
-		$('#set-matierals-return').val($('#matierals-return').is(':checked') ? 407 : "407N");
-	});
-	$('#spares-return').click(function() {
-		$('#set-spares-return').val($('#spares-return').is(':checked') ? 408 : "408N");
-	});
-	$('#tools-return').click(function() {
-		$('#set-tools-return').val($('#tools-return').is(':checked') ? 409 : "409N");
-	});
-	$('#reject-damage-return').click(function() {
-		$('#set-reject-damage-return').val($('#reject-damage-return').is(':checked') ? 410 : "410N");
+	$('#outward-stocks').click(function() {
+		$('#set-outward-stocks').val($('#outward-stocks').is(':checked') ? 404 : "404N");
 	});
 	$('#stock-approvals').click(function() {
-		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 411 : "411N");
+		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 405 : "405N");
 	});
 
 	/* Work Order User Roles */

@@ -1,0 +1,325 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Outward Stocks
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Outward Stocks</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8">
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/outward}">
+							Outward Stocks
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/outward/chart}">
+							Outward Stocks Chart
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/outward/list}">
+							Outward Stocks List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Outward Stocks</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<div class="row">
+							<div class="col-3"></div>
+							<div class="col-5">
+								<div class="form-group row">
+									<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+										Order
+										Number</label>
+									<div class="col-sm-7 px-0">
+										<input type="text" class="form-control text-center font-weight-bold"
+											th:value="${workOrderNo}" id="get-workorder-no" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="col-4"></div>
+						</div>
+						<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
+						</h3>
+						<table
+							class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
+							<thead class="bg-dark text-white">
+								<tr>
+									<th class="all">Sl No</th>
+
+									<th class="all">Item</th>
+									<th class="all text-center">Stocks</th>
+									<th class="all">Image</th>
+									<th class="all" style="width: 12%;">MRP</th>
+									<th class="all" style="width: 15%;">Quantity</th>
+									<th class="all" style="width: 12%;">Total</th>
+									<th class="all" style="width: 5%;">Action</th>
+								</tr>
+							</thead>
+							<tbody class="add-item">
+								<tr th:each="getWorkOrderItem: ${getWorkOrderItems}">
+									<td th:text="${getWorkOrderItem.slNo}"></td>
+									<td class="item-id" th:text="${getWorkOrderItem.itemId}" style="display: none;">
+									</td>
+									<td class="sl_no"><label class="mb-0"
+											th:text="${getWorkOrderItem.itemName}"></label></td>
+									<td class="text-center"><span th:if="${getWorkOrderItem.stockAvailable} > 0"
+											class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
+										<span th:if="${getWorkOrderItem.stockAvailable} <= 0"
+											class="bg-danger p-1 rounded font-weight-bold text-white">Not
+											Available</span>
+									</td>
+
+									<td class="text-center thumb">
+										<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
+											alt="image" />
+									</td>
+
+									<td>
+										<div class="row text-center">
+											<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; width: 0;"> </i>
+											<input type="text" id="price" class="price"
+												th:value="${getWorkOrderItem.mrpRate}"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<td>
+										<div class="row pl-3">
+											<div class="outer-button" style="width: 30px;">
+												<div class="dec button">
+													<i class="fa fa-minus bg-danger"
+														style="font-size: 0.6em; color: #fff; padding: 5px; "></i>
+												</div>
+											</div>
+											<input type="number" id="qty" th:value="${getWorkOrderItem.finalQuantity}"
+												class="qty text-center"
+												style="border: none; color: black; background: transparent; outline: 0; width: 35%;"
+												disabled />
+											<div class="outer-button" style="width: 20px;">
+												<div class="inc button"><i class="fa fa-plus bg-success"
+														style="font-size: 0.6em; color: #fff; padding: 5px;"></i>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="row">
+											<i class="fa fa-inr pr-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; padding-top: 4px;width: 0;"></i>
+											<input type="text" class="cost"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<td class="text-center"><i
+											class="glyphicon glyphicon-trash remove-item text-danger"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+							th:if="${workOrderItems != null}">No Work Order Items</div>
+						<form th:action="@{/stocks/outward/workorder/items}" method="post" th:object="${workorder}"
+							th:if="${workOrderItems == null}">
+							<div class="row">
+								<div class="col-8">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">Supplier
+												</label>
+												<div class="col-sm-8">
+													<input type="text" name="supplier" class="form-control" required />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Billed On</label>
+												<div class="col-sm-7">
+													<input type="date" name="billedOn" class="form-control" required />
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type<strong class="text-danger">*</strong></label>
+												<div class="col-sm-7">
+													<select class="form-select" name="gstType" id="select-gst-outward"
+														required>
+														<option value="">Select</option>
+														<option value="Taxable">Taxable</option>
+														<option value="Exempted">Exempted</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="number" id="get-igst-outward"
+															class="form-control calculate-outward" name="igst"
+															required />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="sgst" id="get-imp-sgst-outward" />
+														<input type="number" id="get-sgst-outward"
+															class="form-control" />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="cgst" id="get-imp-cgst-outward" />
+														<input type="number" id="get-cgst-outward"
+															class="form-control" />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 text-center">
+									<div class="row text-white">
+										<div class="col-6 bg-dark py-2 rounded-top">
+											<label class="font-weight-bold mb-0">Subtotal</label>
+										</div>
+										<div class="col-6 bg-dark row py-2 rounded-top">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 subtotal"
+													id="get-item-sub-total-outward"></label></label>
+											<input type="hidden" name="subTotal" id="get-sub-total-outward" />
+										</div>
+									</div>
+									<div class="row text-white">
+										<div class="col-6 bg-primary py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">Grand Total</label>
+										</div>
+										<div class="col-6 bg-primary row py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 set-item-grand-total-outward"></label></label>
+											<input type="hidden" name="grandTotal" id="get-grand-total-outward" />
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
+								<div class="col-12 text-center mt-3">
+									<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+									<button type="reset" class="btn btn-secondary btn-sm mr-3">Reset</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3">
+				<table
+					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+					<thead class="table-dark">
+						<tr>
+							<th>Work Orders</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="workOrderNo: ${workOrdersNos}">
+							<td th:text="${workOrderNo}"></td>
+							<td class="text-center">
+								<a th:href="@{'/stocks/outward/get/' + ${workOrderNo}}"
+									class="btn btn-success p-1 mx-2">Indent</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+					th:if="${emptyList != null}">
+					No Work Orders</div>
+				<div th:if="${stockQuantities != null}">
+					<div class="alert alert-danger text-center my-2 py-1" role="alert">
+						The quantity exceeds the available stock.</div>
+					<table
+						class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+						<thead class="table-warning">
+							<tr>
+								<th>Item ID</th>
+								<th> Requested</th>
+								<th>Available</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stockQuantity: ${stockQuantities}">
+								<td th:text="${stockQuantity.itemId}"></td>
+								<td th:text="${stockQuantity.stockRequested}"></td>
+								<td th:text="${stockQuantity.stockAvailable}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

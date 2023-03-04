@@ -106,14 +106,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		Privilege inwardMatierals = createPrivilegeIfNotFound(401, "INWARD_MATERIALS");
 		Privilege inwardSpares = createPrivilegeIfNotFound(402, "INWARD_SPARES");
 		Privilege inwardTools = createPrivilegeIfNotFound(403, "INWARD_TOOLS");
-		Privilege outwardMaterials = createPrivilegeIfNotFound(404, "OUTWARD_MATERIALS");
-		Privilege outwardSpares = createPrivilegeIfNotFound(405, "OUTWARD_SPARES");
-		Privilege outwardTools = createPrivilegeIfNotFound(406, "OUTWARD_TOOLS");
-		Privilege matieralsReturn = createPrivilegeIfNotFound(407, "MATERIALS_RETURN");
-		Privilege sparesReturn = createPrivilegeIfNotFound(408, "SPARES_RETURN");
-		Privilege toolsReturn = createPrivilegeIfNotFound(409, "TOOLS_RETURN");
-		Privilege rejectDamageReturn = createPrivilegeIfNotFound(410, "REJECT_DAMAGE_RETURN");
-		Privilege stockApprovals = createPrivilegeIfNotFound(411, "STOCKS_APPROVALS");
+		Privilege outwardStocks = createPrivilegeIfNotFound(404, "OUTWARD_STOCKS");
+		Privilege stockApprovals = createPrivilegeIfNotFound(405, "STOCKS_APPROVALS");
 
 		/* Work Order User Roles */
 
@@ -238,8 +232,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
 				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
 				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
-				inwardMatierals, inwardSpares, inwardTools, outwardMaterials, outwardSpares, outwardTools,
-				matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn, stockApprovals, generateWorkOrder,
+				inwardMatierals, inwardSpares, inwardTools, outwardStocks, stockApprovals, generateWorkOrder,
 				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
 				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard,
 				pumpMaintenanceIndex, pumpMaintenanceIndent, pumpMaintenanceView, pumpMaintenanceUpdate,
@@ -259,8 +252,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				viewBranch, deleteBranch, userManagement, createUser, editUser, deleteUser, roleManagement, createRole,
 				editRole, deleteRole, userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe,
 				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory,
-				assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools, outwardMaterials,
-				outwardSpares, outwardTools, matieralsReturn, sparesReturn, toolsReturn, rejectDamageReturn,
+				assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools, outwardStocks,
 				stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard,
 				employeeMaster, attendance, salary, inspection, leave, consMasterDetails, consTransDetails,
 				meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView, pumpMaintenanceUpdate,
@@ -281,8 +273,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				roleManagement, createRole, editRole, deleteRole, userRoles, updateUserRoles, importExport,
 				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard,
 				taskComplainthistory, assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools,
-				outwardMaterials, outwardSpares, outwardTools, matieralsReturn, sparesReturn, toolsReturn,
-				rejectDamageReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
+				outwardStocks, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
 				employeeDashBoard, employeeMaster, attendance, salary, inspection, leave, consMasterDetails,
 				consTransDetails, meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView,
 				pumpMaintenanceUpdate, pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent,

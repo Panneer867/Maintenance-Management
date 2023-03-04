@@ -305,60 +305,18 @@ $(document).ready(function() {
 						$('#set-inward-tools').val("403N");
 						$('#inward-tools').prop('checked', false);
 					}
-					if (jsonobject.outwardMaterials != null) {
-						$('#set-outward-materials').val("404");
-						$('#outward-materials').prop('checked', true);
+					if (jsonobject.outwardStocks != null) {
+						$('#set-outward-stocks').val("404");
+						$('#outward-stocks').prop('checked', true);
 					} else {
-						$('#set-outward-materials').val("404N");
-						$('#outward-materials').prop('checked', false);
-					}
-					if (jsonobject.outwardSpares != null) {
-						$('#set-outward-spares').val("405");
-						$('#outward-spares').prop('checked', true);
-					} else {
-						$('#set-outward-spares').val("405N");
-						$('#outward-spares').prop('checked', false);
-					}
-					if (jsonobject.outwardTools != null) {
-						$('#set-outward-tools').val("406");
-						$('#outward-tools').prop('checked', true);
-					} else {
-						$('#set-outward-tools').val("406N");
-						$('#outward-tools').prop('checked', false);
-					}
-					if (jsonobject.matieralsReturn != null) {
-						$('#set-matierals-return').val("407");
-						$('#matierals-return').prop('checked', true);
-					} else {
-						$('#set-matierals-return').val("407N");
-						$('#matierals-return').prop('checked', false);
-					}
-					if (jsonobject.sparesReturn != null) {
-						$('#set-spares-return').val("408");
-						$('#spares-return').prop('checked', true);
-					} else {
-						$('#set-spares-return').val("408N");
-						$('#spares-return').prop('checked', false);
-					}
-					if (jsonobject.toolsReturn != null) {
-						$('#set-tools-return').val("409");
-						$('#tools-return').prop('checked', true);
-					} else {
-						$('#set-tools-return').val("409N");
-						$('#tools-return').prop('checked', false);
-					}
-					if (jsonobject.rejectDamageReturn != null) {
-						$('#set-reject-damage-return').val("410");
-						$('#reject-damage-return').prop('checked', true);
-					} else {
-						$('#set-reject-damage-return').val("410N");
-						$('#reject-damage-return').prop('checked', false);
-					}
+						$('#set-outward-stocks').val("404N");
+						$('#outward-stocks').prop('checked', false);
+					}				
 					if (jsonobject.stockApprovals != null) {
-						$('#set-stock-approvals').val("411");
+						$('#set-stock-approvals').val("405");
 						$('#stock-approvals').prop('checked', true);
 					} else {
-						$('#set-stock-approvals').val("411N");
+						$('#set-stock-approvals').val("405N");
 						$('#stock-approvals').prop('checked', false);
 					}
 
