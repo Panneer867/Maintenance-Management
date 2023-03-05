@@ -17,18 +17,18 @@ import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
 import com.ingroinfo.mm.helper.Message;
-import com.ingroinfo.mm.service.ApprovalService;
+import com.ingroinfo.mm.service.StocksApprovalService;
 import com.ingroinfo.mm.service.StockService;
 
 @Controller
 @RequestMapping("/approvals")
-public class StockApprovals {
+public class StocksApprovals {
 
 	@Autowired
 	private StockService stockService;
 
 	@Autowired
-	private ApprovalService approvalService;
+	private StocksApprovalService approvalService;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -118,7 +118,6 @@ public class StockApprovals {
 		session.setAttribute("message", new Message("Spare has been Rejected !", "danger"));
 
 		return "redirect:/approvals/stocks/spares";
-
 	}
 
 	/****************** Tools ***************/
@@ -168,8 +167,36 @@ public class StockApprovals {
 	public String approveOutwardStocks(Model model) {
 
 		model.addAttribute("title", "Outward Stocks Approvals | Maintenance Mangement");
-		model.addAttribute("approval", new InwardDto());
+		model.addAttribute("outwardStocksLists", stockService.getOutwardWorkOrders());
 		return "/pages/stock_management/outward_stocks_approval";
+	}
+	
+	@GetMapping("/outward/stocks/items/{workOrderNo}")
+	public String outwardListItemsApprovals(@PathVariable("workOrderNo") Long workOrderNo, Model model) {
+		
+		model.addAttribute("title", "Outward Workorder Items Approvals | Maintenance Management");		
+		model.addAttribute("outwardStocksListItems", stockService.getOutwardWorkOrderItems(workOrderNo));
+		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));	
+		
+		return "/pages/stock_management/outward_stocks_approval_items";
+	}
+		
+	@GetMapping("/outward/workorder/items/{workOrderNo}")
+	public String outwardApproveItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, HttpSession session) {
+		
+		model.addAttribute("title", "Outward Workorder Items Approvals | Maintenance Management");				
+		approvalService.approveOutwardStocks(workOrderNo);		
+		session.setAttribute("message", new Message("Outward Workorder Items has been approved successfully !", "success"));
+		return "redirect:/approvals/outward/stocks";
+	}
+	
+	@GetMapping("/outward/workorder/reject/{workOrderNo}")
+	public String rejectOutwardWorkorderItems(@PathVariable("workOrderNo") Long workOrderNo, HttpSession session) {
+
+		approvalService.rejectWorkorderItems(workOrderNo);
+		session.setAttribute("message", new Message("Outward Workorder Items has been rejected successfully !", "success"));
+
+		return "redirect:/approvals/outward/stocks";
 	}
 
 }

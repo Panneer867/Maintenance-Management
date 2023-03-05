@@ -47,7 +47,7 @@ import com.ingroinfo.mm.service.UnitMeasureService;
 
 @Controller
 @RequestMapping("/stocks")
-public class StockController {
+public class StocksController {
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -622,21 +622,22 @@ public class StockController {
 		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));		
 		return "/pages/stock_management/outward_stocks_list_items";
 	}
-	
-	@GetMapping("/outward/list/delete/{id}")
-	public String deleteOutwardList(@PathVariable("id") Long id, HttpSession session) {
 
-		stockService.deleteOutwardWorkorder(id);
-		session.setAttribute("message", new Message("WorkOrder has been successfully rejected !", "success"));
-
-		return "redirect:/stocks/outward/list";
-
-	}
-
-	@GetMapping("/outward/list/approved")
+	@GetMapping("/outward/approved/list")
 	public String outwardApprovedList(Model model, Principal principal) {
 		model.addAttribute("title", "Outward Stocks Approved List | Maintenance Management");
+		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedWorkOrders());	
 		return "/pages/stock_management/outward_stocks_approved_list";
+	}
+	
+	@GetMapping("/outward/approved/list/items/{workOrderNo}")
+	public String outwardApprovedListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, Principal principal) {
+		model.addAttribute("title", "Outward Stocks Approved Items List | Maintenance Management");
+				
+		model.addAttribute("approvedOutwardStocksListItems", stockService.getOutwardApprovedWorkOrderItems(workOrderNo));
+		model.addAttribute("approvedOutwardStocksWorkorderNo", stockService.getOutwardApprovedWorkOrder(workOrderNo));		
+		
+		return "/pages/stock_management/outward_stocks_approved_list_items";
 	}
 	
 	

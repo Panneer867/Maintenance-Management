@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -104,9 +106,13 @@ public interface StockService {
 
 	List<TempWorkOrderNos> getOutwardWorkOrders();
 
-	void deleteOutwardWorkorder(Long id);
-
 	List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo);
 
 	TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo);
+
+	List<ApprovedWorkOrderNos> getOutwardApprovedWorkOrders();
+
+	List<ApprovedWorkOrderItems> getOutwardApprovedWorkOrderItems(Long workOrderNo);
+
+	ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo);
 }

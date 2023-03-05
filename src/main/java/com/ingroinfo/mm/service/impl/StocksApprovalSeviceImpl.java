@@ -1,9 +1,13 @@
 package com.ingroinfo.mm.service.impl;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.ApprovedWorkOrderNosRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -13,7 +17,13 @@ import com.ingroinfo.mm.dao.InwardRejectedSparesRepository;
 import com.ingroinfo.mm.dao.InwardRejectedToolsRepository;
 import com.ingroinfo.mm.dao.InwardSparesRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
+import com.ingroinfo.mm.dao.RejectedWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.RejectedWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -23,10 +33,14 @@ import com.ingroinfo.mm.entity.InwardRejectedSpares;
 import com.ingroinfo.mm.entity.InwardRejectedTools;
 import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.service.ApprovalService;
+import com.ingroinfo.mm.entity.RejectedWorkOrderItems;
+import com.ingroinfo.mm.entity.RejectedWorkOrderNos;
+import com.ingroinfo.mm.entity.TempWorkOrderNos;
+import com.ingroinfo.mm.entity.WorkOrderItems;
+import com.ingroinfo.mm.service.StocksApprovalService;
 
 @Service
-public class ApprovalSeviceImpl implements ApprovalService {
+public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
@@ -56,6 +70,24 @@ public class ApprovalSeviceImpl implements ApprovalService {
 
 	@Autowired
 	private InwardToolsRepository inwardToolsRepository;
+
+	@Autowired
+	private WorkOrderItemsRepository workOrderItemsRepository;
+
+	@Autowired
+	private ApprovedWorkOrderItemsRepository approvedWorkOrderItemsRepository;
+
+	@Autowired
+	private ApprovedWorkOrderNosRepository approvedWorkOrderNosRepository;
+
+	@Autowired
+	private TempWorkOrderNosRepository tempWorkOrderNosRepository;
+
+	@Autowired
+	private RejectedWorkOrderItemsRepository rejectedWorkOrderItemsRepository;
+
+	@Autowired
+	private RejectedWorkOrderNosRepository rejectedWorkOrderNosRepository;
 
 	/**************************** Materials ********************************/
 
@@ -138,6 +170,51 @@ public class ApprovalSeviceImpl implements ApprovalService {
 		if (rejectedTools != null) {
 			inwardToolsRepository.deleteById(id);
 		}
+	}
+
+	/****************************
+	 * Outwards Workorders
+	 ********************************/
+	@Override
+	public void approveOutwardStocks(Long workOrderNo) {
+
+		TempWorkOrderNos tempWorkOrderNos = tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
+
+		ApprovedWorkOrderNos approvedWorkOrderNos = modelMapper.map(tempWorkOrderNos, ApprovedWorkOrderNos.class);
+
+		approvedWorkOrderNosRepository.save(approvedWorkOrderNos);
+
+		List<WorkOrderItems> workOrderItems = workOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+
+		for (WorkOrderItems workOrderItem : workOrderItems) {
+
+			ApprovedWorkOrderItems approvedWorkOrderItems = modelMapper.map(workOrderItem,
+					ApprovedWorkOrderItems.class);
+			approvedWorkOrderItemsRepository.save(approvedWorkOrderItems);
+		}
+
+		tempWorkOrderNosRepository.deleteById(tempWorkOrderNos.getOrderId());
+	}
+
+	@Override
+	public void rejectWorkorderItems(Long workOrderNo) {
+		TempWorkOrderNos tempWorkOrderNos = tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
+
+		RejectedWorkOrderNos rejectedWorkOrderNos = modelMapper.map(tempWorkOrderNos, RejectedWorkOrderNos.class);
+
+		rejectedWorkOrderNosRepository.save(rejectedWorkOrderNos);
+
+		List<WorkOrderItems> workOrderItems = workOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+
+		for (WorkOrderItems workOrderItem : workOrderItems) {
+
+			RejectedWorkOrderItems rejectedWorkOrderItems = modelMapper.map(workOrderItem,
+					RejectedWorkOrderItems.class);
+			rejectedWorkOrderItemsRepository.save(rejectedWorkOrderItems);
+		}
+
+		tempWorkOrderNosRepository.deleteById(tempWorkOrderNos.getOrderId());
+
 	}
 
 }

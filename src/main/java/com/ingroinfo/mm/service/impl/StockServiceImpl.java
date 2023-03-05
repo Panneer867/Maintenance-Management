@@ -14,6 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.ApprovedWorkOrderNosRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -31,6 +34,8 @@ import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
@@ -94,13 +99,19 @@ public class StockServiceImpl implements StockService {
 	private WorkOrderItemsRepository workOrderItemsRepository;
 
 	@Autowired
-	private TempWorkOrderNosRepository tempWorkOrdersRepository;
+	private TempWorkOrderNosRepository tempWorkOrderNosRepository;
 
 	@Autowired
 	private WorkOrderRemovedItemsRepository workOrderRemovedItemsRepository;
 
 	@Autowired
 	private ItemMasterRepository itemMasterRepository;
+
+	@Autowired
+	private ApprovedWorkOrderItemsRepository approvedWorkOrderItemsRepository;
+
+	@Autowired
+	private ApprovedWorkOrderNosRepository approvedWorkOrderNosRepository;
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -634,7 +645,7 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public void saveWorkOrder(TempWorkOrderNos workOrders) {
-		TempWorkOrderNos savedWorkOrder = tempWorkOrdersRepository.save(workOrders);
+		TempWorkOrderNos savedWorkOrder = tempWorkOrderNosRepository.save(workOrders);
 		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository
 				.findByWorkOrderNo(savedWorkOrder.getWorkOrderNo());
 
@@ -740,22 +751,32 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public List<TempWorkOrderNos> getOutwardWorkOrders() {		
-		return tempWorkOrdersRepository.findAll();
+	public List<TempWorkOrderNos> getOutwardWorkOrders() {
+		return tempWorkOrderNosRepository.findAll();
 	}
 
 	@Override
-	public void deleteOutwardWorkorder(Long id) {
-		tempWorkOrdersRepository.deleteById(id);		
-	}
-
-	@Override
-	public List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo) {	
+	public List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo) {
 		return workOrderItemsRepository.findByWorkOrderNo(workOrderNo);
 	}
 
 	@Override
-	public TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo) {	
-		return tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
+	public TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo) {
+		return tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
+	}
+
+	@Override
+	public List<ApprovedWorkOrderNos> getOutwardApprovedWorkOrders() {
+		return approvedWorkOrderNosRepository.findAll();
+	}
+
+	@Override
+	public List<ApprovedWorkOrderItems> getOutwardApprovedWorkOrderItems(Long workOrderNo) {
+		return approvedWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+	}
+
+	@Override
+	public ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo) {
+		return approvedWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
 	}
 }

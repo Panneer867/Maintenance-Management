@@ -35,12 +35,12 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white active-tab hvr bg-dark"
 							th:href="@{/stocks/outward/list}">
-							Outward Stocks Workorder wise
+							Outward Stocks Workorders
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/list/approved}">
+							th:href="@{/stocks/outward/approved/list}">
 							Outward Stocks Approved List
 						</a>
 					</li>
@@ -82,11 +82,7 @@
 					<td th:text="${outwardStocksList.billedOn}"></td>
 					<td class="text-center">
 						<a class="btn btn-success p-1 mx-2" th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.workOrderNo} }">View</a>
-						<button
-							th:onclick="|deleteId('/stocks/outward/list/delete/${outwardStocksList.orderId}')|"
-							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
-							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
-								class="glyphicon glyphicon-trash"></span></button>
+						
 					</td>
 				</tr>
 			</tbody>
@@ -97,16 +93,16 @@
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
 				<div class="modal-content">
 					<div class="modal-header p-2">
-						<h4>Reject WorOrder</h4>
+						<h4>Delete WorOrder</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						Are you sure, you want to reject this Workorder?
+						Are you sure, you want to Delete this Workorder?
 					</div>
 					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Reject</a>
+						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
 						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>

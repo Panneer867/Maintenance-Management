@@ -31,32 +31,25 @@
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white active-tab hvr bg-dark"
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/outward/list}">
 							Outward Stocks Workorder wise
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/list/approved}">
+						<a class="nav-link py-2 w-100 px-2 text-white active-tab hvr bg-dark"
+							th:href="@{/stocks/outward/approved/list}">
 							Outward Stocks Approved List
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div th:if="${session.message}" class="alert_field">
-			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-				<span th:text="${session.message.content}"></span>
-			</div>
-			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		</div>
 		<table
 			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 			<thead class="table-dark">
 				<tr>
-					<th class="all">Sl No</th>
-					
+					<th class="all">Sl No</th>					
 					<th class="all">Item ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item Name</th>
@@ -68,20 +61,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="outwardStocksListItem: ${outwardStocksListItems}">
-					<td th:text="${outwardStocksListItem.slNo}"></td>
+				<tr th:each="approvedOutwardStocksListItem: ${approvedOutwardStocksListItems}">
+					<td th:text="${approvedOutwardStocksListItem.slNo}"></td>
 					
-					<td th:text="${outwardStocksListItem.itemId}"></td>
-					<td th:text="${outwardStocksListItem.category}"></td>
-					<td th:text="${outwardStocksListItem.itemName}"></td>
+					<td th:text="${approvedOutwardStocksListItem.itemId}"></td>
+					<td th:text="${approvedOutwardStocksListItem.category}"></td>
+					<td th:text="${approvedOutwardStocksListItem.itemName}"></td>
 					<td class="text-center thumb">
-						<img th:src="@{${outwardStocksListItem.imagePath} + ${outwardStocksListItem.itemImage}}"
+						<img th:src="@{${approvedOutwardStocksListItem.imagePath} + ${approvedOutwardStocksListItem.itemImage}}"
 							alt="image" />
 					</td>
-					<td th:text="${outwardStocksListItem.stockType}"></td>
-					<td th:text="${outwardStocksListItem.finalQuantity}"></td>
-					<td>&#8377;<label class="px-1" th:text="${outwardStocksListItem.mrpRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${outwardStocksListItem.totalCost}"></label></td>
+					<td th:text="${approvedOutwardStocksListItem.stockType}"></td>
+					<td th:text="${approvedOutwardStocksListItem.finalQuantity}"></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksListItem.mrpRate}"></label></td>
+					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksListItem.totalCost}"></label></td>
 				</tr>
 			</tbody>
 		</table>
@@ -90,12 +83,13 @@
 				<div class="row">
 					<div class="col-8">
 						<div class="row">
-						<div class="col-4">
+							<div class="col-4">
 								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label" style="width: 95px;">WO No</label>
+									<label for="staticEmail" class="col-sm-4 col-form-label" style="width: 95px;">WO
+										No</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control"
-											th:value=${outwardStocksWorkorderNo.workOrderNo} disabled />
+											th:value=${approvedOutwardStocksWorkorderNo.workOrderNo} disabled />
 									</div>
 								</div>
 							</div>
@@ -105,7 +99,7 @@
 										On</label>
 									<div class="col-sm-7">
 										<input type="date" class="form-control"
-											th:value=${outwardStocksWorkorderNo.billedOn} disabled />
+											th:value=${approvedOutwardStocksWorkorderNo.billedOn} disabled />
 									</div>
 								</div>
 							</div>
@@ -115,7 +109,7 @@
 										Type</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control"
-											th:value=${outwardStocksWorkorderNo.gstType} disabled />
+											th:value=${approvedOutwardStocksWorkorderNo.gstType} disabled />
 									</div>
 								</div>
 							</div>
@@ -127,7 +121,7 @@
 									<div class="col-sm-8">
 										<div class="input-group">
 											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.igst} disabled />
+												th:value=${approvedOutwardStocksWorkorderNo.igst} disabled />
 											<div class="input-group-prepend">
 												<span class="input-group-text font-weight-bold"
 													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -143,7 +137,7 @@
 										<div class="input-group">
 
 											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.sgst} disabled />
+												th:value=${approvedOutwardStocksWorkorderNo.sgst} disabled />
 											<div class="input-group-prepend">
 												<span class="input-group-text font-weight-bold"
 													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -158,7 +152,7 @@
 									<div class="col-sm-7">
 										<div class="input-group">
 											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.cgst} disabled />
+												th:value=${approvedOutwardStocksWorkorderNo.cgst} disabled />
 											<div class="input-group-prepend">
 												<span class="input-group-text  font-weight-bold"
 													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -176,7 +170,7 @@
 							</div>
 							<div class="col-6 bg-dark row py-2 rounded-top">
 								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.subTotal}></label></label>
+										th:text=${approvedOutwardStocksWorkorderNo.subTotal}></label></label>
 
 							</div>
 						</div>
@@ -186,15 +180,15 @@
 							</div>
 							<div class="col-6 bg-primary row py-2 rounded-bottom">
 								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.grandTotal}></label></label>
+										th:text=${approvedOutwardStocksWorkorderNo.grandTotal}></label></label>
 
 							</div>
 						</div>
 					</div>
 
 					<div class="col-12 text-center mt-3">
-
-						<a th:href="@{/stocks/outward/list}" class="btn btn-success btn-sm mr-3">Back</a>
+					
+						<a th:href="@{/stocks/outward/approved/list}" class="btn btn-light btn-sm mr-3">Back</a>
 					</div>
 				</div>
 			</div>
