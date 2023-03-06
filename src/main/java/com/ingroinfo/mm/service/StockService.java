@@ -115,4 +115,7 @@ public interface StockService {
 	List<ApprovedWorkOrderItems> getOutwardApprovedWorkOrderItems(Long workOrderNo);
 
 	ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo);
+
+	ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo);
+
 }

@@ -8,8 +8,6 @@ $('#mySelect2').select2({
 	}
 });
 
-
-
 var typed1 = "";
 $('#mySelect3').select2({
 	language: {

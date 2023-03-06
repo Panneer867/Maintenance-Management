@@ -779,4 +779,10 @@ public class StockServiceImpl implements StockService {
 	public ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo) {
 		return approvedWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
 	}
+
+	@Override
+	public ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo) {
+		ApprovedWorkOrderItems approvedWorkOrderItems = approvedWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId,workOrderNo);
+		return approvedWorkOrderItems;
+	}
 }

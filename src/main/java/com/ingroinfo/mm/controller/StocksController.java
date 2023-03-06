@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -28,6 +31,7 @@ import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -666,6 +670,25 @@ public class StocksController {
 	public String returnApprovedList(Model model) {
 		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
 		return "/pages/stock_management/stock_returns_approved_list";
+	}
+
+	@GetMapping("/return/items/{workOrderNo}")
+	public @ResponseBody String getWorkorderItemForReturn(@PathVariable("workOrderNo") Long workOrderNo) {
+
+		String json = null;
+		List<ApprovedWorkOrderItems> list = stockService.getOutwardApprovedWorkOrderItems(workOrderNo);
+		try {
+			json = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	@GetMapping("/return/items/details/{itemId}/{workOrderNo}")
+	public @ResponseBody ApprovedWorkOrderItems getWorkorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
+			@PathVariable("workOrderNo") Long workOrderNo) {
+		return stockService.getWorkorderItemDetails(itemId, workOrderNo);
 	}
 
 }
