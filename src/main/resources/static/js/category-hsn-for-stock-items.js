@@ -2,12 +2,12 @@ $(document).ready(function() {
 
 	$("#itemId").change(function() {
 
-		var id = $(this).val();
+		var itemId = $(this).val();
 
 		if (itemId != null) {
 			$.ajax({
 				type: 'GET',
-				url: '/get/item/details/' + id,
+				url: '/get/item/details/' + itemId,
 				success: function(data) {
 
 					var json = JSON.stringify(data);

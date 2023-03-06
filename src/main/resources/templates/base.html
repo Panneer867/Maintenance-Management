@@ -57,6 +57,9 @@
 
 	<!-- Sweet Alert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<!-- Select2 -->	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
 
 </head>
 
@@ -307,13 +310,13 @@
 									</li>
 									
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/reject/damage' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/stocks/reject/damage}" class="m-menu__link ">
+										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/return/entry' ? 'm-menu__item--active sub-menu-active':''}">
+										<a th:href="@{/stocks/return/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												Reject/Damage Return
+												Stock Return
 											</span>
 										</a>
 									</li>
@@ -1614,6 +1617,8 @@
 	<script th:src="@{/js/get-tools-details.js}"></script>
 	<script th:src="@{/js/backup.js}"></script>
 	<script th:src="@{/js/workorder-items.js}"></script>
+	<script th:src="@{/js/select2.js}"></script>
+	<script th:src="@{/js/stock-return.js}"></script>
 </body>
 
 </html>

@@ -470,7 +470,7 @@ public class StocksController {
 		model.addAttribute("title", "Inward Tools Chart | Maintenance Management");
 		return "/pages/stock_management/inward_tools_chart";
 	}
-	
+
 	/******************************************************************/
 
 	@GetMapping("/outward")
@@ -608,37 +608,64 @@ public class StocksController {
 	@GetMapping("/outward/list")
 	public String outwardList(Model model) {
 		model.addAttribute("title", "Outward Stocks List | Maintenance Management");
-		
+
 		model.addAttribute("outwardStocksLists", stockService.getOutwardWorkOrders());
 		return "/pages/stock_management/outward_stocks_list";
 	}
-	
+
 	@GetMapping("/outward/list/items/{workOrderNo}")
 	public String outwardListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model) {
-		
+
 		model.addAttribute("title", "Outward Stocks Workorder Items | Maintenance Management");
-		
+
 		model.addAttribute("outwardStocksListItems", stockService.getOutwardWorkOrderItems(workOrderNo));
-		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));		
+		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));
 		return "/pages/stock_management/outward_stocks_list_items";
 	}
 
 	@GetMapping("/outward/approved/list")
 	public String outwardApprovedList(Model model, Principal principal) {
 		model.addAttribute("title", "Outward Stocks Approved List | Maintenance Management");
-		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedWorkOrders());	
+		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedWorkOrders());
 		return "/pages/stock_management/outward_stocks_approved_list";
 	}
-	
+
 	@GetMapping("/outward/approved/list/items/{workOrderNo}")
-	public String outwardApprovedListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, Principal principal) {
+	public String outwardApprovedListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model,
+			Principal principal) {
 		model.addAttribute("title", "Outward Stocks Approved Items List | Maintenance Management");
-				
-		model.addAttribute("approvedOutwardStocksListItems", stockService.getOutwardApprovedWorkOrderItems(workOrderNo));
-		model.addAttribute("approvedOutwardStocksWorkorderNo", stockService.getOutwardApprovedWorkOrder(workOrderNo));		
-		
+
+		model.addAttribute("approvedOutwardStocksListItems",
+				stockService.getOutwardApprovedWorkOrderItems(workOrderNo));
+		model.addAttribute("approvedOutwardStocksWorkorderNo", stockService.getOutwardApprovedWorkOrder(workOrderNo));
+
 		return "/pages/stock_management/outward_stocks_approved_list_items";
 	}
-	
-	
+
+	@GetMapping("/return/entry")
+	public String returnEntry(Model model) {
+		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
+
+		model.addAttribute("workOrders", stockService.getOutwardApprovedWorkOrders());
+		return "/pages/stock_management/stock_returns_entry";
+	}
+
+	@GetMapping("/return/chart")
+	public String returnChart(Model model) {
+		model.addAttribute("title", "Stock Returns Chart | Maintenance Management");
+		return "/pages/stock_management/stock_returns_chart";
+	}
+
+	@GetMapping("/return/list")
+	public String returnList(Model model) {
+		model.addAttribute("title", "Stock Returns List | Maintenance Management");
+		return "/pages/stock_management/stock_returns_list";
+	}
+
+	@GetMapping("/return/approved/list")
+	public String returnApprovedList(Model model) {
+		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
+		return "/pages/stock_management/stock_returns_approved_list";
+	}
+
 }

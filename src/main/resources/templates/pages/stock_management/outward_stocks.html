@@ -192,8 +192,8 @@
 												<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
 												<div class="col-sm-8">
 													<div class="input-group">
-														<input type="number" id="get-igst-outward"
-															class="form-control calculate-outward" name="igst"
+														<input type="hidden" name="igst" id="get-igst-outward"/>
+														<input type="number" class="form-control igst-outward"
 															required />
 														<div class="input-group-prepend">
 															<span class="input-group-text font-weight-bold"
@@ -208,9 +208,8 @@
 												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
 												<div class="col-sm-7">
 													<div class="input-group">
-														<input type="hidden" name="sgst" id="get-imp-sgst-outward" />
-														<input type="number" id="get-sgst-outward"
-															class="form-control" />
+														<input type="hidden" name="sgst" id="get-sgst-outward" />
+														<input type="number" class="form-control sgst-outward" />
 														<div class="input-group-prepend">
 															<span class="input-group-text font-weight-bold"
 																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -224,9 +223,8 @@
 												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
 												<div class="col-sm-7">
 													<div class="input-group">
-														<input type="hidden" name="cgst" id="get-imp-cgst-outward" />
-														<input type="number" id="get-cgst-outward"
-															class="form-control" />
+														<input type="hidden" name="cgst" id="get-cgst-outward" />
+														<input type="number" class="form-control cgst-outward" />
 														<div class="input-group-prepend">
 															<span class="input-group-text  font-weight-bold"
 																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
@@ -244,9 +242,8 @@
 										</div>
 										<div class="col-6 bg-dark row py-2 rounded-top">
 											<label class="font-weight-bold mb-0">&#8377;<label
-													class=" pl-2 font-weight-bold mb-0 subtotal"
-													id="get-item-sub-total-outward"></label></label>
-											<input type="hidden" name="subTotal" id="get-sub-total-outward" />
+													class=" pl-2 font-weight-bold mb-0 subtotal"></label></label>
+											<input type="hidden" name="subTotal" id="sub-total-outward" />
 										</div>
 									</div>
 									<div class="row text-white">
@@ -255,8 +252,8 @@
 										</div>
 										<div class="col-6 bg-primary row py-2 rounded-bottom">
 											<label class="font-weight-bold mb-0">&#8377;<label
-													class=" pl-2 font-weight-bold mb-0 set-item-grand-total-outward"></label></label>
-											<input type="hidden" name="grandTotal" id="get-grand-total-outward" />
+													class=" pl-2 font-weight-bold mb-0 grand-total"></label></label>
+											<input type="hidden" name="grandTotal" id="grand-total-outward" />
 										</div>
 									</div>
 								</div>

@@ -2,48 +2,70 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Stocks Approvals</h3>
-		<div class="row mt-2">
-			<div class="col-6" dir="ltr">
-				<nav aria-label="breadcrumb">
-					<ol class="default-breadcrumb">
-						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
-						</li>
+		<div class="mt-2 ">
+			<h4 class="text-center bg-primary py-1 text-white heading-shadow">STOCKS APPROVALS</h4>
+			<div class="d-flex justify-content-center mt-5">
+				<div class="row">
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approvals/stocks/materials}"><img class="category__02 w-100"
+											th:src="@{/images/dashboard/Inward.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approvals/stocks/materials}">
+									<p class="dash-category category__01"> Material Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approvals/stocks/spares}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Leakage.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approvals/stocks/spares}">
+									<p class="dash-category category__03"> Spares Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
 
-						<li class="crumb active">
-							<div class="link"><span aria-current="location">Stock Approvals</span></div>
-						</li>
-					</ol>
-				</nav>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approvals/stocks/tools}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Meter.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approvals/stocks/tools}">
+									<p class="dash-category category__03"> Tools Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approvals/outward/stocks}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Outward.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approvals/outward/stocks}">
+									<p class="dash-category category__04">Outward Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-6" dir="ltr">
-			</div>
-		</div>
-		<div class="mt-5 d-flex justify-content-center">
-			<ul class="nav nav-pills  py-1 mb-2" id="pills-tab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/approvals/stocks/materials}">
-						Inward Material Approvals
-					</a>
-				</li>
-				<li class="nav-item" role="presentation">
-					<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/approvals/stocks/spares}">
-						Inward Spares Approvals
-					</a>
-				</li>
-				<li class="nav-item" role="presentation">
-					<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/approvals/stocks/tools}">
-						Inward Tools Approvals
-					</a>
-				</li>
-				<li class="nav-item" role="presentation">
-					<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-						th:href="@{/approvals/outward/stocks}">
-						Outward Stocks Approvals
-					</a>
-				</li>
-			</ul>
+			
 		</div>
 	</section>
 </body>

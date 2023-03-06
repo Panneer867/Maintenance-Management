@@ -71,7 +71,10 @@
 						<img th:src="@{${approvedOutwardStocksListItem.imagePath} + ${approvedOutwardStocksListItem.itemImage}}"
 							alt="image" />
 					</td>
-					<td th:text="${approvedOutwardStocksListItem.stockType}"></td>
+					<td th:text="${approvedOutwardStocksListItem.stockType == 'ML' ? 'Material' :
+					                 approvedOutwardStocksListItem.stockType == 'SP' ? 'Spare' :
+					                 approvedOutwardStocksListItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 approvedOutwardStocksListItem.stockType}"></td>
 					<td th:text="${approvedOutwardStocksListItem.finalQuantity}"></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksListItem.mrpRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksListItem.totalCost}"></label></td>
