@@ -1,4 +1,19 @@
 
+$("#return-quantity").on("input", function() {
+	var returnQuantity = parseInt($(this).val());
+	var orderQuantity = parseInt($('#sr-orderQuantity').val());
+
+	if (returnQuantity <= 0) {
+		returnQuantity = 1;
+		$("#return-quantity").val(returnQuantity);
+	}
+
+	if (returnQuantity > orderQuantity) {
+		alert("The return quantity is out of range for the ordered quantity.");
+		returnQuantity = 1;
+		$("#return-quantity").val(returnQuantity);
+	}
+});
 
 $('#mySelect2').on('select2:select', function() {
 	var workOrderNo = $(this).val();
@@ -10,7 +25,7 @@ $('#mySelect2').on('select2:select', function() {
 			success: function(data) {
 				try {
 					var result = JSON.parse(data);
-					var s = '';
+					var s = '<option value="">Select</option>';
 					for (var i = 0; i < result.length; i++) {
 						s += '<option value="' + result[i].itemId + '">' + result[i].itemId + '</option>';
 					}
@@ -24,6 +39,27 @@ $('#mySelect2').on('select2:select', function() {
 				console.error('Error getting data:', error);
 			}
 		});
+
+		$.ajax({
+			type: 'GET',
+			url: '/stocks/return/workorder/' + workOrderNo,
+			success: function(data) {
+				try {
+					$('#igst-sr').val(data.igst);
+
+					$('#sgst-sr').val(data.sgst);
+
+					$('#cgst-sr').val(data.cgst);
+
+				} catch (e) {
+					console.error('Error parsing response:', e);
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('Error getting data:', error);
+			}
+		});
+
 	}
 });
 
@@ -40,27 +76,38 @@ $('#mySelect3').on('select2:select', function() {
 			url: '/stocks/return/items/details/' + itemId + '/' + workOrderNo,
 			success: function(data) {
 				try {
-					console.log(data);
-					$('#return-category').val(data.category);
-					$('#return-categoryName').val(data.category);
 
-					$('#return-hsn').val(data.hsnCode);
-					$('#return-hsncode').val(data.hsnCode);
+					switch (data.stockType) {
+						case 'ML':
+							var type = 'Material';
+							break;
+						case 'SP':
+							var type = 'Spare';
+							break;
+						case 'TE':
+							var type = 'Tool/Equipment';
+							break;
+						default:
+							var type = '';
+					}
 
-					$('#return-brand').val(data.brand);
-					$('#return-brandName').val(data.brand);
+					$('#sr-stockType').val(type);
 
-					$('#return-unit').val(data.unitOfMeasure);
-					$('#return-unitOfMeasure').val(data.unitOfMeasure);
+					$('#stockType-sr').val(data.stockType);
 
-					$('#return-cost').val(data.costRate);
-					$('#return-costRate').val(data.costRate);
+					$('#sr-category, #category-sr').val(data.category);
 
-					$('#return-mrp').val(data.mrpRate);
-					$('#return-mrpRate').val(data.mrpRate);
+					$('#sr-itemName, #itemName-sr').val(data.itemName);
 
-					$('#return-quantity').val(data.quantity);
-					$('#return-order-quantity').val(data.quantity);
+					$('#sr-unitOfMeasure, #unitOfMeasure-sr').val(data.unitOfMeasure);
+
+					$('#sr-mrpRate, #mrpRate-sr').val(data.mrpRate);
+
+					$('#sr-orderQuantity, #orderQuantity-sr').val(data.finalQuantity);
+
+					$('#sr-totalCost, #totalCost-sr').val(data.totalCost);
+
+
 
 				} catch (e) {
 					console.error('Error parsing response:', e);

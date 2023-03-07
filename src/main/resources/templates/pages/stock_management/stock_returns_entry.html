@@ -60,18 +60,17 @@
 					<h4 class="mb-0">Stock Return</h4>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/stocks/inward/spares/entry/add}" th:object="${inward}"
+					<form class="p-0 mb-0" th:action="@{/stocks/return/items/entry/add}" th:object="${stockReturn}"
 						method="post" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-9">
 								<div class="row">
-									<div class="col-4">
+									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Wokorder Number
+											<label for="staticEmail" class="col-sm-3 col-form-label">Wokorder Number
 											</label>
-											<div class="col-sm-8">
-												<select class="form-select" id="mySelect2" name="workOrderNo"
-													required>
+											<div class="col-sm-9">
+												<select class="form-select" id="mySelect2" name="workOrderNo" required>
 													<option value="" selected>Select</option>
 													<option th:each="workOrder : ${workOrders}"
 														th:value="${workOrder.workOrderNo}"
@@ -80,61 +79,46 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Item ID
+											<label for="staticEmail" class="col-sm-3 col-form-label">Item ID
 											</label>
-											<div class="col-sm-8">
-												<select class="form-select" id="mySelect3" name="itemName" required>
+											<div class="col-sm-9">
+												<select class="form-select" id="mySelect3" name="itemId" required>
 													<option value="" selected>Select</option>
-													
 												</select>
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label pr-0">Item
-												Name</label>
-											<div class="col-sm-8 px-0">
-												<input type="hidden" id="return-item" name="itemName" />
-												<input type="text" id="return-itemName" class="form-control" disabled
-													required />
-
 											</div>
 										</div>
 									</div>
 
 								</div>
-
 								<div class="row mt-3">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-4 col-form-label">Item
+												Name</label>
+											<div class="col-sm-8">
+												<input type="text" id="sr-itemName" class="form-control" disabled />
+											</div>
+										</div>
+									</div>
+
 									<div class="col-4">
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">Category</label>
 											<div class="col-sm-8">
-												<input type="hidden" id="return-category" name="category" />
-												<input type="text" id="return-categoryName" class="form-control"
-													disabled required />
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">HSN Code
-											</label>
-											<div class="col-sm-8">
-												<input type="hidden" id="return-hsn" name="hsnCode" />
-												<input type="text" id="return-hsncode" class="form-control" disabled
+												<input type="text" id="sr-category" class="form-control" disabled
 													required />
 											</div>
 										</div>
 									</div>
+
 									<div class="col-4">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Brand</label>
+											<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
+												Measure</label>
 											<div class="col-sm-8">
-												<input type="hidden" id="return-brand" name="brand" />
-												<input type="text" id="return-brandName" class="form-control" disabled
+												<input type="text" id="sr-unitOfMeasure" class="form-control" disabled
 													required />
 											</div>
 										</div>
@@ -142,33 +126,15 @@
 
 								</div>
 								<div class="row">
+
 									<div class="col-4">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
-												Measure</label>
+											<label for="staticEmail" class="col-sm-4 col-form-label">
+												Stock Type</label>
 											<div class="col-sm-8">
-												<input type="hidden" id="return-unit" name="unitOfMeasure" />
-												<input type="text" id="return-unitOfMeasure" class="form-control"
-													disabled required />
+												<input type="text" id="sr-stockType" class="form-control" disabled
+													required />
 
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Cost
-												Rate</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<div class="input-group-prepend">
-														<span class="input-group-text py-2 font-weight-bold"
-															style="border-radius: 0;">&#8377;</span>
-													</div>
-													<input type="hidden" id="return-cost" name="costRate" />
-													<input type="text" id="return-costRate" class="form-control"
-														disabled required />
-
-												</div>
 											</div>
 										</div>
 									</div>
@@ -182,44 +148,79 @@
 														<span class="input-group-text py-2 font-weight-bold"
 															style="border-radius: 0;">&#8377;</span>
 													</div>
-													<input type="hidden" id="return-mrp" name="mrpRate" />
-													<input type="text" id="return-mrpRate" class="form-control" disabled
+													<input type="text" id="sr-mrpRate" class="form-control" disabled
+														required />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-4 col-form-label">
+												Order Quantity</label>
+											<div class="col-sm-8">
+												<input type="text" id="sr-orderQuantity" class="form-control" disabled
+													required />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-4 col-form-label">Order Total
+												Cost</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text py-2 font-weight-bold"
+															style="border-radius: 0;">&#8377;</span>
+													</div>
+													<input type="text" id="sr-totalCost" class="form-control" disabled
 														required />
 												</div>
 											</div>
 										</div>
 									</div>
 
-								</div>
-								<div class="row">
+
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-4 col-form-label">Return
+												Quantity<strong class="text-danger">*</strong></label>
+											<div class="col-sm-8">
+												<input type="number" name="returnQuantity" id="return-quantity"
+													class="form-control" required />
+											</div>
+										</div>
+									</div>
 									<div class="col-4">
 										<div class="form-group row">
 											<label for="staticEmail" class="col-sm-4 col-form-label">
-												Order Quantity</label>
+												Return Reason<strong class="text-danger">*</strong></label>
 											<div class="col-sm-8">
-												<input type="hidden" id="return-quantity" name="orderQuantity" />
-												<input type="text" id="return-order-quantity" class="form-control"
-													disabled required />
+												<select class="form-select" name="returnReaseon" required>
+													<option value="" selected>Select</option>
+													<option value="Damaged Item">Damaged Item</option>
+													<option value="Exceeded Item">Exceeded Item</option>
+													<option value="Worngly Placed">Worngly Placed</option>
+												</select>
 
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+
+								</div>
+								<div class="row">
+
+									<div class="col-12">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Return
-												Quantity</label>
-											<div class="col-sm-8">
-												<input type="number" name="returnQuantity" class="form-control"
-													required />
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-2 col-form-label pr-0"
-												style="width: 110px;">Remarks</label>
-											<div class="col-sm-10 px-0">
+											<label for="staticEmail" class="col-sm-2 col-form-label">
+												Return Description</label>
+											<div class="col-sm-10">
 												<input type="text" name="description" class="form-control" required />
+
 											</div>
 										</div>
 									</div>
@@ -230,6 +231,16 @@
 									data-max-file-size="2M" required />
 								<strong class="text-danger"> File Max Size: 2MB</strong>
 							</div>
+							<input type="hidden" id="itemName-sr" name="itemName" />
+							<input type="hidden" id="category-sr" name="category" />
+							<input type="hidden" id="unitOfMeasure-sr" name="unitOfMeasure" />
+							<input type="hidden" id="totalCost-sr" name="orderTotalCost" />
+							<input type="hidden" id="mrpRate-sr" name="mrpRate" />
+							<input type="hidden" id="orderQuantity-sr" name="orderQuantity" />
+							<input type="hidden" id="stockType-sr" name="stockType" />
+							<input type="hidden" id="igst-sr" name="igst" />
+							<input type="hidden" id="sgst-sr" name="sgst" />
+							<input type="hidden" id="cgst-sr" name="cgst" />
 							<div class="row">
 								<div class="col-12 text-center">
 									<button type="submit" class="btn btn-primary btn-sm"><i
@@ -241,7 +252,7 @@
 					</form>
 				</div>
 			</div>
-			<h3 class="text-center bg-warning mt-2 py-1"><small>Added Spares</small></h3>
+			<h3 class="text-center bg-warning mt-2 py-1"><small>Returned Stocks</small></h3>
 
 			<table class="table table-stock table-bordered table table-success table-striped table-hover">
 				<thead class="table-dark">
@@ -250,13 +261,14 @@
 						<th class="all">Item ID</th>
 						<th class="all">Item</th>
 						<th class="all">Image</th>
-						<th class="all">Brand</th>
-						<th class="all">HSN</th>
+
 						<th class="all">Unit(M)</th>
-						<th class="all">Cost</th>
+
 						<th class="all">MRP</th>
-						<th class="all">Qty</th>
-						<th class="all">Total</th>
+						<th class="all">Ordered Qty</th>
+						<th class="all">Return Qty</th>
+						<th class="all">Ordered Cost</th>
+						<th class="all">Return Cost</th>
 						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/inward/spares/deleteAll')|"
 								class="btn text-danger p-0 font-weight-bold" data-toggle="modal"
 								data-target="#delAllSpares" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -265,26 +277,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="tempSpare: ${tempSpares}">
-						<td th:text="${tempSpare.category}"></td>
-						<td th:text="${tempSpare.itemId}"></td>
-						<td th:text="${tempSpare.itemName}"></td>
+					<tr th:each="tempStockReturn: ${tempStockReturns}">
+						<td th:text="${tempStockReturn.category}"></td>
+						<td th:text="${tempStockReturn.itemId}"></td>
+						<td th:text="${tempStockReturn.itemName}"></td>
 						<td class="text-center thumb">
-							<img th:src="@{${tempSpare.imagePath} + ${tempSpare.itemImage}}" alt="image" />
+							<img th:src="@{${tempStockReturn.imagePath} + ${tempStockReturn.itemImage}}" alt="image" />
 						</td>
-
-						<td th:text="${tempSpare.brand}"></td>
-						<td th:text="${tempSpare.hsnCode}"></td>
-
-						<td th:text="${tempSpare.unitOfMeasure}"></td>
-						<td>&#8377;<label class="px-1" th:text="${tempSpare.costRate}"></label></td>
-						<td>&#8377;<label class="px-1" th:text="${tempSpare.mrpRate}"></label></td>
-						<td th:text="${tempSpare.quantity}"></td>
-						<td>&#8377;<label class="px-1" th:text="${tempSpare.subTotal}"></label></td>
-
+						<td th:text="${tempStockReturn.unitOfMeasure}"></td>
+						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.mrpRate}"></label></td>
+						<td th:text="${tempStockReturn.orderQuantity}"></td>
+						<td th:text="${tempStockReturn.returnQuantity}"></td>
+						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.orderTotalCost}"></label></td>
+						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.returnTotalCost}"></label></td>
 						<td class="text-center">
-
-							<button th:onclick="|deleteId('/stocks/inward/spares/delete/${tempSpare.tempSpareId}')|"
+							<button
+								th:onclick="|deleteId('/stocks/return/items/delete/${tempStockReturn.tempStockId}')|"
 								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delSpare"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 									class="glyphicon glyphicon-trash"></span></button>
@@ -300,7 +308,55 @@
 					<div class="col-9">
 						<div class="card my-1 w-100 bl-cr">
 							<div class="card-body font-weight-bold">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-4 col-form-label">GST/IGST</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<input type="number" class="form-control" name="igst" required
+														disabled />
+													<div class="input-group-prepend">
+														<span class="input-group-text font-weight-bold"
+															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+											<div class="col-sm-7">
+												<div class="input-group">
 
+													<input type="number" name="sgst" class="form-control" required
+														disabled />
+													<div class="input-group-prepend">
+														<span class="input-group-text font-weight-bold"
+															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+											<div class="col-sm-7">
+												<div class="input-group">
+
+													<input type="number" name="cgst" class="form-control" required
+														disabled />
+													<div class="input-group-prepend">
+														<span class="input-group-text  font-weight-bold"
+															style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 
 								<div class="row ">
 									<div class="col-4">
@@ -344,11 +400,12 @@
 					<div class="col-3 pt-1">
 						<div class="row text-white">
 							<div class="col-6 bg-dark py-2 rounded-top">
-								<label class="font-weight-bold mb-0">Total Amount</label>
+								<label class="font-weight-bold mb-0">Total Return Amount</label>
+								<label class="font-weight-bold mb-0">(Inclusive of GST)</label>
 							</div>
 							<div class="col-6 bg-dark row py-2 rounded-top">
 								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text="${totalCost}"></label></label>
+										th:text="${returnCost}"></label></label>
 							</div>
 						</div>
 

@@ -17,6 +17,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempStockReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.entity.WorkOrderItems;
 
@@ -117,5 +118,13 @@ public interface StockService {
 	ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo);
 
 	ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo);
+
+	void saveReturnItem(TempStockReturn tempStockReturn, MultipartFile file);
+
+	boolean checkReturnedItem(TempStockReturn tempStockReturn);
+
+	TempStockReturn getReturnQuantity(TempStockReturn tempStockReturn);
+
+	List<TempStockReturn> getTempStockReturn(String username);
 
 }

@@ -32,6 +32,7 @@ import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
+import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -41,6 +42,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempStockReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.helper.Message;
@@ -647,11 +649,54 @@ public class StocksController {
 	}
 
 	@GetMapping("/return/entry")
-	public String returnEntry(Model model) {
+	public String returnEntry(Model model,Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
 		model.addAttribute("workOrders", stockService.getOutwardApprovedWorkOrders());
+		model.addAttribute("stockReturn", new TempStockReturn());
+		
+		List<TempStockReturn> tempStockReturn = stockService.getTempStockReturn(principal.getName());
+		
+		model.addAttribute("tempStockReturns", tempStockReturn);
+
+		if (tempStockReturn.size() == 0) {
+			model.addAttribute("emptyList", "No Return Stocks");
+			model.addAttribute("returnCost", 0);
+		} else {
+			Double returnCost = tempStockReturn.stream().filter(f -> f.getReturnTotalCost() != null).mapToDouble(o -> o.getReturnTotalCost())
+					.sum();
+		
+			model.addAttribute("returnCost", returnCost);
+		}
+		
 		return "/pages/stock_management/stock_returns_entry";
+	}
+
+	@PostMapping("/return/items/entry/add")
+	public String returnItem(@RequestParam("itemImage") MultipartFile file,
+			@ModelAttribute("stockReturn") TempStockReturn tempStockReturn, BindingResult bindingResult,
+			HttpSession session, Principal principal) throws IOException {
+
+		tempStockReturn.setUsername(principal.getName());
+		
+		if (stockService.checkReturnedItem(tempStockReturn)) {
+			TempStockReturn oldReturnAndOrderQuantity = stockService.getReturnQuantity(tempStockReturn);
+
+			int orderedQuantity = oldReturnAndOrderQuantity.getOrderQuantity();
+
+			int returnedQuantity = oldReturnAndOrderQuantity.getReturnQuantity();
+
+			int canReturnQuantity = orderedQuantity - returnedQuantity;
+			session.setAttribute("message",
+					new Message(returnedQuantity + " items have already been returned out of the " + orderedQuantity
+							+ " ordered items, which means you can return maximum of " + canReturnQuantity
+							+ " items.", "danger"));
+			return "redirect:/stocks/return/entry";
+		}
+
+		stockService.saveReturnItem(tempStockReturn, file);
+		session.setAttribute("message", new Message(" Items has been successfully placed for return!", "success"));
+		return "redirect:/stocks/return/entry";
 	}
 
 	@GetMapping("/return/chart")
@@ -683,6 +728,11 @@ public class StocksController {
 			e.printStackTrace();
 		}
 		return json;
+	}
+	
+	@GetMapping("/return/workorder/{workOrderNo}")
+	public @ResponseBody ApprovedWorkOrderNos getWorkorderDetails(@PathVariable("workOrderNo") Long workOrderNo) {
+		return stockService.getOutwardApprovedWorkOrder(workOrderNo);
 	}
 
 	@GetMapping("/return/items/details/{itemId}/{workOrderNo}")

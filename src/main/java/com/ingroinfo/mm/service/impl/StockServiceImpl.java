@@ -27,6 +27,7 @@ import com.ingroinfo.mm.dao.InwardTempSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.ItemMasterRepository;
+import com.ingroinfo.mm.dao.TempStockReturnRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
@@ -46,6 +47,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.TempStockReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
@@ -112,6 +114,9 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private ApprovedWorkOrderNosRepository approvedWorkOrderNosRepository;
+
+	@Autowired
+	private TempStockReturnRepository tempStockReturnRepository;
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -782,7 +787,120 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo) {
-		ApprovedWorkOrderItems approvedWorkOrderItems = approvedWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId,workOrderNo);
+		ApprovedWorkOrderItems approvedWorkOrderItems = approvedWorkOrderItemsRepository
+				.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 		return approvedWorkOrderItems;
 	}
+
+	@Override
+	public void saveReturnItem(TempStockReturn tempStockReturn, MultipartFile file) {
+
+		TempStockReturn oldTempStockReturn = tempStockReturnRepository
+				.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(), tempStockReturn.getItemId());
+
+		if (oldTempStockReturn != null) {
+			int newReturnQuantity = oldTempStockReturn.getReturnQuantity() + tempStockReturn.getReturnQuantity();
+			oldTempStockReturn.setReturnQuantity(newReturnQuantity);
+			int newQty = oldTempStockReturn.getOrderQuantity() - newReturnQuantity;
+
+			// Order Cost with GST
+			Double orderCost = tempStockReturn.getOrderTotalCost() * oldTempStockReturn.getMrpRate();
+			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
+			oldTempStockReturn.setOrderTotalCost(orderGst + orderCost);
+
+			// Current Cost with GST
+			Double currentCost = newQty * oldTempStockReturn.getMrpRate();
+			Double currentGst = (currentCost * tempStockReturn.getIgst()) / 100;
+			oldTempStockReturn.setCurrentTotalCost(currentGst + currentCost);
+
+			// Return Cost with GST
+			Double returnCost = newReturnQuantity * oldTempStockReturn.getMrpRate();
+			Double returnGst = (returnCost * tempStockReturn.getIgst()) / 100;
+			oldTempStockReturn.setReturnTotalCost(returnGst + returnCost);
+
+			tempStockReturnRepository.save(oldTempStockReturn);
+
+		} else {
+
+			String companyName = "";
+
+			Company company = adminService.getCompanyByUsername(tempStockReturn.getUsername());
+
+			if (company != null) {
+				companyName = company.getCompanyName();
+			} else {
+				companyName = "Admin";
+			}
+
+			Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
+					.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+
+			String fileName = tempStockReturn.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+					+ tokens.get();
+			String uploadDir = "C:\\Company\\" + companyName + "\\Stock_Returns\\";
+
+			try {
+				adminService.saveFile(uploadDir, fileName, file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			tempStockReturn.setItemImage(fileName);
+			tempStockReturn.setImagePath("/Company/" + companyName + "/Stock_Returns/");
+
+			int qty = tempStockReturn.getOrderQuantity() - tempStockReturn.getReturnQuantity();
+
+			// Current Cost with GST
+			Double currentCost = qty * tempStockReturn.getMrpRate();
+			Double currentGst = (currentCost * tempStockReturn.getIgst()) / 100;
+			tempStockReturn.setCurrentTotalCost(currentCost + currentGst);
+
+			// Return Cost with GST
+			Double returnCost = tempStockReturn.getReturnQuantity() * tempStockReturn.getMrpRate();
+			Double returnGst = (returnCost * tempStockReturn.getIgst()) / 100;
+			tempStockReturn.setReturnTotalCost(returnCost + returnGst);
+
+			// Order Cost with GST
+			Double orderCost = tempStockReturn.getOrderQuantity() * tempStockReturn.getOrderTotalCost();
+			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
+			tempStockReturn.setOrderTotalCost(orderGst + orderCost);
+			tempStockReturnRepository.save(tempStockReturn);
+		}
+
+	}
+
+	@Override
+	public boolean checkReturnedItem(TempStockReturn tempStockReturn) {
+
+		TempStockReturn oldTempStockReturn = tempStockReturnRepository
+				.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(), tempStockReturn.getItemId());
+
+		boolean checkReturn = false;
+
+		if (oldTempStockReturn != null) {
+
+			int remainingQuantity = oldTempStockReturn.getOrderQuantity() - oldTempStockReturn.getReturnQuantity();
+			int returnQuantity = tempStockReturn.getReturnQuantity();
+
+			if (!(remainingQuantity >= returnQuantity)) {
+				checkReturn = true;
+			}
+		}
+
+		return checkReturn;
+	}
+
+	@Override
+	public TempStockReturn getReturnQuantity(TempStockReturn tempStockReturn) {
+
+		return tempStockReturnRepository.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(),
+				tempStockReturn.getItemId());
+	}
+
+	@Override
+	public List<TempStockReturn> getTempStockReturn(String username) {
+
+		return tempStockReturnRepository.findByUsername(username);
+	}
+
 }
