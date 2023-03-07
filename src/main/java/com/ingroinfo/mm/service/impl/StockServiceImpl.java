@@ -27,6 +27,7 @@ import com.ingroinfo.mm.dao.InwardTempSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.ItemMasterRepository;
+import com.ingroinfo.mm.dao.StockReturnsRepository;
 import com.ingroinfo.mm.dao.TempStockReturnRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
@@ -47,6 +48,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.StockReturns;
 import com.ingroinfo.mm.entity.TempStockReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItems;
@@ -117,6 +119,9 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private TempStockReturnRepository tempStockReturnRepository;
+
+	@Autowired
+	private StockReturnsRepository stockReturnsRepository;
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -798,20 +803,18 @@ public class StockServiceImpl implements StockService {
 		TempStockReturn oldTempStockReturn = tempStockReturnRepository
 				.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(), tempStockReturn.getItemId());
 
+		Double orderCost = approvedWorkOrderItemsRepository
+				.findByItemIdAndWorkOrderNo(tempStockReturn.getItemId(), tempStockReturn.getWorkOrderNo())
+				.getTotalCost();
+
 		if (oldTempStockReturn != null) {
+
 			int newReturnQuantity = oldTempStockReturn.getReturnQuantity() + tempStockReturn.getReturnQuantity();
 			oldTempStockReturn.setReturnQuantity(newReturnQuantity);
-			int newQty = oldTempStockReturn.getOrderQuantity() - newReturnQuantity;
 
 			// Order Cost with GST
-			Double orderCost = tempStockReturn.getOrderTotalCost() * oldTempStockReturn.getMrpRate();
 			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
 			oldTempStockReturn.setOrderTotalCost(orderGst + orderCost);
-
-			// Current Cost with GST
-			Double currentCost = newQty * oldTempStockReturn.getMrpRate();
-			Double currentGst = (currentCost * tempStockReturn.getIgst()) / 100;
-			oldTempStockReturn.setCurrentTotalCost(currentGst + currentCost);
 
 			// Return Cost with GST
 			Double returnCost = newReturnQuantity * oldTempStockReturn.getMrpRate();
@@ -848,20 +851,13 @@ public class StockServiceImpl implements StockService {
 			tempStockReturn.setItemImage(fileName);
 			tempStockReturn.setImagePath("/Company/" + companyName + "/Stock_Returns/");
 
-			int qty = tempStockReturn.getOrderQuantity() - tempStockReturn.getReturnQuantity();
-
-			// Current Cost with GST
-			Double currentCost = qty * tempStockReturn.getMrpRate();
-			Double currentGst = (currentCost * tempStockReturn.getIgst()) / 100;
-			tempStockReturn.setCurrentTotalCost(currentCost + currentGst);
-
 			// Return Cost with GST
 			Double returnCost = tempStockReturn.getReturnQuantity() * tempStockReturn.getMrpRate();
 			Double returnGst = (returnCost * tempStockReturn.getIgst()) / 100;
 			tempStockReturn.setReturnTotalCost(returnCost + returnGst);
 
 			// Order Cost with GST
-			Double orderCost = tempStockReturn.getOrderQuantity() * tempStockReturn.getOrderTotalCost();
+
 			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
 			tempStockReturn.setOrderTotalCost(orderGst + orderCost);
 			tempStockReturnRepository.save(tempStockReturn);
@@ -901,6 +897,42 @@ public class StockServiceImpl implements StockService {
 	public List<TempStockReturn> getTempStockReturn(String username) {
 
 		return tempStockReturnRepository.findByUsername(username);
+	}
+
+	@Override
+	public void deleteTempReturnItem(Long id) {
+		tempStockReturnRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteAllTempReturnItem() {
+		tempStockReturnRepository.deleteAll();
+	}
+
+	@Override
+	public void saveReturnItems(TempStockReturn tempStockReturn) {
+
+		List<TempStockReturn> tempStocksReturns = tempStockReturnRepository
+				.findByUsername(tempStockReturn.getUsername());
+
+		for (TempStockReturn tempStocksReturn : tempStocksReturns) {
+			StockReturns stockReturns = modelMapper.map(tempStocksReturn, StockReturns.class);
+			stockReturns.setInvoiceNo(tempStockReturn.getInvoiceNo());
+			stockReturns.setReturnEntryDate(tempStockReturn.getReturnEntryDate());
+			stockReturnsRepository.save(stockReturns);
+			tempStockReturnRepository.deleteById(tempStocksReturn.getTempStockId());
+		}
+
+	}
+
+	@Override
+	public List<StockReturns> deleteReturnItemList() {		
+		return stockReturnsRepository.findAll();
+	}
+
+	@Override
+	public void deleteReturnItem(Long id) {
+		stockReturnsRepository.deleteById(id);
 	}
 
 }

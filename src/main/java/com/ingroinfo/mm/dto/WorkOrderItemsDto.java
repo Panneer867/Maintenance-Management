@@ -15,6 +15,7 @@ public class WorkOrderItemsDto {
 	private String itemName;
 	private String aliasName;
 	private String itemImage;
+	private String stockType;
 	private String imagePath;
 	private String category;
 	private String unitOfMeasure;

@@ -84,6 +84,7 @@
 									<th class="all">Item</th>
 									<th class="all text-center">Stock</th>
 									<th class="all">Image</th>
+									<th class="all text-center">Stock Type</th>
 									<th class="all" style="width: 12%;">MRP</th>
 									<th class="all" style="width: 15%;">Quantity</th>
 									<th class="all" style="width: 12%;">Total</th>
@@ -109,7 +110,10 @@
 										<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
 											alt="image" />
 									</td>
-
+<td th:text="${getWorkOrderItem.stockType == 'ML' ? 'Material' :
+					                 getWorkOrderItem.stockType == 'SP' ? 'Spare' :
+					                 getWorkOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 getWorkOrderItem.stockType}"></td>
 									<td>
 										<div class="row text-center">
 											<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"

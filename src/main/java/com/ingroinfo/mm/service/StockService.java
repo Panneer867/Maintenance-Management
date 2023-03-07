@@ -17,6 +17,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.StockReturns;
 import com.ingroinfo.mm.entity.TempStockReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.entity.WorkOrderItems;
@@ -126,5 +127,15 @@ public interface StockService {
 	TempStockReturn getReturnQuantity(TempStockReturn tempStockReturn);
 
 	List<TempStockReturn> getTempStockReturn(String username);
+
+	void deleteTempReturnItem(Long id);
+
+	void deleteAllTempReturnItem();
+
+	void saveReturnItems(TempStockReturn tempStockReturn);
+
+	List<StockReturns> deleteReturnItemList();
+
+	void deleteReturnItem(Long id);
 
 }

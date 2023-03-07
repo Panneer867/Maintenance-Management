@@ -649,26 +649,26 @@ public class StocksController {
 	}
 
 	@GetMapping("/return/entry")
-	public String returnEntry(Model model,Principal principal) {
+	public String returnEntry(Model model, Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
 		model.addAttribute("workOrders", stockService.getOutwardApprovedWorkOrders());
 		model.addAttribute("stockReturn", new TempStockReturn());
-		
+
 		List<TempStockReturn> tempStockReturn = stockService.getTempStockReturn(principal.getName());
-		
+
 		model.addAttribute("tempStockReturns", tempStockReturn);
 
 		if (tempStockReturn.size() == 0) {
 			model.addAttribute("emptyList", "No Return Stocks");
 			model.addAttribute("returnCost", 0);
 		} else {
-			Double returnCost = tempStockReturn.stream().filter(f -> f.getReturnTotalCost() != null).mapToDouble(o -> o.getReturnTotalCost())
-					.sum();
-		
+			Double returnCost = tempStockReturn.stream().filter(f -> f.getReturnTotalCost() != null)
+					.mapToDouble(o -> o.getReturnTotalCost()).sum();
+
 			model.addAttribute("returnCost", returnCost);
 		}
-		
+
 		return "/pages/stock_management/stock_returns_entry";
 	}
 
@@ -678,7 +678,7 @@ public class StocksController {
 			HttpSession session, Principal principal) throws IOException {
 
 		tempStockReturn.setUsername(principal.getName());
-		
+
 		if (stockService.checkReturnedItem(tempStockReturn)) {
 			TempStockReturn oldReturnAndOrderQuantity = stockService.getReturnQuantity(tempStockReturn);
 
@@ -689,8 +689,8 @@ public class StocksController {
 			int canReturnQuantity = orderedQuantity - returnedQuantity;
 			session.setAttribute("message",
 					new Message(returnedQuantity + " items have already been returned out of the " + orderedQuantity
-							+ " ordered items, which means you can return maximum of " + canReturnQuantity
-							+ " items.", "danger"));
+							+ " ordered items, which means you can return maximum of " + canReturnQuantity + " items.",
+							"danger"));
 			return "redirect:/stocks/return/entry";
 		}
 
@@ -699,22 +699,21 @@ public class StocksController {
 		return "redirect:/stocks/return/entry";
 	}
 
-	@GetMapping("/return/chart")
-	public String returnChart(Model model) {
-		model.addAttribute("title", "Stock Returns Chart | Maintenance Management");
-		return "/pages/stock_management/stock_returns_chart";
-	}
+	@PostMapping("/return/items/entry/addAll")
+	public String addReturnItems(@ModelAttribute("stockReturn") TempStockReturn tempStockReturn,
+			BindingResult bindingResult, HttpSession session, Principal principal) throws IOException {
 
-	@GetMapping("/return/list")
-	public String returnList(Model model) {
-		model.addAttribute("title", "Stock Returns List | Maintenance Management");
-		return "/pages/stock_management/stock_returns_list";
-	}
+		List<TempStockReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
 
-	@GetMapping("/return/approved/list")
-	public String returnApprovedList(Model model) {
-		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
-		return "/pages/stock_management/stock_returns_approved_list";
+		if (tempStocksReturn.size() == 0) {
+			session.setAttribute("message", new Message("Please Add Return Items  !", "danger"));
+			return "redirect:/stocks/return/entry";
+		}
+
+		tempStockReturn.setUsername(principal.getName());
+		stockService.saveReturnItems(tempStockReturn);
+		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
+		return "redirect:/stocks/return/entry";
 	}
 
 	@GetMapping("/return/items/{workOrderNo}")
@@ -729,7 +728,7 @@ public class StocksController {
 		}
 		return json;
 	}
-	
+
 	@GetMapping("/return/workorder/{workOrderNo}")
 	public @ResponseBody ApprovedWorkOrderNos getWorkorderDetails(@PathVariable("workOrderNo") Long workOrderNo) {
 		return stockService.getOutwardApprovedWorkOrder(workOrderNo);
@@ -739,6 +738,49 @@ public class StocksController {
 	public @ResponseBody ApprovedWorkOrderItems getWorkorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
 			@PathVariable("workOrderNo") Long workOrderNo) {
 		return stockService.getWorkorderItemDetails(itemId, workOrderNo);
+	}
+
+	@GetMapping("/return/items/delete/{id}")
+	public String deleteTempReturnItem(@PathVariable("id") Long id, HttpSession session) {
+		stockService.deleteTempReturnItem(id);
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+		return "redirect:/stocks/return/entry";
+	}
+
+	@GetMapping("/return/items/deleteAll")
+	public String deleteAllTempReturnItem(HttpSession session) {
+
+		stockService.deleteAllTempReturnItem();
+		session.setAttribute("message",
+				new Message("All Item has been removed successfully from the list !", "success"));
+		return "redirect:/stocks/return/entry";
+	}
+	
+	@GetMapping("/return/item/list/delete/{id}")
+	public String deleteReturnItem(@PathVariable("id") Long id, HttpSession session) {
+
+		stockService.deleteReturnItem(id);
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+		return "redirect:/stocks/return/list";
+	}
+
+	@GetMapping("/return/chart")
+	public String returnChart(Model model) {
+		model.addAttribute("title", "Stock Returns Chart | Maintenance Management");
+		return "/pages/stock_management/stock_returns_chart";
+	}
+
+	@GetMapping("/return/list")
+	public String returnList(Model model) {
+		model.addAttribute("title", "Stock Returns List | Maintenance Management");
+		model.addAttribute("returnedItemLists", stockService.deleteReturnItemList());
+		return "/pages/stock_management/stock_returns_list";
+	}
+
+	@GetMapping("/return/approved/list")
+	public String returnApprovedList(Model model) {
+		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
+		return "/pages/stock_management/stock_returns_approved_list";
 	}
 
 }

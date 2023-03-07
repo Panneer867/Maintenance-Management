@@ -45,7 +45,7 @@ $('#mySelect2').on('select2:select', function() {
 			url: '/stocks/return/workorder/' + workOrderNo,
 			success: function(data) {
 				try {
-					$('#igst-sr').val(data.igst);
+					$('#igst-sr, #sr-igst').val(data.igst);
 
 					$('#sgst-sr').val(data.sgst);
 
@@ -105,9 +105,7 @@ $('#mySelect3').on('select2:select', function() {
 
 					$('#sr-orderQuantity, #orderQuantity-sr').val(data.finalQuantity);
 
-					$('#sr-totalCost, #totalCost-sr').val(data.totalCost);
-
-
+					$('#sr-orderTotalCost, #orderTotalCost-sr').val(data.totalCost);
 
 				} catch (e) {
 					console.error('Error parsing response:', e);
