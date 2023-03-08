@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedStockReturns;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
@@ -23,6 +24,8 @@ import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.entity.WorkOrderItems;
 
 public interface StockService {
+	
+	List<InwardDto> getAllStocks();
 
 	/******** Materials *********/
 
@@ -98,11 +101,11 @@ public interface StockService {
 
 	List<WorkOrderItemsDto> checkStockQuantity(Long workOrderNo);
 
-	void saveWorkOrder(TempWorkOrderNos workOrders);
+	void saveWorkOrder(TempWorkOrderNos workOrders,String username);
 
 	boolean notAvailableItems(Long workOrderNo);
 
-	void saveRemovedItems(String itemId, Long workOrderNo);
+	void saveRemovedItems(String itemId, Long workOrderNo, String username);
 
 	boolean getTempWorkOrderItems(Long workOrderNo);
 
@@ -134,8 +137,12 @@ public interface StockService {
 
 	void saveReturnItems(TempStockReturn tempStockReturn);
 
-	List<StockReturns> deleteReturnItemList();
+	List<StockReturns> getStockReturnItemList();
 
 	void deleteReturnItem(Long id);
+
+	List<ApprovedStockReturns> getApprovedStockReturnItemList();
+
+	
 
 }

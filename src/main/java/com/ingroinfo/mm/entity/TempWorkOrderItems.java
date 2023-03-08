@@ -36,5 +36,6 @@ public class TempWorkOrderItems {
 	private String description;
 	private Long workOrderNo;
 	private String stockType;
+	private String username;
 
 }

@@ -6,18 +6,22 @@ public interface StocksApprovalService {
 
 	void saveMaterial(InwardDto inwardItemDto);
 
-	void rejectMaterial(Long id);
+	void rejectMaterial(Long id, String username);
 
 	void saveSpare(InwardDto inwardItemDto);
 
-	void rejectSpare(Long id);
+	void rejectSpare(Long id, String username);
 	
 	void saveTool(InwardDto inwardItemDto);
 
-	void rejectTool(Long id);
+	void rejectTool(Long id, String username);
 
-	void approveOutwardStocks(Long workOrderNo);
+	void approveOutwardStocks(Long workOrderNo, String username);
 
-	void rejectWorkorderItems(Long workOrderNo);
+	void rejectWorkorderItems(Long workOrderNo, String username);
+
+	void approveReturnItem(Long id, String username);
+
+	void rejectReturnItem(Long id, String username);
 
 }

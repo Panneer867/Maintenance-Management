@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ingroinfo.mm.dao.ApprovedStockReturnsRepository;
 import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.ApprovedWorkOrderNosRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
@@ -36,6 +37,7 @@ import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedStockReturns;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.Company;
@@ -122,6 +124,38 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private StockReturnsRepository stockReturnsRepository;
+
+	@Autowired
+	private ApprovedStockReturnsRepository approvedStockReturnsRepository;
+
+	/***** All Stocks *****/
+
+	@Override
+	public List<InwardDto> getAllStocks() {
+		List<InwardDto> allLists = new ArrayList<>();
+
+		List<InwardApprovedMaterials> materialsLists = inwardApprovedMaterialsRepository.findAll();
+		List<InwardApprovedSpares> sparesLists = inwardApprovedSparesRepository.findAll();
+		List<InwardApprovedTools> toolsLists = inwardApprovedToolsRepository.findAll();
+
+		for (InwardApprovedMaterials materialsList : materialsLists) {
+			InwardDto inwardTempMaterials = modelMapper.map(materialsList, InwardDto.class);
+			allLists.add(inwardTempMaterials);
+		}
+
+		for (InwardApprovedSpares sparesList : sparesLists) {
+			InwardDto inwardTempSpares = modelMapper.map(sparesList, InwardDto.class);
+			allLists.add(inwardTempSpares);
+		}
+
+		for (InwardApprovedTools toolsList : toolsLists) {
+			InwardDto inwardTempTools = modelMapper.map(toolsList, InwardDto.class);
+			allLists.add(inwardTempTools);
+		}
+
+		return allLists;
+
+	}
 
 	@Override
 	public void saveInwardTempMaterials(InwardDto inward, MultipartFile file) {
@@ -475,6 +509,8 @@ public class StockServiceImpl implements StockService {
 				.collect(Collectors.toList());
 	}
 
+	/***** Outward Stocks *****/
+
 	@Override
 	public List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderNo) {
 
@@ -654,7 +690,7 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveWorkOrder(TempWorkOrderNos workOrders) {
+	public void saveWorkOrder(TempWorkOrderNos workOrders, String username) {
 		TempWorkOrderNos savedWorkOrder = tempWorkOrderNosRepository.save(workOrders);
 		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository
 				.findByWorkOrderNo(savedWorkOrder.getWorkOrderNo());
@@ -663,6 +699,7 @@ public class StockServiceImpl implements StockService {
 			WorkOrderItems orderItem = modelMapper.map(tempWorkOrderItem, WorkOrderItems.class);
 			orderItem.setWorkOrderId(savedWorkOrder);
 			orderItem.setTotalCost(orderItem.getFinalQuantity() * orderItem.getMrpRate());
+			orderItem.setUsername(username);
 			workOrderItemsRepository.save(orderItem);
 
 			int requiredQty = tempWorkOrderItem.getFinalQuantity();
@@ -711,7 +748,7 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveRemovedItems(String itemId, Long workOrderNo) {
+	public void saveRemovedItems(String itemId, Long workOrderNo, String username) {
 		WorkOrderRemovedItems removedItem = new WorkOrderRemovedItems();
 
 		int stockQuantity = 0;
@@ -737,6 +774,7 @@ public class StockServiceImpl implements StockService {
 		removedItem.setRequestedQuantity(requiredQuantity);
 		removedItem.setStockQuantity(stockQuantity);
 		removedItem.setWorkOrderNo(workOrderNo);
+		removedItem.setUsername(username);
 
 		if (stockQuantity == 0) {
 			removedItem.setAvailability("Not Available in Stock");
@@ -796,6 +834,8 @@ public class StockServiceImpl implements StockService {
 				.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 		return approvedWorkOrderItems;
 	}
+
+	/***** Stocks Return *****/
 
 	@Override
 	public void saveReturnItem(TempStockReturn tempStockReturn, MultipartFile file) {
@@ -922,17 +962,22 @@ public class StockServiceImpl implements StockService {
 			stockReturnsRepository.save(stockReturns);
 			tempStockReturnRepository.deleteById(tempStocksReturn.getTempStockId());
 		}
-
 	}
 
 	@Override
-	public List<StockReturns> deleteReturnItemList() {		
+	public List<StockReturns> getStockReturnItemList() {
 		return stockReturnsRepository.findAll();
 	}
 
 	@Override
 	public void deleteReturnItem(Long id) {
 		stockReturnsRepository.deleteById(id);
+	}
+
+	@Override
+	public List<ApprovedStockReturns> getApprovedStockReturnItemList() {
+
+		return approvedStockReturnsRepository.findAll();
 	}
 
 }

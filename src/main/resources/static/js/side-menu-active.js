@@ -154,6 +154,12 @@ $(document).ready(function() {
 			$("#outward-stocks").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
+	
+	$(function() {
+		if (window.location.href.match('/stocks/return')) {
+			$("#stocks-return").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
 
 	/**************end of Stocks top tabs *************** */
 

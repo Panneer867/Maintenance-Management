@@ -41,6 +41,7 @@ public class InwardDto {
 	private Double sgst;
 	private Double cgst;
 	private int quantity;
+	private String stockType;
 
 	private Double subTotal;
 	private Double grandTotal;	

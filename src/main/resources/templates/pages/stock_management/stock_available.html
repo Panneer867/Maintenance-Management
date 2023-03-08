@@ -17,7 +17,7 @@
 				<li class="nav-item" role="presentation">
 					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
-						aria-controls="pills-profile" aria-selected="false">Material List</button>
+						aria-controls="pills-profile" aria-selected="false">All Stocks List</button>
 				</li>
 
 				<li class="nav-item" role="presentation">
@@ -58,20 +58,44 @@
 						class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 						<thead class="table-dark">
 							<tr>
-								<th class="all">Id</th>
+								<th class="all">Item ID</th>
 								<th class="all">Category</th>
 								<th class="all">Item</th>
+								<th class="all">Image</th>
 								<th class="all">Supplier</th>
-								<th class="all">Brand</th>
-								<th class="all">HSN</th>
+								<th class="all">Stock Type</th>
 								<th class="all">Qty</th>
-								<th class="all">Unit</th>
+								<th class="all">Cost</th>
 								<th class="all">MRP</th>
+								<th class="all">Sub Total</th>
+								<th class="all">GST</th>
+								<th class="all">Grand Total</th>
 								<th class="all">Entry Date</th>
 							</tr>
 						</thead>
 						<tbody>
-							
+							<tr th:each="allItem: ${allItems}">
+								<td th:text="${allItem.itemId}"></td>
+								<td th:text="${allItem.category}"></td>
+								<td th:text="${allItem.itemName}"></td>
+								<td class="text-center thumb">
+						<img th:src="@{${allItem.imagePath} + ${allItem.itemImage}}"
+							alt="image" />
+					</td>
+								<td th:text="${allItem.supplier}"></td>
+								<td th:text="${allItem.stockType == 'ML' ? 'Material' :
+					                 allItem.stockType == 'SP' ? 'Spare' :
+					                 allItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 allItem.stockType}"></td>
+								<td th:text="${allItem.quantity}"></td>
+								<td>&#8377;<label class="px-1" th:text="${allItem.costRate}"></label></td>
+								<td>&#8377;<label class="px-1" th:text="${allItem.mrpRate}"></label></td>
+								<td>&#8377;<label class="px-1" th:text="${allItem.subTotal}"></label></td>
+								<td><label class="px-1" th:text="${allItem.igst}"></label>%</td>
+								<td>&#8377;<label class="px-1" th:text="${allItem.grandTotal}"></label></td>
+								<td th:text="${allItem.entryDate}"></td>
+
+							</tr>
 						</tbody>
 					</table>
 				</div>

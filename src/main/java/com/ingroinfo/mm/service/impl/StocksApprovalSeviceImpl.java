@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ingroinfo.mm.dao.ApprovedStockReturnsRepository;
 import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.ApprovedWorkOrderNosRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
@@ -17,11 +18,14 @@ import com.ingroinfo.mm.dao.InwardRejectedSparesRepository;
 import com.ingroinfo.mm.dao.InwardRejectedToolsRepository;
 import com.ingroinfo.mm.dao.InwardSparesRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
+import com.ingroinfo.mm.dao.RejectedStockReturnsRepository;
 import com.ingroinfo.mm.dao.RejectedWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.RejectedWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.StockReturnsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.entity.ApprovedStockReturns;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
@@ -33,8 +37,10 @@ import com.ingroinfo.mm.entity.InwardRejectedSpares;
 import com.ingroinfo.mm.entity.InwardRejectedTools;
 import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.RejectedStockReturns;
 import com.ingroinfo.mm.entity.RejectedWorkOrderItems;
 import com.ingroinfo.mm.entity.RejectedWorkOrderNos;
+import com.ingroinfo.mm.entity.StockReturns;
 import com.ingroinfo.mm.entity.TempWorkOrderNos;
 import com.ingroinfo.mm.entity.WorkOrderItems;
 import com.ingroinfo.mm.service.StocksApprovalService;
@@ -89,6 +95,15 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	@Autowired
 	private RejectedWorkOrderNosRepository rejectedWorkOrderNosRepository;
 
+	@Autowired
+	private ApprovedStockReturnsRepository approvedStockReturnsRepository;
+
+	@Autowired
+	private StockReturnsRepository stockReturnsRepository;
+
+	@Autowired
+	private RejectedStockReturnsRepository rejectedStockReturnsRepository;
+
 	/**************************** Materials ********************************/
 
 	@Override
@@ -104,12 +119,12 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	}
 
 	@Override
-	public void rejectMaterial(Long id) {
+	public void rejectMaterial(Long id, String username) {
 
 		InwardMaterials inwardMaterial = inwardMaterialsRepository.findByMaterialId(id);
 
 		InwardRejectedMaterials rejectMaterial = modelMapper.map(inwardMaterial, InwardRejectedMaterials.class);
-
+		rejectMaterial.setUsername(username);
 		InwardRejectedMaterials rejectedMaterial = inwardRejectedMaterialsRepository.save(rejectMaterial);
 
 		if (rejectedMaterial != null) {
@@ -131,12 +146,12 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	}
 
 	@Override
-	public void rejectSpare(Long id) {
+	public void rejectSpare(Long id, String username) {
 
 		InwardSpares inwardSpare = inwardSparesRepository.findBySpareId(id);
 
 		InwardRejectedSpares rejectSpare = modelMapper.map(inwardSpare, InwardRejectedSpares.class);
-
+		rejectSpare.setUsername(username);
 		InwardRejectedSpares rejectedSpare = inwardRejectedSparesRepository.save(rejectSpare);
 
 		if (rejectedSpare != null) {
@@ -159,12 +174,12 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	}
 
 	@Override
-	public void rejectTool(Long id) {
+	public void rejectTool(Long id, String username) {
 
 		InwardTools inwardTool = inwardToolsRepository.findByToolId(id);
 
 		InwardRejectedTools rejectTool = modelMapper.map(inwardTool, InwardRejectedTools.class);
-
+		rejectTool.setUsername(username);
 		InwardRejectedTools rejectedTools = inwardRejectedToolsRepository.save(rejectTool);
 
 		if (rejectedTools != null) {
@@ -172,11 +187,11 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		}
 	}
 
-	/****************************
+	/******************************
 	 * Outwards Workorders
 	 ********************************/
 	@Override
-	public void approveOutwardStocks(Long workOrderNo) {
+	public void approveOutwardStocks(Long workOrderNo, String username) {
 
 		TempWorkOrderNos tempWorkOrderNos = tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
 
@@ -190,6 +205,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 			ApprovedWorkOrderItems approvedWorkOrderItems = modelMapper.map(workOrderItem,
 					ApprovedWorkOrderItems.class);
+			approvedWorkOrderItems.setUsername(username);
 			approvedWorkOrderItemsRepository.save(approvedWorkOrderItems);
 		}
 
@@ -197,7 +213,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	}
 
 	@Override
-	public void rejectWorkorderItems(Long workOrderNo) {
+	public void rejectWorkorderItems(Long workOrderNo, String username) {
 		TempWorkOrderNos tempWorkOrderNos = tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
 
 		RejectedWorkOrderNos rejectedWorkOrderNos = modelMapper.map(tempWorkOrderNos, RejectedWorkOrderNos.class);
@@ -210,11 +226,41 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 			RejectedWorkOrderItems rejectedWorkOrderItems = modelMapper.map(workOrderItem,
 					RejectedWorkOrderItems.class);
+			rejectedWorkOrderItems.setUsername(username);
 			rejectedWorkOrderItemsRepository.save(rejectedWorkOrderItems);
 		}
 
 		tempWorkOrderNosRepository.deleteById(tempWorkOrderNos.getOrderId());
 
+	}
+
+	@Override
+	public void approveReturnItem(Long id, String username) {
+
+		StockReturns stockReturns = stockReturnsRepository.findByStockId(id);
+
+		ApprovedStockReturns approvedStockReturns = modelMapper.map(stockReturns, ApprovedStockReturns.class);
+		approvedStockReturns.setUsername(username);
+		ApprovedStockReturns newApprovedStockReturns = approvedStockReturnsRepository.save(approvedStockReturns);
+
+		if (newApprovedStockReturns != null) {
+			stockReturnsRepository.deleteById(id);
+		}
+
+	}
+
+	@Override
+	public void rejectReturnItem(Long id, String username) {
+
+		StockReturns stockReturns = stockReturnsRepository.findByStockId(id);
+
+		RejectedStockReturns rejectedStockReturns = modelMapper.map(stockReturns, RejectedStockReturns.class);
+		rejectedStockReturns.setUsername(username);
+		RejectedStockReturns newrejectedStockReturns = rejectedStockReturnsRepository.save(rejectedStockReturns);
+
+		if (newrejectedStockReturns != null) {
+			stockReturnsRepository.deleteById(id);
+		}
 	}
 
 }

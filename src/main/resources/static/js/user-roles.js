@@ -211,7 +211,7 @@ $(document).ready(function() {
 
 					if (jsonobject.taskJe != null) {
 						$('#set-task-je').val("200");
-						$('#task-je').prop('checked', true);						
+						$('#task-je').prop('checked', true);
 					} else {
 						$('#set-task-je').val("200N");
 						$('#task-je').prop('checked', false);
@@ -306,17 +306,24 @@ $(document).ready(function() {
 						$('#inward-tools').prop('checked', false);
 					}
 					if (jsonobject.outwardStocks != null) {
-						$('#set-outward-stocks').val("404");
-						$('#outward-stocks').prop('checked', true);
+						$('#set-outward-stocks-pro').val("404");
+						$('#outward-stocks-pro').prop('checked', true);
 					} else {
-						$('#set-outward-stocks').val("404N");
-						$('#outward-stocks').prop('checked', false);
-					}				
+						$('#set-outward-stocks-pro').val("404N");
+						$('#outward-stocks-pro').prop('checked', false);
+					}
+					if (jsonobject.stocksReturn != null) {						
+						$('#set-stocks-return-pro').val("405");
+						$('#stocks-return-pro').prop('checked', true);
+					} else {						
+						$('#set-stocks-return-pro').val("405N");
+						$('#stocks-return-pro').prop('checked', false);
+					}
 					if (jsonobject.stockApprovals != null) {
-						$('#set-stock-approvals').val("405");
+						$('#set-stock-approvals').val("406");
 						$('#stock-approvals').prop('checked', true);
 					} else {
-						$('#set-stock-approvals').val("405N");
+						$('#set-stock-approvals').val("406N");
 						$('#stock-approvals').prop('checked', false);
 					}
 
@@ -419,29 +426,7 @@ $(document).ready(function() {
 						$('#set-meter-details').val("702N");
 						$('#meter-details').prop('checked', false);
 					}
-					/*if (jsonobject.wardsConsumption != null) {
-						$('#set-wards-consumption').val("703");
-						$('#wards-consumption').prop('checked', true);
-					} else {
-						$('#set-wards-consumption').val("703N");
-						$('#wards-consumption').prop('checked', false);
-					}
-					if (jsonobject.dmaPayment != null) {
-						$('#set-dma-payment').val("704");
-						$('#dma-payment').prop('checked', true);
-					} else {
-						$('#set-dma-payment').val("704N");
-						$('#dma-payment').prop('checked', false);
-					}
-					if (jsonobject.dcb != null) {
-						$('#set-billing-dcb').val("705");
-						$('#billing-dcb').prop('checked', true);
-					} else {
-						$('#set-billing-dcb').val("705N");
-						$('#billing-dcb').prop('checked', false);
-					}*/
-
-
+				
 					/* Pump Management User Roles */
 
 					if (jsonobject.pumpDashboard != null) {
@@ -637,15 +622,6 @@ $(document).ready(function() {
 						$('#leakage-leakage-history').prop('checked', false);
 					}
 
-					/* Meter Management User Roles */
-
-					/*if (jsonobject.testingMaintenance != null) {
-						$('#set-testing-maintenance').val("1300");
-						$('#testing-maintenance').prop('checked', true);
-					} else {
-						$('#set-testing-maintenance').val("1300N");
-						$('#testing-maintenance').prop('checked', false);
-					}*/
 					if (jsonobject.meterReplace != null) {
 						$('#set-meter-replace').val("1301");
 						$('#meter-replace').prop('checked', true);
@@ -835,21 +811,6 @@ $(document).ready(function() {
 					}
 
 					/* Water Storage User Roles */
-
-					/*if (jsonobject.waterStorageGlsr != null) {
-						$('#set-water-storage-glsr').val("1800");
-						$('#water-storage-glsr').prop('checked', true);
-					} else {
-						$('#set-water-storage-glsr').val("1800N");
-						$('#water-storage-glsr').prop('checked', false);
-					}
-					if (jsonobject.waterStorageoht != null) {
-						$('#set-water-storage-oht').val("1801");
-						$('#water-storage-oht').prop('checked', true);
-					} else {
-						$('#set-water-storage-oht').val("1801N");
-						$('#water-storage-oht').prop('checked', false);
-					}*/
 
 					/* Contact Management User Roles */
 

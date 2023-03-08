@@ -89,10 +89,14 @@ public class StocksController {
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
-	public String availableStocks() {
+	public String availableStocks(Model model) {
+		model.addAttribute("title", "Stocks Available | Maintenance Management");
+		model.addAttribute("allItems",stockService.getAllStocks());
 		return "/pages/stock_management/stock_available";
 	}
 
+	/******************************************************************/
+	
 	@GetMapping("/inward/materials/entry")
 	@PreAuthorize("hasAuthority('INWARD_MATERIALS')")
 	public String inwardMaterials(Model model, Principal principal) {
@@ -540,7 +544,7 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/item/delete")
-	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
+	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems, Principal principal) {
 		String itemId = tempWorkOrderItems.getItemId();
 		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
 
@@ -549,7 +553,7 @@ public class StocksController {
 					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 			Long stockId = workOrderItemsRequestRepository.findByWorkOrderNoAndItemId(workOrderNo, itemId)
 					.getStocksId();
-			stockService.saveRemovedItems(itemId, workOrderNo);
+			stockService.saveRemovedItems(itemId, workOrderNo, principal.getName());
 			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.get().getTempWorkorderItemId());
 			workOrderItemsRequestRepository.deleteById(stockId);
 		}
@@ -579,7 +583,7 @@ public class StocksController {
 
 	@PostMapping("/outward/workorder/items")
 	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrderNos workOrders, BindingResult bindingResult,
-			HttpSession session) {
+			HttpSession session, Principal principal) {
 		Long workOrderNo = workOrders.getWorkOrderNo();
 		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
 		boolean workOrderItemsSize = stockService.getTempWorkOrderItems(workOrderNo);
@@ -596,7 +600,7 @@ public class StocksController {
 			return "redirect:/stocks/outward/get/" + workOrderNo;
 		}
 		if (workOrders.getWorkOrderNo() != 0 && workOrders.getWorkOrderNo() != null) {
-			stockService.saveWorkOrder(workOrders);
+			stockService.saveWorkOrder(workOrders, principal.getName());
 			session.setAttribute("message", new Message("Workorder Items has been successfully placed !", "success"));
 		} else {
 			session.setAttribute("message", new Message("Workorder Number is null !", "danger"));
@@ -648,7 +652,10 @@ public class StocksController {
 		return "/pages/stock_management/outward_stocks_approved_list_items";
 	}
 
+	/******************************************************************/
+	
 	@GetMapping("/return/entry")
+	@PreAuthorize("hasAuthority('STOCKS_RETURN')")
 	public String returnEntry(Model model, Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
@@ -760,7 +767,7 @@ public class StocksController {
 	public String deleteReturnItem(@PathVariable("id") Long id, HttpSession session) {
 
 		stockService.deleteReturnItem(id);
-		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "danger"));
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
 		return "redirect:/stocks/return/list";
 	}
 
@@ -773,13 +780,15 @@ public class StocksController {
 	@GetMapping("/return/list")
 	public String returnList(Model model) {
 		model.addAttribute("title", "Stock Returns List | Maintenance Management");
-		model.addAttribute("returnedItemLists", stockService.deleteReturnItemList());
+		model.addAttribute("returnedItemLists", stockService.getStockReturnItemList());
 		return "/pages/stock_management/stock_returns_list";
 	}
 
 	@GetMapping("/return/approved/list")
 	public String returnApprovedList(Model model) {
 		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
+		
+		model.addAttribute("returnedItemLists", stockService.getApprovedStockReturnItemList());
 		return "/pages/stock_management/stock_returns_approved_list";
 	}
 

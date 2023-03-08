@@ -107,7 +107,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		Privilege inwardSpares = createPrivilegeIfNotFound(402, "INWARD_SPARES");
 		Privilege inwardTools = createPrivilegeIfNotFound(403, "INWARD_TOOLS");
 		Privilege outwardStocks = createPrivilegeIfNotFound(404, "OUTWARD_STOCKS");
-		Privilege stockApprovals = createPrivilegeIfNotFound(405, "STOCKS_APPROVALS");
+		Privilege stocksReturn = createPrivilegeIfNotFound(405, "STOCKS_RETURN");
+		Privilege stockApprovals = createPrivilegeIfNotFound(406, "STOCKS_APPROVALS");
 
 		/* Work Order User Roles */
 
@@ -232,9 +233,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
 				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
 				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
-				inwardMatierals, inwardSpares, inwardTools, outwardStocks, stockApprovals, generateWorkOrder,
-				holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster, attendance, salary,
-				inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard,
+				inwardMatierals, inwardSpares, inwardTools, outwardStocks, stocksReturn, stockApprovals,
+				generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster,
+				attendance, salary, inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard,
 				pumpMaintenanceIndex, pumpMaintenanceIndent, pumpMaintenanceView, pumpMaintenanceUpdate,
 				pumpMaintenanceInspection, pumpMaintenanceHistory, pipeDashboard, pipeMaintenanceIndex,
 				pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate, pipeMaintenanceInspection,
@@ -253,11 +254,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				editRole, deleteRole, userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe,
 				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory,
 				assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools, outwardStocks,
-				stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard,
-				employeeMaster, attendance, salary, inspection, leave, consMasterDetails, consTransDetails,
-				meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView, pumpMaintenanceUpdate,
-				pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent, pipeDashboard,
-				pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate,
+				stocksReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
+				employeeDashBoard, employeeMaster, attendance, salary, inspection, leave, consMasterDetails,
+				consTransDetails, meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView,
+				pumpMaintenanceUpdate, pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent,
+				pipeDashboard, pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate,
 				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
 				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
 				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
@@ -273,14 +274,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				roleManagement, createRole, editRole, deleteRole, userRoles, updateUserRoles, importExport,
 				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard,
 				taskComplainthistory, assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools,
-				outwardStocks, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
-				employeeDashBoard, employeeMaster, attendance, salary, inspection, leave, consMasterDetails,
-				consTransDetails, meterDetails, pumpDashboard, pumpMaintenanceIndex, pumpMaintenanceView,
-				pumpMaintenanceUpdate, pumpMaintenanceInspection, pumpMaintenanceHistory, pumpMaintenanceIndent,
-				pipeDashboard, pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView, pipeMaintenanceUpdate,
-				pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement, vehicleHistory,
-				vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView, leakageDashboard,
-				leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
+				outwardStocks, stocksReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder,
+				workEstmation, employeeDashBoard, employeeMaster, attendance, salary, inspection, leave,
+				consMasterDetails, consTransDetails, meterDetails, pumpDashboard, pumpMaintenanceIndex,
+				pumpMaintenanceView, pumpMaintenanceUpdate, pumpMaintenanceInspection, pumpMaintenanceHistory,
+				pumpMaintenanceIndent, pipeDashboard, pipeMaintenanceIndex, pipeMaintenanceIndent, pipeMaintenanceView,
+				pipeMaintenanceUpdate, pipeMaintenanceInspection, pipeMaintenanceHistory, vehicleTrackingMangement,
+				vehicleHistory, vehicleIndex, vehicleManagementIndex, vehicleInspection, vehicleWorkOrderView,
+				leakageDashboard, leakageIndent, leakageMaintenanceUpdate, leakageWorkInspection, leakageLeakageHistory,
 				leakageLeakageHistory, meterReplace, handPumpIndex, handPumpIndent, handPumpWorkOrder,
 				handPumpWorkUpdate, handPumpHandPumpInspection, handPumpMaintenanceHistory, borewellIndex,
 				borewellIndent, borewellWorkOrder, borewellWorkUpdate, borewellHandPumpInspection,

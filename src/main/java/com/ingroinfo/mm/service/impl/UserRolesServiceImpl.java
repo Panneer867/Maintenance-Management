@@ -260,6 +260,11 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getOutwardStocks());
 		}
+		if (dto.getStocksReturn().contains("N")) {
+			deleteRole(roleId, dto.getStocksReturn());
+		} else {
+			createRole(roleId, dto.getStocksReturn());
+		}
 		if (dto.getStockApprovals().contains("N")) {
 			deleteRole(roleId, dto.getStockApprovals());
 		} else {
@@ -339,14 +344,6 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getMeterDetails());
 		}
-		/*
-		 * if (dto.getWardsConsumption().contains("N")) { deleteRole(roleId,
-		 * dto.getWardsConsumption()); } else { createRole(roleId,
-		 * dto.getWardsConsumption()); } if (dto.getDmaPayment().contains("N")) {
-		 * deleteRole(roleId, dto.getDmaPayment()); } else { createRole(roleId,
-		 * dto.getDmaPayment()); } if (dto.getDcb().contains("N")) { deleteRole(roleId,
-		 * dto.getDcb()); } else { createRole(roleId, dto.getDcb()); }
-		 */
 
 		/* Pump Management */
 
@@ -435,11 +432,7 @@ public class UserRolesServiceImpl implements UserRolesService {
 		} else {
 			createRole(roleId, dto.getVehicleHistory());
 		}
-		/*
-		 * if (dto.getVehicleFuelManagement().contains("N")) { deleteRole(roleId,
-		 * dto.getVehicleFuelManagement()); } else { createRole(roleId,
-		 * dto.getVehicleFuelManagement()); }
-		 */
+
 		if (dto.getVehicleIndex().contains("N")) {
 			deleteRole(roleId, dto.getVehicleIndex());
 		} else {
@@ -491,11 +484,6 @@ public class UserRolesServiceImpl implements UserRolesService {
 
 		/* Meter Management */
 
-		/*
-		 * if (dto.getTestingMaintenance().contains("N")) { deleteRole(roleId,
-		 * dto.getTestingMaintenance()); } else { createRole(roleId,
-		 * dto.getTestingMaintenance()); }
-		 */
 		if (dto.getMeterReplace().contains("N")) {
 			deleteRole(roleId, dto.getMeterReplace());
 		} else {
@@ -635,14 +623,6 @@ public class UserRolesServiceImpl implements UserRolesService {
 		}
 
 		/* Water Storage */
-
-		/*
-		 * if (dto.getWaterStorageGlsr().contains("N")) { deleteRole(roleId,
-		 * dto.getWaterStorageGlsr()); } else { createRole(roleId,
-		 * dto.getWaterStorageGlsr()); } if (dto.getWaterStorageoht().contains("N")) {
-		 * deleteRole(roleId, dto.getWaterStorageoht()); } else { createRole(roleId,
-		 * dto.getWaterStorageoht()); }
-		 */
 
 		/* Contact Management */
 
@@ -787,6 +767,8 @@ public class UserRolesServiceImpl implements UserRolesService {
 					} else if (pageNo == 404) {
 						pages.setOutwardStocks(String.valueOf(pageNo));
 					} else if (pageNo == 405) {
+						pages.setStocksReturn(String.valueOf(pageNo));
+					} else if (pageNo == 406) {
 						pages.setStockApprovals(String.valueOf(pageNo));
 					}
 

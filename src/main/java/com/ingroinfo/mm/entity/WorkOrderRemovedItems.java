@@ -28,6 +28,7 @@ public class WorkOrderRemovedItems {
 	private Long workOrderNo;
 	private String remarks;
 	private String stockType;
+	private String username;
 	
 
 }

@@ -1,10 +1,14 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +19,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_temp_stock_return")
-public class TempStockReturn {
+@Table(name = "mm_approved_stock_returns")
+public class ApprovedStockReturns {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long tempStockId;
+	private Long stockId;
 	private Long workOrderNo;
 	private String itemId;
 	private String itemName;	
@@ -43,4 +47,13 @@ public class TempStockReturn {
 	private String invoiceNo;
 	private String returnEntryDate;
 	
+		
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
+
 }

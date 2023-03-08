@@ -71,9 +71,9 @@ public class StocksApprovals {
 	}
 
 	@GetMapping("/stocks/materials/reject/{id}")
-	public String rejectMaterial(@PathVariable("id") Long id, HttpSession session) {
+	public String rejectMaterial(@PathVariable("id") Long id, HttpSession session, Principal principal) {
 
-		approvalService.rejectMaterial(id);
+		approvalService.rejectMaterial(id, principal.getName());
 		session.setAttribute("message", new Message("Material has been Rejected !", "danger"));
 
 		return "redirect:/approvals/stocks/materials";
@@ -112,9 +112,9 @@ public class StocksApprovals {
 	}
 
 	@GetMapping("/stocks/spares/reject/{id}")
-	public String rejectSpare(@PathVariable("id") Long id, HttpSession session) {
+	public String rejectSpare(@PathVariable("id") Long id, HttpSession session, Principal principal) {
 
-		approvalService.rejectSpare(id);
+		approvalService.rejectSpare(id, principal.getName());
 		session.setAttribute("message", new Message("Spare has been Rejected !", "danger"));
 
 		return "redirect:/approvals/stocks/spares";
@@ -152,9 +152,9 @@ public class StocksApprovals {
 	}
 
 	@GetMapping("/stocks/tools/reject/{id}")
-	public String rejectTool(@PathVariable("id") Long id, HttpSession session) {
+	public String rejectTool(@PathVariable("id") Long id, HttpSession session, Principal principal) {
 
-		approvalService.rejectTool(id);
+		approvalService.rejectTool(id, principal.getName());
 		session.setAttribute("message", new Message("Tool has been Rejected !", "danger"));
 
 		return "redirect:/approvals/stocks/tools";
@@ -182,21 +182,48 @@ public class StocksApprovals {
 	}
 		
 	@GetMapping("/outward/workorder/items/{workOrderNo}")
-	public String outwardApproveItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, HttpSession session) {
+	public String outwardApproveItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, HttpSession session, Principal principal) {
 		
 		model.addAttribute("title", "Outward Workorder Items Approvals | Maintenance Management");				
-		approvalService.approveOutwardStocks(workOrderNo);		
+		approvalService.approveOutwardStocks(workOrderNo, principal.getName());		
 		session.setAttribute("message", new Message("Outward Workorder Items has been approved successfully !", "success"));
 		return "redirect:/approvals/outward/stocks";
 	}
 	
 	@GetMapping("/outward/workorder/reject/{workOrderNo}")
-	public String rejectOutwardWorkorderItems(@PathVariable("workOrderNo") Long workOrderNo, HttpSession session) {
+	public String rejectOutwardWorkorderItems(@PathVariable("workOrderNo") Long workOrderNo, HttpSession session, Principal principal) {
 
-		approvalService.rejectWorkorderItems(workOrderNo);
+		approvalService.rejectWorkorderItems(workOrderNo, principal.getName());
 		session.setAttribute("message", new Message("Outward Workorder Items has been rejected successfully !", "success"));
 
 		return "redirect:/approvals/outward/stocks";
 	}
+	
+	/****************** Stocks Return ***************/
+	
+	@GetMapping("/stocks/item/return")
+	public String approveStockReturn(Model model) {
+
+		model.addAttribute("title", "Stocks Return Approvals | Maintenance Mangement");
+		model.addAttribute("returnedItemLists", stockService.getStockReturnItemList());
+		return "/pages/stock_management/stock_returns_approval";
+	}
+	
+	@GetMapping("/return/item/reject/{id}")
+	public String deleteReturnItem(@PathVariable("id") Long id, HttpSession session, Principal principal) {
+
+		approvalService.rejectReturnItem(id , principal.getName());
+		session.setAttribute("message", new Message("Item has been removed successfully from the list !", "success"));
+		return "redirect:/approvals/stocks/item/return";
+	}
+	
+	@GetMapping("/stocks/item/return/{id}")
+	public String approveStockReturnItems(@PathVariable("id") Long id, HttpSession session, Principal principal) {
+				
+		approvalService.approveReturnItem(id, principal.getName());		
+		session.setAttribute("message", new Message("Item Return Items has been approved successfully !", "success"));
+		return "redirect:/approvals/stocks/item/return";
+	}
+	
 
 }

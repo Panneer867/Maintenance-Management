@@ -37,6 +37,7 @@ public class ApprovedWorkOrderItems {
 	private String description;
 	private Long workOrderNo;
 	private String stockType;
+	private String username;
 
 	@ManyToOne
 	@JoinColumn(name = "workorder_id")

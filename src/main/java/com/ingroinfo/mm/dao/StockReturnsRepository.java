@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.StockReturns;
 @Repository
 public interface StockReturnsRepository extends JpaRepository<StockReturns, Long> {
 
+	StockReturns findByStockId(Long id);
+
 }

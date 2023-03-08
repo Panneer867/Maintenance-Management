@@ -146,11 +146,14 @@ $(document).ready(function() {
 	$('#inward-tools').click(function() {
 		$('#set-inward-tools').val($('#inward-tools').is(':checked') ? 403 : "403N");
 	});
-	$('#outward-stocks').click(function() {
-		$('#set-outward-stocks').val($('#outward-stocks').is(':checked') ? 404 : "404N");
+	$('#outward-stocks-pro').click(function() {
+		$('#set-outward-stocks-pro').val($('#outward-stocks-pro').is(':checked') ? 404 : "404N");
+	});
+	$('#stocks-return-pro').click(function() {
+		$('#set-stocks-return-pro').val($('#stocks-return-pro').is(':checked') ? 405 : "405N");
 	});
 	$('#stock-approvals').click(function() {
-		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 405 : "405N");
+		$('#set-stock-approvals').val($('#stock-approvals').is(':checked') ? 406 : "406N");
 	});
 
 	/* Work Order User Roles */
@@ -200,16 +203,7 @@ $(document).ready(function() {
 	$('#meter-details').click(function() {
 		$('#set-meter-details').val($('#meter-details').is(':checked') ? 702 : "702N");
 	});
-	/*$('#wards-consumption').click(function() {
-		$('#set-wards-consumption').val($('#wards-consumption').is(':checked') ? 703 : "703N");
-	});
-	$('#dma-payment').click(function() {
-		$('#set-dma-payment').val($('#dma-payment').is(':checked') ? 704 : "704N");
-	});
-	$('#billing-dcb').click(function() {
-		$('#set-billing-dcb').val($('#billing-dcb').is(':checked') ? 705 : "705N");
-	});*/
-
+	
 	/* Pump Management User Roles */
 
 	$('#pump-dashboard').click(function() {
@@ -267,9 +261,7 @@ $(document).ready(function() {
 	$('#vehicle-history').click(function() {
 		$('#set-vehicle-history').val($('#vehicle-history').is(':checked') ? 1101 : "1101N");
 	});
-	/*$('#vehicle-fuel-management').click(function() {
-		$('#set-vehicle-fuel-management').val($('#vehicle-fuel-management').is(':checked') ? 1102 : "1102N");
-	});*/
+	
 	$('#vehicle-index').click(function() {
 		$('#set-vehicle-index').val($('#vehicle-index').is(':checked') ? 1103 : "1103N");
 	});
@@ -301,11 +293,6 @@ $(document).ready(function() {
 		$('#set-leakage-leakage-history').val($('#leakage-leakage-history').is(':checked') ? 1204 : "1204N");
 	});
 
-	/* Meter Management User Roles */
-
-	/*$('#testing-maintenance').click(function() {
-		$('#set-testing-maintenance').val($('#testing-maintenance').is(':checked') ? 1300 : "1300N");
-	});*/
 	$('#meter-replace').click(function() {
 		$('#set-meter-replace').val($('#meter-replace').is(':checked') ? 1301 : "1301N");
 	});
@@ -396,12 +383,7 @@ $(document).ready(function() {
 
 	/* Water Storage User Roles */
 
-	/*$('#water-storage-glsr').click(function() {
-		$('#set-water-storage-glsr').val($('#water-storage-glsr').is(':checked') ? 1800 : "1800N");
-	});
-	$('#water-storage-oht').click(function() {
-		$('#set-water-storage-oht').val($('#water-storage-oht').is(':checked') ? 1801 : "1801N");
-	});*/
+	
 
 	/* Contact Management User Roles */
 

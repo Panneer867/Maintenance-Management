@@ -309,8 +309,7 @@
 										</a>
 									</li>
 									
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/return/entry' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="stocks-return">
 										<a th:href="@{/stocks/return/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>

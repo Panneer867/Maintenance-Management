@@ -25,4 +25,5 @@ public class WorkOrderItemsRequest {
 	private String itemId;
 	private String stockType;
 	private int quantity;
+	private String username;
 }

@@ -58,7 +58,8 @@ public class UserRolesDto {
 	private String inwardSpares; // 402
 	private String inwardTools; // 403
 	private String outwardStocks; // 404
-	private String stockApprovals; // 405
+	private String stocksReturn; // 405
+	private String stockApprovals; // 406
 
 	private String generateWorkOrder; // 500
 	private String holdWorkOrder; // 501
