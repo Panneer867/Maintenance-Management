@@ -63,6 +63,7 @@
 					<th class="all">Sub Total</th>					
 					<th class="all">Grand Total</th>
 					<th class="all">Billled On</th>
+					<th class="all">Approved Date</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -77,6 +78,7 @@
 					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksList.subTotal}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedOutwardStocksList.grandTotal}"></label></td>					
 					<td th:text="${approvedOutwardStocksList.billedOn}"></td>
+					<td th:text="${#dates.format(approvedOutwardStocksList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<a class="btn btn-success p-1 mx-2" th:href="@{'/stocks/outward/approved/list/items/' + ${approvedOutwardStocksList.workOrderNo} }">View</a>
 						

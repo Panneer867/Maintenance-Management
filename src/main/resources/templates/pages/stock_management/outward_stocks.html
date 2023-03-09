@@ -110,7 +110,7 @@
 										<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
 											alt="image" />
 									</td>
-<td th:text="${getWorkOrderItem.stockType == 'ML' ? 'Material' :
+									<td th:text="${getWorkOrderItem.stockType == 'ML' ? 'Material' :
 					                 getWorkOrderItem.stockType == 'SP' ? 'Spare' :
 					                 getWorkOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
 					                 getWorkOrderItem.stockType}"></td>
@@ -196,7 +196,7 @@
 												<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
 												<div class="col-sm-8">
 													<div class="input-group">
-														<input type="hidden" name="igst" id="get-igst-outward"/>
+														<input type="hidden" name="igst" id="get-igst-outward" />
 														<input type="number" class="form-control igst-outward"
 															required />
 														<div class="input-group-prepend">

@@ -74,7 +74,7 @@
 					<th class="all">Sub Total</th>
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
-					<th class="all">Entry Date</th>
+					<th class="all">Approved Date</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -91,7 +91,7 @@
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.subTotal}"></label></td>
 					<td><label class="px-1" th:text="${approvedSparesList.igst}"></label>%</td>
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.grandTotal}"></label></td>
-					<td th:text="${approvedSparesList.entryDate}"></td>
+					<td th:text="${#dates.format(approvedSparesList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<button
 							th:onclick="|getSpareDetails('/approvals/inward/approved/spares/get/${approvedSparesList.approvedSpareId}')|"

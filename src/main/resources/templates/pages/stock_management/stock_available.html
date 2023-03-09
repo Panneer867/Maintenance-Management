@@ -64,13 +64,14 @@
 								<th class="all">Image</th>
 								<th class="all">Supplier</th>
 								<th class="all">Stock Type</th>
+								<th class="all">Availability</th>
 								<th class="all">Qty</th>
 								<th class="all">Cost</th>
 								<th class="all">MRP</th>
 								<th class="all">Sub Total</th>
 								<th class="all">GST</th>
 								<th class="all">Grand Total</th>
-								<th class="all">Entry Date</th>
+								<th class="all">Approved Date</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -79,21 +80,26 @@
 								<td th:text="${allItem.category}"></td>
 								<td th:text="${allItem.itemName}"></td>
 								<td class="text-center thumb">
-						<img th:src="@{${allItem.imagePath} + ${allItem.itemImage}}"
-							alt="image" />
-					</td>
+									<img th:src="@{${allItem.imagePath} + ${allItem.itemImage}}" alt="image" />
+								</td>
 								<td th:text="${allItem.supplier}"></td>
 								<td th:text="${allItem.stockType == 'ML' ? 'Material' :
 					                 allItem.stockType == 'SP' ? 'Spare' :
 					                 allItem.stockType == 'TE' ? 'Tool/Equipment' :
 					                 allItem.stockType}"></td>
+								<td class="text-center"><span th:if="${allItem.quantity} > 0"
+										class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
+									<span th:if="${allItem.quantity} <= 0"
+										class="bg-danger p-1 rounded font-weight-bold text-white">Not
+										Available</span>
+								</td>
 								<td th:text="${allItem.quantity}"></td>
 								<td>&#8377;<label class="px-1" th:text="${allItem.costRate}"></label></td>
 								<td>&#8377;<label class="px-1" th:text="${allItem.mrpRate}"></label></td>
 								<td>&#8377;<label class="px-1" th:text="${allItem.subTotal}"></label></td>
 								<td><label class="px-1" th:text="${allItem.igst}"></label>%</td>
 								<td>&#8377;<label class="px-1" th:text="${allItem.grandTotal}"></label></td>
-								<td th:text="${allItem.entryDate}"></td>
+								<td th:text="${#dates.format(allItem.dateCreated, 'dd/MM/yyyy ')}"></td>
 
 							</tr>
 						</tbody>
