@@ -1,6 +1,6 @@
-$.getJSON('/graph/stocks/inward', function(data) {
-	
-	console.log(data);
+$.getJSON('/graph/stocks/lastthreemonths', function(data) {
+
+	//console.log(data);
 
 	const result = {};
 	data.forEach((item) => {
@@ -11,9 +11,9 @@ $.getJSON('/graph/stocks/inward', function(data) {
 			result[item.month_name][item.type] = item.total_quantity;
 		}
 	});
-	
-	console.log(result);
-	
+
+	//console.log(result);
+
 	const monthCategories = Object.keys(result);
 	const typeCategories = ['MATERIALS', 'SPARES', 'TOOLS'];
 	const seriesData = typeCategories.map((type) => {
@@ -24,15 +24,15 @@ $.getJSON('/graph/stocks/inward', function(data) {
 
 	Highcharts.chart('container', {
 		title: {
-			text: 'Stocks Month Wise',
+			text: 'Month Wise Stocks ',
 			align: 'center'
 		},
 		xAxis: {
-			categories: typeCategories
+			categories: monthCategories
 		},
 		yAxis: {
 			title: {
-				text: 'Stocks'
+				text: 'Available Stocks'
 			}
 		},
 		tooltip: {
@@ -40,15 +40,15 @@ $.getJSON('/graph/stocks/inward', function(data) {
 		},
 		series: [{
 			type: 'column',
-			name: monthCategories[0],
+			name: typeCategories[0],
 			data: seriesData[0]
 		}, {
 			type: 'column',
-			name: monthCategories[1],
+			name: typeCategories[1],
 			data: seriesData[1]
 		}, {
 			type: 'column',
-			name: monthCategories[2],
+			name: typeCategories[2],
 			data: seriesData[2]
 		}]
 	});

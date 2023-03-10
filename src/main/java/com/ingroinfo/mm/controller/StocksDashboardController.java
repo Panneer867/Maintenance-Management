@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Types;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +25,8 @@ public class StocksDashboardController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@GetMapping("/inward")
-	public @ResponseBody String getSalesData() {
+	@GetMapping("/lastthreemonths")
+	public @ResponseBody String getStocksThree() {
 
 		List<Map<String, Object>> stocksData = new ArrayList<>();
 		try (Connection con = jdbcTemplate.getDataSource().getConnection();
@@ -55,5 +54,21 @@ public class StocksDashboardController {
 			return null;
 		}
 
+	}
+
+	@GetMapping("/allmonths")
+	public @ResponseBody List<Map<String, Object>> getMonthlyTotalQuantity() {
+		
+		String query = "SELECT TO_CHAR(date_created, 'Mon') AS month_name, " + "TO_CHAR(date_created, 'YYYY') AS year, "
+				+ "SUM(quantity) AS total_quantity "
+				+ "FROM (SELECT date_created, quantity FROM MM_INWARD_APPROVED_SPARES "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
+				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_MATERIALS "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
+				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_TOOLS "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12)) all_tables "
+				+ "GROUP BY TO_CHAR(date_created, 'Mon'), TO_CHAR(date_created, 'YYYY') ORDER BY TO_DATE(year || month_name || '01', 'YYYYMonDD') ASC";
+		
+		return jdbcTemplate.queryForList(query);
 	}
 }
