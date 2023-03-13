@@ -1,6 +1,3 @@
-$.getJSON('/stocks/dashboard/outward', function(data) {
-
-	console.log(data);
 
 
 	Highcharts.chart('container1', {
@@ -11,7 +8,7 @@ $.getJSON('/stocks/dashboard/outward', function(data) {
 			text: 'Outward Stocks'
 		},
 		xAxis: {
-			categories: data.map(entry => entry.month_name)
+			categories: []
 		},
 		yAxis: {
 			min: 0,
@@ -30,13 +27,12 @@ $.getJSON('/stocks/dashboard/outward', function(data) {
 		},
 		series: [{
 			name: 'Materials',
-			data: data.map(entry => entry.material_quantity)
+			data: []
 		}, {
 			name: 'Spares',
-			data: data.map(entry => entry.spare_quantity)
+			data: []
 		}, {
 			name: 'Tools',
-			data: data.map(entry => entry.tool_quantity)
+			data: []
 		}]
 	});
-});
