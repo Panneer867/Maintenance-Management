@@ -3,17 +3,7 @@
 <body>
 	<section>
 		<!-- form Start-->
-		<div class="mx-auto col-12 mt-5 id-master-form">
-			<!-- Message Alert Field -->
-			<!--<div th:if="${session.message}" class="alert_field">
-				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
-				</div>
-				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-			</div>-->
-			<!-- End of Message Alert Field -->
-
-
+		<div class="mx-auto col-12 mt-5 id-master-form">			
 			<div class="card bl-cr">
 				<div class="card-header text-center heading-bg text-white">
 					<h3 class="mb-0"> ID Master</h3>
@@ -34,7 +24,7 @@
 										name="masterIdName" value="Asset Id" required readonly="true">								
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="assert-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="assert-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -53,7 +43,7 @@
 										name="masterIdName" value="Branch Id" required readonly="true">								
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="branch-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="branch-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -72,7 +62,7 @@
 										name="masterIdName" value="Categaroy Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="category-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="category-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -91,7 +81,7 @@
 										name="masterIdName" value="Company Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="company-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="company-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -110,7 +100,7 @@
 										name="masterIdName" value="Department Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="department-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="department-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -129,7 +119,7 @@
 										name="masterIdName" value="Device Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="device-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="device-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -148,7 +138,7 @@
 										name="masterIdName" value="DMA Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="dma-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="dma-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -167,7 +157,7 @@
 										name="masterIdName" value="Employee Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="employee-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="employee-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -185,7 +175,7 @@
 										name="masterIdName" value="HsnCode Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="hsn-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="hsn-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -204,7 +194,7 @@
 										name="masterIdName" value="Inward Matl Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="in-matl-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="in-matl-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -223,7 +213,7 @@
 										name="masterIdName" value="Spare Matl Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="spare-matl-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="spare-matl-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -242,7 +232,7 @@
 										name="masterIdName" value="Tools/Eqt Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="tool-equi-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="tool-equi-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -261,7 +251,7 @@
 										name="masterIdName" value="Item Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="item-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="item-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -280,7 +270,7 @@
 										name="masterIdName" value="Leakage Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="leakage-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="leakage-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -299,7 +289,7 @@
 										name="masterIdName" value="Meter Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="meter-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="meter-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -318,7 +308,7 @@
 										name="masterIdName" value="Pump Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="pump-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="pump-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -337,7 +327,7 @@
 										name="masterIdName" value="Stock Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="stock-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="stock-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -356,7 +346,7 @@
 										name="masterIdName" value="Vehicle Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="vehicle-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="vehicle-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">
@@ -375,7 +365,7 @@
 										name="masterIdName" value="Ward Id" required readonly="true">
 								</div>
 								<div class="col-sm-2">
-									<input type="text" class="form-control form-control-sm" maxlength="5" id="ward-startNo"
+									<input type="text" class="form-control form-control-sm" maxlength="10" id="ward-startNo"
 										name="statNumber" required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-5">

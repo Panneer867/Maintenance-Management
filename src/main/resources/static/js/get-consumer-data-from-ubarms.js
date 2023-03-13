@@ -197,31 +197,6 @@ $(document).ready(function() {
 			alert("Please Select Job Done/Not Done/Esclate !!");
 			return false;
 		}
-	});
-	
-	//Getting SubDivision From Master According To Division
-	 $("#master-division-list").change(function() {
-		 var division = $("#master-division-list").val();
-		 if(division == ""){
-			 alert("Select Division !!");
-			 return false;
-		 }
-		 var s = '<option value="">--Select--</option>';
-
-			$.ajax({
-				type: "GET",
-				url: "/home/get/subdivision/" + division,
-				success: function(data) {
-					var json = JSON.stringify(data);
-					var jsonobject = JSON.parse(json);
-					for (var i = 0; i < jsonobject.length; i++) {
-						s +=
-							'<option>' + jsonobject[i].subdivision + "</option>";
-					}
-					$("#master-sub-division-list").html(s);					
-				},
-			});
-
-	 });
+	});		
 
 });

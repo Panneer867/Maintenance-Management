@@ -14,11 +14,11 @@ public class UserDto {
 	private String username;
 	private String password;
 	private String email;
-	private String mobile;
+	private String mobile;	
 	private String remarks;
 	private String designation;
 	private String userType;
-	private Long ubarmsUserId;
+	private Long ubarmsUserId; 
 	private Date dateCreated;
 	private Date lastUpdated;
 

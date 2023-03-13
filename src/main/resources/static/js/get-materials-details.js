@@ -123,6 +123,7 @@ function getMaterialDetails(url) {
 				$('#approved-mat-itemImage').attr('src', data.imagePath + data.itemImage);
 				$('#approved-mat-subTotal').text(data.subTotal);
 				$('#approved-mat-grandTotal').text(data.grandTotal);				
+
 			}
 		});
 	}

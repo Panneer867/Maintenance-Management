@@ -14,3 +14,4 @@ function openCity(evt, cityName) {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("work-order-btn").click();
+

@@ -17,10 +17,10 @@ public class VehicleDtlsSeviceImpl implements VehicleDtlsService {
 
 	@Autowired
 	private VehicleDtlsRepository vehicleDtlsRepo;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Override
 	public VehicleDtlsDto saveVDtls(VehicleDtlsDto vehicleDtlsDto) {
 		VehicleDtls conVehicleDtls = this.modelMapper.map(vehicleDtlsDto, VehicleDtls.class);
@@ -31,8 +31,8 @@ public class VehicleDtlsSeviceImpl implements VehicleDtlsService {
 	@Override
 	public List<VehicleDtlsDto> findAllVehicleDtls() {
 		List<VehicleDtls> vehicleDtlss = this.vehicleDtlsRepo.findAll();
-		List<VehicleDtlsDto> vehicleDtlsDtos = vehicleDtlss.stream().map((vehicle) -> 
-		this.modelMapper.map(vehicle, VehicleDtlsDto.class)).collect(Collectors.toList());
+		List<VehicleDtlsDto> vehicleDtlsDtos = vehicleDtlss.stream()
+				.map((vehicle) -> this.modelMapper.map(vehicle, VehicleDtlsDto.class)).collect(Collectors.toList());
 		return vehicleDtlsDtos;
 	}
 
@@ -46,6 +46,25 @@ public class VehicleDtlsSeviceImpl implements VehicleDtlsService {
 	public String getMaxVehicleId() {
 		String maxVehicleId = this.vehicleDtlsRepo.getMaxVehicleId();
 		return maxVehicleId;
+	}
+
+	@Override
+	public List<String> getAllVehicleTypes() {
+		List<String> vehicleTypes = this.vehicleDtlsRepo.getAllVehicleTypes();
+		return vehicleTypes;
+	}
+
+	@Override
+	public List<VehicleDtlsDto> getVehiclesByVehicleType(String vehicleType) {
+		List<VehicleDtls> vehicleDtls = this.vehicleDtlsRepo.findByVehicleType(vehicleType);
+		return vehicleDtls.stream().map((vehicle) -> this.modelMapper.map(vehicle, VehicleDtlsDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public VehicleDtlsDto getVehicleDtlsByVehicleDtlsId(Long vehicleId) {
+		VehicleDtls vehicleDtls = this.vehicleDtlsRepo.findById(vehicleId).get();
+		return this.modelMapper.map(vehicleDtls, VehicleDtlsDto.class);
 	}
 
 }

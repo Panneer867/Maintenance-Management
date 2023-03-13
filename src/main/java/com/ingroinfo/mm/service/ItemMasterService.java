@@ -5,22 +5,25 @@ import com.ingroinfo.mm.dto.ItemMasterDto;
 
 public interface ItemMasterService {
 
-	//save Data
+	// save Data
 	ItemMasterDto saveItemmaster(ItemMasterDto itemDto);
-	
-	//find All Data
+
+	// find All Data
 	List<ItemMasterDto> getAllItems();
-	
-	//Delete
+
+	// Delete
 	void deleteMasterItem(Long itemMasterId);
-	
-	//get Max Item Id
+
+	// get Max Item Id
 	String getMaxItemId();
 
-	//Get Item List By Category Name
-	List<ItemMasterDto> getItemListByCategory(String category);
+	// Get Item List By Category Id
+	List<ItemMasterDto> getItemListByCategoryId(Long categoryId);
 
-	//Get Item List By Stock Type
+	// Get Item List By Item Id
+	ItemMasterDto getItemByItemId(Long itemId);
+
+	// Get Item List By Stock Type
 	List<ItemMasterDto> getAllItemNames(String stockType);
-	
+
 }

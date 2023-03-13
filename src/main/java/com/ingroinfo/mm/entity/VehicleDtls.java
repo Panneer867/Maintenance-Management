@@ -18,8 +18,8 @@ public class VehicleDtls {
 	private Long vehicleDtlsId;
 	@Column(name="VEHICLE_ID",length = 10)
 	private String vehicleId;
-	@Column(name="VEHICLE_NO",length = 30)
-	private String vehicleNo;
+	@Column(name="DRIVER_NAME",length = 130)
+	private String driverName;
 	@Column(name="VEHICLE_TYPE",length = 100)
 	private String vehicleType;
 	@Column(name="RC_NO",length = 30)
@@ -32,4 +32,11 @@ public class VehicleDtls {
 	private String insurancNo;
 	@Column(name="INSURANCE_TYPE",length = 100)
 	private String insurancType;
+	@Column(name="DRIVER_CONTACT_NO",length = 13)
+	private String driverMob;
+	@Column(name="VEHICLE_NO",length = 50)
+	private String vehicleNo;
+	@Column(name="DRIVER_ADDR",length = 150)
+	private String driverAddr;
+	
 }

@@ -13,7 +13,7 @@ import com.ingroinfo.mm.service.EmployeeMasterService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private EmployeeMasterService employeeMasterService;
 	
@@ -21,20 +21,19 @@ public class HomeController {
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-	
+
 	@GetMapping("/home")
 	public String Home() {
-		
+
 		return "/dashboard";
-	}	
-	
-	
+	}
+
 	@GetMapping("/approval")
 	@PreAuthorize("hasAuthority('APPROVALS')")
 	public String hrApprovals(Model model) {
 		String keyword = "NO";
 		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
-		model.addAttribute("listOfEmployees", listOfEmployees);		
+		model.addAttribute("listOfEmployees", listOfEmployees);
 		model.addAttribute("leaveData", new EmployeeLeaveDto());
 		return "/pages/hr_approvals";
 	}

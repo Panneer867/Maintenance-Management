@@ -12,8 +12,8 @@ public interface HsnCodeService {
 	List<HsnCodeDto> findAllHsnCode();
 	
 	//Delete
-	void deleteHsnCode(Long hsnCodeId);
-
-	//get HsnCode By Category
-	HsnCodeDto getHsnCodeByCategory(String category);
+	void deleteHsnCode(Long hsnCodeId);	
+	
+	//Get HsnCode By CategoryId
+	HsnCodeDto getHsnCodeDtoByCategory(Long categoryId);
 }

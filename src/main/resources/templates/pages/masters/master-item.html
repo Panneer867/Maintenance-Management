@@ -33,7 +33,7 @@
 										name="category" required>
 										<option value="">--Select--</option>
 										<option th:each ="categoies:${categoryList}"
-										        th:value="${categoies.categoryName}"
+										        th:value="${categoies.catid}"
 										        th:text="${categoies.categoryName}"></option>										
 									</select>
 								</div>
@@ -104,7 +104,7 @@
 						<td><a href="#" th:onclick="|deleteMasterItem(${items.itemMasterId})|">
 								<span th:text="${items.itemId}"></span></a>
 						</td>												
-						<td th:text="${items.category}"></td>
+						<td th:text="${items.categoryName}"></td>
 						<td th:text="${items.hsnCode}"></td>
 						<td th:text="${items.itemName}"></td>
 						<td th:text="${items.description}"></td>

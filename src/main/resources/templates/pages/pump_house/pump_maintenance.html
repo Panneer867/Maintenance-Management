@@ -26,7 +26,7 @@
 						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 					</div>
 					<!-- End of Message Alert Field -->					
-					<form th:action="@{/pump/savepump-maintenance}" method="post" th:object="${pumps}">
+					<form th:action="@{/pump/save/index}" method="post" th:object="${pumps}">
 						<div class="row ">
 							<div class="col-3 text-start">
 								<label for="pumpId" class="col-sm-10 col-form-label">Pump Id</label>

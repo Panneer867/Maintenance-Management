@@ -231,7 +231,7 @@
 								</span>
 							</a>
 						</li>
-						<li class="m-menu__item  m-menu__item--submenu" id="expand-stocks" aria-haspopup="true"
+							<li class="m-menu__item  m-menu__item--submenu" id="expand-stocks" aria-haspopup="true"
 							data-menu-submenu-toggle="hover">
 							<a href="#" class="m-menu__link m-menu__toggle">
 								<img th:src="@{/images/menu_icons/Stokc Management.png}" class="menu-icon-size pt-1">
@@ -304,9 +304,8 @@
 											</span>
 										</a>
 									</li>
-									
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/stocks/return/entry' ? 'm-menu__item--active sub-menu-active':''}">
+
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="stocks-return">
 										<a th:href="@{/stocks/return/entry}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>

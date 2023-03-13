@@ -23,14 +23,14 @@
 							<div class="card-body font-weight-bold">
 								<div class="tab">
 									<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-										onclick="openCity(event, 'MaterialIssued')" id="work-order-btn">PART /
+										    onclick="openCity(event, 'MaterialIssued')" id="work-order-btn">PART /
 										MATERIAL
 									</button>
 									<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-										id="hold-labour-work-btn" onclick="openCity(event, 'LabourTime')">LABOUR /
+										id="hold-labour-work-tab-btn" onclick="openCity(event, 'LabourTime')">LABOUR /
 										TIMES</button>
 									<button class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-										id="hold-vehicle-work-btn" onclick="openCity(event, 'VehicleTime')">VEHICLE
+										id="hold-vehicle-work-tab-btn" onclick="openCity(event, 'VehicleTime')">VEHICLE
 										/ TIMING
 									</button>
 								</div>
@@ -39,43 +39,43 @@
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent No</label>
 											<input type="text" class="form-control form-control-sm bg-white"
-												id="indentNo" name="indentNo" placeholder="Indent No"
+												id="pump-spare-indentNo" name="indentNo" placeholder="Indent No"
 												th:value="${deptMaster.deptId}" readonly>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent Department</label>
 											<input type="text" class="form-control form-control-sm bg-white"
-												id="indentDepartement" readonly name="indentDepartement"
+												id="pump-spare-indentDept" readonly name="indentDepartement"
 												placeholder="Indent Department" th:value="${deptMaster.deptName}">
 										</div>
 
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Compl No</label>
 											<input type="text" class="form-control form-control-sm bg-white"
-												id="workpriority-labour" th:value="${complDtls.complNo}" readonly
+												id="pump-spare-complNo" th:value="${complDtls.complNo}" readonly
 												name="workPriority" placeholder="Enter Compl No">
 										</div>
 
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Compl Category</label>
 											<input type="text" class="form-control form-control-sm bg-white"
-												id="workpriority-labour" th:value="${complDtls.subCategory}" readonly
-												name="workPriority" placeholder="Enter Compl Category">
+												id="pump-spare-complCategory" th:value="${complDtls.subCategory}"
+												readonly name="workPriority" placeholder="Enter Compl Category">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Division</label>
-											<select type="text" class="form-select form-select-sm" id="master-division-list"
-												name="division">
-												<option>--Select--</option>
+											<select type="text" class="form-select form-select-sm"
+												id="master-division-list" name="division">
+												<option value="">--Select--</option>
 												<option th:each="divisions: ${divSubDivList}" th:text="${divisions}">
 												</option>
 											</select>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Sub Division</label>
-											<select type="text" class="form-select form-select-sm" id="master-sub-division-list"
-												name="subDivision">
-												<option>--Select--</option>											
+											<select type="text" class="form-select form-select-sm"
+												id="master-sub-division-list" name="subDivision">
+												<option value="">--Select--</option>
 											</select>
 										</div>
 
@@ -83,46 +83,44 @@
 											<label for="inputEmail4">Work Site</label>
 											<input type="text"
 												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" required
+												id="pupm-parts-workSite" name="workSite" required
 												placeholder="Write WorkSite Address Here">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected Start Date</label>
 											<input type="date" class="form-control form-control-sm"
-												id="expectedStartDate" name="expectedStartDate" required>
+												id="pupm-parts-startDate" name="expectedStartDate" required>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected End Date</label>
-											<input type="date" class="form-control form-control-sm" id="expectedEndDate"
-												name="expectedEndDate" required>
+											<input type="date" class="form-control form-control-sm"
+												id="pupm-parts-endDate" name="expectedEndDate" required>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Contact</label>
-											<input type="text" class="form-control form-control-sm" id="contact"
-												name="contact" placeholder="Enter Contact Number" required>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Total Order Cost</label>
-											<input type="text" class="form-control form-control-sm" id="workOrderCost"
-												name="workOrderCost" placeholder="Work Order Cost" required>
-										</div>
-										<div class="form-group col-md-9">
-											<label for="inputEmail4">Complaint Details</label>
-											<textarea type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" th:field="*{complDtls.complDetails}"
-												placeholder="Write Complaint Details"></textarea>
+											<input type="text" class="form-control form-control-sm"
+												id="pupm-parts-contactNo" name="contact"
+												placeholder="Enter Contact Number" required maxlength="10">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Work Priority</label>
 											<select type="text" class="form-select form-select-sm"
-												id="workpriority-labour" name="workPriority">
+												id="pupm-parts-workPriority" name="workPriority">
 												<option value="">--Select--</option>
 												<option value="High">High</option>
 												<option value="Midum">Midum</option>
 												<option value="Low">Low</option>
 											</select>
 										</div>
+										<div class="form-group col-md-12">
+											<label for="inputEmail4">Complaint Details</label>
+											<textarea type="text"
+												class="form-control form-control-sm"
+												id="pupm-parts-complDtls" name="workSite"
+												th:field="*{complDtls.complDetails}"
+												placeholder="Write Complaint Details"></textarea>
+										</div>
+
 									</div>
 
 
@@ -137,56 +135,63 @@
 												<div class="row mt-3">
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Category</label>
-														<select class="form-select form-select-sm" id="item-category"
-															name="category">
+														<select class="form-select form-select-sm"
+															id="item-master-category" name="category">
 															<option value="">--Select--</option>
 															<option th:each="categories:${categoryList}"
-																th:value="${categories.categoryName}" th:text="${categories.categoryName}">
+																th:value="${categories.catid}"
+																th:text="${categories.categoryName}">
 															</option>
 														</select>
 													</div>
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Item</label>
-														<select class="form-select form-select-sm" id="pump-item-list"
-															name="itemName">
-															<option value="">--Select--</option>															
+														<select class="form-select form-select-sm"
+															id="pump-spare-item-list" name="itemName">
+															<option value="">--Select--</option>
 														</select>
 													</div>
 
 													<div class="form-group col-md-4">
 														<label for="hsnCode">HSNCODE</label>
-														<input type="text" class="form-control form-control-sm bg-white" readonly
-															id="pump-hsnCode" name="hsnCode" placeholder="Enter Hsn Code">
+														<input type="text" class="form-control form-control-sm bg-white"
+															readonly id="pump-spare-hsnCode" name="hsnCode"
+															placeholder="Enter Hsn Code">
 													</div>
 												</div>
 												<div class="row mt-3">
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Unit of Meassure</label>
-														<input type="text" class="form-control form-control-sm"
-															id="unitMeassure" name="unitMeassure"
-															placeholder="Unit of Meassure">
+														<select type="text" class="form-select form-select-sm"
+															id="pump-spare-unitMesure" name="unitMeassure">
+															<option value="">--Select--</option>
+															<option th:each="units:${unitsList}"
+																th:value="${units.unitType}"
+																th:text="${units.unitType}">
+															</option>
+														</select>
 													</div>
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Qty</label>
 														<input type="number" class="form-control form-control-sm"
-															id="gentrMaterialQty" name="gentrMaterialQty"
-															placeholder="Qty">
+															id="pump-spare-qantity" name="gentrMaterialQty"
+															placeholder="Qty" required>
 													</div>
 
 													<div class="form-group col-md-4">
-														<label for="inputEmail4">Amount</label>
-														<input type="number" class="form-control form-control-sm"
-															id="gentrMaterialAmount" name="gentrMaterialAmount"
-															placeholder="Amount">
+														<label for="inputEmail4">Stock Type</label>
+														<input type="text" class="form-control form-control-sm bg-white"
+															readonly id="pump-spare-stockType" name=""
+															placeholder="Enter Stock Type">
 													</div>
 													<div class="text-center mt-2">
-														<button type="button" id="gen-add-category"
+														<button type="button" id="pump-parts-addbutton"
 															class="btn btn-primary w-25 text-center">Add</button>
 													</div>
 												</div>
 											</div>
 											<div class="card-footer">
-												<table
+												<table id="myTable"
 													class="table table-stock table-bordered table table-success table-striped table-hover">
 													<thead>
 														<tr>
@@ -196,20 +201,19 @@
 															<th>HSNCode</th>
 															<th>Unit of Meassure</th>
 															<th>Qty</th>
-															<th>Amount</th>
+															<th>Stock Type</th>
+															<th></th>
 														</tr>
 													</thead>
-													<tbody class="category-item-display">
+													<tbody>
 													</tbody>
 												</table>
 
 											</div>
 										</div>
 									</div>
-									<div class=" text-center mt-4">
-										<button id="gen-submit" class="btn btn-primary w-25 text-center">Submit</button>
-										<button id="gen-next-EmpCat"
-											class="btn btn-primary w-25 text-center">Next</button>
+									<div class=" text-center mt-4">									
+										<button id="pump-material-next" class="btn btn-primary w-25 text-center">Next</button>
 									</div>
 
 
@@ -246,54 +250,49 @@
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Division">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Division">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Sub Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Sub Division">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Sub Division">
 										</div>
 
 										<div class="form-group col-md-6">
 											<label for="inputEmail4">Work Site</label>
 											<input type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" required
+												class="form-control form-control-sm form-control form-control-sm-sm bg-white"
+												id="workSite" name="workSite" required readonly
 												placeholder="Write WorkSite Address Here">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected Start Date</label>
-											<input type="date" class="form-control form-control-sm"
-												id="expectedStartDate" name="expectedStartDate" required>
+											<input type="text" class="form-control form-control-sm bg-white" placeholder="Enter Expected Start Date"
+												id="expectedStartDate" name="expectedStartDate" required readonly>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected End Date</label>
-											<input type="date" class="form-control form-control-sm" id="expectedEndDate"
-												name="expectedEndDate" required>
+											<input type="text" class="form-control form-control-sm bg-white" id="expectedEndDate"
+												name="expectedEndDate" required readonly placeholder="Enter Expected End Date">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Contact</label>
-											<input type="text" class="form-control form-control-sm" id="contact"
-												name="contact" placeholder="Enter Contact Number" required>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Total Order Cost</label>
-											<input type="text" class="form-control form-control-sm" id="workOrderCost"
-												name="workOrderCost" placeholder="Work Order Cost" required>
-										</div>
-										<div class="form-group col-md-9">
-											<label for="inputEmail4">Complaint Details</label>
-											<textarea type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" th:field="*{complDtls.complDetails}"
-												placeholder="Write Complaint Details"></textarea>
+											<input type="text" class="form-control form-control-sm bg-white" id="contact"
+												name="contact" placeholder="Enter Contact Number" required readonly>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Work Priority</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Work Priority">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Work Priority">
 										</div>
+										<div class="form-group col-md-12">
+											<label for="inputEmail4">Complaint Details</label>
+											<textarea type="text"
+												class="form-control form-control-sm bg-white"
+												id="workSite" name="workSite" th:field="*{complDtls.complDetails}"
+												placeholder="Write Complaint Details" readonly></textarea>
+										</div>										
 									</div>
 
 									<div class="col-md-12 mt-3">
@@ -358,9 +357,7 @@
 									</div>
 
 
-									<div class=" text-center mt-4">
-										<button type="submit" id="gen-emplabours-submit"
-											class="btn btn-primary w-25 text-center">Submit</button>
+									<div class=" text-center mt-4">								
 										<button type="submit" id="gen-next-EmpCat"
 											class="btn btn-primary w-25 text-center">Next</button>
 									</div>
@@ -402,54 +399,49 @@
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Division">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Division">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Sub Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Sub Division">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Sub Division">
 										</div>
 
 										<div class="form-group col-md-6">
 											<label for="inputEmail4">Work Site</label>
 											<input type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" required
+												class="form-control form-control-sm form-control form-control-sm-sm bg-white"
+												id="workSite" name="workSite" required readonly
 												placeholder="Write WorkSite Address Here">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected Start Date</label>
-											<input type="date" class="form-control form-control-sm"
-												id="expectedStartDate" name="expectedStartDate" required>
+											<input type="text" class="form-control form-control-sm bg-white" placeholder="Enter Expected Start Date"
+												id="expectedStartDate" name="expectedStartDate" required readonly>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected End Date</label>
-											<input type="date" class="form-control form-control-sm" id="expectedEndDate"
-												name="expectedEndDate" required>
+											<input type="text" class="form-control form-control-sm bg-white" id="expectedEndDate"
+												name="expectedEndDate" required readonly placeholder="Enter Expected End Date">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Contact</label>
-											<input type="text" class="form-control form-control-sm" id="contact"
-												name="contact" placeholder="Enter Contact Number" required>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Total Order Cost</label>
-											<input type="text" class="form-control form-control-sm" id="workOrderCost"
-												name="workOrderCost" placeholder="Work Order Cost" required>
-										</div>
-										<div class="form-group col-md-9">
-											<label for="inputEmail4">Complaint Details</label>
-											<textarea type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="workSite" name="workSite" th:field="*{complDtls.complDetails}"
-												placeholder="Write Complaint Details"></textarea>
+											<input type="text" class="form-control form-control-sm bg-white" id="contact"
+												name="contact" placeholder="Enter Contact Number" required readonly>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Work Priority</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="" readonly name="" placeholder="Enter Work Priority">
+											<input type="text" class="form-control form-control-sm bg-white" id=""
+												readonly name="" placeholder="Enter Work Priority">
 										</div>
+										<div class="form-group col-md-12">
+											<label for="inputEmail4">Complaint Details</label>
+											<textarea type="text"
+												class="form-control form-control-sm bg-white"
+												id="workSite" name="workSite" th:field="*{complDtls.complDetails}"
+												placeholder="Write Complaint Details" readonly></textarea>
+										</div>										
 									</div>
 
 									<div class="col-md-12 mt-3">
@@ -517,6 +509,7 @@
 															<th>Driver Contact No</th>
 															<th>ODO Meter Reading</th>
 															<th>Start Time</th>
+															<th>&nbsp;</th>
 														</tr>
 													</thead>
 													<tbody class="vehicle-labour-display">
@@ -527,9 +520,7 @@
 									</div>
 									<div class=" text-center mt-4">
 										<button id="gen-vehicle-submit"
-											class="btn btn-primary w-25 text-center">Submit</button>
-										<button type="submit" id="gen-next-EmpCat"
-											class="btn btn-primary w-25 text-center">Next</button>
+											class="btn btn-primary w-25 text-center">Submit</button>										
 									</div>
 								</div>
 							</div>

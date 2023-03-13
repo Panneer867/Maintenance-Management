@@ -19,7 +19,8 @@ public class HsnCodeServiceImpl implements HsnCodeService {
 	private ModelMapper modelMapper;
 	
 	@Override
-	public HsnCodeDto saveHsnCode(HsnCodeDto hsnCodeDto) {
+	public HsnCodeDto saveHsnCode(HsnCodeDto hsnCodeDto) {	
+		 hsnCodeDto.setCategoryName(hsnCodeDto.getCategory().getCategoryName());
 		 HsnCode conHsnCode = this.modelMapper.map(hsnCodeDto, HsnCode.class);
 		 HsnCode savedHsnCode = this.hsnCodeRepo.save(conHsnCode);
 		 return this.modelMapper.map(savedHsnCode, HsnCodeDto.class);
@@ -40,9 +41,9 @@ public class HsnCodeServiceImpl implements HsnCodeService {
 	}
 
 	@Override
-	public HsnCodeDto getHsnCodeByCategory(String category) {
-		HsnCode hsnCode = this.hsnCodeRepo.findByCategory(category);
+	public HsnCodeDto getHsnCodeDtoByCategory(Long categoryId) {
+		HsnCode hsnCode = this.hsnCodeRepo.findHsnCodeByCategory(categoryId);
 		return this.modelMapper.map(hsnCode, HsnCodeDto.class);
-	}
+	}		
 
 }

@@ -17,9 +17,10 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 	ItemMasterRepository itemMasterRepo;
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@Override
 	public ItemMasterDto saveItemmaster(ItemMasterDto itemDto) {
+		itemDto.setCategoryName(itemDto.getCategory().getCategoryName());
 		ItemMaster convItemMaster = this.modelMapper.map(itemDto, ItemMaster.class);
 		ItemMaster savedItemMaster = this.itemMasterRepo.save(convItemMaster);
 		return this.modelMapper.map(savedItemMaster, ItemMasterDto.class);
@@ -28,8 +29,9 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 	@Override
 	public List<ItemMasterDto> getAllItems() {
 		List<ItemMaster> itemMasters = this.itemMasterRepo.findAll();
-		List<ItemMasterDto> itemMasterDtos = itemMasters.stream().map((itemMaster) -> 
-		this.modelMapper.map(itemMaster, ItemMasterDto.class)).collect(Collectors.toList());
+		List<ItemMasterDto> itemMasterDtos = itemMasters.stream()
+				.map((itemMaster) -> this.modelMapper.map(itemMaster, ItemMasterDto.class))
+				.collect(Collectors.toList());
 		return itemMasterDtos;
 	}
 
@@ -46,17 +48,23 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 	}
 
 	@Override
-	public List<ItemMasterDto> getItemListByCategory(String category) {
-		List<ItemMaster> itemMasterDtos = this.itemMasterRepo.findByCategory(category);
-		return itemMasterDtos.stream().map((items) -> 
-		this.modelMapper.map(items, ItemMasterDto.class)).collect(Collectors.toList());		
+	public List<ItemMasterDto> getItemListByCategoryId(Long categoryId) {
+		List<ItemMaster> itemMasters = this.itemMasterRepo.findItemsByCategoryId(categoryId);
+		return itemMasters.stream().map((items) -> this.modelMapper.map(items, ItemMasterDto.class))
+				.collect(Collectors.toList());
 	}
 
+	@Override
+	public ItemMasterDto getItemByItemId(Long itemId) {	
+		ItemMaster itemMaster = this.itemMasterRepo.findById(itemId).get();
+		return this.modelMapper.map(itemMaster, ItemMasterDto.class);
+	}
+
+	
 	@Override
 	public List<ItemMasterDto> getAllItemNames(String stockType) {
 		List<ItemMasterDto> itemMasterDtos = this.itemMasterRepo.findByStockType(stockType).stream().map((itemMaster) -> 
 		this.modelMapper.map(itemMaster, ItemMasterDto.class)).collect(Collectors.toList());
 		return itemMasterDtos;
 	}
-
 }

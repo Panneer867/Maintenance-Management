@@ -104,7 +104,7 @@ public class MasterController {
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-	
+
 	@Autowired
 	private IdMasterService idMasterService;
 	@Autowired
@@ -192,14 +192,14 @@ public class MasterController {
 	}
 
 	@GetMapping("/department")
-	public String openMasterDepartmentPage(Model model,HttpSession session) {
+	public String openMasterDepartmentPage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
-		model.addAttribute("title", "Master | Department | Manintenance Management");		
+		model.addAttribute("title", "Master | Department | Manintenance Management");
 		try {
-			String maxdepartmentId = this.departmentService.getMaxDepartmentId();		     
+			String maxdepartmentId = this.departmentService.getMaxDepartmentId();
 			if (maxdepartmentId != null) {
 				int newStartId = Integer.parseInt(maxdepartmentId) + 1;
-				model.addAttribute("maxdeptId", newStartId+"");
+				model.addAttribute("maxdeptId", newStartId + "");
 			} else {
 				String idName = "Department Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -207,17 +207,18 @@ public class MasterController {
 				model.addAttribute("maxdeptId", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Department Id Is Not Pressent Please Add Id First !!","danger"));
-			 System.out.println("Exception :: " + e.getMessage ()); 
+			session.setAttribute("message",
+					new Message("Department Id Is Not Pressent Please Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
 		}
 		try {
-			List<DepartmentDto> departmentDtos= this.departmentService.getDepartmentsFromUbarms();
-		     if (departmentDtos !=null) {
+			List<DepartmentDto> departmentDtos = this.departmentService.getDepartmentsFromUbarms();
+			if (departmentDtos != null) {
 				model.addAttribute("departmentList", departmentDtos);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Ubarms Server Is Not Running !!","danger"));
-			 System.out.println("Exception :: " + e.getMessage ()); 
+			session.setAttribute("message", new Message("Ubarms Server Is Not Running !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
 		}
 		return "/pages/masters/master-department";
 	}
@@ -238,21 +239,21 @@ public class MasterController {
 	}
 
 	@GetMapping("/category")
-	public String openMasterCategoryPage(Model model,HttpSession session) {
+	public String openMasterCategoryPage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Category | Manintenance Management");
-		
+
 		try {
 			List<BrandMasterDto> brandMasterDtos = this.brandMasterService.getAllBrandMasters();
 			model.addAttribute("brandList", brandMasterDtos);
 		} catch (Exception e) {
-			System.out.println("Something Wrong !!"+e.getMessage());
+			System.out.println("Something Wrong !!" + e.getMessage());
 		}
 		try {
 			String maxCategoryId = this.categoryService.getMaxCategoryId();
 			if (maxCategoryId != null) {
 				int newStartId = Integer.parseInt(maxCategoryId) + 1;
-				model.addAttribute("maxcategoryid", newStartId+"");
+				model.addAttribute("maxcategoryid", newStartId + "");
 			} else {
 				String idName = "Categaroy Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -260,10 +261,11 @@ public class MasterController {
 				model.addAttribute("maxcategoryid", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Category Id Is Not Pressent Please Add Id First !!","danger"));
-			 System.out.println("Exception :: " + e.getMessage ()); 
+			session.setAttribute("message",
+					new Message("Category Id Is Not Pressent Please Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		return "/pages/masters/master-category";
 	}
 
@@ -272,7 +274,7 @@ public class MasterController {
 		model.addAttribute("title", "Master | Company | Manintenance Management");
 		return "/pages/masters/master-company";
 	}
-	
+
 	@GetMapping("/brand-master")
 	public String openMasterBrandPage(Model model) {
 		model.addAttribute("show", null);
@@ -353,22 +355,29 @@ public class MasterController {
 	}
 
 	@GetMapping("/masteritem")
-	public String openMasterItemPage(Model model,HttpSession session) {
+	public String openMasterItemPage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Item | Manintenance Management");
-		
+
 		try {
-			List<CategoryDto> categoryDtos =this.categoryService.findAllCategory();
+			List<CategoryDto> categoryDtos = this.categoryService.findAllCategory();
 			model.addAttribute("categoryList", categoryDtos);
 		} catch (Exception e) {
-			System.out.println("Something went Wrong "+e.getMessage());
+			System.out.println("Something went Wrong " + e.getMessage());
 		}
-		
+
 		try {
 			String maxItemId = this.itemMasterService.getMaxItemId();
 			if (maxItemId != null) {
-				int nextItemId = Integer.parseInt(maxItemId) + 1;
-				model.addAttribute("masterItemId", nextItemId+"");
+				String letters = maxItemId.substring(0, 4);
+				int number = Integer.parseInt(maxItemId.substring(4));
+				String nextItemId = letters + (number + 1);
+
+				// String ss = "REPEAT_FOR_4";
+				// int vd = Integer.valueOf(maxItemId.substring(maxItemId.length() - 1));
+				// String nextItemId = maxItemId.replaceAll("\\d",String.valueOf(vd+1));
+
+				model.addAttribute("masterItemId", nextItemId);
 			} else {
 				String idName = "Item Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -376,32 +385,32 @@ public class MasterController {
 				model.addAttribute("masterItemId", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Master Item Id Is Not Present Add Id First !!","danger"));
-			System.out.println("Exception :: " + e.getMessage ()); 
+			session.setAttribute("message", new Message("Master Item Id Is Not Present Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		return "/pages/masters/master-item";
 	}
 
 	@GetMapping("/metermanufacture")
-	public String openMeterManufacturePage(Model model,HttpSession session) {
+	public String openMeterManufacturePage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Meter Manufacture | Manintenance Management");
 		try {
 			String maxMeterId = this.meterManufactService.getMaxMeterId();
 			if (maxMeterId != null) {
-				int nextMeterId = Integer.parseInt(maxMeterId)+1;
-				model.addAttribute("meterIdNo", nextMeterId+"");
-			}else {
+				int nextMeterId = Integer.parseInt(maxMeterId) + 1;
+				model.addAttribute("meterIdNo", nextMeterId + "");
+			} else {
 				String idName = "Meter Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
 				String stratNo = idMasterDto.getStatNumber();
 				model.addAttribute("meterIdNo", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Meter Id Is Not Pressent Please Add Id First !!","danger"));
-			System.out.println("Exception ::"+e.getMessage());
-		}		
+			session.setAttribute("message", new Message("Meter Id Is Not Pressent Please Add Id First !!", "danger"));
+			System.out.println("Exception ::" + e.getMessage());
+		}
 		return "/pages/masters/meter-manufacture";
 	}
 
@@ -433,24 +442,24 @@ public class MasterController {
 	}
 
 	@GetMapping("/masterpumps")
-	public String openMasterPumpsPage(Model model,HttpSession session) {
+	public String openMasterPumpsPage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Pumps | Manintenance Management");
 		try {
 			String maxPumpId = this.pumpService.getMaxPumpId();
 			if (maxPumpId != null) {
-				int nextPumpId = Integer.parseInt(maxPumpId)+1;
-				model.addAttribute("masterpumpid", nextPumpId+"");
-			}else {
+				int nextPumpId = Integer.parseInt(maxPumpId) + 1;
+				model.addAttribute("masterpumpid", nextPumpId + "");
+			} else {
 				String idName = "Pump Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
 				String stratNo = idMasterDto.getStatNumber();
 				model.addAttribute("masterpumpid", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!","danger"));
-			System.out.println("Exception :: "+e.getMessage());
-		}		
+			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
+		}
 		return "/pages/masters/master-pumps";
 	}
 
@@ -490,23 +499,23 @@ public class MasterController {
 	}
 
 	@GetMapping("/storebranch")
-	public String openStoreAndBranchNamePage(Model model,HttpSession session) {
+	public String openStoreAndBranchNamePage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		try {
 			String maxStoreBranchId = this.storeBranchService.getMaxStoreBranchId();
 			if (maxStoreBranchId != null) {
-				int nextStoreBranchId = Integer.parseInt(maxStoreBranchId)+1;
-				model.addAttribute("masterbranchid", nextStoreBranchId+"");
-			}else {
-				String masterIdName ="Branch Id";
+				int nextStoreBranchId = Integer.parseInt(maxStoreBranchId) + 1;
+				model.addAttribute("masterbranchid", nextStoreBranchId + "");
+			} else {
+				String masterIdName = "Branch Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(masterIdName);
 				String startNo = idMasterDto.getStatNumber();
 				model.addAttribute("masterbranchid", startNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First","danger"));
-			System.out.println("Exception :: "+e.getMessage());
-		}		
+			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
+		}
 		model.addAttribute("title", "Master | Store/Branch | Manintenance Management");
 		return "/pages/masters/store-branch";
 	}
@@ -530,8 +539,8 @@ public class MasterController {
 				model.addAttribute("ubmdesigList", designationDtos);
 			}
 		} catch (Exception e) {
-			System.out.println("DesignationList Not Found !!"+e.getMessage());
-			
+			System.out.println("DesignationList Not Found !!" + e.getMessage());
+
 		}
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
@@ -566,15 +575,15 @@ public class MasterController {
 	}
 
 	@GetMapping("/mastervehicle")
-	public String openVehicleMasterDetailsPage(Model model,HttpSession session) {
+	public String openVehicleMasterDetailsPage(Model model, HttpSession session) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Vehicle | Manintenance Management");
-		
+
 		try {
 			String maxVehicleId = this.vehicleDtlsService.getMaxVehicleId();
 			if (maxVehicleId != null) {
 				int newStartId = Integer.parseInt(maxVehicleId) + 1;
-				model.addAttribute("vehicleMasterId", newStartId+"");
+				model.addAttribute("vehicleMasterId", newStartId + "");
 			} else {
 				String idName = "Vehicle Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -582,10 +591,11 @@ public class MasterController {
 				model.addAttribute("vehicleMasterId", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Vehicle Id Is Not Present !! Please Add Id First !!","danger"));
-			 System.out.println("Exception :: " + e.getMessage ()); 
+			session.setAttribute("message",
+					new Message("Vehicle Id Is Not Present !! Please Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		return "/pages/masters/master-vehicle";
 	}
 
@@ -620,11 +630,11 @@ public class MasterController {
 	// Handler For Save Department Data
 	@PostMapping("/saveDepartment")
 	public String saveDepartmentMaster(DepartmentDto departmentDto, HttpSession session) {
-		if (departmentDto.getDepartmentId() !="" && departmentDto.getDepartmentName() !="") {
+		if (departmentDto.getDepartmentId() != "" && departmentDto.getDepartmentName() != "") {
 			this.departmentService.saveDepartment(departmentDto);
-		}else {
+		} else {
 			return "redirect:/masters/department";
-		}		
+		}
 		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
 		return "redirect:/masters/department";
 	}
@@ -639,7 +649,7 @@ public class MasterController {
 			String maxdepartmentId = this.departmentService.getMaxDepartmentId();
 			if (maxdepartmentId != null) {
 				int newStartId = Integer.parseInt(maxdepartmentId) + 1;
-				model.addAttribute("maxdeptId", newStartId+"");
+				model.addAttribute("maxdeptId", newStartId + "");
 			} else {
 				String idName = "Department Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -647,17 +657,17 @@ public class MasterController {
 				model.addAttribute("maxdeptId", stratNo);
 			}
 		} catch (Exception e) {
-			System.out.println("Exception :: "+e.getMessage());
+			System.out.println("Exception :: " + e.getMessage());
 		}
 		try {
-			List<DepartmentDto> departmentDtos= this.departmentService.getDepartmentsFromUbarms();
-		     if (departmentDtos !=null) {
+			List<DepartmentDto> departmentDtos = this.departmentService.getDepartmentsFromUbarms();
+			if (departmentDtos != null) {
 				model.addAttribute("departmentList", departmentDtos);
 			}
-		} catch (Exception e) {			
-			 System.out.println("Exception :: " + e.getMessage ()); 
+		} catch (Exception e) {
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		model.addAttribute("title", "Master | Department | Manintenance Management");
 		return "/pages/masters/master-department";
 	}
@@ -827,13 +837,13 @@ public class MasterController {
 			List<BrandMasterDto> brandMasterDtos = this.brandMasterService.getAllBrandMasters();
 			model.addAttribute("brandList", brandMasterDtos);
 		} catch (Exception e) {
-			System.out.println("Something Wrong !!"+e.getMessage());
+			System.out.println("Something Wrong !!" + e.getMessage());
 		}
 		try {
 			String maxCategoryId = this.categoryService.getMaxCategoryId();
 			if (maxCategoryId != null) {
 				int newStartId = Integer.parseInt(maxCategoryId) + 1;
-				model.addAttribute("maxcategoryid", newStartId+"");
+				model.addAttribute("maxcategoryid", newStartId + "");
 			} else {
 				String idName = "Categaroy Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -841,9 +851,9 @@ public class MasterController {
 				model.addAttribute("maxcategoryid", stratNo);
 			}
 		} catch (Exception e) {
-		 System.out.println("Exception :: "+ e.getMessage());	
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		model.addAttribute("title", "Master | Category | Manintenance Management");
 		return "/pages/masters/master-category";
 	}
@@ -1044,18 +1054,20 @@ public class MasterController {
 		List<ItemMasterDto> listOfItems = this.itemMasterService.getAllItems();
 		model.addAttribute("listOfItems", listOfItems);
 		model.addAttribute("show", "show");
-		model.addAttribute("title", "Master | Item | Manintenance Management");		
+		model.addAttribute("title", "Master | Item | Manintenance Management");
 		try {
-			List<CategoryDto> categoryDtos =this.categoryService.findAllCategory();
+			List<CategoryDto> categoryDtos = this.categoryService.findAllCategory();
 			model.addAttribute("categoryList", categoryDtos);
 		} catch (Exception e) {
-			System.out.println("Something went Wrong "+e.getMessage());
+			System.out.println("Something went Wrong " + e.getMessage());
 		}
 		try {
 			String maxItemId = this.itemMasterService.getMaxItemId();
 			if (maxItemId != null) {
-				int nextItemId = Integer.parseInt(maxItemId) + 1;
-				model.addAttribute("masterItemId", nextItemId+"");
+				String letters = maxItemId.substring(0, 4);
+				int number = Integer.parseInt(maxItemId.substring(4));
+				String nextItemId = letters + (number + 1);
+				model.addAttribute("masterItemId", nextItemId);
 			} else {
 				String idName = "Item Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -1063,9 +1075,9 @@ public class MasterController {
 				model.addAttribute("masterItemId", stratNo);
 			}
 		} catch (Exception e) {
-			System.out.println("Exception :: "+ e.getMessage());
+			System.out.println("Exception :: " + e.getMessage());
 		}
-		
+
 		return "/pages/masters/master-item";
 	}
 
@@ -1107,17 +1119,17 @@ public class MasterController {
 		try {
 			String maxMeterId = this.meterManufactService.getMaxMeterId();
 			if (maxMeterId != null) {
-				int nextMeterId = Integer.parseInt(maxMeterId)+1;
-				model.addAttribute("meterIdNo", nextMeterId+"");
-			}else {
+				int nextMeterId = Integer.parseInt(maxMeterId) + 1;
+				model.addAttribute("meterIdNo", nextMeterId + "");
+			} else {
 				String idName = "Meter Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
 				String stratNo = idMasterDto.getStatNumber();
 				model.addAttribute("meterIdNo", stratNo);
 			}
 		} catch (Exception e) {
-			System.out.println("Exception :: "+e.getMessage());
-		}	
+			System.out.println("Exception :: " + e.getMessage());
+		}
 		return "/pages/masters/meter-manufacture";
 	}
 
@@ -1167,25 +1179,25 @@ public class MasterController {
 
 	// Handler For Display pump Master Data
 	@GetMapping("/pumpshistory")
-	public String displayPumpHistory(Model model,HttpSession session) {
+	public String displayPumpHistory(Model model, HttpSession session) {
 		List<PumpMasterDto> listOfPumps = this.pumpService.getAllPumpMaster();
 		model.addAttribute("listOfPumps", listOfPumps);
 		model.addAttribute("show", "show");
 		try {
 			String maxPumpId = this.pumpService.getMaxPumpId();
 			if (maxPumpId != null) {
-				int nextPumpId = Integer.parseInt(maxPumpId)+1;
-				model.addAttribute("masterpumpid", nextPumpId+"");
-			}else {
+				int nextPumpId = Integer.parseInt(maxPumpId) + 1;
+				model.addAttribute("masterpumpid", nextPumpId + "");
+			} else {
 				String idName = "Pump Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
 				String stratNo = idMasterDto.getStatNumber();
 				model.addAttribute("masterpumpid", stratNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!","info"));
-			System.out.println("Exception :: "+e.getMessage());
-		}		
+			session.setAttribute("message", new Message("Pump Id Is Not Pressent Please Add Id First !!", "info"));
+			System.out.println("Exception :: " + e.getMessage());
+		}
 		model.addAttribute("title", "Master | Pumps | Manintenance Management");
 		return "/pages/masters/master-pumps";
 	}
@@ -1290,25 +1302,25 @@ public class MasterController {
 
 	// Handler For Display Store/branch History
 	@GetMapping("/storebranchistory")
-	public String displayStoreBranchHistory(Model model,HttpSession session) {
+	public String displayStoreBranchHistory(Model model, HttpSession session) {
 		List<StoreBranchDto> listOfStoreBranch = this.storeBranchService.findAllStoreBranch();
 		model.addAttribute("listOfStoreBranch", listOfStoreBranch);
 		model.addAttribute("show", "show");
 		try {
 			String maxStoreBranchId = this.storeBranchService.getMaxStoreBranchId();
 			if (maxStoreBranchId != null) {
-				int nextStoreBranchId = Integer.parseInt(maxStoreBranchId)+1;
-				model.addAttribute("masterbranchid", nextStoreBranchId+"");
-			}else {
-				String masterIdName ="Branch Id";
+				int nextStoreBranchId = Integer.parseInt(maxStoreBranchId) + 1;
+				model.addAttribute("masterbranchid", nextStoreBranchId + "");
+			} else {
+				String masterIdName = "Branch Id";
 				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(masterIdName);
 				String startNo = idMasterDto.getStatNumber();
 				model.addAttribute("masterbranchid", startNo);
 			}
 		} catch (Exception e) {
-			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First","info"));
-			System.out.println("Exception :: "+e.getMessage());
-		}		
+			session.setAttribute("message", new Message("Branch Id Is Not Paressent Please Add Id First", "info"));
+			System.out.println("Exception :: " + e.getMessage());
+		}
 		model.addAttribute("title", "Master | Store/Branch | Manintenance Management");
 		return "/pages/masters/store-branch";
 	}
@@ -1402,7 +1414,7 @@ public class MasterController {
 		String maxVehicleId = this.vehicleDtlsService.getMaxVehicleId();
 		if (maxVehicleId != null) {
 			int newStartId = Integer.parseInt(maxVehicleId) + 1;
-			model.addAttribute("vehicleMasterId", newStartId+"");
+			model.addAttribute("vehicleMasterId", newStartId + "");
 		} else {
 			String idName = "Vehicle Id";
 			IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
@@ -1548,11 +1560,11 @@ public class MasterController {
 			List<DesignationDto> designationDtos = this.designationService.getDesignationsFormUbarms();
 			if (!designationDtos.isEmpty()) {
 				model.addAttribute("ubmdesigList", designationDtos);
-			}			
+			}
 		} catch (Exception e) {
-			System.out.println("Designation Not Found !!"+e.getMessage());
+			System.out.println("Designation Not Found !!" + e.getMessage());
 		}
-		
+
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
 	}
@@ -1576,16 +1588,16 @@ public class MasterController {
 		model.addAttribute("title", "Master | Supplier | Manintenance Management");
 		return "/pages/masters/supplier-details";
 	}
-	
-	//Handler For Save Brand Master Data
+
+	// Handler For Save Brand Master Data
 	@PostMapping("/saveBrand-master")
-	public String saveBrandMaster(BrandMasterDto brandMasterDto,HttpSession session) {
+	public String saveBrandMaster(BrandMasterDto brandMasterDto, HttpSession session) {
 		this.brandMasterService.saveBrandMaster(brandMasterDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !! " ,"success"));
+		session.setAttribute("message", new Message("Data Saved Successfully !! ", "success"));
 		return "redirect:/masters/brand-master";
 	}
-	
-	//Handler For Display Brand Master History
+
+	// Handler For Display Brand Master History
 	@GetMapping("/brandMaster-history")
 	public String displayBrandMasterHistory(Model model) {
 		List<BrandMasterDto> listOfBrandMaster = this.brandMasterService.getAllBrandMasters();
@@ -1608,8 +1620,8 @@ public class MasterController {
 		this.categoryService.deleteCategory(catid);
 		return "redirect:/masters/categoryhistory";
 	}
-	
-	//Delete Brand Master
+
+	// Delete Brand Master
 	@RequestMapping("/deleteBrand/{brandMasterId}")
 	public String deleteBrandMaster(@PathVariable Long brandMasterId) {
 		this.brandMasterService.deleteBrandMaster(brandMasterId);
@@ -1846,21 +1858,53 @@ public class MasterController {
 		this.waterSourceService.deleteWaterCource(wateSourceId);
 		return "redirect:/masters/waterSourceHistory";
 	}
-			
-	//Get HsnCode By Category
+
+	// Get SubDivision By Divisions
 	@ResponseBody
-	@GetMapping("/get/hsnCode/{category}")
-	public ResponseEntity<HsnCodeDto> getHsnCodeByCategory(@PathVariable String category){
-		HsnCodeDto hsnCodeDto = hsnCodeService.getHsnCodeByCategory(category);
-		return new ResponseEntity<HsnCodeDto>(hsnCodeDto,HttpStatus.OK);
+	@GetMapping("/get/subdivision/{division}")
+	public ResponseEntity<List<DivisionSubdivisionDto>> getSubDivByDivision(@PathVariable String division) {
+		List<DivisionSubdivisionDto> divSubDivDtos = this.divSubDivService.getSubDivisionListByDivision(division);
+		return new ResponseEntity<List<DivisionSubdivisionDto>>(divSubDivDtos, HttpStatus.OK);
 	}
-	
-	//Get Item List By Category Name
+
+	// Get HsnCode By Category
 	@ResponseBody
-	@GetMapping("/get/items/{category}")
-	public ResponseEntity<List<ItemMasterDto>> getItemsByCategory(@PathVariable String category){
-		List<ItemMasterDto> itemMasterDtos = this.itemMasterService.getItemListByCategory(category);
-		return new ResponseEntity<List<ItemMasterDto>>(itemMasterDtos,HttpStatus.OK);
+	@GetMapping("/get/hsnCode/{categoryId}")
+	public ResponseEntity<HsnCodeDto> getHsnCodeByCategory(@PathVariable Long categoryId) {
+		HsnCodeDto hsnCodeDto = hsnCodeService.getHsnCodeDtoByCategory(categoryId);
+		return new ResponseEntity<HsnCodeDto>(hsnCodeDto, HttpStatus.OK);
+	}
+
+	// Get Item List By Category Name
+	@ResponseBody
+	@GetMapping("/get/items/{categoryId}")
+	public ResponseEntity<List<ItemMasterDto>> getItemsByCategory(@PathVariable Long categoryId) {
+		List<ItemMasterDto> itemMasterDtos = this.itemMasterService.getItemListByCategoryId(categoryId);
+		return new ResponseEntity<List<ItemMasterDto>>(itemMasterDtos, HttpStatus.OK);
+	}
+
+	// Get Item List By Category Name
+	@ResponseBody
+	@GetMapping("/get/stocktype/{itemId}")
+	public ResponseEntity<ItemMasterDto> getItemsByItemId(@PathVariable Long itemId) {
+		ItemMasterDto itemMasterDto = this.itemMasterService.getItemByItemId(itemId);
+		return new ResponseEntity<ItemMasterDto>(itemMasterDto, HttpStatus.OK);
+	}
+
+	// Get List Of VehicleDtls By VehicleType
+	@ResponseBody
+	@GetMapping("/get/vehicleNo/{vehicleType}")
+	public ResponseEntity<List<VehicleDtlsDto>> getListOfVehicleDtlsByVehicleType(@PathVariable String vehicleType) {
+		List<VehicleDtlsDto> vehicleDtlsDtos = this.vehicleDtlsService.getVehiclesByVehicleType(vehicleType);
+		return new ResponseEntity<List<VehicleDtlsDto>>(vehicleDtlsDtos, HttpStatus.OK);
+	}
+
+	// Get Driver Details By VehicleId
+	@ResponseBody
+	@GetMapping("get/vehicle/driver/{vehicleId}")
+	public ResponseEntity<VehicleDtlsDto> getDriverDetailsByVehicleId(@PathVariable Long vehicleId) {
+		VehicleDtlsDto vehicleDtlsDto = this.vehicleDtlsService.getVehicleDtlsByVehicleDtlsId(vehicleId);
+		return new ResponseEntity<VehicleDtlsDto>(vehicleDtlsDto, HttpStatus.OK);
 	}
 
 }
