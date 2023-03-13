@@ -2,7 +2,7 @@
 -- Function of STOCKSLASTTHREEMONTHS --
 ---------------------------------------
 
-CREATE OR REPLACE FUNCTION stockslastthreemonths RETURN SYS_REFCURSOR IS
+CREATE OR REPLACE FUNCTION stocks available RETURN SYS_REFCURSOR IS
   stock_data SYS_REFCURSOR;
 BEGIN
   OPEN stock_data FOR

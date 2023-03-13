@@ -1,26 +1,23 @@
-$.getJSON('/graph/stocks/lastthreemonths', function(data) {
+$.getJSON('/stocks/dashboard/month', function(data) {
 
-	//console.log(data);
+	console.log(data);
 
-	const result = {};
-	data.forEach((item) => {
-		if (!result[item.month_name]) {
-			result[item.month_name] = {};
-		}
-		if (!result[item.month_name][item.type]) {
-			result[item.month_name][item.type] = item.total_quantity;
-		}
-	});
+	// Define the categories and series data arrays
+	const typeCategories = ["MATERIALS", "SPARES", "TOOLS"];
+	const monthCategories = [...new Set(data.map(item => item.monthName))];
+	const seriesData = [];
 
-	//console.log(result);
-
-	const monthCategories = Object.keys(result);
-	const typeCategories = ['MATERIALS', 'SPARES', 'TOOLS'];
-	const seriesData = typeCategories.map((type) => {
-		return monthCategories.map((month) => {
-			return result[month][type] || 0;
+	// Loop through the type categories and get the quantity data for each type in each month
+	typeCategories.forEach((type, index) => {
+		const typeData = [];
+		monthCategories.forEach(month => {
+			const filteredData = data.filter(item => item.monthName === month && item.stockType === type);
+			const quantity = filteredData.length > 0 ? filteredData[0].totalQuantity : 0;
+			typeData.push(quantity);
 		});
+		seriesData.push(typeData);
 	});
+
 
 	Highcharts.chart('container', {
 		title: {

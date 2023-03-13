@@ -1,4 +1,4 @@
-$.getJSON('/graph/stocks/allmonths', function(data) {
+$.getJSON('/stocks/dashboard/total', function(data) {
 
 
 	console.log(data)

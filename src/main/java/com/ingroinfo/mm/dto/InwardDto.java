@@ -43,11 +43,19 @@ public class InwardDto {
 	private int quantity;
 	private String stockType;
 
+	private String month_name;
+	private int material_quantity;
+	private int spare_quantity;
+	private int tool_quantity;
+
+
+	private String monthName;
+	private int year;
+	private int totalQuantity;
+
 	private Double subTotal;
-	private Double grandTotal;	
+	private Double grandTotal;
 	private Date dateCreated;
 	private Date lastUpdated;
-	
-	
 
 }

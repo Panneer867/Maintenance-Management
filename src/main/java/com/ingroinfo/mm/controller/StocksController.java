@@ -2,12 +2,22 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,16 +97,118 @@ public class StocksController {
 	@Autowired
 	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
 	public String availableStocks(Model model) {
 		model.addAttribute("title", "Stocks Available | Maintenance Management");
-		model.addAttribute("allItems",stockService.getAllStocks());
-		return "/pages/stock_management/stock_available";
+		model.addAttribute("allItems", stockService.getAllStocks());
+		return "/pages/stock_management/stock_dashboard";
+	}
+
+//	@GetMapping("/dashboard/month")
+//	public @ResponseBody String getStocksThree() {
+//
+//		List<Map<String, Object>> stocksData = new ArrayList<>();
+//		try (Connection con = jdbcTemplate.getDataSource().getConnection();
+//				CallableStatement cs = con.prepareCall("{? = call stockslastthreemonths()}");) {
+//			cs.registerOutParameter(1, Types.REF_CURSOR);
+//			cs.execute();
+//			ResultSet rs = (ResultSet) cs.getObject(1);
+//			while (rs.next()) {
+//				Map<String, Object> row = new HashMap<>();
+//				row.put("type", rs.getString("type"));
+//				row.put("month_name", rs.getString("month_name"));
+//				row.put("month_number", rs.getInt("month_number"));
+//				row.put("year", rs.getInt("year"));
+//				row.put("total_quantity", rs.getInt("total_quantity"));
+//				stocksData.add(row);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		try {
+//			return objectMapper.writeValueAsString(stocksData);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//	}
+
+	@GetMapping("/dashboard/month")
+	public @ResponseBody List<InwardDto> getData() {
+		String sql = "SELECT 'SPARES' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
+				+ "FROM MM_INWARD_APPROVED_SPARES " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
+				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
+				+ "UNION "
+				+ "SELECT 'MATERIALS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
+				+ "FROM MM_INWARD_APPROVED_MATERIALS " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
+				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
+				+ "UNION "
+				+ "SELECT 'TOOLS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
+				+ "FROM MM_INWARD_APPROVED_TOOLS " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
+				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
+				+ "ORDER BY year ASC, month_number ASC, type ASC";
+
+		return jdbcTemplate.query(sql, (rs, rowNum) -> {
+			InwardDto obj = new InwardDto();
+			obj.setStockType(rs.getString("type"));
+			obj.setMonthName(rs.getString("month_name"));
+		
+			obj.setYear(rs.getInt("year"));
+			obj.setTotalQuantity(rs.getInt("total_quantity"));
+			return obj;
+		});
+
+	}
+
+	@GetMapping("/dashboard/total")
+	public @ResponseBody List<Map<String, Object>> getMonthlyTotalQuantity() {
+
+		String query = "SELECT TO_CHAR(date_created, 'Mon') AS month_name, " + "TO_CHAR(date_created, 'YYYY') AS year, "
+				+ "SUM(quantity) AS total_quantity "
+				+ "FROM (SELECT date_created, quantity FROM MM_INWARD_APPROVED_SPARES "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
+				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_MATERIALS "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
+				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_TOOLS "
+				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12)) all_tables "
+				+ "GROUP BY TO_CHAR(date_created, 'Mon'), TO_CHAR(date_created, 'YYYY') ORDER BY TO_DATE(year || month_name || '01', 'YYYYMonDD') ASC";
+
+		return jdbcTemplate.queryForList(query);
+	}
+
+	@GetMapping("/dashboard/outward")
+	public @ResponseBody List<InwardDto> getOutwardStocks() {
+
+		String sql = "SELECT UPPER(TO_CHAR(date_created, 'MON')) AS month_name, "
+				+ "SUM(CASE WHEN stock_type = 'ML' THEN final_quantity ELSE 0 END) AS material_quantity, "
+				+ "SUM(CASE WHEN stock_type = 'SP' THEN final_quantity ELSE 0 END) AS spare_quantity, "
+				+ "SUM(CASE WHEN stock_type = 'TE' THEN final_quantity ELSE 0 END) AS tool_quantity "
+				+ "FROM mm_approved_workorder_items "
+				+ "WHERE EXTRACT(YEAR FROM date_created) = EXTRACT(YEAR FROM SYSDATE) "
+				+ "GROUP BY UPPER(TO_CHAR(date_created, 'MON')) " + "ORDER BY TO_DATE(month_name, 'MON')";
+
+		List<InwardDto> inventoryList = jdbcTemplate.query(sql, new RowMapper<InwardDto>() {
+			public InwardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+				InwardDto inventory = new InwardDto();
+				inventory.setMonth_name(rs.getString("month_name"));
+				inventory.setMaterial_quantity(rs.getInt("material_quantity"));
+				inventory.setSpare_quantity(rs.getInt("spare_quantity"));
+				inventory.setTool_quantity(rs.getInt("tool_quantity"));
+				return inventory;
+			}
+		});
+
+		return inventoryList;
 	}
 
 	/******************************************************************/
-	
+
 	@GetMapping("/inward/materials/entry")
 	@PreAuthorize("hasAuthority('INWARD_MATERIALS')")
 	public String inwardMaterials(Model model, Principal principal) {
@@ -653,7 +765,7 @@ public class StocksController {
 	}
 
 	/******************************************************************/
-	
+
 	@GetMapping("/return/entry")
 	@PreAuthorize("hasAuthority('STOCKS_RETURN')")
 	public String returnEntry(Model model, Principal principal) {
@@ -762,7 +874,7 @@ public class StocksController {
 				new Message("All Item has been removed successfully from the list !", "success"));
 		return "redirect:/stocks/return/entry";
 	}
-	
+
 	@GetMapping("/return/item/list/delete/{id}")
 	public String deleteReturnItem(@PathVariable("id") Long id, HttpSession session) {
 
@@ -787,9 +899,11 @@ public class StocksController {
 	@GetMapping("/return/approved/list")
 	public String returnApprovedList(Model model) {
 		model.addAttribute("title", "Stock Returns Approved List | Maintenance Management");
-		
+
 		model.addAttribute("returnedItemLists", stockService.getApprovedStockReturnItemList());
 		return "/pages/stock_management/stock_returns_approved_list";
 	}
+
+	/******************************************************************/
 
 }
