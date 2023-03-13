@@ -1,0 +1,24 @@
+-- ---------------------------------------
+-- Views of DASHBOARD_MONTHWISE_STOCKS ---
+------------------------------------------
+
+SELECT 'SPARES' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity
+FROM MM_INWARD_APPROVED_SPARES
+WHERE date_created >= SYSDATE - INTERVAL '1' YEAR
+GROUP BY EXTRACT(YEAR FROM date_created), TO_CHAR(date_created, 'MON')
+
+UNION
+
+SELECT 'MATERIALS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity
+FROM MM_INWARD_APPROVED_MATERIALS
+WHERE date_created >= SYSDATE - INTERVAL '1' YEAR
+GROUP BY EXTRACT(YEAR FROM date_created), TO_CHAR(date_created, 'MON')
+
+UNION
+
+SELECT 'TOOLS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity
+FROM MM_INWARD_APPROVED_TOOLS
+WHERE date_created >= SYSDATE - INTERVAL '1' YEAR
+GROUP BY EXTRACT(YEAR FROM date_created), TO_CHAR(date_created, 'MON')
+
+ORDER BY year ASC, month_name ASC, type ASC
