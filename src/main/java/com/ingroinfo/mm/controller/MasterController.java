@@ -369,13 +369,37 @@ public class MasterController {
 		try {
 			String maxItemId = this.itemMasterService.getMaxItemId();
 			if (maxItemId != null) {
-				String letters = maxItemId.substring(0, 4);
-				int number = Integer.parseInt(maxItemId.substring(4));
-				String nextItemId = letters + (number + 1);
+				
+				
+				StringBuilder letters = new StringBuilder();
+				StringBuilder numbers = new StringBuilder();
+
+				for (int i = 0; i < maxItemId.length(); i++) {
+				    char c = maxItemId.charAt(i);
+				    if (Character.isDigit(c)) {
+				        numbers.append(c);
+				    } else {
+				        letters.append(c);
+				    }
+				}
+
+				String lettersString = letters.toString(); // contains "IDHPOJ"
+				String numbersString = numbers.toString(); // contains "767698"
+				
+				
+				//String letters = maxItemId.substring(0, 4);
+				//int number = Integer.parseInt(maxItemId.substring(4));
+				
+				int number = Integer.parseInt(numbersString);
+				number++;
+				
+				String nextItemId = lettersString + Integer.toString(number);
 
 				// String ss = "REPEAT_FOR_4";
 				// int vd = Integer.valueOf(maxItemId.substring(maxItemId.length() - 1));
 				// String nextItemId = maxItemId.replaceAll("\\d",String.valueOf(vd+1));
+				
+				System.out.println("next id is "+nextItemId);
 
 				model.addAttribute("masterItemId", nextItemId);
 			} else {

@@ -1,8 +1,6 @@
 package com.ingroinfo.mm.dto;
 
 import java.sql.Date;
-import com.ingroinfo.mm.entity.Category;
-import com.ingroinfo.mm.entity.ItemMaster;
 import com.ingroinfo.mm.entity.VehicleDtls;
 
 import lombok.Data;
@@ -39,7 +37,5 @@ public class PumpMaterialDto {
 	private String meterReading;
 	private String stratTime;
 		
-	private Category category;		
-	private ItemMaster items;
 	private VehicleDtls vehicle;
 }

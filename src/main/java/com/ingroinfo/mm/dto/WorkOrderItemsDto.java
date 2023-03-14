@@ -22,6 +22,6 @@ public class WorkOrderItemsDto {
 	private Double totalCost;
 	private Double mrpRate;
 	private String description;
-	private Long workOrderId;
+	private Long workOrderNo;
 
 }

@@ -72,7 +72,7 @@
 											<label for="staticEmail" class="col-sm-4 col-form-label">Item Name
 											</label>
 											<div class="col-sm-8">
-												<select class="form-select" id="itemId" name="itemName" required>
+												<select class="form-select" id="itemNameId" name="itemName" required>
 													<option value="" selected>Select</option>
 													<option th:each="item : ${items}" th:value="${item.itemMasterId}"
 														th:utext="${item.itemName}" />

@@ -47,15 +47,7 @@ public class PumpMaterial {
 	private String driverPhone;
 	private String meterReading;
 	private String stratTime;
-	
-	@JoinColumn(name ="categoryId")
-	@ManyToOne
-	private Category category;
-	
-	@ManyToOne
-	@JoinColumn(name="itemId")
-	private ItemMaster items;
-	
+			
 	@ManyToOne
 	@JoinColumn(name = "vehicleId")
 	private VehicleDtls vehicle;

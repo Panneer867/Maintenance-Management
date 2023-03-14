@@ -187,9 +187,7 @@ public class PumpController {
 	@ResponseBody
 	public ResponseEntity<PumpMaterialDto> saveIndentData(
 			@ModelAttribute("materialData") PumpMaterialDto pumpMaterialDto) {
-		pumpMaterialDto.setIndentType("MTS");
-		pumpMaterialDto.setCategoryName(pumpMaterialDto.getCategory().getCategoryName());
-		pumpMaterialDto.setItemName(pumpMaterialDto.getItems().getItemName());
+		pumpMaterialDto.setIndentType("MTS");				
 		PumpMaterialDto pumpMaterialDto2 = this.pumpMaintenService.addPumpMaterial(pumpMaterialDto);
 		return new ResponseEntity<PumpMaterialDto>(pumpMaterialDto2, HttpStatus.OK);
 	}

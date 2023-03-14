@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$("#itemId").change(function() {
+	$("#itemNameId").change(function() {
 
 		var itemId = $(this).val();
 
@@ -16,8 +16,8 @@ $(document).ready(function() {
 					$('#get-hsncode').val(jsonobject.hsnCode);
 					$('#get-hsn').val(jsonobject.hsnCode);
 
-					$('#get-category').val(jsonobject.category);
-					$('#get-categoryName').val(jsonobject.category);
+					$('#get-category').val(jsonobject.categoryName);
+					$('#get-categoryName').val(jsonobject.categoryName);
 
 				}
 			});

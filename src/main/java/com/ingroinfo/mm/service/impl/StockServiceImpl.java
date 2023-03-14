@@ -637,7 +637,25 @@ public class StockServiceImpl implements StockService {
 
 		List<WorkOrderItemsDto> wOIDto = new ArrayList<WorkOrderItemsDto>();
 		for (TempWorkOrderItems listTempWorkOrderItem : listTempWorkOrderItems) {
-			WorkOrderItemsDto newwOIDto = modelMapper.map(listTempWorkOrderItem, WorkOrderItemsDto.class);
+			
+			WorkOrderItemsDto newwOIDto = new WorkOrderItemsDto();
+			
+			newwOIDto.setAliasName(listTempWorkOrderItem.getAliasName());
+			newwOIDto.setCategory(listTempWorkOrderItem.getCategory());
+			newwOIDto.setDescription(listTempWorkOrderItem.getDescription());
+			newwOIDto.setFinalQuantity(listTempWorkOrderItem.getFinalQuantity());
+			newwOIDto.setImagePath(listTempWorkOrderItem.getImagePath());
+			newwOIDto.setItemId(listTempWorkOrderItem.getItemId());
+			newwOIDto.setItemImage(listTempWorkOrderItem.getItemImage());
+			newwOIDto.setItemName(listTempWorkOrderItem.getItemName());
+			newwOIDto.setMrpRate(listTempWorkOrderItem.getMrpRate());
+			newwOIDto.setQty(listTempWorkOrderItem.getQty());
+			newwOIDto.setSlNo(listTempWorkOrderItem.getSlNo());			
+			newwOIDto.setStockType(listTempWorkOrderItem.getStockType());
+			newwOIDto.setTotalCost(listTempWorkOrderItem.getTotalCost());
+			newwOIDto.setUnitOfMeasure(listTempWorkOrderItem.getUnitOfMeasure());
+			newwOIDto.setWorkOrderNo(listTempWorkOrderItem.getWorkOrderNo());
+			
 			if (inwardApprovedMaterialsRepository.findByItemIdAndStockType(newwOIDto.getItemId(),
 					stockTypes.get(0)) != null) {
 				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(newwOIDto.getItemId()).getQuantity();
