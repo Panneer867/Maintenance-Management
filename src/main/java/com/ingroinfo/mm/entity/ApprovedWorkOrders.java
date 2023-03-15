@@ -1,14 +1,19 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,8 +27,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_temp_workorder_nos")
-public class TempWorkOrderNos {
+@Table(name = "mm_approved_workorders")
+public class ApprovedWorkOrders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +44,15 @@ public class TempWorkOrderNos {
 	private String username;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrderId")
-	private List<WorkOrderItems> workOrderItems;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
+	private List<ApprovedWorkOrderItems> workOrderItems;
+	
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
 
 }

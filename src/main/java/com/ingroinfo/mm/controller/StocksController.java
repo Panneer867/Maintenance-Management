@@ -32,12 +32,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.TempIndentItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
-import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
+import com.ingroinfo.mm.entity.ApprovedWorkOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -47,9 +47,9 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.TempStockReturn;
-import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.TempWorkOrderNos;
+import com.ingroinfo.mm.entity.TempIndentItems;
+import com.ingroinfo.mm.entity.TempStocksReturn;
+import com.ingroinfo.mm.entity.TempWorkOrders;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.BrandMasterService;
 import com.ingroinfo.mm.service.ItemMasterService;
@@ -78,7 +78,7 @@ public class StocksController {
 	private ItemMasterService itemMasterService;
 
 	@Autowired
-	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
+	private TempIndentItemsRepository tempIndentItemsRepository;
 
 	@Autowired
 	private WorkOrderItemsRequestRepository workOrderItemsRequestRepository;
@@ -622,7 +622,7 @@ public class StocksController {
 
 		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderNo));
 
-		model.addAttribute("workorder", new TempWorkOrderNos());
+		model.addAttribute("workorder", new TempWorkOrders());
 
 		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderNo);
 
@@ -636,32 +636,32 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/item/quantity")
-	public @ResponseBody void quantity(@RequestBody TempWorkOrderItems tempWorkOrderItems) {
-		String itemId = tempWorkOrderItems.getItemId();
-		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
+	public @ResponseBody void quantity(@RequestBody TempIndentItems indentItems) {
+		String itemId = indentItems.getItemId();
+		Long workOrderNo = indentItems.getWorkOrderNo();
 		if (itemId != null) {
-			Optional<TempWorkOrderItems> TempWorkOrderItem = tempWorkOrderItemsRepository
+			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository
 					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 			DecimalFormat df = new DecimalFormat("#.##");
-			TempWorkOrderItem.get().setTotalCost(
-					Double.parseDouble(df.format(tempWorkOrderItems.getMrpRate() * tempWorkOrderItems.getQty())));
-			TempWorkOrderItem.get().setFinalQuantity(tempWorkOrderItems.getQty());
-			tempWorkOrderItemsRepository.save(TempWorkOrderItem.get());
+			tempIndentItems.get().setTotalCost(
+					Double.parseDouble(df.format(indentItems.getMrpRate() * indentItems.getQty())));
+			tempIndentItems.get().setFinalQuantity(indentItems.getQty());
+			tempIndentItemsRepository.save(tempIndentItems.get());
 		}
 	}
 
 	@PostMapping("/outward/item/delete")
-	public @ResponseBody void delItem(@RequestBody TempWorkOrderItems tempWorkOrderItems, Principal principal) {
-		String itemId = tempWorkOrderItems.getItemId();
-		Long workOrderNo = tempWorkOrderItems.getWorkOrderNo();
+	public @ResponseBody void delItem(@RequestBody TempIndentItems indentItems, Principal principal) {
+		String itemId = indentItems.getItemId();
+		Long workOrderNo = indentItems.getWorkOrderNo();
 
 		if (itemId != null) {
-			Optional<TempWorkOrderItems> TempWorkOrderItem = tempWorkOrderItemsRepository
+			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository
 					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
 			Long stockId = workOrderItemsRequestRepository.findByWorkOrderNoAndItemId(workOrderNo, itemId)
-					.getStocksId();
+					.getRecordId();
 			stockService.saveRemovedItems(itemId, workOrderNo, principal.getName());
-			tempWorkOrderItemsRepository.deleteById(TempWorkOrderItem.get().getTempWorkorderItemId());
+			tempIndentItemsRepository.deleteById(tempIndentItems.get().getRecordId());
 			workOrderItemsRequestRepository.deleteById(stockId);
 		}
 	}
@@ -689,7 +689,7 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/workorder/items")
-	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrderNos workOrders, BindingResult bindingResult,
+	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrders workOrders, BindingResult bindingResult,
 			HttpSession session, Principal principal) {
 		Long workOrderNo = workOrders.getWorkOrderNo();
 		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
@@ -767,17 +767,17 @@ public class StocksController {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
 		model.addAttribute("workOrders", stockService.getOutwardApprovedWorkOrders());
-		model.addAttribute("stockReturn", new TempStockReturn());
+		model.addAttribute("stockReturn", new TempStocksReturn());
 
-		List<TempStockReturn> tempStockReturn = stockService.getTempStockReturn(principal.getName());
+		List<TempStocksReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
 
-		model.addAttribute("tempStockReturns", tempStockReturn);
+		model.addAttribute("tempStockReturns", tempStocksReturn);
 
-		if (tempStockReturn.size() == 0) {
+		if (tempStocksReturn.size() == 0) {
 			model.addAttribute("emptyList", "No Return Stocks");
 			model.addAttribute("returnCost", 0);
 		} else {
-			Double returnCost = tempStockReturn.stream().filter(f -> f.getReturnTotalCost() != null)
+			Double returnCost = tempStocksReturn.stream().filter(f -> f.getReturnTotalCost() != null)
 					.mapToDouble(o -> o.getReturnTotalCost()).sum();
 
 			model.addAttribute("returnCost", returnCost);
@@ -788,17 +788,17 @@ public class StocksController {
 
 	@PostMapping("/return/items/entry/add")
 	public String returnItem(@RequestParam("itemImage") MultipartFile file,
-			@ModelAttribute("stockReturn") TempStockReturn tempStockReturn, BindingResult bindingResult,
+			@ModelAttribute("stockReturn") TempStocksReturn stocksReturn, BindingResult bindingResult,
 			HttpSession session, Principal principal) throws IOException {
 
-		tempStockReturn.setUsername(principal.getName());
+		stocksReturn.setUsername(principal.getName());
 
-		if (stockService.checkReturnedItem(tempStockReturn)) {
-			TempStockReturn oldReturnAndOrderQuantity = stockService.getReturnQuantity(tempStockReturn);
+		if (stockService.checkReturnedItem(stocksReturn)) {
+			TempStocksReturn tempStocksReturn = stockService.getReturnQuantity(stocksReturn);
 
-			int orderedQuantity = oldReturnAndOrderQuantity.getOrderQuantity();
+			int orderedQuantity = tempStocksReturn.getOrderQuantity();
 
-			int returnedQuantity = oldReturnAndOrderQuantity.getReturnQuantity();
+			int returnedQuantity = tempStocksReturn.getReturnQuantity();
 
 			int canReturnQuantity = orderedQuantity - returnedQuantity;
 			session.setAttribute("message",
@@ -808,24 +808,24 @@ public class StocksController {
 			return "redirect:/stocks/return/entry";
 		}
 
-		stockService.saveReturnItem(tempStockReturn, file);
+		stockService.saveReturnItem(stocksReturn, file);
 		session.setAttribute("message", new Message(" Items has been successfully placed for return!", "success"));
 		return "redirect:/stocks/return/entry";
 	}
 
 	@PostMapping("/return/items/entry/addAll")
-	public String addReturnItems(@ModelAttribute("stockReturn") TempStockReturn tempStockReturn,
+	public String addReturnItems(@ModelAttribute("stockReturn") TempStocksReturn stocksReturn,
 			BindingResult bindingResult, HttpSession session, Principal principal) throws IOException {
 
-		List<TempStockReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
+		List<TempStocksReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
 
 		if (tempStocksReturn.size() == 0) {
 			session.setAttribute("message", new Message("Please Add Return Items  !", "danger"));
 			return "redirect:/stocks/return/entry";
 		}
 
-		tempStockReturn.setUsername(principal.getName());
-		stockService.saveReturnItems(tempStockReturn);
+		stocksReturn.setUsername(principal.getName());
+		stockService.saveReturnItems(stocksReturn);
 		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
 		return "redirect:/stocks/return/entry";
 	}
@@ -844,7 +844,7 @@ public class StocksController {
 	}
 
 	@GetMapping("/return/workorder/{workOrderNo}")
-	public @ResponseBody ApprovedWorkOrderNos getWorkorderDetails(@PathVariable("workOrderNo") Long workOrderNo) {
+	public @ResponseBody ApprovedWorkOrders getWorkorderDetails(@PathVariable("workOrderNo") Long workOrderNo) {
 		return stockService.getOutwardApprovedWorkOrder(workOrderNo);
 	}
 
@@ -899,6 +899,5 @@ public class StocksController {
 		return "/pages/stock_management/stock_returns_approved_list";
 	}
 
-	/******************************************************************/
 
 }

@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
-import com.ingroinfo.mm.entity.ApprovedStockReturns;
+import com.ingroinfo.mm.entity.ApprovedStocksReturn;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
-import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
+import com.ingroinfo.mm.entity.ApprovedWorkOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -18,10 +18,10 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.StockReturns;
-import com.ingroinfo.mm.entity.TempStockReturn;
-import com.ingroinfo.mm.entity.TempWorkOrderNos;
-import com.ingroinfo.mm.entity.WorkOrderItems;
+import com.ingroinfo.mm.entity.StocksReturn;
+import com.ingroinfo.mm.entity.TempStocksReturn;
+import com.ingroinfo.mm.entity.TempWorkOrderItems;
+import com.ingroinfo.mm.entity.TempWorkOrders;
 
 public interface StockService {
 	
@@ -101,7 +101,7 @@ public interface StockService {
 
 	List<WorkOrderItemsDto> checkStockQuantity(Long workOrderNo);
 
-	void saveWorkOrder(TempWorkOrderNos workOrders,String username);
+	public void saveWorkOrder(TempWorkOrders workOrders, String username);
 
 	boolean notAvailableItems(Long workOrderNo);
 
@@ -109,39 +109,39 @@ public interface StockService {
 
 	boolean getTempWorkOrderItems(Long workOrderNo);
 
-	List<TempWorkOrderNos> getOutwardWorkOrders();
+	public List<TempWorkOrders> getOutwardWorkOrders();
 
-	List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo);
+	public List<TempWorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo);
 
-	TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo);
+	public TempWorkOrders getOutwardWorkOrder(Long workOrderNo);
 
-	List<ApprovedWorkOrderNos> getOutwardApprovedWorkOrders();
+	List<ApprovedWorkOrders> getOutwardApprovedWorkOrders();
 
 	List<ApprovedWorkOrderItems> getOutwardApprovedWorkOrderItems(Long workOrderNo);
 
-	ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo);
+	ApprovedWorkOrders getOutwardApprovedWorkOrder(Long workOrderNo);
 
 	ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo);
 
-	void saveReturnItem(TempStockReturn tempStockReturn, MultipartFile file);
+	void saveReturnItem(TempStocksReturn tempStocksReturn, MultipartFile file);
 
-	boolean checkReturnedItem(TempStockReturn tempStockReturn);
+	boolean checkReturnedItem(TempStocksReturn tempStocksReturn);
 
-	TempStockReturn getReturnQuantity(TempStockReturn tempStockReturn);
+	TempStocksReturn getReturnQuantity(TempStocksReturn tempStocksReturn);
 
-	List<TempStockReturn> getTempStockReturn(String username);
+	List<TempStocksReturn> getTempStockReturn(String username);
 
 	void deleteTempReturnItem(Long id);
 
 	void deleteAllTempReturnItem();
 
-	void saveReturnItems(TempStockReturn tempStockReturn);
+	void saveReturnItems(TempStocksReturn tempStocksReturn);
 
-	List<StockReturns> getStockReturnItemList();
+	List<StocksReturn> getStockReturnItemList();
 
 	void deleteReturnItem(Long id);
 
-	List<ApprovedStockReturns> getApprovedStockReturnItemList();
+	List<ApprovedStocksReturn> getApprovedStockReturnItemList();
 
 	
 

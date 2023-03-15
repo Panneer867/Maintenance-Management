@@ -99,7 +99,7 @@
 
 					<td th:text="${returnedItemList.invoiceNo}"></td>
 					<td class="text-center">
-						<button th:onclick="|deleteId('/stocks/return/item/list/delete/${returnedItemList.stockId}')|"
+						<button th:onclick="|deleteId('/stocks/return/item/list/delete/${returnedItemList.recordId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">Cancel</button>
 					</td>

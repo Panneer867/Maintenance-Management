@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +22,7 @@ public class TempWorkOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long tempWorkorderItemId;
-	private int qty;
+	private Long recordId;
 	private int finalQuantity;
 	private int slNo;
 	private String itemId;
@@ -31,11 +32,15 @@ public class TempWorkOrderItems {
 	private String imagePath;
 	private String category;
 	private String unitOfMeasure;
-	private Double totalCost;
 	private Double mrpRate;
+	private Double totalCost;
 	private String description;
 	private Long workOrderNo;
 	private String stockType;
 	private String username;
+
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private TempWorkOrders orderId;
 
 }

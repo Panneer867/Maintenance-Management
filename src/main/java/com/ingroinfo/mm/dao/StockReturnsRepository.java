@@ -2,11 +2,11 @@ package com.ingroinfo.mm.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.ingroinfo.mm.entity.StockReturns;
+import com.ingroinfo.mm.entity.StocksReturn;
 
 @Repository
-public interface StockReturnsRepository extends JpaRepository<StockReturns, Long> {
+public interface StockReturnsRepository extends JpaRepository<StocksReturn, Long> {
 
-	StockReturns findByStockId(Long id);
+	StocksReturn findByRecordId(Long id);
 
 }

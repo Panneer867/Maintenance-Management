@@ -22,10 +22,10 @@ public class RejectedWorkOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long workorderItemId;
+	private Long recordId;
 	private int finalQuantity;
 	private int slNo;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;
@@ -40,7 +40,7 @@ public class RejectedWorkOrderItems {
 	private String username;
 
 	@ManyToOne
-	@JoinColumn(name = "workorder_id")
-	private RejectedWorkOrderNos workOrderId;
+	@JoinColumn(name = "order_id")
+	private RejectedWorkOrderNos orderId;
 
 }

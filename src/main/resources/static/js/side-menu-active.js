@@ -144,8 +144,21 @@ $(document).ready(function() {
 	
 	
 	$(function() {
+		if (window.location.href.match('/outward/stocks')) {
+			$("#approvals-stocks-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	$(function() {
 		if (window.location.href.match('/stocks/outward')) {
 			$("#outward-stocks").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/stocks/return')) {
+			$("#stocks-return").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	

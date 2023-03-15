@@ -29,7 +29,7 @@ public class ApprovedWorkOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long workorderItemId;
+	private Long recordId;
 	private int finalQuantity;
 	private int slNo;
 	private String itemId;
@@ -55,7 +55,7 @@ public class ApprovedWorkOrderItems {
 	private Date lastUpdated;
 
 	@ManyToOne
-	@JoinColumn(name = "workorder_id")
-	private ApprovedWorkOrderNos workOrderId;
+	@JoinColumn(name = "orderId")
+	private ApprovedWorkOrders orderId;
 
 }

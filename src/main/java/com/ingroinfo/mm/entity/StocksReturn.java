@@ -19,12 +19,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_stock_returns")
-public class StockReturns {
+@Table(name = "mm_stocks_return")
+public class StocksReturn {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long stockId;
+	private Long recordId;
 	private Long workOrderNo;
 	private String itemId;
 	private String itemName;	

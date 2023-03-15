@@ -39,7 +39,7 @@ public class RejectedWorkOrderNos {
 	private String username;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrderId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
 	private List<RejectedWorkOrderItems> workOrderItems;
 
 }

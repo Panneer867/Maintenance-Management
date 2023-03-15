@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +15,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_workorder_items")
-public class WorkOrderItems {
+@Table(name = "mm_temp_indent_items")
+public class TempIndentItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long tempWorkorderItemId;
+	private Long recordId;
+	private int qty;
 	private int finalQuantity;
 	private int slNo;
 	private String itemId;
@@ -32,15 +31,11 @@ public class WorkOrderItems {
 	private String imagePath;
 	private String category;
 	private String unitOfMeasure;
-	private Double mrpRate;
 	private Double totalCost;
+	private Double mrpRate;
 	private String description;
 	private Long workOrderNo;
 	private String stockType;
 	private String username;
-
-	@ManyToOne
-	@JoinColumn(name = "workorder_id")
-	private TempWorkOrderNos workOrderId;
 
 }

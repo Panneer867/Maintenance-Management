@@ -15,12 +15,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_work_order_removed_items")
+@Table(name = "mm_workorder_removed_items")
 public class WorkOrderRemovedItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long workOrderItemRemovedId;
+	private Long recordId;
 	private String itemId;
 	private int requestedQuantity;
 	private int stockQuantity;

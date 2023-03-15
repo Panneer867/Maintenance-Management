@@ -14,10 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.ingroinfo.mm.dao.ApprovedStockReturnsRepository;
+import com.ingroinfo.mm.dao.ApprovedStocksReturnRepository;
 import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.ApprovedWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.ApprovedWorkOrdersRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -29,17 +28,17 @@ import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.ItemMasterRepository;
 import com.ingroinfo.mm.dao.StockReturnsRepository;
-import com.ingroinfo.mm.dao.TempStockReturnRepository;
+import com.ingroinfo.mm.dao.TempIndentItemsRepository;
+import com.ingroinfo.mm.dao.TempStocksReturnRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.WorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.TempWorkOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
-import com.ingroinfo.mm.entity.ApprovedStockReturns;
+import com.ingroinfo.mm.entity.ApprovedStocksReturn;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
-import com.ingroinfo.mm.entity.ApprovedWorkOrderNos;
+import com.ingroinfo.mm.entity.ApprovedWorkOrders;
 import com.ingroinfo.mm.entity.Company;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
@@ -50,13 +49,13 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.StockReturns;
-import com.ingroinfo.mm.entity.TempStockReturn;
+import com.ingroinfo.mm.entity.StocksReturn;
+import com.ingroinfo.mm.entity.TempIndentItems;
+import com.ingroinfo.mm.entity.TempStocksReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.WorkOrderItems;
 import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrderRemovedItems;
-import com.ingroinfo.mm.entity.TempWorkOrderNos;
+import com.ingroinfo.mm.entity.TempWorkOrders;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.StockService;
 
@@ -99,13 +98,13 @@ public class StockServiceImpl implements StockService {
 	private WorkOrderItemsRequestRepository workOrderItemsRequestRepository;
 
 	@Autowired
+	private TempIndentItemsRepository tempIndentItemsRepository;
+
+	@Autowired
 	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
 
 	@Autowired
-	private WorkOrderItemsRepository workOrderItemsRepository;
-
-	@Autowired
-	private TempWorkOrderNosRepository tempWorkOrderNosRepository;
+	private TempWorkOrdersRepository tempWorkOrdersRepository;
 
 	@Autowired
 	private WorkOrderRemovedItemsRepository workOrderRemovedItemsRepository;
@@ -117,16 +116,16 @@ public class StockServiceImpl implements StockService {
 	private ApprovedWorkOrderItemsRepository approvedWorkOrderItemsRepository;
 
 	@Autowired
-	private ApprovedWorkOrderNosRepository approvedWorkOrderNosRepository;
+	private ApprovedWorkOrdersRepository approvedWorkOrdersRepository;
 
 	@Autowired
-	private TempStockReturnRepository tempStockReturnRepository;
+	private TempStocksReturnRepository tempStocksReturnRepository;
 
 	@Autowired
 	private StockReturnsRepository stockReturnsRepository;
 
 	@Autowired
-	private ApprovedStockReturnsRepository approvedStockReturnsRepository;
+	private ApprovedStocksReturnRepository approvedStocksReturnRepository;
 
 	/***** All Stocks *****/
 
@@ -514,9 +513,9 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderNo) {
 
-		List<TempWorkOrderItems> WorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
-		for (TempWorkOrderItems Items : WorkOrderItems) {
-			tempWorkOrderItemsRepository.deleteById(Items.getTempWorkorderItemId());
+		List<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByWorkOrderNo(workOrderNo);
+		for (TempIndentItems Items : tempIndentItems) {
+			tempIndentItemsRepository.deleteById(Items.getRecordId());
 		}
 
 		List<WorkOrderItemsRequest> workOrderItemsRequest = workOrderItemsRequestRepository
@@ -550,22 +549,22 @@ public class StockServiceImpl implements StockService {
 						Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
 
 				for (String itemId : itemIds) {
-					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
 						int stockQuantity = iam.getQuantity();
 						int quantity = itemQuantity.get(itemId);
-						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iam, TempWorkOrderItems.class);
-						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
-						tempWorkOrderItems.setQty(quantity);
+						TempIndentItems tempIndentMaterialItems = modelMapper.map(iam, TempIndentItems.class);
+						tempIndentMaterialItems.setWorkOrderNo(workOrderNo);
+						tempIndentMaterialItems.setQty(quantity);
 						if (stockQuantity >= quantity) {
-							tempWorkOrderItems.setFinalQuantity(quantity);
-							tempWorkOrderItems.setTotalCost(iam.getMrpRate() * quantity);
+							tempIndentMaterialItems.setFinalQuantity(quantity);
+							tempIndentMaterialItems.setTotalCost(iam.getMrpRate() * quantity);
 						} else {
-							tempWorkOrderItems.setFinalQuantity(stockQuantity);
-							tempWorkOrderItems.setTotalCost(iam.getMrpRate() * stockQuantity);
+							tempIndentMaterialItems.setFinalQuantity(stockQuantity);
+							tempIndentMaterialItems.setTotalCost(iam.getMrpRate() * stockQuantity);
 						}
 
-						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+						tempIndentItemsRepository.save(tempIndentMaterialItems);
 					}
 				}
 			}
@@ -578,22 +577,22 @@ public class StockServiceImpl implements StockService {
 
 				for (String itemId : itemIds) {
 
-					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedSpares ias = inwardApprovedSparesRepository.findByItemId(itemId);
 						int stockQuantity = ias.getQuantity();
 						int quantity = itemQuantity.get(itemId);
-						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(ias, TempWorkOrderItems.class);
-						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
-						tempWorkOrderItems.setQty(quantity);
+						TempIndentItems tempIndentSpareItems = modelMapper.map(ias, TempIndentItems.class);
+						tempIndentSpareItems.setWorkOrderNo(workOrderNo);
+						tempIndentSpareItems.setQty(quantity);
 
 						if (stockQuantity >= quantity) {
-							tempWorkOrderItems.setFinalQuantity(quantity);
-							tempWorkOrderItems.setTotalCost(ias.getMrpRate() * quantity);
+							tempIndentSpareItems.setFinalQuantity(quantity);
+							tempIndentSpareItems.setTotalCost(ias.getMrpRate() * quantity);
 						} else {
-							tempWorkOrderItems.setFinalQuantity(stockQuantity);
-							tempWorkOrderItems.setTotalCost(ias.getMrpRate() * quantity);
+							tempIndentSpareItems.setFinalQuantity(stockQuantity);
+							tempIndentSpareItems.setTotalCost(ias.getMrpRate() * quantity);
 						}
-						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+						tempIndentItemsRepository.save(tempIndentSpareItems);
 					}
 				}
 			}
@@ -605,57 +604,57 @@ public class StockServiceImpl implements StockService {
 						Collectors.toMap(WorkOrderItemsRequest::getItemId, WorkOrderItemsRequest::getQuantity));
 
 				for (String itemId : itemIds) {
-					if (tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
+					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedTools iat = inwardApprovedToolsRepository.findByItemId(itemId);
 						int stockQuantity = iat.getQuantity();
 						int quantity = itemQuantity.get(itemId);
-						TempWorkOrderItems tempWorkOrderItems = modelMapper.map(iat, TempWorkOrderItems.class);
-						tempWorkOrderItems.setWorkOrderNo(workOrderNo);
-						tempWorkOrderItems.setQty(quantity);
+						TempIndentItems tempIndentToolItems = modelMapper.map(iat, TempIndentItems.class);
+						tempIndentToolItems.setWorkOrderNo(workOrderNo);
+						tempIndentToolItems.setQty(quantity);
 
 						if (stockQuantity >= quantity) {
-							tempWorkOrderItems.setFinalQuantity(quantity);
-							tempWorkOrderItems.setTotalCost(iat.getMrpRate() * quantity);
+							tempIndentToolItems.setFinalQuantity(quantity);
+							tempIndentToolItems.setTotalCost(iat.getMrpRate() * quantity);
 						} else {
-							tempWorkOrderItems.setFinalQuantity(stockQuantity);
-							tempWorkOrderItems.setTotalCost(iat.getMrpRate() * quantity);
+							tempIndentToolItems.setFinalQuantity(stockQuantity);
+							tempIndentToolItems.setTotalCost(iat.getMrpRate() * quantity);
 						}
-						tempWorkOrderItemsRepository.save(tempWorkOrderItems);
+						tempIndentItemsRepository.save(tempIndentToolItems);
 					}
 				}
 			}
 		}
 
-		List<TempWorkOrderItems> listTempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+		List<TempIndentItems> listOfTempIndentItems = tempIndentItemsRepository.findByWorkOrderNo(workOrderNo);
 
 		int count = 1;
-		for (int i = 0; i < listTempWorkOrderItems.size(); i++) {
-			listTempWorkOrderItems.get(i).setSlNo(count);
-			tempWorkOrderItemsRepository.save(listTempWorkOrderItems.get(i));
+		for (int i = 0; i < listOfTempIndentItems.size(); i++) {
+			listOfTempIndentItems.get(i).setSlNo(count);
+			tempIndentItemsRepository.save(listOfTempIndentItems.get(i));
 			count++;
 		}
 
 		List<WorkOrderItemsDto> wOIDto = new ArrayList<WorkOrderItemsDto>();
-		for (TempWorkOrderItems listTempWorkOrderItem : listTempWorkOrderItems) {
-			
+		for (TempIndentItems tempIndentItem : listOfTempIndentItems) {
+
 			WorkOrderItemsDto newwOIDto = new WorkOrderItemsDto();
-			
-			newwOIDto.setAliasName(listTempWorkOrderItem.getAliasName());
-			newwOIDto.setCategory(listTempWorkOrderItem.getCategory());
-			newwOIDto.setDescription(listTempWorkOrderItem.getDescription());
-			newwOIDto.setFinalQuantity(listTempWorkOrderItem.getFinalQuantity());
-			newwOIDto.setImagePath(listTempWorkOrderItem.getImagePath());
-			newwOIDto.setItemId(listTempWorkOrderItem.getItemId());
-			newwOIDto.setItemImage(listTempWorkOrderItem.getItemImage());
-			newwOIDto.setItemName(listTempWorkOrderItem.getItemName());
-			newwOIDto.setMrpRate(listTempWorkOrderItem.getMrpRate());
-			newwOIDto.setQty(listTempWorkOrderItem.getQty());
-			newwOIDto.setSlNo(listTempWorkOrderItem.getSlNo());			
-			newwOIDto.setStockType(listTempWorkOrderItem.getStockType());
-			newwOIDto.setTotalCost(listTempWorkOrderItem.getTotalCost());
-			newwOIDto.setUnitOfMeasure(listTempWorkOrderItem.getUnitOfMeasure());
-			newwOIDto.setWorkOrderNo(listTempWorkOrderItem.getWorkOrderNo());
-			
+
+			newwOIDto.setAliasName(tempIndentItem.getAliasName());
+			newwOIDto.setCategory(tempIndentItem.getCategory());
+			newwOIDto.setDescription(tempIndentItem.getDescription());
+			newwOIDto.setFinalQuantity(tempIndentItem.getFinalQuantity());
+			newwOIDto.setImagePath(tempIndentItem.getImagePath());
+			newwOIDto.setItemId(tempIndentItem.getItemId());
+			newwOIDto.setItemImage(tempIndentItem.getItemImage());
+			newwOIDto.setItemName(tempIndentItem.getItemName());
+			newwOIDto.setMrpRate(tempIndentItem.getMrpRate());
+			newwOIDto.setQty(tempIndentItem.getQty());
+			newwOIDto.setSlNo(tempIndentItem.getSlNo());
+			newwOIDto.setStockType(tempIndentItem.getStockType());
+			newwOIDto.setTotalCost(tempIndentItem.getTotalCost());
+			newwOIDto.setUnitOfMeasure(tempIndentItem.getUnitOfMeasure());
+			newwOIDto.setWorkOrderNo(tempIndentItem.getWorkOrderNo());
+
 			if (inwardApprovedMaterialsRepository.findByItemIdAndStockType(newwOIDto.getItemId(),
 					stockTypes.get(0)) != null) {
 				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(newwOIDto.getItemId()).getQuantity();
@@ -708,49 +707,36 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveWorkOrder(TempWorkOrderNos workOrders, String username) {
-		TempWorkOrderNos savedWorkOrder = tempWorkOrderNosRepository.save(workOrders);
-		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository
-				.findByWorkOrderNo(savedWorkOrder.getWorkOrderNo());
+	public void saveWorkOrder(TempWorkOrders workOrders, String username) {
+		workOrders.setUsername(username);
+		TempWorkOrders tempWorkOrders = tempWorkOrdersRepository.save(workOrders);
+		List<TempIndentItems> tempIndentItems = tempIndentItemsRepository
+				.findByWorkOrderNo(tempWorkOrders.getWorkOrderNo());
 
-		tempWorkOrderItems.forEach(tempWorkOrderItem -> {
-			WorkOrderItems orderItem = modelMapper.map(tempWorkOrderItem, WorkOrderItems.class);
-			orderItem.setWorkOrderId(savedWorkOrder);
-			orderItem.setTotalCost(orderItem.getFinalQuantity() * orderItem.getMrpRate());
-			orderItem.setUsername(username);
-			workOrderItemsRepository.save(orderItem);
-
-			int requiredQty = tempWorkOrderItem.getFinalQuantity();
-
-			InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
-					.findByItemId(tempWorkOrderItem.getItemId());
-
-			InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository
-					.findByItemId(tempWorkOrderItem.getItemId());
-
-			InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository
-					.findByItemId(tempWorkOrderItem.getItemId());
-
-			if (inwardApprovedMaterials != null) {
-				int MaterialStockQty = inwardApprovedMaterials.getQuantity();
-				inwardApprovedMaterials.setQuantity(MaterialStockQty - requiredQty);
-				inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
-			}
-			if (inwardApprovedSpares != null) {
-				int SpareStockQty = inwardApprovedSpares.getQuantity();
-				inwardApprovedSpares.setQuantity(SpareStockQty - requiredQty);
-				inwardApprovedSparesRepository.save(inwardApprovedSpares);
-			}
-			if (inwardApprovedTools != null) {
-				int ToolStockQty = inwardApprovedTools.getQuantity();
-				inwardApprovedTools.setQuantity(ToolStockQty - requiredQty);
-				inwardApprovedToolsRepository.save(inwardApprovedTools);
-			}
-
-			tempWorkOrderItemsRepository.deleteById(tempWorkOrderItem.getTempWorkorderItemId());
+		tempIndentItems.forEach(tempIndentItem -> {
+			TempWorkOrderItems tempWorkOrderItems = new TempWorkOrderItems();
+			tempWorkOrderItems.setAliasName(tempIndentItem.getAliasName());
+			tempWorkOrderItems.setCategory(tempIndentItem.getCategory());
+			tempWorkOrderItems.setDescription(tempIndentItem.getDescription());
+			tempWorkOrderItems.setFinalQuantity(tempIndentItem.getFinalQuantity());
+			tempWorkOrderItems.setImagePath(tempIndentItem.getImagePath());
+			tempWorkOrderItems.setItemId(tempIndentItem.getItemId());
+			tempWorkOrderItems.setItemImage(tempIndentItem.getItemImage());
+			tempWorkOrderItems.setItemName(tempIndentItem.getItemName());
+			tempWorkOrderItems.setMrpRate(tempIndentItem.getMrpRate());
+			tempWorkOrderItems.setSlNo(tempIndentItem.getSlNo());
+			tempWorkOrderItems.setStockType(tempIndentItem.getStockType());
+			tempWorkOrderItems.setTotalCost(tempIndentItem.getTotalCost());
+			tempWorkOrderItems.setUnitOfMeasure(tempIndentItem.getUnitOfMeasure());
+			tempWorkOrderItems.setWorkOrderNo(tempIndentItem.getWorkOrderNo());
+			tempWorkOrderItems.setOrderId(tempWorkOrders);
+			tempWorkOrderItems.setTotalCost(tempWorkOrderItems.getFinalQuantity() * tempWorkOrderItems.getMrpRate());
+			tempWorkOrderItems.setUsername(username);
+			tempWorkOrderItemsRepository.save(tempWorkOrderItems);			
+			tempIndentItemsRepository.deleteById(tempIndentItem.getRecordId());
 			WorkOrderItemsRequest workOrderItemsRequest = workOrderItemsRequestRepository
-					.findByWorkOrderNoAndItemId(savedWorkOrder.getWorkOrderNo(), tempWorkOrderItem.getItemId());
-			workOrderItemsRequestRepository.deleteById(workOrderItemsRequest.getStocksId());
+					.findByWorkOrderNoAndItemId(tempWorkOrders.getWorkOrderNo(), tempIndentItem.getItemId());
+			workOrderItemsRequestRepository.deleteById(workOrderItemsRequest.getRecordId());
 		});
 	}
 
@@ -785,7 +771,7 @@ public class StockServiceImpl implements StockService {
 			stockQuantity = inwardApprovedTools.getQuantity();
 		}
 
-		int requiredQuantity = tempWorkOrderItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).get()
+		int requiredQuantity = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).get()
 				.getQty();
 
 		removedItem.setItemId(itemId);
@@ -808,32 +794,32 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public boolean getTempWorkOrderItems(Long workOrderNo) {
 		boolean flag = false;
-		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+		List<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByWorkOrderNo(workOrderNo);
 
-		if (tempWorkOrderItems.size() == 0) {
+		if (tempIndentItems.size() == 0) {
 			flag = true;
 		}
 		return flag;
 	}
 
 	@Override
-	public List<TempWorkOrderNos> getOutwardWorkOrders() {
-		return tempWorkOrderNosRepository.findAll();
+	public List<TempWorkOrders> getOutwardWorkOrders() {
+		return tempWorkOrdersRepository.findAll();
 	}
 
 	@Override
-	public List<WorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo) {
-		return workOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+	public List<TempWorkOrderItems> getOutwardWorkOrderItems(Long workOrderNo) {
+		return tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
 	}
 
 	@Override
-	public TempWorkOrderNos getOutwardWorkOrder(Long workOrderNo) {
-		return tempWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
+	public TempWorkOrders getOutwardWorkOrder(Long workOrderNo) {
+		return tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
 	}
 
 	@Override
-	public List<ApprovedWorkOrderNos> getOutwardApprovedWorkOrders() {
-		return approvedWorkOrderNosRepository.findAll();
+	public List<ApprovedWorkOrders> getOutwardApprovedWorkOrders() {
+		return approvedWorkOrdersRepository.findAll();
 	}
 
 	@Override
@@ -842,8 +828,8 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public ApprovedWorkOrderNos getOutwardApprovedWorkOrder(Long workOrderNo) {
-		return approvedWorkOrderNosRepository.findByWorkOrderNo(workOrderNo);
+	public ApprovedWorkOrders getOutwardApprovedWorkOrder(Long workOrderNo) {
+		return approvedWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
 	}
 
 	@Override
@@ -856,36 +842,36 @@ public class StockServiceImpl implements StockService {
 	/***** Stocks Return *****/
 
 	@Override
-	public void saveReturnItem(TempStockReturn tempStockReturn, MultipartFile file) {
+	public void saveReturnItem(TempStocksReturn stockReturn, MultipartFile file) {
 
-		TempStockReturn oldTempStockReturn = tempStockReturnRepository
-				.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(), tempStockReturn.getItemId());
+		TempStocksReturn tempStocksReturn = tempStocksReturnRepository
+				.findByWorkOrderNoAndItemId(stockReturn.getWorkOrderNo(), stockReturn.getItemId());
 
 		Double orderCost = approvedWorkOrderItemsRepository
-				.findByItemIdAndWorkOrderNo(tempStockReturn.getItemId(), tempStockReturn.getWorkOrderNo())
+				.findByItemIdAndWorkOrderNo(stockReturn.getItemId(), stockReturn.getWorkOrderNo())
 				.getTotalCost();
 
-		if (oldTempStockReturn != null) {
+		if (tempStocksReturn != null) {
 
-			int newReturnQuantity = oldTempStockReturn.getReturnQuantity() + tempStockReturn.getReturnQuantity();
-			oldTempStockReturn.setReturnQuantity(newReturnQuantity);
+			int newReturnQuantity = tempStocksReturn.getReturnQuantity() + stockReturn.getReturnQuantity();
+			tempStocksReturn.setReturnQuantity(newReturnQuantity);
 
 			// Order Cost with GST
-			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
-			oldTempStockReturn.setOrderTotalCost(orderGst + orderCost);
+			Double orderGst = (orderCost * stockReturn.getIgst()) / 100;
+			tempStocksReturn.setOrderTotalCost(orderGst + orderCost);
 
 			// Return Cost with GST
-			Double returnCost = newReturnQuantity * oldTempStockReturn.getMrpRate();
-			Double returnGst = (returnCost * tempStockReturn.getIgst()) / 100;
-			oldTempStockReturn.setReturnTotalCost(returnGst + returnCost);
+			Double returnCost = newReturnQuantity * tempStocksReturn.getMrpRate();
+			Double returnGst = (returnCost * stockReturn.getIgst()) / 100;
+			tempStocksReturn.setReturnTotalCost(returnGst + returnCost);
 
-			tempStockReturnRepository.save(oldTempStockReturn);
+			tempStocksReturnRepository.save(tempStocksReturn);
 
 		} else {
 
 			String companyName = "";
 
-			Company company = adminService.getCompanyByUsername(tempStockReturn.getUsername());
+			Company company = adminService.getCompanyByUsername(stockReturn.getUsername());
 
 			if (company != null) {
 				companyName = company.getCompanyName();
@@ -896,7 +882,7 @@ public class StockServiceImpl implements StockService {
 			Optional<String> tokens = Optional.ofNullable(file.getOriginalFilename()).filter(f -> f.contains("."))
 					.map(f -> f.substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 
-			String fileName = tempStockReturn.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
+			String fileName = stockReturn.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
 					+ tokens.get();
 			String uploadDir = "C:\\Company\\" + companyName + "\\Stock_Returns\\";
 
@@ -906,35 +892,35 @@ public class StockServiceImpl implements StockService {
 				e.printStackTrace();
 			}
 
-			tempStockReturn.setItemImage(fileName);
-			tempStockReturn.setImagePath("/Company/" + companyName + "/Stock_Returns/");
+			stockReturn.setItemImage(fileName);
+			stockReturn.setImagePath("/Company/" + companyName + "/Stock_Returns/");
 
 			// Return Cost with GST
-			Double returnCost = tempStockReturn.getReturnQuantity() * tempStockReturn.getMrpRate();
-			Double returnGst = (returnCost * tempStockReturn.getIgst()) / 100;
-			tempStockReturn.setReturnTotalCost(returnCost + returnGst);
+			Double returnCost = stockReturn.getReturnQuantity() * stockReturn.getMrpRate();
+			Double returnGst = (returnCost * stockReturn.getIgst()) / 100;
+			stockReturn.setReturnTotalCost(returnCost + returnGst);
 
 			// Order Cost with GST
 
-			Double orderGst = (orderCost * tempStockReturn.getIgst()) / 100;
-			tempStockReturn.setOrderTotalCost(orderGst + orderCost);
-			tempStockReturnRepository.save(tempStockReturn);
+			Double orderGst = (orderCost * stockReturn.getIgst()) / 100;
+			stockReturn.setOrderTotalCost(orderGst + orderCost);
+			tempStocksReturnRepository.save(stockReturn);
 		}
 
 	}
 
 	@Override
-	public boolean checkReturnedItem(TempStockReturn tempStockReturn) {
+	public boolean checkReturnedItem(TempStocksReturn stocksReturn) {
 
-		TempStockReturn oldTempStockReturn = tempStockReturnRepository
-				.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(), tempStockReturn.getItemId());
+		TempStocksReturn tempStocksReturn = tempStocksReturnRepository
+				.findByWorkOrderNoAndItemId(stocksReturn.getWorkOrderNo(), stocksReturn.getItemId());
 
 		boolean checkReturn = false;
 
-		if (oldTempStockReturn != null) {
+		if (tempStocksReturn != null) {
 
-			int remainingQuantity = oldTempStockReturn.getOrderQuantity() - oldTempStockReturn.getReturnQuantity();
-			int returnQuantity = tempStockReturn.getReturnQuantity();
+			int remainingQuantity = tempStocksReturn.getOrderQuantity() - tempStocksReturn.getReturnQuantity();
+			int returnQuantity = stocksReturn.getReturnQuantity();
 
 			if (!(remainingQuantity >= returnQuantity)) {
 				checkReturn = true;
@@ -945,45 +931,45 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public TempStockReturn getReturnQuantity(TempStockReturn tempStockReturn) {
+	public TempStocksReturn getReturnQuantity(TempStocksReturn stocksReturn) {
 
-		return tempStockReturnRepository.findByWorkOrderNoAndItemId(tempStockReturn.getWorkOrderNo(),
-				tempStockReturn.getItemId());
+		return tempStocksReturnRepository.findByWorkOrderNoAndItemId(stocksReturn.getWorkOrderNo(),
+				stocksReturn.getItemId());
 	}
 
 	@Override
-	public List<TempStockReturn> getTempStockReturn(String username) {
+	public List<TempStocksReturn> getTempStockReturn(String username) {
 
-		return tempStockReturnRepository.findByUsername(username);
+		return tempStocksReturnRepository.findByUsername(username);
 	}
 
 	@Override
 	public void deleteTempReturnItem(Long id) {
-		tempStockReturnRepository.deleteById(id);
+		tempStocksReturnRepository.deleteById(id);
 	}
 
 	@Override
 	public void deleteAllTempReturnItem() {
-		tempStockReturnRepository.deleteAll();
+		tempStocksReturnRepository.deleteAll();
 	}
 
 	@Override
-	public void saveReturnItems(TempStockReturn tempStockReturn) {
+	public void saveReturnItems(TempStocksReturn stockReturn) {
 
-		List<TempStockReturn> tempStocksReturns = tempStockReturnRepository
-				.findByUsername(tempStockReturn.getUsername());
+		List<TempStocksReturn> tempStocksReturn = tempStocksReturnRepository
+				.findByUsername(stockReturn.getUsername());
 
-		for (TempStockReturn tempStocksReturn : tempStocksReturns) {
-			StockReturns stockReturns = modelMapper.map(tempStocksReturn, StockReturns.class);
-			stockReturns.setInvoiceNo(tempStockReturn.getInvoiceNo());
-			stockReturns.setReturnEntryDate(tempStockReturn.getReturnEntryDate());
-			stockReturnsRepository.save(stockReturns);
-			tempStockReturnRepository.deleteById(tempStocksReturn.getTempStockId());
+		for (TempStocksReturn tempStockReturn : tempStocksReturn) {
+			StocksReturn stocksReturn = modelMapper.map(tempStockReturn, StocksReturn.class);
+			stocksReturn.setInvoiceNo(stockReturn.getInvoiceNo());
+			stocksReturn.setReturnEntryDate(stockReturn.getReturnEntryDate());
+			stockReturnsRepository.save(stocksReturn);
+			tempStocksReturnRepository.deleteById(tempStockReturn.getRecordId());
 		}
 	}
 
 	@Override
-	public List<StockReturns> getStockReturnItemList() {
+	public List<StocksReturn> getStockReturnItemList() {
 		return stockReturnsRepository.findAll();
 	}
 
@@ -993,9 +979,9 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public List<ApprovedStockReturns> getApprovedStockReturnItemList() {
+	public List<ApprovedStocksReturn> getApprovedStockReturnItemList() {
 
-		return approvedStockReturnsRepository.findAll();
+		return approvedStocksReturnRepository.findAll();
 	}
 
 }
