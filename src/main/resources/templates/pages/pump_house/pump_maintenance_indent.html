@@ -38,7 +38,7 @@
 											<label for="inputEmail4">Indent No</label>
 											<input type="text" class="form-control form-control-sm bg-white" readonly
 												id="pump-spare-indentNo" placeholder="Enter Indent No"
-												th:value="${deptMaster.deptId}">
+												th:value="${deptMaster.deptLastId}">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent Department</label>
@@ -81,39 +81,39 @@
 											<label for="inputEmail4">Work Site</label>
 											<input type="text"
 												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="pupm-parts-workSite" required
+												id="pump-parts-workSite" required
 												placeholder="Write WorkSite Address Here">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected Start Date</label>
 											<input type="date" class="form-control form-control-sm"
-												id="pupm-parts-startDate" required>
+												id="pump-parts-startDate" required>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Expected End Date</label>
 											<input type="date" class="form-control form-control-sm"
-												id="pupm-parts-endDate" required>
+												id="pump-parts-endDate" required>
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Contact</label>
 											<input type="text" class="form-control form-control-sm"
-												id="pupm-parts-contactNo" placeholder="Enter Contact Number" required
+												id="pump-parts-contactNo" placeholder="Enter Contact Number" required
 												maxlength="10">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Work Priority</label>
 											<select type="text" class="form-select form-select-sm"
-												id="pupm-parts-workPriority">
+												id="pump-parts-workPriority">
 												<option value="">--Select--</option>
-												<option value="High">High</option>
-												<option value="Midum">Midum</option>
-												<option value="Low">Low</option>
+												<option th:each="workpriority:${workProrityList}"
+												        th:text="${workpriority.workPriority}"
+												        th:value="${workpriority.workPriority}"></option>												
 											</select>
 										</div>
 										<div class="form-group col-md-12">
 											<label for="inputEmail4">Complaint Details</label>
 											<textarea type="text" class="form-control form-control-sm bg-white"
-												id="pupm-parts-complDtls" th:field="*{complDtls.complDetails}"
+												id="pump-parts-complDtls" th:field="*{complDtls.complDetails}"
 												placeholder="Write Complaint Details" readonly></textarea>
 										</div>
 
@@ -132,16 +132,17 @@
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Category</label>
 														<select class="form-select form-select-sm"
-															id="item-master-category">
+															id="pump-matrial-category">
 															<option value="">--Select--</option>
 															<option th:each="categories:${categoryList}"
-																th:value="${categories.catid}"
-																th:text="${categories.categoryName}">
+																th:value="${categories}"
+																th:text="${categories}">
 															</option>
 														</select>
 													</div>
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Item</label>
+														<input type="hidden" id="pump-material-itemName">
 														<select class="form-select form-select-sm"
 															id="pump-spare-item-list">
 															<option value="">--Select--</option>
@@ -158,26 +159,20 @@
 												<div class="row mt-3">
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Unit of Meassure</label>
-														<select type="text" class="form-select form-select-sm"
-															id="pump-spare-unitMesure">
-															<option value="">--Select--</option>
-															<option th:each="units:${unitsList}"
-																th:value="${units.unitType}"
-																th:text="${units.unitType}">
-															</option>
-														</select>
+														<input type="text" class="form-control form-control-sm bg-white"
+															id="pump-spare-unitMesure" readonly placeholder="Enter Unit Of Measure">																
+													</div>												
+													<div class="form-group col-md-4">
+														<label for="inputEmail4">Stock Type</label>
+														<input type="hidden" id="pump-material-stockType">
+														<input type="text" class="form-control form-control-sm bg-white"
+															readonly id="pump-spare-stockType"
+															placeholder="Enter Stock Type">
 													</div>
 													<div class="form-group col-md-4">
 														<label for="inputEmail4">Qty</label>
 														<input type="number" class="form-control form-control-sm"
 															id="pump-spare-qantity" placeholder="Qty" required>
-													</div>
-
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Stock Type</label>
-														<input type="text" class="form-control form-control-sm bg-white"
-															readonly id="pump-spare-stockType"
-															placeholder="Enter Stock Type">
 													</div>
 													<div class="text-center mt-2">
 														<button type="button" id="pump-parts-addbutton"
@@ -219,7 +214,7 @@
 											<label for="inputEmail4">Indent No</label>
 											<input type="text" class="form-control form-control-sm bg-white"
 												id="pump-labour-indent" placeholder="Indent No" readonly
-												th:value="${deptMaster.deptId}">
+												th:value="${deptMaster.deptLastId}">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent Department</label>
@@ -359,7 +354,7 @@
 											<label for="inputEmail4">Indent No</label>
 											<input type="text" class="form-control form-control-sm bg-white"
 												id="pump-vehicle-indentNo" placeholder="Indent No" readonly
-												th:value="${deptMaster.deptId}">
+												th:value="${deptMaster.deptLastId}">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent Department</label>
@@ -514,7 +509,7 @@
 									</div>
 									<div class=" text-center mt-4">
 										<a class="btn btn-primary btnPrevious w-25  text-white">Previous</a>
-										<a class="btn btn-primary w-25  text-white" th:href="@{'/pump/save/IndentData/'+${complDtls.complNo}}">Submit</a>
+										<a class="btn btn-primary w-25  text-white" th:href="@{'/pump/generate/workorder/'+${complDtls.complNo}}">Submit</a>
 									</div>
 								</div>
 							</div>

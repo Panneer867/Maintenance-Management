@@ -13,9 +13,6 @@ public interface VehicleDtlsService {
 	
 	//delete
 	void deleteVehicleDetails(Long vehicleDtlsId);
-	
-	//get Max Vehicle Id
-	String getMaxVehicleId();
 
 	//Get All Vehicle Types
 	List<String> getAllVehicleTypes();

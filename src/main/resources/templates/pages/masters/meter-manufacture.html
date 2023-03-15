@@ -3,7 +3,7 @@
 <body>
 	<section>
 		<!-- form Start-->
-		 <div class="mx-auto col-12 mt-5">
+		<div class="mx-auto col-12 mt-5">
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
@@ -17,84 +17,89 @@
 					<h3 class="mb-0">Meter Manufacture</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-				   <form th:action="@{/masters/savemetermanufact}" method="post">
-					<div class="row ">
-						<div class="col text-start">
-							<label for="meterId" class="col-sm-8 col-form-label">Meter Id</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm bg-white" readonly 
-								id="meterId" name="meterId" required th:value="${meterIdNo}">
+					<form th:action="@{/masters/savemetermanufact}" method="post">
+						<div class="row ">
+							<div class="col text-start">
+								<label for="meterId" class="col-sm-8 col-form-label">Meter Id</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm bg-white" readonly
+										id="meterId" name="meterId" required th:value="${meterIdNo}">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="meterManufacture" class="col-sm-10 col-form-label">Meter Manufacture</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="meterManufacture"
+										name="meterManufacture" required placeholder="Enter Manufacture Name">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="meterType" class="col-sm-10 col-form-label">Meter Type</label>
+								<div class="col">
+									<select type="text" class="form-select form-select-sm" id="meterType"
+										name="meterType" required>
+										<option value="">--Select--</option>
+										<option th:each="mtrTypes:${meterTypes}" th:value="${mtrTypes.meterType}"
+											th:text="${mtrTypes.meterType}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="digit" class="col-sm-10 col-form-label">Degit</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="digit" name="digit"
+										required placeholder="Enter Meter Degit">
+								</div>
 							</div>
 						</div>
-						<div class="col text-start">
-							<label for="meterManufacture" class="col-sm-10 col-form-label">Meter Manufacture</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="meterManufacture" name="meterManufacture" required placeholder="Enter Manufacture Name">
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="meterType" class="col-sm-10 col-form-label">Meter Type</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="meterType" name="meterType" required placeholder="Enter Meter Type" >
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="digit" class="col-sm-10 col-form-label">Degit</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="digit" name="digit" required placeholder="Enter Meter Degit">
-							</div>
-						</div>
-					</div>
-					<div class="row ">
-						<div class="col text-start">
+						<div class="row ">
+							<div class="col text-start">
 
-							<label for="receivedDate" class="col-sm-8 col-form-label">Recevid Date</label>
-							<div class="col">
-								<input type="date" class="form-control form-control-sm" 
-								id="receivedDate" name="receivedDate" required>
+								<label for="receivedDate" class="col-sm-8 col-form-label">Recevid Date</label>
+								<div class="col">
+									<input type="date" class="form-control form-control-sm" id="receivedDate"
+										name="receivedDate" required>
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="meterSlNo" class="col-sm-10 col-form-label">Meter Sl Namber</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="meterSlNo"
+										name="meterSlNo" required placeholder="Enter Meter Sl No">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="warranty" class="col-sm-10 col-form-label">Warranty</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="warranty"
+										name="warranty" required placeholder="Enter Meter Warranty">
+								</div>
+							</div>
+							<div class="col text-start">
+								<label for="condition" class="col-sm-10 col-form-label">Condition</label>
+								<div class="col">
+									<input type="text" class="form-control form-control-sm" id="condition"
+										name="condition" required placeholder="Enter Meter Condition">
+								</div>
 							</div>
 						</div>
-						<div class="col text-start">
-							<label for="meterSlNo" class="col-sm-10 col-form-label">Meter Sl Namber</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="meterSlNo" name="meterSlNo" required placeholder="Enter Meter Sl No">
-							</div>
+						<div class="pt-4 text-center">
+							<button type="submit" class="btn btn-primary">Submit </button>
+							<a th:href="@{/masters/metermanufacthistory}" class="btn btn-success">View</a>
 						</div>
-						<div class="col text-start">
-							<label for="warranty" class="col-sm-10 col-form-label">Warranty</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="warranty" name="warranty" required placeholder="Enter Meter Warranty">
-							</div>
-						</div>
-						<div class="col text-start">
-							<label for="condition" class="col-sm-10 col-form-label">Condition</label>
-							<div class="col">
-								<input type="text" class="form-control form-control-sm" 
-								id="condition" name="condition" required placeholder="Enter Meter Condition">
-							</div>
-						</div>
-					</div>
-                       <div class="pt-4 text-center">
-						  <button type="submit" class="btn btn-primary">Submit </button>
-						  <a th:href="@{/masters/metermanufacthistory}" class="btn btn-success">View</a>
-					   </div>
-				</form>
+					</form>
 				</div>
 			</div>
-		 </div>
+		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Meter Manufacture History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>					
+					<tr>
 						<th class="text-center" scope="col">Meter Id</th>
 						<th class="text-center" scope="col">Meter Manufact</th>
 						<th class="text-center" scope="col">Meter Type</th>
@@ -102,27 +107,27 @@
 						<th class="text-center" scope="col">Received Date</th>
 						<th class="text-center" scope="col">Meter Sl No</th>
 						<th class="text-center" scope="col">Warranty</th>
-						<th class="text-center" scope="col">Condition</th>						
+						<th class="text-center" scope="col">Condition</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="metermenufact : ${listOfManufact}">
 						<td><a href="#" th:onclick="|deleteMeterManufacture(${metermenufact.mtrmanufacId})|">
 								<span th:text="${metermenufact.meterId}"></span></a>
-						</td>						
-						<td th:text="${metermenufact.meterManufacture}"></td>	
-						<td th:text="${metermenufact.meterType}"></td>	
-						<td th:text="${metermenufact.digit}"></td>	
+						</td>
+						<td th:text="${metermenufact.meterManufacture}"></td>
+						<td th:text="${metermenufact.meterType}"></td>
+						<td th:text="${metermenufact.digit}"></td>
 						<td th:text="${metermenufact.receivedDate}"></td>
-						<td th:text="${metermenufact.meterSlNo}"></td>	
-						<td th:text="${metermenufact.warranty}"></td>	
-						<td th:text="${metermenufact.condition}"></td>												
+						<td th:text="${metermenufact.meterSlNo}"></td>
+						<td th:text="${metermenufact.warranty}"></td>
+						<td th:text="${metermenufact.condition}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

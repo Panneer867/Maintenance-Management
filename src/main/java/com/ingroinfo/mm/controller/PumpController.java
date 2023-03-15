@@ -1,9 +1,13 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +21,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.ingroinfo.mm.dto.CategoryDto;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
+import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 import com.ingroinfo.mm.dto.PumpMasterDto;
 import com.ingroinfo.mm.dto.PumpMaterialDto;
 import com.ingroinfo.mm.dto.UnitMeasureDto;
+import com.ingroinfo.mm.dto.WorkOrderItemsRequestDto;
+import com.ingroinfo.mm.dto.WorkPriorityDto;
 import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.CategoryService;
 import com.ingroinfo.mm.service.DepartmentIdMasterService;
 import com.ingroinfo.mm.service.DivisionSubdivisionService;
 import com.ingroinfo.mm.service.PumpMaintenanceService;
+import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.service.TaskUpdateService;
 import com.ingroinfo.mm.service.UnitMeasureService;
 import com.ingroinfo.mm.service.VehicleDtlsService;
+import com.ingroinfo.mm.service.WorkOrderItemsRequestService;
+import com.ingroinfo.mm.service.WorkPriorityService;
 
 @Controller
 @RequestMapping("/pump")
@@ -55,11 +63,15 @@ public class PumpController {
 	@Autowired
 	private DivisionSubdivisionService divSubDivService;
 	@Autowired
-	private CategoryService categoryService;
-	@Autowired
 	private UnitMeasureService unitMeasureService;
 	@Autowired
 	private VehicleDtlsService vehicleDtlsService;
+	@Autowired
+	private StockService stockService;
+	@Autowired
+	private WorkPriorityService workPriorityService;
+	@Autowired
+	private WorkOrderItemsRequestService workOrderItemsRequestService;
 
 	// Handler For Open dashBoard
 	@GetMapping("/dashboard")
@@ -118,7 +130,7 @@ public class PumpController {
 			}
 		} catch (Exception e) {
 			session.setAttribute("message", new Message(" No Complain Assigned !! First Add Indent No !!", "danger"));
-			System.out.println("Something went Wromg !!" + e.getMessage());
+			System.out.println("Something went Wrong !!" + e.getMessage());
 		}
 		model.addAttribute("title", "Pump | Indent | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_indent";
@@ -158,36 +170,58 @@ public class PumpController {
 			List<String> divSubDivList = this.divSubDivService.getDistinctDivisions();
 			model.addAttribute("divSubDivList", divSubDivList);
 		} catch (Exception e) {
-			System.out.println("Something Went Wron !!" + e.getMessage());
+			System.out.println("Something Went Wrong !!" + e.getMessage());
 		}
-		try {
-			List<CategoryDto> categoryDtos = this.categoryService.findAllCategory();
-			model.addAttribute("categoryList", categoryDtos);
-		} catch (Exception e) {
-			System.out.println("Something Went Wron !!" + e.getMessage());
-		}
+
 		try {
 			List<UnitMeasureDto> unitMeasureDtos = this.unitMeasureService.getAllUnitMeasure();
 			model.addAttribute("unitsList", unitMeasureDtos);
 		} catch (Exception e) {
-			System.out.println("Something Went Wron !!" + e.getMessage());
+			System.out.println("Something Went Wrong !!" + e.getMessage());
 		}
 		try {
 			List<String> vehicleTypes = this.vehicleDtlsService.getAllVehicleTypes();
 			model.addAttribute("vehicleTypes", vehicleTypes);
 		} catch (Exception e) {
-			System.out.println("Something Went Wron !!" + e.getMessage());
+			System.out.println("Something Went Wrong !!" + e.getMessage());
 		}
+
+		List<WorkPriorityDto> workPriorityDtos = this.workPriorityService.findAllWorkPriority();
+		model.addAttribute("workProrityList", workPriorityDtos);
+
+		List<InwardDto> stockList = stockService.getAllStocks();
+		List<String> catrgoryList = stockList.stream().map(InwardDto::getCategory).distinct()
+				.collect(Collectors.toList());
+		model.addAttribute("categoryList", catrgoryList);
 		model.addAttribute("title", "Pump | Indent | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_indent";
 	}
 
-	// Handler For Adding Pump Material Indent Data
+	// Handler For Getting Item List From Stocks
+	@GetMapping("/get/itemname/{category}")
+	@ResponseBody
+	public List<InwardDto> getItemName(@PathVariable("category") String category) {
+		List<InwardDto> stockList = stockService.getAllStocks();
+		List<InwardDto> itemsList = stockList.stream().filter(item -> item.getCategory().equals(category))
+				.collect(Collectors.toList());
+		return itemsList;
+	}
+
+	// Handler For Getting Item Data From Stocks
+	@GetMapping("/get/stockItem/{itemId}")
+	@ResponseBody
+	public InwardDto getStockItem(@PathVariable("itemId") String itemId) {
+		List<InwardDto> stockList = stockService.getAllStocks();
+		Optional<InwardDto> stockItem = stockList.stream().filter(item -> item.getItemId().equals(itemId)).findFirst();
+		return stockItem.get();
+	}
+
+	// Handler For Adding Pump Material List
 	@PostMapping("/save/add/materialData")
 	@ResponseBody
 	public ResponseEntity<PumpMaterialDto> saveIndentData(
 			@ModelAttribute("materialData") PumpMaterialDto pumpMaterialDto) {
-		pumpMaterialDto.setIndentType("MTS");				
+		pumpMaterialDto.setIndentType("MTS");
 		PumpMaterialDto pumpMaterialDto2 = this.pumpMaintenService.addPumpMaterial(pumpMaterialDto);
 		return new ResponseEntity<PumpMaterialDto>(pumpMaterialDto2, HttpStatus.OK);
 	}
@@ -205,7 +239,7 @@ public class PumpController {
 	// Delete Added Pump Material Data From List
 	@DeleteMapping("/delete/materials/{pumMaterialId}")
 	public ResponseEntity<String> deleteResource(@PathVariable Long pumMaterialId) {
-		
+
 		boolean success = this.pumpMaintenService.deleteMateialById(pumMaterialId);
 		if (success) {
 			return new ResponseEntity<>("Are You Sure To Remove This Item !!", HttpStatus.OK);
@@ -214,7 +248,7 @@ public class PumpController {
 		}
 	}
 
-	// Handler For Adding Pump Material Indent Data
+	// Handler For Adding Pump Labor in List
 	@PostMapping("/save/add/labourData")
 	@ResponseBody
 	public ResponseEntity<PumpMaterialDto> addLabourData(
@@ -224,7 +258,7 @@ public class PumpController {
 		return new ResponseEntity<PumpMaterialDto>(pumpMaterialDto2, HttpStatus.OK);
 	}
 
-	// Handler For Adding Pump Material Indent Data
+	// Handler For Adding Pump Vehicle in List
 	@PostMapping("/save/add/vehicleData")
 	@ResponseBody
 	public ResponseEntity<PumpMaterialDto> addVehicleData(
@@ -233,6 +267,65 @@ public class PumpController {
 		pumpMaterialDto.setVehicleNo(pumpMaterialDto.getVehicle().getVehicleNo());
 		PumpMaterialDto pumpMaterialDto2 = this.pumpMaintenService.addPumpMaterial(pumpMaterialDto);
 		return new ResponseEntity<PumpMaterialDto>(pumpMaterialDto2, HttpStatus.OK);
+	}
+
+	// Handler For Add Pump Indent Data In WorkOrder Table
+	@GetMapping("/generate/workorder/{complNo}")
+	public String savePumpIndent(@PathVariable String complNo, Principal principal, HttpSession session, Model model) {
+		String masterIdName = "Indent Id";
+		String deptName = "Pump Dept";
+		List<PumpMaterialDto> pumpMaterialDtos = this.pumpMaintenService.getPumpIndentAddedDataByComplNo(complNo);
+
+		List<WorkOrderItemsRequestDto> wOrderItemsRequestDtos = new ArrayList<>();
+		ModelMapper modelMapper = new ModelMapper();
+		for (PumpMaterialDto pumpMaterialData : pumpMaterialDtos) {
+			WorkOrderItemsRequestDto workOrderItemData = modelMapper.map(pumpMaterialData,
+					WorkOrderItemsRequestDto.class);
+			workOrderItemData.setUsername(principal.getName());
+
+			String complNumber = "101" + pumpMaterialData.getComplNo();
+			workOrderItemData.setWorkOrderNo(Long.parseLong(complNumber));
+
+			wOrderItemsRequestDtos.add(workOrderItemData);
+		}
+
+		this.workOrderItemsRequestService.saveAllPumpIndent(wOrderItemsRequestDtos);
+
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("Work_Order_Issued");
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+
+		this.pumpMaintenService.deleteAllAddedMaterialByComplNo(complNo);
+		try {
+			DepartmentIdMasterDto deptIdMasterDto = this.deptIdMasterService.getByMasterIdNameAndDeptName(masterIdName,
+					deptName);
+			String lastIndentNo = deptIdMasterDto.getDeptLastId();
+
+			StringBuilder letters = new StringBuilder();
+			StringBuilder numbers = new StringBuilder();
+			for (int i = 0; i < lastIndentNo.length(); i++) {
+				char c = lastIndentNo.charAt(i);
+				if (Character.isDigit(c)) {
+					numbers.append(c);
+				} else {
+					letters.append(c);
+				}
+			}
+			String lettersString = letters.toString();
+			String numbersString = numbers.toString();
+
+			int number = Integer.parseInt(numbersString);
+			number++;
+			String newStartId = lettersString + Integer.toString(number);
+			deptIdMasterDto.setDeptLastId(newStartId);
+			this.deptIdMasterService.saveDepartmentIdMaster(deptIdMasterDto);
+
+		} catch (Exception e) {
+			System.out.println("Exception :: " + e.getMessage());
+		}
+
+		session.setAttribute("message", new Message("Work Order Requested Successfully", "success"));
+		return "redirect:/pump/maintenance/indent";
 	}
 
 	@GetMapping("/maintenance/view")

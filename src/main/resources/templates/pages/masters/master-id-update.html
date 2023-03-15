@@ -17,37 +17,38 @@
 							<input type="hidden" name="masterId" th:value="${idMasterDto.masterId}">
 							<div class="col-2">
 								<input type="text" id="masterIdName" class="form-control form-control-sm bg-white"
-								readonly th:value="${idMasterDto.masterIdName}" name="masterIdName" >
+									readonly th:value="${idMasterDto.masterIdName}" name="masterIdName">
 							</div>
 							<div class="col-auto">
 								<label for="statNumber" class="col-form-label">Start No</label>
 							</div>
 							<div class="col-2">
 								<input type="text" id="statNumber" class="form-control form-control-sm"
-								th:value="${idMasterDto.statNumber}" name="statNumber" maxlength="10">
+									th:value="${idMasterDto.statNumber}" oninput="this.value = this.value.toUpperCase()"
+									name="statNumber" maxlength="10">
 							</div>
 							<div class="col-auto">
 								<label for="idDescription" class="col-form-label">Description</label>
 							</div>
 							<div class="col-4">
 								<input type="text" id="idDescription" class="form-control form-control-sm"
-								th:value="${idMasterDto.idDescription}" name="idDescription">
-							</div>							
+									th:value="${idMasterDto.idDescription}" name="idDescription">
+							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<button type="submit" class="btn btn-primary">Update</button>							
+							<button type="submit" class="btn btn-primary">Update</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		
+
 		<script>
-		  $(document).ready(() =>{			 
-			  $("#master-id-sidebar").addClass("active");			  			 
-		  });
+			$(document).ready(() => {
+				$("#master-id-sidebar").addClass("active");
+			});
 		</script>
-		
+
 	</section>
 </body>
 

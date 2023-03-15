@@ -14,13 +14,13 @@ import com.ingroinfo.mm.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;	
 
 	@Autowired
 	ModelMapper modelMapper;
 
 	@Override
-	public CategoryDto saveCategory(CategoryDto categoryDto) {
+	public CategoryDto saveCategory(CategoryDto categoryDto) {						
 		Category category = this.modelMapper.map(categoryDto, Category.class);
 		Category savedCategory = this.categoryRepository.save(category);
 		return modelMapper.map(savedCategory, CategoryDto.class);
@@ -39,9 +39,4 @@ public class CategoryServiceImpl implements CategoryService {
 		this.categoryRepository.delete(category);
 	}
 
-	@Override
-	public String getMaxCategoryId() {
-		String maxCategoryId = this.categoryRepository.getMaxCategoryId();
-		return maxCategoryId;
-	}	
 }

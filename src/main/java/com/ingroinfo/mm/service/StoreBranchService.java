@@ -12,8 +12,5 @@ public interface StoreBranchService {
 	List<StoreBranchDto> findAllStoreBranch();
 	
 	//Delete
-	void deleteStoreBranch(Long strbraNameId);
-	
-	//Get Maximum Store Branch Id
-	String getMaxStoreBranchId();
+	void deleteStoreBranch(Long strbraNameId);	
 }

@@ -48,7 +48,7 @@ public class PumpMaintenanceServiceImpl implements PumpMaintenanceService {
 	}
 
 	@Override
-	public PumpMaterialDto addPumpMaterial(PumpMaterialDto pumpMaterialDto) {		
+	public PumpMaterialDto addPumpMaterial(PumpMaterialDto pumpMaterialDto) {
 		PumpMaterial pumpMaterial = this.modelMapper.map(pumpMaterialDto, PumpMaterial.class);
 		PumpMaterial savedPumpMaterial = this.pumpMaterialRepo.save(pumpMaterial);
 		return this.modelMapper.map(savedPumpMaterial, PumpMaterialDto.class);
@@ -67,7 +67,18 @@ public class PumpMaintenanceServiceImpl implements PumpMaintenanceService {
 		PumpMaterial pumpMaterial = this.pumpMaterialRepo.findById(pumMaterialId).get();
 		this.pumpMaterialRepo.delete(pumpMaterial);
 		return true;
-		
+	}
+
+	@Override
+	public List<PumpMaterialDto> getPumpIndentAddedDataByComplNo(String complNo) {
+		List<PumpMaterial> pumpMaterials = this.pumpMaterialRepo.findByComplNo(complNo);
+		return pumpMaterials.stream().map((pumpMat) -> this.modelMapper.map(pumpMat, PumpMaterialDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void deleteAllAddedMaterialByComplNo(String complNo) {	
+		this.pumpMaterialRepo.deleteAddedByComplNo(complNo);
 	}
 
 }

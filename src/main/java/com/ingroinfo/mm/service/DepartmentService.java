@@ -17,9 +17,6 @@ public interface DepartmentService {
 	//Delete
 	void deleteDepartmentMaster(Long depMasterId);
 	
-	//find Max Department Id 
-	String getMaxDepartmentId();
-	
 	//Get Department List From UBARMS
 	List<DepartmentDto> getDepartmentsFromUbarms() throws JsonMappingException, JsonProcessingException;
 }

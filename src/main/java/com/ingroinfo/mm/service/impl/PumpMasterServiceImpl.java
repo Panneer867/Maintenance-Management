@@ -40,13 +40,7 @@ public class PumpMasterServiceImpl implements PumpMasterService {
 		PumpMaster pumpMaster = this.pumpMasterRepo.findById(pumpMasterId).get();
 		this.pumpMasterRepo.delete(pumpMaster);
 	}
-
-	@Override
-	public String getMaxPumpId() {
-		String maxPumpId = this.pumpMasterRepo.getMaxPumpId();
-		return maxPumpId;
-	}
-
+	
 	@Override
 	public PumpMasterDto getPumpDataByPumpId(String pumpId) {
 		PumpMaster pumpMaster  = this.pumpMasterRepo.getPumpMasterByPumpId(pumpId);

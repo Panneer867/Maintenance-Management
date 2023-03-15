@@ -14,6 +14,4 @@ public interface MeterManufactureService {
 	//Delete
 	void deleteMeterManufacture(Long mtrmanufacId);
 	
-	//get Max Meter Id
-	String getMaxMeterId();
 }

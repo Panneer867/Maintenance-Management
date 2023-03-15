@@ -8,6 +8,7 @@ public class IdMasterDto {
 	private Long masterId;		
 	private String masterIdName;	
 	private String statNumber;
+	private String lastNumber;
 	private String idDescription;
 
 }

@@ -19,7 +19,7 @@ public class Complaints {
 	private Long complId;
 	@Column(name = "COMPL_NO",length = 10)
 	private String complNo;
-	@Column(name = "COMPL_DATE",length = 10)
+	@Column(name = "COMPL_DATE",length = 50)
 	private String complDate;
 	@Column(name = "DEPARTMENT",length = 150)
 	private String department;
@@ -27,57 +27,57 @@ public class Complaints {
 	private String docketNo;
 	@Column(name = "RECIVED_BY",length = 50)
 	private String recivedBy;
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME",length = 50)
 	private String firstname;
-	@Column(name = "LAST_NAME")
+	@Column(name = "LAST_NAME",length = 50)
 	private String lastname;
-	@Column(name = "HOUSE_NO")
+	@Column(name = "HOUSE_NO",length = 20)
 	private String houseNo;
-	@Column(name = "CROSS")
+	@Column(name = "CROSS",length = 50)
 	private String cross;
-	@Column(name = "MAIN")
+	@Column(name = "MAIN",length = 50)
 	private String main;
-	@Column(name = "LANDMARK")
+	@Column(name = "LANDMARK",length = 50)
 	private String landMark;
-	@Column(name = "ZONE")
+	@Column(name = "ZONE",length = 50)
 	private String zone;
-	@Column(name = "WARD")
+	@Column(name = "WARD",length = 10)
 	private String ward;
-	@Column(name = "CITY")
+	@Column(name = "CITY",length = 30)
 	private String city;
-	@Column(name = "TARIFF")
+	@Column(name = "TARIFF",length = 10)
 	private String trraif;
-	@Column(name = "SERVICE_LOC")
+	@Column(name = "SERVICE_LOC",length = 100)
 	private String serviceLocat;
-	@Column(name = "DMA")
+	@Column(name = "DMA",length = 50)
 	private String dma;
-	@Column(name = "PINCODE")
+	@Column(name = "PINCODE",length = 10)
 	private String pinCode;
-	@Column(name = "GENDER")
+	@Column(name = "GENDER",length = 50)
 	private String gender;
-	@Column(name = "MOBILE_NO")
+	@Column(name = "MOBILE_NO",length = 13)
 	private String mobileNo;
-	@Column(name = "LANDLINE_NO")
+	@Column(name = "LANDLINE_NO",length = 13)
 	private String landLineNo;
-	@Column(name = "REF_NO")
+	@Column(name = "REF_NO",length = 20)
 	private String refcontactNo;
-	@Column(name = "EMAIL_ID")
+	@Column(name = "EMAIL_ID",length = 30)
 	private String emailid;
-	@Column(name = "REG_COMPLAIN")
+	@Column(name = "REG_COMPLAIN",length = 30)
 	private String regOfCompl;
-	@Column(name = "BISS_DEPT")
+	@Column(name = "BISS_DEPT",length = 50)
 	private String businessDept;
-	@Column(name = "SUBCATEGORY")
+	@Column(name = "SUBCATEGORY",length = 50)
 	private String subCategory;
-	@Column(name = "COMPL_STS")
+	@Column(name = "COMPL_STS",length = 50)
 	private String complStatus;
-	@Column(name = "JOB_CODE")
+	@Column(name = "JOB_CODE",length = 50)
 	private String jobCode;
-	@Column(name = "COMPL_DTLS")
+	@Column(name = "COMPL_DTLS",length = 200)
 	private String complDetails;
-	@Column(name = "SLG")
+	@Column(name = "SLG",length = 50)
 	private String slg;
-	@Column(name = "SLG_DURATION")
+	@Column(name = "SLG_DURATION",length = 50)
 	private String slgDuration;
 	@Column(name = "ASSIGN_DATE")
 	private String assignDate;

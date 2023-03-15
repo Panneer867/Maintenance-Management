@@ -16,18 +16,18 @@ $(document).ready(function() {
 
 		$("#pump-labour-division").val($("#master-division-list").val());
 		$("#pump-labour-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-labour-worksite").val($("#pupm-parts-workSite").val());
-		$("#pump-labour-startDate").val($("#pupm-parts-startDate").val());
-		$("#pump-labour-endDate").val($("#pupm-parts-endDate").val());
-		$("#pump-labour-contactNo").val($("#pupm-parts-contactNo").val());
-		$("#pump-labour-workpriority").val($("#pupm-parts-workPriority").val());
+		$("#pump-labour-worksite").val($("#pump-parts-workSite").val());
+		$("#pump-labour-startDate").val($("#pump-parts-startDate").val());
+		$("#pump-labour-endDate").val($("#pump-parts-endDate").val());
+		$("#pump-labour-contactNo").val($("#pump-parts-contactNo").val());
+		$("#pump-labour-workpriority").val($("#pump-parts-workPriority").val());
 		$("#pump-vehicle-division").val($("#master-division-list").val());
 		$("#pump-vehicle-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-vehicle-worksite").val($("#pupm-parts-workSite").val());
-		$("#pump-vehicle-stratdate").val($("#pupm-parts-startDate").val());
-		$("#pump-vehicle-enddate").val($("#pupm-parts-endDate").val());
-		$("#pump-vehicle-contactNo").val($("#pupm-parts-contactNo").val());
-		$("#pump-vehicle-workpriority").val($("#pupm-parts-workPriority").val());
+		$("#pump-vehicle-worksite").val($("#pump-parts-workSite").val());
+		$("#pump-vehicle-stratdate").val($("#pump-parts-startDate").val());
+		$("#pump-vehicle-enddate").val($("#pump-parts-endDate").val());
+		$("#pump-vehicle-contactNo").val($("#pump-parts-contactNo").val());
+		$("#pump-vehicle-workpriority").val($("#pump-parts-workPriority").val());
 
 
 		$nextTab.find('button').trigger('click');
@@ -64,32 +64,32 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pupm-parts-workSite").val();
+		var worksite = $("#pump-parts-workSite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
 		}
-		var startDate = $("#pupm-parts-startDate").val();
+		var startDate = $("#pump-parts-startDate").val();
 		if (startDate == "") {
 			alert("Enter Expected Start Date !!");
 			return false;
 		}
-		var endDate = $("#pupm-parts-endDate").val();
+		var endDate = $("#pump-parts-endDate").val();
 		if (endDate == "") {
 			alert("Enter Expected End Date !!");
 			return false;
 		}
-		var contactNo = $("#pupm-parts-contactNo").val();
+		var contactNo = $("#pump-parts-contactNo").val();
 		if (contactNo == "") {
 			alert("Enter Contact No !!");
 			return false;
 		}
-		var complDtls = $("#pupm-parts-complDtls").val();
+		var complDtls = $("#pump-parts-complDtls").val();
 		if (complDtls == "") {
 			alert("Enter Complain Details !!");
 			return false;
 		}
-		var workPriority = $("#pupm-parts-workPriority").val();
+		var workPriority = $("#pump-parts-workPriority").val();
 		if (workPriority == "") {
 			alert("Select Work Priority !!");
 			return false;
@@ -140,37 +140,37 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pupm-parts-workSite").val();
+		var worksite = $("#pump-parts-workSite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
 		}
-		var startDate = $("#pupm-parts-startDate").val();
+		var startDate = $("#pump-parts-startDate").val();
 		if (startDate == "") {
 			alert("Enter Expected Start Date !!");
 			return false;
 		}
-		var endDate = $("#pupm-parts-endDate").val();
+		var endDate = $("#pump-parts-endDate").val();
 		if (endDate == "") {
 			alert("Enter Expected End Date !!");
 			return false;
 		}
-		var contactNo = $("#pupm-parts-contactNo").val();
+		var contactNo = $("#pump-parts-contactNo").val();
 		if (contactNo == "") {
 			alert("Enter Contact No !!");
 			return false;
 		}
-		var complDtls = $("#pupm-parts-complDtls").val();
+		var complDtls = $("#pump-parts-complDtls").val();
 		if (complDtls == "") {
 			alert("Enter Complain Details !!");
 			return false;
 		}
-		var workPriority = $("#pupm-parts-workPriority").val();
+		var workPriority = $("#pump-parts-workPriority").val();
 		if (workPriority == "") {
 			alert("Select Work Priority !!");
 			return false;
 		}
-		var category = $("#item-master-category").val();
+		var category = $("#pump-matrial-category").val();
 		if (category == "") {
 			alert("Select Category !!");
 			return false;
@@ -210,27 +210,30 @@ $(document).ready(function() {
 				division: $("#master-division-list").val(),
 				subDivision: $("#master-sub-division-list").val(),
 				workSite: $("#pupm-parts-workSite").val(),
-				startDate: $("#pupm-parts-startDate").val(),
-				endDate: $("#pupm-parts-endDate").val(),
-				contactNo: $("#pupm-parts-contactNo").val(),
-				complDtls: $("#pupm-parts-complDtls").val(),
-				workPriority: $("#pupm-parts-workPriority").val(),
-				category: $("#item-master-category").val(),
-				items: $("#pump-spare-item-list").val(),
+				startDate: $("#pump-parts-startDate").val(),
+				endDate: $("#pump-parts-endDate").val(),
+				contactNo: $("#pump-parts-contactNo").val(),
+				complDtls: $("#pump-parts-complDtls").val(),
+				workPriority: $("#pump-parts-workPriority").val(),
+				categoryName: $("#pump-matrial-category").val(),
+				itemName: $("#pump-material-itemName").val(),
+				itemId: $("#pump-spare-item-list").val(),
 				unitOfMesure: $("#pump-spare-unitMesure").val(),
 				hsnCode: $("#pump-spare-hsnCode").val(),
 				quantity: $("#pump-spare-qantity").val(),
-				stockType: $("#pump-spare-stockType").val(),
+				stockType: $("#pump-material-stockType").val(),
+				stockTypeName: $("#pump-spare-stockType").val(),
 
 			},
 			success: function(result) {
 
-				$("#item-master-category").val("");
-				$("#item-master-category").val("");
+				$("#pump-matrial-category").val("");			
 				$("#pump-spare-item-list").val("");
+				$("#pump-material-itemName").val("");
 				$("#pump-spare-unitMesure").val("");
 				$("#pump-spare-hsnCode").val("");
 				$("#pump-spare-qantity").val("");
+				$("#pump-spare-stockType").val("");
 				$("#pump-spare-stockType").val("");
 
 				//Show Added Data		
@@ -251,7 +254,7 @@ $(document).ready(function() {
 							row += '<td>' + item.hsnCode + '</td>';
 							row += '<td>' + item.unitOfMesure + '</td>';
 							row += '<td>' + item.quantity + '</td>';
-							row += '<td>' + item.stockType + '</td>';
+							row += '<td>' + item.stockTypeName + '</td>';
 							row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.pumMaterialId + '"></i></a></td>';
 							row += '</tr>';
 						});

@@ -53,13 +53,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Department department = this.departmentRepository.findById(depMasterId).get();
 		this.departmentRepository.delete(department);
 	}
-
-	@Override
-	public String getMaxDepartmentId() {
-	    String departmentId = this.departmentRepository.getMaxDepartmentId();
-		return departmentId;
-	}
-
+	
 	@Override
 	public List<DepartmentDto> getDepartmentsFromUbarms() throws JsonMappingException, JsonProcessingException {
 		String json = "";

@@ -38,11 +38,5 @@ public class MeterManufactureServiceImpl implements MeterManufactureService {
 		MeterManufacture meterManufacture = this.meterManufactRepo.findById(mtrmanufacId).get();
 		this.meterManufactRepo.delete(meterManufacture);
 	}
-
-	@Override
-	public String getMaxMeterId() {
-		String maxMeterId = this.meterManufactRepo.getMaxMeterId();
-		return maxMeterId;
-	}
-
+	
 }

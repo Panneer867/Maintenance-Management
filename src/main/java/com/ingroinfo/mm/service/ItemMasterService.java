@@ -14,9 +14,6 @@ public interface ItemMasterService {
 	// Delete
 	void deleteMasterItem(Long itemMasterId);
 
-	// get Max Item Id
-	String getMaxItemId();
-
 	// Get Item List By Category Id
 	List<ItemMasterDto> getItemListByCategoryId(Long categoryId);
 

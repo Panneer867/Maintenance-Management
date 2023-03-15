@@ -39,11 +39,4 @@ public class StoreBranchServiceImpl implements StoreBranchService {
 		StoreBranch storeBranch = this.storeBranchRepository.findById(strbraNameId).get();
 		this.storeBranchRepository.delete(storeBranch);
 	}
-
-	@Override
-	public String getMaxStoreBranchId() {
-		String maxStoreBranchId = this.storeBranchRepository.getMaxStoreBranchId();
-		return maxStoreBranchId;
-	}
-
 }

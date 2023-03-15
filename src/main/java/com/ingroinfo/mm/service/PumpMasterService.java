@@ -13,10 +13,7 @@ public interface PumpMasterService {
 	List<PumpMasterDto> getAllPumpMaster();
 	
 	//Delete
-	void deletePumpMaster(Long pumpMasterId);
-	
-	//get Maximum Pump Id
-	String getMaxPumpId();
+	void deletePumpMaster(Long pumpMasterId);	
 	
 	//get PumpData By pump Id
 	PumpMasterDto getPumpDataByPumpId(String pumpId);

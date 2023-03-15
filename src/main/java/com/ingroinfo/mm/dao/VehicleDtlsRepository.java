@@ -10,9 +10,6 @@ import com.ingroinfo.mm.entity.VehicleDtls;
 @Repository
 public interface VehicleDtlsRepository extends JpaRepository<VehicleDtls, Long> {
 
-	@Query("select max(vehicleId) from VehicleDtls")
-	String getMaxVehicleId();
-
 	@Query("SELECT DISTINCT vehicleType FROM VehicleDtls")
 	List<String> getAllVehicleTypes();
 

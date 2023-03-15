@@ -18,5 +18,6 @@ public class DepartmentIdMaster {
 	private String masterIdName;
 	private String deptName;
 	private String deptId;
+	private String deptLastId;
 	private String deptIdDesc;
 }

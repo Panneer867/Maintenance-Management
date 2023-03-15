@@ -25,7 +25,8 @@
 							<label for="branchName" class="col-sm-2 col-form-label fs-6">Department Name</label>
 							<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Start Number</label>
 							<label for="description" class="col-sm-3 col-form-label fs-6">Description</label>
-							<a th:href="@{/masters/departmentIdHistory}" class="col-sm-1 btn btn-success fs-6">History</a>
+							<a th:href="@{/masters/departmentIdHistory}"
+								class="col-sm-1 btn btn-success fs-6">History</a>
 							<label for="description" class="col-sm-1 col-form-label fs-6"></label>
 						</div>
 						<form th:action="@{/masters/saveDepartmentId}" method="post">
@@ -38,6 +39,7 @@
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required
 										id="budget-deptName">
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -45,7 +47,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10"
-										id="budget-deptId" name="deptId" required placeholder="Enter Starting No">
+										id="budget-deptId" name="deptId" oninput="this.value = this.value.toUpperCase()"
+										required placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="budget-deptIdDesc"
@@ -70,6 +73,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -77,11 +81,12 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
-									<input type="text" class="form-control form-control-sm" name="deptIdDesc" 
-									required placeholder="Enter Id Description">
+									<input type="text" class="form-control form-control-sm" name="deptIdDesc" required
+										placeholder="Enter Id Description">
 								</div>
 								<div class="col-sm-1" style="bottom: 3px;">
 									<button type="submit" class="btn btn-primary">Add</button>
@@ -102,6 +107,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="maintanFrequency" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -134,6 +140,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -141,7 +148,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -166,6 +174,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -173,7 +182,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -198,6 +208,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -205,7 +216,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -230,6 +242,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -237,7 +250,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -262,6 +276,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -269,7 +284,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -294,6 +310,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -301,7 +318,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -326,6 +344,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -333,7 +352,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -358,6 +378,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -365,7 +386,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -390,6 +412,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -397,7 +420,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -412,7 +436,7 @@
 										data-bs-target="#exampleModal">View</a>
 								</div>
 							</div>
-						</form>						
+						</form>
 						<form th:action="@{/masters/saveDepartmentId}" method="post">
 							<div class="form-group row p-2">
 								<div class="col-sm-3">
@@ -422,6 +446,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -429,7 +454,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -454,6 +480,7 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-select form-select-sm" name="deptName" required>
+										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
@@ -461,7 +488,8 @@
 								</div>
 								<div class="col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="deptId" required placeholder="Enter Starting No">
+										name="deptId" oninput="this.value = this.value.toUpperCase()" required
+										placeholder="Enter Starting No">
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
@@ -490,20 +518,20 @@
 						<h3 class="modal-title" id="exampleModalLabel">Id History For Departments..</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div class="modal-body">						
-							<table
-								class="table table-stock table-bordered text-center table-primary table-striped table-hover">
-								<thead class="table-dark">
-									<tr>										
-										<th class="text-center" scope="col">Ids Name</th>
-										<th class="text-center" scope="col">Department Name</th>
-										<th class="text-center" scope="col">Strat No</th>
-										<th class="text-center" scope="col">Description</th>
-									</tr>
-								</thead>
-								<tbody id="result-table">									
-								</tbody>
-							</table>						
+					<div class="modal-body">
+						<table
+							class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+							<thead class="table-dark">
+								<tr>
+									<th class="text-center" scope="col">Ids Name</th>
+									<th class="text-center" scope="col">Department Name</th>
+									<th class="text-center" scope="col">Strat No</th>
+									<th class="text-center" scope="col">Description</th>
+								</tr>
+							</thead>
+							<tbody id="result-table">
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

@@ -32,6 +32,7 @@ public class PumpMaterial {
 	private String workPriority;
 	private String categoryName;
 	private String itemName;
+	private String itemId;
 	private String unitOfMesure;
 	private String hsnCode;
 	private String quantity;
@@ -47,6 +48,7 @@ public class PumpMaterial {
 	private String driverPhone;
 	private String meterReading;
 	private String stratTime;
+	private String stockTypeName;
 			
 	@ManyToOne
 	@JoinColumn(name = "vehicleId")

@@ -17,29 +17,26 @@
 					<h3 class="mb-0">Meter Type</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savemetertype}" method ="post">
+					<form th:action="@{/masters/savemetertype}" method="post">
 						<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
 								<label class="col-auto col-form-label">Meter Type</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="meterType">
-										<option>AMR</option>
-										<option>Non AMR</option>
-										<option>AMI</option>
-									</select>
+									<input class="form-control form-control-sm" Placeholder="Enter Meter Type"
+										name="meterType" required>
 								</div>
 							</div>
 						</div>
-                          <div class="pt-2 text-center">
+						<div class="pt-2 text-center">
 							<button type="submit" class="btn btn-primary">Submit </button>
 							<a th:href="@{/masters/metertypehistory}" class="btn btn-success">View</a>
-						 </div>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Meter Type History</h5>
@@ -47,7 +44,7 @@
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Meter Type</th>						
+						<th class="text-center" scope="col">Meter Type</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,13 +52,13 @@
 						<td><a href="#" th:onclick="|deleteMeterType(${metertype.meterTypeId})|">
 								<span th:text="${'MT'+metertype.meterTypeId}"></span></a>
 						</td>
-						<td th:text="${metertype.meterType}"></td>						
+						<td th:text="${metertype.meterType}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

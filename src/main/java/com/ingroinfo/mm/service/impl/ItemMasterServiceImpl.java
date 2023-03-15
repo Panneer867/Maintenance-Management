@@ -40,13 +40,7 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 		ItemMaster itemMaster = this.itemMasterRepo.findById(itemMasterId).get();
 		this.itemMasterRepo.delete(itemMaster);
 	}
-
-	@Override
-	public String getMaxItemId() {
-		String maxItemId = this.itemMasterRepo.getMaxItemId();
-		return maxItemId;
-	}
-
+	
 	@Override
 	public List<ItemMasterDto> getItemListByCategoryId(Long categoryId) {
 		List<ItemMaster> itemMasters = this.itemMasterRepo.findItemsByCategoryId(categoryId);

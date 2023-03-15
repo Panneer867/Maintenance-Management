@@ -23,6 +23,12 @@ public interface PumpMaintenanceService {
 	List<PumpMaterialDto> findListOfAddedPumpData(String indentType, String indentNo, String complNo);
 
 	//Delete Added Pump Material Data From List
-	boolean deleteMateialById(Long pumMaterialId);	
+	boolean deleteMateialById(Long pumMaterialId);
+	
+	//Get Pump Material Added List By Complain Number
+	List<PumpMaterialDto> getPumpIndentAddedDataByComplNo(String complNo);
+
+	//Delete All Added Materials By Complain No
+	void deleteAllAddedMaterialByComplNo(String complNo);
 	
 }

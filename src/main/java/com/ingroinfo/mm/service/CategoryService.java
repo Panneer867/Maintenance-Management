@@ -14,7 +14,4 @@ public interface CategoryService {
 	
 	//Delete
 	void deleteCategory(Long catid);
-	
-	//get Max CategoryId
-	String getMaxCategoryId();
 }

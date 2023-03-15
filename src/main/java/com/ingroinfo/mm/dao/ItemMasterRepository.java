@@ -9,10 +9,7 @@ import com.ingroinfo.mm.entity.ItemMaster;
 
 @Repository
 public interface ItemMasterRepository extends JpaRepository<ItemMaster, Long> {
-
-	@Query("select max(itemId) from ItemMaster")
-	String getMaxItemId();
-	
+		
 	@Query("from ItemMaster as i where i.category.catid =:categoryId")
 	List<ItemMaster> findItemsByCategoryId(@Param("categoryId") Long categoryId);
 

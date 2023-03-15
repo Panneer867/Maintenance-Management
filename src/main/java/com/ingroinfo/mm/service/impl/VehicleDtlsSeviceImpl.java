@@ -41,13 +41,7 @@ public class VehicleDtlsSeviceImpl implements VehicleDtlsService {
 		VehicleDtls vehicleDtls = this.vehicleDtlsRepo.findById(vehicleDtlsId).get();
 		this.vehicleDtlsRepo.delete(vehicleDtls);
 	}
-
-	@Override
-	public String getMaxVehicleId() {
-		String maxVehicleId = this.vehicleDtlsRepo.getMaxVehicleId();
-		return maxVehicleId;
-	}
-
+	
 	@Override
 	public List<String> getAllVehicleTypes() {
 		List<String> vehicleTypes = this.vehicleDtlsRepo.getAllVehicleTypes();
