@@ -22,7 +22,7 @@ public class LeakageMaintenanceUpdate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long leakageUpdateId;
-	@Column(length = 6)
+	@Column(length = 50)
 	private String leakgworkOrderNumber;
 	private String leakgworkOrdeDate;
 	@Column(length = 50)

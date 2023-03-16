@@ -17,7 +17,7 @@ public class HandPump {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long handpumpIndexId;
-	@Column(length = 6)
+	@Column(length = 60)
 	private String handpumpId;
 	@Column(length = 25)
 	private String handpumpMark;

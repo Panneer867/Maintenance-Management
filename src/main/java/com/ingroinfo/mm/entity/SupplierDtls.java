@@ -16,9 +16,9 @@ public class SupplierDtls {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long suplyDtlsId;
-	@Column(name="SUPPLIER_ID",length = 10)
+	@Column(name="SUPPLIER_ID",length = 50)
 	private String supplierId;
-	@Column(name = "RECIPT_NO", length = 20)
+	@Column(name = "RECIPT_NO", length = 50)
 	private String reciptNo;
 	@Column(name = "SUPPLIER_NAME")
 	private String supplierName;

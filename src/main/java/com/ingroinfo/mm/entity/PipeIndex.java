@@ -17,7 +17,7 @@ public class PipeIndex {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pipeMaintenId;
-	@Column(name = "PIPE_ID",length = 10)
+	@Column(name = "PIPE_ID",length = 50)
 	private String pipeId;
 	@Column(name = "PIPE_MARK",length = 100)
 	private String pipeMark;

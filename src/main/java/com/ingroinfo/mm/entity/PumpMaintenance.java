@@ -16,7 +16,7 @@ public class PumpMaintenance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pumpMaintenId;
-	@Column(name = "PUMP_ID",length = 10)
+	@Column(name = "PUMP_ID",length = 50)
 	private String pumpId;
 	@Column(name = "PUMP_MARK",length = 100)
 	private String pumpMark;

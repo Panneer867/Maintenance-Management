@@ -24,7 +24,7 @@ public class GenerateWorkOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long generateWorkId;
-	@Column(length = 6)
+	@Column(length = 60)
 	private String indentNo;
 	@Column(length = 50)
 	private String indentDepartement;

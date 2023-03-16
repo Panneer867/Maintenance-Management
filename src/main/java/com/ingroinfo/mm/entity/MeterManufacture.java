@@ -16,7 +16,7 @@ public class MeterManufacture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long mtrmanufacId;
-	@Column(name="METER_ID",length = 20)
+	@Column(name="METER_ID",length = 50)
 	private String meterId;
 	@Column(name="METER_MANUFACTURE",length = 150)
 	private String meterManufacture;

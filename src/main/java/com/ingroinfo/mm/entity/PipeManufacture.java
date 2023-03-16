@@ -16,7 +16,7 @@ public class PipeManufacture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pipemanufId;
-	@Column(name="MANUFACTURE_ID",length = 10)
+	@Column(name="MANUFACTURE_ID",length = 50)
 	private String manufactureId;
 	@Column(name="PIPE_TYPE",length = 50)
 	private String pipeType;

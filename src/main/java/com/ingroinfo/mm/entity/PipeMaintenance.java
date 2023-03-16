@@ -21,7 +21,7 @@ public class PipeMaintenance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pipeId;
-	@Column(length = 6)
+	@Column(length = 50)
 	private String pipeIndentNo;
 	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date pipeIndentDate;

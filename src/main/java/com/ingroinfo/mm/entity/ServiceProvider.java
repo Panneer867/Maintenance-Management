@@ -17,11 +17,11 @@ public class ServiceProvider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long servProvId;
-	@Column(name="SERVICE_PROVIDER_ID",length = 10)
+	@Column(name="SERVICE_PROVIDER_ID",length = 50)
 	private String serviceProviderId;
 	@Column(name="NATURE_OF_WORK",length = 50)
 	private String natureOfWork;
-	@Column(name="REGISTR_NO",length = 30)
+	@Column(name="REGISTR_NO",length = 50)
 	private String registerNo;
 	@Column(name="STATUS",length = 50)
 	private String status;

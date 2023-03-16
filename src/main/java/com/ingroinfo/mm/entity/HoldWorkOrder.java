@@ -22,7 +22,7 @@ public class HoldWorkOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long holdWorkId;
-	@Column(length = 6)
+	@Column(length = 50)
 	private String indentNo;
 	@Column(length = 50)
 	private String indentDepartement;

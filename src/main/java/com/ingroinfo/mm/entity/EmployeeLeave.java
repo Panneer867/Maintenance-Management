@@ -21,7 +21,7 @@ public class EmployeeLeave {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long empLeaveId;
-	@Column(name="EMPLOYEE_CODE",length = 20)
+	@Column(name="EMPLOYEE_CODE",length = 50)
 	private String employeeCode;
 	@Column(name = "EMPLOYEE_NAME",length = 150)
 	private String empName;

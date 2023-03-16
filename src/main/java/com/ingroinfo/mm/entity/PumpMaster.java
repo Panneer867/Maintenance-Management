@@ -16,11 +16,11 @@ public class PumpMaster {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pumpMasterId;
-	@Column(name="PUMP_ID",length = 10)
+	@Column(name="PUMP_ID",length = 50)
 	private String pumpId;
-	@Column(name="PUMP_TYPE",length = 30)
+	@Column(name="PUMP_TYPE",length = 50)
 	private String pumpType;
-	@Column(name="PUMP_WARRANTY",length = 30)
+	@Column(name="PUMP_WARRANTY",length = 50)
 	private String warranty;
 	@Column(name="PUMP_PURCH_DATE",length = 10)
 	private String purchageDate;

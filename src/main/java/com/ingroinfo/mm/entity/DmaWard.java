@@ -17,10 +17,10 @@ public class DmaWard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long dmaWardId;
-	@Column(length = 10)
+	@Column(length = 100)
 	private String dmaNumber;
 	private String dmaName;
-	@Column(length = 10)
+	@Column(length = 100)
 	private String wardNumber;
 	private String wardName;
 }

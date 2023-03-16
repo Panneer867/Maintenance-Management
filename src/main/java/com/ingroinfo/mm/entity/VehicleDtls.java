@@ -16,19 +16,19 @@ public class VehicleDtls {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long vehicleDtlsId;
-	@Column(name="VEHICLE_ID",length = 10)
+	@Column(name="VEHICLE_ID",length = 50)
 	private String vehicleId;
 	@Column(name="DRIVER_NAME",length = 130)
 	private String driverName;
 	@Column(name="VEHICLE_TYPE",length = 100)
 	private String vehicleType;
-	@Column(name="RC_NO",length = 30)
+	@Column(name="RC_NO",length = 50)
 	private String rcNumber;
 	@Column(name="VEHICLE_MODEL",length = 100)
 	private String vehiclemodel;
 	@Column(name="PURCHASE_DATE")
 	private String purchaseDate;
-	@Column(name="INSURANC_NO",length = 30)
+	@Column(name="INSURANC_NO",length = 50)
 	private String insurancNo;
 	@Column(name="INSURANCE_TYPE",length = 100)
 	private String insurancType;

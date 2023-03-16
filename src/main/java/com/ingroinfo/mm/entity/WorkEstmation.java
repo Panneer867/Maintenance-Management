@@ -35,11 +35,11 @@ public class WorkEstmation {
 	private String estimationGenratedBy;
 	@Column(length = 50)
 	private String workPriority;
-	@Column(length = 6)
+	@Column(length = 30)
 	private String workOrderCost;
 	@Column(length = 50)
 	private String workSite;
-	@Column(length = 10)
+	@Column(length = 15)
 	private String contact;
 	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date expectedStartDate;
@@ -49,7 +49,7 @@ public class WorkEstmation {
 	private String category ;
 	@Column(length = 50)
 	private String item;
-	@Column(length = 10)
+	@Column(length = 50)
 	private String hsnCode;
 	@Column(length = 50)
 	private String unitMeassure;
