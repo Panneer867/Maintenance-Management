@@ -38,7 +38,7 @@ import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.RejectedStocksReturn;
 import com.ingroinfo.mm.entity.RejectedWorkOrderItems;
-import com.ingroinfo.mm.entity.RejectedWorkOrderNos;
+import com.ingroinfo.mm.entity.RejectedWorkOrders;
 import com.ingroinfo.mm.entity.StocksReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.TempWorkOrders;
@@ -269,7 +269,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	public void rejectWorkorderItems(Long workOrderNo, String username) {
 		TempWorkOrders tempWorkOrders = tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
 
-		RejectedWorkOrderNos rejectedWorkOrderNos = new RejectedWorkOrderNos();
+		RejectedWorkOrders rejectedWorkOrderNos = new RejectedWorkOrders();
 		rejectedWorkOrderNos.setBilledOn(tempWorkOrders.getBilledOn());
 		rejectedWorkOrderNos.setCgst(tempWorkOrders.getCgst());
 		rejectedWorkOrderNos.setGrandTotal(tempWorkOrders.getGrandTotal());
@@ -280,7 +280,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedWorkOrderNos.setUsername(username);
 		rejectedWorkOrderNos.setWorkOrderNo(tempWorkOrders.getWorkOrderNo());
 
-		RejectedWorkOrderNos rejectedWorkOrderNosId = rejectedWorkOrderNosRepository.save(rejectedWorkOrderNos);
+		RejectedWorkOrders rejectedWorkOrderNosId = rejectedWorkOrderNosRepository.save(rejectedWorkOrderNos);
 
 		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
 

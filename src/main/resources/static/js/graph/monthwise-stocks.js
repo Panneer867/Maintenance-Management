@@ -1,11 +1,11 @@
 $.getJSON('/stocks/dashboard/month', function(data) {
 
-	console.log(data);
+	//console.log(data);
 
 	// Define the categories and series data arrays
-	const typeCategories = ["MATERIALS", "SPARES", "TOOLS"];
+	const typeCategories = [...new Set(data.map(item => item.stockType))];
 	const monthCategories = [...new Set(data.map(item => item.monthName))];
-	const seriesData = [];
+	const quantities = [];
 
 	// Loop through the type categories and get the quantity data for each type in each month
 	typeCategories.forEach((type, index) => {
@@ -15,11 +15,11 @@ $.getJSON('/stocks/dashboard/month', function(data) {
 			const quantity = filteredData.length > 0 ? filteredData[0].totalQuantity : 0;
 			typeData.push(quantity);
 		});
-		seriesData.push(typeData);
+		quantities.push(typeData);
 	});
 
 
-	Highcharts.chart('container', {
+	Highcharts.chart('monthwise-stocks', {
 		title: {
 			text: 'Month Wise Stocks ',
 			align: 'center'
@@ -38,15 +38,15 @@ $.getJSON('/stocks/dashboard/month', function(data) {
 		series: [{
 			type: 'column',
 			name: typeCategories[0],
-			data: seriesData[0]
+			data: quantities[0]
 		}, {
 			type: 'column',
 			name: typeCategories[1],
-			data: seriesData[1]
+			data: quantities[1]
 		}, {
 			type: 'column',
 			name: typeCategories[2],
-			data: seriesData[2]
+			data: quantities[2]
 		}]
 	});
 });

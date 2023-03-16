@@ -1,25 +1,22 @@
 $.getJSON('/stocks/dashboard/total', function(data) {
 
-
-	console.log(data)
-
 	const monthNames = [];
 	const quantities = [];
 
 	data.forEach((item) => {
-		monthNames.push(item.MONTH_NAME);
-		quantities.push(item.TOTAL_QUANTITY);
+		monthNames.push(item.monthName);
+		quantities.push(item.totalQuantity);
 	});
 
 	// Render the chart
-	const chart = Highcharts.chart('container5', {
+	const chart = Highcharts.chart('monthwise-total-stocks', {
 		title: {
 			text: 'Month Wise Total Stocks',
 			align: 'center'
 		},
 		xAxis: {
 			categories: monthNames
-		},yAxis: {
+		}, yAxis: {
 			title: {
 				text: 'Total Available Stocks'
 			}

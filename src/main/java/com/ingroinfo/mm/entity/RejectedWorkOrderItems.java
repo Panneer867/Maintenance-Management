@@ -41,6 +41,6 @@ public class RejectedWorkOrderItems {
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	private RejectedWorkOrderNos orderId;
+	private RejectedWorkOrders orderId;
 
 }

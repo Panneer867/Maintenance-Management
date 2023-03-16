@@ -22,8 +22,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_rejected_workorder_nos")
-public class RejectedWorkOrderNos {
+@Table(name = "mm_rejected_workorders")
+public class RejectedWorkOrders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

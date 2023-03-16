@@ -2,17 +2,13 @@ package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
@@ -34,6 +29,7 @@ import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.TempIndentItemsRepository;
 import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dto.GraphDto;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.WorkOrderItemsDto;
 import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
@@ -134,72 +130,54 @@ public class StocksController {
 //
 //	}
 
-	@GetMapping("/dashboard/month")
-	public @ResponseBody List<InwardDto> getData() {
-		String sql = "SELECT 'SPARES' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
-				+ "FROM MM_INWARD_APPROVED_SPARES " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
-				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
-				+ "UNION "
-				+ "SELECT 'MATERIALS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
-				+ "FROM MM_INWARD_APPROVED_MATERIALS " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
-				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
-				+ "UNION "
-				+ "SELECT 'TOOLS' AS type, TO_CHAR(date_created, 'MON') AS month_name, EXTRACT(MONTH FROM date_created) AS month_number, EXTRACT(YEAR FROM date_created) AS year, SUM(quantity) AS total_quantity "
-				+ "FROM MM_INWARD_APPROVED_TOOLS " + "WHERE date_created >= SYSDATE - INTERVAL '3' MONTH "
-				+ "GROUP BY EXTRACT(YEAR FROM date_created), EXTRACT(MONTH FROM date_created), TO_CHAR(date_created, 'MON') "
-				+ "ORDER BY year ASC, month_number ASC, type ASC";
-
-		return jdbcTemplate.query(sql, (rs, rowNum) -> {
-			InwardDto obj = new InwardDto();
-			obj.setStockType(rs.getString("type"));
-			obj.setMonthName(rs.getString("month_name"));
-		
-			obj.setYear(rs.getInt("year"));
-			obj.setTotalQuantity(rs.getInt("total_quantity"));
-			return obj;
-		});
-
+	@GetMapping("/dashboard/total")
+	public @ResponseBody List<GraphDto> getMonthlyTotalQuantity() {
+		List<GraphDto> graph = null;
+		try {
+			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS";
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
 	}
 
-	@GetMapping("/dashboard/total")
-	public @ResponseBody List<Map<String, Object>> getMonthlyTotalQuantity() {
-
-		String query = "SELECT TO_CHAR(date_created, 'Mon') AS month_name, " + "TO_CHAR(date_created, 'YYYY') AS year, "
-				+ "SUM(quantity) AS total_quantity "
-				+ "FROM (SELECT date_created, quantity FROM MM_INWARD_APPROVED_SPARES "
-				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
-				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_MATERIALS "
-				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12) "
-				+ "UNION ALL SELECT date_created, quantity FROM MM_INWARD_APPROVED_TOOLS "
-				+ "WHERE date_created >= TRUNC(SYSDATE, 'YEAR') AND date_created < ADD_MONTHS(TRUNC(SYSDATE, 'YEAR'), 12)) all_tables "
-				+ "GROUP BY TO_CHAR(date_created, 'Mon'), TO_CHAR(date_created, 'YYYY') ORDER BY TO_DATE(year || month_name || '01', 'YYYYMonDD') ASC";
-
-		return jdbcTemplate.queryForList(query);
+	@GetMapping("/dashboard/month")
+	public @ResponseBody List<GraphDto> getStockwiseMonthlyQuantity() {
+		List<GraphDto> graph = null;
+		try {
+			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_STOCKS";
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
 	}
 
 	@GetMapping("/dashboard/outward")
-	public @ResponseBody List<InwardDto> getOutwardStocks() {
+	public @ResponseBody List<GraphDto> getOutwardStocks() {
 
-		String sql = "SELECT UPPER(TO_CHAR(date_created, 'MON')) AS month_name, "
-				+ "SUM(CASE WHEN stock_type = 'ML' THEN final_quantity ELSE 0 END) AS material_quantity, "
-				+ "SUM(CASE WHEN stock_type = 'SP' THEN final_quantity ELSE 0 END) AS spare_quantity, "
-				+ "SUM(CASE WHEN stock_type = 'TE' THEN final_quantity ELSE 0 END) AS tool_quantity "
-				+ "FROM mm_approved_workorder_items "
-				+ "WHERE EXTRACT(YEAR FROM date_created) = EXTRACT(YEAR FROM SYSDATE) "
-				+ "GROUP BY UPPER(TO_CHAR(date_created, 'MON')) " + "ORDER BY TO_DATE(month_name, 'MON')";
+		List<GraphDto> graph = null;
+		try {
+			String sql = "SELECT * FROM DASHBOARD_OUTWARD_STOCKS";
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
+	}
+	
+	@GetMapping("/dashboard/return")
+	public @ResponseBody List<GraphDto> getStocksReturn() {
 
-		List<InwardDto> inventoryList = jdbcTemplate.query(sql, new RowMapper<InwardDto>() {
-			public InwardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-				InwardDto inventory = new InwardDto();
-				inventory.setMonth_name(rs.getString("month_name"));
-				inventory.setMaterial_quantity(rs.getInt("material_quantity"));
-				inventory.setSpare_quantity(rs.getInt("spare_quantity"));
-				inventory.setTool_quantity(rs.getInt("tool_quantity"));
-				return inventory;
-			}
-		});
-
-		return inventoryList;
+		List<GraphDto> graph = null;
+		try {
+			String sql = "SELECT * FROM DASHBOARD_STOCKS_RETURN";
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
 	}
 
 	/******************************************************************/
@@ -640,11 +618,11 @@ public class StocksController {
 		String itemId = indentItems.getItemId();
 		Long workOrderNo = indentItems.getWorkOrderNo();
 		if (itemId != null) {
-			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository
-					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
+			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId,
+					workOrderNo);
 			DecimalFormat df = new DecimalFormat("#.##");
-			tempIndentItems.get().setTotalCost(
-					Double.parseDouble(df.format(indentItems.getMrpRate() * indentItems.getQty())));
+			tempIndentItems.get()
+					.setTotalCost(Double.parseDouble(df.format(indentItems.getMrpRate() * indentItems.getQty())));
 			tempIndentItems.get().setFinalQuantity(indentItems.getQty());
 			tempIndentItemsRepository.save(tempIndentItems.get());
 		}
@@ -656,8 +634,8 @@ public class StocksController {
 		Long workOrderNo = indentItems.getWorkOrderNo();
 
 		if (itemId != null) {
-			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository
-					.findByItemIdAndWorkOrderNo(itemId, workOrderNo);
+			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId,
+					workOrderNo);
 			Long stockId = workOrderItemsRequestRepository.findByWorkOrderNoAndItemId(workOrderNo, itemId)
 					.getRecordId();
 			stockService.saveRemovedItems(itemId, workOrderNo, principal.getName());
@@ -898,6 +876,5 @@ public class StocksController {
 		model.addAttribute("returnedItemLists", stockService.getApprovedStockReturnItemList());
 		return "/pages/stock_management/stock_returns_approved_list";
 	}
-
 
 }
