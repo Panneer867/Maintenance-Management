@@ -2,9 +2,9 @@ package com.ingroinfo.mm.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.ingroinfo.mm.entity.RejectedWorkOrders;
+import com.ingroinfo.mm.entity.WorkOrderLabourRequest;
 
 @Repository
-public interface RejectedWorkOrderNosRepository extends JpaRepository<RejectedWorkOrders, Long> {
+public interface WorkOrderLabourRequestRepository extends JpaRepository<WorkOrderLabourRequest, Long> {
 
 }

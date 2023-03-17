@@ -139,7 +139,7 @@ $(document).ready(function() {
 			return false;
 		}
 
-		//Getting Stock Type 
+		//Getting Vehicle Details
 		$.ajax({
 			type: "GET",
 			url: "/masters/get/vehicle/driver/" + vehicleId,
@@ -149,6 +149,7 @@ $(document).ready(function() {
 
 				$("#pump-vehicle-driverName").val(jsonobject.driverName);
 				$("#pump-vehicle-driverPhone").val(jsonobject.driverMob);
+				$("#pump-vehicle-vehicleNo").val(jsonobject.vehicleNo);
 			},
 		});
 	});

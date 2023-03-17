@@ -16,14 +16,14 @@ $(document).ready(function() {
 
 		$("#pump-labour-division").val($("#master-division-list").val());
 		$("#pump-labour-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-labour-worksite").val($("#pump-parts-workSite").val());
+		$("#pump-labour-worksite").val($("#pump-parts-worksite").val());
 		$("#pump-labour-startDate").val($("#pump-parts-startDate").val());
 		$("#pump-labour-endDate").val($("#pump-parts-endDate").val());
 		$("#pump-labour-contactNo").val($("#pump-parts-contactNo").val());
 		$("#pump-labour-workpriority").val($("#pump-parts-workPriority").val());
 		$("#pump-vehicle-division").val($("#master-division-list").val());
 		$("#pump-vehicle-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-vehicle-worksite").val($("#pump-parts-workSite").val());
+		$("#pump-vehicle-worksite").val($("#pump-parts-worksite").val());
 		$("#pump-vehicle-stratdate").val($("#pump-parts-startDate").val());
 		$("#pump-vehicle-enddate").val($("#pump-parts-endDate").val());
 		$("#pump-vehicle-contactNo").val($("#pump-parts-contactNo").val());
@@ -64,7 +64,7 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pump-parts-workSite").val();
+		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
@@ -140,7 +140,7 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pump-parts-workSite").val();
+		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
@@ -200,7 +200,7 @@ $(document).ready(function() {
 			alert("Enter Stock Type !!");
 			return false;
 		}
-
+		
 		$.ajax({
 			type: "post",
 			url: "/pump/save/add/materialData",
@@ -209,7 +209,7 @@ $(document).ready(function() {
 				complNo: $("#pump-spare-complNo").val(),
 				division: $("#master-division-list").val(),
 				subDivision: $("#master-sub-division-list").val(),
-				workSite: $("#pupm-parts-workSite").val(),
+				workSite: $("#pump-parts-worksite").val(),
 				startDate: $("#pump-parts-startDate").val(),
 				endDate: $("#pump-parts-endDate").val(),
 				contactNo: $("#pump-parts-contactNo").val(),
@@ -239,7 +239,7 @@ $(document).ready(function() {
 				//Show Added Data		
 				$.ajax({
 					type: "GET",
-					url: "/pump/add/get/materials/MTS/" + indentNo + "/" + complNo,
+					url: "/pump/add/get/materials/" + indentNo + "/" + complNo,
 					success: function(data) {
 						var json = JSON.stringify(data);
 						var result = JSON.parse(json);
@@ -255,7 +255,7 @@ $(document).ready(function() {
 							row += '<td>' + item.unitOfMesure + '</td>';
 							row += '<td>' + item.quantity + '</td>';
 							row += '<td>' + item.stockTypeName + '</td>';
-							row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.pumMaterialId + '"></i></a></td>';
+							row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
 							row += '</tr>';
 						});
 						// Insert the generated HTML into the table body
@@ -267,18 +267,18 @@ $(document).ready(function() {
 					e.preventDefault();
 					var row = $(this).closest('tr');
 					//var pumMaterialId = row.find('.item-delete').text();
-					var pumMaterialId = $(this).data('pum-material-id');
+					var itemReqId = $(this).data('pum-material-id');
 					//alert(value);
 
 					$.ajax({
 						type: 'DELETE',
-						url: '/pump/delete/materials/' + pumMaterialId,
+						url: '/pump/delete/materials/' + itemReqId,
 						success: function(result) {
 							alert(result);
 							//Show Added Data		
 							$.ajax({
 								type: "GET",
-								url: "/pump/add/get/materials/MTS/" + indentNo + "/" + complNo,
+								url: "/pump/add/get/materials/" + indentNo + "/" + complNo,
 								success: function(data) {
 									var json = JSON.stringify(data);
 									var result = JSON.parse(json);
@@ -294,8 +294,7 @@ $(document).ready(function() {
 										row += '<td>' + item.unitOfMesure + '</td>';
 										row += '<td>' + item.quantity + '</td>';
 										row += '<td>' + item.stockType + '</td>';
-										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.pumMaterialId + '"></i></a></td>';
-										//row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn">' + item.pumMaterialId + '</i></a></td>';
+										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
 										row += '</tr>';
 									});
 									// Insert the generated HTML into the table body
@@ -438,21 +437,21 @@ $(document).ready(function() {
 				//Show Added Data		
 				$.ajax({
 					type: "GET",
-					url: "/pump/add/get/materials/LBR/" + indentNo + "/" + complNo,
+					url: "/pump/add/get/labour/" + indentNo + "/" + complNo,
 					success: function(data) {
 						var json = JSON.stringify(data);
 						var result = JSON.parse(json);
 						var row = '';
 						var count = 0;
-						result.forEach(function(item) {
+						result.forEach(function(labor) {
 							count = count + 1
 							row += '<tr>';
 							row += '<td>' + count + '</td>';
-							row += '<td>' + item.empCategory + '</td>';
-							row += '<td>' + item.members + '</td>';
-							row += '<td>' + item.daysRequired + '</td>';
-							row += '<td>' + item.timeRequired + '</td>';
-							row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id1="' + item.pumMaterialId + '"></i></a></td>';
+							row += '<td>' + labor.empCategory + '</td>';
+							row += '<td>' + labor.members + '</td>';
+							row += '<td>' + labor.daysRequired + '</td>';
+							row += '<td>' + labor.timeRequired + '</td>';
+							row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
 							row += '</tr>';
 						});
 						// Insert the generated HTML into the table body
@@ -460,36 +459,36 @@ $(document).ready(function() {
 					},
 				});
 
-				$('table').on('click', '.delete-btn', function(e) {
+				$('table').on('click', '.delete-btn1', function(e) {
 					e.preventDefault();
 					var row = $(this).closest('tr');
 					//var pumMaterialId = row.find('.item-delete').text();
-					var pumMaterialId = $(this).data('pum-material-id1');
+					var labourReqId = $(this).data('pum-labor-id');
 					//alert(value);
 
 					$.ajax({
 						type: 'DELETE',
-						url: '/pump/delete/materials/' + pumMaterialId,
+						url: '/pump/delete/labour/' + labourReqId,
 						success: function(result) {
 							alert(result);
 							//Show Added Data		
 							$.ajax({
 								type: "GET",
-								url: "/pump/add/get/materials/LBR/" + indentNo + "/" + complNo,
+								url: "/pump/add/get/labour/" + indentNo + "/" + complNo,
 								success: function(data) {
 									var json = JSON.stringify(data);
 									var result = JSON.parse(json);
 									var row = '';
 									var count = 0;
-									result.forEach(function(item) {
+									result.forEach(function(labor) {
 										count = count + 1
 										row += '<tr>';
 										row += '<td>' + count + '</td>';
-										row += '<td>' + item.empCategory + '</td>';
-										row += '<td>' + item.members + '</td>';
-										row += '<td>' + item.daysRequired + '</td>';
-										row += '<td>' + item.timeRequired + '</td>';
-										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id1="' + item.pumMaterialId + '"></i></a></td>';
+										row += '<td>' + labor.empCategory + '</td>';
+										row += '<td>' + labor.members + '</td>';
+										row += '<td>' + labor.daysRequired + '</td>';
+										row += '<td>' + labor.timeRequired + '</td>';
+										row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
 										row += '</tr>';
 									});
 									// Insert the generated HTML into the table body
@@ -628,12 +627,13 @@ $(document).ready(function() {
 				complDtls: $("#pump-vehicle-complDtls").val(),
 				workPriority: $("#pump-vehicle-workpriority").val(),
 				vehicleType: $("#master-vehicleType-list").val(),
-				vehicle: $("#master-vehicleNos-list").val(),
+				vehicleId: $("#master-vehicleNos-list").val(),
 				driverName: $("#pump-vehicle-driverName").val(),
 				driverPhone: $("#pump-vehicle-driverPhone").val(),
 				meterReading: $("#pump-vehicle-meterReading").val(),
 				stratTime: $("#pump-vehicle-stratingTime").val(),
-
+				vehicleNo: $("#pump-vehicle-vehicleNo").val(),
+              
 			},
 			success: function(result) {
 
@@ -643,27 +643,28 @@ $(document).ready(function() {
 					$("#pump-vehicle-driverPhone").val(""),
 					$("#pump-vehicle-meterReading").val(""),
 					$("#pump-vehicle-stratingTime").val(""),
+					$("#pump-vehicle-vehicleNo").val(""),
 
 					//Show Added Data		
 					$.ajax({
 						type: "GET",
-						url: "/pump/add/get/materials/VHE/" + indentNo + "/" + complNo,
+						url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
 						success: function(data) {
 							var json = JSON.stringify(data);
 							var result = JSON.parse(json);
 							var row = '';
 							var count = 0;
-							result.forEach(function(item) {
+							result.forEach(function(vehicle) {
 								count = count + 1
 								row += '<tr>';
 								row += '<td>' + count + '</td>';
-								row += '<td>' + item.vehicleType + '</td>';
-								row += '<td>' + item.vehicleNo + '</td>';
-								row += '<td>' + item.driverName + '</td>';
-								row += '<td>' + item.driverPhone + '</td>';
-								row += '<td>' + item.meterReading + '</td>';
-								row += '<td>' + item.stratTime + '</td>';
-								row += '<td class="item-delete2"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-material-id2="' + item.pumMaterialId + '"></i></a></td>';
+								row += '<td>' + vehicle.vehicleType + '</td>';
+								row += '<td>' + vehicle.vehicleNo + '</td>';
+								row += '<td>' + vehicle.driverName + '</td>';
+								row += '<td>' + vehicle.driverPhone + '</td>';
+								row += '<td>' + vehicle.meterReading + '</td>';
+								row += '<td>' + vehicle.stratTime + '</td>';
+								row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
 								row += '</tr>';
 							});
 							// Insert the generated HTML into the table body
@@ -675,34 +676,34 @@ $(document).ready(function() {
 					e.preventDefault();
 					var row = $(this).closest('tr');
 					//var pumMaterialId = row.find('.item-delete').text();
-					var pumMaterialId = $(this).data('pum-material-id2');
+					var vehicleReqId = $(this).data('pum-vehicle-id');
 					//alert(value);
 
 					$.ajax({
 						type: 'DELETE',
-						url: '/pump/delete/materials/' + pumMaterialId,
+						url: '/pump/delete/vehicle/' + vehicleReqId,
 						success: function(result) {
 							alert(result);
 							//Show Added Data		
 							$.ajax({
 								type: "GET",
-								url: "/pump/add/get/materials/VHE/" + indentNo + "/" + complNo,
+								url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
 								success: function(data) {
 									var json = JSON.stringify(data);
 									var result = JSON.parse(json);
 									var row = '';
 									var count = 0;
-									result.forEach(function(item) {
+									result.forEach(function(vehicle) {
 										count = count + 1
 										row += '<tr>';
 										row += '<td>' + count + '</td>';
-										row += '<td>' + item.vehicleType + '</td>';
-										row += '<td>' + item.vehicleNo + '</td>';
-										row += '<td>' + item.driverName + '</td>';
-										row += '<td>' + item.driverPhone + '</td>';
-										row += '<td>' + item.meterReading + '</td>';
-										row += '<td>' + item.stratTime + '</td>';
-										row += '<td class="item-delete2"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-material-id2="' + item.pumMaterialId + '"></i></a></td>';
+										row += '<td>' + vehicle.vehicleType + '</td>';
+										row += '<td>' + vehicle.vehicleNo + '</td>';
+										row += '<td>' + vehicle.driverName + '</td>';
+										row += '<td>' + vehicle.driverPhone + '</td>';
+										row += '<td>' + vehicle.meterReading + '</td>';
+										row += '<td>' + vehicle.stratTime + '</td>';
+										row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
 										row += '</tr>';
 									});
 									// Insert the generated HTML into the table body

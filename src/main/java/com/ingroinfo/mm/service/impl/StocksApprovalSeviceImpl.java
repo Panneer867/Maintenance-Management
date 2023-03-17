@@ -19,7 +19,7 @@ import com.ingroinfo.mm.dao.InwardSparesRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.RejectedStocksReturnRepository;
 import com.ingroinfo.mm.dao.RejectedWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.RejectedWorkOrderNosRepository;
+import com.ingroinfo.mm.dao.RejectedWorkOrdersRepository;
 import com.ingroinfo.mm.dao.StockReturnsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrdersRepository;
@@ -92,7 +92,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	private RejectedWorkOrderItemsRepository rejectedWorkOrderItemsRepository;
 
 	@Autowired
-	private RejectedWorkOrderNosRepository rejectedWorkOrderNosRepository;
+	private RejectedWorkOrdersRepository rejectedWorkOrderNosRepository;
 
 	@Autowired
 	private ApprovedStocksReturnRepository approvedStocksReturnRepository;

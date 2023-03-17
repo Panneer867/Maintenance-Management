@@ -1,14 +1,23 @@
-package com.ingroinfo.mm.dto;
+package com.ingroinfo.mm.entity;
 
 import java.sql.Date;
-import com.ingroinfo.mm.entity.VehicleDtls;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 
+@Entity
 @Data
-public class PumpMaterialDto {
-
-	private Long pumMaterialId;
+@Table(name="MM_TEMP_WORKORDER_ITEM_REQUEST")
+public class TempWorkOrderItemRequest {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long itemReqId;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -26,18 +35,6 @@ public class PumpMaterialDto {
 	private String hsnCode;
 	private String quantity;
 	private String stockType;
-	private String indentType;
-	private String empCategory;
-	private String members;
-	private String daysRequired;
-	private String timeRequired;
-	private String vehicleType;
-	private String vehicleNo;
-	private String driverName;
-	private String driverPhone;
-	private String meterReading;
-	private String stratTime;
 	private String stockTypeName;
-		
-	private VehicleDtls vehicle;
+
 }
