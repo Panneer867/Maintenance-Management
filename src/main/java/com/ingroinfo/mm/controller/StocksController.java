@@ -179,6 +179,19 @@ public class StocksController {
 		}
 		return graph;
 	}
+	
+	
+	@GetMapping("/graph/materials/chart")
+	public @ResponseBody List<GraphDto> getMaterialsData() {
+		List<GraphDto> graph = null;
+		try {
+			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS";
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
+	}
 
 	/******************************************************************/
 

@@ -110,6 +110,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 		InwardApprovedMaterials inwardApprovedMaterials = modelMapper.map(inwardItemDto, InwardApprovedMaterials.class);
 		inwardApprovedMaterials.setStockType("ML");
+		inwardApprovedMaterials.setAvailableQty(inwardItemDto.getQuantity());
 		InwardApprovedMaterials newApprovedMaterials = inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
 
 		if (newApprovedMaterials != null) {
@@ -137,6 +138,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 		InwardApprovedSpares inwardApprovedSpares = modelMapper.map(inwardItemDto, InwardApprovedSpares.class);
 		inwardApprovedSpares.setStockType("SP");
+		inwardApprovedSpares.setAvailableQty(inwardItemDto.getQuantity());
 		InwardApprovedSpares newApprovedSpares = inwardApprovedSparesRepository.save(inwardApprovedSpares);
 
 		if (newApprovedSpares != null) {
@@ -164,6 +166,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	public void saveTool(InwardDto inwardItemDto) {
 		InwardApprovedTools inwardApprovedTools = modelMapper.map(inwardItemDto, InwardApprovedTools.class);
 		inwardApprovedTools.setStockType("TE");
+		inwardApprovedTools.setAvailableQty(inwardItemDto.getQuantity());
 		InwardApprovedTools newApprovedTools = inwardApprovedToolsRepository.save(inwardApprovedTools);
 
 		if (newApprovedTools != null) {
@@ -186,9 +189,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		}
 	}
 
-	/*******************************
-	 * Outwards Work orders
-	 ********************************/
+	/*********************** Outwards Work orders ********************************/
 	@Override
 	public void approveOutwardStocks(Long workOrderNo, String username) {
 
@@ -231,8 +232,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 			approvedWorkOrderItems.setOrderId(savedApprovedWorkOrders);
 			approvedWorkOrderItems.setUsername(username);
 			approvedWorkOrderItemsRepository.save(approvedWorkOrderItems);
-			
-			
+
 			int requiredQty = tempWorkOrderItem.getFinalQuantity();
 
 			InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
@@ -246,17 +246,17 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 			if (inwardApprovedMaterials != null) {
 				int MaterialStockQty = inwardApprovedMaterials.getQuantity();
-				inwardApprovedMaterials.setQuantity(MaterialStockQty - requiredQty);
+				inwardApprovedMaterials.setAvailableQty(MaterialStockQty - requiredQty);
 				inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
 			}
 			if (inwardApprovedSpares != null) {
 				int SpareStockQty = inwardApprovedSpares.getQuantity();
-				inwardApprovedSpares.setQuantity(SpareStockQty - requiredQty);
+				inwardApprovedSpares.setAvailableQty(SpareStockQty - requiredQty);
 				inwardApprovedSparesRepository.save(inwardApprovedSpares);
 			}
 			if (inwardApprovedTools != null) {
 				int ToolStockQty = inwardApprovedTools.getQuantity();
-				inwardApprovedTools.setQuantity(ToolStockQty - requiredQty);
+				inwardApprovedTools.setAvailableQty(ToolStockQty - requiredQty);
 				inwardApprovedToolsRepository.save(inwardApprovedTools);
 			}
 
@@ -343,8 +343,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 		approvedStocksReturn.setUsername(username);
 		ApprovedStocksReturn newApprovedStockReturns = approvedStocksReturnRepository.save(approvedStocksReturn);
-		
-		
+
 		int returnQty = stocksReturn.getReturnQuantity();
 
 		InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
@@ -353,22 +352,22 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository
 				.findByItemId(stocksReturn.getItemId());
 
-		InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository
-				.findByItemId(stocksReturn.getItemId());
+		InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository.findByItemId(stocksReturn.getItemId());
 
 		if (inwardApprovedMaterials != null) {
-			int MaterialStockQty = inwardApprovedMaterials.getQuantity();
-			inwardApprovedMaterials.setQuantity(MaterialStockQty + returnQty);
+			int availableMaterialsQty = inwardApprovedMaterials.getAvailableQty();
+			inwardApprovedMaterials.setAvailableQty(availableMaterialsQty + returnQty);
 			inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
 		}
 		if (inwardApprovedSpares != null) {
-			int SpareStockQty = inwardApprovedSpares.getQuantity();
-			inwardApprovedSpares.setQuantity(SpareStockQty + returnQty);
+			int availableSparesQty = inwardApprovedSpares.getAvailableQty();
+			inwardApprovedSpares.setAvailableQty(availableSparesQty + returnQty);
 			inwardApprovedSparesRepository.save(inwardApprovedSpares);
 		}
 		if (inwardApprovedTools != null) {
-			int ToolStockQty = inwardApprovedTools.getQuantity();
-			inwardApprovedTools.setQuantity(ToolStockQty + returnQty);
+			int availableToolsQty = inwardApprovedTools.getAvailableQty();
+			inwardApprovedTools.setAvailableQty(availableToolsQty + returnQty);
+			inwardApprovedTools.setQuantity(availableToolsQty + returnQty);
 			inwardApprovedToolsRepository.save(inwardApprovedTools);
 		}
 
