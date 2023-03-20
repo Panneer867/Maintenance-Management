@@ -121,68 +121,38 @@ public class StocksController {
 //		}
 //
 //	}
-
+	private List<GraphDto> executeQuery(String sql) {
+	    List<GraphDto> graph = null;
+	    try {
+	        graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return graph;
+	}
 	@GetMapping("/dashboard/total")
 	public @ResponseBody List<GraphDto> getMonthlyTotalQuantity() {
-		List<GraphDto> graph = null;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return graph;
+	    return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS");
 	}
 
 	@GetMapping("/dashboard/month")
 	public @ResponseBody List<GraphDto> getStockwiseMonthlyQuantity() {
-		List<GraphDto> graph = null;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_STOCKS";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return graph;
+	    return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_STOCKS");
 	}
 
 	@GetMapping("/dashboard/outward")
 	public @ResponseBody List<GraphDto> getOutwardStocks() {
-
-		List<GraphDto> graph = null;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_OUTWARD_STOCKS";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return graph;
+	    return executeQuery("SELECT * FROM DASHBOARD_OUTWARD_STOCKS");
 	}
-	
+
 	@GetMapping("/dashboard/return")
 	public @ResponseBody List<GraphDto> getStocksReturn() {
-
-		List<GraphDto> graph = null;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_STOCKS_RETURN";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return graph;
+	    return executeQuery("SELECT * FROM DASHBOARD_STOCKS_RETURN");
 	}
-	
-	
+
 	@GetMapping("/graph/materials/chart")
 	public @ResponseBody List<GraphDto> getMaterialsData() {
-		List<GraphDto> graph = null;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return graph;
+	    return executeQuery("SELECT * FROM DASHBOARD_STOCK_MATERIALS");
 	}
 
 	/******************************************************************/

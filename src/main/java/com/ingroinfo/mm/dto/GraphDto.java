@@ -18,5 +18,6 @@ public class GraphDto {
 	private int toolsQuantity;
 	private int totalQuantity;
 	private int year;
+	private String category;
 
 }
