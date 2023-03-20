@@ -11,14 +11,14 @@ $.getJSON('/stocks/dashboard/total', function(data) {
 	// Render the chart
 	const chart = Highcharts.chart('monthwise-total-stocks', {
 		title: {
-			text: 'Month Wise Total Stocks',
+			text: 'Month Wise Added Stocks',
 			align: 'center'
 		},
 		xAxis: {
 			categories: monthNames
 		}, yAxis: {
 			title: {
-				text: 'Total Available Stocks'
+				text: 'Total Added Stocks'
 			}
 		},
 		series: [{

@@ -35,6 +35,7 @@ public class InwardApprovedSpares {
 	private String brand;
 	private String hsnCode;
 	private String unitOfMeasure;
+	@Column(name="added_quantity")
 	private int quantity;
 	private Double costRate;
 	private Double mrpRate;

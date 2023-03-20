@@ -551,7 +551,7 @@ public class StockServiceImpl implements StockService {
 				for (String itemId : itemIds) {
 					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedMaterials iam = inwardApprovedMaterialsRepository.findByItemId(itemId);
-						int stockQuantity = iam.getQuantity();
+						int stockQuantity = iam.getAvailableQty();
 						int quantity = itemQuantity.get(itemId);
 						TempIndentItems tempIndentMaterialItems = modelMapper.map(iam, TempIndentItems.class);
 						tempIndentMaterialItems.setWorkOrderNo(workOrderNo);
@@ -579,7 +579,7 @@ public class StockServiceImpl implements StockService {
 
 					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedSpares ias = inwardApprovedSparesRepository.findByItemId(itemId);
-						int stockQuantity = ias.getQuantity();
+						int stockQuantity = ias.getAvailableQty();
 						int quantity = itemQuantity.get(itemId);
 						TempIndentItems tempIndentSpareItems = modelMapper.map(ias, TempIndentItems.class);
 						tempIndentSpareItems.setWorkOrderNo(workOrderNo);
@@ -606,7 +606,7 @@ public class StockServiceImpl implements StockService {
 				for (String itemId : itemIds) {
 					if (tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).isEmpty()) {
 						InwardApprovedTools iat = inwardApprovedToolsRepository.findByItemId(itemId);
-						int stockQuantity = iat.getQuantity();
+						int stockQuantity = iat.getAvailableQty();
 						int quantity = itemQuantity.get(itemId);
 						TempIndentItems tempIndentToolItems = modelMapper.map(iat, TempIndentItems.class);
 						tempIndentToolItems.setWorkOrderNo(workOrderNo);
@@ -686,13 +686,13 @@ public class StockServiceImpl implements StockService {
 			WorkOrderItemsDto wOI = new WorkOrderItemsDto();
 			int stockQuantity = 0;
 			if (inwardApprovedMaterialsRepository.findByItemIdAndStockType(itemId, "ML") != null) {
-				stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getQuantity();
+				stockQuantity = inwardApprovedMaterialsRepository.findByItemId(itemId).getAvailableQty();
 
 			} else if (inwardApprovedSparesRepository.findByItemIdAndStockType(itemId, "SP") != null) {
-				stockQuantity = inwardApprovedSparesRepository.findByItemId(itemId).getQuantity();
+				stockQuantity = inwardApprovedSparesRepository.findByItemId(itemId).getAvailableQty();
 
 			} else if (inwardApprovedToolsRepository.findByItemIdAndStockType(itemId, "TE") != null) {
-				stockQuantity = inwardApprovedToolsRepository.findByItemId(itemId).getQuantity();
+				stockQuantity = inwardApprovedToolsRepository.findByItemId(itemId).getAvailableQty();
 
 			}
 			int quantity = itemQuantity.get(itemId);

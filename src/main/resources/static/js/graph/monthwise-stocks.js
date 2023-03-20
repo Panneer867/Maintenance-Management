@@ -21,7 +21,7 @@ $.getJSON('/stocks/dashboard/month', function(data) {
 
 	Highcharts.chart('monthwise-stocks', {
 		title: {
-			text: 'Month Wise Stocks ',
+			text: 'Month Wise Available Stocks ',
 			align: 'center'
 		},
 		xAxis: {

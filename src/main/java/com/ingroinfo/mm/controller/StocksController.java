@@ -667,13 +667,13 @@ public class StocksController {
 		InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository.findByItemId(itemId);
 
 		if (inwardApprovedMaterials != null) {
-			quantity = inwardApprovedMaterials.getQuantity();
+			quantity = inwardApprovedMaterials.getAvailableQty();
 		}
 		if (inwardApprovedSpares != null) {
-			quantity = inwardApprovedSpares.getQuantity();
+			quantity = inwardApprovedSpares.getAvailableQty();
 		}
 		if (inwardApprovedTools != null) {
-			quantity = inwardApprovedTools.getQuantity();
+			quantity = inwardApprovedTools.getAvailableQty();
 		}
 
 		return quantity;
@@ -817,7 +817,7 @@ public class StocksController {
 
 		stocksReturn.setUsername(principal.getName());
 		stockService.saveReturnItems(stocksReturn);
-		session.setAttribute("message", new Message("All the Item has been successfully added !", "success"));
+		session.setAttribute("message", new Message("All the Item has been successfully added for Return!", "success"));
 		return "redirect:/stocks/return/entry";
 	}
 
