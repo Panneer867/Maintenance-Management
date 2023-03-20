@@ -36,5 +36,6 @@ public class TempWorkOrderItemRequest {
 	private String quantity;
 	private String stockType;
 	private String stockTypeName;
+	private String departmentName;
 
 }

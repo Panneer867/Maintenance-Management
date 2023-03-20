@@ -38,13 +38,13 @@
 											<label for="inputEmail4">Indent No</label>
 											<input type="text" class="form-control form-control-sm bg-white"
 												id="pump-spare-indentNo" name="indentNo" placeholder="Indent No"
-												>
+												th:value="${deptMaster.deptLastId}">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="inputEmail4">Indent Department</label>
 											<input type="text" class="form-control form-control-sm bg-white"
 												id="pump-spare-indentDept" readonly name="indentDepartement"
-												placeholder="Indent Department">
+												placeholder="Indent Department" th:value="${deptMaster.deptName}">
 										</div>
 
 										<div class="form-group col-md-3">
@@ -526,7 +526,13 @@
 								</tr>
 							</thead>
 							<tbody>
-
+								<tr th:each="complaints : ${complList}" class="text-center">
+									<td class="fs-6"><a href="#"
+											th:href="@{'/pump/maintenance/complDtls/'+ ${complaints.complId}}"
+											th:text="${complaints.complNo}"></a></td>
+									<td class="fs-6" th:text="${complaints.esclatedFrom}"></td>
+									<td class="fs-6" th:text="${complaints.esclatedFromName}"></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

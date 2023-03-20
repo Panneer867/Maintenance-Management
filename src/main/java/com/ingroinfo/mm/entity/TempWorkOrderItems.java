@@ -23,9 +23,10 @@ public class TempWorkOrderItems {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long recordId;
-	private int finalQuantity;
+	private int finalQuantity;	
 	private int slNo;
 	private String itemId;
+	private Long orderId;
 	private String itemName;
 	private String aliasName;
 	private String itemImage;
@@ -38,9 +39,4 @@ public class TempWorkOrderItems {
 	private Long workOrderNo;
 	private String stockType;
 	private String username;
-
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private TempWorkOrders orderId;
-
 }

@@ -42,16 +42,5 @@ public class WorkOrderItemsRequest {
 	private String itemName;
 	private String unitOfMesure;
 	private String hsnCode;
-	private String indentType;
-	private String empCategory;
-	private String members;
-	private String daysRequired;
-	private String timeRequired;
-	private String vehicleType;
-	private String vehicleNo;
-	private String driverName;
-	private String driverPhone;
-	private String meterReading;
-	private String stratTime;
-	private String stockTypeName;
+	private String departmentName;
 }

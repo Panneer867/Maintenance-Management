@@ -200,81 +200,53 @@ $(document).ready(function() {
 			alert("Enter Stock Type !!");
 			return false;
 		}
-		
+
+		var itemId = $("#pump-spare-item-list").val();
 		$.ajax({
-			type: "post",
-			url: "/pump/save/add/materialData",
-			data: {
-				indentNo: $("#pump-spare-indentNo").val(),
-				complNo: $("#pump-spare-complNo").val(),
-				division: $("#master-division-list").val(),
-				subDivision: $("#master-sub-division-list").val(),
-				workSite: $("#pump-parts-worksite").val(),
-				startDate: $("#pump-parts-startDate").val(),
-				endDate: $("#pump-parts-endDate").val(),
-				contactNo: $("#pump-parts-contactNo").val(),
-				complDtls: $("#pump-parts-complDtls").val(),
-				workPriority: $("#pump-parts-workPriority").val(),
-				categoryName: $("#pump-matrial-category").val(),
-				itemName: $("#pump-material-itemName").val(),
-				itemId: $("#pump-spare-item-list").val(),
-				unitOfMesure: $("#pump-spare-unitMesure").val(),
-				hsnCode: $("#pump-spare-hsnCode").val(),
-				quantity: $("#pump-spare-qantity").val(),
-				stockType: $("#pump-material-stockType").val(),
-				stockTypeName: $("#pump-spare-stockType").val(),
-
-			},
-			success: function(result) {
-
-				$("#pump-matrial-category").val("");			
-				$("#pump-spare-item-list").val("");
-				$("#pump-material-itemName").val("");
-				$("#pump-spare-unitMesure").val("");
-				$("#pump-spare-hsnCode").val("");
-				$("#pump-spare-qantity").val("");
-				$("#pump-spare-stockType").val("");
-				$("#pump-spare-stockType").val("");
-
-				//Show Added Data		
-				$.ajax({
-					type: "GET",
-					url: "/pump/add/get/materials/" + indentNo + "/" + complNo,
-					success: function(data) {
-						var json = JSON.stringify(data);
-						var result = JSON.parse(json);
-						var row = '';
-						var count = 0;
-						result.forEach(function(item) {
-							count = count + 1
-							row += '<tr>';
-							row += '<td>' + count + '</td>';
-							row += '<td>' + item.categoryName + '</td>';
-							row += '<td>' + item.itemName + '</td>';
-							row += '<td>' + item.hsnCode + '</td>';
-							row += '<td>' + item.unitOfMesure + '</td>';
-							row += '<td>' + item.quantity + '</td>';
-							row += '<td>' + item.stockTypeName + '</td>';
-							row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
-							row += '</tr>';
-						});
-						// Insert the generated HTML into the table body
-						$('#myTable tbody').html(row);
-					},
-				});
-
-				$('table').on('click', '.delete-btn', function(e) {
-					e.preventDefault();
-					var row = $(this).closest('tr');
-					//var pumMaterialId = row.find('.item-delete').text();
-					var itemReqId = $(this).data('pum-material-id');
-					//alert(value);
+			type: "GET",
+			url: "/pump/add/materials/item/verify/" + itemId,
+			success: function(data) {
+				if (data === "true") {
+					alert("Item Already Added , You Have To Delete For Re-Enter !!")
+					return false;
+				} else {
 
 					$.ajax({
-						type: 'DELETE',
-						url: '/pump/delete/materials/' + itemReqId,
+						type: "post",
+						url: "/pump/save/add/materialData",
+						data: {
+							indentNo: $("#pump-spare-indentNo").val(),
+							complNo: $("#pump-spare-complNo").val(),
+							division: $("#master-division-list").val(),
+							subDivision: $("#master-sub-division-list").val(),
+							workSite: $("#pump-parts-worksite").val(),
+							startDate: $("#pump-parts-startDate").val(),
+							endDate: $("#pump-parts-endDate").val(),
+							contactNo: $("#pump-parts-contactNo").val(),
+							complDtls: $("#pump-parts-complDtls").val(),
+							workPriority: $("#pump-parts-workPriority").val(),
+							categoryName: $("#pump-matrial-category").val(),
+							itemName: $("#pump-material-itemName").val(),
+							itemId: $("#pump-spare-item-list").val(),
+							unitOfMesure: $("#pump-spare-unitMesure").val(),
+							hsnCode: $("#pump-spare-hsnCode").val(),
+							quantity: $("#pump-spare-qantity").val(),
+							stockType: $("#pump-material-stockType").val(),
+							stockTypeName: $("#pump-spare-stockType").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
+
+						},
 						success: function(result) {
-							alert(result);
+
+							$("#pump-matrial-category").val("");
+							$("#pump-spare-item-list").val("");
+							$("#pump-material-itemName").val("");
+							$("#pump-spare-unitMesure").val("");
+							$("#pump-spare-hsnCode").val("");
+							$("#pump-spare-qantity").val("");
+							$("#pump-spare-stockType").val("");
+							$("#pump-spare-stockType").val("");
+
 							//Show Added Data		
 							$.ajax({
 								type: "GET",
@@ -293,7 +265,7 @@ $(document).ready(function() {
 										row += '<td>' + item.hsnCode + '</td>';
 										row += '<td>' + item.unitOfMesure + '</td>';
 										row += '<td>' + item.quantity + '</td>';
-										row += '<td>' + item.stockType + '</td>';
+										row += '<td>' + item.stockTypeName + '</td>';
 										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
 										row += '</tr>';
 									});
@@ -302,20 +274,63 @@ $(document).ready(function() {
 								},
 							});
 
+							$('table').on('click', '.delete-btn', function(e) {
+								e.preventDefault();
+								var row = $(this).closest('tr');
+								//var pumMaterialId = row.find('.item-delete').text();
+								var itemReqId = $(this).data('pum-material-id');
+								//alert(value);
+
+								$.ajax({
+									type: 'DELETE',
+									url: '/pump/delete/materials/' + itemReqId,
+									success: function(result) {
+										alert(result);
+										//Show Added Data		
+										$.ajax({
+											type: "GET",
+											url: "/pump/add/get/materials/" + indentNo + "/" + complNo,
+											success: function(data) {
+												var json = JSON.stringify(data);
+												var result = JSON.parse(json);
+												var row = '';
+												var count = 0;
+												result.forEach(function(item) {
+													count = count + 1
+													row += '<tr>';
+													row += '<td>' + count + '</td>';
+													row += '<td>' + item.categoryName + '</td>';
+													row += '<td>' + item.itemName + '</td>';
+													row += '<td>' + item.hsnCode + '</td>';
+													row += '<td>' + item.unitOfMesure + '</td>';
+													row += '<td>' + item.quantity + '</td>';
+													row += '<td>' + item.stockType + '</td>';
+													row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
+													row += '</tr>';
+												});
+												// Insert the generated HTML into the table body
+												$('#myTable tbody').html(row);
+											},
+										});
+
+
+									},
+									error: function(err) {
+
+									}
+								});
+
+							});
+
 
 						},
 						error: function(err) {
-
+							alert("Something Went Wrong !! Data Not Added" + err);
 						}
 					});
 
-				});
-
-
+				}
 			},
-			error: function(err) {
-				alert("Something Went Wrong !! Data Not Added" + err);
-			}
 		});
 
 	});
@@ -425,6 +440,7 @@ $(document).ready(function() {
 				members: $("#pump-labour-members").val(),
 				daysRequired: $("#pump-labour-days").val(),
 				timeRequired: $("#pump-labour-time").val(),
+				departmentName: $("#pump-spare-indentDept").val(),
 
 			},
 			success: function(result) {
@@ -633,7 +649,8 @@ $(document).ready(function() {
 				meterReading: $("#pump-vehicle-meterReading").val(),
 				stratTime: $("#pump-vehicle-stratingTime").val(),
 				vehicleNo: $("#pump-vehicle-vehicleNo").val(),
-              
+				departmentName: $("#pump-spare-indentDept").val(),
+
 			},
 			success: function(result) {
 

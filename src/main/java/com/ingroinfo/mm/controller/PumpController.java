@@ -41,14 +41,10 @@ import com.ingroinfo.mm.entity.WorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.WorkOrderVehicleRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.DepartmentIdMasterService;
-import com.ingroinfo.mm.service.DivisionSubdivisionService;
+import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.PumpMaintenanceService;
 import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.service.TaskUpdateService;
-import com.ingroinfo.mm.service.UnitMeasureService;
-import com.ingroinfo.mm.service.VehicleDtlsService;
-import com.ingroinfo.mm.service.WorkPriorityService;
 
 @Controller
 @RequestMapping("/pump")
@@ -58,9 +54,9 @@ public class PumpController {
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-	
+
 	@Autowired
-	private DepartmentIdMasterService deptIdMasterService;
+	private MasterService masterService;
 	@Autowired
 	private PumpMaintenanceService pumpMaintenService;
 	@Autowired
@@ -68,15 +64,7 @@ public class PumpController {
 	@Autowired
 	private AdminService adminService;
 	@Autowired
-	private DivisionSubdivisionService divSubDivService;
-	@Autowired
-	private UnitMeasureService unitMeasureService;
-	@Autowired
-	private VehicleDtlsService vehicleDtlsService;
-	@Autowired
 	private StockService stockService;
-	@Autowired
-	private WorkPriorityService workPriorityService;
 	@Autowired
 	private TempWorkOrderItemRequestRepository tempWorkOrderItemRequestRepo;
 	@Autowired
@@ -129,8 +117,8 @@ public class PumpController {
 		String complSts = "NeedMaterial";
 
 		try {
-			DepartmentIdMasterDto departmentIdMasterDto = this.deptIdMasterService
-					.getByMasterIdNameAndDeptName(masterIdName, deptName);
+			DepartmentIdMasterDto departmentIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
+					deptName);
 			model.addAttribute("deptMaster", departmentIdMasterDto);
 		} catch (Exception e) {
 			session.setAttribute("message", new Message("Indent Id Is Not Pressent Please Add Id First !!", "danger"));
@@ -163,8 +151,8 @@ public class PumpController {
 		String complSts = "NeedMaterial";
 
 		try {
-			DepartmentIdMasterDto departmentIdMasterDto = this.deptIdMasterService
-					.getByMasterIdNameAndDeptName(masterIdName, deptName);
+			DepartmentIdMasterDto departmentIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
+					deptName);
 			model.addAttribute("deptMaster", departmentIdMasterDto);
 		} catch (Exception e) {
 			System.out.println("Exception :: " + e.getMessage());
@@ -180,36 +168,22 @@ public class PumpController {
 			}
 			ComplaintDto complaintDto = this.taskUpdateService.getComplaintDtlsByComplaintId(complId);
 			model.addAttribute("complDtls", complaintDto);
+			List<String> divSubDivList = this.masterService.getDistinctDivisions();
+			model.addAttribute("divSubDivList", divSubDivList);
+			List<UnitMeasureDto> unitMeasureDtos = this.masterService.getAllUnitMeasure();
+			model.addAttribute("unitsList", unitMeasureDtos);
+			List<String> vehicleTypes = this.masterService.getAllVehicleTypes();
+			model.addAttribute("vehicleTypes", vehicleTypes);
+			List<WorkPriorityDto> workPriorityDtos = this.masterService.findAllWorkPriority();
+			model.addAttribute("workProrityList", workPriorityDtos);
+			List<InwardDto> stockList = stockService.getAllStocks();
+			List<String> catrgoryList = stockList.stream().map(InwardDto::getCategory).distinct()
+					.collect(Collectors.toList());
+			model.addAttribute("categoryList", catrgoryList);
+			
 		} catch (Exception e) {
 			System.out.println("Something Wrong !! " + e.getMessage());
 		}
-		try {
-			List<String> divSubDivList = this.divSubDivService.getDistinctDivisions();
-			model.addAttribute("divSubDivList", divSubDivList);
-		} catch (Exception e) {
-			System.out.println("Something Went Wrong !!" + e.getMessage());
-		}
-
-		try {
-			List<UnitMeasureDto> unitMeasureDtos = this.unitMeasureService.getAllUnitMeasure();
-			model.addAttribute("unitsList", unitMeasureDtos);
-		} catch (Exception e) {
-			System.out.println("Something Went Wrong !!" + e.getMessage());
-		}
-		try {
-			List<String> vehicleTypes = this.vehicleDtlsService.getAllVehicleTypes();
-			model.addAttribute("vehicleTypes", vehicleTypes);
-		} catch (Exception e) {
-			System.out.println("Something Went Wrong !!" + e.getMessage());
-		}
-
-		List<WorkPriorityDto> workPriorityDtos = this.workPriorityService.findAllWorkPriority();
-		model.addAttribute("workProrityList", workPriorityDtos);
-
-		List<InwardDto> stockList = stockService.getAllStocks();
-		List<String> catrgoryList = stockList.stream().map(InwardDto::getCategory).distinct()
-				.collect(Collectors.toList());
-		model.addAttribute("categoryList", catrgoryList);
 		model.addAttribute("title", "Pump | Indent | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_indent";
 	}
@@ -238,7 +212,8 @@ public class PumpController {
 	@ResponseBody
 	public ResponseEntity<TempWorkOrderItemRequest> saveIndentData(
 			@ModelAttribute("materialData") TempWorkOrderItemRequest tempWorkOrderItemRequest) {
-		TempWorkOrderItemRequest temWorkOrderItemData = this.tempWorkOrderItemRequestRepo.save(tempWorkOrderItemRequest);
+		TempWorkOrderItemRequest temWorkOrderItemData = this.tempWorkOrderItemRequestRepo
+				.save(tempWorkOrderItemRequest);
 		return new ResponseEntity<TempWorkOrderItemRequest>(temWorkOrderItemData, HttpStatus.OK);
 	}
 
@@ -320,22 +295,24 @@ public class PumpController {
 	@GetMapping("/generate/workorder/{complNo}")
 	public String savePumpIndent(@PathVariable String complNo, Principal principal, HttpSession session, Model model) {
 		String masterIdName = "Indent Id";
-		String deptName = "Pump Dept";
-		
+		//String deptName = "Pump Dept";
+
 		List<TempWorkOrderItemRequest> tempWorkOrderItems = this.tempWorkOrderItemRequestRepo.findByComplNo(complNo);
 		List<TempWorkOderLabourRequest> tempWorkOrderLabors = this.tempWorkOderLabourRequestRepo.findByComplNo(complNo);
-		List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles = this.tempWorkOrderVehicleRequestRepo.findByComplNo(complNo);
+		List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles = this.tempWorkOrderVehicleRequestRepo
+				.findByComplNo(complNo);
 
 		List<WorkOrderItemsRequest> workOrderItemsRequests = new ArrayList<>();
 		List<WorkOrderLabourRequest> workOrderLaborRequests = new ArrayList<>();
 		List<WorkOrderVehicleRequest> workOrderVehicleRequests = new ArrayList<>();
-		
-		if (tempWorkOrderItems !=null) {
-						
-			for(TempWorkOrderItemRequest tempWorkOrderItem : tempWorkOrderItems) {
+
+		if (tempWorkOrderItems != null) {
+
+			for (TempWorkOrderItemRequest tempWorkOrderItem : tempWorkOrderItems) {
 				WorkOrderItemsRequest workOrderItems = new WorkOrderItemsRequest();
 				String complNumber = "101" + tempWorkOrderItem.getComplNo();
 				workOrderItems.setWorkOrderNo(Long.parseLong(complNumber));
+				workOrderItems.setDepartmentName(tempWorkOrderItem.getDepartmentName());
 				workOrderItems.setItemId(tempWorkOrderItem.getItemId());
 				workOrderItems.setStockType(tempWorkOrderItem.getStockType());
 				workOrderItems.setQuantity(Integer.parseInt(tempWorkOrderItem.getQuantity()));
@@ -354,19 +331,21 @@ public class PumpController {
 				workOrderItems.setItemName(tempWorkOrderItem.getItemName());
 				workOrderItems.setUnitOfMesure(tempWorkOrderItem.getUnitOfMesure());
 				workOrderItems.setHsnCode(tempWorkOrderItem.getHsnCode());
-															  
+
 				workOrderItemsRequests.add(workOrderItems);
 			}
 
 			this.workOrderItemRequestRepo.saveAll(workOrderItemsRequests);
 			this.tempWorkOrderItemRequestRepo.deleteAddedByComplNo(complNo);
-		}if (tempWorkOrderLabors !=null) {
-					
-			for(TempWorkOderLabourRequest tempWorkOrderLabor : tempWorkOrderLabors) {
+		}
+		if (tempWorkOrderLabors != null) {
+
+			for (TempWorkOderLabourRequest tempWorkOrderLabor : tempWorkOrderLabors) {
 				WorkOrderLabourRequest workOrderLabors = new WorkOrderLabourRequest();
 				String complNumber = "101" + tempWorkOrderLabor.getComplNo();
-				workOrderLabors.setWorkOrderNo(Long.parseLong(complNumber));			
+				workOrderLabors.setWorkOrderNo(Long.parseLong(complNumber));
 				workOrderLabors.setUsername(principal.getName());
+				workOrderLabors.setDepartmentName(tempWorkOrderLabor.getDepartmentName());
 				workOrderLabors.setIndentNo(tempWorkOrderLabor.getIndentNo());
 				workOrderLabors.setComplNo(tempWorkOrderLabor.getComplNo());
 				workOrderLabors.setDivision(tempWorkOrderLabor.getDivision());
@@ -381,20 +360,22 @@ public class PumpController {
 				workOrderLabors.setMembers(tempWorkOrderLabor.getMembers());
 				workOrderLabors.setDaysRequired(tempWorkOrderLabor.getDaysRequired());
 				workOrderLabors.setTimeRequired(tempWorkOrderLabor.getTimeRequired());
-															  
+
 				workOrderLaborRequests.add(workOrderLabors);
 			}
 
 			this.workOrderLabourRequestRepo.saveAll(workOrderLaborRequests);
 			this.tempWorkOderLabourRequestRepo.deleteAddedByComplNo(complNo);
-			
-		}if (tempWorkOrderVehicles !=null) {
-			
-			for(TempWorkOrderVehicleRequest tempWorkOrderVehicle : tempWorkOrderVehicles) {
+
+		}
+		if (tempWorkOrderVehicles != null) {
+
+			for (TempWorkOrderVehicleRequest tempWorkOrderVehicle : tempWorkOrderVehicles) {
 				WorkOrderVehicleRequest workOrderVehicles = new WorkOrderVehicleRequest();
 				String complNumber = "101" + tempWorkOrderVehicle.getComplNo();
-				workOrderVehicles.setWorkOrderNo(Long.parseLong(complNumber));			
+				workOrderVehicles.setWorkOrderNo(Long.parseLong(complNumber));
 				workOrderVehicles.setUsername(principal.getName());
+				workOrderVehicles.setDepartmentName(tempWorkOrderVehicle.getDepartmentName());
 				workOrderVehicles.setIndentNo(tempWorkOrderVehicle.getIndentNo());
 				workOrderVehicles.setComplNo(tempWorkOrderVehicle.getComplNo());
 				workOrderVehicles.setDivision(tempWorkOrderVehicle.getDivision());
@@ -412,21 +393,20 @@ public class PumpController {
 				workOrderVehicles.setMeterReading(tempWorkOrderVehicle.getMeterReading());
 				workOrderVehicles.setStratTime(tempWorkOrderVehicle.getStratTime());
 				workOrderVehicles.setVehicleId(tempWorkOrderVehicle.getVehicleId());
-															  
+
 				workOrderVehicleRequests.add(workOrderVehicles);
 			}
 
 			this.workOrderVehicleRequestRepo.saveAll(workOrderVehicleRequests);
 			this.tempWorkOrderVehicleRequestRepo.deleteAddedByComplNo(complNo);
 		}
-		
+
 		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
 		oldcomplaintDto.setComplStatus("Work_Order_Issued");
 		this.taskUpdateService.saveComplaint(oldcomplaintDto);
-		
-		
+		String deptName = oldcomplaintDto.getDepartment();
 		try {
-			DepartmentIdMasterDto deptIdMasterDto = this.deptIdMasterService.getByMasterIdNameAndDeptName(masterIdName,
+			DepartmentIdMasterDto deptIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
 					deptName);
 			String lastIndentNo = deptIdMasterDto.getDeptLastId();
 
@@ -447,7 +427,7 @@ public class PumpController {
 			number++;
 			String newStartId = lettersString + Integer.toString(number);
 			deptIdMasterDto.setDeptLastId(newStartId);
-			this.deptIdMasterService.saveDepartmentIdMaster(deptIdMasterDto);
+			this.masterService.saveDepartmentIdMaster(deptIdMasterDto);
 
 		} catch (Exception e) {
 			System.out.println("Exception :: " + e.getMessage());
@@ -455,6 +435,17 @@ public class PumpController {
 
 		session.setAttribute("message", new Message("Work Order Requested Successfully", "success"));
 		return "redirect:/pump/maintenance/indent";
+	}
+
+	// verify Items
+	@RequestMapping("/add/materials/item/verify/{itemId}")
+	@ResponseBody
+	public String verifyBillNo(@PathVariable("itemId") String itemId) {
+		String f = "false";
+		if (tempWorkOrderItemRequestRepo.existsByItemId(itemId)) {
+			f = "true";
+		}
+		return f;
 	}
 
 	@GetMapping("/maintenance/view")

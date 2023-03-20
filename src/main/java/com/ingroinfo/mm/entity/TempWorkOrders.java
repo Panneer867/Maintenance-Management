@@ -36,10 +36,5 @@ public class TempWorkOrders {
 	private Double subTotal;
 	private Double grandTotal;
 	private Long workOrderNo;
-	private String username;
-	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
-	private List<TempWorkOrderItems> tempWorkOrderItems;
-
+	private String username;	
 }

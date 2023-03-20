@@ -14,37 +14,34 @@
 			<!-- End of Message Alert Field -->
 			<div class="card bl-cr">
 				<div class="card-header text-center heading-bg text-white">
-					<h3 class="mb-0">Maintance Frequency</h3>
+					<h3 class="mb-0">Employee Master Category</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savemaintenfreq}" method="post">
+					<form th:action="@{/masters/save/empcategory}" method="post">
 						<div class="row g-3 align-items-center">
-							<div class="col-auto pl-5">
-								<label for="maintanWork" class="col-form-label">Maintance Work</label>
-							</div>
-							<div class="col-sm-4">
-								<input type="text" id="maintanWork" class="form-control form-control-sm"
-									name="maintanWork" required placeholder="Enter Maintance Work">
-							</div>
 							<div class="col-auto">
-								<label for="maintanFrequency" class="col-form-label">Maintance Frequency</label>
+								<label for="department" class="col-form-label">Department</label>
 							</div>
 							<div class="col-sm-3">
-								<select class="form-select form-select-sm" name="maintanFrequency" required>
-									<option>--Select--</option>
-									<option>Daily</option>
-									<option>Weekly</option>
-									<option>15 Days</option>
-									<option>Monthly</option>
-									<option>6 Month</option>
-									<option>Yearly </option>
+								<select class="form-select form-select-sm" name="department" required>
+									<option value="">--Select--</option>
+									<option th:each="department:${allDepartment}"
+										th:value="${department.departmentName}" th:text="${department.departmentName}">
+									</option>
 								</select>
+							</div>
+							<div class="col-auto pl-5">
+								<label for="empCategory" class="col-form-label">Employee Category</label>
+							</div>
+							<div class="col-sm-4">
+								<input type="text" id="empCategory" class="form-control form-control-sm"
+									name="empCategory" required placeholder="Enter Employee Category">
 							</div>
 						</div>
 
 						<div class="mt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit</button>
-							<a type="button" th:href="@{/masters/maintanfreqhistory}" class="btn btn-success">View</a>
+							<a type="button" th:href="@{/masters/empcategory/history}" class="btn btn-success">View</a>
 						</div>
 
 					</form>
@@ -55,23 +52,23 @@
 
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
-			<h5 class="mb-4 bg-primary py-1 text-white text-center">Maintance Frequency History</h5>
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Employee Category History</h5>
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Maintance Work</th>
-						<th class="text-center" scope="col">Maintance Frequency</th>
+						<th class="text-center" scope="col">Department</th>
+						<th class="text-center" scope="col">Employee Category</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="maintanfreq : ${listOfMaintenFreq}">
-						<td><a href="#" th:onclick="|deleteMaintenFrequency(${maintanfreq.maintanFrequId})|">
-								<span th:text="${'DW'+maintanfreq.maintanFrequId}"></span></a>
+					<tr th:each="empCategory : ${listOfEmpCategory}">
+						<td><a href="#" th:onclick="|deleteEmpCategory(${empCategory.empCategoryId})|">
+								<span th:text="${'EC'+empCategory.empCategoryId}"></span></a>
 						</td>
-						<td th:text="${maintanfreq.maintanWork}"></td>
-						<td th:text="${maintanfreq.maintanFrequency}"></td>
+						<td th:text="${empCategory.department}"></td>
+						<td th:text="${empCategory.empCategory}"></td>
 					</tr>
 				</tbody>
 			</table>

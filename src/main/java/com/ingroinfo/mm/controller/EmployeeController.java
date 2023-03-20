@@ -36,11 +36,10 @@ import com.ingroinfo.mm.entity.EmployeeLeave;
 import com.ingroinfo.mm.entity.EmployeeMaster;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
-import com.ingroinfo.mm.service.DepartmentService;
 import com.ingroinfo.mm.service.EmployeeInspectService;
 import com.ingroinfo.mm.service.EmployeeMasterService;
 import com.ingroinfo.mm.service.EmployeeSalaryService;
-import com.ingroinfo.mm.service.IdMasterService;
+import com.ingroinfo.mm.service.MasterService;
 
 @Controller
 @RequestMapping("/employee")
@@ -61,9 +60,7 @@ public class EmployeeController {
 	@Autowired
 	public ModelMapperConfig mapper;
 	@Autowired
-	private DepartmentService departService;
-	@Autowired
-	private IdMasterService idMasterService;
+	private MasterService masterService;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('EMPLOYEE_DASHBOARD')")
@@ -84,7 +81,7 @@ public class EmployeeController {
 				model.addAttribute("empId", nextempId + "");
 			} else {
 				String idName = "Employee Id";
-				IdMasterDto idMasterDto = this.idMasterService.getByMasterIdName(idName);
+				IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
 				String employeeId = idMasterDto.getStatNumber();
 				model.addAttribute("empId", employeeId);
 			}
@@ -92,7 +89,7 @@ public class EmployeeController {
 			session.setAttribute("message", new Message("Employee Id Is Not Pressent Please Add Id First !!", "info"));
 			System.out.println("Exception :: " + e.getMessage());
 		}
-		model.addAttribute("DeptList", departService.findAllDepartment());
+		model.addAttribute("DeptList", masterService.findAllDepartment());
 		model.addAttribute("employee", new EmployeeMasterDto());
 		model.addAttribute("employees", employeeMasterService.getAllemployeeMaster());
 		model.addAttribute("states", adminService.getAllStates());
@@ -120,7 +117,7 @@ public class EmployeeController {
 	@GetMapping("/salary-generate")
 	@PreAuthorize("hasAuthority('EMPLOYEE_SALARY')")
 	public String salaryGenerate(Model model) {
-		model.addAttribute("deptList", departService.findAllDepartment());
+		model.addAttribute("deptList", masterService.findAllDepartment());
 		return "/pages/employee_management/salary_generate";
 	}
 

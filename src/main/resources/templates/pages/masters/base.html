@@ -1576,11 +1576,7 @@
 						<div class="icon" onclick="window.location='/masters/barcode'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/barcode' ? 'active':''}">
 							<span class="text">Master Barcode</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/category'
-							|| #httpServletRequest.getRequestURI() == '/masters/categoryhistory' ? 'active':''}">
-							<span class="text">Master Category</span>
-						</div>
+						</div>						
 						<div class="icon" onclick="window.location='/masters/companymaster'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/companymaster' ? 'active':''}">
 							<span class="text">Master Company</span>
@@ -1597,10 +1593,18 @@
 							|| #httpServletRequest.getRequestURI() == '/masters/desigHistory' ? 'active':''}">
 							<span class="text">Master Designation</span>
 						</div>
+						<div class="icon" onclick="window.location='/masters/empcategory'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/empcategory'
+							|| #httpServletRequest.getRequestURI() == '/masters/empcategory/history' ? 'active':''}">
+							<span class="text">Master Employee Category</span>
+						</div>
 						<div class="icon" id="master-id-sidebar" onclick="window.location='/masters/idmasterhistory'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/idmasterhistory'
 							|| #httpServletRequest.getRequestURI() == '/masters/idmaster'? 'active':''}">
 							<span class="text">Master Id</span>
+						</div>
+						<div class="icon" onclick="window.location='/masters/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/category'
+							|| #httpServletRequest.getRequestURI() == '/masters/categoryhistory' ? 'active':''}">
+							<span class="text">Master Item Category</span>
 						</div>
 						<div class="icon" onclick="window.location='/masters/masteritem'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/masteritem' 
 							|| #httpServletRequest.getRequestURI() == '/masters/itemhistory' ? 'active':''}">

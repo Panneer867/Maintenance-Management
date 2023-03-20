@@ -33,7 +33,7 @@ import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.BackupService;
-import com.ingroinfo.mm.service.DesignationService;
+import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.UserRolesService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -66,7 +66,8 @@ public class AdminController {
 	Environment environment;
 
 	@Autowired
-	private DesignationService designationService;
+	private MasterService masterService;
+	
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -376,7 +377,7 @@ public class AdminController {
 		model.addAttribute("companies", adminService.getAllCompanies());
 		model.addAttribute("roles", adminService.getAllRoles());
 
-		List<DesignationDto> designations = designationService.getAllDesignations();
+		List<DesignationDto> designations = masterService.getAllDesignations();
 		model.addAttribute("designations", designations);
 
 		return "/pages/admin/create_user";

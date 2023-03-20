@@ -47,10 +47,8 @@ import com.ingroinfo.mm.entity.TempIndentItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
 import com.ingroinfo.mm.entity.TempWorkOrders;
 import com.ingroinfo.mm.helper.Message;
-import com.ingroinfo.mm.service.BrandMasterService;
-import com.ingroinfo.mm.service.ItemMasterService;
+import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.StockService;
-import com.ingroinfo.mm.service.UnitMeasureService;
 
 @Controller
 @RequestMapping("/stocks")
@@ -65,13 +63,7 @@ public class StocksController {
 	private StockService stockService;
 
 	@Autowired
-	private UnitMeasureService unitMeasureService;
-
-	@Autowired
-	private BrandMasterService brandService;
-
-	@Autowired
-	private ItemMasterService itemMasterService;
+	private MasterService masterService;
 
 	@Autowired
 	private TempIndentItemsRepository tempIndentItemsRepository;
@@ -216,11 +208,11 @@ public class StocksController {
 
 		model.addAttribute("tempMaterials", tempMaterials);
 
-		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
+		model.addAttribute("unitOfMeasures", masterService.getAllUnitMeasure());
 
-		model.addAttribute("items", itemMasterService.getAllItemNames("ML"));
+		model.addAttribute("items", masterService.getAllItemNames("ML"));
 
-		model.addAttribute("brands", brandService.getAllBrandMasters());
+		model.addAttribute("brands", masterService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_materials_entry";
 	}
@@ -345,11 +337,11 @@ public class StocksController {
 
 		model.addAttribute("tempSpares", tempSpares);
 
-		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
+		model.addAttribute("unitOfMeasures", masterService.getAllUnitMeasure());
 
-		model.addAttribute("items", itemMasterService.getAllItemNames("SP"));
+		model.addAttribute("items", masterService.getAllItemNames("SP"));
 
-		model.addAttribute("brands", brandService.getAllBrandMasters());
+		model.addAttribute("brands", masterService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_spares_entry";
 	}
@@ -474,11 +466,11 @@ public class StocksController {
 
 		model.addAttribute("tempTools", tempTools);
 
-		model.addAttribute("unitOfMeasures", unitMeasureService.getAllUnitMeasure());
+		model.addAttribute("unitOfMeasures", masterService.getAllUnitMeasure());
 
-		model.addAttribute("items", itemMasterService.getAllItemNames("TE"));
+		model.addAttribute("items", masterService.getAllItemNames("TE"));
 
-		model.addAttribute("brands", brandService.getAllBrandMasters());
+		model.addAttribute("brands", masterService.getAllBrandMasters());
 
 		return "/pages/stock_management/inward_tools_entry";
 	}

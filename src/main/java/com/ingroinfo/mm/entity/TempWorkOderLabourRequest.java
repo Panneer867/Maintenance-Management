@@ -30,5 +30,6 @@ public class TempWorkOderLabourRequest {
 	private String members;
 	private String daysRequired;
 	private String timeRequired;
+	private String departmentName;
 
 }

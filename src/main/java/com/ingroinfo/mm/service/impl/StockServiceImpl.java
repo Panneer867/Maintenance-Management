@@ -633,7 +633,16 @@ public class StockServiceImpl implements StockService {
 			tempIndentItemsRepository.save(listOfTempIndentItems.get(i));
 			count++;
 		}
+		List<WorkOrderItemsDto> getIdentDto = getIndentItems(workOrderNo);
+		
+		return getIdentDto;
+	}
 
+	private List<WorkOrderItemsDto> getIndentItems(Long workOrderNo) {
+		
+		List<TempIndentItems> listOfTempIndentItems = tempIndentItemsRepository.findByWorkOrderNo(workOrderNo);
+		List<String> stockTypes = Arrays.asList("ML", "SP", "TE");
+		
 		List<WorkOrderItemsDto> wOIDto = new ArrayList<WorkOrderItemsDto>();
 		for (TempIndentItems tempIndentItem : listOfTempIndentItems) {
 
@@ -657,23 +666,25 @@ public class StockServiceImpl implements StockService {
 
 			if (inwardApprovedMaterialsRepository.findByItemIdAndStockType(newwOIDto.getItemId(),
 					stockTypes.get(0)) != null) {
-				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(newwOIDto.getItemId()).getQuantity();
+				int stockQuantity = inwardApprovedMaterialsRepository.findByItemId(newwOIDto.getItemId()).getAvailableQty();
 				newwOIDto.setStockAvailable(stockQuantity);
 			} else if (inwardApprovedSparesRepository.findByItemIdAndStockType(newwOIDto.getItemId(),
 					stockTypes.get(1)) != null) {
-				int stockQuantity = inwardApprovedSparesRepository.findByItemId(newwOIDto.getItemId()).getQuantity();
+				int stockQuantity = inwardApprovedSparesRepository.findByItemId(newwOIDto.getItemId()).getAvailableQty();
 				newwOIDto.setStockAvailable(stockQuantity);
 
 			} else if (inwardApprovedToolsRepository.findByItemIdAndStockType(newwOIDto.getItemId(),
 					stockTypes.get(2)) != null) {
-				int stockQuantity = inwardApprovedToolsRepository.findByItemId(newwOIDto.getItemId()).getQuantity();
+				int stockQuantity = inwardApprovedToolsRepository.findByItemId(newwOIDto.getItemId()).getAvailableQty();
 				newwOIDto.setStockAvailable(stockQuantity);
 			}
 			wOIDto.add(newwOIDto);
 		}
+		
 		return wOIDto;
 	}
-
+	
+	
 	@Override
 	public List<WorkOrderItemsDto> checkStockQuantity(Long workOrderId) {
 
@@ -713,7 +724,7 @@ public class StockServiceImpl implements StockService {
 		List<TempIndentItems> tempIndentItems = tempIndentItemsRepository
 				.findByWorkOrderNo(tempWorkOrders.getWorkOrderNo());
 
-		tempIndentItems.forEach(tempIndentItem -> {
+		for(TempIndentItems tempIndentItem : tempIndentItems) {
 			TempWorkOrderItems tempWorkOrderItems = new TempWorkOrderItems();
 			tempWorkOrderItems.setAliasName(tempIndentItem.getAliasName());
 			tempWorkOrderItems.setCategory(tempIndentItem.getCategory());
@@ -729,7 +740,7 @@ public class StockServiceImpl implements StockService {
 			tempWorkOrderItems.setTotalCost(tempIndentItem.getTotalCost());
 			tempWorkOrderItems.setUnitOfMeasure(tempIndentItem.getUnitOfMeasure());
 			tempWorkOrderItems.setWorkOrderNo(tempIndentItem.getWorkOrderNo());
-			tempWorkOrderItems.setOrderId(tempWorkOrders);
+			tempWorkOrderItems.setOrderId(tempWorkOrders.getOrderId());
 			tempWorkOrderItems.setTotalCost(tempWorkOrderItems.getFinalQuantity() * tempWorkOrderItems.getMrpRate());
 			tempWorkOrderItems.setUsername(username);
 			tempWorkOrderItemsRepository.save(tempWorkOrderItems);			
@@ -737,12 +748,12 @@ public class StockServiceImpl implements StockService {
 			WorkOrderItemsRequest workOrderItemsRequest = workOrderItemsRequestRepository
 					.findByWorkOrderNoAndItemId(tempWorkOrders.getWorkOrderNo(), tempIndentItem.getItemId());
 			workOrderItemsRequestRepository.deleteById(workOrderItemsRequest.getRecordId());
-		});
+		}
 	}
 
 	@Override
 	public boolean notAvailableItems(Long workOrderNo) {
-		List<WorkOrderItemsDto> workOrderItems = getWorkOrderItems(workOrderNo);
+		List<WorkOrderItemsDto> workOrderItems = getIndentItems(workOrderNo);
 		for (WorkOrderItemsDto workOrderItem : workOrderItems) {
 			if (workOrderItem.getStockAvailable() == 0) {
 				return true;
@@ -762,13 +773,13 @@ public class StockServiceImpl implements StockService {
 		InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository.findByItemId(itemId);
 
 		if (inwardApprovedMaterials != null) {
-			stockQuantity = inwardApprovedMaterials.getQuantity();
+			stockQuantity = inwardApprovedMaterials.getAvailableQty();
 		}
 		if (inwardApprovedSpares != null) {
-			stockQuantity = inwardApprovedSpares.getQuantity();
+			stockQuantity = inwardApprovedSpares.getAvailableQty();
 		}
 		if (inwardApprovedTools != null) {
-			stockQuantity = inwardApprovedTools.getQuantity();
+			stockQuantity = inwardApprovedTools.getAvailableQty();
 		}
 
 		int requiredQuantity = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId, workOrderNo).get()

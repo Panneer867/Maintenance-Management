@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.ingroinfo.mm.dto.CancelWorkOrderDto;
 import com.ingroinfo.mm.dto.GenerateLabourWorkDto;
 import com.ingroinfo.mm.dto.GenerateVehicleWorkDto;
@@ -35,7 +33,7 @@ import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.CancelWorkOrderService;
 import com.ingroinfo.mm.service.GenerateWorkOrderService;
 import com.ingroinfo.mm.service.HoldWorkOrderService;
-import com.ingroinfo.mm.service.HsnCodeService;
+import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.WorkEstmationService;
 
 @Controller
@@ -60,7 +58,7 @@ public class WorkOrderController {
 	private WorkEstmationService workEstmationService;
 
 	@Autowired
-	private HsnCodeService hsnCodeService;
+	private MasterService masterService;
 
 	/***************** genrateWorkOrder********** */
 	@GetMapping("/generate")
@@ -69,7 +67,7 @@ public class WorkOrderController {
 		// Show the Generate Work Order Date
 		List<GenerateWorkOrderDto> listOfGenWorks = this.generateWorkOrdeService.findAllGenerateWorkOrder();
 		model.addAttribute("listofgenWork", listOfGenWorks);
-		List<HsnCodeDto> listOfHsnCode = this.hsnCodeService.findAllHsnCode();
+		List<HsnCodeDto> listOfHsnCode = this.masterService.findAllHsnCode();
 		model.addAttribute("listOfHsnCode", listOfHsnCode);
 		model.addAttribute("title", "Work Order | Generate Work Order");
 		return "/pages/work_orders/generate_work_order";

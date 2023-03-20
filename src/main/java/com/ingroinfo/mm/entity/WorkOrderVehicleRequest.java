@@ -37,4 +37,5 @@ public class WorkOrderVehicleRequest {
 	private String meterReading;
 	private String stratTime;
 	private Long vehicleId;
+	private String departmentName;
 }

@@ -34,4 +34,5 @@ public class WorkOrderLabourRequest {
 	private String members;
 	private String daysRequired;
 	private String timeRequired;
+	private String departmentName;
 }

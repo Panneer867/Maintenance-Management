@@ -20,4 +20,6 @@ public interface TempWorkOrderItemRequestRepository extends JpaRepository<TempWo
     @Modifying
     @Query("DELETE FROM TempWorkOrderItemRequest m WHERE m.complNo = :complNo")
 	void deleteAddedByComplNo(String complNo);
+
+	boolean existsByItemId(String itemId);
 }

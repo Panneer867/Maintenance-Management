@@ -13,16 +13,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ingroinfo.mm.dto.ComplaintDto;
+import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
 import com.ingroinfo.mm.dto.PipeIndexDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceInspectionDto;
 import com.ingroinfo.mm.dto.PipeMaintenanceUpdateDto;
+import com.ingroinfo.mm.entity.User;
 import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.AdminService;
+import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.PipeMaintenanceService;
+import com.ingroinfo.mm.service.TaskUpdateService;
 
 @Controller
 @RequestMapping("/pipe")
 public class PipeController {
+	
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	private MasterService masterService;
+	@Autowired
+	private TaskUpdateService taskUpdateService;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -45,7 +58,7 @@ public class PipeController {
 	public String pipeIndex() {
 		return "/pages/pipe_management/pipe_index";
 	}
-	
+
 	@GetMapping("/viewwork")
 	@PreAuthorize("hasAuthority('PIPE_VIEW')")
 	public String pipeViewWork() {
@@ -54,7 +67,36 @@ public class PipeController {
 
 	@GetMapping("/maintenance-indent")
 	@PreAuthorize("hasAuthority('PIPE_INDENT')")
-	public String maintenanceIndent(Model model) {
+	public String pipeMaintenanceIndent(Model model,Principal principal,HttpSession session) {
+		model.addAttribute("deptMaster", new DepartmentIdMasterDto());
+		model.addAttribute("complDtls", new ComplaintDto());
+		User user = adminService.getUserByUsername(principal.getName());
+		String masterIdName = "Indent Id";
+		String deptName = "Pipe Dept";
+		String userId = user.getUbarmsUserId() + "";
+		String complSts = "NeedMaterial";
+		try {
+			DepartmentIdMasterDto departmentIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
+					deptName);
+			model.addAttribute("deptMaster", departmentIdMasterDto);
+		} catch (Exception e) {
+			session.setAttribute("message", new Message("Indent Id Is Not Pressent Please Add Id First !!", "danger"));
+			System.out.println("Exception :: " + e.getMessage());
+		}
+		try {
+			if (userId.equals("1")) {
+				List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(deptName, complSts);
+				model.addAttribute("complList", complaintDtos);
+			} else {
+				List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplStsUserId(deptName,
+						complSts, userId);
+				model.addAttribute("complList", complaintDtos);
+			}
+		} catch (Exception e) {
+			session.setAttribute("message", new Message(" No Complain Assigned !! First Add Indent No !!", "danger"));
+			System.out.println("Something went Wrong !!" + e.getMessage());
+		}
+
 		model.addAttribute("title", "Pipe | Indent | Maintenance Management");
 		return "/pages/pipe_management/pipe_maintenance_indent";
 	}
@@ -91,15 +133,14 @@ public class PipeController {
 		return "redirect:/pipe/maintenance-indent";
 	}
 
-	
-	//Save Pipe Index
+	// Save Pipe Index
 	@PostMapping("/savepipe-index")
-	public String savePipeIndex(PipeIndexDto pipeIndex,HttpSession session) {
+	public String savePipeIndex(PipeIndexDto pipeIndex, HttpSession session) {
 		this.pipeMaintenanceService.savePipeIndex(pipeIndex);
-		session.setAttribute("message", new Message("Data Sucessfully Saved !!","success"));
+		session.setAttribute("message", new Message("Data Sucessfully Saved !!", "success"));
 		return "redirect:/pipe/pipe-index";
 	}
-	
+
 	// save Pipe Maintenance Update
 	@PostMapping("/savepipemaintenanceupdate")
 	public String savePipeMaintenanceUpdate(PipeMaintenanceUpdateDto pipeMaintenanceUpdateDto, HttpSession session) {
