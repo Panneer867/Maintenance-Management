@@ -24,12 +24,12 @@ public class WorkOrderItemsDto {
 	private String description;
 	private Long workOrderNo;
 	private String username;
-	
+
 	private int returnQuantity;
-	
+
 	private String invoiceNo;
 	private String returnEntryDate;
-	
+
 	private String indentNo;
 	private String complNo;
 	private String departmentName;

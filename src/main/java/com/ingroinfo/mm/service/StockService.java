@@ -25,7 +25,7 @@ import com.ingroinfo.mm.entity.TempWorkOrders;
 import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 
 public interface StockService {
-	
+
 	List<InwardDto> getAllStocks();
 
 	/******** Materials *********/
@@ -93,7 +93,7 @@ public interface StockService {
 	InwardApprovedTools getApprovedInwardToolById(Long id);
 
 	List<InwardApprovedTools> getApprovedToolsLists();
-	
+
 	/******** Workorders *********/
 
 	List<WorkOrderItemsRequest> getWorkOrdersNos();
@@ -143,7 +143,5 @@ public interface StockService {
 	void deleteReturnItem(Long id);
 
 	List<ApprovedStocksReturn> getApprovedStockReturnItemList();
-
-	
 
 }

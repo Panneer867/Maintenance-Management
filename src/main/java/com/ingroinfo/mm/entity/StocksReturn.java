@@ -27,7 +27,7 @@ public class StocksReturn {
 	private Long recordId;
 	private Long workOrderNo;
 	private String itemId;
-	private String itemName;	
+	private String itemName;
 	private String unitOfMeasure;
 	private String category;
 	private Double mrpRate;
@@ -46,12 +46,11 @@ public class StocksReturn {
 	private String username;
 	private String invoiceNo;
 	private String returnEntryDate;
-	
+
 	private String indentNo;
 	private String complNo;
 	private String departmentName;
-	
-		
+
 	@Column(name = "date_stamp")
 	@CreationTimestamp
 	private Date dateCreated;

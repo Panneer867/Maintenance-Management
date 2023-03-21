@@ -862,7 +862,7 @@ public class StockServiceImpl implements StockService {
 
 		ApprovedWorkOrders approvedWorkOrder = approvedWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
 		WorkOrderItemsDto workOrderItems = new WorkOrderItemsDto();
-		
+
 		workOrderItems.setAliasName(approvedWorkOrderItems.getAliasName());
 		workOrderItems.setCategory(approvedWorkOrderItems.getCategory());
 		workOrderItems.setComplNo(approvedWorkOrder.getComplNo());

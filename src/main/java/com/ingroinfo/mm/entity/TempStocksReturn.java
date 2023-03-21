@@ -23,7 +23,7 @@ public class TempStocksReturn {
 	private Long recordId;
 	private Long workOrderNo;
 	private String itemId;
-	private String itemName;	
+	private String itemName;
 	private String unitOfMeasure;
 	private String category;
 	private Double mrpRate;
@@ -42,9 +42,9 @@ public class TempStocksReturn {
 	private String username;
 	private String invoiceNo;
 	private String returnEntryDate;
-	
+
 	private String indentNo;
 	private String complNo;
 	private String departmentName;
-	
+
 }

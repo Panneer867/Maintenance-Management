@@ -95,7 +95,8 @@
 								<div class="row ">
 									<div class="col-4">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Complaint No</label>
+											<label for="staticEmail" class="col-sm-4 col-form-label">Complaint
+												No</label>
 											<div class="col-sm-8">
 												<input type="text" id="sr-complNo" class="form-control" disabled />
 											</div>
@@ -335,8 +336,7 @@
 						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.orderTotalCost}"></label></td>
 						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.returnTotalCost}"></label></td>
 						<td class="text-center">
-							<button
-								th:onclick="|deleteId('/stocks/return/items/delete/${tempStockReturn.recordId}')|"
+							<button th:onclick="|deleteId('/stocks/return/items/delete/${tempStockReturn.recordId}')|"
 								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#del"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
 									class="glyphicon glyphicon-trash"></span></button>
