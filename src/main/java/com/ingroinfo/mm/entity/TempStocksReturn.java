@@ -43,4 +43,8 @@ public class TempStocksReturn {
 	private String invoiceNo;
 	private String returnEntryDate;
 	
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
+	
 }

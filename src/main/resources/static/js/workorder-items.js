@@ -2,6 +2,7 @@
 var workorderNo = $("#get-workorder-no").val();
 
 $("#set-workorder-no").val(workorderNo);
+
 $(".igst-outward").prop('disabled', true);
 $(".cgst-outward").prop('disabled', true);
 $(".sgst-outward").prop('disabled', true);

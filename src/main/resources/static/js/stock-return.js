@@ -106,6 +106,12 @@ $('#mySelect3').on('select2:select', function() {
 					$('#sr-orderQuantity, #orderQuantity-sr').val(data.finalQuantity);
 
 					$('#sr-orderTotalCost, #orderTotalCost-sr').val(data.totalCost);
+					
+					$('#sr-complNo, #complNo-sr').val(data.complNo);
+					
+					$('#sr-indentNo, #indentNo-sr').val(data.indentNo);
+					
+					$('#sr-department, #department-sr').val(data.departmentName);
 
 				} catch (e) {
 					console.error('Error parsing response:', e);

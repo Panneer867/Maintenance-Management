@@ -42,11 +42,23 @@ public class ApprovedWorkOrders {
 	private Double grandTotal;
 	private Long workOrderNo;
 	private String username;
-	
+
+	private String indentNo;
+	private String complNo;
+	private String division;
+	private String subDivision;
+	private String workSite;
+	private Date startDate;
+	private Date endDate;
+	private String contactNo;
+	private String complDtls;
+	private String workPriority;
+	private String departmentName;
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
 	private List<ApprovedWorkOrderItems> workOrderItems;
-	
+
 	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;

@@ -7,7 +7,7 @@ public class WorkOrderItemsDto {
 
 	private int stockAvailable;
 	private int stockRequested;
-
+	private Long recordId;
 	private int qty;
 	private int finalQuantity;
 	private int slNo;
@@ -23,5 +23,15 @@ public class WorkOrderItemsDto {
 	private Double mrpRate;
 	private String description;
 	private Long workOrderNo;
+	private String username;
+	
+	private int returnQuantity;
+	
+	private String invoiceNo;
+	private String returnEntryDate;
+	
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
 
 }

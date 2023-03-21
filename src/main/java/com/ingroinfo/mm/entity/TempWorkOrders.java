@@ -1,5 +1,7 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,5 +31,17 @@ public class TempWorkOrders {
 	private Double subTotal;
 	private Double grandTotal;
 	private Long workOrderNo;
-	private String username;	
+	private String username;
+
+	private String indentNo;
+	private String complNo;
+	private String division;
+	private String subDivision;
+	private String workSite;
+	private Date startDate;
+	private Date endDate;
+	private String contactNo;
+	private String complDtls;
+	private String workPriority;
+	private String departmentName;
 }

@@ -206,6 +206,20 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedWorkOrders.setSubTotal(tempWorkOrders.getSubTotal());
 		approvedWorkOrders.setUsername(username);
 		approvedWorkOrders.setWorkOrderNo(tempWorkOrders.getWorkOrderNo());
+		
+		approvedWorkOrders.setComplDtls(tempWorkOrders.getComplDtls());
+		approvedWorkOrders.setComplNo(tempWorkOrders.getComplNo());
+		approvedWorkOrders.setContactNo(tempWorkOrders.getContactNo());
+		approvedWorkOrders.setDepartmentName(tempWorkOrders.getDepartmentName());
+		approvedWorkOrders.setDivision(tempWorkOrders.getDivision());
+		approvedWorkOrders.setEndDate(tempWorkOrders.getEndDate());
+		approvedWorkOrders.setIndentNo(tempWorkOrders.getIndentNo());
+		approvedWorkOrders.setStartDate(tempWorkOrders.getStartDate());
+		approvedWorkOrders.setSubDivision(tempWorkOrders.getSubDivision());
+		approvedWorkOrders.setWorkPriority(tempWorkOrders.getWorkPriority());
+		approvedWorkOrders.setWorkSite(tempWorkOrders.getWorkSite());
+		
+		
 
 		ApprovedWorkOrders savedApprovedWorkOrders = approvedWorkOrdersRepository.save(approvedWorkOrders);
 
@@ -279,6 +293,10 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedWorkOrderNos.setSubTotal(tempWorkOrders.getSubTotal());
 		rejectedWorkOrderNos.setUsername(username);
 		rejectedWorkOrderNos.setWorkOrderNo(tempWorkOrders.getWorkOrderNo());
+		
+		rejectedWorkOrderNos.setComplNo(tempWorkOrders.getComplNo());
+		rejectedWorkOrderNos.setIndentNo(tempWorkOrders.getIndentNo());
+		rejectedWorkOrderNos.setDepartmentName(tempWorkOrders.getDepartmentName());
 
 		RejectedWorkOrders rejectedWorkOrderNosId = rejectedWorkOrderNosRepository.save(rejectedWorkOrderNos);
 
@@ -340,6 +358,10 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedStocksReturn.setStockType(stocksReturn.getStockType());
 		approvedStocksReturn.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
 		approvedStocksReturn.setWorkOrderNo(stocksReturn.getWorkOrderNo());
+		
+		approvedStocksReturn.setComplNo(stocksReturn.getComplNo());
+		approvedStocksReturn.setIndentNo(stocksReturn.getIndentNo());
+		approvedStocksReturn.setDepartmentName(stocksReturn.getDepartmentName());
 
 		approvedStocksReturn.setUsername(username);
 		ApprovedStocksReturn newApprovedStockReturns = approvedStocksReturnRepository.save(approvedStocksReturn);
@@ -404,6 +426,10 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedStockReturns.setStockType(stocksReturn.getStockType());
 		rejectedStockReturns.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
 		rejectedStockReturns.setWorkOrderNo(stocksReturn.getWorkOrderNo());
+		
+		rejectedStockReturns.setComplNo(stocksReturn.getComplNo());
+		rejectedStockReturns.setIndentNo(stocksReturn.getIndentNo());
+		rejectedStockReturns.setDepartmentName(stocksReturn.getDepartmentName());
 
 		rejectedStockReturns.setUsername(username);
 		RejectedStocksReturn newRejectedStocksReturn = rejectedStocksReturnRepository.save(rejectedStockReturns);

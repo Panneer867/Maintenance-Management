@@ -47,8 +47,12 @@ public class StocksReturn {
 	private String invoiceNo;
 	private String returnEntryDate;
 	
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
+	
 		
-	@Column(name = "date_created")
+	@Column(name = "date_stamp")
 	@CreationTimestamp
 	private Date dateCreated;
 

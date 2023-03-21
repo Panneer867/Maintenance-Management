@@ -58,23 +58,109 @@
 						<h4 class="mb-0">Outward Stocks</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
-						<div class="row">
-							<div class="col-3"></div>
-							<div class="col-5">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
-										Order
-										Number</label>
-									<div class="col-sm-7 px-0">
-										<input type="text" class="form-control text-center font-weight-bold"
-											th:value="${workOrderNo}" id="get-workorder-no" readonly />
+
+						<div th:if="${workOrder.workOrderNo != null} ">
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.complNo}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.indentNo}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+											No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workOrderNo}" disabled />
+											<input type="hidden" th:value="${workOrder.workOrderNo}"
+												id="get-workorder-no" />
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-4"></div>
+
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.departmentName}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.division}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.subDivision}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workPriority}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workSite}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.contactNo}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
+							</h3>
 						</div>
-						<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
-						</h3>
+
 						<table
 							class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
 							<thead class="bg-dark text-white">
@@ -277,16 +363,19 @@
 					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
 					<thead class="table-dark">
 						<tr>
-							<th>Work Orders</th>
+
+							<th>Complaint No</th>
+							<th>Indent No</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="workOrderNo: ${workOrdersNos}">
-							<td th:text="${workOrderNo}"></td>
+							<td th:text="${workOrderNo.complNo}"></td>
+							<td th:text="${workOrderNo.indentNo}"></td>
 							<td class="text-center">
-								<a th:href="@{'/stocks/outward/get/' + ${workOrderNo}}"
-									class="btn btn-success p-1 mx-2">Indent</a>
+								<a th:href="@{'/stocks/outward/get/' + ${workOrderNo.workOrderNo}}"
+									class="btn btn-info p-1 mx-2">Workorder</a>
 							</td>
 						</tr>
 					</tbody>

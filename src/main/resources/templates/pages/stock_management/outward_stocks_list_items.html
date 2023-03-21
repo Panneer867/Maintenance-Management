@@ -2,7 +2,7 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Inward Tools List
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Outward Stocks List
 		</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
@@ -11,9 +11,14 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
-
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/stocks}">Outward Stocks</a></div>
+						</li>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/outward/list}">Outward List</a></div>
+						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Outward Stocks</span></div>
+							<div class="link"><span aria-current="location">View Workorder Items</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -50,6 +55,141 @@
 				<span th:text="${session.message.content}"></span>
 			</div>
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<div class="card my-1 w-100 bl-cr mb-3">
+			<div class="card-body font-weight-bold">
+				<div class="row">
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+								No</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.complNo}" disabled />
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.indentNo}" disabled />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+								No</label>
+							<div class="col-sm-6 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.workOrderNo}" disabled />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.departmentName}" disabled />
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.division}" disabled />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+								Division</label>
+							<div class="col-sm-6 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.subDivision}" disabled />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+								Priority</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.workPriority}" disabled />
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.workSite}" disabled />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+							<div class="col-sm-6 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.contactNo}" disabled />
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST Type</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.gstType}" disabled />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST %</label>
+							<div class="col-sm-7 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.igst}" disabled />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-4">
+						<div class="form-group row">
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Billed On</label>
+							<div class="col-sm-6 px-0">
+								<input type="text" class="form-control text-center font-weight-bold"
+									th:value="${outwardStocksWorkorderNo.billedOn}" disabled />
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 		<table
 			class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
@@ -88,120 +228,40 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="card my-1 w-100 bl-cr">
-			<div class="card-body font-weight-bold">
-				<div class="row">
-					<div class="col-8">
-						<div class="row">
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label" style="width: 95px;">WO
-										No</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control"
-											th:value=${outwardStocksWorkorderNo.workOrderNo} disabled />
-									</div>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-5 col-form-label" style="width: 95px;">Billed
-										On</label>
-									<div class="col-sm-7">
-										<input type="date" class="form-control"
-											th:value=${outwardStocksWorkorderNo.billedOn} disabled />
-									</div>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-5 col-form-label">GST
-										Type</label>
-									<div class="col-sm-7">
-										<input type="text" class="form-control"
-											th:value=${outwardStocksWorkorderNo.gstType} disabled />
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row mt-3">
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
-									<div class="col-sm-8">
-										<div class="input-group">
-											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.igst} disabled />
-											<div class="input-group-prepend">
-												<span class="input-group-text font-weight-bold"
-													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
-									<div class="col-sm-7">
-										<div class="input-group">
 
-											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.sgst} disabled />
-											<div class="input-group-prepend">
-												<span class="input-group-text font-weight-bold"
-													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group row">
-									<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
-									<div class="col-sm-7">
-										<div class="input-group">
-											<input type="number" class="form-control"
-												th:value=${outwardStocksWorkorderNo.cgst} disabled />
-											<div class="input-group-prepend">
-												<span class="input-group-text  font-weight-bold"
-													style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+		<div class="row">
+			<div class="col-8">
+
+			</div>
+			<div class="col-4 text-center">
+				<div class="row text-white">
+					<div class="col-6 bg-dark py-2 rounded-top">
+						<label class="font-weight-bold mb-0">Subtotal</label>
 					</div>
-					<div class="col-4 text-center">
-						<div class="row text-white">
-							<div class="col-6 bg-dark py-2 rounded-top">
-								<label class="font-weight-bold mb-0">Subtotal</label>
-							</div>
-							<div class="col-6 bg-dark row py-2 rounded-top">
-								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.subTotal}></label></label>
+					<div class="col-6 bg-dark row py-2 rounded-top">
+						<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
+								th:text=${outwardStocksWorkorderNo.subTotal}></label></label>
 
-							</div>
-						</div>
-						<div class="row text-white">
-							<div class="col-6 bg-primary py-2 rounded-bottom">
-								<label class="font-weight-bold mb-0">Grand Total</label>
-							</div>
-							<div class="col-6 bg-primary row py-2 rounded-bottom">
-								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.grandTotal}></label></label>
-
-							</div>
-						</div>
 					</div>
+				</div>
+				<div class="row text-white">
+					<div class="col-6 bg-primary py-2 rounded-bottom">
+						<label class="font-weight-bold mb-0">Grand Total</label>
+					</div>
+					<div class="col-6 bg-primary row py-2 rounded-bottom">
+						<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
+								th:text=${outwardStocksWorkorderNo.grandTotal}></label></label>
 
-					<div class="col-12 text-center mt-3">
-
-						<a th:href="@{/stocks/outward/list}" class="btn btn-success btn-sm mr-3">Back</a>
 					</div>
 				</div>
 			</div>
+
+
+
+		</div>
+
+		<div class="col-12 text-center">
+			<a th:href="@{/stocks/outward/list}" class="btn btn-success btn-sm mr-3">Back</a>
 		</div>
 	</section>
 </body>

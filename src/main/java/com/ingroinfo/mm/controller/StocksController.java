@@ -46,6 +46,7 @@ import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.TempIndentItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
 import com.ingroinfo.mm.entity.TempWorkOrders;
+import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.StockService;
@@ -66,6 +67,9 @@ public class StocksController {
 	private MasterService masterService;
 
 	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
 	private TempIndentItemsRepository tempIndentItemsRepository;
 
 	@Autowired
@@ -79,9 +83,6 @@ public class StocksController {
 
 	@Autowired
 	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
@@ -122,37 +123,38 @@ public class StocksController {
 //
 //	}
 	private List<GraphDto> executeQuery(String sql) {
-	    List<GraphDto> graph = null;
-	    try {
-	        graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return graph;
+		List<GraphDto> graph = null;
+		try {
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
 	}
+
 	@GetMapping("/dashboard/total")
 	public @ResponseBody List<GraphDto> getMonthlyTotalQuantity() {
-	    return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS");
+		return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_TOTALSTOCKS");
 	}
 
 	@GetMapping("/dashboard/month")
 	public @ResponseBody List<GraphDto> getStockwiseMonthlyQuantity() {
-	    return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_STOCKS");
+		return executeQuery("SELECT * FROM DASHBOARD_MONTHWISE_STOCKS");
 	}
 
 	@GetMapping("/dashboard/outward")
 	public @ResponseBody List<GraphDto> getOutwardStocks() {
-	    return executeQuery("SELECT * FROM DASHBOARD_OUTWARD_STOCKS");
+		return executeQuery("SELECT * FROM DASHBOARD_OUTWARD_STOCKS");
 	}
 
 	@GetMapping("/dashboard/return")
 	public @ResponseBody List<GraphDto> getStocksReturn() {
-	    return executeQuery("SELECT * FROM DASHBOARD_STOCKS_RETURN");
+		return executeQuery("SELECT * FROM DASHBOARD_STOCKS_RETURN");
 	}
 
 	@GetMapping("/graph/materials/chart")
 	public @ResponseBody List<GraphDto> getMaterialsData() {
-	    return executeQuery("SELECT * FROM DASHBOARD_STOCK_MATERIALS");
+		return executeQuery("SELECT * FROM DASHBOARD_STOCK_MATERIALS");
 	}
 
 	/******************************************************************/
@@ -549,11 +551,13 @@ public class StocksController {
 
 		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
-		List<Long> workOrdersNos = stockService.getWorkOrdersNos();
+		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
 
 		model.addAttribute("workOrdersNos", workOrdersNos);
 
 		model.addAttribute("workOrderItems", "No Work Order Items");
+
+		model.addAttribute("workOrder", new WorkOrderItemsRequest());
 
 		if (workOrdersNos.size() == 0) {
 			model.addAttribute("emptyList", "No Work Orders");
@@ -567,9 +571,14 @@ public class StocksController {
 
 		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
-		model.addAttribute("workOrdersNos", stockService.getWorkOrdersNos());
+		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
 
-		model.addAttribute("workOrderNo", workOrderNo);
+		Optional<WorkOrderItemsRequest> workOrder = workOrdersNos.stream()
+				.filter(w -> w.getWorkOrderNo().equals(workOrderNo)).findFirst();
+
+		model.addAttribute("workOrdersNos", workOrdersNos);
+
+		model.addAttribute("workOrder", workOrder.get());
 
 		model.addAttribute("workOrderItems", null);
 
@@ -644,7 +653,27 @@ public class StocksController {
 	@PostMapping("/outward/workorder/items")
 	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrders workOrders, BindingResult bindingResult,
 			HttpSession session, Principal principal) {
+
 		Long workOrderNo = workOrders.getWorkOrderNo();
+
+		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
+
+		Optional<WorkOrderItemsRequest> workOrder = workOrdersNos.stream()
+				.filter(w -> w.getWorkOrderNo().equals(workOrderNo)).findFirst();
+
+		WorkOrderItemsRequest workOrderItemsRequest = workOrder.get();
+		workOrders.setComplDtls(workOrderItemsRequest.getComplDtls());
+		workOrders.setComplNo(workOrderItemsRequest.getComplNo());
+		workOrders.setContactNo(workOrderItemsRequest.getContactNo());
+		workOrders.setDepartmentName(workOrderItemsRequest.getDepartmentName());
+		workOrders.setDivision(workOrderItemsRequest.getDivision());
+		workOrders.setEndDate(workOrderItemsRequest.getEndDate());
+		workOrders.setIndentNo(workOrderItemsRequest.getIndentNo());
+		workOrders.setStartDate(workOrderItemsRequest.getStartDate());
+		workOrders.setSubDivision(workOrderItemsRequest.getSubDivision());
+		workOrders.setWorkPriority(workOrderItemsRequest.getWorkPriority());
+		workOrders.setWorkSite(workOrderItemsRequest.getWorkSite());
+
 		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
 		boolean workOrderItemsSize = stockService.getTempWorkOrderItems(workOrderNo);
 
@@ -802,7 +831,7 @@ public class StocksController {
 	}
 
 	@GetMapping("/return/items/details/{itemId}/{workOrderNo}")
-	public @ResponseBody ApprovedWorkOrderItems getWorkorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
+	public @ResponseBody WorkOrderItemsDto getWorkorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
 			@PathVariable("workOrderNo") Long workOrderNo) {
 		return stockService.getWorkorderItemDetails(itemId, workOrderNo);
 	}

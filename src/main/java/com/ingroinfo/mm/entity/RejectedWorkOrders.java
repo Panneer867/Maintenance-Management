@@ -36,6 +36,9 @@ public class RejectedWorkOrders {
 	private Double subTotal;
 	private Double grandTotal;
 	private Long workOrderNo;
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
 	private String username;
 	
 	@JsonIgnore

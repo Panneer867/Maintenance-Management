@@ -11,24 +11,25 @@
 						<li class="crumb">
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
-
-						<li class="crumb active">
-							<div class="link"><span aria-current="location">Outward Stocks</span></div>
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/outward}">Outward Stocks</a></div>
 						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Outward Stocks List</span></div>
+						</li>
+
 					</ol>
 				</nav>
 			</div>
 			<div class="col-8">
 				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward}">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward}">
 							Outward Stocks
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/chart}">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/chart}">
 							Outward Stocks Chart
 						</a>
 					</li>
@@ -58,12 +59,12 @@
 			<thead class="table-dark">
 				<tr>
 					<th class="all">Order ID</th>
-					<th class="all">Workorder No</th>					
+					<th class="all">Workorder No</th>
 					<th class="all">GST Type</th>
 					<th class="all">IGST</th>
 					<th class="all">CGST</th>
-					<th class="all">SGST</th>					
-					<th class="all">Sub Total</th>					
+					<th class="all">SGST</th>
+					<th class="all">Sub Total</th>
 					<th class="all">Grand Total</th>
 					<th class="all">Billled On</th>
 					<th class="all">Actions</th>
@@ -71,45 +72,23 @@
 			</thead>
 			<tbody>
 				<tr th:each="outwardStocksList: ${outwardStocksLists}">
-					<td th:text="${outwardStocksList.orderId}"></td>					
+					<td th:text="${outwardStocksList.orderId}"></td>
 					<td th:text="${outwardStocksList.workOrderNo}"></td>
 					<td th:text="${outwardStocksList.gstType}"></td>
 					<td><label class="px-1" th:text="${outwardStocksList.igst}"></label>%</td>
 					<td><label class="px-1" th:text="${outwardStocksList.cgst}"></label>%</td>
 					<td><label class="px-1" th:text="${outwardStocksList.sgst}"></label>%</td>
 					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.subTotal}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.grandTotal}"></label></td>					
+					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.grandTotal}"></label></td>
 					<td th:text="${outwardStocksList.billedOn}"></td>
 					<td class="text-center">
-						<a class="btn btn-success p-1 mx-2" th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.workOrderNo} }">View</a>
-						
+						<a class="btn btn-success p-1 mx-2"
+							th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.workOrderNo} }">View</a>
+
 					</td>
 				</tr>
 			</tbody>
 		</table>
-
-		<div class="modal fade" id="delItem" tabindex="-1" role="dialog" aria-labelledby="delItem"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document" style="margin-top: 180px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4>Delete WorOrder</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						Are you sure, you want to Delete this Workorder?
-					</div>
-					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
-						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
 
 	</section>
 </body>

@@ -47,6 +47,9 @@ public class RejectedStocksReturn {
 	private String invoiceNo;
 	private String returnEntryDate;
 	
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
 		
 	@Column(name = "date_created")
 	@CreationTimestamp

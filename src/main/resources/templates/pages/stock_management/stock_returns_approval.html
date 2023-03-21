@@ -44,16 +44,16 @@
 			<thead class="table-dark">
 				<tr>
 					<th class="all">Item ID</th>
-					<th class="all">Category</th>
+					
 					<th class="all">Name</th>
 					<th class="all">Image</th>
-					<th class="all">Stock Type</th>
-					<th class="all">Return Qty</th>
-					<th class="all">GST</th>
+					<th class="all">Dept</th>					
+					<th class="all">Return Qty</th>				
 					<th class="all">MRP</th>
 					<th class="all">Return Cost</th>
 					<th class="all">Reason</th>
 					<th class="all">Workorder No</th>
+					<th class="all">Complaint No</th>					
 					<th class="all">Invoice</th>
 					<th class="all">Actions</th>
 				</tr>
@@ -61,23 +61,20 @@
 			<tbody>
 				<tr th:each="returnedItemList: ${returnedItemLists}">
 					<td th:text="${returnedItemList.itemId}"></td>
-					<td th:text="${returnedItemList.category}"></td>
+					
 					<td th:text="${returnedItemList.itemName}"></td>
 					<td class="text-center thumb">
 						<img th:src="@{${returnedItemList.imagePath} + ${returnedItemList.itemImage}}" alt="image" />
 					</td>
-					<td th:text="${returnedItemList.stockType == 'ML' ? 'Material' :
-					                 returnedItemList.stockType == 'SP' ? 'Spare' :
-					                 returnedItemList.stockType == 'TE' ? 'Tool/Equipment' :
-					                 returnedItemList.stockType}"></td>
-
+					
+<td th:text="${returnedItemList.departmentName}"></td>
 					<td th:text="${returnedItemList.returnQuantity}"></td>
-					<td><label class="px-1" th:text="${returnedItemList.igst}"></label>%</td>
+					
 					<td>&#8377;<label class="px-1" th:text="${returnedItemList.mrpRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${returnedItemList.returnTotalCost}"></label></td>
 					<td th:text="${returnedItemList.returnReason}"></td>
 					<td th:text="${returnedItemList.workOrderNo}"></td>
-
+<td th:text="${returnedItemList.complNo}"></td>
 					<td th:text="${returnedItemList.invoiceNo}"></td>
 					<td class="text-center">
 						<button

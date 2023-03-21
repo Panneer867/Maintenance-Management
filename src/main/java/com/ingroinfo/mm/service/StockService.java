@@ -22,6 +22,7 @@ import com.ingroinfo.mm.entity.StocksReturn;
 import com.ingroinfo.mm.entity.TempStocksReturn;
 import com.ingroinfo.mm.entity.TempWorkOrderItems;
 import com.ingroinfo.mm.entity.TempWorkOrders;
+import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
 
 public interface StockService {
 	
@@ -95,7 +96,7 @@ public interface StockService {
 	
 	/******** Workorders *********/
 
-	List<Long> getWorkOrdersNos();
+	List<WorkOrderItemsRequest> getWorkOrdersNos();
 
 	List<WorkOrderItemsDto> getWorkOrderItems(Long workOrderNo);
 
@@ -121,7 +122,7 @@ public interface StockService {
 
 	ApprovedWorkOrders getOutwardApprovedWorkOrder(Long workOrderNo);
 
-	ApprovedWorkOrderItems getWorkorderItemDetails(String itemId, Long workOrderNo);
+	WorkOrderItemsDto getWorkorderItemDetails(String itemId, Long workOrderNo);
 
 	void saveReturnItem(TempStocksReturn tempStocksReturn, MultipartFile file);
 

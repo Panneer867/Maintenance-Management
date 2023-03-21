@@ -37,4 +37,8 @@ public class TempWorkOrderItems {
 	private Long workOrderNo;
 	private String stockType;
 	private String username;
+	
+	private String indentNo;
+	private String complNo;
+	private String departmentName;
 }
