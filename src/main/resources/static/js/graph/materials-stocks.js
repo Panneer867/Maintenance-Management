@@ -17,7 +17,7 @@ const sum = quantities.reduce((accumulator, currentValue) => {
 		},
 		yAxis: {
 			title: {
-				text: 'Million liters'
+				text: 'Qunatities'
 			}
 		},
 		tooltip: {
