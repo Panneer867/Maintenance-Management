@@ -1326,4 +1326,11 @@ public class MasterServiceImpl implements MasterService {
 		return this.maintenActiveRepo.existsByMaintenActivity(maintenActivity);
 	}
 
+	@Override
+	public EmployeeCategoryDto getCategoryByDept(String department) {
+		EmployeeCategory  employeeCategory = this.employeeCategoryRepository.findByDepartment(department);
+		return this.modelMapper.map(employeeCategory, EmployeeCategoryDto.class);
+	}
+
+
 }

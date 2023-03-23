@@ -1,12 +1,11 @@
 package com.ingroinfo.mm.controller;
 
 import java.io.IOException;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.Year;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.configuration.ModelMapperConfig;
 import com.ingroinfo.mm.dao.EmployeeLeaveRepository;
 import com.ingroinfo.mm.dao.EmployeeMasterRepository;
+import com.ingroinfo.mm.dto.EmployeeCategoryDto;
 import com.ingroinfo.mm.dto.EmployeeGraphDto;
 import com.ingroinfo.mm.dto.EmployeeLeaveDto;
 import com.ingroinfo.mm.dto.EmployeeMasterDto;
@@ -470,63 +470,57 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("/empCount")
-	public ResponseEntity<Map<String, Object>> getEmployeeCountByDepartment() {
-
-	    List<Object[]> objects = employeeMasterRepository.getEmployeeCountByDepartment();
-	    List<String> departmentNames = new ArrayList<>();
-	    List<Integer> employeeCounts = new ArrayList<>();
-
-	    for (Object[] obj : objects) {
-	        int employeeCount = Integer.parseInt(obj[0].toString());
-	        String departmentName = obj[1].toString();
-	        employeeCounts.add(employeeCount);
-	        departmentNames.add(departmentName);
-	    }
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("departmentNames", departmentNames);
-	    response.put("employeeCounts", employeeCounts);
-	    return ResponseEntity.ok(response);
-	}
+   @GetMapping("/getCategoryByDept/{department}")
+   @ResponseBody
+   public EmployeeCategoryDto showCategoryName(@PathVariable("department") String department, Model model) {
+		
+	   EmployeeCategoryDto category =  masterService.getCategoryByDept(department);
+      	return category;   
+   }
+	
+	
 
 	@GetMapping("/dash/empCount")
-	public @ResponseBody List<EmployeeGraphDto> getDeptWiseMonthlyEmployee(){
-		List<EmployeeGraphDto> graph = null ;
-		try {
-			String sql = "SELECT * FROM DASHBOARD_EMPLOYEE";
-			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
-				
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return graph;	
+	public @ResponseBody List<EmployeeGraphDto> getDeptWiseMonthlyEmployee() {
+	    List<EmployeeGraphDto> graph = null ;
+	    try {
+	        // Get the current year
+	        int currentYear = Year.now().getValue();
+
+	        // Modify the SQL query to filter by current year
+	        String sql = "SELECT * FROM DASHBOARD_DEPTWISE_EMPLOYEE WHERE YEAR = ?";
+	        System.out.println("SQL query: " + sql);
+
+	        // Execute the query and map the result set to a list of EmployeeGraphDto objects
+	        graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return graph;	
 	}
-	
-	  @GetMapping("/dash/empLeave") public @ResponseBody List<EmployeeGraphDto>
-	  getDeptWiseMonthlyEmpLeave(){
-	  
-	  List<EmployeeGraphDto> graph= null; try {
-	  
-	  String sql= "SELECT * FROM DASHBOARD_EMP_LEAVE "; graph =
-	  jdbcTemplate.query(sql,
-	  BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
-	  
-	  }catch (Exception e) { e.printStackTrace(); } return graph; }
-	 
-	
-	/*
-	 * @GetMapping("/dash/empLeave") public @ResponseBody List<EmployeeGraphDto>
-	 * getDeptWiseMonthlyEmpLeave(){
-	 * 
-	 * List<EmployeeGraphDto> graph= null; try { // Get the current year int
-	 * currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	 * 
-	 * // Modify the SQL query to filter by current year String sql=
-	 * "SELECT * FROM DASH_MONTH_DEPTWISE_EMP_LEAVE WHERE YEAR = currentYear"; graph
-	 * = jdbcTemplate.query(sql, new Object[]{currentYear},
-	 * BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return graph; }
-	 */
+
+	  @GetMapping("/dash/empLeave")
+	  public @ResponseBody List<EmployeeGraphDto> getMonthlyEmpLeave() {
+	      List<EmployeeGraphDto> graph = null;
+	      try {
+	          // Get the current year
+	          int currentYear = Year.now().getValue();
+
+	          // Modify the SQL query to filter by current year
+	          String sql = "SELECT * FROM DASHBORD_DEPTWISE_EMP_LEAVE WHERE YEAR = ?";
+	          System.out.println("SQL query: " + sql);
+
+	          // Execute the query and map the result set to a list of EmployeeGraphDto objects
+	          graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
+
+	      } catch (Exception e) {
+	          System.out.println("Error occurred: " + e.getMessage());
+	          e.printStackTrace();
+	      }
+	      return graph;
+	  }
+
+
 }

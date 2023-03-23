@@ -78,7 +78,7 @@
 														class="col-sm-8 col-form-label">Department<strong
 															class="text-danger ">*</strong></label>
 													<div class="col">
-														<select class="form-select form-control-sm" id="department" name="department"
+														<select class="form-select form-control-sm" id="ChangeDeptName" name="department"
 																data-error="Provide this field !"	required>
 															<option value="" selected>select</option>
 															<option th:each="emp : ${DeptList}"
@@ -91,12 +91,11 @@
 												</div>
 												<div class="form-group col text-start">
 													<label for="designation"
-														class="col-sm-10 col-form-label">Designation<strong
-															class="text-danger">*</strong></label>
+														class="col-sm-10 col-form-label">Category</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="designation" id="designation" data-minlength="3" data-error="Minimum 3 and only characters required !"
-															pattern="^[A-Za-z]+[A-Za-z ]*$"  placeholder="Enter Designation" required>
+														<input type="text" class="form-control bg-white form-control-sm"
+															name="designation" id="emp-category" data-minlength="3" data-error="Minimum 3 and only characters required !"
+															pattern="^[A-Za-z]+[A-Za-z ]*$"  placeholder="Enter Designation" readonly required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 													
@@ -116,6 +115,17 @@
 												</div>
 											</div>
 											<div class="col-3">
+											<div class="form-group col text-start">
+													<label for="designation"
+														class="col-sm-10 col-form-label">Category</label>
+													<div class="col">
+														<input type="text" class="form-control bg-white form-control-sm"
+															name="designation" id="emp-category" data-minlength="3" data-error="Minimum 3 and only characters required !"
+															pattern="^[A-Za-z]+[A-Za-z ]*$"  placeholder="Enter Designation" readonly required>
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+													
+												</div>
 												<div class="form-group col text-start">
 													<label for="emptype" class="col-sm-8 col-form-label">Emp
 														Type</label>
@@ -147,16 +157,11 @@
 														<div class="help-block with-errors text-danger"></div>											
 													</div>
 												</div>
-												<div class=" form-group col text-start">
-													<label for="personName" class="col-sm-10 col-form-label">Ref Person
-														Name </label>
-													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="personName" id="personName" data-minlength="3" data-error="Minimum 3 and only characters required !" 
-															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Ref Person Name" required>
-														<div class="help-block with-errors text-danger"></div>
-													</div>
-												</div>
+												
+												
+												
+												
+												
 											</div>
 											<div class="col text-center">
 												<label for="staticEmail">Photo</label>
@@ -191,16 +196,22 @@
 												</div>
 											</div>
 											<div class="col-3">
-												<div class="form-group col text-start">
-													<label for="aadharNo" class="col-sm-8 col-form-label">Aadhar
-														No<strong class="text-danger ">*</strong></label>
-													 <div class="col">
-														  <input type="text" class="form-control form-control-sm"
-															name="aadharNo" id="aadharNo" placeholder="Enter Aadhar No"
-															maxlength="12"  pattern="^([0-9]){12}$"  required data-error= "Invalid Number !">
-															<div class="help-block with-errors text-danger"></div>
-													 </div>
-												</div>
+												
+												
+											<div class=" form-group col text-start">
+													<label for="personName" class="col-sm-10 col-form-label">Ref Person
+														Name </label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="personName" id="personName" data-minlength="3" data-error="Minimum 3 and only characters required !" 
+															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Ref Person Name" required>
+														<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>	
+												
+												
+												
+												
 											</div>
 											<div class="col-3">
 												<div class="form-group col text-start">
@@ -261,16 +272,20 @@
 												</div>
 											</div>
 											<div class="col-3">
+												
 												<div class="form-group col text-start">
-													<label for="panNO" class="col-sm-10 col-form-label">PAN NO <strong
-															class="text-danger ">*</strong></label>
-													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="panNO" id="panNO" placeholder="Enter PAN NO"
-															maxlength="10" pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}"   data-error=" Provide a valid PAN NO!" required>
-												<div class="help-block with-errors text-danger"></div>
-													</div>
+													<label for="aadharNo" class="col-sm-8 col-form-label">Aadhar
+														No<strong class="text-danger ">*</strong></label>
+													 <div class="col">
+														  <input type="text" class="form-control form-control-sm"
+															name="aadharNo" id="aadharNo" placeholder="Enter Aadhar No"
+															maxlength="12"  pattern="^([0-9]){12}$"  required data-error= "Invalid Number !">
+															<div class="help-block with-errors text-danger"></div>
+													 </div>
 												</div>
+												
+												
+												
 											</div>
 											<div class="col-3">
 												<div class="form-group  col text-start">
@@ -317,15 +332,18 @@
 											</div>
 											<div class="col-3">
 												<div class="form-group col text-start">
-													<label for="dlNo" class="col-sm-10 col-form-label">DL No <strong
+													<label for="panNO" class="col-sm-10 col-form-label">PAN NO <strong
 															class="text-danger ">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="dlNo" id="dlNo"  placeholder="Enter DL No" data-error="Provide a DL No  !"
-															pattern="^[a-zA-Z0-9]+$" maxlength="15" required>
-														<div class="help-block with-errors text-danger"></div>
+															name="panNO" id="panNO" placeholder="Enter PAN NO"
+															maxlength="10" pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}"   data-error=" Provide a valid PAN NO!" required>
+												<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
+												
+												
+												
 											</div>
 											<div class="col-3">
 												<div class="col text-start">
@@ -371,15 +389,15 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-3">
+											<div class="col-3">												
 												<div class="form-group col text-start">
-													<label for="passportNo" class="col-sm-10 col-form-label">Passport No
-														<strong class="text-danger ">*</strong></label>
+													<label for="dlNo" class="col-sm-10 col-form-label">DL No <strong
+															class="text-danger ">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="passportNo" id="passportNo" data-error="Provide a Passport No  !"
-															placeholder="Enter Passport No" maxlength="12" required>
-													 <div class="help-block with-errors text-danger"></div>
+															name="dlNo" id="dlNo"  placeholder="Enter DL No" data-error="Provide a DL No  !"
+															pattern="^[a-zA-Z0-9]+$" maxlength="15" required>
+														<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
 											</div>
@@ -422,15 +440,15 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-3">
+											<div class="col-3">											
 												<div class="form-group col text-start">
-													<label for="pfNo" class="col-sm-10 col-form-label">PF No<strong
-															class="text-danger ">*</strong> </label>
+													<label for="passportNo" class="col-sm-10 col-form-label">Passport No
+														<strong class="text-danger ">*</strong></label>
 													<div class="col">
 														<input type="text" class="form-control form-control-sm"
-															name="pfNo" id="pfNo" placeholder="Enter PF No "
-															data-error="Provide a PF No !" pattern="[A-Z]{2}/\d{5}/\d{7}$" maxlength="16"   required>
-													<div class="help-block with-errors text-danger"></div>
+															name="passportNo" id="passportNo" data-error="Provide a Passport No  !"
+															placeholder="Enter Passport No" maxlength="12" required>
+													 <div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
 											</div>
@@ -478,12 +496,12 @@
 											</div>
 											<div class="col-3">
 												<div class="form-group col text-start">
-													<label for="esiNumber" class="col-sm-10 col-form-label"> ESI
-														Number<strong class="text-danger ">*</strong></label>
+													<label for="pfNo" class="col-sm-10 col-form-label">PF No<strong
+															class="text-danger ">*</strong> </label>
 													<div class="col">
-														<input type="number" class="form-control form-control-sm"
-															name="esiNumber" id="esiNumber" data-error="Provide a ESI Number!"
-															placeholder="Enter ESI Number" oninput="this.value=this.value.slice(0,this.maxLength)" required maxlength="10">
+														<input type="text" class="form-control form-control-sm"
+															name="pfNo" id="pfNo" placeholder="Enter PF No "
+															data-error="Provide a PF No !" pattern="[A-Z]{2}/\d{5}/\d{7}$" maxlength="16"   required>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -538,12 +556,12 @@
 											</div>
 											<div class="col-3">
 												<div class="form-group col text-start">
-													<label for="refContactNo" class="col-sm-10 col-form-label">Ref
-														Contact No<strong class="text-danger ">*</strong></label>
+													<label for="esiNumber" class="col-sm-10 col-form-label"> ESI
+														Number<strong class="text-danger ">*</strong></label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="refContactNo" id="refContactNo" pattern="[7-9]{1}[0-9]{9}" maxlength="10" data-error="Provide a Ref Contact No !"
-															placeholder="Enter Ref Contact No" required >
+														<input type="number" class="form-control form-control-sm"
+															name="esiNumber" id="esiNumber" data-error="Provide a ESI Number!"
+															placeholder="Enter ESI Number" oninput="this.value=this.value.slice(0,this.maxLength)" required maxlength="10">
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -591,6 +609,19 @@
 													</div>
 												</div>
 											</div>
+												<div class="col-3">
+												<div class="form-group col text-start">
+													<label for="refContactNo" class="col-sm-10 col-form-label">Ref
+														Contact No<strong class="text-danger ">*</strong></label>
+													<div class="col">
+														<input type="text" class="form-control form-control-sm"
+															name="refContactNo" id="refContactNo" pattern="[7-9]{1}[0-9]{9}" maxlength="10" data-error="Provide a Ref Contact No !"
+															placeholder="Enter Ref Contact No" required >
+													<div class="help-block with-errors text-danger"></div>
+													</div>
+												</div>
+											</div>
+											
 										</div>
 										<div class="card-footer text-center mt-5">
 											<button type="submit"

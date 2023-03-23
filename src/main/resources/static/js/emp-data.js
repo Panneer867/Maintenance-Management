@@ -92,3 +92,21 @@ $("#ChangeBranchName").change(function(e) {
 		}
 	});
 });
+
+$("#ChangeDeptName").change(function(e) {
+		var department = $(this).val();
+		//alert(department);
+		
+		$.ajax({
+			type: "get",
+			url: "/employee/getCategoryByDept/"+department,
+			success : function(data){
+			var json =	      JSON.stringify(data);
+			var jsonobject  = JSON.parse(json);                   
+			 $("#emp-category").val(jsonobject.empCategory);
+			 alert(jsonobject.empCategory);
+			 
+			}
+		});
+	
+	});

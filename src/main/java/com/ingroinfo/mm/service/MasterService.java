@@ -70,14 +70,14 @@ public interface MasterService {
 
 	// save Item Category Data
 	CategoryDto saveCategory(CategoryDto categoryDto);
-	
-	//Validate Category Name
+
+	// Validate Category Name
 	boolean isCategoryExists(String categoryName);
 
-	// Get All  Item Category Data
+	// Get All Item Category Data
 	List<CategoryDto> findAllCategory();
 
-	// Delete  Item Category
+	// Delete Item Category
 	void deleteCategory(Long catid);
 
 	// save Data
@@ -169,13 +169,13 @@ public interface MasterService {
 
 	// Save DMA Ward
 	DmaWardDto saveDmaWard(DmaWardDto dmaWardDto);
-	
-	//Validate DMA Number
+
+	// Validate DMA Number
 	boolean isDmaNumberExists(String dmaNumber);
-	
-	//Validate Ward Number
-    boolean isWardNumberExists(String wardNumber);
-	
+
+	// Validate Ward Number
+	boolean isWardNumberExists(String wardNumber);
+
 	// GetAll DMA Ward Data
 	List<DmaWardDto> getAllDmaWard();
 
@@ -187,8 +187,8 @@ public interface MasterService {
 
 	// Find All Employee Performance Data
 	List<EmployeePerformanceDto> getAllEmpPerformance();
-	
-	//Validate Employee Performance
+
+	// Validate Employee Performance
 	boolean isExistsEmpPerformanceSts(String performStatus);
 
 	// Delete Employee Performance
@@ -199,11 +199,11 @@ public interface MasterService {
 
 	// findAll Item HSN Data
 	List<HsnCodeDto> findAllHsnCode();
-	
-	//Validate HSN Code
+
+	// Validate HSN Code
 	boolean isHsnCodeExists(String hsnCode);
-	
-	//Validate CategoryName HsnCode Master
+
+	// Validate CategoryName HsnCode Master
 	boolean isCategoryExistsInHsnCode(String categoryName);
 
 	// Delete Item HSN
@@ -244,8 +244,8 @@ public interface MasterService {
 
 	// save Leakage Type
 	LeakageTypeDto saveLeakageType(LeakageTypeDto leakageTypeDto);
-	
-	//Validate Leakage Type
+
+	// Validate Leakage Type
 	boolean isLeakageTypeExists(String leakageType);
 
 	// Find All Leakage Type
@@ -265,14 +265,14 @@ public interface MasterService {
 
 	// save Maintenance Activity Data
 	MaintenanceActivitiesDto saveMaintenActivity(MaintenanceActivitiesDto maintenActivDto);
-	
-	//Validate  Maintenance Activity
+
+	// Validate Maintenance Activity
 	boolean isMaintenanceActivityExists(String maintenActivity);
 
-	// find All  Maintenance Activity Data
+	// find All Maintenance Activity Data
 	List<MaintenanceActivitiesDto> findAllMaintnActve();
 
-	// Delete  Maintenance Activity
+	// Delete Maintenance Activity
 	void deleteMaintenActivity(Long maintenActiveId);
 
 	// save Data
@@ -485,6 +485,9 @@ public interface MasterService {
 	// Delete
 	void deleteSupplierDetails(Long suplyDtlsId);
 
-	//Get Distribution Location By Sub-Division
+	// Get Distribution Location By Sub-Division
 	List<DistributionLocationDto> getDistributLocationBysubDivision(String subDivision);
+
+	// Get Category By Department
+	EmployeeCategoryDto getCategoryByDept(String department);
 }
