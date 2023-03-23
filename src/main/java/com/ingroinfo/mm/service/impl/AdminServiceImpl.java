@@ -670,4 +670,11 @@ public class AdminServiceImpl implements AdminService {
 		return userDto;
 	}
 
+@Override
+	public Branch getComapnyNameByBranch(String branchName) {
+	Branch	branch = branchRepository.findByBranchName(branchName);
+	return branch;
+		 
+	}
+
 }

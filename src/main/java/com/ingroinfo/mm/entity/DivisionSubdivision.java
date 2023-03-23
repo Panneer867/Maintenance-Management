@@ -6,9 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
+import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
 
 @Entity
@@ -22,6 +20,6 @@ public class DivisionSubdivision {
 	private String division;
 	private String subdivision;
 	private String serviceStation;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@CreationTimestamp
 	private Date createdDate;
 }

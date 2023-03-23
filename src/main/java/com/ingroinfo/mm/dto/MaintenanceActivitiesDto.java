@@ -6,5 +6,5 @@ import lombok.Data;
 public class MaintenanceActivitiesDto {
 
 	private Long maintenActiveId;
-	private String maintenActiveType;
+	private String maintenActivity;
 }

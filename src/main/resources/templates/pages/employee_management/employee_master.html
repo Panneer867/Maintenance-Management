@@ -102,12 +102,15 @@
 													
 												</div>
 												<div class="form-group col text-start">
-													<label for="company" class="col-sm-10 col-form-label">Company
-														/Division</label>
+													<label for="ChangeBranchName" class="col-sm-10 col-form-label">Branch / Sub Division</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="company" id="company" data-minlength="3" data-error="Minimum 3 and only characters required !"
-														pattern="^[A-Za-z]+[A-Za-z ]*$"	placeholder="Enter Company /Division" required>
+													      <select class="form-select form-control-sm" id="ChangeBranchName" name="branch"  required >
+                                     						  <option value=""  selected >select</option>
+                                      						  <option  th:each="bra : ${branchlist}"                                      		    
+                                     	       						   th:text="${bra.branchName}"
+                                     	                               th:value="${bra.branchName}">                                      	       	
+                                                              </option> 
+                                                          </select>
 													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -117,9 +120,16 @@
 													<label for="emptype" class="col-sm-8 col-form-label">Emp
 														Type</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="emptype" id="emptype" data-minlength="3" data-error="Minimum 3 and only characters required !" placeholder="Enter Emp Type"
-															pattern="^[A-Za-z]+[A-Za-z ]*$" required>
+														<select class="form-select form-control-sm" name="emptype"
+															id="emptype" data-error="Select Type !" required>
+															<option value="" selected>Select</option>
+															<option value="Full-Time">Full-Time</option>
+															<option value="Part-Time">Part-Time</option>
+															<option value="Temporary">Temporary</option>
+															<option value="Permanent">Permanent</option>
+															<option value="Seasonal">Seasonal</option>
+															<option value="Leased">Leased</option>
+														</select>
 														<div class="help-block with-errors text-danger"></div>	
 													</div>
 												</div>
@@ -127,10 +137,14 @@
 													<label for="empStatus" class="col-sm-10 col-form-label">Emp
 														Status</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="empStatus" id="empStatus" data-minlength="3" data-error="Minimum 3 and only characters required !" 
-															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Emp Status" required>
-													<div class="help-block with-errors text-danger"></div>
+															<select class="form-select form-control-sm" name="empStatus"
+															id="empStatus" data-error="Select Status !" required>
+															<option value="" selected>Select</option>
+															<option value="Employee">Employee</option>
+															<option value="Worker">Worker</option>
+															<option value="Other">Self-employed</option>
+														</select>
+														<div class="help-block with-errors text-danger"></div>											
 													</div>
 												</div>
 												<div class=" form-group col text-start">
@@ -167,12 +181,11 @@
 											</div>
 											<div class="col-3">
 												<div class="form-group col text-start">
-													<label for="branch" class="col-sm-10 col-form-label">Branch /Sub
-														Division</label>
+													<label for="branch" class="col-sm-10 col-form-label">Comapny / Division</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="branch" id="branch"
-															placeholder="Enter Branch /Sub Division" required pattern="^[A-Za-z]+[A-Za-z ]*$" data-error="Minimum 3 and only characters required !">
+														<input type="text" class="form-control form-control-sm bg-white"
+															name="company" id="company-Name" 
+															placeholder="Enter Comapny / Division" required  data-error="Minimum 3 and only characters required !" readonly>
 															<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
@@ -181,12 +194,12 @@
 												<div class="form-group col text-start">
 													<label for="aadharNo" class="col-sm-8 col-form-label">Aadhar
 														No<strong class="text-danger ">*</strong></label>
-													<div class="col">
-														<input type="text" class="form-control form-control-sm"
+													 <div class="col">
+														  <input type="text" class="form-control form-control-sm"
 															name="aadharNo" id="aadharNo" placeholder="Enter Aadhar No"
 															maxlength="12"  pattern="^([0-9]){12}$"  required data-error= "Invalid Number !">
 															<div class="help-block with-errors text-danger"></div>
-													</div>
+													 </div>
 												</div>
 											</div>
 											<div class="col-3">
@@ -223,10 +236,27 @@
 													<label for="qualification"
 														class="col-sm-10 col-form-label">Qualification</label>
 													<div class="col">
-														<input type="text" class="form-control form-control-sm"
-															name="qualification"  data-error=" Provide a valid Qualification!" id="qualification"
-															pattern="^[A-Za-z]+[A-Za-z ]*$" placeholder="Enter Qualification" required>
-														<div class="help-block with-errors text-danger"></div>
+													<select class="form-select form-control-sm" name="qualification"
+															id="qualification" data-error="Select Qualification !" required>
+															<option value="" selected>Select</option>
+															<option value="Intern(PU)">Intern(PU)</option>
+															<option value="B.Sc	">B.Sc	</option>
+															<option value="Other">BCA</option>
+															<option value="B.Tech">B.Tech</option>
+															<option value="B.Com">B.Com</option>
+															<option value="BBA">BBA</option>
+															<option value="BPharma">BPharma</option>
+															<option value="BBM">BBM</option>
+															<option value="Diploma">Diploma</option>
+															<option value="BA">BA</option>								
+															<option value="M.Sc">M.Sc</option>
+															<option value="MCA">MCA</option>
+															<option value="M.Tech">M.Tech</option>
+															<option value="M.Com">M.Com</option>
+															<option value="MA">MA</option>
+															<option value="MPharma">MPharma</option>
+													</select>
+													<div class="help-block with-errors text-danger"></div>
 													</div>
 												</div>
 											</div>

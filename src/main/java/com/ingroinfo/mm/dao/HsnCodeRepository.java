@@ -13,4 +13,9 @@ public interface HsnCodeRepository extends JpaRepository<HsnCode, Long> {
 	
 	@Query("from HsnCode as h where h.category.catid =:catid")
 	HsnCode findHsnCodeByCategory(@Param("catid") Long catid);
+
+	boolean existsByHsnCode(String hsnCode);
+
+	boolean existsByCategoryName(String categoryName);
+
 }

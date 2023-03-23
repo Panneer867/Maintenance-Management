@@ -9,6 +9,6 @@ public interface EmployeeSalaryService {
 	// Save Employee Salary
     EmployeeSalaryDto saveEmployeeSalary(EmployeeSalaryDto employeeSalaryDto);
     
- // get All Employee Master
+   // get All Employee Master
  	List<EmployeeSalaryDto> getAllemployeeSalary();
 }

@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.LeakageType;
 @Repository
 public interface LeakageTypeRepository extends JpaRepository<LeakageType, Long> {
 
+	boolean existsByLeakageType(String leakageType);
+
 }

@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -22,32 +22,40 @@
 							<div class="col-3 text-start">
 								<label for="division" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="division" name="division" required placeholder="Enter Division Name">
+									<select type="text" class="form-select form-select-sm" id="master-division-list" name="division"
+										required>
+										<option value="">--Select--</option>
+										<option th:each="divisions:${divisionList}"
+										        th:value="${divisions}"
+										        th:text="${divisions}"></option>
+									</select>
 								</div>
 							</div>
-
 							<div class="col-3 text-start">
-								<label for="inputEmail3" class="col-sm-8 col-form-label">Branch</label>
+								<label for="subDivision" class="col-sm-8 col-form-label">Sub-Division</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="inputEmail3" name="branch" required placeholder="Enter Branch Name">
+									<select type="text" class="form-select form-select-sm" id="master-sub-division-list"
+										name="subDivision" required>
+										<option value="">--Select--</option>
+										<option></option>
+									</select>
 								</div>
 							</div>
-
 							<div class="col-3 text-start">
-								<label for="inputEmail3" class="col-sm-10 col-form-label">Distribution Location</label>
+								<label for="distLocation" class="col-sm-10 col-form-label">Distribution Location</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="inputEmail3" name="distLocation" required placeholder="Enter Dist Location Name">
+									<select type="text" class="form-select form-select-sm" id="master-distlocation-list"
+										name="distLocation" required>
+										<option value="">--Select--</option>
+										<option></option>
+									</select>
 								</div>
 							</div>
-
 							<div class="col-3 text-start">
-								<label for="inputEmail3" class="col-sm-12 col-form-label">Distribution Schedule</label>
+								<label for="distSchedule" class="col-sm-12 col-form-label">Distribution Schedule</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" 
-									id="inputEmail3" name="distSchedule" required placeholder="Enter Dist Schedule Name">
+									<input type="text" class="form-control form-control-sm" id="distSchedule"
+										name="distSchedule" required placeholder="Enter Dist Schedule Name">
 								</div>
 							</div>
 						</div>
@@ -56,22 +64,23 @@
 							<a th:href="@{/masters/disschedulehistory}" class="btn btn-success">View</a>
 						</div>
 					</form>
-				  </div>
-			  </div>
-		   </div>
+				</div>
+			</div>
+		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Distribution Schedule History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Division</th>
-						<th class="text-center" scope="col">Branch</th>
+						<th class="text-center" scope="col">SubDivision</th>
 						<th class="text-center" scope="col">Dis Location</th>
 						<th class="text-center" scope="col">Dis Schedule</th>
 					</tr>
@@ -82,15 +91,15 @@
 								<span th:text="${'DS'+disschedule.disScheduleId}"></span></a>
 						</td>
 						<td th:text="${disschedule.division}"></td>
-						<td th:text="${disschedule.branch}"></td>
+						<td th:text="${disschedule.subDivision}"></td>
 						<td th:text="${disschedule.distLocation}"></td>
 						<td th:text="${disschedule.distSchedule}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	<!-- History Table END-->
-		
+		<!-- History Table END-->
+
 	</section>
 </body>
 

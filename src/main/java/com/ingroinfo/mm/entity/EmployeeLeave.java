@@ -21,7 +21,7 @@ public class EmployeeLeave {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long empLeaveId;
-	@Column(name="EMPLOYEE_CODE",length = 50)
+	@Column(name="EMPLOYEE_CODE",length = 20)
 	private String employeeCode;
 	@Column(name = "EMPLOYEE_NAME",length = 150)
 	private String empName;
@@ -60,6 +60,7 @@ public class EmployeeLeave {
 	
 	@Column(name = "CREATE_DATE")	
 	private Date createDate;
+	
 	@Column(name ="UPADATED_DATE")
 	@UpdateTimestamp
 	private Date lastUpdateDate;	

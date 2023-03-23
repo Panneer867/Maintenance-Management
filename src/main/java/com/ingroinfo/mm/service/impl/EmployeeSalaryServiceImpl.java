@@ -8,8 +8,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ingroinfo.mm.dao.EmployeeMasterRepository;
 import com.ingroinfo.mm.dao.EmployeeSalaryRepository;
 import com.ingroinfo.mm.dto.EmployeeSalaryDto;
+import com.ingroinfo.mm.entity.EmployeeMaster;
 import com.ingroinfo.mm.entity.EmployeeSalary;
 import com.ingroinfo.mm.service.EmployeeSalaryService;
 
@@ -19,13 +21,18 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService{
 @Autowired
 private EmployeeSalaryRepository employeeSalaryRepository;
 @Autowired
+private EmployeeMasterRepository employeeMasterRepository;
+@Autowired
 private ModelMapper modelMapper;
 	@Override
 	public EmployeeSalaryDto saveEmployeeSalary(EmployeeSalaryDto employeeSalaryDto) {
-		employeeSalaryDto.setCreateDate(new Date());
-	      EmployeeSalary convEmployeeSalary =  this.modelMapper.map(employeeSalaryDto, EmployeeSalary.class);
-	      EmployeeSalary savedEmployeeSalary    =  this.employeeSalaryRepository.save(convEmployeeSalary);
-		return this.modelMapper.map(savedEmployeeSalary, EmployeeSalaryDto.class);
+			EmployeeMaster employeeMaster =	employeeMasterRepository.findByEmployeeCode(employeeSalaryDto.getEmployeeId());
+			employeeSalaryDto.setCreateDate(new Date());
+			EmployeeSalary convEmployeeSalary =  this.modelMapper.map(employeeSalaryDto, EmployeeSalary.class);
+	      
+			convEmployeeSalary.setEmployeeMaster(employeeMaster);
+			EmployeeSalary savedEmployeeSalary    =  this.employeeSalaryRepository.save(convEmployeeSalary);
+			return this.modelMapper.map(savedEmployeeSalary, EmployeeSalaryDto.class);
 	}
 	
 	@Override

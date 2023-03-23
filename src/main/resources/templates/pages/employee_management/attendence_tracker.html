@@ -17,23 +17,23 @@
 							<form>
 								<div class="row">
 									<div class="form-group col-md-2">
-										<label for="inputEmail4">Department</label>
+										<label for="empCode">Department</label>
 										            <select class="form-control" name="empCode" id="empCode" data-error="Select gender !" required>
                                        <option value="" selected>select</option>
                                         <option th:each="emp : ${listOfEmployees}" th:value="${emp.department}" th:utext="${emp.department}"/>
                                     </select>
 									</div>
 									<div class="form-group col-md-2">
-										<label for="inputEmail4">Branch</label>
-										 <select class="form-control" name="empCode" id="empCode" data-error="Select gender !" required>
+										<label for="branch">Branch</label>
+										 <select class="form-control" name="branch" id="branch" data-error="Select gender !" required>
                                        <option value="" selected>select</option>
                                         <option th:each="emp : ${listOfEmployees}" th:value="${emp.branch}" th:utext="${emp.branch}"/>
                                     </select>
 									</div>
 			
 									<div class="form-group col-md-2">
-										<label for="inputEmail4">Name</label>
-										 <select class="form-control" name="empCode" id="empCode" data-error="Select gender !" required>
+										<label for="empName">Name</label>
+										 <select class="form-control" name="empName" id="empName" data-error="Select gender !" required>
                                        <option value="" selected>select</option>
                                         <option th:each="emp : ${listOfEmployees}" th:value="${emp.empName}" th:utext="${emp.empName}"/>
                                     </select>

@@ -41,8 +41,8 @@
 							  <td th:text = "${emp.totalEarn}" class="text-center"></td>
 							  <td th:text = "${emp.actualEarnings}" class="text-center"></td>
 							  <td th:text = "${emp.totalDeductions}" class="text-center"></td>
-							  <td th:text = "${emp.totalNetPay}" class="text-center"></td>
-							  <td th:text = "${emp.createDate}" class="text-center"></td>	
+							  <td th:text = "${emp.totalNetPay}" class="text-center"></td>							
+							  <td th:text="${#dates.format(emp.createDate, 'dd-MMM-yyyy')}"></td>
 							  </tr>
                            </tbody>
                         </table>   

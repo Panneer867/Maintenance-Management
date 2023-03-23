@@ -7,4 +7,8 @@ import com.ingroinfo.mm.entity.DmaWard;
 @Repository
 public interface DmaWardRepository extends JpaRepository<DmaWard, Long> {
 
+	boolean existsByDmaNumber(String dmaNumber);
+
+	boolean existsByWardNumber(String wardNumber);
+
 }

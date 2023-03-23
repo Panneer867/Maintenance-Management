@@ -32,4 +32,7 @@ public interface EmployeeLeaveRepository extends JpaRepository<EmployeeLeave, Lo
 	 int getSancationLwpByLeaveType(String employeeCode);
 	
 	List<EmployeeLeave> findByEmployeeCode(String empCode);
+	
+    @Query("SELECT COUNT(*) AS NumEmp, department FROM EmployeeLeave WHERE HR_APPROVAL='YES' GROUP BY department")
+    List<Object[]> getEmpCountByDepartment();
 }

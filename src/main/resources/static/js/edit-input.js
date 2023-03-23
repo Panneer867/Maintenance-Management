@@ -1,15 +1,14 @@
 $(document).ready(function() {
-	
-	$('.table .edit-master').on('click', function(event){
-	
+
+	$('.table .edit-master').on('click', function(event) {
+
 		event.preventDefault();
-	   var href = $(this).attr('href');
-		$.get(href, function(employee)
-	{
-		
-			$('#employeeIdCopy').val(employee.employeeId); 
+		var href = $(this).attr('href');
+		$.get(href, function(employee) {
+
+			$('#employeeIdCopy').val(employee.employeeId);
 			$('#empCodeCopy').val(employee.employeeCode);
-	   		 $('#empNameCopy').val(employee.empName); 
+			$('#empNameCopy').val(employee.empName);
 			$('#salaryCopy').val(employee.salary);
 			$('#maritalstatusCopy').val(employee.maritalstatus);
 			$('#contactNoCopy').val(employee.contactNo);
@@ -25,11 +24,11 @@ $(document).ready(function() {
 			$('#clCopy').val(employee.cl);
 			$('#lwpCopy').val(employee.lwp);
 			$('#dlNoCopy').val(employee.dlNo);
-		    $('#basicSalaryCopy').val(employee.basicSalary);
+			$('#basicSalaryCopy').val(employee.basicSalary);
 			$('#totalLeaveCopy').val(employee.totalLeave);
-	});
-	
+		});
+
 		$('#editMaster').modal();
 	});
-	
-	});
+
+});

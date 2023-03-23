@@ -44,6 +44,31 @@ $(document).ready(function() {
 		});
 
 	});
+	
+	//Getting Distibution Location From Master According To SubDivision
+	$("#master-sub-division-list").change(function() {
+		var subDivision = $(this).val();
+		if (subDivision == "") {
+			alert("Select Sub-Division !!");
+			return false;
+		}
+		var s = '<option value="">--Select--</option>';
+
+		$.ajax({
+			type: "GET",
+			url: "/masters/get/distribution/location/" + subDivision,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var jsonobject = JSON.parse(json);
+				for (var i = 0; i < jsonobject.length; i++) {
+					s +=
+						'<option>' + jsonobject[i].distlocation + "</option>";
+				}
+				$("#master-distlocation-list").html(s);
+			},
+		});
+
+	});
 
 	//Getting Data on Change Of Category Id
 	$("#pump-matrial-category").change(function() {

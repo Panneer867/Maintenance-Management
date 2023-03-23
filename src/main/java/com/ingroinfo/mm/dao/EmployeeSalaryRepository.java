@@ -9,5 +9,4 @@ import com.ingroinfo.mm.entity.EmployeeSalary;
 public interface EmployeeSalaryRepository extends JpaRepository<EmployeeSalary, Long>{
 
 	
-
 }

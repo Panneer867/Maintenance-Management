@@ -16,5 +16,5 @@ public class MaintenanceActivities {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long maintenActiveId;
-	private String maintenActiveType;
+	private String maintenActivity;
 }

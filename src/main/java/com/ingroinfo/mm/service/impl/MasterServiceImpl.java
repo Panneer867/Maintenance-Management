@@ -1253,4 +1253,77 @@ public class MasterServiceImpl implements MasterService {
 		this.supplierDtlsRepo.delete(supplierDtls);
 	}
 
+	@Override
+	public boolean isBrandNameExists(String brandName) {
+		return this.brandMasterRepo.existsByBrandName(brandName);
+	}
+
+	@Override
+	public boolean isisDistributionScheduleExists(String distSchedule) {
+		return this.disScheduleRepo.existsByDistSchedule(distSchedule);
+	}
+
+	@Override
+	public boolean isSubDivisionExists(String subdivision) {
+		return this.divsubdivRepo.existsBySubdivision(subdivision);
+	}
+
+	@Override
+	public boolean isServiceStationExists(String serviceStation) {
+		return this.divsubdivRepo.existsByServiceStation(serviceStation);
+	}
+
+	@Override
+	public boolean isisDistributionLocationExists(String distlocation) {
+		return this.disLocationRepo.existsByDistlocation(distlocation);
+	}
+
+	@Override
+	public List<DistributionLocationDto> getDistributLocationBysubDivision(String subDivision) {
+		List<DistributionLocation> distributionLocations = this.disLocationRepo.getBySubDivision(subDivision);
+		return distributionLocations.stream()
+				.map((distLocal) -> this.modelMapper.map(distLocal, DistributionLocationDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean isDmaNumberExists(String dmaNumber) {		
+		return this.dmaWardRepository.existsByDmaNumber(dmaNumber);
+	}
+
+	@Override
+	public boolean isWardNumberExists(String wardNumber) {
+		return this.dmaWardRepository.existsByWardNumber(wardNumber);
+	}
+
+	@Override
+	public boolean isExistsEmpPerformanceSts(String performStatus) {
+		return this.empPerformRepo.existsByPerformStatus(performStatus);
+	}
+
+	@Override
+	public boolean isCategoryExists(String categoryName) {
+		return this.categoryRepository.existsByCategoryName(categoryName);
+	}
+
+	@Override
+	public boolean isHsnCodeExists(String hsnCode) {
+		return this.hsnCodeRepo.existsByHsnCode(hsnCode);
+	}
+
+	@Override
+	public boolean isCategoryExistsInHsnCode(String categoryName) {
+		return this.hsnCodeRepo.existsByCategoryName(categoryName);
+	}
+
+	@Override
+	public boolean isLeakageTypeExists(String leakageType) {
+		return this.leakageTypeRepository.existsByLeakageType(leakageType);
+	}
+
+	@Override
+	public boolean isMaintenanceActivityExists(String maintenActivity) {
+		return this.maintenActiveRepo.existsByMaintenActivity(maintenActivity);
+	}
+
 }

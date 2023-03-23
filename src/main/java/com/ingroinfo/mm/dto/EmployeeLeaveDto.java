@@ -27,5 +27,11 @@ public class EmployeeLeaveDto {
 	private String hrApproval;
 	private String hrDate;
 	private Date createDate;
-
+	private String employeeFather;
+	private String empDesignation;
+	private String empHouseNo ;
+	private String empdateofJoin;
+	private String address;
+	private String refConNo;
+	private String conNo;
 }

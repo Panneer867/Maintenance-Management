@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -33,7 +33,7 @@
 								<label for="hsnCode" class="col-sm-2 col-form-label">HSN Code</label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control form-control-sm" id="hsnCode" name="hsnCode"
-										required maxlength="8" placeholder="Enter HsnCode ">
+										required maxlength="15" placeholder="Enter HsnCode" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>														
 						</div>

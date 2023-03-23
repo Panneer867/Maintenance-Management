@@ -14,6 +14,10 @@ public interface DivisionSubdivisionRepository extends JpaRepository<DivisionSub
 
 	List<DivisionSubdivision> findByDivision(String division);
 
+	boolean existsBySubdivision(String subdivision);
+
+	boolean existsByServiceStation(String serviceStation);
+
 	
 
 }

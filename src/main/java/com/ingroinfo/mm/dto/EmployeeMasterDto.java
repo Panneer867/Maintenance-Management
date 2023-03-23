@@ -1,5 +1,7 @@
 package com.ingroinfo.mm.dto;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -46,4 +48,6 @@ public class EmployeeMasterDto {
 	private String salary;
 	private String basicSalary;
 	private String pinCode;
+	private Date dateCreated;
+	private Date lastUpdated;
 }

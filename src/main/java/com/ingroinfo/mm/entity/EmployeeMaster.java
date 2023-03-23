@@ -1,5 +1,6 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -71,8 +75,23 @@ public class EmployeeMaster {
 	private String basicSalary;
 	private String pinCode;
 
+
+
    @JsonIgnore
    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employeeMaster")
    private List<EmployeeLeave> employeeLeave;
+   
+   @JsonIgnore
+   @OneToMany(cascade = CascadeType.ALL , mappedBy = "employeeMaster")
+   private List<EmployeeSalary> employeeSalary;
 	
+	
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
+   
 }

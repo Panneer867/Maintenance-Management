@@ -56,22 +56,28 @@ public interface MasterService {
 	// Delete Employee Master Category By Id
 	void deleteEmployeeCategory(Long empCategoryId);
 
-	// save Data
+	// save Brand Data
 	BrandMasterDto saveBrandMaster(BrandMasterDto brandMasterDto);
 
-	// Get All Data
+	// Get All Brand Data
 	List<BrandMasterDto> getAllBrandMasters();
 
-	// Delete
+	// Validate Existing Brand Data
+	boolean isBrandNameExists(String brandName);
+
+	// Delete Brand Data By brand Id
 	void deleteBrandMaster(Long brandMasterId);
 
-	// save Data
+	// save Item Category Data
 	CategoryDto saveCategory(CategoryDto categoryDto);
+	
+	//Validate Category Name
+	boolean isCategoryExists(String categoryName);
 
-	// Get All Data
+	// Get All  Item Category Data
 	List<CategoryDto> findAllCategory();
 
-	// Delete
+	// Delete  Item Category
 	void deleteCategory(Long catid);
 
 	// save Data
@@ -116,31 +122,43 @@ public interface MasterService {
 	// Get All Designations From UBARMS
 	List<DesignationDto> getDesignationsFormUbarms() throws JsonMappingException, JsonProcessingException, IOException;
 
-	// Save Data
+	// Save Distribution Location Data
 	DistributionLocationDto saveDistributionLocation(DistributionLocationDto disLocationDto);
 
-	// FindAll
+	// validate Distribution Schedule
+	boolean isisDistributionLocationExists(String distlocation);
+
+	// Find All Distribution Location
 	List<DistributionLocationDto> findAllDistributionLocation();
 
-	// Delete
+	// Delete Distribution Location
 	void deleteDistributeLocation(Long disLocId);
 
-	// save Data
+	// save Distribution Schedule Data
 	DistributionScheduleDto saveDisSchedule(DistributionScheduleDto disSchedule);
 
-	// Find All Data
+	// Find Distribution Schedule All Data
 	List<DistributionScheduleDto> findAllDisSchedule();
 
-	// Delete
+	// validate Distribution Schedule
+	boolean isisDistributionScheduleExists(String distSchedule);
+
+	// Delete Distribution Schedule
 	void deleteDistrbSchedule(Long disScheduleId);
 
-	// save Data
+	// save Division SubDivision Data
 	DivisionSubdivisionDto saveDivisionSubdivision(DivisionSubdivisionDto divSubDto);
 
-	// Find All Data
+	// Validate SubDivision Data
+	boolean isSubDivisionExists(String subdivision);
+
+	// Validate Service Station
+	boolean isServiceStationExists(String serviceStation);
+
+	// Find All Division SubDivision Data
 	List<DivisionSubdivisionDto> findAllDivSubdiv();
 
-	// Delete
+	// Delete Division SubDivision
 	void deleteDivSubDiv(Long divsubId);
 
 	// Get Distinct Divisions
@@ -149,31 +167,46 @@ public interface MasterService {
 	// Get SubDivisionList By Division
 	List<DivisionSubdivisionDto> getSubDivisionListByDivision(String division);
 
-	// create
+	// Save DMA Ward
 	DmaWardDto saveDmaWard(DmaWardDto dmaWardDto);
-
-	// GetAll Data
+	
+	//Validate DMA Number
+	boolean isDmaNumberExists(String dmaNumber);
+	
+	//Validate Ward Number
+    boolean isWardNumberExists(String wardNumber);
+	
+	// GetAll DMA Ward Data
 	List<DmaWardDto> getAllDmaWard();
 
-	// Delete
+	// Delete DMA Ward
 	void deleteDmaWard(Long dmaWardId);
 
-	// save Data
+	// save Employee Performance Data
 	EmployeePerformanceDto saveEmplyeePerformmance(EmployeePerformanceDto empPerformance);
 
-	// Find All Data
+	// Find All Employee Performance Data
 	List<EmployeePerformanceDto> getAllEmpPerformance();
+	
+	//Validate Employee Performance
+	boolean isExistsEmpPerformanceSts(String performStatus);
 
-	// Delete
+	// Delete Employee Performance
 	void deleteEmpPerformance(Long empPerformId);
 
-	// create
+	// create Item HSN Code
 	HsnCodeDto saveHsnCode(HsnCodeDto hsnCodeDto);
 
-	// findAll Data
+	// findAll Item HSN Data
 	List<HsnCodeDto> findAllHsnCode();
+	
+	//Validate HSN Code
+	boolean isHsnCodeExists(String hsnCode);
+	
+	//Validate CategoryName HsnCode Master
+	boolean isCategoryExistsInHsnCode(String categoryName);
 
-	// Delete
+	// Delete Item HSN
 	void deleteHsnCode(Long hsnCodeId);
 
 	// Get HsnCode By CategoryId
@@ -209,13 +242,16 @@ public interface MasterService {
 	// Get Item List By Stock Type
 	List<ItemMasterDto> getAllItemNames(String stockType);
 
-	// save
+	// save Leakage Type
 	LeakageTypeDto saveLeakageType(LeakageTypeDto leakageTypeDto);
+	
+	//Validate Leakage Type
+	boolean isLeakageTypeExists(String leakageType);
 
-	// Find All
+	// Find All Leakage Type
 	List<LeakageTypeDto> getAllLeakageType();
 
-	// Delete
+	// Delete Leakage Type
 	void deleteLeakageType(Long leakageId);
 
 	// save Data
@@ -227,13 +263,16 @@ public interface MasterService {
 	// Delete
 	void deleteMaintenFrequency(Long maintanFrequId);
 
-	// save Data
+	// save Maintenance Activity Data
 	MaintenanceActivitiesDto saveMaintenActivity(MaintenanceActivitiesDto maintenActivDto);
+	
+	//Validate  Maintenance Activity
+	boolean isMaintenanceActivityExists(String maintenActivity);
 
-	// find All Data
+	// find All  Maintenance Activity Data
 	List<MaintenanceActivitiesDto> findAllMaintnActve();
 
-	// Delete
+	// Delete  Maintenance Activity
 	void deleteMaintenActivity(Long maintenActiveId);
 
 	// save Data
@@ -445,4 +484,7 @@ public interface MasterService {
 
 	// Delete
 	void deleteSupplierDetails(Long suplyDtlsId);
+
+	//Get Distribution Location By Sub-Division
+	List<DistributionLocationDto> getDistributLocationBysubDivision(String subDivision);
 }

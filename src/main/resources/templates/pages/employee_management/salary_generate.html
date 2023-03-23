@@ -39,25 +39,28 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="department" class="col-sm-5  col-form-label">Department
+											<label for="changeDepartmentName" class="col-sm-5  col-form-label">Department
 												<strong class="text-danger ">*</strong></label>
 											<div class="col-sm-7">
 												<select class="form-select form-control-sm" name="department" id="changeDepartmentName"
-													data-error="Select gender !" required>
+													data-error="Select department !" required>
 													<option value="" selected>select</option>
 													<option th:each="emp : ${deptList}" th:value="${emp.departmentName}"
 														th:text="${emp.departmentName}" />
 												</select>
+													<div class="help-block with-errors text-danger"></div>
 											</div>
 										</div>
 
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row ">
-											<label for="employeeId" class="col-sm-5  col-form-label">Emp Code</label>
+											<label for="allEmployeeCode" class="col-sm-5  col-form-label">Emp Code<strong class="text-danger ">*</strong></label>
 											<div class="col-sm-7">
-												<select class="form-select form-control-sm" id="allEmployeeCode" name="employeeId" required>
+												<select class="form-select form-control-sm" id="allEmployeeCode" name="employeeId" 
+												data-error="Select EmployeeCode !" required>
 												</select>
+												<div class="help-block with-errors text-danger"></div>
 											</div>
 										</div>
 									</div>
@@ -79,7 +82,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Emp Name</label>
+											<label for="empName" class="col-sm-5  col-form-label">Emp Name</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empName"
 													name="empName" placeholder="Emp Name" readonly required>
@@ -88,7 +91,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">PAN No</label>
+											<label for="panNo" class="col-sm-5  col-form-label">PAN No</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-panNO"
 													name="panNo" placeholder="PAN No" readonly required>
@@ -97,7 +100,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Gross
+											<label for="empSalary" class="col-sm-5  col-form-label">Gross
 												Salary</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSalary"
@@ -110,7 +113,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName"
+											<label for="designation"
 												class="col-sm-5  col-form-label">Designation</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-designation"
@@ -120,7 +123,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label"> ESI
+											<label for="esiNumber" class="col-sm-5  col-form-label"> ESI
 												number</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-esiNumber"
@@ -130,7 +133,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName"
+											<label for="empCon"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empCon"
@@ -143,7 +146,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Bank Account
+											<label for="bankAccNo" class="col-sm-5  col-form-label">Bank Account
 												No</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-bankAccNo"
@@ -153,7 +156,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label"> PF
+											<label for="pfNo" class="col-sm-5  col-form-label"> PF
 												number</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-pfNo"
@@ -163,7 +166,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<label for="salEmphra" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-salEmphra"
 													name="salEmphra" placeholder="SPL Allow" readonly required>
@@ -175,7 +178,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Mobile No</label>
+											<label for="contactNo" class="col-sm-5  col-form-label">Mobile No</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-contactNo"
 													name="contactNo" placeholder="Mobile No" readonly required>
@@ -184,7 +187,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
+											<label for="Pf" class="col-sm-5  col-form-label">PF</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empPf"
 													name="Pf" placeholder="PF" readonly required>
@@ -193,7 +196,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
+											<label for="salSplAllow" class="col-sm-5  col-form-label">SPL Allow</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSplAllow"
 													name="salSplAllow" placeholder="LTA Allow" readonly required>
@@ -205,7 +208,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Date of
+											<label for="dateOfJoin" class="col-sm-5  col-form-label">Date of
 												Join</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-dateOfJoin"
@@ -215,7 +218,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Income
+											<label for="inCometax" class="col-sm-5  col-form-label">Income
 												Tax</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-inCometax"
@@ -225,7 +228,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
+											<label for="lta" class="col-sm-5  col-form-label">LTA Allow</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-lta"
 													name="lta" placeholder="LTA Allow" readonly required>
@@ -241,7 +244,7 @@
 								<div class="row">
 									<div class="col-md-4 mt-1">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Total Working
+											<label for="workingDay" class="col-sm-5  col-form-label">Total Working
 												Days</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalWorkingDays"
@@ -251,7 +254,7 @@
 									</div>
 									<div class="col-md-4 mt-1">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Total
+											<label for="totalLeave" class="col-sm-5  col-form-label">Total
 												Leaves</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalSanEmpLeave"
@@ -270,7 +273,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Earning
+											<label for="totalEaringDay" class="col-sm-5  col-form-label">Earning
 												Days</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalEaringDays"
@@ -299,7 +302,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Basic
+											<label for="basicSalary" class="col-sm-5  col-form-label">Basic
 												Salary</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white"
@@ -311,7 +314,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">Actual
+											<label for="actualSalary" class="col-sm-5  col-form-label">Actual
 												Salary</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="actualSalary"
@@ -321,7 +324,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">PF</label>
+											<label for="empPf" class="col-sm-5  col-form-label">PF</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-pfAmount"
 													name="empPf" placeholder="PF" readonly required>
@@ -330,7 +333,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Gross Pay</label>
+											<label for="grossPay" class="col-sm-5  col-form-label">Gross Pay</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="slary-Grosspay"
 													name="grossPay" placeholder="Gross Pay" readonly required>
@@ -343,7 +346,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
+											<label for="da" class="col-sm-5  col-form-label">DA</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-da"
 													name="da" placeholder="DA" readonly required>
@@ -353,7 +356,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">DA</label>
+											<label for="empDa" class="col-sm-5  col-form-label">DA</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empda"
 													name="empDa" placeholder="DA" readonly required>
@@ -362,7 +365,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">ESI</label>
+											<label for="empEsi" class="col-sm-5  col-form-label">ESI</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-esi"
 													name="empEsi" placeholder="ESI" readonly required>
@@ -371,7 +374,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Gross
+											<label for="grossDeduct" class="col-sm-5  col-form-label">Gross
 												Deduct</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-GrossDeduct"
@@ -385,7 +388,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<label for="empHra" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-hra"
 													name="empHra" placeholder="HRA" readonly required>
@@ -395,7 +398,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">HRA</label>
+											<label for="actualHra" class="col-sm-5  col-form-label">HRA</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-emphra"
 													name="actualHra" placeholder="HRA" readonly required>
@@ -404,7 +407,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Prof.TAX</label>
+											<label for="profTax" class="col-sm-5  col-form-label">Prof.TAX</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-profTax"
 													name="profTax" placeholder="Prof.TAX" readonly required>
@@ -413,7 +416,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Net Pay</label>
+											<label for="netPay" class="col-sm-5  col-form-label">Net Pay</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-netpay"
 													name="netPay" placeholder="Net Pay" readonly required>
@@ -426,7 +429,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName"
+											<label for="convencyance"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white"
@@ -438,7 +441,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName"
+											<label for="convn"
 												class="col-sm-5  col-form-label">Conveyance</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empConv"
@@ -448,10 +451,10 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">TDS</label>
+											<label for="salary-tds" class="col-sm-5  col-form-label">TDS</label>
 											<div class="col-sm-7">
 												<input type="number" class="form-control form-control-sm " id="salary-tds"
-													name="empTds" placeholder="TDS" data-error=" Provide a Amount!" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="20" required >
+													name="empTds" placeholder="Enter TDS" data-error=" Provide a Amount!" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="20" required >
 														<div class="help-block with-errors text-danger"></div>
 											</div>
 										</div>
@@ -463,7 +466,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
+											<label for="medical" class="col-sm-5  col-form-label">Medical</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-medical"
 													name="medical" placeholder="Medical" readonly required>
@@ -473,7 +476,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">Medical</label>
+											<label for="ma" class="col-sm-5  col-form-label">Medical</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-employeeMA"
 													name="ma" placeholder="Medical" readonly required>
@@ -487,7 +490,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow
+											<label for="empSplAllow" class="col-sm-5  col-form-label">SPL Allow
 											</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-splAllow"
@@ -498,7 +501,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">SPL Allow</label>
+											<label for="actualSpclAllow" class="col-sm-5  col-form-label">SPL Allow</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-empSpl"
 													name="actualSpclAllow" placeholder="SPL Allow" readonly required>
@@ -515,7 +518,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">Telephone
+											<label for="telAllowance" class="col-sm-5  col-form-label">Telephone
 												Allow</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-telAllow"
@@ -531,7 +534,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">LTA Allow</label>
+											<label for="ltaAllow" class="col-sm-5  col-form-label">LTA Allow</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-emplta"
 													name="ltaAllow" placeholder="LTA Allow" readonly required>
@@ -545,7 +548,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label ">Total
+											<label for="totalEarn" class="col-sm-5  col-form-label ">Total
 												Earnings</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalEarnings"
@@ -556,7 +559,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row ">
-											<label for="customerName" class="col-sm-5  col-form-label">Actual
+											<label for="actualEarnings" class="col-sm-5  col-form-label">Actual
 												Earnings</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalActualEarn"
@@ -566,7 +569,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Total
+											<label for="totalDeductions" class="col-sm-5  col-form-label">Total
 												Deductions</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="totalDeduction"
@@ -576,7 +579,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="form-group row">
-											<label for="customerName" class="col-sm-5  col-form-label">Total Net
+											<label for="totalNetPay" class="col-sm-5  col-form-label">Total Net
 												Pay</label>
 											<div class="col-sm-7">
 												<input type="text" class="form-control form-control-sm bg-white" id="salary-totalnetpay"

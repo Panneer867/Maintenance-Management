@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.EmployeePerformance;
 @Repository
 public interface EmployeePerformRepostory extends JpaRepository<EmployeePerformance, Long> {
 
+	boolean existsByPerformStatus(String performStatus);
+
 }

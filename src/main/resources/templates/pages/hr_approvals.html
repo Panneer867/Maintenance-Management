@@ -13,45 +13,45 @@
 			</div>
 			<!-- End of Message Alert Field -->
 		<div class="row">
-			<div class="col-11 mx-auto">
+			<div class="col-12 ">
 				<div class="row">
-					<div class="col-9">
+					<div class="col">
 						<div class="card bl-cr mt-3">
 							<div class="card-header text-center heading-bg text-white py-2">
 								<h4 class="mb-0">Employee Data</h4>
 							</div>
 							<div class="card-body">
-							<form  th:action="@{/employee/saveApprvlLeave}" method="post"  th:object="${leaveUpdate}">
+							<form  data-toggle="validator" th:action="@{/employee/saveApprvlLeave}" method="post"  th:object="${leaveUpdate}">
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">EMP Code
+												<label for="employeeCode" class="col-sm-5  col-form-label">EMP Code
 													<strong class="text-danger ">*</strong></label>
 												<div class="col-sm-7"> 
-													<input type="hidden" class="form-control" 
+													<input type="hidden" class="form-control " 
 												  name="empLeaveId" th:value="${leaveData.empLeaveId}" placeholder="empLeaveId">                          
-													<input type="text" class="form-control bg-white" 
+													<input type="text" class="form-control form-control-sm bg-white" 
 												  name="employeeCode" th:value="${leaveData.employeeCode}" placeholder="empCode" readonly required>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row ">
-												<label for="customerName" class="col-sm-5  col-form-label">Emp
+												<label for="empName" class="col-sm-5  col-form-label">Emp
 													Name</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-empName"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-empName"
 												    name="empName" th:value="${leaveData.empName}" placeholder="Emp Name" readonly required>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName"
+												<label for="designation"
 													class="col-sm-5  col-form-label">Designation</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-designation"
-												name="designation" th:value="${empdesign}" placeholder="Designation" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-designation"
+												name="designation" th:value="${emp.empDesignation}" placeholder="Designation" readonly>
 												</div>
 											</div>
 										</div>
@@ -63,31 +63,31 @@
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Father
+												<label for="fatherName" class="col-sm-5  col-form-label">Father
 													Name</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-fatherName"
-													 name="fatherName" th:value="${empFather}"  placeholder="Father Name" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-fatherName"
+													 name="fatherName" th:value="${emp.employeeFather}"  placeholder="Father Name" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Department
+												<label for="department" class="col-sm-5  col-form-label">Department
 												</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-department"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-department"
 															name="department" th:value="${leaveData.department}" placeholder="Department" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label"> House No
+												<label for="houseNo" class="col-sm-5  col-form-label"> House No
 												</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" 
-													name="houseNo" th:value="${empHouseNo}" placeholder="House No" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" 
+													name="houseNo" th:value="${emp.empHouseNo}" placeholder="House No" readonly>
 												</div>
 											</div>
 										</div>
@@ -96,31 +96,31 @@
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Date Of
+												<label for="dateOfJoin" class="col-sm-5  col-form-label">Date Of
 													Join</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" 
-															name="dateOfJoin" th:value="${empdateofJoin}" placeholder="Date Of Join" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" 
+															name="dateOfJoin" th:value="${emp.empdateofJoin}" placeholder="Date Of Join" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName"
+												<label for="address"
 													class="col-sm-5  col-form-label">Address</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" 
-													 name="address" th:value="${empAddress}" placeholder="Address" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" 
+													 name="address" th:value="${emp.address}" placeholder="Address" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Ref Con.
+												<label for="refContactNo" class="col-sm-5  col-form-label">Ref Con.
 													No</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" 
-															name="refContactNo" th:value="${refConNo}" placeholder="Ref Contact No" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" 
+															name="refContactNo" th:value="${emp.refConNo}" placeholder="Ref Contact No" readonly>
 												</div>
 											</div>
 										</div>
@@ -129,11 +129,11 @@
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Contact
+												<label for="contactNo" class="col-sm-5  col-form-label">Contact
 													No</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" 
-														name="contactNo" th:value="${conNo}" placeholder="Contact No(mobile)" readonly>
+													<input type="text" class="form-control form-control-sm bg-white" 
+														name="contactNo" th:value="${emp.conNo}" placeholder="Contact No(mobile)" readonly>
 												</div>
 											</div>
 										</div>
@@ -151,27 +151,27 @@
 									<div class="row">
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">SL</label>
+												<label for="sickLeave" class="col-sm-5  col-form-label">SL</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-sickLeave" 
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-sickLeave" 
 													th:value="${leaveData.sickLeave}" name="sickLeave"	placeholder="SL" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">CL</label>
+												<label for="causalLeave" class="col-sm-5  col-form-label">CL</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-causalLeave"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-causalLeave"
 													th:value="${leaveData.causalLeave}"	name="causalLeave" placeholder="CL" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">LWP</label>
+												<label for="annualLwp" class="col-sm-5  col-form-label">LWP</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-annualLwp" 
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-annualLwp" 
 												th:value="${leaveData.annualLwp}" name="annualLwp"	placeholder="LWP" readonly>
 												</div>
 											</div>
@@ -186,27 +186,27 @@
 									<div class="row">
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">SL</label>
+												<label for="sacnSickLeave" class="col-sm-5  col-form-label">SL</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-sacnSickLeave" 
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-sacnSickLeave" 
 													 th:value="${leaveData.sacnSickLeave}" name="sacnSickLeave"	placeholder="SL" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">CL</label>
+												<label for="sacnCausalLeave" class="col-sm-5  col-form-label">CL</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-sacnCausalLeave" 
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-sacnCausalLeave" 
 														 th:value="${leaveData.sacnCausalLeave}" name="sacnCausalLeave" placeholder="CL" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">LWP</label>
+												<label for="sacnLwp" class="col-sm-5  col-form-label">LWP</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-sacnLwp"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-sacnLwp"
 														th:value="${leaveData.sacnLwp}" name="sacnLwp" placeholder="LWP" readonly>
 												</div>
 											</div>
@@ -223,35 +223,36 @@
 									<div class="row">
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Dept Head
+												<label for="deptHead" class="col-sm-5  col-form-label">Dept Head
 													<strong class="text-danger ">*</strong></label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-deptHead"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-deptHead"
 														name="deptHead" th:value="${leaveData.deptHead}" placeholder="LWP" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName"
+												<label for="remark"
 													class="col-sm-5  col-form-label">Remark</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control bg-white" id="aprl-remark"
+													<input type="text" class="form-control form-control-sm bg-white" id="aprl-remark"
 													th:value="${leaveData.remark}"	 name="remark" placeholder="Remark" readonly>
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">HR
+												<label for="hrApproval" class="col-sm-5  col-form-label">HR
 													Approval<strong class="text-danger ">*</strong></label>
 												<div class="col-sm-7">
-													<select class="form-select" data-error="Select Option !"
+													<select class="form-select form-control-sm" data-error="Select Option !"
 														id="hrApproval" name="hrApproval" required>
 														<option value="" selected>Select</option>
 														<option value="YES">Yes</option>
 														<option value="NO">No</option>
-													</select>												
+													</select>	
+													<div class="help-block with-errors text-danger"></div>											
 												</div>
 											</div>
 										</div>
@@ -263,37 +264,35 @@
 									<div class="row">
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">Date <strong
+												<label for="hrDate" class="col-sm-5  col-form-label">Date <strong
 														class="text-danger ">*</strong></label>
 												<div class="col-sm-7">
-													<input type="Date" class="form-control" id="aprl-leaveDate"
-														name="hrDate" placeholder="Date " required>												
+													<input type="Date" class="form-control form-control-sm" id="hrDate"
+														name="hrDate" placeholder="Date" data-error="Select Date !" required>		
+													<div class="help-block with-errors text-danger"></div>											
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="customerName" class="col-sm-5  col-form-label">No of Days
+												<label for="aprl-noOfLeave" class="col-sm-5  col-form-label">No of Days
 													<strong class="text-danger ">*</strong></label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="aprl-noOfLeave"
+													<input type="text" class="form-control form-control-sm" id="aprl-noOfLeave"
 														th:value="${leaveData.noOfLeave}"  name="noOfLeave" placeholder="No of Days"
 														 required>
+														<div class="help-block with-errors text-danger"></div>	
 												</div>
 											</div>
 										</div>
 										<div class="col-md-4 mt-1">
 											<div class="form-group row">
-												<label for="leaveType" class="col-sm-5  col-form-label">Leave Type
+														<label for="leaveType" class="col-sm-5  col-form-label">Leave Type
 													<strong class="text-danger ">*</strong></label>
 												<div class="col-sm-7">
-													<select class="form-select" 
-													 name="leaveType" th:value="${leaveData.leaveType}" required>
-														<option value="" selected>Select</option>
-									  					<option value="SL">SL</option>
-									  					<option value="CL">CL</option>
-									 				    <option value="LWP">LWP</option>
-													</select>													
+													<input type="text" class="form-control form-control-sm bg-white" id="leaveType"
+														name="leaveType" th:value="${leaveData.leaveType}" placeholder="No of Days"
+														 required readonly>
 												</div>
 											</div>
 										</div>
@@ -306,28 +305,34 @@
 
 						</div>
 					</div>
+					
+					
 					<!-- Table Start-->
 					<div class="col-3 mt-3">
-						<table
-							class="table table-stock table-bordered text-center table-primary table-striped table-hover">
-							<thead class="table-dark">
+						<div class="card text-center">
+						<div class="card-header heading-bg text-white fs-6 ">
+					Updates
+				</div>
+					<div class="card-body">
+						<table class="table table-sm">
+							<thead>
 								<tr>
-									<th class="text-white text-center fs-6">EmpID</th>
-									<th class="text-white text-center fs-6">EmpName</th>
-								<!--	<th class="text-white text-center fs-6">Dept</th>-->
-									<th class="text-white text-center fs-6">Date</th>
+									<th class="text-center fs-6" scope="col">Id</th>
+									<th class="text-center fs-6" scope="col">Emp Name</th>
+								 	<th class="text-center fs-6" scope="col">Date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="fs-7" th:each="employee: ${listOfEmployees}">
-									<td> <a th:href="@{'/employee/apprvlLeave/'+${employee.empLeaveId}}">
+								<tr class="text-center" th:each="employee: ${listOfEmployees}">
+									<td class="fs-6 text-center"> <a th:href="@{'/employee/apprvlLeave/'+${employee.empLeaveId}}">
 											<span th:text="${employee.employeeCode}"></span></a></td>
-									<td th:text="${employee.empName}"></td>
-								<!--	<td th:text="${employee.department}"></td>-->
-									<td th:text="${employee.leaveDate}"></td>
+									<td class="fs-6  text-center" th:text="${employee.empName}"></td>
+									<td class="fs-6 text-center" th:text="${employee.leaveDate}"></td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
+					</div>
 					</div>
 					<!-- Table End-->
 				</div>

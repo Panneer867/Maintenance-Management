@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -22,7 +22,7 @@
 							<div class="form-group row">
 								<label class="col-auto col-form-label">Maintenance Activities Type</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="maintenActiveType" required>
+									<select class="form-select form-select-sm" name="maintenActivity" required>
 									   <option value="">--Select--</option>
 										<option>Pump Maintance</option>
 										<option>Pipe Mainttance</option>
@@ -59,7 +59,7 @@
 						<td><a href="#" th:onclick="|deleteMaintainsActivity(${maintenactive.maintenActiveId})|">
 								<span th:text="${'MA'+maintenactive.maintenActiveId}"></span></a>
 						</td>
-						<td th:text="${maintenactive.maintenActiveType}"></td>
+						<td th:text="${maintenactive.maintenActivity}"></td>
 					</tr>
 				</tbody>
 			</table>

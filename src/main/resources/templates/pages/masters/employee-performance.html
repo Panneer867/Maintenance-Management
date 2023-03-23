@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -22,12 +22,9 @@
 							<div class="form-group row p-2">
 								<label class="col-sm-6 col-form-label">Employee Performance</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="performStatus" required>
-									    <option value="">--Select--</option>
-										<option>Good</option>
-										<option>Average</option>
-										<option>poor</option>
-									</select>
+									<input class="form-control form-control-sm" name="performStatus" required
+										placeholder="Enter Employee Performance"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -40,7 +37,7 @@
 			</div>
 		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Employee Performance History</h5>
@@ -48,7 +45,7 @@
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Employee Performance</th>						
+						<th class="text-center" scope="col">Employee Performance</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,13 +53,13 @@
 						<td><a href="#" th:onclick="|deleteEmplyeePerformance(${empperform.empPerformId})|">
 								<span th:text="${'EP'+empperform.empPerformId}"></span></a>
 						</td>
-						<td th:text="${empperform.performStatus}"></td>						
+						<td th:text="${empperform.performStatus}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

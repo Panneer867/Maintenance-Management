@@ -124,4 +124,7 @@ public interface AdminService {
 	// Get User Details From UBARMS
 	UserDto getUserDtlsFromUbarms(Long ubarmsUserId);
 
+// Get Company Name By Branch
+	Branch getComapnyNameByBranch(String branchName);
+
 }

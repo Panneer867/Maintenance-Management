@@ -1,10 +1,7 @@
 package com.ingroinfo.mm.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	@Autowired
 	private EmployeeLeaveRepository employeeLeaveRepository;
 
+	
 	@Override
 	public void deleteEmployeeById(Long employeeId) {
 		employeeMasterRepository.deleteById(employeeId);
@@ -38,8 +36,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	}
 	
 	@Override
-	public void saveEmployeeLeave(EmployeeLeave empLeave) {
-		// TODO Auto-generated method stub
+	public void updateEmployeeLeave(EmployeeLeave empLeave) {
 		employeeLeaveRepository.save(empLeave);
 	}
 
@@ -68,85 +65,20 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	}
 
 	
-	/*
-	 * @Override public List<EmployeeMasterDto> getAllemployeeMaster() {
-	 * List<EmployeeMaster> employeeList = employeeMasterRepository.findAll();
-	 * 
-	 * List<EmployeeMasterDto> employeemasterDto =
-	 * employeeList.stream().map((employeeMaster) -> { EmployeeMasterDto newEmployee
-	 * = new EmployeeMasterDto();
-	 * newEmployee.setEmployeeId(employeeMaster.getEmployeeId());
-	 * newEmployee.setEmployeeCode(employeeMaster.getEmployeeCode());
-	 * newEmployee.setEmpName(employeeMaster.getEmpName());
-	 * newEmployee.setEmployeeImage(employeeMaster.getEmployeeImage());
-	 * newEmployee.setFatherName(employeeMaster.getFatherName());
-	 * newEmployee.setHouseNo(employeeMaster.getHouseNo());
-	 * newEmployee.setAddress(employeeMaster.getAddress());
-	 * newEmployee.setAadharNo(employeeMaster.getAadharNo());
-	 * newEmployee.setBankAccNo(employeeMaster.getBankAccNo());
-	 * newEmployee.setBankName(employeeMaster.getBankName());
-	 * newEmployee.setContactNo(employeeMaster.getContactNo());
-	 * newEmployee.setDesignation(employeeMaster.getDesignation());
-	 * newEmployee.setDepartment(employeeMaster.getDepartment());
-	 * newEmployee.setDlNo(employeeMaster.getDlNo());
-	 * newEmployee.setPanNO(employeeMaster.getPanNO());
-	 * newEmployee.setPassportNo(employeeMaster.getPassportNo());
-	 * newEmployee.setPfNo(employeeMaster.getPfNo());
-	 * newEmployee.setEsiNumber(employeeMaster.getEsiNumber());
-	 * newEmployee.setIfscCode(employeeMaster.getIfscCode());
-	 * newEmployee.setRefContactNo(employeeMaster.getRefContactNo());
-	 * newEmployee.setDateOfJoin(employeeMaster.getDateOfJoin());
-	 * newEmployee.setBloodGroup(employeeMaster.getBloodGroup());
-	 * newEmployee.setGender(employeeMaster.getGender());
-	 * newEmployee.setBranch(employeeMaster.getBranch());
-	 * newEmployee.setCompany(employeeMaster.getCompany());
-	 * newEmployee.setCity(employeeMaster.getCity());
-	 * newEmployee.setDateOfBirth(employeeMaster.getDateOfBirth());
-	 * newEmployee.setEndDate(employeeMaster.getEndDate());
-	 * newEmployee.setEmpStatus(employeeMaster.getEmpStatus());
-	 * newEmployee.setEmptype(employeeMaster.getEmptype());
-	 * newEmployee.setCl(employeeMaster.getCl());
-	 * newEmployee.setLwp(employeeMaster.getLwp());
-	 * newEmployee.setSl(employeeMaster.getSl());
-	 * newEmployee.setMaritalstatus(employeeMaster.getMaritalstatus());
-	 * newEmployee.setTotalLeave(employeeMaster.getTotalLeave());
-	 * newEmployee.setState(employeeMaster.getState());
-	 * newEmployee.setPersonName(employeeMaster.getPersonName());
-	 * newEmployee.setQualification(employeeMaster.getQualification());
-	 * newEmployee.setPinCode(employeeMaster.getPinCode());
-	 * newEmployee.setState(employeeMaster.getState()); return newEmployee;
-	 * }).collect(Collectors.toList());
-	 * 
-	 * return employeemasterDto; }
-	 */
-	
 	@Override
-	public EmployeeMaster getEmployeeById(Long employeeId) {
-		Optional<EmployeeMaster> optional = employeeMasterRepository.findById(employeeId);
-		EmployeeMaster employee = null;
-		if (optional.isPresent()) {
-			employee = optional.get();
-		} else {
-			throw new RuntimeException(" Employee not found for id :: " + employeeId);
-		}
-		return employee;
+	public EmployeeMasterDto getEmployeeById(Long employeeId) {
+		EmployeeMaster employeeMaster = employeeMasterRepository.findById(employeeId).get();
+		return this.modelMapper.map(employeeMaster, EmployeeMasterDto.class);
+		
 	}
 
 	@Override
-	public EmployeeLeave getEmployeeLeaveById(Long empLeaveId) {
+	public EmployeeLeave getEmpLeaveById(Long empLeaveId) {
 	
-	   Optional<EmployeeLeave> optional  = employeeLeaveRepository.findById(empLeaveId);
-	   EmployeeLeave employee = null;
-	   if (optional.isPresent()) {
-			employee = optional.get();
-		} else {
-			throw new RuntimeException(" Employee not found for id :: " + empLeaveId);
-		}
-		return employee;
+	   EmployeeLeave employeeLeave  = employeeLeaveRepository.findById(empLeaveId).get();
+		return employeeLeave;
 	}
 
-	
-	
 	
 	@Override
 	public EmployeeMasterDto getEmployeeByEmpCode(String employeeCode) {
@@ -171,9 +103,9 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	public EmployeeLeaveDto saveEmployeeLeave(EmployeeLeaveDto empLeaveDto) {
 		EmployeeMaster employeeMaster = employeeMasterRepository.findByEmployeeCode(empLeaveDto.getEmployeeCode());
 		empLeaveDto.setCreateDate(new Date());
-	EmployeeLeave convEmployeeLeave	= this.modelMapper.map(empLeaveDto, EmployeeLeave.class);
-	convEmployeeLeave.setEmployeeMaster(employeeMaster);
-	EmployeeLeave savedEmployeeLeave= this.employeeLeaveRepository.save(convEmployeeLeave);
+		EmployeeLeave convEmployeeLeave	= this.modelMapper.map(empLeaveDto, EmployeeLeave.class);
+		convEmployeeLeave.setEmployeeMaster(employeeMaster);
+		EmployeeLeave savedEmployeeLeave= this.employeeLeaveRepository.save(convEmployeeLeave);
 		return this.modelMapper.map(savedEmployeeLeave, EmployeeLeaveDto.class);
 	}
 
@@ -187,7 +119,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 
 	@Override
 	public List<EmployeeMasterDto> getAllemployeeMaster() {
-		List<EmployeeMaster> employees = this.employeeMasterRepository.findAll();
+		List<EmployeeMaster> employees = this.employeeMasterRepository.findAllEmployeeMaster();
 		List<EmployeeMasterDto> employeemasterDto = employees.stream().map((employee) -> 
 		this.modelMapper.map(employee, EmployeeMasterDto.class)).collect(Collectors.toList());
 		return employeemasterDto;
@@ -202,28 +134,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	}
 
 
-	@Override
-	public Map<Integer, Integer> getEmployeeLeaveMonthwise(String empCode) {
 	
-		List<EmployeeLeave> employeeLeaves =  employeeLeaveRepository.findByEmployeeCode(empCode);
-		Map<Integer, Integer> leaves = new HashMap<Integer, Integer>();	
-		int totalLeaves = 0;
-		for (EmployeeLeave EmployeeLeave : employeeLeaves) {
-			for (int i = 1; i <= 12; i++) {
-				String smonth = EmployeeLeave.getLeaveDate().substring(5, 7);
-				int month = Integer.parseInt(smonth);
-				if (i == month) {
-					if(EmployeeLeave.getHrApproval().equals("YES"))
-					{
-					totalLeaves = totalLeaves + EmployeeLeave.getSacnSickLeave();					
-					leaves.put(month, totalLeaves);
-					}
-				}
-			}
-		}
-		return leaves;
-	}
-
 	@Override
 	public List<EmployeeMasterDto> getEmployeeCodeByDept(String department) {
 		List<EmployeeMaster> employeeCodes   = employeeMasterRepository.findByDepartment(department);
@@ -231,6 +142,27 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 		modelMapper.map(employeeCode, EmployeeMasterDto.class)).collect(Collectors.toList());
 		return employeeMasterDto;
 	}
+
+
+	
+	  @Override 
+	  public List<EmployeeMasterDto> getNoOfEmpByDept() {
+	  List<EmployeeMaster> employeeMaster = employeeMasterRepository.findDeptWiseNoEmp();
+	  List<EmployeeMasterDto> employeeMasterDto = employeeMaster.stream().map((employee) ->
+	  modelMapper.map(employee,EmployeeMasterDto.class)).collect(Collectors.toList()); 
+	  return employeeMasterDto;
+	  }
+	 
+
+	
+	
+	@Override
+	public EmployeeLeaveDto getEmployeeLeaveById(Long empLeaveId) {
+	EmployeeLeave employeeLeave =	this.employeeLeaveRepository.findById(empLeaveId).get();		
+		return this.modelMapper.map(employeeLeave, EmployeeLeaveDto.class);
+	}
+
+	
 
 	
 }

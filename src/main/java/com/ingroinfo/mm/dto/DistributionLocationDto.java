@@ -7,6 +7,6 @@ public class DistributionLocationDto {
 
 	private Long disLocId;
 	private String division;
-	private String branch;
+	private String subDivision;
 	private String distlocation;
 }

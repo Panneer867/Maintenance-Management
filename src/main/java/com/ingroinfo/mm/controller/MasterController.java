@@ -63,12 +63,12 @@ import com.ingroinfo.mm.service.MasterService;
 @Controller
 @RequestMapping("/masters")
 public class MasterController {
-		
+
 	@Autowired
-	private AdminService adminService;	
+	private AdminService adminService;
 	@Autowired
 	private MasterService masterService;
-	
+
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
@@ -159,6 +159,8 @@ public class MasterController {
 	@GetMapping("/dislocation")
 	public String openDistributionLocaPage(Model model) {
 		model.addAttribute("show", null);
+		List<String> divisions = this.masterService.getDistinctDivisions();
+		model.addAttribute("listOfDivisions", divisions);
 		model.addAttribute("title", "Master | Distribution Location | Manintenance Management");
 		return "/pages/masters/distribution-location";
 	}
@@ -166,6 +168,8 @@ public class MasterController {
 	@GetMapping("/schedule")
 	public String openDistributionSchedulePage(Model model) {
 		model.addAttribute("show", null);
+		List<String> divisionList = this.masterService.getDistinctDivisions();
+		model.addAttribute("divisionList", divisionList);
 		model.addAttribute("title", "Master | Distribution Schedule | Manintenance Management");
 		return "/pages/masters/distribution-schedule";
 	}
@@ -369,23 +373,27 @@ public class MasterController {
 
 	// Handler For Open Designation Master Page
 	@GetMapping("/designation")
-	public String openDesignation(Model model) throws IOException {
+	public String openDesignation(Model model, HttpSession session) throws IOException {
 		model.addAttribute("show", null);
 		model.addAttribute("ubmdesigList", new DesignationDto());
-		List<DesignationDto> designationDtos = masterService.getDesignationsFormUbarms();
 		try {
+			List<DesignationDto> designationDtos = masterService.getDesignationsFormUbarms();
 			if (!designationDtos.isEmpty()) {
 				model.addAttribute("ubmdesigList", designationDtos);
+			} else {
+				session.setAttribute("message", new Message("Designations Not Found !!", "danger"));
+				System.out.println("DesignationList Not Found !!");
 			}
 		} catch (Exception e) {
-			System.out.println("DesignationList Not Found !!" + e.getMessage());
+			session.setAttribute("message", new Message("Ubarms Server Is Not Running !!", "danger"));
+			System.out.println("Server Stopped !!" + e.getMessage());
 
 		}
 		model.addAttribute("title", "Master | Designation | Manintenance Management");
 		return "/pages/masters/master-designation";
 	}
 
-	@GetMapping("/leakagetype")
+	@GetMapping("/leakageMaster")
 	public String openLeakageTypePage(Model model) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Master | Leakage | Manintenance Management");
@@ -421,7 +429,7 @@ public class MasterController {
 			String idName = "Vehicle Id";
 			IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
 			String lastVehicleId = idMasterDto.getLastNumber();
-			model.addAttribute("vehicleMasterId", lastVehicleId);						
+			model.addAttribute("vehicleMasterId", lastVehicleId);
 		} catch (Exception e) {
 			session.setAttribute("message",
 					new Message("Vehicle Id Is Not Present !! Please Add Id First !!", "danger"));
@@ -554,8 +562,7 @@ public class MasterController {
 		// For Out Material Issued Id
 		boolean isExist1 = list.stream().filter(o -> o.contains("Out Matl Issue Id")).findFirst().isPresent();
 		if (isExist1) {
-			List<DepartmentIdMasterDto> listOfOutmatlIsueId = this.masterService
-					.getByMasterIdName("Out Matl Issue Id");
+			List<DepartmentIdMasterDto> listOfOutmatlIsueId = this.masterService.getByMasterIdName("Out Matl Issue Id");
 			model.addAttribute("listOfOutmatlIsueId", listOfOutmatlIsueId);
 		}
 
@@ -609,24 +616,21 @@ public class MasterController {
 		// For Stock Material Return Id
 		boolean isExist8 = list.stream().filter(o -> o.contains("Stock Matl Rtn Id")).findFirst().isPresent();
 		if (isExist8) {
-			List<DepartmentIdMasterDto> listOfstkMtlRtn = this.masterService
-					.getByMasterIdName("Stock Matl Rtn Id");
+			List<DepartmentIdMasterDto> listOfstkMtlRtn = this.masterService.getByMasterIdName("Stock Matl Rtn Id");
 			model.addAttribute("listOfstkMtlRtn", listOfstkMtlRtn);
 		}
 
 		// For Stock Spares Return Id
 		boolean isExist9 = list.stream().filter(o -> o.contains("Stock Spares Rtn Id")).findFirst().isPresent();
 		if (isExist9) {
-			List<DepartmentIdMasterDto> listOfstkSprRtn = this.masterService
-					.getByMasterIdName("Stock Spares Rtn Id");
+			List<DepartmentIdMasterDto> listOfstkSprRtn = this.masterService.getByMasterIdName("Stock Spares Rtn Id");
 			model.addAttribute("listOfstkSprRtn", listOfstkSprRtn);
 		}
 
 		// For Stock Tools Return Id
 		boolean isExist10 = list.stream().filter(o -> o.contains("Stock Tools Rtn Id")).findFirst().isPresent();
 		if (isExist10) {
-			List<DepartmentIdMasterDto> listOfStkTlsRtn = this.masterService
-					.getByMasterIdName("Stock Tools Rtn Id");
+			List<DepartmentIdMasterDto> listOfStkTlsRtn = this.masterService.getByMasterIdName("Stock Tools Rtn Id");
 			model.addAttribute("listOfStkTlsRtn", listOfStkTlsRtn);
 		}
 
@@ -678,33 +682,37 @@ public class MasterController {
 	// Handler For Submitting Category Master Data
 	@PostMapping("/savecategorydata")
 	public String saveCategoryMaster(CategoryDto categoryDto, HttpSession session) {
-		try {
-			String idName = "Categaroy Id";
-			IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
-			String lastCategoryId = idMasterDto.getLastNumber();
-			StringBuilder letters = new StringBuilder();
-			StringBuilder numbers = new StringBuilder();
-			for (int i = 0; i < lastCategoryId.length(); i++) {
-				char c = lastCategoryId.charAt(i);
-				if (Character.isDigit(c)) {
-					numbers.append(c);
-				} else {
-					letters.append(c);
+		if (this.masterService.isCategoryExists(categoryDto.getCategoryName())) {
+			session.setAttribute("message", new Message("Category Name Already Exist !!", "warning"));
+		} else {
+			try {
+				String idName = "Categaroy Id";
+				IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
+				String lastCategoryId = idMasterDto.getLastNumber();
+				StringBuilder letters = new StringBuilder();
+				StringBuilder numbers = new StringBuilder();
+				for (int i = 0; i < lastCategoryId.length(); i++) {
+					char c = lastCategoryId.charAt(i);
+					if (Character.isDigit(c)) {
+						numbers.append(c);
+					} else {
+						letters.append(c);
+					}
 				}
-			}
-			String lettersString = letters.toString();
-			String numbersString = numbers.toString();
+				String lettersString = letters.toString();
+				String numbersString = numbers.toString();
 
-			int number = Integer.parseInt(numbersString);
-			number++;
-			String nextCategoryId = lettersString + Integer.toString(number);
-			idMasterDto.setLastNumber(nextCategoryId);
-			this.masterService.saveIdMaster(idMasterDto);
-		} catch (Exception e) {
-			System.out.println("something went Wrong !!" + e.getMessage());
+				int number = Integer.parseInt(numbersString);
+				number++;
+				String nextCategoryId = lettersString + Integer.toString(number);
+				idMasterDto.setLastNumber(nextCategoryId);
+				this.masterService.saveIdMaster(idMasterDto);
+			} catch (Exception e) {
+				System.out.println("something went Wrong !!" + e.getMessage());
+			}
+			this.masterService.saveCategory(categoryDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
 		}
-		this.masterService.saveCategory(categoryDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
 		return "redirect:/masters/category";
 	}
 
@@ -733,8 +741,12 @@ public class MasterController {
 	// Handler For Submitting Distribution Location Data
 	@PostMapping("/savedislocation")
 	public String saveDistributionLocation(DistributionLocationDto disLocationDto, HttpSession session) {
-		this.masterService.saveDistributionLocation(disLocationDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isisDistributionLocationExists(disLocationDto.getDistlocation())) {
+			session.setAttribute("message", new Message("Distribution Location Already Exist !!", "warning"));
+		} else {
+			this.masterService.saveDistributionLocation(disLocationDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/dislocation";
 	}
 
@@ -743,6 +755,8 @@ public class MasterController {
 	public String showDistibutionLocationHistory(Model model) {
 		List<DistributionLocationDto> listOfDistLocations = this.masterService.findAllDistributionLocation();
 		model.addAttribute("listOfDistLocations", listOfDistLocations);
+		List<String> divisions = this.masterService.getDistinctDivisions();
+		model.addAttribute("listOfDivisions", divisions);
 		model.addAttribute("show", "show");
 		model.addAttribute("title", "Master | Distribution Location | Manintenance Management");
 		return "/pages/masters/distribution-location";
@@ -751,8 +765,12 @@ public class MasterController {
 	// Handler For Submitting Distribution Schedule Data
 	@PostMapping("/savedisschedule")
 	public String saveDistributionSchedule(DistributionScheduleDto disScheduleDto, HttpSession session) {
-		this.masterService.saveDisSchedule(disScheduleDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isisDistributionScheduleExists(disScheduleDto.getDistSchedule())) {
+			session.setAttribute("message", new Message("Distribution Schedule Already Exist !!", "warning"));
+		} else {
+			this.masterService.saveDisSchedule(disScheduleDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/schedule";
 	}
 
@@ -761,6 +779,8 @@ public class MasterController {
 	public String showDistributionScheduleHistory(Model model) {
 		List<DistributionScheduleDto> listOfDisScheduleDtos = this.masterService.findAllDisSchedule();
 		model.addAttribute("listOfdisschedule", listOfDisScheduleDtos);
+		List<String> divisionList = this.masterService.getDistinctDivisions();
+		model.addAttribute("divisionList", divisionList);
 		model.addAttribute("show", "show");
 		model.addAttribute("title", "Master | Distribution Schedule | Manintenance Management");
 		return "/pages/masters/distribution-schedule";
@@ -769,8 +789,14 @@ public class MasterController {
 	// Handler For Submitting Division Subdivision Data
 	@PostMapping("/savedivsubdiv")
 	public String saveDivisionSubdivision(DivisionSubdivisionDto divSubdivdto, HttpSession session) {
-		this.masterService.saveDivisionSubdivision(divSubdivdto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isSubDivisionExists(divSubdivdto.getSubdivision())) {
+			session.setAttribute("message", new Message("SubDivision Name Already Exist !!", "warning"));
+		} else if (this.masterService.isServiceStationExists(divSubdivdto.getServiceStation())) {
+			session.setAttribute("message", new Message("Service Station Name Already Exist !!", "warning"));
+		} else {
+			this.masterService.saveDivisionSubdivision(divSubdivdto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/divsubdivision";
 	}
 
@@ -787,8 +813,14 @@ public class MasterController {
 	// Handler For Submitting Dma-Ward Data
 	@PostMapping("/savedmaward")
 	public String saveDmaWard(DmaWardDto dmaWardDto, HttpSession session) {
-		this.masterService.saveDmaWard(dmaWardDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isDmaNumberExists(dmaWardDto.getDmaNumber())) {
+			session.setAttribute("message", new Message("Dma Number Already Exists !!", "warning"));
+		} else if (this.masterService.isWardNumberExists(dmaWardDto.getWardNumber())) {
+			session.setAttribute("message", new Message("Ward Number Already Exists !!", "warning"));
+		} else {
+			this.masterService.saveDmaWard(dmaWardDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/dmaward";
 	}
 
@@ -805,8 +837,12 @@ public class MasterController {
 	// Handler For Submitting Emplyee Performance Data
 	@PostMapping("/saveEmpPerform")
 	public String saveEmplyeePerformance(EmployeePerformanceDto empPerformDto, HttpSession session) {
-		this.masterService.saveEmplyeePerformmance(empPerformDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isExistsEmpPerformanceSts(empPerformDto.getPerformStatus())) {
+			session.setAttribute("message", new Message("Employee Performance Status Already Exist !!", "warning"));
+		} else {
+			this.masterService.saveEmplyeePerformmance(empPerformDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/empperformance";
 	}
 
@@ -823,8 +859,14 @@ public class MasterController {
 	// Handler For Submitting HSN Code Data
 	@PostMapping("/savehsncode")
 	public String saveHsnCode(HsnCodeDto hsnCodeDto, HttpSession session) {
-		this.masterService.saveHsnCode(hsnCodeDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isHsnCodeExists(hsnCodeDto.getHsnCode())) {
+			session.setAttribute("message", new Message("Hsn Code Already Exists !!", "warning"));
+		} else if (this.masterService.isCategoryExistsInHsnCode(hsnCodeDto.getCategory().getCategoryName())) {
+			session.setAttribute("message", new Message("Category Alreday Added !!", "warning"));
+		} else {
+			this.masterService.saveHsnCode(hsnCodeDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
 		return "redirect:/masters/hsncode";
 	}
 
@@ -861,8 +903,12 @@ public class MasterController {
 	// Handler For Submitting MaintanceActivety Data
 	@PostMapping("/saveMaintenactive")
 	public String saveMaintanceActivety(MaintenanceActivitiesDto maintenActivDto, HttpSession session) {
-		this.masterService.saveMaintenActivity(maintenActivDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		if (this.masterService.isMaintenanceActivityExists(maintenActivDto.getMaintenActivity())) {
+			session.setAttribute("message", new Message("Maintenance Activity Already Exist !!", "warning"));
+		}else {
+			this.masterService.saveMaintenActivity(maintenActivDto);			
+			session.setAttribute("message", new Message("Data Successfully Added !!", "success"));
+		}		
 		return "redirect:/masters/maintenactivity";
 	}
 
@@ -969,7 +1015,7 @@ public class MasterController {
 
 	// Handler For Submitting Meter Type Data
 	@PostMapping("/savemetertype")
-	public String submitMeterTypeData(MeterTypeDto meterTypeDto, HttpSession session) {		
+	public String submitMeterTypeData(MeterTypeDto meterTypeDto, HttpSession session) {
 		meterTypeDto.setMeterType(meterTypeDto.getMeterType().toUpperCase());
 		this.masterService.saveMeterType(meterTypeDto);
 		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
@@ -989,36 +1035,36 @@ public class MasterController {
 	// Handler For Submitting Meter manufacture Data
 	@PostMapping("/savemetermanufact")
 	public String saveMeterManuFacture(MeterManufactureDto meterManufactDto, HttpSession session) {
-		
-		if (meterManufactDto.getMeterType() != "") {
-		try {
-			String idName = "Meter Id";
-			IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
-			String lastMeterId = idMasterDto.getLastNumber();
-			StringBuilder letters = new StringBuilder();
-			StringBuilder numbers = new StringBuilder();
-			for (int i = 0; i < lastMeterId.length(); i++) {
-				char c = lastMeterId.charAt(i);
-				if (Character.isDigit(c)) {
-					numbers.append(c);
-				} else {
-					letters.append(c);
-				}
-			}
-			String lettersString = letters.toString();
-			String numbersString = numbers.toString();
 
-			int number = Integer.parseInt(numbersString);
-			number++;
-			String nextlastMeterId = lettersString + Integer.toString(number);
-			idMasterDto.setLastNumber(nextlastMeterId);
-			this.masterService.saveIdMaster(idMasterDto);
-		} catch (Exception e) {
-			System.out.println("something went Wrong !!" + e.getMessage());
-		}		
-		this.masterService.saveMeterManufact(meterManufactDto);
-		
-		}else {
+		if (meterManufactDto.getMeterType() != "") {
+			try {
+				String idName = "Meter Id";
+				IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
+				String lastMeterId = idMasterDto.getLastNumber();
+				StringBuilder letters = new StringBuilder();
+				StringBuilder numbers = new StringBuilder();
+				for (int i = 0; i < lastMeterId.length(); i++) {
+					char c = lastMeterId.charAt(i);
+					if (Character.isDigit(c)) {
+						numbers.append(c);
+					} else {
+						letters.append(c);
+					}
+				}
+				String lettersString = letters.toString();
+				String numbersString = numbers.toString();
+
+				int number = Integer.parseInt(numbersString);
+				number++;
+				String nextlastMeterId = lettersString + Integer.toString(number);
+				idMasterDto.setLastNumber(nextlastMeterId);
+				this.masterService.saveIdMaster(idMasterDto);
+			} catch (Exception e) {
+				System.out.println("something went Wrong !!" + e.getMessage());
+			}
+			this.masterService.saveMeterManufact(meterManufactDto);
+
+		} else {
 			session.setAttribute("message", new Message("Data Unsaved !! Something Went Wrong !!", "warning"));
 			return "redirect:/masters/metermanufacture";
 		}
@@ -1280,9 +1326,13 @@ public class MasterController {
 	// Handler For Save Leakage Type Data
 	@PostMapping("/saveleakageType")
 	public String saveLaeakageType(LeakageTypeDto leakageTypeDto, HttpSession session) {
-		this.masterService.saveLeakageType(leakageTypeDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
-		return "redirect:/masters/leakagetype";
+		if (this.masterService.isLeakageTypeExists(leakageTypeDto.getLeakageType())) {
+			session.setAttribute("message", new Message("Leakage Type Already Present !!", "warning"));
+		} else {
+			this.masterService.saveLeakageType(leakageTypeDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !!", "success"));
+		}
+		return "redirect:/masters/leakageMaster";
 	}
 
 	// Handler For Display Leakage type
@@ -1392,7 +1442,7 @@ public class MasterController {
 			String idName = "Vehicle Id";
 			IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(idName);
 			String lastVehicleId = idMasterDto.getLastNumber();
-			model.addAttribute("vehicleMasterId", lastVehicleId);						
+			model.addAttribute("vehicleMasterId", lastVehicleId);
 		} catch (Exception e) {
 			session.setAttribute("message",
 					new Message("Vehicle Id Is Not Present !! Please Add Id First !!", "danger"));
@@ -1504,8 +1554,7 @@ public class MasterController {
 	@GetMapping("/getDeptMasterIdData/{depMasterId}")
 	public ResponseEntity<DepartmentIdMasterDto> getDepartmentIdByMasterdeptId(
 			@PathVariable("depMasterId") Long depMasterId) {
-		DepartmentIdMasterDto departmentIdMasterDto = this.masterService
-				.getDeptIdMasterByDepMasterId(depMasterId);
+		DepartmentIdMasterDto departmentIdMasterDto = this.masterService.getDeptIdMasterByDepMasterId(depMasterId);
 		return new ResponseEntity<DepartmentIdMasterDto>(departmentIdMasterDto, HttpStatus.OK);
 	}
 
@@ -1569,8 +1618,15 @@ public class MasterController {
 	// Handler For Save Brand Master Data
 	@PostMapping("/saveBrand-master")
 	public String saveBrandMaster(BrandMasterDto brandMasterDto, HttpSession session) {
-		this.masterService.saveBrandMaster(brandMasterDto);
-		session.setAttribute("message", new Message("Data Saved Successfully !! ", "success"));
+		this.masterService.isBrandNameExists(brandMasterDto.getBrandName());
+		if (!this.masterService.isBrandNameExists(brandMasterDto.getBrandName())) {
+			this.masterService.saveBrandMaster(brandMasterDto);
+			session.setAttribute("message", new Message("Data Saved Successfully !! ", "success"));
+		} else {
+			session.setAttribute("message", new Message("Brand Name Alrady Exist !! ", "warning"));
+			return "redirect:/masters/brand-master";
+		}
+
 		return "redirect:/masters/brand-master";
 	}
 
@@ -1597,8 +1653,9 @@ public class MasterController {
 		try {
 			this.masterService.deleteCategory(catid);
 		} catch (Exception e) {
-			session.setAttribute("message",
-					new Message("Child Class Already Present !! You Can't Delete !!", "danger"));
+			session.setAttribute("message", new Message(
+					"Category Having Hsn Code !! You Can't Delete !! If You Want To Remove 1St Delete HsnCode !!",
+					"danger"));
 			System.out.println("You Can Not Delete !!" + e.getMessage());
 		}
 		return "redirect:/masters/categoryhistory";
@@ -1850,6 +1907,15 @@ public class MasterController {
 		return new ResponseEntity<List<DivisionSubdivisionDto>>(divSubDivDtos, HttpStatus.OK);
 	}
 
+	// Get Distribution Location By Sub-Divisions
+	@ResponseBody
+	@GetMapping("/get/distribution/location/{subDivision}")
+	public ResponseEntity<List<DistributionLocationDto>> getDistributionLocationBySubDivision(
+			@PathVariable String subDivision) {
+		List<DistributionLocationDto> distLocation = this.masterService.getDistributLocationBysubDivision(subDivision);
+		return new ResponseEntity<List<DistributionLocationDto>>(distLocation, HttpStatus.OK);
+	}
+
 	// Get HsnCode By Category
 	@ResponseBody
 	@GetMapping("/get/hsnCode/{categoryId}")
@@ -1889,42 +1955,41 @@ public class MasterController {
 		VehicleDtlsDto vehicleDtlsDto = this.masterService.getVehicleDtlsByVehicleDtlsId(vehicleId);
 		return new ResponseEntity<VehicleDtlsDto>(vehicleDtlsDto, HttpStatus.OK);
 	}
-	
+
 	// Open Master Employee Category
 	@GetMapping("/empcategory")
 	public String openMasterEmplyeeCategory(Model model) {
 		model.addAttribute("show", null);
-		List<DepartmentDto> departmentDtos = this.masterService.findAllDepartment();		
+		List<DepartmentDto> departmentDtos = this.masterService.findAllDepartment();
 		model.addAttribute("allDepartment", departmentDtos);
 		model.addAttribute("title", "Master | Employee | Manintenance Management");
 		return "/pages/masters/master-employee-category";
 	}
-	
+
 	// Save Master Employee Category
 	@PostMapping("/save/empcategory")
-	public String saveEmployeeCategory(EmployeeCategoryDto employeeCategoryDto,HttpSession session) {
+	public String saveEmployeeCategory(EmployeeCategoryDto employeeCategoryDto, HttpSession session) {
 		this.masterService.saveEmployeeMaster(employeeCategoryDto);
-		session.setAttribute("message", new Message("Data Successfully Saved !!","success"));
+		session.setAttribute("message", new Message("Data Successfully Saved !!", "success"));
 		return "redirect:/masters/empcategory";
 	}
-	
-	//Get all Employee Master Category
+
+	// Get all Employee Master Category
 	@GetMapping("/empcategory/history")
 	public String displayAllEmployeeCategory(Model model) {
 		List<EmployeeCategoryDto> employeeCategoryDtos = this.masterService.getAllEmployeeCategory();
-		List<DepartmentDto> departmentDtos = this.masterService.findAllDepartment();		
+		List<DepartmentDto> departmentDtos = this.masterService.findAllDepartment();
 		model.addAttribute("allDepartment", departmentDtos);
 		model.addAttribute("listOfEmpCategory", employeeCategoryDtos);
 		model.addAttribute("show", "show");
 		model.addAttribute("title", "Master | Employee | Manintenance Management");
 		return "/pages/masters/master-employee-category";
 	}
-	
-	//Delete Employee Master Category By EmployeeMasterId
+
+	// Delete Employee Master Category By EmployeeMasterId
 	@RequestMapping("/deleteEmpCategory/{empCategoryId}")
 	public String deleteEmployeeMasterCategory(@PathVariable Long empCategoryId) {
 		this.masterService.deleteEmployeeCategory(empCategoryId);
 		return "redirect:/masters/empcategory/history";
 	}
-
 }

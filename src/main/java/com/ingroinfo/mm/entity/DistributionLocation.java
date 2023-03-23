@@ -17,6 +17,6 @@ public class DistributionLocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long disLocId;
 	private String division;
-	private String branch;
+	private String subDivision;
 	private String distlocation;
 }

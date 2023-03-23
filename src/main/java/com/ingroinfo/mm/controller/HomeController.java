@@ -33,8 +33,9 @@ public class HomeController {
 	public String hrApprovals(Model model) {
 		String keyword = "NO";
 		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
-		model.addAttribute("listOfEmployees", listOfEmployees);
+		model.addAttribute("listOfEmployees", listOfEmployees);		
 		model.addAttribute("leaveData", new EmployeeLeaveDto());
+		model.addAttribute("emp", new EmployeeLeaveDto());
 		return "/pages/hr_approvals";
 	}
 	

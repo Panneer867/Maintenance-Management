@@ -936,8 +936,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/leakage/maintenance-history' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
 										<a th:href="@{/leakage/maintenance-history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -1553,7 +1552,7 @@
 							|| #httpServletRequest.getRequestURI() == '/masters/hsncodehistory' ? 'active':''}">
 							<span class="text">HSN CODE</span>
 						</div>
-						<div class="icon" onclick="window.location='/masters/leakagetype'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/leakagetype' 
+						<div class="icon" onclick="window.location='/masters/leakageMaster'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/leakageMaster' 
 							|| #httpServletRequest.getRequestURI() == '/masters/leakageHistory' ? 'active':''}">
 							<span class="text">Leakage Type</span>
 						</div>
@@ -1774,6 +1773,8 @@
 	<script th:src="@{/js/get-mastertable-data.js}"></script>
 	<script th:src="@{/js/master-jquery-table.js}"></script>
 	<script th:src="@{/js/tab-work-order.js}"></script>
+	<script th:src="@{/js/graph/deptwise-total-employee.js}"></script>
+	<script th:src="@{/js/graph/deptwise-total-empleave.js}"></script>
 </body>
 
 </html>

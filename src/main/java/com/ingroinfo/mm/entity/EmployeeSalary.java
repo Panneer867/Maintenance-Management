@@ -2,13 +2,15 @@ package com.ingroinfo.mm.entity;
 
 import java.util.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
@@ -21,7 +23,7 @@ public class EmployeeSalary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long empSalaryId;
-	@Column(name="EPLOYEE_ID",length = 20)
+	@Column(name="EMPLOYEE_ID_SAL",length = 20)
 	private String employeeId;
 	@Column(name = "EMPLOYEE_NAME",length = 150)
 	private String empName;
@@ -73,6 +75,11 @@ public class EmployeeSalary {
 	private String grossDeduct;
 	@Column(name = "Total_Net_Pay",length = 50)
 	private String totalNetPay;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="employee_id")
+	private EmployeeMaster employeeMaster;
 	
 	@Column(name = "CREATE_DATE")	
 	private Date createDate;
