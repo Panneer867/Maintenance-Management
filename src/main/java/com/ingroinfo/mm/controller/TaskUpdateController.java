@@ -33,6 +33,11 @@ public class TaskUpdateController {
 		model.addAttribute("getLoggedUser", principal.getName());
 
 	}
+		
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "/pages/task_update/dashboard";
+	}
 
 	@GetMapping("/je")
 	@PreAuthorize("hasAuthority('TASK_JE')")

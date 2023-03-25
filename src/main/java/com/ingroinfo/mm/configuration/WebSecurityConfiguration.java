@@ -51,7 +51,7 @@ public class WebSecurityConfiguration {
 				.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/home", true)
+				.defaultSuccessUrl("/dashboard", true)
 				.failureUrl("/login?error")
 				.and()
 				.logout()

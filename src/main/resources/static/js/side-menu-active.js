@@ -167,6 +167,12 @@ $(document).ready(function() {
 	/**************Strat of Task Updated tabs *************** */
 	
 	$(function() {
+		if (window.location.href.match('/task/dashboard')) {
+			$("#task-update-dashboard").addClass("m-menu__item--active sub-menu-active");
+		}
+	});	
+	
+	$(function() {
 		if (window.location.href.match('/task/je')) {
 			$("#task-update-je").addClass("m-menu__item--active sub-menu-active");
 		}

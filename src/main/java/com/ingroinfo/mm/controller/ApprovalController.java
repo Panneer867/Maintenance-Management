@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,6 +77,12 @@ public class ApprovalController {
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
+	}
+	
+	@GetMapping
+	@PreAuthorize("hasAuthority('APPROVALS')")
+	public String hrApprovals(Model model) {		
+		return "approvals_page";
 	}
 
 	// Handler For Open Indent Approval Page

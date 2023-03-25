@@ -118,8 +118,8 @@
 					data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
 					<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-							th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'li-active':''}">
-							<a th:href="@{/home}" class="m-menu__link m-menu__toggle">
+							th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'li-active':''}">
+							<a th:href="@{/dashboard}" class="m-menu__link m-menu__toggle">
 								<img th:src="@{/images/menu_icons/Dashboard.png}" class="menu-icon-size pt-1">
 								<span class="m-menu__link-text pl-5">
 									Dashboard
