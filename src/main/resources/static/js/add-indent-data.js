@@ -423,70 +423,41 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			type: "post",
-			url: "/pump/save/add/labourData",
-			data: {
-				indentNo: $("#pump-labour-indent").val(),
-				complNo: $("#pump-labour-comlNo").val(),
-				division: $("#pump-labour-division").val(),
-				subDivision: $("#pump-labour-subdivision").val(),
-				workSite: $("#pump-labour-worksite").val(),
-				startDate: $("#pump-labour-startDate").val(),
-				endDate: $("#pump-labour-endDate").val(),
-				contactNo: $("#pump-labour-contactNo").val(),
-				complDtls: $("#pump-labour-comlDtls").val(),
-				workPriority: $("#pump-labour-workpriority").val(),
-				empCategory: $("#pump-labour-empCategory").val(),
-				members: $("#pump-labour-members").val(),
-				daysRequired: $("#pump-labour-days").val(),
-				timeRequired: $("#pump-labour-time").val(),
-				departmentName: $("#pump-spare-indentDept").val(),
-
-			},
-			success: function(result) {
-
-				$("#pump-labour-empCategory").val("");
-				$("#pump-labour-members").val("");
-				$("#pump-labour-days").val("");
-				$("#pump-labour-time").val("");
-
-				//Show Added Data		
-				$.ajax({
-					type: "GET",
-					url: "/pump/add/get/labour/" + indentNo + "/" + complNo,
-					success: function(data) {
-						var json = JSON.stringify(data);
-						var result = JSON.parse(json);
-						var row = '';
-						var count = 0;
-						result.forEach(function(labor) {
-							count = count + 1
-							row += '<tr>';
-							row += '<td>' + count + '</td>';
-							row += '<td>' + labor.empCategory + '</td>';
-							row += '<td>' + labor.members + '</td>';
-							row += '<td>' + labor.daysRequired + '</td>';
-							row += '<td>' + labor.timeRequired + '</td>';
-							row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
-							row += '</tr>';
-						});
-						// Insert the generated HTML into the table body
-						$('#myTable1 tbody').html(row);
-					},
-				});
-
-				$('table').on('click', '.delete-btn1', function(e) {
-					e.preventDefault();
-					var row = $(this).closest('tr');
-					//var pumMaterialId = row.find('.item-delete').text();
-					var labourReqId = $(this).data('pum-labor-id');
-					//alert(value);
-
+			type: "GET",
+			url: "/pump/add/labor/empcategory/verify/" + category,
+			success: function(data) {
+				if (data === "true") {
+					alert("Employee Category Already Added , You Have To Delete For Re-Enter !!")
+					return false;
+				} else {
 					$.ajax({
-						type: 'DELETE',
-						url: '/pump/delete/labour/' + labourReqId,
+						type: "post",
+						url: "/pump/save/add/labourData",
+						data: {
+							indentNo: $("#pump-labour-indent").val(),
+							complNo: $("#pump-labour-comlNo").val(),
+							division: $("#pump-labour-division").val(),
+							subDivision: $("#pump-labour-subdivision").val(),
+							workSite: $("#pump-labour-worksite").val(),
+							startDate: $("#pump-labour-startDate").val(),
+							endDate: $("#pump-labour-endDate").val(),
+							contactNo: $("#pump-labour-contactNo").val(),
+							complDtls: $("#pump-labour-comlDtls").val(),
+							workPriority: $("#pump-labour-workpriority").val(),
+							empCategory: $("#pump-labour-empCategory").val(),
+							members: $("#pump-labour-members").val(),
+							daysRequired: $("#pump-labour-days").val(),
+							timeRequired: $("#pump-labour-time").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
+
+						},
 						success: function(result) {
-							alert(result);
+
+							$("#pump-labour-empCategory").val("");
+							$("#pump-labour-members").val("");
+							$("#pump-labour-days").val("");
+							$("#pump-labour-time").val("");
+
 							//Show Added Data		
 							$.ajax({
 								type: "GET",
@@ -512,23 +483,63 @@ $(document).ready(function() {
 								},
 							});
 
+							$('table').on('click', '.delete-btn1', function(e) {
+								e.preventDefault();
+								var row = $(this).closest('tr');
+								//var pumMaterialId = row.find('.item-delete').text();
+								var labourReqId = $(this).data('pum-labor-id');
+								//alert(value);
+
+								$.ajax({
+									type: 'DELETE',
+									url: '/pump/delete/labour/' + labourReqId,
+									success: function(result) {
+										alert(result);
+										//Show Added Data		
+										$.ajax({
+											type: "GET",
+											url: "/pump/add/get/labour/" + indentNo + "/" + complNo,
+											success: function(data) {
+												var json = JSON.stringify(data);
+												var result = JSON.parse(json);
+												var row = '';
+												var count = 0;
+												result.forEach(function(labor) {
+													count = count + 1
+													row += '<tr>';
+													row += '<td>' + count + '</td>';
+													row += '<td>' + labor.empCategory + '</td>';
+													row += '<td>' + labor.members + '</td>';
+													row += '<td>' + labor.daysRequired + '</td>';
+													row += '<td>' + labor.timeRequired + '</td>';
+													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
+													row += '</tr>';
+												});
+												// Insert the generated HTML into the table body
+												$('#myTable1 tbody').html(row);
+											},
+										});
+
+
+									},
+									error: function(err) {
+
+									}
+								});
+
+							});
+
 
 						},
 						error: function(err) {
-
+							alert("Something Went Wrong !! Data Not Added" + err);
 						}
 					});
 
-				});
-
-
+				}
 			},
-			error: function(err) {
-				alert("Something Went Wrong !! Data Not Added" + err);
-			}
+
 		});
-
-
 	});
 
 	/*********************** End Added Data In Second Tab**********************************/
@@ -628,123 +639,135 @@ $(document).ready(function() {
 			return false;
 		}
 
+		var vehicleNo = $("#pump-vehicle-vehicleNo").val();
+
 		$.ajax({
-			type: "post",
-			url: "/pump/save/add/vehicleData",
-			data: {
-				indentNo: $("#pump-vehicle-indentNo").val(),
-				complNo: $("#pump-vehicle-complNo").val(),
-				division: $("#pump-vehicle-division").val(),
-				subDivision: $("#pump-vehicle-subdivision").val(),
-				workSite: $("#pump-vehicle-worksite").val(),
-				startDate: $("#pump-vehicle-stratdate").val(),
-				endDate: $("#pump-vehicle-enddate").val(),
-				contactNo: $("#pump-vehicle-contactNo").val(),
-				complDtls: $("#pump-vehicle-complDtls").val(),
-				workPriority: $("#pump-vehicle-workpriority").val(),
-				vehicleType: $("#master-vehicleType-list").val(),
-				vehicleId: $("#master-vehicleNos-list").val(),
-				driverName: $("#pump-vehicle-driverName").val(),
-				driverPhone: $("#pump-vehicle-driverPhone").val(),
-				meterReading: $("#pump-vehicle-meterReading").val(),
-				stratTime: $("#pump-vehicle-stratingTime").val(),
-				vehicleNo: $("#pump-vehicle-vehicleNo").val(),
-				departmentName: $("#pump-spare-indentDept").val(),
+			type: "GET",
+			url: "/pump/add/vehicle/number/verify/" + vehicleNo,
+			success: function(data) {
+				if (data === "true") {
+					alert("Vehicle No Already Added , You Have To Delete For Re-Enter !!")
+					return false;
+				} else {
 
-			},
-			success: function(result) {
-
-				$("#master-vehicleType-list").val(""),
-					$("#master-vehicleNos-list").val(""),
-					$("#pump-vehicle-driverName").val(""),
-					$("#pump-vehicle-driverPhone").val(""),
-					$("#pump-vehicle-meterReading").val(""),
-					$("#pump-vehicle-stratingTime").val(""),
-					$("#pump-vehicle-vehicleNo").val(""),
-
-					//Show Added Data		
 					$.ajax({
-						type: "GET",
-						url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
-						success: function(data) {
-							var json = JSON.stringify(data);
-							var result = JSON.parse(json);
-							var row = '';
-							var count = 0;
-							result.forEach(function(vehicle) {
-								count = count + 1
-								row += '<tr>';
-								row += '<td>' + count + '</td>';
-								row += '<td>' + vehicle.vehicleType + '</td>';
-								row += '<td>' + vehicle.vehicleNo + '</td>';
-								row += '<td>' + vehicle.driverName + '</td>';
-								row += '<td>' + vehicle.driverPhone + '</td>';
-								row += '<td>' + vehicle.meterReading + '</td>';
-								row += '<td>' + vehicle.stratTime + '</td>';
-								row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
-								row += '</tr>';
-							});
-							// Insert the generated HTML into the table body
-							$('#myTable2 tbody').html(row);
+						type: "post",
+						url: "/pump/save/add/vehicleData",
+						data: {
+							indentNo: $("#pump-vehicle-indentNo").val(),
+							complNo: $("#pump-vehicle-complNo").val(),
+							division: $("#pump-vehicle-division").val(),
+							subDivision: $("#pump-vehicle-subdivision").val(),
+							workSite: $("#pump-vehicle-worksite").val(),
+							startDate: $("#pump-vehicle-stratdate").val(),
+							endDate: $("#pump-vehicle-enddate").val(),
+							contactNo: $("#pump-vehicle-contactNo").val(),
+							complDtls: $("#pump-vehicle-complDtls").val(),
+							workPriority: $("#pump-vehicle-workpriority").val(),
+							vehicleType: $("#master-vehicleType-list").val(),
+							vehicleId: $("#master-vehicleNos-list").val(),
+							driverName: $("#pump-vehicle-driverName").val(),
+							driverPhone: $("#pump-vehicle-driverPhone").val(),
+							meterReading: $("#pump-vehicle-meterReading").val(),
+							stratTime: $("#pump-vehicle-stratingTime").val(),
+							vehicleNo: $("#pump-vehicle-vehicleNo").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
+
 						},
-					});
-
-				$('table').on('click', '.delete-btn2', function(e) {
-					e.preventDefault();
-					var row = $(this).closest('tr');
-					//var pumMaterialId = row.find('.item-delete').text();
-					var vehicleReqId = $(this).data('pum-vehicle-id');
-					//alert(value);
-
-					$.ajax({
-						type: 'DELETE',
-						url: '/pump/delete/vehicle/' + vehicleReqId,
 						success: function(result) {
-							alert(result);
-							//Show Added Data		
-							$.ajax({
-								type: "GET",
-								url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
-								success: function(data) {
-									var json = JSON.stringify(data);
-									var result = JSON.parse(json);
-									var row = '';
-									var count = 0;
-									result.forEach(function(vehicle) {
-										count = count + 1
-										row += '<tr>';
-										row += '<td>' + count + '</td>';
-										row += '<td>' + vehicle.vehicleType + '</td>';
-										row += '<td>' + vehicle.vehicleNo + '</td>';
-										row += '<td>' + vehicle.driverName + '</td>';
-										row += '<td>' + vehicle.driverPhone + '</td>';
-										row += '<td>' + vehicle.meterReading + '</td>';
-										row += '<td>' + vehicle.stratTime + '</td>';
-										row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
-										row += '</tr>';
-									});
-									// Insert the generated HTML into the table body
-									$('#myTable2 tbody').html(row);
-								},
-							});
 
+							$("#master-vehicleType-list").val(""),
+								$("#master-vehicleNos-list").val(""),
+								$("#pump-vehicle-driverName").val(""),
+								$("#pump-vehicle-driverPhone").val(""),
+								$("#pump-vehicle-meterReading").val(""),
+								$("#pump-vehicle-stratingTime").val(""),
+								$("#pump-vehicle-vehicleNo").val(""),
+
+								//Show Added Data		
+								$.ajax({
+									type: "GET",
+									url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
+									success: function(data) {
+										var json = JSON.stringify(data);
+										var result = JSON.parse(json);
+										var row = '';
+										var count = 0;
+										result.forEach(function(vehicle) {
+											count = count + 1
+											row += '<tr>';
+											row += '<td>' + count + '</td>';
+											row += '<td>' + vehicle.vehicleType + '</td>';
+											row += '<td>' + vehicle.vehicleNo + '</td>';
+											row += '<td>' + vehicle.driverName + '</td>';
+											row += '<td>' + vehicle.driverPhone + '</td>';
+											row += '<td>' + vehicle.meterReading + '</td>';
+											row += '<td>' + vehicle.stratTime + '</td>';
+											row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
+											row += '</tr>';
+										});
+										// Insert the generated HTML into the table body
+										$('#myTable2 tbody').html(row);
+									},
+								});
+
+							$('table').on('click', '.delete-btn2', function(e) {
+								e.preventDefault();
+								var row = $(this).closest('tr');
+								//var pumMaterialId = row.find('.item-delete').text();
+								var vehicleReqId = $(this).data('pum-vehicle-id');
+								//alert(value);
+
+								$.ajax({
+									type: 'DELETE',
+									url: '/pump/delete/vehicle/' + vehicleReqId,
+									success: function(result) {
+										alert(result);
+										//Show Added Data		
+										$.ajax({
+											type: "GET",
+											url: "/pump/add/get/vehicle/" + indentNo + "/" + complNo,
+											success: function(data) {
+												var json = JSON.stringify(data);
+												var result = JSON.parse(json);
+												var row = '';
+												var count = 0;
+												result.forEach(function(vehicle) {
+													count = count + 1
+													row += '<tr>';
+													row += '<td>' + count + '</td>';
+													row += '<td>' + vehicle.vehicleType + '</td>';
+													row += '<td>' + vehicle.vehicleNo + '</td>';
+													row += '<td>' + vehicle.driverName + '</td>';
+													row += '<td>' + vehicle.driverPhone + '</td>';
+													row += '<td>' + vehicle.meterReading + '</td>';
+													row += '<td>' + vehicle.stratTime + '</td>';
+													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
+													row += '</tr>';
+												});
+												// Insert the generated HTML into the table body
+												$('#myTable2 tbody').html(row);
+											},
+										});
+
+
+									},
+									error: function(err) {
+
+									}
+								});
+
+							});
 
 						},
 						error: function(err) {
-
+							alert("Something Went Wrong !! Data Not Added" + err);
 						}
 					});
 
-				});
-
-
+				}
 			},
-			error: function(err) {
-				alert("Something Went Wrong !! Data Not Added" + err);
-			}
 		});
-
-
 
 	});
 

@@ -10,12 +10,12 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_TEMP_WORKORDER_LABOUR_REQUEST")
-public class TempWorkOderLabourRequest {
-	
+@Table(name="MM_WAP_WORKORDER_ITEM_REQUEST")
+public class WapWorkOrderItemRequest {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long labourReqId;
+	private Long itemReqId;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -26,10 +26,16 @@ public class TempWorkOderLabourRequest {
 	private String contactNo;	
 	private String complDtls;
 	private String workPriority;
-	private String empCategory;
-	private String members;
-	private String daysRequired;
-	private String timeRequired;
+	private String categoryName;
+	private String itemName;
+	private String itemId;
+	private String unitOfMesure;
+	private String hsnCode;
+	private String quantity;
+	private String stockType;
+	private String stockTypeName;
 	private String departmentName;
+	private String userName;
+	private String status;
 
 }

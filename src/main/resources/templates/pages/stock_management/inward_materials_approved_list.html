@@ -68,7 +68,7 @@
 					<th class="all">Category</th>
 					<th class="all">Item</th>
 					<th class="all">Supplier</th>
-					<th class="all">Qty</th>
+					<th class="all">Available Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
 					<th class="all">Sub Total</th>
@@ -85,7 +85,7 @@
 					<td th:text="${approvedMaterialsList.category}"></td>
 					<td th:text="${approvedMaterialsList.itemName}"></td>
 					<td th:text="${approvedMaterialsList.supplier}"></td>
-					<td th:text="${approvedMaterialsList.quantity}"></td>
+					<td th:text="${approvedMaterialsList.availableQty}"></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.costRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.mrpRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.subTotal}"></label></td>

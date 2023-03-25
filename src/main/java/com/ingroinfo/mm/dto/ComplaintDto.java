@@ -1,5 +1,7 @@
 package com.ingroinfo.mm.dto;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -57,4 +59,11 @@ public class ComplaintDto {
 	private String esclatedReason;
 	private String esclationType;
 	private String esclationLavel;
+	
+	private String indentNo;
+	private String workOrder;
+	private String indentApprovedBy;
+	private String workorderApprovedBy;
+	private Date indentApprovedDate;
+	private Date workorderApprovedDate;
 }

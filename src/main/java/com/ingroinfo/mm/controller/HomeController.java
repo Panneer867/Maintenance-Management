@@ -28,15 +28,22 @@ public class HomeController {
 		return "/dashboard";
 	}
 
+	/*
+	 * @GetMapping("/approval")
+	 * 
+	 * @PreAuthorize("hasAuthority('APPROVALS')") public String hrApprovals(Model
+	 * model) { String keyword = "NO"; List<EmployeeLeaveDto> listOfEmployees =
+	 * this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
+	 * model.addAttribute("listOfEmployees", listOfEmployees);
+	 * model.addAttribute("leaveData", new EmployeeLeaveDto());
+	 * model.addAttribute("emp", new EmployeeLeaveDto()); return
+	 * "/pages/hr_approvals"; }
+	 */
+	
 	@GetMapping("/approval")
 	@PreAuthorize("hasAuthority('APPROVALS')")
-	public String hrApprovals(Model model) {
-		String keyword = "NO";
-		List<EmployeeLeaveDto> listOfEmployees = this.employeeMasterService.getEmployeeLeaveByHrApproval(keyword);
-		model.addAttribute("listOfEmployees", listOfEmployees);		
-		model.addAttribute("leaveData", new EmployeeLeaveDto());
-		model.addAttribute("emp", new EmployeeLeaveDto());
-		return "/pages/hr_approvals";
+	public String hrApprovals(Model model) {		
+		return "approvals_page";
 	}
 	
 	

@@ -2,464 +2,408 @@
 
 <body>
 	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Work Orders
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+						</li>
 
-		<div class="mt-2">
-			<ul class="nav nav-pills justify-content-center py-1 mb-2" id="pills-tab" role="tablist">
-
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-home-tab"
-						data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
-						aria-controls="pills-home" aria-selected="true">
-						Cancel Work Order
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-chart-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-chart" type="button" role="tab" aria-controls="pills-chart"
-						aria-selected="false">
-						Cancel Work Order Dashboard
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab"
-						data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
-						aria-controls="pills-profile" aria-selected="false">
-						Cancel Work Order View
-					</button>
-				</li>
-
-
-			</ul>
-			<div class="tab-content" id="pills-tabContent">
-				<div class="tab-pane fade show active generate-hold-cancle-form" id="pills-home" role="tabpanel"
-					aria-labelledby="pills-home-tab" tabindex="0">
-					<div class="card bl-cr">
-						<div class="card-header heading-bg">
-							<h3 class="text-center text-white">Cancel Work Order</h3>
-						</div>
-						<div class="card-body font-weight-bold">
-							<form method="post" th:action="@{/workorder/savecancelworkord}">
-								<div class="row">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Indent No</label>
-										<input type="text" class="form-control" id="indentNo" name="indentNo"
-											placeholder="Indent No">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Indent Department</label>
-										<input type="text" class="form-control" id="indentDepartement"
-											name="indentDepartement" placeholder="Indent Department">
-									</div>
-									<!--	<div class="form-group col-md-3">
-																			<label for="inputEmail4">Indent Date</label>
-																			<input type="date" class="form-control" id="inputEmail4" placeholder="Indent Date">
-																		</div>-->
-
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Date</label>
-										<input type="date" class="form-control" id="workOrderDate" name="workOrderDate"
-											placeholder="Email">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Number</label>
-										<input type="number" class="form-control" id="workOrderNumber"
-											name="workOrderNumber" placeholder="Work Order Number">
-									</div>
-								</div>
-
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Division</label>
-										<input type="text" class="form-control" id="division" name="division"
-											placeholder="Division">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Sub Division</label>
-										<input type="text" class="form-control" id="subDivision" name="subDivision"
-											placeholder="Sub Division">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="inputEmail4">Work Order Scope</label>
-										<input type="text" class="form-control" id="workOrderScope"
-											name="workOrderScope" placeholder="Work Order Scope">
-									</div>
-								</div>
-
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Issued By</label>
-										<input type="text" class="form-control" id="workOrderIssuBy"
-											name="workOrderIssuBy" placeholder="Work Order Issued By">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Priority</label>
-										<input type="text" class="form-control" id="workPriority" name="workPriority"
-											placeholder="Work Priority">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Cost</label>
-										<input type="text" class="form-control" id="workOrderCost" name="workOrderCost"
-											placeholder="Work Order Cost">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Contact</label>
-										<input type="text" class="form-control" id="contact" name="contact"
-											placeholder="Contact">
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="form-group col-md-6">
-										<label for="inputEmail4">Work Site</label>
-										<input type="text" class="form-control" id="workSite" name="workSite"
-											placeholder="Work Site">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Expected Start Date</label>
-										<input type="date" class="form-control" id="expectedStartDate"
-											name="expectedStartDate" placeholder="Expected Start Date">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Expected End Date</label>
-										<input type="date" class="form-control" id="expectedEndDate"
-											name="expectedEndDate" placeholder="Expected End Date">
-									</div>
-								</div>
-
-
-								<!--*********************** Cancel Work Order || PART / MATERIAL ISSUED  Start ********************-->
-								<div class="col-md-12 mt-3">
-									<div class="card bl-cr">
-										<div class="card-header" style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white"><b>PART / MATERIAL ISSUED</b></p>
-										</div>
-										<div class="card-body">
-											<div class="row mt-3">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Category</label>
-													<input type="text" class="form-control" id="category"
-														name="category" placeholder="Category">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Item</label>
-													<input type="text" class="form-control" id="item" name="item"
-														placeholder="Item">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">HSNCODE</label>
-													<input type="text" class="form-control" id="hsnCode" name="hsnCode"
-														placeholder="HSNCODE">
-												</div>
-											</div>
-											<div class="row mt-3">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Unit of Meassure</label>
-													<input type="text" class="form-control" id="unitMeassure"
-														name="unitMeassure" placeholder="Unit of Meassure">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Qty</label>
-													<input type="number" class="form-control" id="cancelMaterialQty"
-														name="cancelMaterialQty" placeholder="Qty">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Amount</label>
-													<input type="number" class="form-control" id="cancelMaterialAmount"
-														name="cancelMaterialAmount" placeholder="Amount">
-												</div>
-												<div class="text-center mt-2">
-													<button type="button"
-														class="btn btn-primary w-25 text-center">Add</button>
-												</div>
-											</div>
-										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover  mytable table-size">
-												<thead>
-													<tr>
-														<th>Category</th>
-														<th>Item</th>
-														<th>HSNCode</th>
-														<th>Unit of Meassure</th>
-														<th>Qty</th>
-														<th>Amount</th>
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-
-													<tr>
-														<td>Sonya Frost</td>
-														<td>Software Engineer</td>
-														<td>Edinburgh</td>
-														<td>23</td>
-														<td>2008-12-13</td>
-														<td>$103,600</td>
-													</tr>
-
-												</tbody>
-												<tbody class="table-scroll">
-													<tr>
-														<td colspan="4" class="text-center">TOTAL</td>
-														<td colspan="1" class="font-weight-bold text-center">qty</td>
-														<td colspan="1" class="font-weight-bold text-center">qty</td>
-													</tr>
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-
-								<!--*********************** Cancel Work Order || LABOUR / TIMES  Start ********************-->
-								<div class="col-md-12 mt-3">
-									<div class="card bl-cr ">
-										<div class="card-header" style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
-										</div>
-										<div class="card-body">
-											<div class="row mt-3">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Employee Categorty</label>
-													<input type="text" class="form-control" id="employeeCategorty"
-														name="employeeCategorty" placeholder="Employee Categorty">
-												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Qty</label>
-													<input type="number" class="form-control" id="labourQty"
-														nam="labourQty" placeholder="Qty">
-												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Days</label>
-													<input type="date" class="form-control" id="days" name="days"
-														placeholder="Days">
-												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Timing</label>
-													<input type="time" class="form-control" id="time" name="time"
-														placeholder="Timing">
-												</div>
-												<div class="form-group col-md-2">
-													<label for="inputEmail4">Total Hour</label>
-													<input type="text" class="form-control" id="totalHours"
-														name="totalHour" placeholder="Total Hour">
-												</div>
-												<div class="text-center mt-2">
-													<button type="button"
-														class="btn btn-primary w-25 text-center">Add</button>
-												</div>
-											</div>
-										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover  table-size"
-												id="generatLabour">
-												<thead>
-													<tr>
-														<th>Employee Categorty</th>
-														<th>Qty</th>
-														<th>Days</th>
-														<th>Timing</th>
-														<th>Start date</th>
-														<th>Total Hour</th>
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-													<tr th:each="genworkorder: ${listofgenWork}">
-														<td th:text="${genworkorder.employeeCategorty}"></td>
-														<td th:text="${genworkorder.labourQty}"></td>
-														<td th:text="${genworkorder.days}"></td>
-														<td th:text="${genworkorder.time}"></td>
-														<td th:text="${genworkorder.totalHours}"></td>
-														<td th:text="${genworkorder.vehicleNumber}"></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-
-
-
-								<!--****************************  Cancel Work Order || VEHICLE/TIMING Start *********************************-->
-								<div class="col-md-12 mt-3">
-									<div class="card bl-cr">
-										<div class="card-header " style="background-color: blueviolet;height: 35px;">
-											<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
-										</div>
-										<div class="card-body">
-
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Vehicle Type</label>
-													<input type="text" class="form-control" id="vehicleType"
-														name="vehicleType" placeholder="Vehicle Type">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Vehicle Number</label>
-													<input type="text" class="form-control" id="vehicleNumber"
-														name="vehicleNumber" placeholder="Vehicle Number">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Driver Name</label>
-													<input type="text" class="form-control" id="driverName"
-														name="driverName" placeholder="Driver Name">
-												</div>
-											</div>
-											<div class="row mt-2">
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Driver Contact Number</label>
-													<input type="number" class="form-control" id="driverContactNumber"
-														name="driverContactNumber" placeholder="Driver Contact Number">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">ODO Meter From Reading</label>
-													<input type="text" class="form-control" id="odoMeterReading"
-														name="odoMeterReading" placeholder="Total Hour">
-												</div>
-
-												<div class="form-group col-md-4">
-													<label for="inputEmail4">Start Time</label>
-													<input type="time" class="form-control" id="startTime"
-														name="startTime" placeholder="Start Time">
-												</div>
-											</div>
-											<div class="text-center mt-2">
-												<button type="button"
-													class="btn btn-primary w-25 text-center">Add</button>
-											</div>
-										</div>
-										<div class="card-footer">
-											<table
-												class="table table-stock table-bordered table table-success table-striped table-hover table-size"
-												id="generatLabour">
-												<thead>
-													<tr>
-														<th>Vehicle Type</th>
-														<th>Vehicle Number</th>
-														<th>Driver Name</th>
-														<th>Driver Contact No</th>
-														<th>ODO Meter Reading</th>
-														<th>Start Time</th>
-													</tr>
-												</thead>
-												<tbody class="table-scroll">
-													<tr th:each="genworkorder: ${listOfCancelWorks}">
-														<td th:text="${genworkorder.vehicleType}"></td>
-														<td th:text="${genworkorder.vehicleNumber}"></td>
-														<td th:text="${genworkorder.driverName}"></td>
-														<td th:text="${genworkorder.driverContactNumber}"></td>
-														<td th:text="${genworkorder.odoMeterReading}"></td>
-														<td th:text="${genworkorder.startTime}"></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-
-								<div class=" text-center mt-4">
-									<button type="submit" class="btn btn-primary w-25 text-center">Submit</button>
-									<button type="button" class="btn btn-primary w-25 text-center">Print</button>
-								</div>
-
-							</form>
-
-						</div>
-
-
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Outward Stocks</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8">
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
+							th:href="@{/stocks/outward}">
+							Outward Stocks
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/chart}">
+							Outward Stocks Chart
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/list}">
+							Outward Stocks List
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/stocks/outward/approved/list}">
+							Outward Stocks Approved List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
 					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 				</div>
-				<div class="tab-pane fade" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab"
-					tabindex="0">
-					<div class="card">
-						<div class="card-header bg-primary">
-							<h3 class="text-center text-white mb-0">Generate Work Order Dashboard</h3>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<figure class="highcharts-figure border">
-										<div id="generateorder"></div>
-									</figure>
-								</div>
-								<div class="col">
-									<figure class="highcharts-figure border">
-										<div id="generateorder1"></div>
-									</figure>
-								</div>
-							</div>
-							<div class="row">
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Outward Stocks</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
 
-								<div class="col">
-									<figure class="highcharts-figure border">
-										<div id="generateorder2"></div>
-									</figure>
+						<div th:if="${workOrder.workOrderNo != null} ">
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.complNo}" disabled />
+										</div>
+									</div>
 								</div>
-								<div class="col">
-									<figure class="highcharts-figure border">
-										<div id="generateorder3"></div>
-									</figure>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.indentNo}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+											No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workOrderNo}" disabled />
+											<input type="hidden" th:value="${workOrder.workOrderNo}"
+												id="get-workorder-no" />
+										</div>
+									</div>
 								</div>
 							</div>
 
-						</div>
-						<div class="card-footer text-muted">
-							2 days ago
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.departmentName}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.division}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.subDivision}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workPriority}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.workSite}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${workOrder.contactNo}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
+							</h3>
 						</div>
 
+						<table
+							class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
+							<thead class="bg-dark text-white">
+								<tr>
+									<th class="all">Sl No</th>
+									<th class="all">Item ID</th>
+									<th class="all">Item</th>
+									<th class="all text-center">Stock</th>
+									<th class="all">Image</th>
+									<th class="all text-center">Stock Type</th>
+									<th class="all" style="width: 12%;">MRP</th>
+									<th class="all" style="width: 15%;">Quantity</th>
+									<th class="all" style="width: 12%;">Total</th>
+									<th class="all" style="width: 5%;">Action</th>
+								</tr>
+							</thead>
+							<tbody class="add-item">
+								<tr th:each="getWorkOrderItem: ${getWorkOrderItems}">
+									<td th:text="${getWorkOrderItem.slNo}"></td>
+									<td th:text="${getWorkOrderItem.itemId}"></td>
+									<td class="item-id" th:text="${getWorkOrderItem.itemId}" style="display: none;">
+									</td>
+									<td class="sl_no"><label class="mb-0"
+											th:text="${getWorkOrderItem.itemName}"></label></td>
+									<td class="text-center"><span th:if="${getWorkOrderItem.stockAvailable} > 0"
+											class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
+										<span th:if="${getWorkOrderItem.stockAvailable} <= 0"
+											class="bg-danger p-1 rounded font-weight-bold text-white">Not
+											Available</span>
+									</td>
+
+									<td class="text-center thumb">
+										<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
+											alt="image" />
+									</td>
+									<td th:text="${getWorkOrderItem.stockType == 'ML' ? 'Material' :
+					                 getWorkOrderItem.stockType == 'SP' ? 'Spare' :
+					                 getWorkOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 getWorkOrderItem.stockType}"></td>
+									<td>
+										<div class="row text-center">
+											<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; width: 0;"> </i>
+											<input type="text" id="price" class="price"
+												th:value="${getWorkOrderItem.mrpRate}"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<td>
+										<div class="row pl-3">
+											<div class="outer-button" style="width: 30px;">
+												<div class="dec button">
+													<i class="fa fa-minus bg-danger"
+														style="font-size: 0.6em; color: #fff; padding: 5px; "></i>
+												</div>
+											</div>
+											<input type="number" id="qty" th:value="${getWorkOrderItem.finalQuantity}"
+												class="qty text-center"
+												style="border: none; color: black; background: transparent; outline: 0; width: 35%;"
+												disabled />
+											<div class="outer-button" style="width: 20px;">
+												<div class="inc button"><i class="fa fa-plus bg-success"
+														style="font-size: 0.6em; color: #fff; padding: 5px;"></i>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="row">
+											<i class="fa fa-inr pr-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; padding-top: 4px;width: 0;"></i>
+											<input type="text" class="cost"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<td class="text-center"><i
+											class="glyphicon glyphicon-trash remove-item text-danger"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+							th:if="${workOrderItems != null}">No Work Order Items</div>
+						<form th:action="@{/stocks/outward/workorder/items}" method="post" th:object="${workorder}"
+							th:if="${workOrderItems == null}">
+							<div class="row">
+								<div class="col-8">
+									<div class="row">
+
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Billed On</label>
+												<div class="col-sm-7">
+													<input type="date" name="billedOn" class="form-control" required />
+												</div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type<strong class="text-danger">*</strong></label>
+												<div class="col-sm-7">
+													<select class="form-select" name="gstType" id="select-gst-outward"
+														required>
+														<option value="">Select</option>
+														<option value="Taxable">Taxable</option>
+														<option value="Exempted">Exempted</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="hidden" name="igst" id="get-igst-outward" />
+														<input type="number" class="form-control igst-outward"
+															required />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="sgst" id="get-sgst-outward" />
+														<input type="number" class="form-control sgst-outward" />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="cgst" id="get-cgst-outward" />
+														<input type="number" class="form-control cgst-outward" />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 text-center">
+									<div class="row text-white">
+										<div class="col-6 bg-dark py-2 rounded-top">
+											<label class="font-weight-bold mb-0">Subtotal</label>
+										</div>
+										<div class="col-6 bg-dark row py-2 rounded-top">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 subtotal"></label></label>
+											<input type="hidden" name="subTotal" id="sub-total-outward" />
+										</div>
+									</div>
+									<div class="row text-white">
+										<div class="col-6 bg-primary py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">Grand Total</label>
+										</div>
+										<div class="col-6 bg-primary row py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 grand-total"></label></label>
+											<input type="hidden" name="grandTotal" id="grand-total-outward" />
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
+								<div class="col-12 text-center mt-3">
+									<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+									<button type="reset" class="btn btn-secondary btn-sm mr-3">Reset</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
+			</div>
 
-				<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-					tabindex="0">
-					<div class="card">
-						<div class="card-header bg-info">
-							<h3 class="text-center text-white mb-0">Generate Work Order View</h3>
-						</div>
-						<div class="card-body">
+			<div class="col-3">
+				<table
+					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+					<thead class="table-dark">
+						<tr>
 
-
-							<table
-								class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
-								<thead class="table-dark">
-									<tr>
-										<th class="all">Id</th>
-										<th class="all">Category</th>
-										<th class="all">Item</th>
-										<th class="all">Supplier</th>
-										<th class="all">Brand</th>
-										<th class="all">HSN</th>
-										<th class="all">Qty</th>
-										<th class="all">Unit</th>
-										<th class="all">MRP</th>
-										<th class="all">Entry Date</th>
-										<th class="all">Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="Cancelworkorder: ${listOfCancelWorks}">
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.category}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td th:text="${Cancelworkorder.cancelWorkId}"></td>
-										<td class="text-center"> <a class="btn bg-primary text-white">VIEW</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-
-					</div>
+							<th>Complaint No</th>
+							<th>Indent No</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="workOrderNo: ${workOrdersNos}">
+							<td th:text="${workOrderNo.complNo}"></td>
+							<td th:text="${workOrderNo.indentNo}"></td>
+							<td class="text-center">
+								<a th:href="@{'/stocks/outward/get/' + ${workOrderNo.workOrderNo}}"
+									class="btn btn-info p-1 mx-2">Workorder</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+					th:if="${emptyList != null}">
+					No Work Orders</div>
+				<div th:if="${stockQuantities != null}">
+					<div class="alert alert-danger text-center my-2 py-1" role="alert">
+						The quantity exceeds the available stock.</div>
+					<table
+						class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+						<thead class="table-warning">
+							<tr>
+								<th>Item ID</th>
+								<th> Requested</th>
+								<th>Available</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stockQuantity: ${stockQuantities}">
+								<td th:text="${stockQuantity.itemId}"></td>
+								<td th:text="${stockQuantity.stockRequested}"></td>
+								<td th:text="${stockQuantity.stockAvailable}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-
-
 			</div>
 		</div>
 	</section>

@@ -17,4 +17,6 @@ public interface TaskUpdateRepository extends JpaRepository<Complaints, Long> {
 	
 	@Query("from Complaints c where c.department=:department and c.complStatus=:complSts")
 	List<Complaints> getComplainByDeptComplSts(String department,String complSts);
+
+	List<Complaints> findByComplStatus(String complStatus);
 }

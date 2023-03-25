@@ -1,23 +1,21 @@
 package com.ingroinfo.mm.entity;
 
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_TEMP_WORKORDER_ITEM_REQUEST")
-public class TempWorkOrderItemRequest {
-	
+@Table(name="MM_WAP_WORKORDER_VEHICLE_REQUEST")
+public class WapWorkOrderVehicleRequest {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long itemReqId;
+	private Long vehicleReqId;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -28,16 +26,14 @@ public class TempWorkOrderItemRequest {
 	private String contactNo;	
 	private String complDtls;
 	private String workPriority;
-	private String categoryName;
-	private String itemName;
-	private String itemId;
-	private String unitOfMesure;
-	private String hsnCode;
-	private String quantity;
-	private String stockType;
-	private String stockTypeName;
+	private String vehicleType;
+	private String vehicleNo;
+	private String driverName;
+	private String driverPhone;
+	private String meterReading;
+	private String stratTime;
+	private Long vehicleId;
 	private String departmentName;
 	private String userName;
 	private String status;
-
 }

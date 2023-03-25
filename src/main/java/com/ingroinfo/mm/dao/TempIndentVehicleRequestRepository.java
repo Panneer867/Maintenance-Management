@@ -1,0 +1,25 @@
+package com.ingroinfo.mm.dao;
+
+import java.util.List;
+import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
+
+@Repository
+public interface TempIndentVehicleRequestRepository extends JpaRepository<TempIndentVehicleRequest, Long> {
+
+	@Query("from TempIndentVehicleRequest as v where v.indentNo=:indentNo and v.complNo =:complNo")
+	List<TempIndentVehicleRequest> findListOfAddedVehicles(String indentNo, String complNo);
+
+	List<TempIndentVehicleRequest> findByComplNo(String complNo);
+
+	@Transactional
+    @Modifying
+    @Query("DELETE FROM TempIndentVehicleRequest v WHERE v.complNo = :complNo")
+	void deleteAddedByComplNo(String complNo);
+
+	boolean existsByVehicleNo(String vehicleNo);
+}

@@ -34,4 +34,6 @@ public class TempWorkOrderVehicleRequest {
 	private String stratTime;
 	private Long vehicleId;
 	private String departmentName;
+	private String userName;
+	private String status;
 }

@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">View WorkOrder
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/}" class="fa fa-home pt-1"></a></div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">View WorkOrder</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-11 ml-5">
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0"> Approved WorkOrders</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Complaint No</th>
+									<th scope="col">Indent No</th>
+									<th scope="col">Complain Date</th>
+									<th scope="col">WorkOrder No</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>Mark</td>
+									<td>Otto</td>
+									<td>@mdo</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

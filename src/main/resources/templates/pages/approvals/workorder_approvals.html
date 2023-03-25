@@ -2,30 +2,21 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Work Orders
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval For WorkOrder
 		</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/workorder/generate}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Generate WorkOrder</span></div>
+							<div class="link"><span aria-current="location">WorkOrder Approval</span></div>
 						</li>
 					</ol>
 				</nav>
-			</div>
-			<div class="col-8">
-				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/workorder}">
-							Workorder Approved List
-						</a>
-					</li>
-				</ul>
 			</div>
 		</div>
 		<div class="row">
@@ -38,7 +29,7 @@
 				</div>
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
-						<h4 class="mb-0">Indent Details</h4>
+						<h4 class="mb-0">WorkOrder Details</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 						<div>
@@ -247,7 +238,8 @@
 							</div>
 						</div>
 						<div class=" text-center mt-3 mb-2">
-							<a class="btn btn-primary btnPrevious w-20  text-white" th:href="@{/workorder/generate/submit/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Submit</a>						
+							<a class="btn btn-primary btnPrevious w-20  text-white" th:href="@{/approval/workorder/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Approve</a>
+							<a class="btn btn-warning btnPrevious w-20  text-white">Reject</a>
 						</div>
 					</div>
 				</div>
@@ -270,7 +262,7 @@
 							<tbody>
 								<tr th:each="compl : ${listOfCompl}" class="text-center">
 									<td class="fs-6"><a
-									th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${compl.complNo}, indentNo=${compl.indentNo})}">
+									th:href="@{/approval/workorder/get/{complNo}/{indentNo}(complNo=${compl.complNo}, indentNo=${compl.indentNo})}">
 									<span th:text="${'CN'+compl.complNo}"></span></a></td>
 									<td class="fs-6" th:text="${compl.indentNo}"></td>
 									<td class="fs-6" th:text="${compl.department}"></td>

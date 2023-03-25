@@ -45,4 +45,7 @@ public interface TaskUpdateService {
 	//Get Complaint Details By complainId
 	ComplaintDto getComplaintDtlsByComplaintId(Long complId);
 
+	//get List of complaint data by Complain Status
+	List<ComplaintDto> getListOfComplaintByStatus(String complStatus);
+
 }

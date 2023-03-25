@@ -489,7 +489,7 @@ public class EmployeeController {
 
 	        // Modify the SQL query to filter by current year
 	        String sql = "SELECT * FROM DASHBOARD_DEPTWISE_EMPLOYEE WHERE YEAR = ?";
-	        System.out.println("SQL query: " + sql);
+	        //System.out.println("SQL query: " + sql);
 
 	        // Execute the query and map the result set to a list of EmployeeGraphDto objects
 	        graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
@@ -510,7 +510,7 @@ public class EmployeeController {
 
 	          // Modify the SQL query to filter by current year
 	          String sql = "SELECT * FROM DASHBORD_DEPTWISE_EMP_LEAVE WHERE YEAR = ?";
-	          System.out.println("SQL query: " + sql);
+	         // System.out.println("SQL query: " + sql);
 
 	          // Execute the query and map the result set to a list of EmployeeGraphDto objects
 	          graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));

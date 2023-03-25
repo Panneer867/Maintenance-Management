@@ -8,13 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_TEMP_WORKORDER_ITEM_REQUEST")
-public class TempWorkOrderItemRequest {
-	
+@Table(name = "MM_INDENT_ITEM_REQUEST")
+public class IndentItemRequest {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long itemReqId;
@@ -38,6 +40,6 @@ public class TempWorkOrderItemRequest {
 	private String stockTypeName;
 	private String departmentName;
 	private String userName;
-	private String status;
-
+	@CreationTimestamp
+	private Date createdDate;
 }

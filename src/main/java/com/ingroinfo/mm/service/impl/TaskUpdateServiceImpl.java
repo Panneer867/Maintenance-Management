@@ -271,27 +271,34 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 
 		return complaintDto2;
 	}
-	
+
 	@Override
-	public List<ComplaintDto> getComplainByDeptComplStsUserId(String department, String complSts, String userId) {		
-		 List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplStsUserId(department, complSts, userId);
-		 List<ComplaintDto> complaintDtos = complaints.stream().map((complain)-> 
-		 this.modelMapper.map(complain, ComplaintDto.class)).collect(Collectors.toList());
+	public List<ComplaintDto> getComplainByDeptComplStsUserId(String department, String complSts, String userId) {
+		List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplStsUserId(department, complSts, userId);
+		List<ComplaintDto> complaintDtos = complaints.stream()
+				.map((complain) -> this.modelMapper.map(complain, ComplaintDto.class)).collect(Collectors.toList());
 		return complaintDtos;
 	}
 
 	@Override
 	public List<ComplaintDto> getComplainByDeptComplSts(String department, String complSts) {
 		List<Complaints> complaints = this.taskUpdateRepo.getComplainByDeptComplSts(department, complSts);
-		List<ComplaintDto> complaintDtos = complaints.stream().map((complaint) -> 
-		this.modelMapper.map(complaint, ComplaintDto.class)).collect(Collectors.toList());
+		List<ComplaintDto> complaintDtos = complaints.stream()
+				.map((complaint) -> this.modelMapper.map(complaint, ComplaintDto.class)).collect(Collectors.toList());
 		return complaintDtos;
 	}
 
 	@Override
 	public ComplaintDto getComplaintDtlsByComplaintId(Long complId) {
-		Complaints complaints = this.taskUpdateRepo.findById(complId).get();		
+		Complaints complaints = this.taskUpdateRepo.findById(complId).get();
 		return this.modelMapper.map(complaints, ComplaintDto.class);
+	}
+
+	@Override
+	public List<ComplaintDto> getListOfComplaintByStatus(String complStatus) {
+		List<Complaints> complaints = this.taskUpdateRepo.findByComplStatus(complStatus);
+		return complaints.stream().map((complaint) -> this.modelMapper.map(complaint, ComplaintDto.class))
+				.collect(Collectors.toList());
 	}
 
 }

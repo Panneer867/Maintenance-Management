@@ -1,5 +1,7 @@
 package com.ingroinfo.mm.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -115,4 +117,11 @@ public class Complaints {
 	private String esclationType;
 	@Column(name = "ESCLATED_LAVEL")
 	private String esclationLavel;
+	
+	private String indentNo;
+	private String workOrder;
+	private String indentApprovedBy;
+	private String workorderApprovedBy;
+	private Date indentApprovedDate;
+	private Date workorderApprovedDate;
 }

@@ -1,11 +1,11 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.ingroinfo.mm.dao.TempWorkOderLabourRequestRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderItemRequestRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderVehicleRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderLabourRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderVehicleRequestRepository;
+import com.ingroinfo.mm.dao.IndentItemRequestRepository;
+import com.ingroinfo.mm.dao.IndentLabourRequestRepository;
+import com.ingroinfo.mm.dao.IndentVehicleRequestRepository;
+import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
+import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
+import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
 import com.ingroinfo.mm.dto.InwardDto;
@@ -32,13 +32,13 @@ import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 import com.ingroinfo.mm.dto.PumpMasterDto;
 import com.ingroinfo.mm.dto.UnitMeasureDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
-import com.ingroinfo.mm.entity.TempWorkOderLabourRequest;
-import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
-import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
+import com.ingroinfo.mm.entity.IndentItemRequest;
+import com.ingroinfo.mm.entity.IndentLabourRequest;
+import com.ingroinfo.mm.entity.IndentVehicleRequest;
+import com.ingroinfo.mm.entity.TempIndentItemRequest;
+import com.ingroinfo.mm.entity.TempIndentLabourRequest;
+import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
 import com.ingroinfo.mm.entity.User;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
-import com.ingroinfo.mm.entity.WorkOrderLabourRequest;
-import com.ingroinfo.mm.entity.WorkOrderVehicleRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.MasterService;
@@ -66,17 +66,17 @@ public class PumpController {
 	@Autowired
 	private StockService stockService;
 	@Autowired
-	private TempWorkOrderItemRequestRepository tempWorkOrderItemRequestRepo;
+	private TempIndentItemRequestRepository tempIndentItemRequestRepo;
 	@Autowired
-	private TempWorkOderLabourRequestRepository tempWorkOderLabourRequestRepo;
+	private TempIndentLabourRequestRepository tempIndentLabourRequestRepo;
 	@Autowired
-	private TempWorkOrderVehicleRequestRepository tempWorkOrderVehicleRequestRepo;
+	private TempIndentVehicleRequestRepository tempIndentVehicleRequestRepo;
 	@Autowired
-	private WorkOrderItemsRequestRepository workOrderItemRequestRepo;
+	private IndentItemRequestRepository indentItemRequestRepo;
 	@Autowired
-	private WorkOrderLabourRequestRepository workOrderLabourRequestRepo;
+	private IndentLabourRequestRepository indentLabourRequestRepo;
 	@Autowired
-	private WorkOrderVehicleRequestRepository workOrderVehicleRequestRepo;
+	private IndentVehicleRequestRepository indentVehicleRequestRepo;
 
 	// Handler For Open dashBoard
 	@GetMapping("/dashboard")
@@ -180,7 +180,7 @@ public class PumpController {
 			List<String> catrgoryList = stockList.stream().map(InwardDto::getCategory).distinct()
 					.collect(Collectors.toList());
 			model.addAttribute("categoryList", catrgoryList);
-			
+
 		} catch (Exception e) {
 			System.out.println("Something Wrong !! " + e.getMessage());
 		}
@@ -210,27 +210,26 @@ public class PumpController {
 	// Handler For Adding Pump Material List
 	@PostMapping("/save/add/materialData")
 	@ResponseBody
-	public ResponseEntity<TempWorkOrderItemRequest> saveIndentData(
-			@ModelAttribute("materialData") TempWorkOrderItemRequest tempWorkOrderItemRequest) {
-		TempWorkOrderItemRequest temWorkOrderItemData = this.tempWorkOrderItemRequestRepo
-				.save(tempWorkOrderItemRequest);
-		return new ResponseEntity<TempWorkOrderItemRequest>(temWorkOrderItemData, HttpStatus.OK);
+	public ResponseEntity<TempIndentItemRequest> saveIndentData(
+			@ModelAttribute("materialData") TempIndentItemRequest tempIndentItemRequest) {
+		TempIndentItemRequest tempIndentItemData = this.tempIndentItemRequestRepo.save(tempIndentItemRequest);
+		return new ResponseEntity<TempIndentItemRequest>(tempIndentItemData, HttpStatus.OK);
 	}
 
 	// Get Added Pump Material Data List
 	@ResponseBody
 	@GetMapping("/add/get/materials/{indentNo}/{complNo}")
-	public ResponseEntity<List<TempWorkOrderItemRequest>> getListOfMaterialAddedData(@PathVariable String indentNo,
+	public ResponseEntity<List<TempIndentItemRequest>> getListOfMaterialAddedData(@PathVariable String indentNo,
 			@PathVariable String complNo) {
-		List<TempWorkOrderItemRequest> tempWorkOrderItemRequests = this.tempWorkOrderItemRequestRepo
+		List<TempIndentItemRequest> tempIndentItemRequests = this.tempIndentItemRequestRepo
 				.findListOfAddedMateials(indentNo, complNo);
-		return new ResponseEntity<List<TempWorkOrderItemRequest>>(tempWorkOrderItemRequests, HttpStatus.OK);
+		return new ResponseEntity<List<TempIndentItemRequest>>(tempIndentItemRequests, HttpStatus.OK);
 	}
 
 	// Delete Added Pump Material Data From List
 	@DeleteMapping("/delete/materials/{itemReqId}")
 	public ResponseEntity<String> deleteMaterialDataFromList(@PathVariable Long itemReqId) {
-		this.tempWorkOrderItemRequestRepo.deleteById(itemReqId);
+		this.tempIndentItemRequestRepo.deleteById(itemReqId);
 		return new ResponseEntity<>("Are You Sure To Remove This Item !!", HttpStatus.OK);
 
 	}
@@ -238,27 +237,26 @@ public class PumpController {
 	// Handler For Adding Pump Labor in List
 	@PostMapping("/save/add/labourData")
 	@ResponseBody
-	public ResponseEntity<TempWorkOderLabourRequest> addLabourData(
-			@ModelAttribute("labourData") TempWorkOderLabourRequest tempWorkOderLabourRequest) {
-		TempWorkOderLabourRequest temWorkOrderLabourData = this.tempWorkOderLabourRequestRepo
-				.save(tempWorkOderLabourRequest);
-		return new ResponseEntity<TempWorkOderLabourRequest>(temWorkOrderLabourData, HttpStatus.OK);
+	public ResponseEntity<TempIndentLabourRequest> addLabourData(
+			@ModelAttribute("labourData") TempIndentLabourRequest tempIndentLabourRequest) {
+		TempIndentLabourRequest tempIndentLaborData = this.tempIndentLabourRequestRepo.save(tempIndentLabourRequest);
+		return new ResponseEntity<TempIndentLabourRequest>(tempIndentLaborData, HttpStatus.OK);
 	}
 
 	// Get Added Pump Labor Data List
 	@ResponseBody
 	@GetMapping("/add/get/labour/{indentNo}/{complNo}")
-	public ResponseEntity<List<TempWorkOderLabourRequest>> getListOfLaborAddedData(@PathVariable String indentNo,
+	public ResponseEntity<List<TempIndentLabourRequest>> getListOfLaborAddedData(@PathVariable String indentNo,
 			@PathVariable String complNo) {
-		List<TempWorkOderLabourRequest> tempWorkOrderlaborRequests = this.tempWorkOderLabourRequestRepo
+		List<TempIndentLabourRequest> tempIndentLabourRequests = this.tempIndentLabourRequestRepo
 				.findListOfAddedLabors(indentNo, complNo);
-		return new ResponseEntity<List<TempWorkOderLabourRequest>>(tempWorkOrderlaborRequests, HttpStatus.OK);
+		return new ResponseEntity<List<TempIndentLabourRequest>>(tempIndentLabourRequests, HttpStatus.OK);
 	}
 
 	// Delete Added Pump Labor Data From List
 	@DeleteMapping("/delete/labour/{labourReqId}")
 	public ResponseEntity<String> deleteLabourDataFromList(@PathVariable Long labourReqId) {
-		this.tempWorkOderLabourRequestRepo.deleteById(labourReqId);
+		this.tempIndentLabourRequestRepo.deleteById(labourReqId);
 		return new ResponseEntity<>("Are You Sure To Remove This Labor Details !!", HttpStatus.OK);
 
 	}
@@ -266,27 +264,27 @@ public class PumpController {
 	// Handler For Adding Pump Vehicle in List
 	@PostMapping("/save/add/vehicleData")
 	@ResponseBody
-	public ResponseEntity<TempWorkOrderVehicleRequest> addVehicleData(
-			@ModelAttribute("vehicleData") TempWorkOrderVehicleRequest tempWorkOrderVehicleRequest) {
-		TempWorkOrderVehicleRequest tempWorkOrderVehicleData = this.tempWorkOrderVehicleRequestRepo
-				.save(tempWorkOrderVehicleRequest);
-		return new ResponseEntity<TempWorkOrderVehicleRequest>(tempWorkOrderVehicleData, HttpStatus.OK);
+	public ResponseEntity<TempIndentVehicleRequest> addVehicleData(
+			@ModelAttribute("vehicleData") TempIndentVehicleRequest tempIndentVehicleRequestn) {
+		TempIndentVehicleRequest tempIndentVehicleData = this.tempIndentVehicleRequestRepo
+				.save(tempIndentVehicleRequestn);
+		return new ResponseEntity<TempIndentVehicleRequest>(tempIndentVehicleData, HttpStatus.OK);
 	}
 
 	// Get Added Pump Labor Data List
 	@ResponseBody
 	@GetMapping("/add/get/vehicle/{indentNo}/{complNo}")
-	public ResponseEntity<List<TempWorkOrderVehicleRequest>> getListOfVehicleAddedData(@PathVariable String indentNo,
+	public ResponseEntity<List<TempIndentVehicleRequest>> getListOfVehicleAddedData(@PathVariable String indentNo,
 			@PathVariable String complNo) {
-		List<TempWorkOrderVehicleRequest> tempWorkOrderVehicleRequests = this.tempWorkOrderVehicleRequestRepo
+		List<TempIndentVehicleRequest> tempIndentVehicleRequests = this.tempIndentVehicleRequestRepo
 				.findListOfAddedVehicles(indentNo, complNo);
-		return new ResponseEntity<List<TempWorkOrderVehicleRequest>>(tempWorkOrderVehicleRequests, HttpStatus.OK);
+		return new ResponseEntity<List<TempIndentVehicleRequest>>(tempIndentVehicleRequests, HttpStatus.OK);
 	}
 
 	// Delete Added Pump Labor Data From List
 	@DeleteMapping("/delete/vehicle/{vehicleReqId}")
 	public ResponseEntity<String> deletevehicleDataFromList(@PathVariable Long vehicleReqId) {
-		this.tempWorkOrderVehicleRequestRepo.deleteById(vehicleReqId);
+		this.tempIndentVehicleRequestRepo.deleteById(vehicleReqId);
 		return new ResponseEntity<>("Are You Sure To Remove This Labor Details !!", HttpStatus.OK);
 
 	}
@@ -295,114 +293,86 @@ public class PumpController {
 	@GetMapping("/generate/workorder/{complNo}")
 	public String savePumpIndent(@PathVariable String complNo, Principal principal, HttpSession session, Model model) {
 		String masterIdName = "Indent Id";
-		//String deptName = "Pump Dept";
 
-		List<TempWorkOrderItemRequest> tempWorkOrderItems = this.tempWorkOrderItemRequestRepo.findByComplNo(complNo);
-		List<TempWorkOderLabourRequest> tempWorkOrderLabors = this.tempWorkOderLabourRequestRepo.findByComplNo(complNo);
-		List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles = this.tempWorkOrderVehicleRequestRepo
-				.findByComplNo(complNo);
+		List<TempIndentItemRequest> tempIndentItems = this.tempIndentItemRequestRepo.findByComplNo(complNo);
+		List<TempIndentLabourRequest> tempIndentLabours = this.tempIndentLabourRequestRepo.findByComplNo(complNo);
+		List<TempIndentVehicleRequest> tempIndentVehicles = this.tempIndentVehicleRequestRepo.findByComplNo(complNo);
 
-		List<WorkOrderItemsRequest> workOrderItemsRequests = new ArrayList<>();
-		List<WorkOrderLabourRequest> workOrderLaborRequests = new ArrayList<>();
-		List<WorkOrderVehicleRequest> workOrderVehicleRequests = new ArrayList<>();
+		String indentNumber = null;
 
-		if (tempWorkOrderItems != null) {
-
-			for (TempWorkOrderItemRequest tempWorkOrderItem : tempWorkOrderItems) {
-				WorkOrderItemsRequest workOrderItems = new WorkOrderItemsRequest();
-				String complNumber = "101" + tempWorkOrderItem.getComplNo();
-				workOrderItems.setWorkOrderNo(Long.parseLong(complNumber));
-				workOrderItems.setDepartmentName(tempWorkOrderItem.getDepartmentName());
-				workOrderItems.setItemId(tempWorkOrderItem.getItemId());
-				workOrderItems.setStockType(tempWorkOrderItem.getStockType());
-				workOrderItems.setQuantity(Integer.parseInt(tempWorkOrderItem.getQuantity()));
-				workOrderItems.setUsername(principal.getName());
-				workOrderItems.setIndentNo(tempWorkOrderItem.getIndentNo());
-				workOrderItems.setComplNo(tempWorkOrderItem.getComplNo());
-				workOrderItems.setDivision(tempWorkOrderItem.getDivision());
-				workOrderItems.setSubDivision(tempWorkOrderItem.getSubDivision());
-				workOrderItems.setWorkSite(tempWorkOrderItem.getWorkSite());
-				workOrderItems.setStartDate(tempWorkOrderItem.getStartDate());
-				workOrderItems.setEndDate(tempWorkOrderItem.getEndDate());
-				workOrderItems.setContactNo(tempWorkOrderItem.getContactNo());
-				workOrderItems.setComplDtls(tempWorkOrderItem.getComplDtls());
-				workOrderItems.setWorkPriority(tempWorkOrderItem.getWorkPriority());
-				workOrderItems.setCategoryName(tempWorkOrderItem.getCategoryName());
-				workOrderItems.setItemName(tempWorkOrderItem.getItemName());
-				workOrderItems.setUnitOfMesure(tempWorkOrderItem.getUnitOfMesure());
-				workOrderItems.setHsnCode(tempWorkOrderItem.getHsnCode());
-
-				workOrderItemsRequests.add(workOrderItems);
+		// Check for indent number in TempIndentItemRequest list
+		for (TempIndentItemRequest itemRequest : tempIndentItems) {
+			if (itemRequest.getIndentNo() != null) {
+				indentNumber = itemRequest.getIndentNo();
+				break;
 			}
-
-			this.workOrderItemRequestRepo.saveAll(workOrderItemsRequests);
-			this.tempWorkOrderItemRequestRepo.deleteAddedByComplNo(complNo);
 		}
-		if (tempWorkOrderLabors != null) {
 
-			for (TempWorkOderLabourRequest tempWorkOrderLabor : tempWorkOrderLabors) {
-				WorkOrderLabourRequest workOrderLabors = new WorkOrderLabourRequest();
-				String complNumber = "101" + tempWorkOrderLabor.getComplNo();
-				workOrderLabors.setWorkOrderNo(Long.parseLong(complNumber));
-				workOrderLabors.setUsername(principal.getName());
-				workOrderLabors.setDepartmentName(tempWorkOrderLabor.getDepartmentName());
-				workOrderLabors.setIndentNo(tempWorkOrderLabor.getIndentNo());
-				workOrderLabors.setComplNo(tempWorkOrderLabor.getComplNo());
-				workOrderLabors.setDivision(tempWorkOrderLabor.getDivision());
-				workOrderLabors.setSubDivision(tempWorkOrderLabor.getSubDivision());
-				workOrderLabors.setWorkSite(tempWorkOrderLabor.getWorkSite());
-				workOrderLabors.setStartDate(tempWorkOrderLabor.getStartDate());
-				workOrderLabors.setEndDate(tempWorkOrderLabor.getEndDate());
-				workOrderLabors.setContactNo(tempWorkOrderLabor.getContactNo());
-				workOrderLabors.setComplDtls(tempWorkOrderLabor.getComplDtls());
-				workOrderLabors.setWorkPriority(tempWorkOrderLabor.getWorkPriority());
-				workOrderLabors.setEmpCategory(tempWorkOrderLabor.getEmpCategory());
-				workOrderLabors.setMembers(tempWorkOrderLabor.getMembers());
-				workOrderLabors.setDaysRequired(tempWorkOrderLabor.getDaysRequired());
-				workOrderLabors.setTimeRequired(tempWorkOrderLabor.getTimeRequired());
-
-				workOrderLaborRequests.add(workOrderLabors);
+		// Check for indent number in TempIndentLabourRequest list
+		if (indentNumber == null) {
+			for (TempIndentLabourRequest labourRequest : tempIndentLabours) {
+				if (labourRequest.getIndentNo() != null) {
+					indentNumber = labourRequest.getIndentNo();
+					break;
+				}
 			}
+		}
 
-			this.workOrderLabourRequestRepo.saveAll(workOrderLaborRequests);
-			this.tempWorkOderLabourRequestRepo.deleteAddedByComplNo(complNo);
+		// Check for indent number in TempIndentVehicleRequest list
+		if (indentNumber == null) {
+			for (TempIndentVehicleRequest vehicleRequest : tempIndentVehicles) {
+				if (vehicleRequest.getIndentNo() != null) {
+					indentNumber = vehicleRequest.getIndentNo();
+					break;
+				}
+			}
+		}
+
+		if (tempIndentItems != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<IndentItemRequest> indentItemRequests = tempIndentItems.stream()
+					.map(tempIndentItem -> modelMapper.map(tempIndentItem, IndentItemRequest.class))
+					.collect(Collectors.toList());
+
+			indentItemRequests.forEach(indentItem -> {
+				indentItem.setUserName(principal.getName());
+			});
+
+			this.indentItemRequestRepo.saveAll(indentItemRequests);
+			this.tempIndentItemRequestRepo.deleteAddedByComplNo(complNo);
+		}
+		if (tempIndentLabours != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<IndentLabourRequest> indentLabourRequests = tempIndentLabours.stream()
+					.map(tempIndentLabor -> modelMapper.map(tempIndentLabor, IndentLabourRequest.class))
+					.collect(Collectors.toList());
+
+			indentLabourRequests.forEach(indentLabor -> {
+				indentLabor.setUserName(principal.getName());
+			});
+
+			this.indentLabourRequestRepo.saveAll(indentLabourRequests);
+			this.tempIndentLabourRequestRepo.deleteAddedByComplNo(complNo);
 
 		}
-		if (tempWorkOrderVehicles != null) {
+		if (tempIndentVehicles != null) {
 
-			for (TempWorkOrderVehicleRequest tempWorkOrderVehicle : tempWorkOrderVehicles) {
-				WorkOrderVehicleRequest workOrderVehicles = new WorkOrderVehicleRequest();
-				String complNumber = "101" + tempWorkOrderVehicle.getComplNo();
-				workOrderVehicles.setWorkOrderNo(Long.parseLong(complNumber));
-				workOrderVehicles.setUsername(principal.getName());
-				workOrderVehicles.setDepartmentName(tempWorkOrderVehicle.getDepartmentName());
-				workOrderVehicles.setIndentNo(tempWorkOrderVehicle.getIndentNo());
-				workOrderVehicles.setComplNo(tempWorkOrderVehicle.getComplNo());
-				workOrderVehicles.setDivision(tempWorkOrderVehicle.getDivision());
-				workOrderVehicles.setSubDivision(tempWorkOrderVehicle.getSubDivision());
-				workOrderVehicles.setWorkSite(tempWorkOrderVehicle.getWorkSite());
-				workOrderVehicles.setStartDate(tempWorkOrderVehicle.getStartDate());
-				workOrderVehicles.setEndDate(tempWorkOrderVehicle.getEndDate());
-				workOrderVehicles.setContactNo(tempWorkOrderVehicle.getContactNo());
-				workOrderVehicles.setComplDtls(tempWorkOrderVehicle.getComplDtls());
-				workOrderVehicles.setWorkPriority(tempWorkOrderVehicle.getWorkPriority());
-				workOrderVehicles.setVehicleType(tempWorkOrderVehicle.getVehicleType());
-				workOrderVehicles.setVehicleNo(tempWorkOrderVehicle.getVehicleNo());
-				workOrderVehicles.setDriverName(tempWorkOrderVehicle.getDriverName());
-				workOrderVehicles.setDriverPhone(tempWorkOrderVehicle.getDriverPhone());
-				workOrderVehicles.setMeterReading(tempWorkOrderVehicle.getMeterReading());
-				workOrderVehicles.setStratTime(tempWorkOrderVehicle.getStratTime());
-				workOrderVehicles.setVehicleId(tempWorkOrderVehicle.getVehicleId());
+			ModelMapper modelMapper = new ModelMapper();
+			List<IndentVehicleRequest> indentVehicleRequests = tempIndentVehicles.stream()
+					.map(tempIndentVehicle -> modelMapper.map(tempIndentVehicle, IndentVehicleRequest.class))
+					.collect(Collectors.toList());
 
-				workOrderVehicleRequests.add(workOrderVehicles);
-			}
+			indentVehicleRequests.forEach(indentVehicle -> {
+				indentVehicle.setUserName(principal.getName());
+			});
 
-			this.workOrderVehicleRequestRepo.saveAll(workOrderVehicleRequests);
-			this.tempWorkOrderVehicleRequestRepo.deleteAddedByComplNo(complNo);
+			this.indentVehicleRequestRepo.saveAll(indentVehicleRequests);
+			this.tempIndentVehicleRequestRepo.deleteAddedByComplNo(complNo);
 		}
 
 		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
-		oldcomplaintDto.setComplStatus("Work_Order_Issued");
+		oldcomplaintDto.setComplStatus("waiting_for_indent_approval");
+		oldcomplaintDto.setIndentNo(indentNumber);
 		this.taskUpdateService.saveComplaint(oldcomplaintDto);
 		String deptName = oldcomplaintDto.getDepartment();
 		try {
@@ -433,26 +403,54 @@ public class PumpController {
 			System.out.println("Exception :: " + e.getMessage());
 		}
 
-		session.setAttribute("message", new Message("Work Order Requested Successfully", "success"));
+		session.setAttribute("message", new Message("Indent Successfully Created !! Wait For Approval !!", "success"));
 		return "redirect:/pump/maintenance/indent";
 	}
 
 	// verify Items
 	@RequestMapping("/add/materials/item/verify/{itemId}")
 	@ResponseBody
-	public String verifyBillNo(@PathVariable("itemId") String itemId) {
+	public String verifyItmName(@PathVariable("itemId") String itemId) {
 		String f = "false";
-		if (tempWorkOrderItemRequestRepo.existsByItemId(itemId)) {
+		if (tempIndentItemRequestRepo.existsByItemId(itemId)) {
 			f = "true";
 		}
 		return f;
 	}
 
+	// verify Employee Category
+	@RequestMapping("/add/labor/empcategory/verify/{empCategory}")
+	@ResponseBody
+	public String verifyEmployeeCategory(@PathVariable("empCategory") String empCategory) {
+		String f = "false";
+		if (tempIndentLabourRequestRepo.existsByEmpCategory(empCategory)) {
+			f = "true";
+		}
+		return f;
+	}
+
+	// verify Vehicle Number
+	@RequestMapping("/add/vehicle/number/verify/{vehicleNo}")
+	@ResponseBody
+	public String verifyVehicleNumber(@PathVariable("vehicleNo") String vehicleNo) {
+		String f = "false";
+		if (tempIndentVehicleRequestRepo.existsByVehicleNo(vehicleNo)) {
+			f = "true";
+		}
+		return f;
+	}
+	
 	@GetMapping("/maintenance/view")
 	@PreAuthorize("hasAuthority('PUMP_VIEW')")
-	public String pumpViewWork(Model model) {
+	public String viewApprovedWorkOrderList(Model model) {
 		model.addAttribute("title", "Pump | View | Manintenance Management");
-		return "/pages/pump_house/pump_viewwork";
+		return "/pages/pump_house/pump_view_workorder_list";
+	}
+
+	@GetMapping("/maintenance/view/detalis/")
+	public String viewWorkOrderDtls(Model model) {
+		model.addAttribute("title", "Pump | View | Manintenance Management");
+		return "/pages/pump_house/pump_view_workorder_dtls";
 	}
 
 	@GetMapping("/maintenance/update")
