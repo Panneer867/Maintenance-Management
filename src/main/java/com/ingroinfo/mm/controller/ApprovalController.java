@@ -382,6 +382,7 @@ public class ApprovalController {
 					workOrderItems.setItemName(wapWorkOrderItem.getItemName());
 					workOrderItems.setUnitOfMesure(wapWorkOrderItem.getUnitOfMesure());
 					workOrderItems.setHsnCode(wapWorkOrderItem.getHsnCode());
+					workOrderItems.setStockTypeName(wapWorkOrderItem.getStockTypeName());
 
 					workOrderItemsRequests.add(workOrderItems);
 				}

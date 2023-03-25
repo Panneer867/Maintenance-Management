@@ -43,4 +43,5 @@ public class WorkOrderItemsRequest {
 	private String unitOfMesure;
 	private String hsnCode;
 	private String departmentName;
+	private String stockTypeName;
 }

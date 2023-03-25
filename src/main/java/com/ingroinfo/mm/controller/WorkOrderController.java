@@ -27,7 +27,6 @@ import com.ingroinfo.mm.dto.CancelWorkOrderDto;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.GenerateWorkOrderDto;
 import com.ingroinfo.mm.dto.HoldWorkOrderDto;
-import com.ingroinfo.mm.dto.WorkEstmationDto;
 import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
@@ -39,7 +38,6 @@ import com.ingroinfo.mm.service.CancelWorkOrderService;
 import com.ingroinfo.mm.service.GenerateWorkOrderService;
 import com.ingroinfo.mm.service.HoldWorkOrderService;
 import com.ingroinfo.mm.service.TaskUpdateService;
-import com.ingroinfo.mm.service.WorkEstmationService;
 
 @Controller
 @RequestMapping("/workorder")
@@ -56,8 +54,6 @@ public class WorkOrderController {
 	private HoldWorkOrderService holdWorkOrdeService;
 	@Autowired
 	private CancelWorkOrderService cancelWorkOrdeService;
-	@Autowired
-	private WorkEstmationService workEstmationService;
 
 	@Autowired
 	private TaskUpdateService taskUpdateService;
@@ -291,18 +287,4 @@ public class WorkOrderController {
 	}
 
 	/***************** CancelWorkOrder End********** */
-
-	@GetMapping("/budget-estimation")
-	@PreAuthorize("hasAuthority('WORK_ESTIMATION')")
-	public String workEstimationBudget() {
-		return "/pages/work_orders/work_estimation_budget";
-	}
-
-	@PostMapping("/saveworkestmation")
-	public String saveWorkEstmation(WorkEstmationDto workEstmation, HttpSession session) {
-		this.workEstmationService.saveWorkEstmation(workEstmation);
-		session.setAttribute("message", new Message("Data Saved Successfully....!!", "success"));
-		return "redirect:/workorder/budget-estimation";
-	}
-
 }

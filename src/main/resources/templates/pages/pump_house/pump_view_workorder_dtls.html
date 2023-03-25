@@ -9,24 +9,20 @@
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/pump/maintenance/view}" class="fa fa-home pt-1"></a></div>
 						</li>
-
+						<li class="crumb">
+							<div class="link"><a th:href="@{/pump/maintenance/view}">Workorder List</a></div>
+						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">View WorkOrder</span></div>
+							<div class="link"><span aria-current="location">Workorder Details</span></div>
 						</li>
 					</ol>
 				</nav>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-9">
-				<div th:if="${session.message}" class="alert_field">
-					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-						<span th:text="${session.message.content}"></span>
-					</div>
-					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-				</div>
+			<div class="col-11 ml-5">				
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
 						<h4 class="mb-0">WorkOrder Details</h4>
@@ -36,7 +32,7 @@
 							<div class="row">
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+										<label for="complNo" class="col-sm-5 col-form-label pr-0">Complaint
 											No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
@@ -47,7 +43,7 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<label for="indentNo" class="col-sm-5 col-form-label pr-0">Indent No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -58,12 +54,12 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp Start
-											Date</label>
+										<label for="workOrderNo" class="col-sm-5 col-form-label pr-0">Workorder No
+											</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
-												disabled th:value="${startDate}" />
+												disabled th:value="${workOrderNo}" />
 										</div>
 									</div>
 								</div>
@@ -82,7 +78,7 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<label for="division" class="col-sm-5 col-form-label pr-0">Division</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -93,7 +89,7 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+										<label for="subdivision" class="col-sm-5 col-form-label pr-0">Sub
 											Division</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
@@ -106,7 +102,7 @@
 							<div class="row">
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+										<label for="workPriority" class="col-sm-5 col-form-label pr-0">Work
 											Priority</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
@@ -117,7 +113,7 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<label for="worksite" class="col-sm-5 col-form-label pr-0">Work Site</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -128,11 +124,45 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<label for="contactNo" class="col-sm-5 col-form-label pr-0">Contact No</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
 												disabled th:value="${contactNo}" />
+										</div>
+									</div>
+								</div>
+							</div>
+														<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="startDate" class="col-sm-5 col-form-label pr-0">Exp
+											Start Date</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${#dates.format(startDate, 'dd/MM/yyyy ')}"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="endDate" class="col-sm-5 col-form-label pr-0">Exp End Date</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${#dates.format(endDate, 'dd/MM/yyyy ')}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="approvedBy" class="col-sm-5 col-form-label pr-0">Approved By</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${approvedBy}" />
 										</div>
 									</div>
 								</div>
@@ -241,35 +271,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-3">
-				<div class="card text-center">
-					<div class="card-header heading-bg text-white fs-6 ">
-						Updates
-					</div>
-
-					<div class="card-body">
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th class="text-center fs-6" scope="col-sm">Compl No</th>
-									<th class="text-center fs-6" scope="col-sm">Indent No</th>
-									<th class="text-center fs-6" scope="col-sm">Department</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="compl : ${listOfCompl}" class="text-center">
-									<td class="fs-6"><a
-									th:href="@{/approval/workorder/get/{complNo}/{indentNo}(complNo=${compl.complNo}, indentNo=${compl.indentNo})}">
-									<span th:text="${'CN'+compl.complNo}"></span></a></td>
-									<td class="fs-6" th:text="${compl.indentNo}"></td>
-									<td class="fs-6" th:text="${compl.department}"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+			</div>			
 		</div>
 
 	</section>

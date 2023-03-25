@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +26,9 @@ import com.ingroinfo.mm.dao.IndentVehicleRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
+import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dao.WorkOrderLabourRequestRepository;
+import com.ingroinfo.mm.dao.WorkOrderVehicleRequestRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
 import com.ingroinfo.mm.dto.InwardDto;
@@ -39,6 +43,9 @@ import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
 import com.ingroinfo.mm.entity.User;
+import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
+import com.ingroinfo.mm.entity.WorkOrderLabourRequest;
+import com.ingroinfo.mm.entity.WorkOrderVehicleRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.MasterService;
@@ -77,6 +84,12 @@ public class PumpController {
 	private IndentLabourRequestRepository indentLabourRequestRepo;
 	@Autowired
 	private IndentVehicleRequestRepository indentVehicleRequestRepo;
+	@Autowired
+	private WorkOrderItemsRequestRepository workOrderItemsRequestRepo;
+	@Autowired
+	private WorkOrderLabourRequestRepository workOrderLabourRequestRepo;
+	@Autowired
+	private WorkOrderVehicleRequestRepository workOrderVehicleRequestRepo;
 
 	// Handler For Open dashBoard
 	@GetMapping("/dashboard")
@@ -443,12 +456,109 @@ public class PumpController {
 	@GetMapping("/maintenance/view")
 	@PreAuthorize("hasAuthority('PUMP_VIEW')")
 	public String viewApprovedWorkOrderList(Model model) {
+		String complSts="work_order_approved";
+		String department = "Pump Dept";
+		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
+		model.addAttribute("workorderApprovedcompls", complaintDtos);
 		model.addAttribute("title", "Pump | View | Manintenance Management");
 		return "/pages/pump_house/pump_view_workorder_list";
 	}
 
-	@GetMapping("/maintenance/view/detalis/")
-	public String viewWorkOrderDtls(Model model) {
+	@GetMapping("/maintenance/view/detalis/{complNo}/{indentNo}")
+	public String viewWorkOrderDtls(@PathVariable String complNo,@PathVariable String indentNo,Model model) {
+		
+		List<WorkOrderItemsRequest> itemRequests = this.workOrderItemsRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
+		List<WorkOrderLabourRequest> labourRequests = this.workOrderLabourRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
+		List<WorkOrderVehicleRequest> vehicleRequests = this.workOrderVehicleRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
+
+		String complNumber = null;
+		String indentNumber = null;
+		Long workOrderNumber = null;
+		Date expStartDate = null;
+		Date expEndDate = null;
+		String approvedBy = null;
+		String department = null;
+		String division = null;
+		String subDivision = null;
+		String workPriprity = null;
+		String workSite = null;
+		String contactNo = null;		
+
+		// Check for indent number in TempIndentItemRequest list
+		for (WorkOrderItemsRequest indentItems : itemRequests) {
+			if (indentItems.getIndentNo() != null || indentItems.getComplNo() != null) {
+				indentNumber = indentItems.getIndentNo();
+				complNumber = indentItems.getComplNo();
+				workOrderNumber = indentItems.getWorkOrderNo();
+				expStartDate = indentItems.getStartDate();
+				expEndDate = indentItems.getEndDate();
+				approvedBy = indentItems.getUsername();
+				department = indentItems.getDepartmentName();
+				division = indentItems.getDivision();
+				subDivision = indentItems.getSubDivision();
+				workPriprity = indentItems.getWorkPriority();
+				workSite = indentItems.getWorkSite();
+				contactNo = indentItems.getContactNo();				
+				break;
+			}
+		}
+		// Check for indent number in TempIndentLabourRequest list
+		if (indentNumber == null || complNumber == null) {
+			for (WorkOrderLabourRequest indentLabors : labourRequests) {
+				if (indentLabors.getIndentNo() != null || indentLabors.getComplNo() != null) {
+					indentNumber = indentLabors.getIndentNo();
+					complNumber = indentLabors.getComplNo();
+					workOrderNumber = indentLabors.getWorkOrderNo();
+					expStartDate = indentLabors.getStartDate();
+					expEndDate = indentLabors.getEndDate();
+					approvedBy = indentLabors.getUsername();
+					department = indentLabors.getDepartmentName();
+					division = indentLabors.getDivision();
+					subDivision = indentLabors.getSubDivision();
+					workPriprity = indentLabors.getWorkPriority();
+					workSite = indentLabors.getWorkSite();
+					contactNo = indentLabors.getContactNo();
+					break;
+				}
+			}
+		}
+		// Check for indent number in TempIndentVehicleRequest list
+		if (indentNumber == null || complNumber == null) {
+			for (WorkOrderVehicleRequest indentVehicle : vehicleRequests) {
+				if (indentVehicle.getIndentNo() != null || indentVehicle.getComplNo() != null) {
+					indentNumber = indentVehicle.getIndentNo();
+					complNumber = indentVehicle.getComplNo();
+					workOrderNumber = indentVehicle.getWorkOrderNo();
+					expStartDate = indentVehicle.getStartDate();
+					expEndDate = indentVehicle.getEndDate();
+					approvedBy = indentVehicle.getUsername();
+					department = indentVehicle.getDepartmentName();
+					division = indentVehicle.getDivision();
+					subDivision = indentVehicle.getSubDivision();
+					workPriprity = indentVehicle.getWorkPriority();
+					workSite = indentVehicle.getWorkSite();
+					contactNo = indentVehicle.getContactNo();
+					break;
+				}
+			}
+		}
+
+		model.addAttribute("complNo", complNumber);
+		model.addAttribute("indentNo", indentNumber);
+		model.addAttribute("workOrderNo", workOrderNumber);
+		model.addAttribute("startDate", expStartDate);
+		model.addAttribute("endDate", expEndDate);
+		model.addAttribute("approvedBy", approvedBy);
+		model.addAttribute("department", department);
+		model.addAttribute("division", division);
+		model.addAttribute("subdivision", subDivision);
+		model.addAttribute("workPriority", workPriprity);
+		model.addAttribute("worksite", workSite);
+		model.addAttribute("contactNo", contactNo);
+
+		model.addAttribute("listOfMaterials", itemRequests);
+		model.addAttribute("listOfLabors", labourRequests);
+		model.addAttribute("listOfVehicles", vehicleRequests);
 		model.addAttribute("title", "Pump | View | Manintenance Management");
 		return "/pages/pump_house/pump_view_workorder_dtls";
 	}

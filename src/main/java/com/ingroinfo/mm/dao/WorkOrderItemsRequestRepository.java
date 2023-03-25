@@ -13,6 +13,8 @@ public interface WorkOrderItemsRequestRepository extends JpaRepository<WorkOrder
 	List<WorkOrderItemsRequest> findByWorkOrderNo(Long workOrderNo);
 
 	WorkOrderItemsRequest findByWorkOrderNoAndItemId(Long workOrderNo, String itemId);
+
+	List<WorkOrderItemsRequest> findByComplNoAndIndentNo(String complNo, String indentNo);
 	
 
 }
