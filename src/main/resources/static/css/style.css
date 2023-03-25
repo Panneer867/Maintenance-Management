@@ -137,3 +137,15 @@ table .vehicel-table-scroll {
 #tutorial{
 	display:none;
 }
+
+.col-0\.5 {
+  width: 4.16667%;
+  max-width: 4.16667%;
+  flex: 0 0 4.16667%;
+}
+
+.col-11\.5 {
+  width: 95.83333%;
+  max-width: 95.83333%;
+  flex: 0 0 95.83333%;
+}

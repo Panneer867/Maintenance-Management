@@ -10,11 +10,11 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"><img class="category__02 w-100" th:src="@{/images/dashboard/Task.jpg}"
-											alt="" />
+									<a th:href="@{/dashboard/task-management}"><img class="category__01 w-100"
+											th:src="@{/images/dashboard/Task.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
+								<a th:href="@{/dashboard/task-management}">
 									<p class="dash-category category__01">Task Mangement</p>
 								</a>
 							</article>
@@ -24,12 +24,27 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"><img class="category__03 w-100"
+									<a th:href="@{/dashboard/asset-management}"><img class="category__02 w-100"
 											th:src="@{/images/dashboard/Assests.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__03">Assest Mangement</p>
+								<a th:href="@{/dashboard/asset-management}">
+									<p class="dash-category category__02">Assest Mangement</p>
+								</a>
+							</article>
+						</div>
+					</div>
+
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/dashboard/stock-management}"><img class="category__03 w-100" th:src="@{/images/dashboard/Stock.jpg}"
+											alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/dashboard/stock-management}">
+									<p class="dash-category category__03">Stock Management</p>
 								</a>
 							</article>
 						</div>
@@ -38,30 +53,16 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"> <img class="category__03 w-100"
+									<a th:href="@{/dashboard/workorder-management}"> <img class="category__04 w-100"
 											th:src="@{/images/dashboard/Workorder.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
+								<a th:href="@{/dashboard/workorder-management}">
 									<p class="dash-category category__04">Workorder Mangement</p>
 								</a>
 							</article>
 						</div>
 					</div>
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"><img class="category__03 w-100" th:src="@{/images/dashboard/Stock.jpg}"
-											alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__01">Stock Management</p>
-								</a>
-							</article>
-						</div>
-					</div>
 				</div>
 			</div>
 
@@ -72,54 +73,55 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"> <img class="category__03 w-100"
-											th:src="@{/images/dashboard/Inward.jpg}" alt="" />
+									<a th:href="@{/dashboard/employee-management}"> <img class="category__05 w-100" th:src="@{/images/dashboard/Emplooyee.jpg}"
+											alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__03">Inward Stock</p>
+								<a th:href="@{/dashboard/employee-management}">
+									<p class="dash-category category__05">Employee Mangement</p>
 								</a>
 							</article>
 						</div>
 					</div>
+
 					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"><img class="category__04 w-100"
-											th:src="@{/images/dashboard/Outward.jpg}" alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__04">Outward Stock</p>
-								</a>
-							</article>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"> <img class="category__03 w-100"
-											th:src="@{/images/dashboard/Contract.jpg}" alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__03">Contract Management</p>
-								</a>
-							</article>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"> <img class="category__04 w-100"
+									<a th:href="@{/dashboard/billing-management}"> <img class="category__06 w-100"
 											th:src="@{/images/dashboard/Billing.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__04">Billing Management</p>
+								<a th:href="@{/dashboard/billing-management}">
+									<p class="dash-category category__06">Billing Management</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/dashboard/pump-management}"><img class="category__07 w-100" th:src="@{/images/dashboard/Pump.jpg}"
+											alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/dashboard/pump-management}">
+									<p class="dash-category category__07">Pump Management</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/dashboard/pipe-management}"> <img class="category__08 w-100" th:src="@{/images/dashboard/Pipe.jpg}"
+											alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/dashboard/pipe-management}">
+									<p class="dash-category category__08">Pipe Mangement</p>
 								</a>
 							</article>
 						</div>
@@ -134,40 +136,29 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"> <img class="category__02 w-100" th:src="@{/images/dashboard/Pipe.jpg}"
-											alt="" />
+									<a th:href="@{/dashboard/vehicle-management}"> <img class="category__09 w-100"
+											th:src="@{/images/dashboard/Vehicle.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__01">Pipe Mangement</p>
+								<a th:href="@{/dashboard/vehicle-management}">
+									<p class="dash-category category__09">Vehicle management</p>
 								</a>
 							</article>
 						</div>
 					</div>
+
+
+
 					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"><img class="category__03 w-100" th:src="@{/images/dashboard/Pump.jpg}"
-											alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__03">Pump Management</p>
-								</a>
-							</article>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"> <img class="category__04 w-100"
+									<a th:href="@{/dashboard/leakage-management}"> <img class="category__10 w-100"
 											th:src="@{/images/dashboard/Leakage.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__04">Leakage Management</p>
+								<a th:href="@{/dashboard/leakage-management}">
+									<p class="dash-category category__10">Leakage Management</p>
 								</a>
 							</article>
 						</div>
@@ -176,12 +167,26 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"> <img class="category__02 w-100"
+									<a th:href="@{/dashboard/meter-management}"><img class="category__01 w-100" th:src="@{/images/dashboard/Meter.jpg}"
+											alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/dashboard/meter-management}">
+									<p class="dash-category category__01">Meter Management</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/dashboard/waterstorage-management}"> <img class="category__02 w-100"
 											th:src="@{/images/dashboard/Monitoring.jpg}" alt="" />
 									</a>
 								</picture>
-								<a href="#">
-									<p class="dash-category category__01">water level monitoring</p>
+								<a th:href="@{/dashboard/stowaterstorageck-management}">
+									<p class="dash-category category__02">Water level monitoring</p>
 								</a>
 							</article>
 						</div>
@@ -192,45 +197,41 @@
 			<div class="d-flex justify-content-center mt-4">
 				<div class="row mb-4">
 
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"><img class="category__03 w-100" th:src="@{/images/dashboard/Meter.jpg}"
-											alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__03">Meter Management</p>
-								</a>
-							</article>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="dash-cards">
-							<article class="dash-card">
-								<picture class="thumbnail">
-									<a href="#"> <img class="category__04 w-100"
-											th:src="@{/images/dashboard/Vehicle.jpg}" alt="" />
-									</a>
-								</picture>
-								<a href="#">
-									<p class="dash-category category__04">Vehicle management</p>
-								</a>
-							</article>
-						</div>
-					</div>
-					<div class="col-3">
 
+					<div class="col-3">
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
-									<a href="#"> <img class="category__02 w-100"
-											th:src="@{/images/dashboard/Indent.jpg}" alt="" />
+									<a th:href="@{/dashboard/contact-management}"> <img class="category__11 w-100"
+											th:src="@{/images/dashboard/Contact.jpg}" alt="" />
 									</a>
 								</picture>
+								<a th:href="@{/dashboard/contact-management}">
+									<p class="dash-category category__11">Contact Management</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card border-hide">
+								<picture class="thumbnail">
+
+								</picture>
 								<a href="#">
-									<p class="dash-category category__01">Indent management</p>
+
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card border-hide">
+								<picture class="thumbnail">
+
+								</picture>
+								<a href="#">
+
 								</a>
 							</article>
 						</div>

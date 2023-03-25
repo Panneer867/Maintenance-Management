@@ -30,6 +30,11 @@ public class AssetController {
 	@Autowired
 	AssestEntryService assestEntryService;
 	
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "/pages/asset/dashboard";
+	}
+	
 	@GetMapping("/entry")
 	@PreAuthorize("hasAuthority('ASSET_MANAGEMENT')")
 	public String assetEntry(Model model) {
