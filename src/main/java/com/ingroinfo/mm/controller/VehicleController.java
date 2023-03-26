@@ -18,6 +18,12 @@ public class VehicleController {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
 	
+	@GetMapping("/dashboard")
+	public String openDashboard(Model model) {
+		model.addAttribute("title", "Vehicle Management | Dashboard | Manintenance Management");
+		return "/pages/vehicle_management/dashboard";
+	}
+	
 	@GetMapping("/management")
 	@PreAuthorize("hasAuthority('VEHICLE_MANAGEMENT')")
 	public String vehicleManagement() {

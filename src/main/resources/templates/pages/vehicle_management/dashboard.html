@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Vehicle Management Dashboard</h3>
+		<div class="mt-2">
+			<div class="row mt-3 mb-2">
+					<div class="col-sm-6">
+						<div class="card" style="background-color: #ffffff">
+							<div class="card bg-dark">
+								<h5 style="text-align: center; margin-top: 2px;color: white">
+									Total Assests</h5>
+							</div>
+							<canvas id="myChart" style="width:100%;max-width:600px;"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card" style="background-color: #ffffff">
+							<div class="card bg-dark">
+								<h5 style="text-align: center; margin-top: 2px;color: white">
+									Assets By Group/Department</h5>
+							</div>
+							<canvas id="myChart1" style="width:100%;max-width:600px;"></canvas>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col mx-4 bg-info btn">
+						<div class="row">
+							<div class="col-6 text-end">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Total Vehicle
+									:</label>
+							</div>
+							<div class="col-5">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="9">
+							</div>
+						</div>
+					</div>
+
+					<div class="col mx-4 bg-danger btn">
+						<div class="row">
+							<div class="col">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Running Vehicle
+									:</label>
+							</div>
+							<div class="col">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="5">
+							</div>
+						</div>
+					</div>
+					<div class="col mx-4  bg-primary text-center btn">
+						<div class="row">
+							<div class="col-6">
+								<label for="staticEmail2" class="col-form-label fw-bold text-white">Stopped Vehicle :
+								</label>
+							</div>
+							<div class="col-6">
+								<input type="text" readonly class="form-control-plaintext fw-bold text-white"
+									id="staticEmail2" value="4">
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -72,7 +72,7 @@ public class EmployeeController {
 	public String employeeDashboard(Model model) {
 		model.addAttribute("show", null);
 		model.addAttribute("title", "Employee | DashBoard | Manintenance Management");
-		return "/pages/employee_management/employee_dashboard";
+		return "/pages/employee_management/dashboard";
 	}
 
 	@GetMapping("/master")

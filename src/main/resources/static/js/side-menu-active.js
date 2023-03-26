@@ -6,7 +6,6 @@ $(document).ready(function() {
 		}
 	});
 
-
 	$(function() {
 		if (window.location.href.match('/monitor/')) {
 			$("#expand-monitor").addClass("m-menu__item--open m-menu__item--expanded");
@@ -131,86 +130,86 @@ $(document).ready(function() {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/asset-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/stock-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
-	
+
+
 	$(function() {
 		if (window.location.href.match('/dashboard/workorder-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/employee-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/billing-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/pump-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/pipe-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/vehicle-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/leakage-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/meter-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/handpump-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/borewell-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/glsroht-management')) {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/dashboard/levelcontrol-management')) {
 			$("#dashboard-menu").addClass("li-active");
@@ -224,6 +223,54 @@ $(document).ready(function() {
 	$(function() {
 		if (window.location.href.match('/dashboard/contact-management')) {
 			$("#dashboard-menu").addClass("li-active");
+		}
+	});
+
+
+	/**************Task Mangement tabs *************** */
+
+	$(function() {
+		if (window.location.href.match('/task/dashboard')) {
+			$("#task-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/task/je')) {
+			$("#task-je-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/task/aee')) {
+			$("#task-aee-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/task/ee')) {
+			$("#task-ee-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/task/commissioner')) {
+			$("#task-com-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/task/work-complete')) {
+			$("#work-complete-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/task/job-card')) {
+			$("#job-card-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/task/complaint-history')) {
+			$("#complaint-history-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 
@@ -247,7 +294,7 @@ $(document).ready(function() {
 		}
 	});
 
-	/**************Stocks top tabs *************** */
+	/**************Stocks Management *************** */
 
 	$(function() {
 		if (window.location.href.match('/inward/materials')) {
@@ -293,36 +340,240 @@ $(document).ready(function() {
 		}
 	});
 
-	/**************end of Stocks top tabs *************** */
-
-	/**************Strat of Task Updated tabs *************** */
+	/************** Workorders *************** */
 
 	$(function() {
-		if (window.location.href.match('/task/dashboard')) {
-			$("#task-update-dashboard").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/workorder/dashboard')) {
+			$("#workoder-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/workorder/generate')) {
+			$("#generate-workorder-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/workorder/hold')) {
+			$("#hold-workorder-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/workorder/cancel')) {
+			$("#cancel-workorder-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	/************** Employee Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/employee/dashboard')) {
+			$("#employee-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/employee/master')) {
+			$("#employee-master-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/employee/attendenceTracker')) {
+			$("#employee-attendance-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/employee/salary-generate')) {
+			$("#employee-salary-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	$(function() {
+		if (window.location.href.match('/employee/inspection')) {
+			$("#employee-inspection-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 
 	$(function() {
-		if (window.location.href.match('/task/je')) {
-			$("#task-update-je").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/employee/leave')) {
+			$("#employee-leave-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+
+	/************** Billing Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/billing/dashboard')) {
+			$("#billing-dashboard-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/task/aee')) {
-			$("#task-update-aee").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/billing/consumer-master') || window.location.href.match('/billing/get/consumers')) {
+			$("#billing-cons-master-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/billing/transactions') || window.location.href.match('/billing/get/transactions')) {
+			$("#billing-cons-trans-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/billing/meter-details') || window.location.href.match('/billing/get/meter')) {
+			$("#billing-meter-details-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/billing/ward-consumption')) {
+			$("#billing-ward-consumption-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/task/ee')) {
-			$("#task-update-ee").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/billing/dma-payment')) {
+			$("#billing-dma-payment-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/task/commissioner')) {
-			$("#task-update-com").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/billing/dcb')) {
+			$("#billing-dcb-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
+
+	/************** Pump Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/dashboard')) {
+			$("#pump-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/index')) {
+			$("#pump-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/indent')) {
+			$("#pump-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/view')) {
+			$("#pump-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/update')) {
+			$("#pump-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/inspection')) {
+			$("#pump-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/pump/maintenance/history')) {
+			$("#pump-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	/************** Pump Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/pipe/dashboard')) {
+			$("#pipe-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pipe/pipe-index')) {
+			$("#pipe-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pipe/maintenance-indent')) {
+			$("#pipe-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/pipe/viewwork')) {
+			$("#pipe-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	$(function() {
+		if (window.location.href.match('/pipe/maintenance-work-update')) {
+			$("#pipe-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/pipe/maintenance-inspection')) {
+			$("#pipe-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/pipe/maintenance-history')) {
+			$("#pipe-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	
+	/************** Vehicle Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/vehicle/dashboard')) {
+			$("#vehicle-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/vehicle/management')) {
+			$("#vehicle-tracking-managemnt-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/vehicle/history')) {
+			$("#vehicle-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/vehicle/fuel-management')) {
+			$("#vehicle-fuel-management-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	$(function() {
+		if (window.location.href.match('/vehicle/index')) {
+			$("#vehicle-vehicle-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/vehicle/management/index')) {
+			$("#vehicle-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	$(function() {
+		if (window.location.href.match('/vehicle/inspection')) {
+			$("#vehicle-workorder-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	
+	$(function() {
+		if (window.location.href.match('/vehicle/work-order')) {
+			$("#vehicle-workorder-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
 
 });
 

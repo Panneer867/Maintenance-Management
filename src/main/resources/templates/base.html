@@ -62,7 +62,7 @@
 	<!-- Select2 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
 
-	
+
 
 </head>
 
@@ -154,7 +154,7 @@
 										</a>
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										id="task-update-dashboard">
+										id="task-dashboard-active">
 										<a th:href="@{/task/dashboard}" class="m-menu__link">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -164,7 +164,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-je">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-je-active">
 										<a th:href="@{/task/je}" class="m-menu__link">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -174,7 +174,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-aee">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-aee-active">
 										<a th:href="@{/task/aee}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -184,7 +184,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-ee">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-ee-active">
 										<a th:href="@{/task/ee}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -194,7 +194,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-update-com">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="task-com-active">
 										<a th:href="@{/task/commissioner}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -204,8 +204,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/work-complete' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="work-complete-active">
 										<a th:href="@{/task/work-complete}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -215,8 +214,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/job-card' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="job-card-active">
 										<a th:href="@{/task/job-card}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -226,8 +224,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/task/complaint-history' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="complaint-history-active">
 										<a th:href="@{/task/complaint-history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -414,9 +411,17 @@
 											</span>
 										</a>
 									</li>
-
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/generate' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="workoder-dashboard-active">
+										<a th:href="@{/workorder/dashboard}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Dashboard
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -426,8 +431,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/hold' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="hold-workorder-active">
 										<a th:href="@{/workorder/hold}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -437,8 +441,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/cancel' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="cancel-workorder-active">
 										<a th:href="@{/workorder/cancel}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -448,17 +451,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/workorder/budget-estimation' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/workorder/budget-estimation}" class="m-menu__link ">
-											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-												<span></span>
-											</i>
-											<span class="m-menu__link-text">
-												Work Estmation
-											</span>
-										</a>
-									</li>
+									
 								</ul>
 							</div>
 						</li>
@@ -481,19 +474,17 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/dashboard' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="employee-dashboard-active">
 										<a th:href="@{/employee/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
 											<span class="m-menu__link-text">
-												DashBoard
+												Dashboard
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/master' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="employee-master-active">
 										<a th:href="@{/employee/master}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -503,8 +494,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/attendenceTracker' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="employee-attendance-active">
 										<a th:href="@{/employee/attendenceTracker}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -514,8 +504,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/salary-generate' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="employee-salary-active">
 										<a th:href="@{/employee/salary-generate}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -525,8 +514,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/inspection' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="employee-inspection-active">
 										<a th:href="@{/employee/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -537,8 +525,7 @@
 										</a>
 									</li>
 
-									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/employee/leave' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item  sub-menu-hover" aria-haspopup="true" id="employee-leave-active">
 										<a th:href="@{/employee/leave}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -571,21 +558,27 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/consumer-master'
-										|| #httpServletRequest.getRequestURI() == '/billing/get/consumers' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/billing/consumer-master}" class="m-menu__link ">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-dashboard-active">
+										<a th:href="@{/billing/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Dashboard
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-cons-master-active">
+										<a th:href="@{/billing/consumer-master}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>	
 											</i>
 											<span class="m-menu__link-text">
 												Cons Master Details
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/billing/transactions'
-										|| #httpServletRequest.getRequestURI() == '/billing/get/transactions' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-cons-trans-active">
 										<a th:href="@{/billing/transactions}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -595,8 +588,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" th:classappend="${#httpServletRequest.getRequestURI() == '/billing/meter-details' 
-										|| #httpServletRequest.getRequestURI() == '/billing/get/meter' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-meter-details-active">
 										<a th:href="@{/billing/meter-details}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -606,7 +598,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-ward-consumption-active">
 										<a href="#" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -616,7 +608,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-dma-payment-active">
 										<a href="#" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -626,7 +618,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="billing-dcb-active">
 										<a href="#" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -658,9 +650,8 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/dashboard' ? 'm-menu__item--active sub-menu-active':''}">
-										<a th:href="@{/pump/dashboard}" class="m-menu__link ">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-dashboard-active">
+										<a th:href="@{/pump/maintenance/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -669,8 +660,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/index' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-index-active">
 										<a th:href="@{/pump/maintenance/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -680,8 +670,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/indent' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-indent-active">
 										<a th:href="@{/pump/maintenance/indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -691,8 +680,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/view' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-view-active">
 										<a th:href="@{/pump/maintenance/view}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -702,8 +690,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/update' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-update-active">
 										<a th:href="@{/pump/maintenance/update}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -713,8 +700,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/inspection' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-inspection-active">
 										<a th:href="@{/pump/maintenance/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -724,8 +710,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance/history' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pump-maintenance-history-active">
 										<a th:href="@{/pump/maintenance/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -757,8 +742,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/dashboard' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-dashboard-active">
 										<a th:href="@{/pipe/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -768,8 +752,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/pipe-index' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-index-active">
 										<a th:href="@{/pipe/pipe-index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -779,8 +762,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/maintenance-indent' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-indent-active">
 										<a th:href="@{/pipe/maintenance-indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -790,8 +772,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/viewwork' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-view-active">
 										<a th:href="@{/pipe/viewwork}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -801,8 +782,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/maintenance-work-update' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-update-active">
 										<a th:href="@{/pipe/maintenance-work-update}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -812,8 +792,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/maintenance-inspection' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-inspection-active">
 										<a th:href="@{/pipe/maintenance-inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -823,8 +802,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pipe/maintenance-history' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="pipe-maintenance-history-active">
 										<a th:href="@{/pipe/maintenance-history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -856,8 +834,17 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/management' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-dashboard-active">
+										<a th:href="@{/vehicle/dashboard}" class="m-menu__link ">
+											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+												<span></span>
+											</i>
+											<span class="m-menu__link-text">
+												Dashboard
+											</span>
+										</a>
+									</li>
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-tracking-managemnt-active">
 										<a th:href="@{/vehicle/management}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -867,8 +854,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/history' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-history-active">
 										<a th:href="@{/vehicle/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -878,8 +864,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/pump/maintenance-intent' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-fuel-management-active">
 										<a href="#" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -889,8 +874,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/index' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-vehicle-index-active">
 										<a th:href="@{/vehicle/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -900,8 +884,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/management/index' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-management-index-active">
 										<a th:href="@{/vehicle/management/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -911,8 +894,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/inspection' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-inspection-active">
 										<a th:href="@{/vehicle/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
@@ -922,8 +904,7 @@
 											</span>
 										</a>
 									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										th:classappend="${#httpServletRequest.getRequestURI() == '/vehicle/work-order' ? 'm-menu__item--active sub-menu-active':''}">
+									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="vehicle-workorder-view-active">
 										<a th:href="@{/vehicle/work-order}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>

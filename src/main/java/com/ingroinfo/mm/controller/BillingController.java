@@ -36,6 +36,11 @@ public class BillingController {
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
+	
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "/pages/billing/dashboard";
+	}
 
 	// Handler For Opening Consumer Details Page
 	@GetMapping("/consumer-master")

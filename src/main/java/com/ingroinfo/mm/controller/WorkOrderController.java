@@ -54,7 +54,6 @@ public class WorkOrderController {
 	private HoldWorkOrderService holdWorkOrdeService;
 	@Autowired
 	private CancelWorkOrderService cancelWorkOrdeService;
-
 	@Autowired
 	private TaskUpdateService taskUpdateService;
 	@Autowired
@@ -69,6 +68,11 @@ public class WorkOrderController {
 	private WapWorkOrderLabourRequestRepository wapWorkOrderLabourRequestRepo;
 	@Autowired
 	private WapWorkOrderVehicleRequestRepository wapWorkOrderVehicleRequestRepo;
+
+	@GetMapping("dashboard")
+	public String dashboard() {
+		return "/pages/work_orders/dashboard";
+	}
 
 	@GetMapping("/generate")
 	@PreAuthorize("hasAuthority('GENERATE_WORKORDER')")
@@ -171,68 +175,69 @@ public class WorkOrderController {
 		model.addAttribute("title", "Work Order | Generate Work Order");
 		return "/pages/work_orders/generate_work_order";
 	}
-	
+
 	// Handler For Submit WorkOrder Data For Approval
-		@GetMapping("/generate/submit/{complNo}/{indentNo}")
-		public String approveIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
-				Principal principal, HttpSession session) {
+	@GetMapping("/generate/submit/{complNo}/{indentNo}")
+	public String approveIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
 
-			List<TempWorkOrderItemRequest> tempWorkitemRequests = this.tempWorkOrderItemRequestRepo.findByComplNo(complNo,
-					indentNo);
-			List<TempWorkOrderLabourRequest> tempWorklabourRequests = this.tempWorkOrderLabourRequestRepo
-					.findByComplNo(complNo, indentNo);
-			List<TempWorkOrderVehicleRequest> tempWorkvehicleRequests = this.tempWorkOrderVehicleRequestRepo
-					.findByComplNo(complNo, indentNo);
+		List<TempWorkOrderItemRequest> tempWorkitemRequests = this.tempWorkOrderItemRequestRepo.findByComplNo(complNo,
+				indentNo);
+		List<TempWorkOrderLabourRequest> tempWorklabourRequests = this.tempWorkOrderLabourRequestRepo
+				.findByComplNo(complNo, indentNo);
+		List<TempWorkOrderVehicleRequest> tempWorkvehicleRequests = this.tempWorkOrderVehicleRequestRepo
+				.findByComplNo(complNo, indentNo);
 
-			if (tempWorkitemRequests != null) {
-				ModelMapper modelMapper = new ModelMapper();
-				List<WapWorkOrderItemRequest> wapWorkOrderItems = tempWorkitemRequests.stream()
-						.map(wapWorkItems -> modelMapper.map(wapWorkItems, WapWorkOrderItemRequest.class))
-						.collect(Collectors.toList());
+		if (tempWorkitemRequests != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WapWorkOrderItemRequest> wapWorkOrderItems = tempWorkitemRequests.stream()
+					.map(wapWorkItems -> modelMapper.map(wapWorkItems, WapWorkOrderItemRequest.class))
+					.collect(Collectors.toList());
 
-				wapWorkOrderItems.forEach(wapWorkItem -> {
-					wapWorkItem.setUserName(principal.getName());
-					wapWorkItem.setStatus("Approved");
-				});
+			wapWorkOrderItems.forEach(wapWorkItem -> {
+				wapWorkItem.setUserName(principal.getName());
+				wapWorkItem.setStatus("Approved");
+			});
 
-				this.wapWorkOrderItemRequestRepo.saveAll(wapWorkOrderItems);
-				this.tempWorkOrderItemRequestRepo.deleteAllDataByComplNo(complNo);				
-			}
-			if (tempWorklabourRequests != null) {
-				ModelMapper modelMapper = new ModelMapper();
-				List<WapWorkOrderLabourRequest> wapWorkOrderLabors = tempWorklabourRequests.stream()
-						.map(wapWorkLabors -> modelMapper.map(wapWorkLabors, WapWorkOrderLabourRequest.class))
-						.collect(Collectors.toList());
-
-				wapWorkOrderLabors.forEach(wapWorkLabor -> {
-					wapWorkLabor.setUserName(principal.getName());
-					wapWorkLabor.setStatus("Approved");
-				});
-
-				this.wapWorkOrderLabourRequestRepo.saveAll(wapWorkOrderLabors);	
-				this.tempWorkOrderLabourRequestRepo.deleteAllDataByComplNo(complNo);
-			}
-			if (tempWorkvehicleRequests != null) {
-				ModelMapper modelMapper = new ModelMapper();
-				List<WapWorkOrderVehicleRequest> wapWorkOrderVehicles = tempWorkvehicleRequests.stream()
-						.map((wapWorkVehicles) -> modelMapper.map(wapWorkVehicles, WapWorkOrderVehicleRequest.class))
-						.collect(Collectors.toList());
-
-				wapWorkOrderVehicles.forEach(wapWorkVehicle -> {
-					wapWorkVehicle.setUserName(principal.getName());
-					wapWorkVehicle.setStatus("Approved");
-				});
-
-				this.wapWorkOrderVehicleRequestRepo.saveAll(wapWorkOrderVehicles);
-				this.tempWorkOrderVehicleRequestRepo.deleteAllDataByComplNo(complNo);
-			}
-
-			ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
-			oldcomplaintDto.setComplStatus("waiting_for_workorder_approval");			
-			this.taskUpdateService.saveComplaint(oldcomplaintDto);
-			session.setAttribute("message", new Message("Wokorder Request Successfully Initiated !! Wait For Approval !!", "success"));
-			return "redirect:/workorder/generate";
+			this.wapWorkOrderItemRequestRepo.saveAll(wapWorkOrderItems);
+			this.tempWorkOrderItemRequestRepo.deleteAllDataByComplNo(complNo);
 		}
+		if (tempWorklabourRequests != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WapWorkOrderLabourRequest> wapWorkOrderLabors = tempWorklabourRequests.stream()
+					.map(wapWorkLabors -> modelMapper.map(wapWorkLabors, WapWorkOrderLabourRequest.class))
+					.collect(Collectors.toList());
+
+			wapWorkOrderLabors.forEach(wapWorkLabor -> {
+				wapWorkLabor.setUserName(principal.getName());
+				wapWorkLabor.setStatus("Approved");
+			});
+
+			this.wapWorkOrderLabourRequestRepo.saveAll(wapWorkOrderLabors);
+			this.tempWorkOrderLabourRequestRepo.deleteAllDataByComplNo(complNo);
+		}
+		if (tempWorkvehicleRequests != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WapWorkOrderVehicleRequest> wapWorkOrderVehicles = tempWorkvehicleRequests.stream()
+					.map((wapWorkVehicles) -> modelMapper.map(wapWorkVehicles, WapWorkOrderVehicleRequest.class))
+					.collect(Collectors.toList());
+
+			wapWorkOrderVehicles.forEach(wapWorkVehicle -> {
+				wapWorkVehicle.setUserName(principal.getName());
+				wapWorkVehicle.setStatus("Approved");
+			});
+
+			this.wapWorkOrderVehicleRequestRepo.saveAll(wapWorkOrderVehicles);
+			this.tempWorkOrderVehicleRequestRepo.deleteAllDataByComplNo(complNo);
+		}
+
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("waiting_for_workorder_approval");
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+		session.setAttribute("message",
+				new Message("Wokorder Request Successfully Initiated !! Wait For Approval !!", "success"));
+		return "redirect:/workorder/generate";
+	}
 
 	// To Get single generate Id Data
 	@GetMapping("/viewwork/{generateWorkId}")

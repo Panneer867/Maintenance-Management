@@ -92,11 +92,11 @@ public class PumpController {
 	private WorkOrderVehicleRequestRepository workOrderVehicleRequestRepo;
 
 	// Handler For Open dashBoard
-	@GetMapping("/dashboard")
+	@GetMapping("/maintenance/dashboard")
 	@PreAuthorize("hasAuthority('PUMP_DASHBOARD')")
 	public String openDashboard(Model model) {
 		model.addAttribute("title", "Pump | Dashboard | Manintenance Management");
-		return "/pages/pump_house/pump-dashboard";
+		return "/pages/pump_house/dashboard";
 	}
 
 	// Handler For Open Maintenance Page

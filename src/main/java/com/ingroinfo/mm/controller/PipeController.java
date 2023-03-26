@@ -50,13 +50,13 @@ public class PipeController {
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('PIPE_DASHBOARD')")
 	public String pipeDashboard() {
-		return "/pages/pipe_management/pipe_dashboard";
+		return "/pages/pipe_management/dashboard";
 	}
 
 	@GetMapping("/pipe-index")
 	@PreAuthorize("hasAuthority('PIPE_INDEX')")
 	public String pipeIndex() {
-		return "/pages/pipe_management/pipe_index";
+		return "/pages/pipe_management/pipe_maintenance_index";
 	}
 
 	@GetMapping("/viewwork")
