@@ -116,12 +116,28 @@ $(document).ready(function() {
 	});
 
 	$(function() {
+		if (window.location.href.match('/water-storage/')) {
+			$("#expand-water-storage").addClass("m-menu__item--open m-menu__item--expanded");
+		}
+	});
+
+	$(function() {
 		if (window.location.href.match('/masters/')) {
 			$("#expand-masters").addClass("li-active");
 		}
 	});
 
+	$(function() {
+		if (window.location.href.match('/contact/')) {
+			$("#contact-management-active").addClass("li-active");
+		}
+	});
 
+	$(function() {
+		if (window.location.href.match('/approval')) {
+			$("#approval-active").addClass("li-active");
+		}
+	});
 
 	/************** Dashboard *************** */
 
@@ -348,8 +364,18 @@ $(document).ready(function() {
 		}
 	});
 	$(function() {
+		if (window.location.href.match('/workorder/indent/status')) {
+			$("#workoder-indent-status-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
 		if (window.location.href.match('/workorder/generate')) {
 			$("#generate-workorder-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/workorder/approved')) {
+			$("#workorder-approved-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
@@ -525,7 +551,7 @@ $(document).ready(function() {
 			$("#pipe-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
-	
+
 	/************** Vehicle Management *************** */
 
 	$(function() {
@@ -567,10 +593,251 @@ $(document).ready(function() {
 			$("#vehicle-workorder-view-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
-	
+
 	$(function() {
 		if (window.location.href.match('/vehicle/work-order')) {
 			$("#vehicle-workorder-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	/************** Leakage Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/leakage/dashboard')) {
+			$("#leakage-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/index')) {
+			$("#leakage-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/management')) {
+			$("#leakage-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/maintenance-view')) {
+			$("#leakage-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/maintenance-update')) {
+			$("#leakage-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/maintenance-inspection')) {
+			$("#leakage-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/leakage/maintenance-history')) {
+			$("#leakage-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	/************** Meter Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/meter/dashboard')) {
+			$("#meter-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/meter/testing-maintenance')) {
+			$("#testing-maintenance-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/meter/replacement')) {
+			$("#meter-replace-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	/************** Hand Pump Management *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/dashboard')) {
+			$("#handpump-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/index')) {
+			$("#handpump-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/indent')) {
+			$("#handpump-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/view')) {
+			$("#handpump-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/work-update')) {
+			$("#handpump-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/inspection')) {
+			$("#handpump-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/handpump/history')) {
+			$("#handpump-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	/************** Borewell Maintenance *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/dashboard')) {
+			$("#borewell-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/index')) {
+			$("#borewell-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/indent')) {
+			$("#borewell-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/work-order')) {
+			$("#borewell-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/work-update')) {
+			$("#borewell-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/inspection')) {
+			$("#borewell-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/borewell/history')) {
+			$("#borewell-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	/************** Borewell Maintenance *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/dashboard')) {
+			$("#glsroht-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/index')) {
+			$("#glsroht-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/indent')) {
+			$("#glsroht-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/work-order')) {
+			$("#glsroht-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/work-update')) {
+			$("#glsroht-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/inspection')) {
+			$("#glsroht-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/glsr-oht/history')) {
+			$("#glsroht-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	/************** Borewell Maintenance *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/dashboard')) {
+			$("#levelcontrol-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/index')) {
+			$("#levelcontrol-index-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/indent')) {
+			$("#levelcontrol-indent-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/work-order')) {
+			$("#levelcontrol-view-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/work-update')) {
+			$("#levelcontrol-update-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/inspection')) {
+			$("#levelcontrol-inspection-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/levels-control/history')) {
+			$("#levelcontrol-history-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+
+	/************** Water Storage Maintenance *************** */
+
+	$(function() {
+		if (window.location.href.match('/monitor/water-storage/dashboard')) {
+			$("#water-storage-dashboard-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/water-storage/glsr')) {
+			$("#water-storage-glsr-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/monitor/water-storage/oht')) {
+			$("#water-storage-oht-active").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+
+	/************** Water Storage Maintenance *************** */
+
+	$(function() {
+		if (window.location.href.match('/mis/daily')) {
+			$("#mis-daily-report").addClass("m-menu__item--active sub-menu-active");
+		}
+	});
+	$(function() {
+		if (window.location.href.match('/mis/monthly')) {
+			$("#mis-monthly-report").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 

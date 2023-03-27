@@ -20,57 +20,61 @@ import com.ingroinfo.mm.service.HandPumpService;
 @Controller
 @RequestMapping("/monitor/handpump")
 public class HandpumpController {
-	
+
 	@Autowired
 	HandPumpService handPumpService;
-	
+
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-	
-		@GetMapping("/index")
-		@PreAuthorize("hasAuthority('HANDPUMP_INDEX')")
-		public String borewellIndex(Model model) {
-			return "/pages/handpump/handpump_index";
-		}
 
-		
-		@GetMapping("/indent")
-		@PreAuthorize("hasAuthority('HANDPUMP_INDENT')")
-		public String borewellIndent(Model model) {
-			return "/pages/handpump/handpump_indent";
-		}
-		
-		@GetMapping("/work-order")
-		@PreAuthorize("hasAuthority('HANDPUMP_WORKORDER')")
-		public String borewellWorkOrder(Model model) {
-			return "/pages/handpump/handpump_work_order";
-		}
-		
-		@GetMapping("/work-update")
-		@PreAuthorize("hasAuthority('HANDPUMP_WORKUPDATE')")
-		public String borewellWorkUpdate(Model model) {
-			return "/pages/handpump/handpump_work_update";
-		}
-		
-		@GetMapping("/inspection")
-		@PreAuthorize("hasAuthority('HANDPUMP_INSPECTION')")
-		public String borewellInspection(Model model) {
-			return "/pages/handpump/handpump_inspection";
-		}
-		
-		@GetMapping("/history")
-		@PreAuthorize("hasAuthority('HANDPUMP_HISTORY')")
-		public String borewellHistory(Model model) {
-			return "/pages/handpump/handpump_history";
-		}
-		
-		@PostMapping("/savehandpump")
-		public String saveHandPump(HandPumpDto handPumpDto,HttpSession session) {
-			this.handPumpService.saveHandPump(handPumpDto);
-			session.setAttribute("message", new Message("Data Saved Successfully....!!", "success"));
-			return "redirect:/handpump/index";
-		}
+	@GetMapping("/dashboard")
+	public String dashboard(Model model) {
+		return "/pages/handpump/dashboard";
+	}
+
+	@GetMapping("/index")
+	@PreAuthorize("hasAuthority('HANDPUMP_INDEX')")
+	public String borewellIndex(Model model) {
+		return "/pages/handpump/handpump_index";
+	}
+
+	@GetMapping("/indent")
+	@PreAuthorize("hasAuthority('HANDPUMP_INDENT')")
+	public String borewellIndent(Model model) {
+		return "/pages/handpump/handpump_indent";
+	}
+
+	@GetMapping("/work-order")
+	@PreAuthorize("hasAuthority('HANDPUMP_WORKORDER')")
+	public String borewellWorkOrder(Model model) {
+		return "/pages/handpump/handpump_work_order";
+	}
+
+	@GetMapping("/work-update")
+	@PreAuthorize("hasAuthority('HANDPUMP_WORKUPDATE')")
+	public String borewellWorkUpdate(Model model) {
+		return "/pages/handpump/handpump_work_update";
+	}
+
+	@GetMapping("/inspection")
+	@PreAuthorize("hasAuthority('HANDPUMP_INSPECTION')")
+	public String borewellInspection(Model model) {
+		return "/pages/handpump/handpump_inspection";
+	}
+
+	@GetMapping("/history")
+	@PreAuthorize("hasAuthority('HANDPUMP_HISTORY')")
+	public String borewellHistory(Model model) {
+		return "/pages/handpump/handpump_history";
+	}
+
+	@PostMapping("/savehandpump")
+	public String saveHandPump(HandPumpDto handPumpDto, HttpSession session) {
+		this.handPumpService.saveHandPump(handPumpDto);
+		session.setAttribute("message", new Message("Data Saved Successfully !", "success"));
+		return "redirect:/handpump/index";
+	}
 
 }
