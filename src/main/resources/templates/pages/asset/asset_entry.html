@@ -2,205 +2,138 @@
 
 <body>
 	<section>
-
-
-		<ul class="nav nav-pills nav-justified py-1 mt-2 " id="pills-tab" role="tablist">
-			<li class="nav-item" role="presentation">
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="pills-home-tab"
-					data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
-					aria-controls="pills-home" aria-selected="true">Asset Entry</button>
-			</li>
-			<li class="nav-item" role="presentation">
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-profile-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-					aria-selected="false">View Asset Entry</button>
-			</li>
-
-			<li class="nav-item" role="presentation">
-			</li>
-		</ul>
-		<div class="card  mt-2 bl-cr">
-			<div class="tab-content" id="pills-tabContent">
-				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
-					tabindex="0">
-					<div class="card-header heading-bg">
-						<h3 class="text-center text-white mb-0">Assest Entry</h3>
-					</div>
-					<div class="card-body font-weight-bold">
-						<form method="post" th:action="@{/asset/saveassestentry}">
-							<div class="row">
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Division</label>
-									<input type="text" class="form-control" id="division" name="division"  required
-										placeholder="Division">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Sub Division</label>
-									<input type="text" class="form-control" id="subDivision" name="subDivision" required
-										placeholder="Sub Division">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Assests Name</label>
-									<input type="text" class="form-control" id="assestsName" name="assestsName" required
-										placeholder="Assests Name">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Asset Id</label>
-									<input type="text" class="form-control" id="assetId" name="assetId" required
-										placeholder="Asset Id ">
-								</div>
-							</div>
-
-							<!-- ***************************** 2nd Row  ***************************-->
-							<div class="row mt-2">
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Category</label>
-									<input type="text" class="form-control" id="category" name="category" required
-										placeholder="Category">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Sub-Category</label>
-									<input type="text" class="form-control" id="subCategory" name="subCategory" required
-										placeholder="Sub-Category">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Model</label>
-									<input type="text" class="form-control" id="model" name="model" required placeholder="Model">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Purchase Date</label>
-									<input type="date" class="form-control" id="purchaseDate" name="purchaseDate" required
-										placeholder="Purchase Date">
-								</div>
-							</div>
-
-							<!-- ***************************** 3rd Row  ***************************-->
-							<div class="row mt-2">
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Assest Type</label>
-									<input type="text" class="form-control" id="assestType" name="assestType" required
-										placeholder="Assest Type">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Assigned To</label>
-									<input type="text" class="form-control" id="assignedTo" name="assignedTo" required
-										placeholder="Assigned To">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Barcode</label>
-									<input type="text" class="form-control" id="barCode" name="barCode" required
-										placeholder="Barcode">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">HSNCode</label>
-									<input type="text" class="form-control" id="hsnCode" name="hsnCode" required
-										placeholder="HSNCode">
-								</div>
-							</div>
-
-							<!-- ***************************** 4th Row  ***************************-->
-							<div class="row mt-2">
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Cost</label>
-									<input type="number" class="form-control" id="cost" name="cost" required placeholder="Cost">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">AssestsLocation</label>
-									<input type="text" class="form-control" id="assestsLocation" name="assestsLocation" required
-										placeholder="AssestsLocation">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Retuned Date</label>
-									<input type="date" class="form-control" id="retunedDate" name="retunedDate" required
-										placeholder="Retuned Date">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Store Name</label>
-									<input type="text" class="form-control" id="storeName" name="storeName" required
-										placeholder="Store Name">
-								</div>
-							</div>
-
-
-							<!-- ***************************** 5th Row  ***************************-->
-							<div class="row mt-2">
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Department</label>
-									<input type="text" class="form-control" id="department" name="department" required
-										placeholder="Department">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="inputEmail4">Assests Make</label>
-									<input type="text" class="form-control" id="assestsMake" name="assestsMake" required
-										placeholder="Assests Make">
-								</div>
-							</div>
-
-							<div class=" text-center">
-								<button type="submit" class="btn btn-info w-25">Submit</button>
-								
-							</div>
-
-						</form>
-
-					</div>
-
-
-
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Asset Data Entry</h3>
+		<div class="col-10 mx-auto mt-5">
+		<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
 				</div>
-
-				<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-					tabindex="0">
-					<div class="card">
-						<div class="card-header heading-bg">
-							<h3 class="text-center text-white mb-0">View Asset Entey</h3>
-						</div>
-						<div class="card-body bl-cr">
-
-							<table
-								class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
-								<thead class="table-dark">
-									<tr>
-										<th class="all">Id</th>
-										<th class="all">Asset Id</th>
-										<th class="all">Assests Name</th>
-										<th class="all">Assest Type</th>
-										<th class="all">Category</th>
-										<th class="all">Sub-Category</th>
-										<th class="all">Model</th>
-										<th class="all">Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="asset: ${assestlist}">
-										<td th:text="${asset.assestEntryId}"></td>
-										<td th:text="${asset.assetId}"></td>
-										<td th:text="${asset.assestsName}"></td>
-										<td th:text="${asset.assestType}"></td>
-										<td th:text="${asset.category}"></td>
-										<td th:text="${asset.subCategory}"></td>
-										<td th:text="${asset.model}"></td>
-										<td class="text-center">
-										<a class="text-white bg-black p-2 rounded"
-											th:href="@{'/asset/viewasset/'+ ${asset.assestEntryId}}">View</a>
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<div class="card  mt-2 bl-cr">
+				<div class="card-header heading-bg">
+					<h3 class="text-center text-white mb-0">Assest Entry</h3>
+				</div>
+				<div class="card-body font-weight-bold">
+					<form method="post" th:action="@{/asset/entry}" th:object=${asset}>
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Division</label>
+								<input type="text" class="form-control" name="division" required
+									placeholder="Division">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Sub Division</label>
+								<input type="text" class="form-control" name="subDivision" required
+									placeholder="Sub Division">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Name</label>
+								<input type="text" class="form-control" name="assetName" required
+									placeholder="Assests Name">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Id</label>
+								<input type="text" class="form-control" th:value="${maxAssetId}" name="assetId" readonly 
+									placeholder="Asset Id ">
+							</div>
 						</div>
 
-					</div>
+						<!-- ***************************** 2nd Row  ***************************-->
+						<div class="row mt-2">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Category</label>
+								<input type="text" class="form-control" name="category" required
+									placeholder="Category">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Sub Category</label>
+								<input type="text" class="form-control" name="subCategory" required
+									placeholder="Sub-Category">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Model</label>
+								<input type="text" class="form-control" name="model" required
+									placeholder="Model">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Purchase Date</label>
+								<input type="date" class="form-control" name="purchaseDate" required
+									placeholder="Purchase Date">
+							</div>
+						</div>
+
+						<!-- ***************************** 3rd Row  ***************************-->
+						<div class="row mt-2">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Type</label>
+								<input type="text" class="form-control" name="assetType" required
+									placeholder="Assest Type">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Assigned To</label>
+								<input type="text" class="form-control" name="assignedTo" required
+									placeholder="Assigned To">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Barcode</label>
+								<input type="text" class="form-control" name="barCode" required
+									placeholder="Barcode">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">HSNCode</label>
+								<input type="text" class="form-control" name="hsnCode" required
+									placeholder="HSNCode">
+							</div>
+						</div>
+
+						<!-- ***************************** 4th Row  ***************************-->
+						<div class="row mt-2">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Cost</label>
+								<input type="number" class="form-control" name="cost" required
+									placeholder="Cost">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Location</label>
+								<input type="text" class="form-control" name="assetLocation" required
+									placeholder="AssestsLocation">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Returned Date</label>
+								<input type="date" class="form-control" name="returnedDate" required
+									placeholder="Returned Date">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Store Name</label>
+								<input type="text" class="form-control" name="storeName" required
+									placeholder="Store Name">
+							</div>
+						</div>
+
+
+						<!-- ***************************** 5th Row  ***************************-->
+						<div class="row mt-2">
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Department</label>
+								<input type="text" class="form-control" name="department" required
+									placeholder="Department">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Make</label>
+								<input type="text" class="form-control" name="assetMake" required
+									placeholder="Assests Make">
+							</div>
+						</div>
+
+						<div class=" text-center">
+							<button type="submit" class="btn btn-info w-25">Submit</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 </body>
 
 </html>

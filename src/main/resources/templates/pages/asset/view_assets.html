@@ -1,0 +1,48 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">View Assets List</h3>
+		<div class="mt-5">
+
+			<table
+				class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+				<thead class="table-dark">
+					<tr>
+						<th class="all">Asset Id</th>
+						<th class="all">Asset Name</th>
+						<th class="all">Asset Type</th>
+						<th class="all">Category</th>
+						<th class="all">Sub Category</th>
+						<th class="all">Department</th>
+						<th class="all">Model</th>
+						<th class="all">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="asset: ${assets}">
+						<td th:text="${asset.assetId}"></td>
+						<td th:text="${asset.assetName}"></td>
+						<td th:text="${asset.assetType}"></td>
+						<td th:text="${asset.category}"></td>
+						<td th:text="${asset.subCategory}"></td>
+						<td th:text="${asset.department}"></td>
+						<td th:text="${asset.model}"></td>
+						<td class="text-center">
+							<a class="text-white bg-black p-2 rounded" th:href="@{'/asset/id/view/'+ ${asset.assetEntryId}}">View</a>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
+	</section>
+
+
+</body>
+
+</html>

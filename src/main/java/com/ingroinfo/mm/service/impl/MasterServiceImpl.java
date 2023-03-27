@@ -1332,5 +1332,36 @@ public class MasterServiceImpl implements MasterService {
 		return this.modelMapper.map(employeeCategory, EmployeeCategoryDto.class);
 	}
 
+	@Override
+	public String getAutoIncrementId(String IdName) {
+
+		String nextDeptId = "";
+		IdMasterDto idMasterDto = getIdMasterByMasterIdName(IdName);
+		
+		try {
+			String lastNumberId = idMasterDto.getLastNumber();
+			StringBuilder letters = new StringBuilder();
+			StringBuilder numbers = new StringBuilder();
+			for (int i = 0; i < lastNumberId.length(); i++) {
+				char c = lastNumberId.charAt(i);
+				if (Character.isDigit(c)) {
+					numbers.append(c);
+				} else {
+					letters.append(c);
+				}
+			}
+			String lettersString = letters.toString();
+			String numbersString = numbers.toString();
+
+			int number = Integer.parseInt(numbersString);
+			number++;
+			nextDeptId = lettersString + Integer.toString(number);
+
+		} catch (Exception e) {
+			System.out.println("something went Wrong !!" + e.getMessage());
+		}
+		return nextDeptId;
+	}
+
 
 }

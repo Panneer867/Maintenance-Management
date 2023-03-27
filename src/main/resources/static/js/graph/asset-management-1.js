@@ -8,7 +8,7 @@ Highcharts.chart('asset-management-1', {
     align: 'center'
   },
   subtitle: {
-    text: 'Division Wise Assets Record',
+    text: 'Department Wise Assets Record',
     align: 'center'
   },
 
@@ -37,31 +37,31 @@ Highcharts.chart('asset-management-1', {
 
   series: [
     {
-      name: 'Division',
+      name: 'Department',
       colorByPoint: true,
       data: [
         {
-          name: 'Division 1',
+          name: 'Department 1',
           y: 61,
          
         },
         {
-          name: 'Division 2',
+          name: 'Department 2',
           y: 9,
           
         },
         {
-          name: 'Division 3',
+          name: 'Department 3',
           y: 9,
           
         },
         {
-          name: 'Division 4',
+          name: 'Department 4',
           y: 8,
          
         },
         {
-          name: 'Division 5',
+          name: 'Department 5',
           y: 11,
          
         }

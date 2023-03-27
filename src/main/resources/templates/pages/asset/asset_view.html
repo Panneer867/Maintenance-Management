@@ -1,0 +1,203 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<div class="row mt-2">
+			<div class="col-0.5"><a th:href="@{/asset/view}" class="btn btn-dark btn-sm" data-bs-toggle="tooltip"
+					data-bs-placement="bottom" title="Back">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</a></div>
+			<div class="col-11.5">
+				<h3 class="text-center text-white p-1 bg-primary">Asset Information</h3>
+			</div>
+		</div>
+		<div class="col-10 mx-auto mt-5">
+
+			<div class="card  mt-2 bg-light">
+				<div class="card-header heading-bg">
+					<h3 class="text-center text-white mb-0">Asset View</h3>
+				</div>
+				<div class="p-5">
+					<div class="row">
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Asset Id</label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assetId} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Asset Name</label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assetName} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Division </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.division} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Sub Division</label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.subDivision} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Category </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.category} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Sub-Category </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.subCategory} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Model </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.model} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Purchase Date </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.purchaseDate} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Asset Type </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assetType} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Assigned To </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assignedTo} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Barcode </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.barCode} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">HSNCode </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.hsnCode} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Cost </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.cost} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Asset Location </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assetLocation} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Returned Date </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.returnedDate} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Store Name </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.storeName} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Department </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.department} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label font-weight-bold">Asset Make </label>
+								<div class="col-sm-6">
+									<input type="text" th:value=${asset.assetMake} readonly
+										class="form-control-plaintext text-info font-weight-bold">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

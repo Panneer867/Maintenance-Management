@@ -490,4 +490,7 @@ public interface MasterService {
 
 	// Get Category By Department
 	EmployeeCategoryDto getCategoryByDept(String department);
+	
+	// Get AutoIncrement Id
+	String getAutoIncrementId(String IdName);
 }
