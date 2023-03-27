@@ -1,5 +1,7 @@
 package com.ingroinfo.mm.dto;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,10 @@ public class GraphDto {
 	private int totalQuantity;
 	private int year;
 	private String category;
+	private int jeComplaints;
+	private int aeeComplaints;
+	private int eeComplaints;
+	private int commComplaints;
 
+	private Map<String, Integer> departmentCount;
 }

@@ -236,12 +236,7 @@ $(document).ready(function() {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-	$(function() {
-		if (window.location.href.match('/dashboard/contact-management')) {
-			$("#dashboard-menu").addClass("li-active");
-		}
-	});
-
+	
 
 	/**************Task Mangement tabs *************** */
 

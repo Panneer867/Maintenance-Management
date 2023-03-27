@@ -1,7 +1,7 @@
 // Data retrieved from https://gs.statcounter.com/browser-market-share#monthly-202201-202201-bar
 
 // Create the chart
-Highcharts.chart('leakage-graph-1', {
+Highcharts.chart('task-management', {
   chart: {
     type: 'column'
   },

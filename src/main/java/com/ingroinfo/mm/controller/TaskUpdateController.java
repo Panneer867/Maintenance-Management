@@ -2,7 +2,6 @@ package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +32,7 @@ public class TaskUpdateController {
 		model.addAttribute("getLoggedUser", principal.getName());
 
 	}
-		
+
 	@GetMapping("/dashboard")
 	public String dashboard() {
 		return "/pages/task_update/dashboard";
@@ -108,7 +107,8 @@ public class TaskUpdateController {
 		Long userId = user.getUbarmsUserId();
 		model.addAttribute("complDtls", new ComplaintDto());
 		try {
-			List<ComplaintDto> comComplaintDtos = this.taskUpdateService.getListOfCommissionerComplaint(userId);
+			List<ComplaintDto> comComplaintDtos = this.taskUpdateService
+					.getListOfCommissionerComplaint(userId);
 			if (comComplaintDtos != null) {
 				model.addAttribute("comComplainList", comComplaintDtos);
 			} else {
@@ -190,7 +190,8 @@ public class TaskUpdateController {
 		User user = this.adminService.getUserByUsername(principal.getName());
 		Long userId = user.getUbarmsUserId();
 		try {
-			List<ComplaintDto> comissComplaintDtos = this.taskUpdateService.getListOfCommissionerComplaint(userId);
+			List<ComplaintDto> comissComplaintDtos = this.taskUpdateService
+					.getListOfCommissionerComplaint(userId);
 			model.addAttribute("comComplainList", comissComplaintDtos);
 			ComplaintDto complaintDto = this.taskUpdateService.getComplaintDtlsByComplNo(complNo);
 			model.addAttribute("complDtls", complaintDto);
@@ -201,68 +202,66 @@ public class TaskUpdateController {
 		model.addAttribute("title", "Task | Commissioner | Maintenance Management");
 		return "/pages/task_update/commissioner";
 	}
-	
-	//submit JE Investigations Data
+
+	// submit JE Investigations Data
 	@PostMapping("/submitJeeInvest")
-	public String submitJeInvestigationReport(@ModelAttribute ComplaintDto complaintDto,HttpSession session) {
-		
+	public String submitJeInvestigationReport(@ModelAttribute ComplaintDto complaintDto, HttpSession session) {
+
 		if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("Y")) {
-			complaintDto.setComplStatus("Completed");			
+			complaintDto.setComplStatus("Completed");
 			this.taskUpdateService.saveComplaint(complaintDto);
 			try {
 				this.taskUpdateService.submitInvestigations(complaintDto);
 			} catch (Exception e) {
-			 System.out.println("Something Wrong "+e.getMessage());	
+				System.out.println("Something Wrong " + e.getMessage());
 			}
-			session.setAttribute("message", new Message("JE Investigation Sucessfully Completed !!","success"));
-		}
-		else if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("N")) {			  
-			try {	
-				   complaintDto.setComplStatus("NeedMaterial");
-				   this.taskUpdateService.saveComplaint(complaintDto);
-				   this.taskUpdateService.submitInvestigations(complaintDto);
-				if(complaintDto.getDepartment().equalsIgnoreCase("Pipe Dept")){					
+			session.setAttribute("message", new Message("JE Investigation Sucessfully Completed !!", "success"));
+		} else if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("N")) {
+			try {
+				complaintDto.setComplStatus("NeedMaterial");
+				this.taskUpdateService.saveComplaint(complaintDto);
+				this.taskUpdateService.submitInvestigations(complaintDto);
+				if (complaintDto.getDepartment().equalsIgnoreCase("Pipe Dept")) {
 					return "redirect:/pipe/maintenance-indent";
-				}else if (complaintDto.getDepartment().equalsIgnoreCase("Pump Dept")) {					
+				} else if (complaintDto.getDepartment().equalsIgnoreCase("Pump Dept")) {
 					return "redirect:/pump/maintenance/indent";
 				}
 			} catch (Exception e) {
-				System.out.println("Something Wrong !!"+e.getMessage());
+				System.out.println("Something Wrong !!" + e.getMessage());
 			}
-		}
-        else if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("E")) {
-        	complaintDto.setComplStatus("Escalate");
+		} else if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("E")) {
+			complaintDto.setComplStatus("Escalate");
 			complaintDto.setEsclationType("Manual");
 			complaintDto.setEsclationLavel("1");
 			this.taskUpdateService.saveComplaint(complaintDto);
-			
+
 			try {
 				this.taskUpdateService.submitEsclations(complaintDto);
 			} catch (Exception e) {
-				System.out.println("Something Wrong "+e.getMessage());	
-			}			
-			session.setAttribute("message", new Message("JE Investigation Esclated To AEE !!","danger"));
+				System.out.println("Something Wrong " + e.getMessage());
+			}
+			session.setAttribute("message", new Message("JE Investigation Esclated To AEE !!", "danger"));
 		}
-				
+
 		return "redirect:/task/je";
 	}
-	
-	//submit AEE Investigations Data
+
+	// submit AEE Investigations Data
 	@PostMapping("/submitAeeInvest")
-	public String submitAeeInvestigationReport(@ModelAttribute ComplaintDto complaintDto,HttpSession session) {		
-		if (complaintDto.getEsclatedDate() !="") {
+	public String submitAeeInvestigationReport(@ModelAttribute ComplaintDto complaintDto, HttpSession session) {
+		if (complaintDto.getEsclatedDate() != "") {
 			complaintDto.setComplStatus("Escalate");
 			complaintDto.setEsclationType("Manual");
 			complaintDto.setEsclationLavel("2");
 			this.taskUpdateService.saveComplaint(complaintDto);
-			
+
 			try {
 				this.taskUpdateService.submitEsclations(complaintDto);
 			} catch (Exception e) {
-				System.out.println("Something Wrong "+e.getMessage());	
-			}			
-			session.setAttribute("message", new Message("AEE Investigation Esclated To EE !!","danger"));
-		}else {
+				System.out.println("Something Wrong " + e.getMessage());
+			}
+			session.setAttribute("message", new Message("AEE Investigation Esclated To EE !!", "danger"));
+		} else {
 			complaintDto.setComplStatus("Completed");
 			complaintDto.setEsclationType("Manual");
 			complaintDto.setEsclationLavel("2");
@@ -270,30 +269,30 @@ public class TaskUpdateController {
 			try {
 				this.taskUpdateService.submitInvestigations(complaintDto);
 			} catch (Exception e) {
-			 System.out.println("Something Wrong "+e.getMessage());	
+				System.out.println("Something Wrong " + e.getMessage());
 			}
-			session.setAttribute("message", new Message("AEE Investigation Sucessfully Completed !!","success"));
-		}	
+			session.setAttribute("message", new Message("AEE Investigation Sucessfully Completed !!", "success"));
+		}
 		return "redirect:/task/aee";
 	}
-	
-	//submit EE Investigations Data
+
+	// submit EE Investigations Data
 	@PostMapping("/submitEeInvest")
-	public String submitEeInvestigationReport(@ModelAttribute ComplaintDto complaintDto,HttpSession session) {
-		
-		if (complaintDto.getEsclatedDate() !="") {
+	public String submitEeInvestigationReport(@ModelAttribute ComplaintDto complaintDto, HttpSession session) {
+
+		if (complaintDto.getEsclatedDate() != "") {
 			complaintDto.setComplStatus("Escalate");
 			complaintDto.setEsclationType("Manual");
 			complaintDto.setEsclationLavel("3");
 			this.taskUpdateService.saveComplaint(complaintDto);
-			
+
 			try {
 				this.taskUpdateService.submitEsclations(complaintDto);
 			} catch (Exception e) {
-				System.out.println("Something Wrong "+e.getMessage());	
-			}			
-			session.setAttribute("message", new Message("EE Investigation Esclated To Commissioner !!","danger"));
-		}else {
+				System.out.println("Something Wrong " + e.getMessage());
+			}
+			session.setAttribute("message", new Message("EE Investigation Esclated To Commissioner !!", "danger"));
+		} else {
 			complaintDto.setComplStatus("Completed");
 			complaintDto.setEsclationType("Manual");
 			complaintDto.setEsclationLavel("3");
@@ -301,48 +300,48 @@ public class TaskUpdateController {
 			try {
 				this.taskUpdateService.submitInvestigations(complaintDto);
 			} catch (Exception e) {
-			 System.out.println("Something Wrong "+e.getMessage());	
+				System.out.println("Something Wrong " + e.getMessage());
 			}
-			session.setAttribute("message", new Message("EE Investigation Sucessfully Completed !!","success"));
-		}	
+			session.setAttribute("message", new Message("EE Investigation Sucessfully Completed !!", "success"));
+		}
 		return "redirect:/task/ee";
 	}
-	
-	//submit Commissioner Investigations Data
-	@PostMapping("/submitComissInvest")
-	public String submitComissInvestigationReport(@ModelAttribute ComplaintDto complaintDto,HttpSession session) {
 
-			complaintDto.setComplStatus("Completed");
-			complaintDto.setEsclationType("Manual");
-			complaintDto.setEsclationLavel("4");
-			this.taskUpdateService.saveComplaint(complaintDto);
-			try {
-				this.taskUpdateService.submitInvestigations(complaintDto);
-			} catch (Exception e) {
-			 System.out.println("Something Wrong "+e.getMessage());	
-			}
-			session.setAttribute("message", new Message("Commissner Investigation Sucessfully Completed !!","success"));
-		
+	// submit Commissioner Investigations Data
+	@PostMapping("/submitComissInvest")
+	public String submitComissInvestigationReport(@ModelAttribute ComplaintDto complaintDto, HttpSession session) {
+
+		complaintDto.setComplStatus("Completed");
+		complaintDto.setEsclationType("Manual");
+		complaintDto.setEsclationLavel("4");
+		this.taskUpdateService.saveComplaint(complaintDto);
+		try {
+			this.taskUpdateService.submitInvestigations(complaintDto);
+		} catch (Exception e) {
+			System.out.println("Something Wrong " + e.getMessage());
+		}
+		session.setAttribute("message", new Message("Commissner Investigation Sucessfully Completed !!", "success"));
+
 		return "redirect:/task/commissioner";
 	}
-	
-	//Getting Work Indent According Department In JE investigations
+
+	// Getting Work Indent According Department In JE investigations
 	@RequestMapping("/open-indent/{complNo}")
-	public String openWorkOrderIndentByDepartment(@PathVariable("complNo")String complNo) {
+	public String openWorkOrderIndentByDepartment(@PathVariable("complNo") String complNo) {
 		try {
-			ComplaintDto complaintDto = taskUpdateService.getComplaintDtlsByComplNo(complNo);			
-			if(complaintDto.getDepartment().equalsIgnoreCase("Pipe Dept")){				
+			ComplaintDto complaintDto = taskUpdateService.getComplaintDtlsByComplNo(complNo);
+			if (complaintDto.getDepartment().equalsIgnoreCase("Pipe Dept")) {
 				return "redirect:/pipe/maintenance-indent";
-			}else if (complaintDto.getDepartment().equalsIgnoreCase("Pump Dept")) {
+			} else if (complaintDto.getDepartment().equalsIgnoreCase("Pump Dept")) {
 				return "redirect:/pump/maintenance/indent";
 			}
 		} catch (Exception e) {
-			System.out.println("Something Wrong !!"+e.getMessage());
+			System.out.println("Something Wrong !!" + e.getMessage());
 		}
-		
+
 		return "redirect:/task/je";
 	}
-	
+
 	@GetMapping("/work-complete")
 	@PreAuthorize("hasAuthority('TASK_WORKCOMPLETE')")
 	public String workComplete() {
