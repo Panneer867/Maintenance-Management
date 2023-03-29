@@ -14,14 +14,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "MM_INDENT_ITEM_REQUEST")
-public class IndentItemRequest {
+@Table(name = "MM_WORKORDER_APPROVED_VEHICLES")
+public class WorkOrderApprovedVehicles {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long itemReqId;
+	private Long vehicleReqId;
 	private String indentNo;
 	private String complNo;
+	private String workOrderNo;
 	private String division;
 	private String subDivision;
 	private String workSite;
@@ -30,16 +31,16 @@ public class IndentItemRequest {
 	private String contactNo;	
 	private String complDtls;
 	private String workPriority;
-	private String categoryName;
-	private String itemName;
-	private String itemId;
-	private String unitOfMesure;
-	private String hsnCode;
-	private String quantity;
-	private String stockType;
-	private String stockTypeName;
+	private String vehicleType;
+	private String vehicleNo;
+	private String driverName;
+	private String driverPhone;
+	private String meterReading;
+	private String stratTime;
+	private Long vehicleId;
 	private String departmentName;
+	private String approvedSts;
 	private String userName;
 	@CreationTimestamp
-	private Date createdDate;
+	private Date approvedDate;
 }

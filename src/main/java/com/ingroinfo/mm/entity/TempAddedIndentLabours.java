@@ -6,16 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_WAP_WORKORDER_VEHICLE_REQUEST")
-public class WapWorkOrderVehicleRequest {
+@Table(name="MM_TEMP_ADDED_INDENT_LABOURS")
+public class TempAddedIndentLabours {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long vehicleReqId;
+	private Long id;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -26,14 +27,9 @@ public class WapWorkOrderVehicleRequest {
 	private String contactNo;	
 	private String complDtls;
 	private String workPriority;
-	private String vehicleType;
-	private String vehicleNo;
-	private String driverName;
-	private String driverPhone;
-	private String meterReading;
-	private String stratTime;
-	private Long vehicleId;
+	private String empCategory;
+	private String members;
+	private String daysRequired;
+	private String timeRequired;
 	private String departmentName;
-	private String userName;
-	private String status;
 }

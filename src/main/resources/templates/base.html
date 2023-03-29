@@ -392,7 +392,16 @@
 								</ul>
 							</div>
 						</li>
-
+						
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon fas fa-user-check pl-1"></i>
+								<span class="m-menu__link-text">
+									Indent Status
+								</span>
+							</a>
+						</li>
 
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-workorder"
 							data-menu-submenu-toggle="hover">
@@ -423,18 +432,7 @@
 												Dashboard
 											</span>
 										</a>
-									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										id="workoder-indent-status-active">
-										<a th:href="@{/workorder/indent/status}" class="m-menu__link ">
-											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-												<span></span>
-											</i>
-											<span class="m-menu__link-text">
-												Indent Status
-											</span>
-										</a>
-									</li>
+									</li>									
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">

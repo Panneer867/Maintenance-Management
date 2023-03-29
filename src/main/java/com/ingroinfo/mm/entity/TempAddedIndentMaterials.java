@@ -6,16 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_WAP_WORKORDER_ITEM_REQUEST")
-public class WapWorkOrderItemRequest {
+@Table(name = "MM_TEMP_ADDED_INDENT_ITEMS")
+public class TempAddedIndentMaterials {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long itemReqId;
+	private Long id;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -31,11 +32,8 @@ public class WapWorkOrderItemRequest {
 	private String itemId;
 	private String unitOfMesure;
 	private String hsnCode;
-	private String quantity;
+	private int quantity;
 	private String stockType;
 	private String stockTypeName;
 	private String departmentName;
-	private String userName;
-	private String status;
-
 }

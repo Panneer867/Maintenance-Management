@@ -2,517 +2,508 @@
 
 <body>
 	<section>
-		<div class="row mt-3">
-			<div class="col-9 ">
-				<div class="tab-content" id="pills-tabContent">
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Pump Maintenance Indent
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/pump/maintenance/indent}" class="fa fa-home pt-1"></a></div>
+						</li>
 
-					<div class="card bl-cr">
-						<div class="card-header heading-bg">
-							<h3 class="text-center text-white">Pump Maintenance Indent</h3>
-						</div>
-						<!-- Message Alert Field -->
-						<div th:if="${session.message}" class="alert_field mt-2">
-							<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}"
-								role="alert">
-								<span th:text="${session.message.content}"></span>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Indent Request</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Indent Details</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<div>
+							<div class="d-flex justify-content-center">
+								<ul class="nav nav-tabs mt-3" style="margin-left: 0px;border-bottom-width: 0px;">
+									<li class="active"><button class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
+											href="#tab1" data-toggle="tab">PARTS / MATERIALS</button></li>
+									<li><button href="#tab2" class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
+											data-toggle="tab" disabled>LABOUR /
+											TIMES</button></li>
+									<li><button href="#tab3" class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
+											data-toggle="tab" disabled>VEHICLE /
+											TIMINGS</button></li>
+								</ul>
 							</div>
-							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-						</div>
-						<!-- End of Message Alert Field -->
-						<ul class="nav nav-tabs mt-3" style="margin-left: 192px;border-bottom-width: 0px;">
-							<li class="active"><button class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-									href="#tab1" data-toggle="tab">PARTS / MATERIALS</button></li>
-							<li><button href="#tab2" class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-									data-toggle="tab" disabled>LABOUR /
-									TIMES</button></li>
-							<li><button href="#tab3" class="tablinks btn btn-primary py-2 mx-1 hvr text-white"
-									data-toggle="tab" disabled>VEHICLE /
-									TIMINGS</button></li>
-						</ul>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent
+											Number</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" id="pump-spare-indentNo"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${deptMaster.deptLastId}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent
+											Dept</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" id="pump-spare-indentDept"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${deptMaster.deptName}" />
+										</div>
+									</div>
 
-						<div class="card-body font-weight-bold">
-							<div class="tab-content">
-								<div class="tab-pane active" id="tab1">
-									<div class="row">
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent No</label>
-											<input type="text" class="form-control form-control-sm bg-white" readonly
-												id="pump-spare-indentNo" placeholder="Enter Indent No"
-												th:value="${deptMaster.deptLastId}">
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Compl
+											Number</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" id="pump-spare-complNo"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${complDtls.complNo}" />
 										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent Department</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-spare-indentDept" readonly th:value="${deptMaster.deptName}"
-												placeholder="Indent Department">
-										</div>
+									</div>
+								</div>
+							</div>
 
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl No</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-spare-complNo" readonly placeholder="Enter Compl No"
-												th:value="${complDtls.complNo}">
-										</div>
-
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl Category</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-spare-complCategory" readonly
-												placeholder="Enter Compl Category" th:value="${complDtls.subCategory}">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Division</label>
-											<select type="text" class="form-select form-select-sm"
-												id="master-division-list">
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<select type="text" id="master-division-list"
+												class="form-select form-select-sm text-center font-weight-bold">
 												<option value="">--Select--</option>
 												<option th:each="divisions: ${divSubDivList}" th:text="${divisions}">
 												</option>
 											</select>
 										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Sub Division</label>
-											<select type="text" class="form-select form-select-sm"
-												id="master-sub-division-list">
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-7 px-0">
+											<select type="text" id="master-sub-division-list"
+												class="form-select form-select-sm text-center font-weight-bold">
 												<option value="">--Select--</option>
 											</select>
 										</div>
-
-										<div class="form-group col-md-6">
-											<label for="inputEmail4">Work Site</label>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Compl
+											Category</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" id="pump-spare-complCategory"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${complDtls.subCategory}" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<select type="text" id="pump-parts-workPriority" required
+												class="form-select form-select-sm text-center font-weight-bold">
+												<option value="">--Select--</option>
+												<option th:each="workpriority:${workProrityList}"
+													th:text="${workpriority.workPriority}"
+													th:value="${workpriority.workPriority}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<div class="col-sm-7 px-0">
 											<input type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm"
-												id="pump-parts-worksite" required
-												placeholder="Write WorkSite Address Here">
+												class="form-control form-control-sm text-center font-weight-bold"
+												id="pump-parts-worksite" placeholder="Write WorkSite Address Here"
+												required />
 										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected Start Date</label>
-											<input type="date" class="form-control form-control-sm"
-												id="pump-parts-startDate" required>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected End Date</label>
-											<input type="date" class="form-control form-control-sm"
-												id="pump-parts-endDate" required>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Contact</label>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<div class="col-sm-6 px-0">
 											<input type="text" class="form-control form-control-sm"
 												id="pump-parts-contactNo" placeholder="Enter Contact Number" required
 												maxlength="10">
 										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Work Priority</label>
-											<select type="text" class="form-select form-select-sm"
-												id="pump-parts-workPriority">
-												<option value="">--Select--</option>
-												<option th:each="workpriority:${workProrityList}"
-												        th:text="${workpriority.workPriority}"
-												        th:value="${workpriority.workPriority}"></option>												
-											</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp
+											Start Date</label>
+										<div class="col-sm-7 px-0">
+											<input type="date" id="pump-parts-startDate"
+												class="form-control form-control-sm text-center font-weight-bold"
+												required />
 										</div>
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">Complaint Details</label>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp End
+											Date</label>
+										<div class="col-sm-7 px-0">
+											<input type="date" id="pump-parts-endDate"
+												class="form-control form-control-sm text-center font-weight-bold"
+												required />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${complDtls.department}" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-10">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-2 col-form-label pr-0">Compl
+											Details</label>
+										<div class="col-8 px-0">
 											<textarea type="text" class="form-control form-control-sm bg-white"
 												id="pump-parts-complDtls" th:field="*{complDtls.complDetails}"
-												placeholder="Write Complaint Details" readonly></textarea>
+												placeholder="Write Complaint Details"></textarea>
 										</div>
-
-									</div>
-
-
-									<!--*********************** Generate Work Order || PART / MATERIAL ISSUED  Start ********************-->
-
-									<div class="col-md-12 mt-3">
-										<div class="card bl-cr">
-											<div class="card-header" style="background-color: blueviolet;height: 35px;">
-												<p class="text-center text-white"><b>PARTS / MATERIALS</b></p>
-											</div>
-											<div class="card-body">
-												<div class="row mt-3">
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Category</label>
-														<select class="form-select form-select-sm"
-															id="pump-matrial-category">
-															<option value="">--Select--</option>
-															<option th:each="categories:${categoryList}"
-																th:value="${categories}"
-																th:text="${categories}">
-															</option>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Item</label>
-														<input type="hidden" id="pump-material-itemName">
-														<select class="form-select form-select-sm"
-															id="pump-spare-item-list">
-															<option value="">--Select--</option>
-														</select>
-													</div>
-
-													<div class="form-group col-md-4">
-														<label for="hsnCode">HSNCODE</label>
-														<input type="text" class="form-control form-control-sm bg-white"
-															readonly id="pump-spare-hsnCode"
-															placeholder="Enter Hsn Code">
-													</div>
-												</div>
-												<div class="row mt-3">
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Unit of Meassure</label>
-														<input type="text" class="form-control form-control-sm bg-white"
-															id="pump-spare-unitMesure" readonly placeholder="Enter Unit Of Measure">																
-													</div>												
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Stock Type</label>
-														<input type="hidden" id="pump-material-stockType">
-														<input type="text" class="form-control form-control-sm bg-white"
-															readonly id="pump-spare-stockType"
-															placeholder="Enter Stock Type">
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Qty</label>
-														<input type="number" class="form-control form-control-sm"
-															id="pump-spare-qantity" placeholder="Qty" required>
-													</div>
-													<div class="text-center mt-2">
-														<button type="button" id="pump-parts-addbutton"
-															class="btn btn-primary w-25 text-center">Add</button>
-													</div>
-												</div>
-											</div>
-											<div class="card-footer">
-												<table id="myTable"
-													class="table table-stock table-bordered table table-success table-striped table-hover">
-													<thead>
-														<tr>
-															<th>Sl No</th>
-															<th>Category</th>
-															<th>Item</th>
-															<th>HSNCode</th>
-															<th>Unit of Meassure</th>
-															<th>Qty</th>
-															<th>Stock Type</th>
-															<th></th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-
-											</div>
-										</div>
-									</div>
-									<div class=" text-center mt-4">
-										<button id="pump-material-next"
-											class="btn btn-primary btnNext w-25 text-center text-white ">Next</button>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab2">
+							</div>
+						</div>
+					</div>
+				</div>
 
-									<div class="row">
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent No</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-indent" placeholder="Indent No" readonly
-												th:value="${deptMaster.deptLastId}">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent Department</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-indentDepartment" readonly
-												placeholder="Indent Department" th:value="${deptMaster.deptName}">
-										</div>
-
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl No</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-comlNo" readonly placeholder="Enter Compl No"
-												th:value="${complDtls.complNo}">
-										</div>
-
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl Category</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-comlCategory" readonly
-												placeholder="Enter Compl Category" th:value="${complDtls.subCategory}">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-division" readonly placeholder="Enter Division">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Sub Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-subdivision" readonly placeholder="Enter Sub Division">
-										</div>
-
-										<div class="form-group col-md-6">
-											<label for="inputEmail4">Work Site</label>
-											<input type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm bg-white"
-												required readonly id="pump-labour-worksite"
-												placeholder="Write WorkSite Address Here">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected Start Date</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												placeholder="Enter Expected Start Date" id="pump-labour-startDate"
-												required readonly>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected End Date</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-endDate" required readonly
-												placeholder="Enter Expected End Date">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Contact</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-contactNo" placeholder="Enter Contact Number" required
-												readonly>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Work Priority</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-workpriority" readonly
-												placeholder="Enter Work Priority">
-										</div>
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">Complaint Details</label>
-											<textarea type="text" class="form-control form-control-sm bg-white"
-												id="pump-labour-comlDtls" placeholder="Write Complaint Details" readonly
-												th:field="*{complDtls.complDetails}"></textarea>
-										</div>
-									</div>
-
-									<div class="col-md-12 mt-3">
-										<div class="card bl-cr ">
-											<div class="card-header" style="background-color: blueviolet;height: 35px;">
-												<p class="text-center text-white"><b>LABOUR / TIMES</b></p>
-											</div>
-											<div class="card-body">
-												<div class="row mt-3">
-													<div class="form-group col-md-5">
-														<label for="inputEmail4">Employee Categorty</label>
-														<select type="text" class="form-select form-select-sm"
-															id="pump-labour-empCategory">
-															<option value="">--Select--</option>
-															<option value="Plumber">Plumber</option>
-															<option value="Vehicle">Vehicle</option>
-														</select>
-													</div>
-													<div class="form-group col-md-3">
-														<label for="inputEmail4">Members</label>
-														<input type="number" class="form-control form-control-sm"
-															id="pump-labour-members" placeholder="Members">
-													</div>
-													<div class="form-group col-md-2">
-														<label for="inputEmail4">Days Required</label>
-														<input type="text" class="form-control form-control-sm"
-															id="pump-labour-days" placeholder="Days Required">
-													</div>
-													<div class="form-group col-md-2">
-														<label for="inputEmail4">Time Required</label>
-														<input type="text" class="form-control form-control-sm"
-															id="pump-labour-time" placeholder="Time Required">
-													</div>
-													<div class="text-center mt-2">
-														<button type="button" id="pump-labour-addButton"
-															class="btn btn-primary w-25 text-center">Add</button>
-													</div>
-												</div>
-											</div>
-											<div class="card-footer">
-												<table id="myTable1"
-													class="table table-stock table-bordered table table-success table-striped table-hover">
-													<thead>
-														<tr>
-															<th>Sl No</th>
-															<th>Employee Categorty</th>
-															<th>Members Required</th>
-															<th>Days Required</th>
-															<th>Time Required</th>
-															<th>&nbsp;</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
+				<div class="card bl-cr mt-2">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1">
+							<div class="card-header text-center bg-info text-white heading-bg">
+								<h5 class="mb-0">Parts And Materials</h5>
+							</div>
+							<div class="card-body font-weight-bold pb-0">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="category" class="col-sm-5 col-form-label pr-0">Category</label>
+											<div class="col-sm-7 px-0">
+												<select class="form-select form-select-sm" id="pump-matrial-category">
+													<option value="">--Select--</option>
+													<option th:each="categories:${categoryList}"
+														th:value="${categories}" th:text="${categories}">
+													</option>
+												</select>
 											</div>
 										</div>
 									</div>
-									<div class=" text-center mt-4">
-										<a class="btn btn-primary btnPrevious w-25 text-white">Previous</a>
-										<a class="btn btn-primary btnNext w-25 text-white">Next</a>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="itemName" class="col-sm-5 col-form-label pr-0">Item Name</label>
+											<div class="col-sm-7 px-0">
+												<select class="form-select form-select-sm" id="pump-spare-item-list">
+													<option value="">--Select--</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="hsnCode" class="col-sm-5 col-form-label pr-0">HsnCode</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" class="form-control form-control-sm bg-white"
+													required id="pump-spare-hsnCode" disabled>
+												<input type="hidden" id="pump-material-itemName">
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab3">
-
-									<div class="row">
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent No</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-indentNo" placeholder="Indent No" readonly
-												th:value="${deptMaster.deptLastId}">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Indent Department</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-indentDept" readonly placeholder="Indent Department"
-												th:value="${deptMaster.deptName}">
-										</div>
-
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl No</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-complNo" readonly placeholder="Enter Compl No"
-												th:value="${complDtls.complNo}">
-										</div>
-
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Compl Category</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-complCategory" readonly
-												placeholder="Enter Compl Category" th:value="${complDtls.subCategory}">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-division" readonly placeholder="Enter Division">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Sub Division</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-subdivision" readonly placeholder="Enter Sub Division">
-										</div>
-
-										<div class="form-group col-md-6">
-											<label for="inputEmail4">Work Site</label>
-											<input type="text"
-												class="form-control form-control-sm form-control form-control-sm-sm bg-white"
-												id="pump-vehicle-worksite" required readonly
-												placeholder="Write WorkSite Address Here">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected Start Date</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												placeholder="Enter Expected Start Date" id="pump-vehicle-stratdate"
-												required readonly>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Expected End Date</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-enddate" required readonly
-												placeholder="Enter Expected End Date">
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Contact</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-contactNo" placeholder="Enter Contact Number" required
-												readonly>
-										</div>
-										<div class="form-group col-md-3">
-											<label for="inputEmail4">Work Priority</label>
-											<input type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-workpriority" readonly
-												placeholder="Enter Work Priority">
-										</div>
-										<div class="form-group col-md-12">
-											<label for="inputEmail4">Complaint Details</label>
-											<textarea type="text" class="form-control form-control-sm bg-white"
-												id="pump-vehicle-complDtls" placeholder="Write Complaint Details"
-												readonly th:field="*{complDtls.complDetails}">
-											</textarea>
-										</div>
-									</div>
-
-									<div class="col-md-12 mt-3">
-										<div class="card bl-cr">
-											<div class="card-header "
-												style="background-color: blueviolet;height: 35px;">
-												<p class="text-center text-white"><b>VEHICLE/TIMING</b></p>
-											</div>
-											<div class="card-body">
-
-												<div class="row mt-2">
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Vehicle Type</label>
-														<select type="text" class="form-select form-select-sm"
-															id="master-vehicleType-list">
-															<option value="">--Select--</option>
-															<option th:each="vehicles: ${vehicleTypes}"
-																th:text="${vehicles}">
-															</option>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Vehicle Number</label>
-														<select type="text" class="form-select form-select-sm"
-															id="master-vehicleNos-list">
-															<option value="">--Select--</option>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Driver Name</label>
-														<input type="text" class="form-control form-control-sm bg-white"
-															id="pump-vehicle-driverName" placeholder="Driver Name"
-															readonly>
-															<input type="hidden" id="pump-vehicle-vehicleNo">
-													</div>
-												</div>
-												<div class="row mt-2">
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Driver Contact Number</label>
-														<input type="number"
-															class="form-control form-control-sm bg-white"
-															id="pump-vehicle-driverPhone" readonly
-															placeholder="Driver Contact Number">
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">ODO Meter From Reading</label>
-														<input type="text" class="form-control form-control-sm"
-															id="pump-vehicle-meterReading"
-															placeholder="Enter Meter Reading">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label for="inputEmail4">Start Time</label>
-														<input type="time" class="form-control form-control-sm"
-															id="pump-vehicle-stratingTime" placeholder="Start Time">
-													</div>
-												</div>
-												<div class="text-center mt-2">
-													<button type="button" id="pump-vehicle-addButton"
-														class="btn btn-primary w-25 text-center">Add</button>
-												</div>
-											</div>
-											<div class="card-footer">
-												<table id="myTable2"
-													class="table table-stock table-bordered table table-success table-striped table-hover">
-													<thead>
-														<tr>
-															<th>Sl No</th>
-															<th>Vehicle Type</th>
-															<th>Vehicle Number</th>
-															<th>Driver Name</th>
-															<th>Driver Contact No</th>
-															<th>ODO Meter Reading</th>
-															<th>Start Time</th>
-															<th>&nbsp;</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Unit Of
+												Mesure</label>
+											<div class="col-sm-7 px-0">
+												<input type="text" class="form-control form-control-sm"
+													id="pump-spare-unitMesure" disabled />
 											</div>
 										</div>
 									</div>
-									<div class=" text-center mt-4">
-										<a class="btn btn-primary btnPrevious w-25  text-white">Previous</a>
-										<a class="btn btn-primary w-25  text-white" th:href="@{'/pump/generate/workorder/'+${complDtls.complNo}}">Submit</a>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail"
+												class="col-sm-5 col-form-label pr-0">Quantity</label>
+											<div class="col-sm-7 px-0">
+												<input type="number" class="form-control form-control-sm"
+													id="pump-spare-qantity" placeholder="Enter Qty" required>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Stock
+												Type</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" class="form-control form-control-sm bg-white"
+													disabled id="pump-spare-stockType" required>
+												<input type="hidden" id="pump-material-stockType">
+											</div>
+										</div>
 									</div>
 								</div>
+								<div class="text-center mt-2">
+									<button type="button" id="pump-parts-addbutton"
+										class="btn btn-primary w-25 text-center">Add</button>
+								</div>
+							</div>
+							<div class="card-footer">
+								<table id="myTable"
+									class="table table-stock table-bordered table table-success table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Sl No</th>
+											<th>Category</th>
+											<th>Item</th>
+											<th>HSNCode</th>
+											<th>Unit of Meassure</th>
+											<th>Qty</th>
+											<th>Stock Type</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+
+							</div>
+							<div class=" text-center mt-4 mb-4">
+								<button id="pump-material-next"
+									class="btn btn-primary btnNext w-25 text-center text-white ">Next</button>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab2">
+							<div class="card-header text-center bg-info text-white heading-bg">
+								<h5 class="mb-0">Labours</h5>
+							</div>
+							<div class="card-body font-weight-bold pb-0">
+								<div class="row">
+									<div class="col-3">
+										<div class="form-group row">
+											<label for="staticEmail"
+												class="col-sm-5 col-form-label pr-0">Category</label>
+											<div class="col-sm-7 px-0">
+												<select type="text" class="form-select form-select-sm"
+													id="pump-labour-empCategory">
+													<option value="">--Select--</option>
+													<option value="Plumber">Plumber</option>
+													<option value="Vehicle">Vehicle</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-3">
+										<div class="form-group row">
+											<label for="staticEmail"
+												class="col-sm-5 col-form-label pr-0">Members</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" id="pump-labour-members" required
+													class="form-control form-control-sm text-center font-weight-bold" />
+											</div>
+										</div>
+
+									</div>
+									<div class="col-3">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Days</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" id="pump-labour-days" required
+													class="form-control form-control-sm text-center font-weight-bold" />
+											</div>
+										</div>
+									</div>
+									<div class="col-3">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Time</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" id="pump-labour-time" required
+													class="form-control form-control-sm text-center font-weight-bold">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="text-center mt-2">
+									<button type="button" id="pump-labour-addButton"
+										class="btn btn-primary w-25 text-center">Add</button>
+								</div>
+							</div>
+							<div class="card-footer">
+								<table id="myTable1"
+									class="table table-stock table-bordered table table-success table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Sl No</th>
+											<th>Employee Categorty</th>
+											<th>Members Required</th>
+											<th>Days Required</th>
+											<th>Time Required</th>
+											<th>&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class=" text-center mt-4 mb-4">
+								<a class="btn btn-primary btnPrevious w-25 text-white">Previous</a>
+								<a class="btn btn-primary btnNext w-25 text-white">Next</a>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab3">
+							<div class="card-header text-center bg-info text-white heading-bg">
+								<h5 class="mb-0">Vehicles</h5>
+							</div>
+							<div class="card-body font-weight-bold pb-0">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Vehicle
+												Type</label>
+											<div class="col-sm-7 px-0">
+												<select type="text" class="form-select form-select-sm"
+													id="master-vehicleType-list">
+													<option value="">--Select--</option>
+													<option th:each="vehicles: ${vehicleTypes}" th:text="${vehicles}">
+													</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Vehicle
+												Number</label>
+											<div class="col-sm-7 px-0">
+												<select type="text" class="form-select form-select-sm"
+													id="master-vehicleNos-list">
+													<option value="">--Select--</option>
+												</select>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Driver
+												Name</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" id="pump-vehicle-driverName" disabled
+													class="form-control form-control-sm text-center font-weight-bold" />
+												<input type="hidden" id="pump-vehicle-vehicleNo">
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Meter
+												Reading</label>
+											<div class="col-sm-7 px-0">
+												<input type="text" id="pump-vehicle-meterReading"
+													placeholder="Enter Meter Reading"
+													class="form-control form-control-sm text-center font-weight-bold" />
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Start
+												Time</label>
+											<div class="col-sm-7 px-0">
+												<input type="time" id="pump-vehicle-stratingTime"
+													class="form-control form-control-sm text-center font-weight-bold" />
+											</div>
+										</div>
+
+									</div>
+									<div class="col-4">
+										<div class="form-group row">
+											<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Driver
+												Contact</label>
+											<div class="col-sm-6 px-0">
+												<input type="text" id="pump-vehicle-driverPhone"
+													class="form-control form-control-sm text-center font-weight-bold"
+													disabled />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="text-center mt-2">
+									<button type="button" id="pump-vehicle-addButton"
+										class="btn btn-primary w-25 text-center">Add</button>
+								</div>
+							</div>
+							<div class="card-footer">
+								<table id="myTable2"
+									class="table table-stock table-bordered table table-success table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Sl No</th>
+											<th>Vehicle Type</th>
+											<th>Vehicle Number</th>
+											<th>Driver Name</th>
+											<th>Driver Contact No</th>
+											<th>ODO Meter Reading</th>
+											<th>Start Time</th>
+											<th>&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class=" text-center mt-4 mb-4">
+								<a class="btn btn-primary btnPrevious w-25  text-white">Previous</a>
+								<a class="btn btn-primary w-25  text-white"
+									th:href="@{'/pump/maintenance/indent/submit/{complNo}/{indentNo}'(complNo=${complDtls.complNo}, indentNo=${deptMaster.deptLastId})}">Submit</a>
 							</div>
 						</div>
 					</div>
@@ -536,7 +527,7 @@
 							<tbody>
 								<tr th:each="complaints : ${complList}" class="text-center">
 									<td class="fs-6"><a href="#"
-											th:href="@{'/pump/maintenance/complDtls/'+ ${complaints.complId}}"
+											th:href="@{'/pump/maintenance/indent/compl-details/'+ ${complaints.complId}}"
 											th:text="${complaints.complNo}"></a></td>
 									<td class="fs-6" th:text="${complaints.esclatedFrom}"></td>
 									<td class="fs-6" th:text="${complaints.esclatedFromName}"></td>
@@ -547,6 +538,7 @@
 				</div>
 			</div>
 		</div>
+
 	</section>
 </body>
 

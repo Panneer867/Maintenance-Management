@@ -11,25 +11,6 @@ $(document).ready(function() {
 		tab2Btn.removeAttribute('disabled');
 		var tab2Btn = document.querySelector('button[href="#tab3"]');
 		tab2Btn.removeAttribute('disabled');
-
-		/* added data in second and third tab*/
-
-		$("#pump-labour-division").val($("#master-division-list").val());
-		$("#pump-labour-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-labour-worksite").val($("#pump-parts-worksite").val());
-		$("#pump-labour-startDate").val($("#pump-parts-startDate").val());
-		$("#pump-labour-endDate").val($("#pump-parts-endDate").val());
-		$("#pump-labour-contactNo").val($("#pump-parts-contactNo").val());
-		$("#pump-labour-workpriority").val($("#pump-parts-workPriority").val());
-		$("#pump-vehicle-division").val($("#master-division-list").val());
-		$("#pump-vehicle-subdivision").val($("#master-sub-division-list").val());
-		$("#pump-vehicle-worksite").val($("#pump-parts-worksite").val());
-		$("#pump-vehicle-stratdate").val($("#pump-parts-startDate").val());
-		$("#pump-vehicle-enddate").val($("#pump-parts-endDate").val());
-		$("#pump-vehicle-contactNo").val($("#pump-parts-contactNo").val());
-		$("#pump-vehicle-workpriority").val($("#pump-parts-workPriority").val());
-
-
 		$nextTab.find('button').trigger('click');
 	});
 
@@ -64,9 +45,19 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
+		var workPriority = $("#pump-parts-workPriority").val();
+		if (workPriority == "") {
+			alert("Select Work Priority !!");
+			return false;
+		}
 		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
+			return false;
+		}
+		var contactNo = $("#pump-parts-contactNo").val();
+		if (contactNo == "") {
+			alert("Enter Contact No !!");
 			return false;
 		}
 		var startDate = $("#pump-parts-startDate").val();
@@ -79,19 +70,9 @@ $(document).ready(function() {
 			alert("Enter Expected End Date !!");
 			return false;
 		}
-		var contactNo = $("#pump-parts-contactNo").val();
-		if (contactNo == "") {
-			alert("Enter Contact No !!");
-			return false;
-		}
 		var complDtls = $("#pump-parts-complDtls").val();
 		if (complDtls == "") {
 			alert("Enter Complain Details !!");
-			return false;
-		}
-		var workPriority = $("#pump-parts-workPriority").val();
-		if (workPriority == "") {
-			alert("Select Work Priority !!");
 			return false;
 		}
 	}
@@ -140,9 +121,19 @@ $(document).ready(function() {
 			alert("Select Sub-Division !!");
 			return false;
 		}
+		var workPriority = $("#pump-parts-workPriority").val();
+		if (workPriority == "") {
+			alert("Select Work Priority !!");
+			return false;
+		}
 		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
+			return false;
+		}
+		var contactNo = $("#pump-parts-contactNo").val();
+		if (contactNo == "") {
+			alert("Enter Contact No !!");
 			return false;
 		}
 		var startDate = $("#pump-parts-startDate").val();
@@ -155,19 +146,9 @@ $(document).ready(function() {
 			alert("Enter Expected End Date !!");
 			return false;
 		}
-		var contactNo = $("#pump-parts-contactNo").val();
-		if (contactNo == "") {
-			alert("Enter Contact No !!");
-			return false;
-		}
 		var complDtls = $("#pump-parts-complDtls").val();
 		if (complDtls == "") {
 			alert("Enter Complain Details !!");
-			return false;
-		}
-		var workPriority = $("#pump-parts-workPriority").val();
-		if (workPriority == "") {
-			alert("Select Work Priority !!");
 			return false;
 		}
 		var category = $("#pump-matrial-category").val();
@@ -225,6 +206,7 @@ $(document).ready(function() {
 							contactNo: $("#pump-parts-contactNo").val(),
 							complDtls: $("#pump-parts-complDtls").val(),
 							workPriority: $("#pump-parts-workPriority").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
 							categoryName: $("#pump-matrial-category").val(),
 							itemName: $("#pump-material-itemName").val(),
 							itemId: $("#pump-spare-item-list").val(),
@@ -233,7 +215,7 @@ $(document).ready(function() {
 							quantity: $("#pump-spare-qantity").val(),
 							stockType: $("#pump-material-stockType").val(),
 							stockTypeName: $("#pump-spare-stockType").val(),
-							departmentName: $("#pump-spare-indentDept").val(),
+
 
 						},
 						success: function(result) {
@@ -266,7 +248,7 @@ $(document).ready(function() {
 										row += '<td>' + item.unitOfMesure + '</td>';
 										row += '<td>' + item.quantity + '</td>';
 										row += '<td>' + item.stockTypeName + '</td>';
-										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
+										row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.id + '"></i></a></td>';
 										row += '</tr>';
 									});
 									// Insert the generated HTML into the table body
@@ -278,12 +260,12 @@ $(document).ready(function() {
 								e.preventDefault();
 								var row = $(this).closest('tr');
 								//var pumMaterialId = row.find('.item-delete').text();
-								var itemReqId = $(this).data('pum-material-id');
+								var itemId = $(this).data('pum-material-id');
 								//alert(value);
 
 								$.ajax({
 									type: 'DELETE',
-									url: '/pump/delete/materials/' + itemReqId,
+									url: '/pump/delete/materials/' + itemId,
 									success: function(result) {
 										alert(result);
 										//Show Added Data		
@@ -305,7 +287,7 @@ $(document).ready(function() {
 													row += '<td>' + item.unitOfMesure + '</td>';
 													row += '<td>' + item.quantity + '</td>';
 													row += '<td>' + item.stockType + '</td>';
-													row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.itemReqId + '"></i></a></td>';
+													row += '<td class="item-delete"><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn" data-pum-material-id="' + item.id + '"></i></a></td>';
 													row += '</tr>';
 												});
 												// Insert the generated HTML into the table body
@@ -341,64 +323,64 @@ $(document).ready(function() {
 
 	$("#pump-labour-addButton").click(function() {
 
-		var indentNo = $("#pump-labour-indent").val();
+		var indentNo = $("#pump-spare-indentNo").val();
 		if (indentNo == "") {
 			alert("Enter Indent Number !!");
 			return false;
 		}
-		var indentDept = $("#pump-labour-indentDepartment").val();
+		var indentDept = $("#pump-spare-indentDept").val();
 		if (indentDept == "") {
 			alert("Enter Indent Department !!");
 			return false;
 		}
-		var complNo = $("#pump-labour-comlNo").val();
+		var complNo = $("#pump-spare-complNo").val();
 		if (complNo == "") {
-			alert("Enter Complaint No !!");
+			alert("Select Complaint No !!");
 			return false;
 		}
-		var complCategory = $("#pump-labour-comlCategory").val();
+		var complCategory = $("#pump-spare-complCategory").val();
 		if (complCategory == "") {
-			alert("Enter Complaint No !!");
+			alert("Select Complaint No !!");
 			return false;
 		}
-		var division = $("#pump-labour-division").val();
+		var division = $("#master-division-list").val();
 		if (division == "") {
-			alert("Enter Division !!");
+			alert("Select Division !!");
 			return false;
 		}
-		var subDivision = $("#pump-labour-subdivision").val();
+		var subDivision = $("#master-sub-division-list").val();
 		if (subDivision == "") {
-			alert("Enter Sub-Division !!");
+			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pump-labour-worksite").val();
+		var workPriority = $("#pump-parts-workPriority").val();
+		if (workPriority == "") {
+			alert("Select Work Priority !!");
+			return false;
+		}
+		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
 		}
-		var startDate = $("#pump-labour-startDate").val();
-		if (startDate == "") {
-			alert("Enter Expected Start Date !!");
-			return false;
-		}
-		var endDate = $("#pump-labour-endDate").val();
-		if (endDate == "") {
-			alert("Enter Expected End Date !!");
-			return false;
-		}
-		var contactNo = $("#pump-labour-contactNo").val();
+		var contactNo = $("#pump-parts-contactNo").val();
 		if (contactNo == "") {
 			alert("Enter Contact No !!");
 			return false;
 		}
-		var complDtls = $("#pump-labour-comlDtls").val();
-		if (complDtls == "") {
-			alert("Enter Complain Details !!");
+		var startDate = $("#pump-parts-startDate").val();
+		if (startDate == "") {
+			alert("Enter Expected Start Date !!");
 			return false;
 		}
-		var workPriority = $("#pump-labour-workpriority").val();
-		if (workPriority == "") {
-			alert("Select Work Priority !!");
+		var endDate = $("#pump-parts-endDate").val();
+		if (endDate == "") {
+			alert("Enter Expected End Date !!");
+			return false;
+		}
+		var complDtls = $("#pump-parts-complDtls").val();
+		if (complDtls == "") {
+			alert("Enter Complain Details !!");
 			return false;
 		}
 		var category = $("#pump-labour-empCategory").val();
@@ -434,21 +416,22 @@ $(document).ready(function() {
 						type: "post",
 						url: "/pump/save/add/labourData",
 						data: {
-							indentNo: $("#pump-labour-indent").val(),
-							complNo: $("#pump-labour-comlNo").val(),
-							division: $("#pump-labour-division").val(),
-							subDivision: $("#pump-labour-subdivision").val(),
-							workSite: $("#pump-labour-worksite").val(),
-							startDate: $("#pump-labour-startDate").val(),
-							endDate: $("#pump-labour-endDate").val(),
-							contactNo: $("#pump-labour-contactNo").val(),
-							complDtls: $("#pump-labour-comlDtls").val(),
-							workPriority: $("#pump-labour-workpriority").val(),
+							indentNo: $("#pump-spare-indentNo").val(),
+							complNo: $("#pump-spare-complNo").val(),
+							division: $("#master-division-list").val(),
+							subDivision: $("#master-sub-division-list").val(),
+							workSite: $("#pump-parts-worksite").val(),
+							startDate: $("#pump-parts-startDate").val(),
+							endDate: $("#pump-parts-endDate").val(),
+							contactNo: $("#pump-parts-contactNo").val(),
+							complDtls: $("#pump-parts-complDtls").val(),
+							workPriority: $("#pump-parts-workPriority").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
 							empCategory: $("#pump-labour-empCategory").val(),
 							members: $("#pump-labour-members").val(),
 							daysRequired: $("#pump-labour-days").val(),
 							timeRequired: $("#pump-labour-time").val(),
-							departmentName: $("#pump-spare-indentDept").val(),
+
 
 						},
 						success: function(result) {
@@ -475,7 +458,7 @@ $(document).ready(function() {
 										row += '<td>' + labor.members + '</td>';
 										row += '<td>' + labor.daysRequired + '</td>';
 										row += '<td>' + labor.timeRequired + '</td>';
-										row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
+										row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.id + '"></i></a></td>';
 										row += '</tr>';
 									});
 									// Insert the generated HTML into the table body
@@ -487,12 +470,12 @@ $(document).ready(function() {
 								e.preventDefault();
 								var row = $(this).closest('tr');
 								//var pumMaterialId = row.find('.item-delete').text();
-								var labourReqId = $(this).data('pum-labor-id');
+								var labourId = $(this).data('pum-labor-id');
 								//alert(value);
 
 								$.ajax({
 									type: 'DELETE',
-									url: '/pump/delete/labour/' + labourReqId,
+									url: '/pump/delete/labour/' + labourId,
 									success: function(result) {
 										alert(result);
 										//Show Added Data		
@@ -512,7 +495,7 @@ $(document).ready(function() {
 													row += '<td>' + labor.members + '</td>';
 													row += '<td>' + labor.daysRequired + '</td>';
 													row += '<td>' + labor.timeRequired + '</td>';
-													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.labourReqId + '"></i></a></td>';
+													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn1" data-pum-labor-id="' + labor.id + '"></i></a></td>';
 													row += '</tr>';
 												});
 												// Insert the generated HTML into the table body
@@ -548,64 +531,64 @@ $(document).ready(function() {
 
 	$("#pump-vehicle-addButton").click(function() {
 
-		var indentNo = $("#pump-vehicle-indentNo").val();
+		var indentNo = $("#pump-spare-indentNo").val();
 		if (indentNo == "") {
 			alert("Enter Indent Number !!");
 			return false;
 		}
-		var indentDept = $("#pump-vehicle-indentDept").val();
+		var indentDept = $("#pump-spare-indentDept").val();
 		if (indentDept == "") {
 			alert("Enter Indent Department !!");
 			return false;
 		}
-		var complNo = $("#pump-vehicle-complNo").val();
+		var complNo = $("#pump-spare-complNo").val();
 		if (complNo == "") {
-			alert("Enter Complaint No !!");
+			alert("Select Complaint No !!");
 			return false;
 		}
-		var complCategory = $("#pump-vehicle-complCategory").val();
+		var complCategory = $("#pump-spare-complCategory").val();
 		if (complCategory == "") {
-			alert("Enter Complaint No !!");
+			alert("Select Complaint No !!");
 			return false;
 		}
-		var division = $("#pump-vehicle-division").val();
+		var division = $("#master-division-list").val();
 		if (division == "") {
-			alert("Enter Division !!");
+			alert("Select Division !!");
 			return false;
 		}
-		var subDivision = $("#pump-vehicle-subdivision").val();
+		var subDivision = $("#master-sub-division-list").val();
 		if (subDivision == "") {
-			alert("Enter Sub-Division !!");
+			alert("Select Sub-Division !!");
 			return false;
 		}
-		var worksite = $("#pump-vehicle-worksite").val();
+		var workPriority = $("#pump-parts-workPriority").val();
+		if (workPriority == "") {
+			alert("Select Work Priority !!");
+			return false;
+		}
+		var worksite = $("#pump-parts-worksite").val();
 		if (worksite == "") {
 			alert("Enter Work Site Address !!");
 			return false;
 		}
-		var startDate = $("#pump-vehicle-stratdate").val();
-		if (startDate == "") {
-			alert("Enter Expected Start Date !!");
-			return false;
-		}
-		var endDate = $("#pump-vehicle-enddate").val();
-		if (endDate == "") {
-			alert("Enter Expected End Date !!");
-			return false;
-		}
-		var contactNo = $("#pump-vehicle-contactNo").val();
+		var contactNo = $("#pump-parts-contactNo").val();
 		if (contactNo == "") {
 			alert("Enter Contact No !!");
 			return false;
 		}
-		var complDtls = $("#pump-vehicle-complDtls").val();
-		if (complDtls == "") {
-			alert("Enter Complain Details !!");
+		var startDate = $("#pump-parts-startDate").val();
+		if (startDate == "") {
+			alert("Enter Expected Start Date !!");
 			return false;
 		}
-		var workPriority = $("#pump-vehicle-workpriority").val();
-		if (workPriority == "") {
-			alert("Select Work Priority !!");
+		var endDate = $("#pump-parts-endDate").val();
+		if (endDate == "") {
+			alert("Enter Expected End Date !!");
+			return false;
+		}
+		var complDtls = $("#pump-parts-complDtls").val();
+		if (complDtls == "") {
+			alert("Enter Complain Details !!");
 			return false;
 		}
 		var vehicleType = $("#master-vehicleType-list").val();
@@ -654,29 +637,29 @@ $(document).ready(function() {
 						type: "post",
 						url: "/pump/save/add/vehicleData",
 						data: {
-							indentNo: $("#pump-vehicle-indentNo").val(),
-							complNo: $("#pump-vehicle-complNo").val(),
-							division: $("#pump-vehicle-division").val(),
-							subDivision: $("#pump-vehicle-subdivision").val(),
-							workSite: $("#pump-vehicle-worksite").val(),
-							startDate: $("#pump-vehicle-stratdate").val(),
-							endDate: $("#pump-vehicle-enddate").val(),
-							contactNo: $("#pump-vehicle-contactNo").val(),
-							complDtls: $("#pump-vehicle-complDtls").val(),
-							workPriority: $("#pump-vehicle-workpriority").val(),
+							indentNo: $("#pump-spare-indentNo").val(),
+							complNo: $("#pump-spare-complNo").val(),
+							division: $("#master-division-list").val(),
+							subDivision: $("#master-sub-division-list").val(),
+							workSite: $("#pump-parts-worksite").val(),
+							startDate: $("#pump-parts-startDate").val(),
+							endDate: $("#pump-parts-endDate").val(),
+							contactNo: $("#pump-parts-contactNo").val(),
+							complDtls: $("#pump-parts-complDtls").val(),
+							workPriority: $("#pump-parts-workPriority").val(),
+							departmentName: $("#pump-spare-indentDept").val(),
 							vehicleType: $("#master-vehicleType-list").val(),
 							vehicleId: $("#master-vehicleNos-list").val(),
 							driverName: $("#pump-vehicle-driverName").val(),
 							driverPhone: $("#pump-vehicle-driverPhone").val(),
 							meterReading: $("#pump-vehicle-meterReading").val(),
 							stratTime: $("#pump-vehicle-stratingTime").val(),
-							vehicleNo: $("#pump-vehicle-vehicleNo").val(),
-							departmentName: $("#pump-spare-indentDept").val(),
+							vehicleNo: $("#pump-vehicle-vehicleNo").val(),							
 
 						},
 						success: function(result) {
 
-							$("#master-vehicleType-list").val(""),
+							    $("#master-vehicleType-list").val(""),
 								$("#master-vehicleNos-list").val(""),
 								$("#pump-vehicle-driverName").val(""),
 								$("#pump-vehicle-driverPhone").val(""),
@@ -703,7 +686,7 @@ $(document).ready(function() {
 											row += '<td>' + vehicle.driverPhone + '</td>';
 											row += '<td>' + vehicle.meterReading + '</td>';
 											row += '<td>' + vehicle.stratTime + '</td>';
-											row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
+											row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.id + '"></i></a></td>';
 											row += '</tr>';
 										});
 										// Insert the generated HTML into the table body
@@ -742,7 +725,7 @@ $(document).ready(function() {
 													row += '<td>' + vehicle.driverPhone + '</td>';
 													row += '<td>' + vehicle.meterReading + '</td>';
 													row += '<td>' + vehicle.stratTime + '</td>';
-													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.vehicleReqId + '"></i></a></td>';
+													row += '<td><a href="#"><i class="glyphicon glyphicon-trash text-danger delete-btn2" data-pum-vehicle-id="' + vehicle.id + '"></i></a></td>';
 													row += '</tr>';
 												});
 												// Insert the generated HTML into the table body

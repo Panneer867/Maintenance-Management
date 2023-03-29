@@ -2,10 +2,9 @@ package com.ingroinfo.mm.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.ingroinfo.mm.entity.HoldWorkOrder;
-
+import com.ingroinfo.mm.entity.WorkOrderApprovedItems;
 
 @Repository
-public interface HoldWorkOrderRepository extends JpaRepository<HoldWorkOrder,Long> {
+public interface WorkOrderApprovedItemsRepository extends JpaRepository<WorkOrderApprovedItems, Long> {
 
 }

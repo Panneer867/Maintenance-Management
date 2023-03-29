@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -33,11 +35,15 @@ public class TempWorkOrderItemRequest {
 	private String itemId;
 	private String unitOfMesure;
 	private String hsnCode;
-	private String quantity;
+	private int quantity;
 	private String stockType;
 	private String stockTypeName;
 	private String departmentName;
+	private String indentApproved;
+	private String approvedSts;
 	private String userName;
-	private String status;
+	@CreationTimestamp
+	private Date approvedDate;
+	
 
 }

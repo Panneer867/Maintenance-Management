@@ -72,6 +72,19 @@ public class SQLViews {
 			+ "COUNT(*) AS EMP_COUNT FROM MM_EMPLOYEE_LEAVE WHERE HR_APPROVAL='YES'"
 	        + "AND CREATE_DATE >= SYSDATE - INTERVAL '1' YEAR GROUP BY DEPARTMENT, TO_CHAR(CREATE_DATE, 'MON'),"
 			+ "EXTRACT(YEAR FROM CREATE_DATE) ORDER BY YEAR ASC, MONTH_NAME ASC, DEPARTMENT ASC";
+	
+	private static final String INDENT_STATUS = "CREATE OR REPLACE VIEW VERIFY_INDENT_STATUS AS "
+	        + "SELECT DISTINCT "
+	        + "witem.INDENT_NO, "
+	        + "witem.COMPL_NO, "
+	        + "witem.DEPARTMENT_NAME, "
+	        + "witem.APPROVED_STS as item_approved, "
+	        + "wlab.APPROVED_STS as labor_approved, "
+	        + "wveh.APPROVED_STS as vehicle_approved "
+	        + "FROM "
+	        + "MM_TEMP_WORKORDER_ITEM_REQUEST witem "
+	        + "JOIN MM_TEMP_WORKORDER_LABOUR_REQUEST wlab ON witem.INDENT_NO = wlab.INDENT_NO AND witem.COMPL_NO = wlab.COMPL_NO AND witem.DEPARTMENT_NAME = wlab.DEPARTMENT_NAME "
+	        + "JOIN MM_TEMP_WORKORDER_VEHICLE_REQUEST wveh ON witem.INDENT_NO = wveh.INDENT_NO AND witem.COMPL_NO = wveh.COMPL_NO AND witem.DEPARTMENT_NAME = wveh.DEPARTMENT_NAME";
 
 	@PostConstruct
 	public void createView() {
@@ -83,5 +96,6 @@ public class SQLViews {
 		jdbcTemplate.execute(STOCK_MATERIALS);
 		jdbcTemplate.execute(EMPLOYEE_COUNT);
 		jdbcTemplate.execute(EMPLOYEE_LEAVE);
+		jdbcTemplate.execute(INDENT_STATUS);
 	}
 }

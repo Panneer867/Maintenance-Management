@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -31,7 +34,10 @@ public class TempWorkOrderLabourRequest {
 	private String daysRequired;
 	private String timeRequired;
 	private String departmentName;
+	private String indentApproved;
+	private String approvedSts;
 	private String userName;
-	private String status;
+	@CreationTimestamp
+	private Date approvedDate;
 
 }

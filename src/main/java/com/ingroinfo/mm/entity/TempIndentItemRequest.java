@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -31,8 +34,11 @@ public class TempIndentItemRequest {
 	private String itemId;
 	private String unitOfMesure;
 	private String hsnCode;
-	private String quantity;
+	private int quantity;
 	private String stockType;
 	private String stockTypeName;
 	private String departmentName;
+	private String userName;
+	@CreationTimestamp
+	private Date createdDate;
 }

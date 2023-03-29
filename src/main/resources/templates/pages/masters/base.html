@@ -53,7 +53,7 @@
 	<link th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
 	<link th:href="@{https://use.fontawesome.com/releases/v5.11.2/css/all.css}" rel="stylesheet" />
 	<script th:src="@{https://unpkg.com/@popperjs/core@2}"></script>
-	
+
 	<!-- Sweet Alert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -386,6 +386,15 @@
 							</div>
 						</li>
 
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
+							data-menu-submenu-toggle="hover">
+							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon fas fa-user-check pl-1"></i>
+								<span class="m-menu__link-text">
+									Indent Status
+								</span>
+							</a>
+						</li>
 
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-workorder"
 							data-menu-submenu-toggle="hover">
@@ -414,17 +423,6 @@
 											</i>
 											<span class="m-menu__link-text">
 												Dashboard
-											</span>
-										</a>
-									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
-										id="workoder-indent-status-active">
-										<a th:href="@{/workorder/indent/status}" class="m-menu__link ">
-											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-												<span></span>
-											</i>
-											<span class="m-menu__link-text">
-												Indent Status
 											</span>
 										</a>
 									</li>
@@ -1715,7 +1713,7 @@
 						<div class="icon" onclick="window.location='/masters/barcode'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/barcode' ? 'active':''}">
 							<span class="text">Master Barcode</span>
-						</div>						
+						</div>
 						<div class="icon" onclick="window.location='/masters/companymaster'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/companymaster' ? 'active':''}">
 							<span class="text">Master Company</span>

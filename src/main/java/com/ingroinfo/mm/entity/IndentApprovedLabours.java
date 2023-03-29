@@ -1,25 +1,24 @@
 package com.ingroinfo.mm.entity;
 
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "MM_WORKORDER_LABOUR_REQUEST")
-public class WorkOrderLabourRequest {
+@Table(name="MM_INDENT_APPROVED_LABOURS")
+public class IndentApprovedLabours {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long recordId;
-	private String username;
-	private Long workOrderNo;
+	private Long labourReqId;
 	private String indentNo;
 	private String complNo;
 	private String division;
@@ -35,4 +34,9 @@ public class WorkOrderLabourRequest {
 	private String daysRequired;
 	private String timeRequired;
 	private String departmentName;
+	private String indentApproved;
+	private String approvedSts;
+	private String userName;
+	@CreationTimestamp
+	private Date createdDate;
 }

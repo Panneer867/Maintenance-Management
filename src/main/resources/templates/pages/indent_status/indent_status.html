@@ -2,30 +2,21 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Work Orders
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Indent Status
 		</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/workorder/generate}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/indent-status}" class="fa fa-home pt-1"></a></div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Generate WorkOrder</span></div>
+							<div class="link"><span aria-current="location">Indent Status</span></div>
 						</li>
 					</ol>
 				</nav>
-			</div>
-			<div class="col-8">
-				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/workorder}">
-							Workorder Approved List
-						</a>
-					</li>
-				</ul>
 			</div>
 		</div>
 		<div class="row">
@@ -38,7 +29,7 @@
 				</div>
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
-						<h4 class="mb-0">Indent Details</h4>
+						<h4 class="mb-0">Approved Indent Details</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 						<div>
@@ -183,6 +174,7 @@
 											<th>Unit of Meassure</th>
 											<th>Qty</th>
 											<th>Stock Type</th>
+											<th>Approved Status</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -193,6 +185,16 @@
 											<td th:text="${material.unitOfMesure}"></td>
 											<td th:text="${material.quantity}"></td>
 											<td th:text="${material.stockTypeName}"></td>
+											<td class="text-center">
+												<span th:if="${material.approvedSts eq 'Y'}"
+													style="background-color: green; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Approved
+												</span>
+												<span th:if="${material.approvedSts ne 'Y'}"
+													style="background-color: red; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Pending
+												</span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -207,6 +209,7 @@
 											<th>Members Required</th>
 											<th>Days Required</th>
 											<th>Time Required</th>
+											<th>Approved Status</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -215,6 +218,16 @@
 											<td th:text="${labors.members}"></td>
 											<td th:text="${labors.daysRequired}"></td>
 											<td th:text="${labors.timeRequired}"></td>
+											<td class="text-center">
+												<span th:if="${labors.approvedSts eq 'Y'}"
+													style="background-color: green; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Approved
+												</span>
+												<span th:if="${labors.approvedSts ne 'Y'}"
+													style="background-color: red; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Pending
+												</span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -231,6 +244,7 @@
 											<th>Driver Contact No</th>
 											<th>ODO Meter Reading</th>
 											<th>Start Time</th>
+											<th>Approved Status</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -241,13 +255,22 @@
 											<td th:text="${vehicles.driverPhone}"></td>
 											<td th:text="${vehicles.meterReading}"></td>
 											<td th:text="${vehicles.stratTime}"></td>
+											<td class="text-center">
+												<span th:if="${vehicles.approvedSts eq 'Y'}"
+													style="background-color: green; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Approved
+												</span>
+												<span th:if="${vehicles.approvedSts ne 'Y'}"
+													style="background-color: red; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;">
+													Pending
+												</span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div class=" text-center mt-3 mb-2">
-							<a class="btn btn-primary btnPrevious w-20  text-white" th:href="@{/workorder/generate/submit/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Submit</a>						
+						<div class=" text-center mb-2">
 						</div>
 					</div>
 				</div>
@@ -255,7 +278,7 @@
 			<div class="col-3">
 				<div class="card text-center">
 					<div class="card-header heading-bg text-white fs-6 ">
-						Updates
+						Updated Approved Indents
 					</div>
 
 					<div class="card-body">
@@ -268,12 +291,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="indent : ${approvedIndentList}" class="text-center">
+								<tr th:each="compl : ${listOfCompl}" class="text-center">
 									<td class="fs-6"><a
-									th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${indent.complNo}, indentNo=${indent.indentNo})}">
-									<span th:text="${'CN'+indent.complNo}"></span></a></td>
-									<td class="fs-6" th:text="${indent.indentNo}"></td>
-									<td class="fs-6" th:text="${indent.department}"></td>
+											th:href="@{/indent-status/get/{complNo}/{indentNo}(complNo=${compl.complNo}, indentNo=${compl.indentNo})}">
+											<span th:text="${'CN'+compl.complNo}"></span></a></td>
+									<td class="fs-6" th:text="${compl.indentNo}"></td>
+									<td class="fs-6" th:text="${compl.department}"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -281,6 +304,26 @@
 				</div>
 			</div>
 		</div>
+
+		<style>
+			@keyframes blink {
+				0% {
+					opacity: 1;
+				}
+
+				50% {
+					opacity: 0.5;
+				}
+
+				75% {
+					opacity: 0.8;
+				}
+
+				100% {
+					opacity: 1;
+				}
+			}
+		</style>
 
 	</section>
 </body>

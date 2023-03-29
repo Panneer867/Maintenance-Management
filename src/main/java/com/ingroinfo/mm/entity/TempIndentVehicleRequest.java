@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -34,4 +37,7 @@ public class TempIndentVehicleRequest {
 	private String stratTime;
 	private Long vehicleId;
 	private String departmentName;
+	private String userName;
+	@CreationTimestamp
+	private Date createdDate;
 }

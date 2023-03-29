@@ -138,6 +138,12 @@ $(document).ready(function() {
 			$("#approval-active").addClass("li-active");
 		}
 	});
+	
+	$(function() {
+		if (window.location.href.match('/indent-status')) {
+			$("#indent-status-active").addClass("li-active");
+		}
+	});
 
 	/************** Dashboard *************** */
 
@@ -358,11 +364,7 @@ $(document).ready(function() {
 			$("#workoder-dashboard-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
-	$(function() {
-		if (window.location.href.match('/workorder/indent/status')) {
-			$("#workoder-indent-status-active").addClass("m-menu__item--active sub-menu-active");
-		}
-	});
+	
 	$(function() {
 		if (window.location.href.match('/workorder/generate')) {
 			$("#generate-workorder-active").addClass("m-menu__item--active sub-menu-active");

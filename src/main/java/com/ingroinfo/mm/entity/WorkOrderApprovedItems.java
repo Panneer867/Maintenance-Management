@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.entity;
 
 import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,15 +14,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="MM_INDENT_VEHICLE_REQUEST")
-public class IndentVehicleRequest {
-
+@Table(name = "mm_workorder_approved_items")
+public class WorkOrderApprovedItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long vehicleReqId;
+	private Long itemReqId;
 	private String indentNo;
 	private String complNo;
+	private String workOrderNo;
 	private String division;
 	private String subDivision;
 	private String workSite;
@@ -30,15 +31,17 @@ public class IndentVehicleRequest {
 	private String contactNo;	
 	private String complDtls;
 	private String workPriority;
-	private String vehicleType;
-	private String vehicleNo;
-	private String driverName;
-	private String driverPhone;
-	private String meterReading;
-	private String stratTime;
-	private Long vehicleId;
+	private String categoryName;
+	private String itemName;
+	private String itemId;
+	private String unitOfMesure;
+	private String hsnCode;
+	private int quantity;
+	private String stockType;
+	private String stockTypeName;
 	private String departmentName;
+	private String approvedSts;
 	private String userName;
 	@CreationTimestamp
-	private Date createdDate;
+	private Date approvedDate;
 }
