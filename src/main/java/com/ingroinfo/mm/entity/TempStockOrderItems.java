@@ -1,7 +1,5 @@
 package com.ingroinfo.mm.entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,36 +10,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "mm_temp_workorders")
-public class TempWorkOrders {
+@Table(name = "mm_temp_stockorder_items")
+public class TempStockOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long recordId;
+	private int finalQuantity;	
+	private int slNo;
+	private String itemId;
 	private Long orderId;
-	private String billedOn;
-	private String gstType;
-	private Double igst;
-	private Double sgst;
-	private Double cgst;
-	private Double subTotal;
-	private Double grandTotal;
-	private Long workOrderNo;
+	private String itemName;
+	private String aliasName;
+	private String itemImage;
+	private String imagePath;
+	private String category;
+	private String unitOfMeasure;
+	private Double mrpRate;
+	private Double totalCost;
+	private String description;
+	private Long stockOrderNo;
+	private String stockType;
 	private String username;
-
+	
 	private String indentNo;
 	private String complNo;
-	private String division;
-	private String subDivision;
-	private String workSite;
-	private Date startDate;
-	private Date endDate;
-	private String contactNo;
-	private String complDtls;
-	private String workPriority;
 	private String departmentName;
 }

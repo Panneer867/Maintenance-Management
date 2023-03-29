@@ -49,10 +49,11 @@
 					<th class="all">Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
-					<th class="all">Sub Total</th>
+
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
 					<th class="all">Entry </th>
+					<th class="all">Approval</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -62,9 +63,8 @@
 					<td th:text="${toolsList.category}"></td>
 					<td th:text="${toolsList.itemName}"></td>
 					<td class="text-center img-box"
-						th:attr="onclick=|viewImg('${toolsList.imagePath}${toolsList.itemImage}')|"
-						data-toggle="modal" data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top"
-						title="Click to View">
+						th:attr="onclick=|viewImg('${toolsList.imagePath}${toolsList.itemImage}')|" data-toggle="modal"
+						data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to View">
 						<img th:src="@{${toolsList.imagePath} + ${toolsList.itemImage}}" alt="image" />
 					</td>
 
@@ -72,21 +72,21 @@
 					<td th:text="${toolsList.quantity}"></td>
 					<td>&#8377;<label class="px-1" th:text="${toolsList.costRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${toolsList.mrpRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${toolsList.subTotal}"></label></td>
+					
 					<td><label class="px-1" th:text="${toolsList.igst}"></label>%</td>
 					<td>&#8377;<label class="px-1" th:text="${toolsList.grandTotal}"></label></td>
 					<td th:text="${toolsList.entryDate}"></td>
-
+					<td class="text-center">
+						<span class="status-pending" th:text="${toolsList.approvalStatus}" />
+					</td>
 					<td class="text-center">
 
-						<button
-							th:onclick="|getToolDetails('/stocks/inward/tools/get/${toolsList.toolId}')|"
+						<button th:onclick="|getToolDetails('/stocks/inward/tools/get/${toolsList.toolId}')|"
 							class="btn btn-success p-1 mx-2" data-toggle="modal" data-target="#tool-detail"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><span
 								class="glyphicon glyphicon-ok"></span></button>
 
-						<button
-							th:onclick="|deleteId('/approvals/stocks/tools/reject/${toolsList.toolId}')|"
+						<button th:onclick="|deleteId('/approvals/stocks/tools/reject/${toolsList.toolId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
 								class="glyphicon glyphicon-remove"></span></button>

@@ -43,7 +43,7 @@ public class TempWorkOrderItemRequest {
 	private String approvedSts;
 	private String userName;
 	@CreationTimestamp
-	private Date approvedDate;
+	private Date createdDate;
 	
 
 }

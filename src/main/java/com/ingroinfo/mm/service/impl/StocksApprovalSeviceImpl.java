@@ -6,8 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ingroinfo.mm.dao.ApprovedStocksReturnRepository;
-import com.ingroinfo.mm.dao.ApprovedWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.ApprovedWorkOrdersRepository;
+import com.ingroinfo.mm.dao.ApprovedStockOrderItemsRepository;
+import com.ingroinfo.mm.dao.ApprovedStockOrdersRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -18,15 +18,15 @@ import com.ingroinfo.mm.dao.InwardRejectedToolsRepository;
 import com.ingroinfo.mm.dao.InwardSparesRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.RejectedStocksReturnRepository;
-import com.ingroinfo.mm.dao.RejectedWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.RejectedWorkOrdersRepository;
+import com.ingroinfo.mm.dao.RejectedStockOrderItemsRepository;
+import com.ingroinfo.mm.dao.RejectedStockOrdersRepository;
 import com.ingroinfo.mm.dao.StockReturnsRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderItemsRepository;
-import com.ingroinfo.mm.dao.TempWorkOrdersRepository;
+import com.ingroinfo.mm.dao.TempStockOrderItemsRepository;
+import com.ingroinfo.mm.dao.TempStockOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.ApprovedStocksReturn;
-import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
-import com.ingroinfo.mm.entity.ApprovedWorkOrders;
+import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
+import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -37,11 +37,11 @@ import com.ingroinfo.mm.entity.InwardRejectedTools;
 import com.ingroinfo.mm.entity.InwardSpares;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.RejectedStocksReturn;
-import com.ingroinfo.mm.entity.RejectedWorkOrderItems;
-import com.ingroinfo.mm.entity.RejectedWorkOrders;
+import com.ingroinfo.mm.entity.RejectedStockOrderItems;
+import com.ingroinfo.mm.entity.RejectedStockOrders;
 import com.ingroinfo.mm.entity.StocksReturn;
-import com.ingroinfo.mm.entity.TempWorkOrderItems;
-import com.ingroinfo.mm.entity.TempWorkOrders;
+import com.ingroinfo.mm.entity.TempStockOrderItems;
+import com.ingroinfo.mm.entity.TempStockOrders;
 import com.ingroinfo.mm.service.StocksApprovalService;
 
 @Service
@@ -77,22 +77,22 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 	private InwardToolsRepository inwardToolsRepository;
 
 	@Autowired
-	private TempWorkOrderItemsRepository tempWorkOrderItemsRepository;
+	private TempStockOrderItemsRepository tempStockOrderItemsRepository;
 
 	@Autowired
-	private ApprovedWorkOrderItemsRepository approvedWorkOrderItemsRepository;
+	private ApprovedStockOrderItemsRepository approvedStockOrderItemsRepository;
 
 	@Autowired
-	private ApprovedWorkOrdersRepository approvedWorkOrdersRepository;
+	private ApprovedStockOrdersRepository approvedStockOrdersRepository;
 
 	@Autowired
-	private TempWorkOrdersRepository tempWorkOrdersRepository;
+	private TempStockOrdersRepository tempStockOrdersRepository;
 
 	@Autowired
-	private RejectedWorkOrderItemsRepository rejectedWorkOrderItemsRepository;
+	private RejectedStockOrderItemsRepository rejectedStockOrderItemsRepository;
 
 	@Autowired
-	private RejectedWorkOrdersRepository rejectedWorkOrderNosRepository;
+	private RejectedStockOrdersRepository rejectedStockOrderNosRepository;
 
 	@Autowired
 	private ApprovedStocksReturnRepository approvedStocksReturnRepository;
@@ -111,6 +111,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		InwardApprovedMaterials inwardApprovedMaterials = modelMapper.map(inwardItemDto, InwardApprovedMaterials.class);
 		inwardApprovedMaterials.setStockType("ML");
 		inwardApprovedMaterials.setAvailableQty(inwardItemDto.getQuantity());
+		inwardApprovedMaterials.setApprovalStatus("APPROVED");
 		InwardApprovedMaterials newApprovedMaterials = inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
 
 		if (newApprovedMaterials != null) {
@@ -139,6 +140,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		InwardApprovedSpares inwardApprovedSpares = modelMapper.map(inwardItemDto, InwardApprovedSpares.class);
 		inwardApprovedSpares.setStockType("SP");
 		inwardApprovedSpares.setAvailableQty(inwardItemDto.getQuantity());
+		inwardApprovedSpares.setApprovalStatus("APPROVED");
 		InwardApprovedSpares newApprovedSpares = inwardApprovedSparesRepository.save(inwardApprovedSpares);
 
 		if (newApprovedSpares != null) {
@@ -167,6 +169,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		InwardApprovedTools inwardApprovedTools = modelMapper.map(inwardItemDto, InwardApprovedTools.class);
 		inwardApprovedTools.setStockType("TE");
 		inwardApprovedTools.setAvailableQty(inwardItemDto.getQuantity());
+		inwardApprovedTools.setApprovalStatus("APPROVED");
 		InwardApprovedTools newApprovedTools = inwardApprovedToolsRepository.save(inwardApprovedTools);
 
 		if (newApprovedTools != null) {
@@ -189,74 +192,74 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		}
 	}
 
-	/*********************** Outwards Work orders ********************************/
+	/*********************** Outwards Stock orders ********************************/
 	@Override
-	public void approveOutwardStocks(Long workOrderNo, String username) {
+	public void approveOutwardStocks(Long stockOrderNo, String username) {
 
-		TempWorkOrders tempWorkOrders = tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
+		TempStockOrders tempStockOrders = tempStockOrdersRepository.findByStockOrderNo(stockOrderNo);
 
-		ApprovedWorkOrders approvedWorkOrders = new ApprovedWorkOrders();
+		ApprovedStockOrders approvedStockOrders = new ApprovedStockOrders();
 
-		approvedWorkOrders.setBilledOn(tempWorkOrders.getBilledOn());
-		approvedWorkOrders.setCgst(tempWorkOrders.getCgst());
-		approvedWorkOrders.setGrandTotal(tempWorkOrders.getGrandTotal());
-		approvedWorkOrders.setGstType(tempWorkOrders.getGstType());
-		approvedWorkOrders.setIgst(tempWorkOrders.getIgst());
-		approvedWorkOrders.setSgst(tempWorkOrders.getSgst());
-		approvedWorkOrders.setSubTotal(tempWorkOrders.getSubTotal());
-		approvedWorkOrders.setUsername(username);
-		approvedWorkOrders.setWorkOrderNo(tempWorkOrders.getWorkOrderNo());
+		approvedStockOrders.setBilledOn(tempStockOrders.getBilledOn());
+		approvedStockOrders.setCgst(tempStockOrders.getCgst());
+		approvedStockOrders.setGrandTotal(tempStockOrders.getGrandTotal());
+		approvedStockOrders.setGstType(tempStockOrders.getGstType());
+		approvedStockOrders.setIgst(tempStockOrders.getIgst());
+		approvedStockOrders.setSgst(tempStockOrders.getSgst());
+		approvedStockOrders.setSubTotal(tempStockOrders.getSubTotal());
+		approvedStockOrders.setUsername(username);
+		approvedStockOrders.setStockOrderNo(tempStockOrders.getStockOrderNo());
 		
-		approvedWorkOrders.setComplDtls(tempWorkOrders.getComplDtls());
-		approvedWorkOrders.setComplNo(tempWorkOrders.getComplNo());
-		approvedWorkOrders.setContactNo(tempWorkOrders.getContactNo());
-		approvedWorkOrders.setDepartmentName(tempWorkOrders.getDepartmentName());
-		approvedWorkOrders.setDivision(tempWorkOrders.getDivision());
-		approvedWorkOrders.setEndDate(tempWorkOrders.getEndDate());
-		approvedWorkOrders.setIndentNo(tempWorkOrders.getIndentNo());
-		approvedWorkOrders.setStartDate(tempWorkOrders.getStartDate());
-		approvedWorkOrders.setSubDivision(tempWorkOrders.getSubDivision());
-		approvedWorkOrders.setWorkPriority(tempWorkOrders.getWorkPriority());
-		approvedWorkOrders.setWorkSite(tempWorkOrders.getWorkSite());
+		approvedStockOrders.setComplDtls(tempStockOrders.getComplDtls());
+		approvedStockOrders.setComplNo(tempStockOrders.getComplNo());
+		approvedStockOrders.setContactNo(tempStockOrders.getContactNo());
+		approvedStockOrders.setDepartmentName(tempStockOrders.getDepartmentName());
+		approvedStockOrders.setDivision(tempStockOrders.getDivision());
+		approvedStockOrders.setEndDate(tempStockOrders.getEndDate());
+		approvedStockOrders.setIndentNo(tempStockOrders.getIndentNo());
+		approvedStockOrders.setStartDate(tempStockOrders.getStartDate());
+		approvedStockOrders.setSubDivision(tempStockOrders.getSubDivision());
+		approvedStockOrders.setWorkPriority(tempStockOrders.getWorkPriority());
+		approvedStockOrders.setWorkSite(tempStockOrders.getWorkSite());
 		
 		
 
-		ApprovedWorkOrders savedApprovedWorkOrders = approvedWorkOrdersRepository.save(approvedWorkOrders);
+		ApprovedStockOrders savedApprovedStockOrders = approvedStockOrdersRepository.save(approvedStockOrders);
 
-		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+		List<TempStockOrderItems> tempStockOrderItems = tempStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
 
-		for (TempWorkOrderItems tempWorkOrderItem : tempWorkOrderItems) {
+		for (TempStockOrderItems tempStockOrderItem : tempStockOrderItems) {
 
-			ApprovedWorkOrderItems approvedWorkOrderItems = new ApprovedWorkOrderItems();
+			ApprovedStockOrderItems approvedStockOrderItems = new ApprovedStockOrderItems();
 
-			approvedWorkOrderItems.setAliasName(tempWorkOrderItem.getAliasName());
-			approvedWorkOrderItems.setCategory(tempWorkOrderItem.getCategory());
-			approvedWorkOrderItems.setDescription(tempWorkOrderItem.getDescription());
-			approvedWorkOrderItems.setFinalQuantity(tempWorkOrderItem.getFinalQuantity());
-			approvedWorkOrderItems.setImagePath(tempWorkOrderItem.getImagePath());
-			approvedWorkOrderItems.setItemId(tempWorkOrderItem.getItemId());
-			approvedWorkOrderItems.setItemImage(tempWorkOrderItem.getItemImage());
-			approvedWorkOrderItems.setItemName(tempWorkOrderItem.getItemName());
-			approvedWorkOrderItems.setMrpRate(tempWorkOrderItem.getMrpRate());
-			approvedWorkOrderItems.setSlNo(tempWorkOrderItem.getSlNo());
-			approvedWorkOrderItems.setStockType(tempWorkOrderItem.getStockType());
-			approvedWorkOrderItems.setTotalCost(tempWorkOrderItem.getTotalCost());
-			approvedWorkOrderItems.setUnitOfMeasure(tempWorkOrderItem.getUnitOfMeasure());
-			approvedWorkOrderItems.setWorkOrderNo(tempWorkOrderItem.getWorkOrderNo());
-			approvedWorkOrderItems.setOrderId(savedApprovedWorkOrders);
-			approvedWorkOrderItems.setUsername(username);
-			approvedWorkOrderItemsRepository.save(approvedWorkOrderItems);
+			approvedStockOrderItems.setAliasName(tempStockOrderItem.getAliasName());
+			approvedStockOrderItems.setCategory(tempStockOrderItem.getCategory());
+			approvedStockOrderItems.setDescription(tempStockOrderItem.getDescription());
+			approvedStockOrderItems.setFinalQuantity(tempStockOrderItem.getFinalQuantity());
+			approvedStockOrderItems.setImagePath(tempStockOrderItem.getImagePath());
+			approvedStockOrderItems.setItemId(tempStockOrderItem.getItemId());
+			approvedStockOrderItems.setItemImage(tempStockOrderItem.getItemImage());
+			approvedStockOrderItems.setItemName(tempStockOrderItem.getItemName());
+			approvedStockOrderItems.setMrpRate(tempStockOrderItem.getMrpRate());
+			approvedStockOrderItems.setSlNo(tempStockOrderItem.getSlNo());
+			approvedStockOrderItems.setStockType(tempStockOrderItem.getStockType());
+			approvedStockOrderItems.setTotalCost(tempStockOrderItem.getTotalCost());
+			approvedStockOrderItems.setUnitOfMeasure(tempStockOrderItem.getUnitOfMeasure());
+			approvedStockOrderItems.setStockOrderNo(tempStockOrderItem.getStockOrderNo());
+			approvedStockOrderItems.setOrderId(savedApprovedStockOrders);
+			approvedStockOrderItems.setUsername(username);
+			approvedStockOrderItemsRepository.save(approvedStockOrderItems);
 
-			int requiredQty = tempWorkOrderItem.getFinalQuantity();
+			int requiredQty = tempStockOrderItem.getFinalQuantity();
 
 			InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
-					.findByItemId(approvedWorkOrderItems.getItemId());
+					.findByItemId(approvedStockOrderItems.getItemId());
 
 			InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository
-					.findByItemId(approvedWorkOrderItems.getItemId());
+					.findByItemId(approvedStockOrderItems.getItemId());
 
 			InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository
-					.findByItemId(approvedWorkOrderItems.getItemId());
+					.findByItemId(approvedStockOrderItems.getItemId());
 
 			if (inwardApprovedMaterials != null) {
 				int MaterialStockQty = inwardApprovedMaterials.getQuantity();
@@ -276,56 +279,56 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 		}
 
-		tempWorkOrdersRepository.deleteById(tempWorkOrders.getOrderId());
+		tempStockOrdersRepository.deleteById(tempStockOrders.getOrderId());
 	}
 
 	@Override
-	public void rejectWorkorderItems(Long workOrderNo, String username) {
-		TempWorkOrders tempWorkOrders = tempWorkOrdersRepository.findByWorkOrderNo(workOrderNo);
+	public void rejectStockorderItems(Long stockOrderNo, String username) {
+		TempStockOrders tempStockOrders = tempStockOrdersRepository.findByStockOrderNo(stockOrderNo);
 
-		RejectedWorkOrders rejectedWorkOrderNos = new RejectedWorkOrders();
-		rejectedWorkOrderNos.setBilledOn(tempWorkOrders.getBilledOn());
-		rejectedWorkOrderNos.setCgst(tempWorkOrders.getCgst());
-		rejectedWorkOrderNos.setGrandTotal(tempWorkOrders.getGrandTotal());
-		rejectedWorkOrderNos.setGstType(tempWorkOrders.getGstType());
-		rejectedWorkOrderNos.setIgst(tempWorkOrders.getIgst());
-		rejectedWorkOrderNos.setSgst(tempWorkOrders.getSgst());
-		rejectedWorkOrderNos.setSubTotal(tempWorkOrders.getSubTotal());
-		rejectedWorkOrderNos.setUsername(username);
-		rejectedWorkOrderNos.setWorkOrderNo(tempWorkOrders.getWorkOrderNo());
+		RejectedStockOrders rejectedStockOrderNos = new RejectedStockOrders();
+		rejectedStockOrderNos.setBilledOn(tempStockOrders.getBilledOn());
+		rejectedStockOrderNos.setCgst(tempStockOrders.getCgst());
+		rejectedStockOrderNos.setGrandTotal(tempStockOrders.getGrandTotal());
+		rejectedStockOrderNos.setGstType(tempStockOrders.getGstType());
+		rejectedStockOrderNos.setIgst(tempStockOrders.getIgst());
+		rejectedStockOrderNos.setSgst(tempStockOrders.getSgst());
+		rejectedStockOrderNos.setSubTotal(tempStockOrders.getSubTotal());
+		rejectedStockOrderNos.setUsername(username);
+		rejectedStockOrderNos.setStockOrderNo(tempStockOrders.getStockOrderNo());
 		
-		rejectedWorkOrderNos.setComplNo(tempWorkOrders.getComplNo());
-		rejectedWorkOrderNos.setIndentNo(tempWorkOrders.getIndentNo());
-		rejectedWorkOrderNos.setDepartmentName(tempWorkOrders.getDepartmentName());
+		rejectedStockOrderNos.setComplNo(tempStockOrders.getComplNo());
+		rejectedStockOrderNos.setIndentNo(tempStockOrders.getIndentNo());
+		rejectedStockOrderNos.setDepartmentName(tempStockOrders.getDepartmentName());
 
-		RejectedWorkOrders rejectedWorkOrderNosId = rejectedWorkOrderNosRepository.save(rejectedWorkOrderNos);
+		RejectedStockOrders rejectedStockOrderNosId = rejectedStockOrderNosRepository.save(rejectedStockOrderNos);
 
-		List<TempWorkOrderItems> tempWorkOrderItems = tempWorkOrderItemsRepository.findByWorkOrderNo(workOrderNo);
+		List<TempStockOrderItems> tempStockOrderItems = tempStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
 
-		for (TempWorkOrderItems workOrderItem : tempWorkOrderItems) {
+		for (TempStockOrderItems StockOrderItem : tempStockOrderItems) {
 
-			RejectedWorkOrderItems rejectedWorkOrderItems = new RejectedWorkOrderItems();
+			RejectedStockOrderItems rejectedStockOrderItems = new RejectedStockOrderItems();
 
-			rejectedWorkOrderItems.setAliasName(workOrderItem.getAliasName());
-			rejectedWorkOrderItems.setCategory(workOrderItem.getCategory());
-			rejectedWorkOrderItems.setDescription(workOrderItem.getDescription());
-			rejectedWorkOrderItems.setFinalQuantity(workOrderItem.getFinalQuantity());
-			rejectedWorkOrderItems.setImagePath(workOrderItem.getImagePath());
-			rejectedWorkOrderItems.setItemId(workOrderItem.getItemId());
-			rejectedWorkOrderItems.setItemImage(workOrderItem.getItemImage());
-			rejectedWorkOrderItems.setItemName(workOrderItem.getItemName());
-			rejectedWorkOrderItems.setMrpRate(workOrderItem.getMrpRate());
-			rejectedWorkOrderItems.setSlNo(workOrderItem.getSlNo());
-			rejectedWorkOrderItems.setStockType(workOrderItem.getStockType());
-			rejectedWorkOrderItems.setTotalCost(workOrderItem.getTotalCost());
-			rejectedWorkOrderItems.setUnitOfMeasure(workOrderItem.getUnitOfMeasure());
-			rejectedWorkOrderItems.setWorkOrderNo(workOrderItem.getWorkOrderNo());
-			rejectedWorkOrderItems.setOrderId(rejectedWorkOrderNosId);
-			rejectedWorkOrderItems.setUsername(username);
-			rejectedWorkOrderItemsRepository.save(rejectedWorkOrderItems);
+			rejectedStockOrderItems.setAliasName(StockOrderItem.getAliasName());
+			rejectedStockOrderItems.setCategory(StockOrderItem.getCategory());
+			rejectedStockOrderItems.setDescription(StockOrderItem.getDescription());
+			rejectedStockOrderItems.setFinalQuantity(StockOrderItem.getFinalQuantity());
+			rejectedStockOrderItems.setImagePath(StockOrderItem.getImagePath());
+			rejectedStockOrderItems.setItemId(StockOrderItem.getItemId());
+			rejectedStockOrderItems.setItemImage(StockOrderItem.getItemImage());
+			rejectedStockOrderItems.setItemName(StockOrderItem.getItemName());
+			rejectedStockOrderItems.setMrpRate(StockOrderItem.getMrpRate());
+			rejectedStockOrderItems.setSlNo(StockOrderItem.getSlNo());
+			rejectedStockOrderItems.setStockType(StockOrderItem.getStockType());
+			rejectedStockOrderItems.setTotalCost(StockOrderItem.getTotalCost());
+			rejectedStockOrderItems.setUnitOfMeasure(StockOrderItem.getUnitOfMeasure());
+			rejectedStockOrderItems.setStockOrderNo(StockOrderItem.getStockOrderNo());
+			rejectedStockOrderItems.setOrderId(rejectedStockOrderNosId);
+			rejectedStockOrderItems.setUsername(username);
+			rejectedStockOrderItemsRepository.save(rejectedStockOrderItems);
 		}
 
-		tempWorkOrdersRepository.deleteById(tempWorkOrders.getOrderId());
+		tempStockOrdersRepository.deleteById(tempStockOrders.getOrderId());
 
 	}
 
@@ -357,7 +360,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedStocksReturn.setSgst(stocksReturn.getSgst());
 		approvedStocksReturn.setStockType(stocksReturn.getStockType());
 		approvedStocksReturn.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
-		approvedStocksReturn.setWorkOrderNo(stocksReturn.getWorkOrderNo());
+		approvedStocksReturn.setStockOrderNo(stocksReturn.getStockOrderNo());
 		
 		approvedStocksReturn.setComplNo(stocksReturn.getComplNo());
 		approvedStocksReturn.setIndentNo(stocksReturn.getIndentNo());
@@ -425,7 +428,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedStockReturns.setSgst(stocksReturn.getSgst());
 		rejectedStockReturns.setStockType(stocksReturn.getStockType());
 		rejectedStockReturns.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
-		rejectedStockReturns.setWorkOrderNo(stocksReturn.getWorkOrderNo());
+		rejectedStockReturns.setStockOrderNo(stocksReturn.getStockOrderNo());
 		
 		rejectedStockReturns.setComplNo(stocksReturn.getComplNo());
 		rejectedStockReturns.setIndentNo(stocksReturn.getIndentNo());

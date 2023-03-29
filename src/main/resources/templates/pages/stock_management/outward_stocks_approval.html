@@ -14,7 +14,7 @@
 							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Outward Workorder Approvals</span></div>
+							<div class="link"><span aria-current="location">Outward Stockorder Approvals</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -43,7 +43,7 @@
 			<thead class="table-dark">
 				<tr>
 					<th class="all">Order ID</th>
-					<th class="all">Workorder No</th>					
+					<th class="all">Stockorder No</th>					
 					<th class="all">GST Type</th>
 					<th class="all">IGST</th>
 					<th class="all">CGST</th>
@@ -57,7 +57,7 @@
 			<tbody>
 				<tr th:each="outwardStocksList: ${outwardStocksLists}">
 					<td th:text="${outwardStocksList.orderId}"></td>					
-					<td th:text="${outwardStocksList.workOrderNo}"></td>
+					<td th:text="${outwardStocksList.stockOrderNo}"></td>
 					<td th:text="${outwardStocksList.gstType}"></td>
 					<td><label class="px-1" th:text="${outwardStocksList.igst}"></label>%</td>
 					<td><label class="px-1" th:text="${outwardStocksList.cgst}"></label>%</td>
@@ -66,9 +66,9 @@
 					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.grandTotal}"></label></td>					
 					<td th:text="${outwardStocksList.billedOn}"></td>
 					<td class="text-center">
-						<a class="btn btn-success p-1 mx-2" th:href="@{'/approvals/outward/stocks/items/' + ${outwardStocksList.workOrderNo} }">View/Approve	</a>
+						<a class="btn btn-success p-1 mx-2" th:href="@{'/approvals/outward/stocks/items/' + ${outwardStocksList.stockOrderNo} }">View/Approve	</a>
 						<button
-							th:onclick="|deleteId('/approvals/outward/workorder/reject/${outwardStocksList.workOrderNo}')|"
+							th:onclick="|deleteId('/approvals/outward/stockorder/reject/${outwardStocksList.stockOrderNo}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
 								class="glyphicon glyphicon-remove"></span></button>
@@ -83,13 +83,13 @@
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
 				<div class="modal-content">
 					<div class="modal-header p-2">
-						<h4>Reject Workorder</h4>
+						<h4>Reject Stockorder</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						Are you sure, you want to reject this Workorder?
+						Are you sure, you want to reject this Stockorder?
 					</div>
 					<div class="modal-footer p-2">
 						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Reject</a>

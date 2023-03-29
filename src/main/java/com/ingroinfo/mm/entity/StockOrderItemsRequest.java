@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_workorder_items_request")
-public class WorkOrderItemsRequest {
+@Table(name = "mm_stockorder_items_request")
+public class StockOrderItemsRequest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long recordId;	
-	private Long workOrderNo;
+	private Long recordId;
+	private Long stockOrderNo;
 	private String itemId;
 	private String stockType;
 	private int quantity;
@@ -35,7 +36,7 @@ public class WorkOrderItemsRequest {
 	private String workSite;
 	private Date startDate;
 	private Date endDate;
-	private String contactNo;	
+	private String contactNo;
 	private String complDtls;
 	private String workPriority;
 	private String categoryName;
@@ -44,4 +45,5 @@ public class WorkOrderItemsRequest {
 	private String hsnCode;
 	private String departmentName;
 	private String stockTypeName;
+
 }

@@ -25,7 +25,7 @@ public class StocksReturn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long recordId;
-	private Long workOrderNo;
+	private Long stockOrderNo;
 	private String itemId;
 	private String itemName;
 	private String unitOfMeasure;

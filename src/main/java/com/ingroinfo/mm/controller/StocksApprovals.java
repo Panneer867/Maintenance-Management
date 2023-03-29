@@ -167,34 +167,34 @@ public class StocksApprovals {
 	public String approveOutwardStocks(Model model) {
 
 		model.addAttribute("title", "Outward Stocks Approvals | Maintenance Mangement");
-		model.addAttribute("outwardStocksLists", stockService.getOutwardWorkOrders());
+		model.addAttribute("outwardStocksLists", stockService.getOutwardStockOrders());
 		return "/pages/stock_management/outward_stocks_approval";
 	}
 	
-	@GetMapping("/outward/stocks/items/{workOrderNo}")
-	public String outwardListItemsApprovals(@PathVariable("workOrderNo") Long workOrderNo, Model model) {
+	@GetMapping("/outward/stocks/items/{stockOrderNo}")
+	public String outwardListItemsApprovals(@PathVariable("stockOrderNo") Long stockOrderNo, Model model) {
 		
-		model.addAttribute("title", "Outward Workorder Items Approvals | Maintenance Management");		
-		model.addAttribute("outwardStocksListItems", stockService.getOutwardWorkOrderItems(workOrderNo));
-		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));	
+		model.addAttribute("title", "Outward Stockorder Items Approvals | Maintenance Management");		
+		model.addAttribute("outwardStocksListItems", stockService.getOutwardStockOrderItems(stockOrderNo));
+		model.addAttribute("outwardStockorderNo", stockService.getOutwardStockOrder(stockOrderNo));	
 		
 		return "/pages/stock_management/outward_stocks_approval_items";
 	}
 		
-	@GetMapping("/outward/workorder/items/{workOrderNo}")
-	public String outwardApproveItems(@PathVariable("workOrderNo") Long workOrderNo, Model model, HttpSession session, Principal principal) {
+	@GetMapping("/outward/stockorder/items/{stockOrderNo}")
+	public String outwardApproveItems(@PathVariable("stockOrderNo") Long stockOrderNo, Model model, HttpSession session, Principal principal) {
 		
-		model.addAttribute("title", "Outward Workorder Items Approvals | Maintenance Management");				
-		approvalService.approveOutwardStocks(workOrderNo, principal.getName());		
-		session.setAttribute("message", new Message("Outward Workorder Items has been approved successfully !", "success"));
+		model.addAttribute("title", "Outward Stockorder Items Approvals | Maintenance Management");				
+		approvalService.approveOutwardStocks(stockOrderNo, principal.getName());		
+		session.setAttribute("message", new Message("Outward Stockorder Items has been approved successfully !", "success"));
 		return "redirect:/approvals/outward/stocks";
 	}
 	
-	@GetMapping("/outward/workorder/reject/{workOrderNo}")
-	public String rejectOutwardWorkorderItems(@PathVariable("workOrderNo") Long workOrderNo, HttpSession session, Principal principal) {
+	@GetMapping("/outward/stockorder/reject/{stockOrderNo}")
+	public String rejectOutwardStockorderItems(@PathVariable("stockOrderNo") Long stockOrderNo, HttpSession session, Principal principal) {
 
-		approvalService.rejectWorkorderItems(workOrderNo, principal.getName());
-		session.setAttribute("message", new Message("Outward Workorder Items has been rejected successfully !", "success"));
+		approvalService.rejectStockorderItems(stockOrderNo, principal.getName());
+		session.setAttribute("message", new Message("Outward Stockorder Items has been rejected successfully !", "success"));
 
 		return "redirect:/approvals/outward/stocks";
 	}

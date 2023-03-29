@@ -16,9 +16,9 @@ public interface StocksApprovalService {
 
 	void rejectTool(Long id, String username);
 
-	void approveOutwardStocks(Long workOrderNo, String username);
+	void approveOutwardStocks(Long stockOrderNo, String username);
 
-	void rejectWorkorderItems(Long workOrderNo, String username);
+	void rejectStockorderItems(Long stockOrderNo, String username);
 
 	void approveReturnItem(Long id, String username);
 

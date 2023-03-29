@@ -44,7 +44,7 @@
 							Inward Tools List
 						</a>
 					</li>
-					
+
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/tools/list/approved}">
@@ -67,7 +67,7 @@
 					<th class="all">Item ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item</th>
-					<th class="all">Supplier</th>
+
 					<th class="all">Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
@@ -75,6 +75,7 @@
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
 					<th class="all">Entry Date</th>
+					<th class="all">Approval</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -83,7 +84,7 @@
 					<td th:text="${toolsList.itemId}"></td>
 					<td th:text="${toolsList.category}"></td>
 					<td th:text="${toolsList.itemName}"></td>
-					<td th:text="${toolsList.supplier}"></td>
+
 					<td th:text="${toolsList.quantity}"></td>
 					<td>&#8377;<label class="px-1" th:text="${toolsList.costRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${toolsList.mrpRate}"></label></td>
@@ -92,12 +93,13 @@
 					<td>&#8377;<label class="px-1" th:text="${toolsList.grandTotal}"></label></td>
 					<td th:text="${toolsList.entryDate}"></td>
 					<td class="text-center">
-						<button
-							th:onclick="|getToolDetails('/stocks/inward/tools/get/${toolsList.toolId}')|"
+						<span class="status-pending" th:text="${toolsList.approvalStatus}" />
+					</td>
+					<td class="text-center">
+						<button th:onclick="|getToolDetails('/stocks/inward/tools/get/${toolsList.toolId}')|"
 							class="btn btn-success p-1 mx-2" data-toggle="modal"
 							data-target="#tool-detail">View</button>
-						<button
-							th:onclick="|deleteId('/stocks/inward/tools/list/delete/${toolsList.toolId}')|"
+						<button th:onclick="|deleteId('/stocks/inward/tools/list/delete/${toolsList.toolId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
 								class="glyphicon glyphicon-trash"></span></button>
@@ -419,8 +421,7 @@
 
 
 
-		<div class="modal fade" id="delItem" tabindex="-1" role="dialog" aria-labelledby="delItem"
-			aria-hidden="true">
+		<div class="modal fade" id="delItem" tabindex="-1" role="dialog" aria-labelledby="delItem" aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
 				<div class="modal-content">
 					<div class="modal-header p-2">

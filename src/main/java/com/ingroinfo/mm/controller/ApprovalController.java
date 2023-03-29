@@ -1,7 +1,6 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +20,6 @@ import com.ingroinfo.mm.dao.IndentApprovedVehiclesRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderApprovedLaboursRepository;
-import com.ingroinfo.mm.dao.WorkOrderApprovedVehiclesRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
@@ -31,9 +27,6 @@ import com.ingroinfo.mm.entity.IndentApprovedVehicles;
 import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
-import com.ingroinfo.mm.entity.WorkOrderApprovedLabours;
-import com.ingroinfo.mm.entity.WorkOrderApprovedVehicles;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.TaskUpdateService;
 
@@ -55,12 +48,7 @@ public class ApprovalController {
 	private IndentApprovedLaboursRepository indentApprovedLaboursRepo;
 	@Autowired
 	private IndentApprovedVehiclesRepository indentApprovedVehiclesRepo;
-	@Autowired
-	private WorkOrderItemsRequestRepository workOrderItemRequestRepo;
-	@Autowired
-	private WorkOrderApprovedLaboursRepository workOrderLabourRequestRepo;
-	@Autowired
-	private WorkOrderApprovedVehiclesRepository workOrderVehicleRequestRepo;
+	
 	
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -258,15 +246,12 @@ public class ApprovalController {
 			//List<WapWorkOrderLabourRequest> wapLabourRequests = this.wapWorkOrderLabourRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
 			//List<WapWorkOrderVehicleRequest> WapVehicleRequests = this.wapWorkOrderVehicleRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
 
-			String complNumber = null;
-			String indentNumber = null;
-			Date expStartDate = null;
-			String department = null;
-			String division = null;
-			String subDivision = null;
-			String workPriprity = null;
-			String workSite = null;
-			String contactNo = null;
+			/*
+			 * String complNumber = null; String indentNumber = null; Date expStartDate =
+			 * null; String department = null; String division = null; String subDivision =
+			 * null; String workPriprity = null; String workSite = null; String contactNo =
+			 * null;
+			 */
 
 			// Check for indent number in TempIndentItemRequest list
 			/*

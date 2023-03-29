@@ -59,7 +59,7 @@
 			<thead class="table-dark">
 				<tr>
 					<th class="all">Order ID</th>
-					<th class="all">Workorder No</th>
+					<th class="all">Stockorder No</th>
 					<th class="all">GST Type</th>
 					<th class="all">IGST</th>
 					<th class="all">CGST</th>
@@ -73,7 +73,7 @@
 			<tbody>
 				<tr th:each="outwardStocksList: ${outwardStocksLists}">
 					<td th:text="${outwardStocksList.orderId}"></td>
-					<td th:text="${outwardStocksList.workOrderNo}"></td>
+					<td th:text="${outwardStocksList.stockOrderNo}"></td>
 					<td th:text="${outwardStocksList.gstType}"></td>
 					<td><label class="px-1" th:text="${outwardStocksList.igst}"></label>%</td>
 					<td><label class="px-1" th:text="${outwardStocksList.cgst}"></label>%</td>
@@ -83,7 +83,7 @@
 					<td th:text="${outwardStocksList.billedOn}"></td>
 					<td class="text-center">
 						<a class="btn btn-success p-1 mx-2"
-							th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.workOrderNo} }">View</a>
+							th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.stockOrderNo} }">View</a>
 
 					</td>
 				</tr>

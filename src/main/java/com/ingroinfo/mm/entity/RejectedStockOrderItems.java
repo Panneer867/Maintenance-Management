@@ -1,8 +1,5 @@
 package com.ingroinfo.mm.entity;
 
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,10 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +17,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_approved_workorder_items")
-public class ApprovedWorkOrderItems {
+@Table(name = "mm_rejected_stockorder_items")
+public class RejectedStockOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,20 +35,12 @@ public class ApprovedWorkOrderItems {
 	private Double mrpRate;
 	private Double totalCost;
 	private String description;
-	private Long workOrderNo;
+	private Long stockOrderNo;
 	private String stockType;
 	private String username;
-	
-	@Column(name = "date_created")
-	@CreationTimestamp
-	private Date dateCreated;
-
-	@Column(name = "last_updated")
-	@UpdateTimestamp
-	private Date lastUpdated;
 
 	@ManyToOne
-	@JoinColumn(name = "orderId")
-	private ApprovedWorkOrders orderId;
+	@JoinColumn(name = "order_id")
+	private RejectedStockOrders orderId;
 
 }

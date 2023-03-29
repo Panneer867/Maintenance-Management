@@ -67,13 +67,14 @@
 					<th class="all">Item ID</th>
 					<th class="all">Category</th>
 					<th class="all">Item</th>
-					<th class="all">Supplier</th>
+					
 					<th class="all">Available Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
 					<th class="all">Sub Total</th>
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
+					<th class="all">Approval</th>
 					<th class="all">Approved Date</th>
 					<th class="all">Actions</th>
 				</tr>
@@ -84,13 +85,16 @@
 					<td th:text="${approvedSparesList.itemId}"></td>
 					<td th:text="${approvedSparesList.category}"></td>
 					<td th:text="${approvedSparesList.itemName}"></td>
-					<td th:text="${approvedSparesList.supplier}"></td>
+					
 					<td th:text="${approvedSparesList.availableQty}"></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.costRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.mrpRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.subTotal}"></label></td>
 					<td><label class="px-1" th:text="${approvedSparesList.igst}"></label>%</td>
 					<td>&#8377;<label class="px-1" th:text="${approvedSparesList.grandTotal}"></label></td>
+					<td class="text-center">
+						<span class="status-success" th:text="${approvedSparesList.approvalStatus}" />
+					</td>
 					<td th:text="${#dates.format(approvedSparesList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<button

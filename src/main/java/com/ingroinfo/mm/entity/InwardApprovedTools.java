@@ -55,6 +55,7 @@ public class InwardApprovedTools {
 	private String username;
 	private String stockType;
 	private int availableQty;
+	private String approvalStatus;
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

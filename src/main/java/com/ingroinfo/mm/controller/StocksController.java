@@ -27,13 +27,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
-import com.ingroinfo.mm.dao.TempIndentItemsRepository;
-import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dao.TempListItemsRepository;
+import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.GraphDto;
 import com.ingroinfo.mm.dto.InwardDto;
-import com.ingroinfo.mm.dto.WorkOrderItemsDto;
-import com.ingroinfo.mm.entity.ApprovedWorkOrderItems;
-import com.ingroinfo.mm.entity.ApprovedWorkOrders;
+import com.ingroinfo.mm.dto.StockOrderItemsDto;
+import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
+import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -43,10 +43,10 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.TempIndentItems;
+import com.ingroinfo.mm.entity.TempListItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
-import com.ingroinfo.mm.entity.TempWorkOrders;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
+import com.ingroinfo.mm.entity.TempStockOrders;
+import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.StockService;
@@ -70,10 +70,10 @@ public class StocksController {
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private TempIndentItemsRepository tempIndentItemsRepository;
+	private TempListItemsRepository tempIndentItemsRepository;
 
 	@Autowired
-	private WorkOrderItemsRequestRepository workOrderItemsRequestRepository;
+	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;
 
 	@Autowired
 	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
@@ -547,46 +547,46 @@ public class StocksController {
 
 	@GetMapping("/outward")
 	@PreAuthorize("hasAuthority('OUTWARD_STOCKS')")
-	public String outwardMaterials(Model model) {
+	public String outwardMaterials(Model model, Principal principal) {
 
 		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
-		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
+		List<StockOrderItemsRequest> stockOrdersNos = stockService.getStockOrderNos(principal.getName());
 
-		model.addAttribute("workOrdersNos", workOrdersNos);
+		model.addAttribute("stockOrdersNos", stockOrdersNos);
 
-		model.addAttribute("workOrderItems", "No Work Order Items");
+		model.addAttribute("stockOrderItems", "No Stock Order Items");
 
-		model.addAttribute("workOrder", new WorkOrderItemsRequest());
+		model.addAttribute("stockOrder", new StockOrderItemsRequest());
 
-		if (workOrdersNos.size() == 0) {
-			model.addAttribute("emptyList", "No Work Orders");
+		if (stockOrdersNos.size() == 0) {
+			model.addAttribute("emptyList", "No Stock Orders");
 		}
 
 		return "/pages/stock_management/outward_stocks";
 	}
 
-	@GetMapping("/outward/get/{workOrderNo}")
-	public String outwardStocks(@PathVariable Long workOrderNo, Model model) {
+	@GetMapping("/outward/get/{stockOrderNo}")
+	public String outwardStocks(@PathVariable Long stockOrderNo, Model model, Principal principal) {
 
 		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
-		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
+		List<StockOrderItemsRequest> stockOrdersNos = stockService.getStockOrderNos(principal.getName());
 
-		Optional<WorkOrderItemsRequest> workOrder = workOrdersNos.stream()
-				.filter(w -> w.getWorkOrderNo().equals(workOrderNo)).findFirst();
+		Optional<StockOrderItemsRequest> stockOrder = stockOrdersNos.stream()
+				.filter(w -> w.getStockOrderNo().equals(stockOrderNo)).findFirst();
 
-		model.addAttribute("workOrdersNos", workOrdersNos);
+		model.addAttribute("stockOrdersNos", stockOrdersNos);
 
-		model.addAttribute("workOrder", workOrder.get());
+		model.addAttribute("stockOrder", stockOrder.get());
 
-		model.addAttribute("workOrderItems", null);
+		model.addAttribute("stockOrderItems", null);
 
-		model.addAttribute("getWorkOrderItems", stockService.getWorkOrderItems(workOrderNo));
+		model.addAttribute("getStockOrderItems", stockService.getStockOrderItems(stockOrderNo));
 
-		model.addAttribute("workorder", new TempWorkOrders());
+		model.addAttribute("stockorder", new TempStockOrders());
 
-		List<WorkOrderItemsDto> qty = stockService.checkStockQuantity(workOrderNo);
+		List<StockOrderItemsDto> qty = stockService.checkStockQuantity(stockOrderNo);
 
 		if (qty.size() != 0) {
 			model.addAttribute("stockQuantities", qty);
@@ -598,12 +598,12 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/item/quantity")
-	public @ResponseBody void quantity(@RequestBody TempIndentItems indentItems) {
+	public @ResponseBody void quantity(@RequestBody TempListItems indentItems) {
 		String itemId = indentItems.getItemId();
-		Long workOrderNo = indentItems.getWorkOrderNo();
+		Long stockOrderNo = indentItems.getStockOrderNo();
 		if (itemId != null) {
-			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId,
-					workOrderNo);
+			Optional<TempListItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndStockOrderNo(itemId,
+					stockOrderNo);
 			DecimalFormat df = new DecimalFormat("#.##");
 			tempIndentItems.get()
 					.setTotalCost(Double.parseDouble(df.format(indentItems.getMrpRate() * indentItems.getQty())));
@@ -613,18 +613,18 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/item/delete")
-	public @ResponseBody void delItem(@RequestBody TempIndentItems indentItems, Principal principal) {
+	public @ResponseBody void delItem(@RequestBody TempListItems indentItems, Principal principal) {
 		String itemId = indentItems.getItemId();
-		Long workOrderNo = indentItems.getWorkOrderNo();
+		Long stockOrderNo = indentItems.getStockOrderNo();
 
 		if (itemId != null) {
-			Optional<TempIndentItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndWorkOrderNo(itemId,
-					workOrderNo);
-			Long stockId = workOrderItemsRequestRepository.findByWorkOrderNoAndItemId(workOrderNo, itemId)
+			Optional<TempListItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndStockOrderNo(itemId,
+					stockOrderNo);
+			Long stockId = stockOrderItemsRequestRepository.findByStockOrderNoAndItemId(stockOrderNo, itemId)
 					.getRecordId();
-			stockService.saveRemovedItems(itemId, workOrderNo, principal.getName());
+			stockService.saveRemovedItems(itemId, stockOrderNo, principal.getName());
 			tempIndentItemsRepository.deleteById(tempIndentItems.get().getRecordId());
-			workOrderItemsRequestRepository.deleteById(stockId);
+			stockOrderItemsRequestRepository.deleteById(stockId);
 		}
 	}
 
@@ -650,49 +650,49 @@ public class StocksController {
 		return quantity;
 	}
 
-	@PostMapping("/outward/workorder/items")
-	public String workOrerItems(@ModelAttribute("workorder") TempWorkOrders workOrders, BindingResult bindingResult,
+	@PostMapping("/outward/stockorder/items")
+	public String stockOrerItems(@ModelAttribute("stockorder") TempStockOrders stockOrders, BindingResult bindingResult,
 			HttpSession session, Principal principal) {
 
-		Long workOrderNo = workOrders.getWorkOrderNo();
+		Long stockOrderNo = stockOrders.getStockOrderNo();
 
-		List<WorkOrderItemsRequest> workOrdersNos = stockService.getWorkOrdersNos();
+		List<StockOrderItemsRequest> stockOrdersNos = stockService.getStockOrderNos(principal.getName());
 
-		Optional<WorkOrderItemsRequest> workOrder = workOrdersNos.stream()
-				.filter(w -> w.getWorkOrderNo().equals(workOrderNo)).findFirst();
+		Optional<StockOrderItemsRequest> stockOrder = stockOrdersNos.stream()
+				.filter(w -> w.getStockOrderNo().equals(stockOrderNo)).findFirst();
 
-		WorkOrderItemsRequest workOrderItemsRequest = workOrder.get();
-		workOrders.setComplDtls(workOrderItemsRequest.getComplDtls());
-		workOrders.setComplNo(workOrderItemsRequest.getComplNo());
-		workOrders.setContactNo(workOrderItemsRequest.getContactNo());
-		workOrders.setDepartmentName(workOrderItemsRequest.getDepartmentName());
-		workOrders.setDivision(workOrderItemsRequest.getDivision());
-		workOrders.setEndDate(workOrderItemsRequest.getEndDate());
-		workOrders.setIndentNo(workOrderItemsRequest.getIndentNo());
-		workOrders.setStartDate(workOrderItemsRequest.getStartDate());
-		workOrders.setSubDivision(workOrderItemsRequest.getSubDivision());
-		workOrders.setWorkPriority(workOrderItemsRequest.getWorkPriority());
-		workOrders.setWorkSite(workOrderItemsRequest.getWorkSite());
+		StockOrderItemsRequest stockOrderItemsRequest = stockOrder.get();
+		stockOrders.setComplDtls(stockOrderItemsRequest.getComplDtls());
+		stockOrders.setComplNo(stockOrderItemsRequest.getComplNo());
+		stockOrders.setContactNo(stockOrderItemsRequest.getContactNo());
+		stockOrders.setDepartmentName(stockOrderItemsRequest.getDepartmentName());
+		stockOrders.setDivision(stockOrderItemsRequest.getDivision());
+		stockOrders.setEndDate(stockOrderItemsRequest.getEndDate());
+		stockOrders.setIndentNo(stockOrderItemsRequest.getIndentNo());
+		stockOrders.setStartDate(stockOrderItemsRequest.getStartDate());
+		stockOrders.setSubDivision(stockOrderItemsRequest.getSubDivision());
+		stockOrders.setWorkPriority(stockOrderItemsRequest.getWorkPriority());
+		stockOrders.setWorkSite(stockOrderItemsRequest.getWorkSite());
 
-		boolean itemAvailability = stockService.notAvailableItems(workOrderNo);
-		boolean workOrderItemsSize = stockService.getTempWorkOrderItems(workOrderNo);
+		boolean itemAvailability = stockService.notAvailableItems(stockOrderNo);
+		boolean stockOrderItemsSize = stockService.getTempStockOrderItems(stockOrderNo);
 
-		if (workOrderItemsSize) {
+		if (stockOrderItemsSize) {
 			session.setAttribute("message",
 					new Message("To place an order, you need to have at least one item required !", "danger"));
-			return "redirect:/stocks/outward/get/" + workOrderNo;
+			return "redirect:/stocks/outward/get/" + stockOrderNo;
 		}
 
 		if (itemAvailability) {
 			session.setAttribute("message", new Message(
 					"To place the order, please remove the items that are not available from the list.", "danger"));
-			return "redirect:/stocks/outward/get/" + workOrderNo;
+			return "redirect:/stocks/outward/get/" + stockOrderNo;
 		}
-		if (workOrders.getWorkOrderNo() != 0 && workOrders.getWorkOrderNo() != null) {
-			stockService.saveWorkOrder(workOrders, principal.getName());
-			session.setAttribute("message", new Message("Workorder Items has been successfully placed !", "success"));
+		if (stockOrders.getStockOrderNo() != 0 && stockOrders.getStockOrderNo() != null) {
+			stockService.saveStockOrder(stockOrders, principal.getName());
+			session.setAttribute("message", new Message("Stockorder Items has been successfully placed !", "success"));
 		} else {
-			session.setAttribute("message", new Message("Workorder Number is null !", "danger"));
+			session.setAttribute("message", new Message("Stockorder Number is null !", "danger"));
 			return "redirect:/stocks/outward/materials/entry";
 		}
 		return "redirect:/stocks/outward";
@@ -708,35 +708,35 @@ public class StocksController {
 	public String outwardList(Model model) {
 		model.addAttribute("title", "Outward Stocks List | Maintenance Management");
 
-		model.addAttribute("outwardStocksLists", stockService.getOutwardWorkOrders());
+		model.addAttribute("outwardStocksLists", stockService.getOutwardStockOrders());
 		return "/pages/stock_management/outward_stocks_list";
 	}
 
-	@GetMapping("/outward/list/items/{workOrderNo}")
-	public String outwardListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model) {
+	@GetMapping("/outward/list/items/{stockOrderNo}")
+	public String outwardListItems(@PathVariable("stockOrderNo") Long stockOrderNo, Model model) {
 
-		model.addAttribute("title", "Outward Stocks Workorder Items | Maintenance Management");
+		model.addAttribute("title", "Outward Stockorder Items | Maintenance Management");
 
-		model.addAttribute("outwardStocksListItems", stockService.getOutwardWorkOrderItems(workOrderNo));
-		model.addAttribute("outwardStocksWorkorderNo", stockService.getOutwardWorkOrder(workOrderNo));
+		model.addAttribute("outwardStocksListItems", stockService.getOutwardStockOrderItems(stockOrderNo));
+		model.addAttribute("outwardStockorderNo", stockService.getOutwardStockOrder(stockOrderNo));
 		return "/pages/stock_management/outward_stocks_list_items";
 	}
 
 	@GetMapping("/outward/approved/list")
 	public String outwardApprovedList(Model model, Principal principal) {
 		model.addAttribute("title", "Outward Stocks Approved List | Maintenance Management");
-		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedWorkOrders());
+		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedStockOrders());
 		return "/pages/stock_management/outward_stocks_approved_list";
 	}
 
-	@GetMapping("/outward/approved/list/items/{workOrderNo}")
-	public String outwardApprovedListItems(@PathVariable("workOrderNo") Long workOrderNo, Model model,
+	@GetMapping("/outward/approved/list/items/{stockOrderNo}")
+	public String outwardApprovedListItems(@PathVariable("stockOrderNo") Long stockOrderNo, Model model,
 			Principal principal) {
 		model.addAttribute("title", "Outward Stocks Approved Items List | Maintenance Management");
 
 		model.addAttribute("approvedOutwardStocksListItems",
-				stockService.getOutwardApprovedWorkOrderItems(workOrderNo));
-		model.addAttribute("approvedOutwardStocksWorkorderNo", stockService.getOutwardApprovedWorkOrder(workOrderNo));
+				stockService.getOutwardApprovedStockOrderItems(stockOrderNo));
+		model.addAttribute("approvedOutwardStockorderNo", stockService.getOutwardApprovedStockOrder(stockOrderNo));
 
 		return "/pages/stock_management/outward_stocks_approved_list_items";
 	}
@@ -748,7 +748,7 @@ public class StocksController {
 	public String returnEntry(Model model, Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
-		model.addAttribute("workOrders", stockService.getOutwardApprovedWorkOrders());
+		model.addAttribute("stockOrders", stockService.getOutwardApprovedStockOrders());
 		model.addAttribute("stockReturn", new TempStocksReturn());
 
 		List<TempStocksReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
@@ -812,11 +812,11 @@ public class StocksController {
 		return "redirect:/stocks/return/entry";
 	}
 
-	@GetMapping("/return/items/{workOrderNo}")
-	public @ResponseBody String getWorkorderItemForReturn(@PathVariable("workOrderNo") Long workOrderNo) {
+	@GetMapping("/return/items/{stockOrderNo}")
+	public @ResponseBody String getStockorderItemForReturn(@PathVariable("stockOrderNo") Long stockOrderNo) {
 
 		String json = null;
-		List<ApprovedWorkOrderItems> list = stockService.getOutwardApprovedWorkOrderItems(workOrderNo);
+		List<ApprovedStockOrderItems> list = stockService.getOutwardApprovedStockOrderItems(stockOrderNo);
 		try {
 			json = new ObjectMapper().writeValueAsString(list);
 		} catch (JsonProcessingException e) {
@@ -825,15 +825,15 @@ public class StocksController {
 		return json;
 	}
 
-	@GetMapping("/return/workorder/{workOrderNo}")
-	public @ResponseBody ApprovedWorkOrders getWorkorderDetails(@PathVariable("workOrderNo") Long workOrderNo) {
-		return stockService.getOutwardApprovedWorkOrder(workOrderNo);
+	@GetMapping("/return/stockorder/{stockOrderNo}")
+	public @ResponseBody ApprovedStockOrders getStockorderDetails(@PathVariable("stockOrderNo") Long stockOrderNo) {
+		return stockService.getOutwardApprovedStockOrder(stockOrderNo);
 	}
 
-	@GetMapping("/return/items/details/{itemId}/{workOrderNo}")
-	public @ResponseBody WorkOrderItemsDto getWorkorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
-			@PathVariable("workOrderNo") Long workOrderNo) {
-		return stockService.getWorkorderItemDetails(itemId, workOrderNo);
+	@GetMapping("/return/items/details/{itemId}/{stockOrderNo}")
+	public @ResponseBody StockOrderItemsDto getStockorderItemDetailsForReturn(@PathVariable("itemId") String itemId,
+			@PathVariable("stockOrderNo") Long stockOrderNo) {
+		return stockService.getStockorderItemDetails(itemId, stockOrderNo);
 	}
 
 	@GetMapping("/return/items/delete/{id}")

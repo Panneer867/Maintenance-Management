@@ -46,5 +46,6 @@ public class InwardDto {
 	private Double grandTotal;
 	private Date dateCreated;
 	private Date lastUpdated;
+	private String approvalStatus;
 
 }

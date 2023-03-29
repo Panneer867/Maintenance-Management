@@ -16,12 +16,12 @@ $("#return-quantity").on("input", function() {
 });
 
 $('#mySelect2').on('select2:select', function() {
-	var workOrderNo = $(this).val();
-	if (workOrderNo != null) {
+	var stockOrderNo = $(this).val();
+	if (stockOrderNo != null) {
 
 		$.ajax({
 			type: 'GET',
-			url: '/stocks/return/items/' + workOrderNo,
+			url: '/stocks/return/items/' + stockOrderNo,
 			success: function(data) {
 				try {
 					var result = JSON.parse(data);
@@ -42,7 +42,7 @@ $('#mySelect2').on('select2:select', function() {
 
 		$.ajax({
 			type: 'GET',
-			url: '/stocks/return/workorder/' + workOrderNo,
+			url: '/stocks/return/stockorder/' + stockOrderNo,
 			success: function(data) {
 				try {
 					$('#igst-sr, #sr-igst').val(data.igst);
@@ -66,14 +66,14 @@ $('#mySelect2').on('select2:select', function() {
 $('#mySelect3').on('select2:select', function() {
 	var itemId = $(this).val();
 
-	var workOrderNo = $('#mySelect2').val();
+	var stockOrderNo = $('#mySelect2').val();
 
 
 	if (itemId != null) {
 
 		$.ajax({
 			type: 'GET',
-			url: '/stocks/return/items/details/' + itemId + '/' + workOrderNo,
+			url: '/stocks/return/items/details/' + itemId + '/' + stockOrderNo,
 			success: function(data) {
 				try {
 

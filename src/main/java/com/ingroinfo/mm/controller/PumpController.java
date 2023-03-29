@@ -26,7 +26,7 @@ import com.ingroinfo.mm.dao.TempAddedIndentVehiclesRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderItemsRequestRepository;
+import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.WorkOrderApprovedLaboursRepository;
 import com.ingroinfo.mm.dao.WorkOrderApprovedVehiclesRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
@@ -43,7 +43,7 @@ import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
 import com.ingroinfo.mm.entity.User;
-import com.ingroinfo.mm.entity.WorkOrderItemsRequest;
+import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.entity.WorkOrderApprovedLabours;
 import com.ingroinfo.mm.entity.WorkOrderApprovedVehicles;
 import com.ingroinfo.mm.helper.Message;
@@ -85,7 +85,7 @@ public class PumpController {
 	@Autowired
 	private TempIndentVehicleRequestRepository tempIndentVehicleRequestRepo;
 	@Autowired
-	private WorkOrderItemsRequestRepository workOrderItemsRequestRepo;
+	private StockOrderItemsRequestRepository workOrderItemsRequestRepo;
 	@Autowired
 	private WorkOrderApprovedLaboursRepository workOrderLabourRequestRepo;
 	@Autowired
@@ -467,7 +467,7 @@ public class PumpController {
 	@GetMapping("/maintenance/view/detalis/{complNo}/{indentNo}")
 	public String viewWorkOrderDtls(@PathVariable String complNo,@PathVariable String indentNo,Model model) {
 		
-		List<WorkOrderItemsRequest> itemRequests = this.workOrderItemsRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
+		List<StockOrderItemsRequest> itemRequests = this.workOrderItemsRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
 		List<WorkOrderApprovedLabours> labourRequests = this.workOrderLabourRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
 		List<WorkOrderApprovedVehicles> vehicleRequests = this.workOrderVehicleRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
 
@@ -485,11 +485,11 @@ public class PumpController {
 		String contactNo = null;		
 
 		// Check for indent number in TempIndentItemRequest list
-		for (WorkOrderItemsRequest indentItems : itemRequests) {
+		for (StockOrderItemsRequest indentItems : itemRequests) {
 			if (indentItems.getIndentNo() != null || indentItems.getComplNo() != null) {
 				indentNumber = indentItems.getIndentNo();
 				complNumber = indentItems.getComplNo();
-				workOrderNumber = indentItems.getWorkOrderNo();
+				workOrderNumber = indentItems.getStockOrderNo();
 				expStartDate = indentItems.getStartDate();
 				expEndDate = indentItems.getEndDate();
 				approvedBy = indentItems.getUsername();

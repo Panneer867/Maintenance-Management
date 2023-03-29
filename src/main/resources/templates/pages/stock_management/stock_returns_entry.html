@@ -67,14 +67,14 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-3 col-form-label">Wokorder Number
+											<label for="staticEmail" class="col-sm-3 col-form-label">Stockorder Number
 											</label>
 											<div class="col-sm-9">
-												<select class="form-select" id="mySelect2" name="workOrderNo" required>
+												<select class="form-select" id="mySelect2" name="stockOrderNo" required>
 													<option value="" selected>Select</option>
-													<option th:each="workOrder : ${workOrders}"
-														th:value="${workOrder.workOrderNo}"
-														th:utext="${workOrder.workOrderNo}" />
+													<option th:each="stockOrder : ${stockOrders}"
+														th:value="${stockOrder.stockOrderNo}"
+														th:utext="${stockOrder.stockOrderNo}" />
 												</select>
 											</div>
 										</div>

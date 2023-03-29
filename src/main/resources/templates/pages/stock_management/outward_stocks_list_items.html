@@ -18,7 +18,7 @@
 							<div class="link"><a th:href="@{/stocks/outward/list}">Outward List</a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">View Workorder Items</span></div>
+							<div class="link"><span aria-current="location">View Stockorder Items</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -65,7 +65,7 @@
 								No</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.complNo}" disabled />
+									th:value="${outwardStocksorderNo.complNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -74,18 +74,18 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.indentNo}" disabled />
+									th:value="${outwardStocksorderNo.indentNo}" disabled />
 							</div>
 						</div>
 
 					</div>
 					<div class="col-4">
 						<div class="form-group row">
-							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Stockorder
 								No</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workOrderNo}" disabled />
+									th:value="${outwardStocksorderNo.stockOrderNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -97,7 +97,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.departmentName}" disabled />
+									th:value="${outwardStocksorderNo.departmentName}" disabled />
 							</div>
 						</div>
 					</div>
@@ -106,7 +106,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.division}" disabled />
+									th:value="${outwardStocksorderNo.division}" disabled />
 							</div>
 						</div>
 
@@ -117,7 +117,7 @@
 								Division</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.subDivision}" disabled />
+									th:value="${outwardStocksorderNo.subDivision}" disabled />
 							</div>
 						</div>
 					</div>
@@ -130,7 +130,7 @@
 								Priority</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workPriority}" disabled />
+									th:value="${outwardStocksorderNo.workPriority}" disabled />
 							</div>
 						</div>
 					</div>
@@ -139,7 +139,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workSite}" disabled />
+									th:value="${outwardStocksorderNo.workSite}" disabled />
 							</div>
 						</div>
 
@@ -149,7 +149,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.contactNo}" disabled />
+									th:value="${outwardStocksorderNo.contactNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -163,7 +163,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST Type</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.gstType}" disabled />
+									th:value="${outwardStocksorderNo.gstType}" disabled />
 							</div>
 						</div>
 
@@ -173,7 +173,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST %</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.igst}" disabled />
+									th:value="${outwardStocksorderNo.igst}" disabled />
 							</div>
 						</div>
 
@@ -183,7 +183,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Billed On</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.billedOn}" disabled />
+									th:value="${outwardStocksorderNo.billedOn}" disabled />
 							</div>
 						</div>
 					</div>
@@ -240,7 +240,7 @@
 					</div>
 					<div class="col-6 bg-dark row py-2 rounded-top">
 						<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-								th:text=${outwardStocksWorkorderNo.subTotal}></label></label>
+								th:text=${outwardStocksorderNo.subTotal}></label></label>
 
 					</div>
 				</div>
@@ -250,14 +250,11 @@
 					</div>
 					<div class="col-6 bg-primary row py-2 rounded-bottom">
 						<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-								th:text=${outwardStocksWorkorderNo.grandTotal}></label></label>
+								th:text=${outwardStocksorderNo.grandTotal}></label></label>
 
 					</div>
 				</div>
 			</div>
-
-
-
 		</div>
 
 		<div class="col-12 text-center">

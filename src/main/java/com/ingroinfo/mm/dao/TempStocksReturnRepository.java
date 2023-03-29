@@ -8,7 +8,7 @@ import com.ingroinfo.mm.entity.TempStocksReturn;
 @Repository
 public interface TempStocksReturnRepository extends JpaRepository<TempStocksReturn, Long> {
 
-	TempStocksReturn findByWorkOrderNoAndItemId(Long workOrderNo, String itemId);
+	TempStocksReturn findByStockOrderNoAndItemId(Long stockOrderNo, String itemId);
 
 	List<TempStocksReturn> findByUsername(String username);
 

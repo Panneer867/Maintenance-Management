@@ -49,10 +49,11 @@
 					<th class="all">Qty</th>
 					<th class="all">Cost</th>
 					<th class="all">MRP</th>
-					<th class="all">Sub Total</th>
+
 					<th class="all">GST</th>
 					<th class="all">Grand Total</th>
 					<th class="all">Entry </th>
+					<th class="all">Approval</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -72,11 +73,13 @@
 					<td th:text="${materialsList.quantity}"></td>
 					<td>&#8377;<label class="px-1" th:text="${materialsList.costRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${materialsList.mrpRate}"></label></td>
-					<td>&#8377;<label class="px-1" th:text="${materialsList.subTotal}"></label></td>
+					
 					<td><label class="px-1" th:text="${materialsList.igst}"></label>%</td>
 					<td>&#8377;<label class="px-1" th:text="${materialsList.grandTotal}"></label></td>
 					<td th:text="${materialsList.entryDate}"></td>
-
+					<td class="text-center">
+						<span class="status-pending" th:text="${materialsList.approvalStatus}" />
+					</td>
 					<td class="text-center">
 
 						<button

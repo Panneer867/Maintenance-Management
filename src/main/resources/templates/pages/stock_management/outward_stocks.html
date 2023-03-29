@@ -33,13 +33,13 @@
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark" th:href="@{/stocks/outward/list}">
-							Outward Stocks List
+							Outward Stocks
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/outward/approved/list}">
-							Outward Stocks Approved List
+							Approved Outward Stocks
 						</a>
 					</li>
 				</ul>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 
-						<div th:if="${workOrder.workOrderNo != null} ">
+						<div th:if="${stockOrder.stockOrderNo != null} ">
 							<div class="row">
 								<div class="col-4">
 									<div class="form-group row">
@@ -67,7 +67,7 @@
 											No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.complNo}" disabled />
+												th:value="${stockOrder.complNo}" disabled />
 										</div>
 									</div>
 								</div>
@@ -76,20 +76,20 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.indentNo}" disabled />
+												th:value="${stockOrder.indentNo}" disabled />
 										</div>
 									</div>
 
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">StockOrder
 											No</label>
 										<div class="col-sm-6 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.workOrderNo}" disabled />
-											<input type="hidden" th:value="${workOrder.workOrderNo}"
-												id="get-workorder-no" />
+												th:value="${stockOrder.stockOrderNo}" disabled />
+											<input type="hidden" th:value="${stockOrder.stockOrderNo}"
+												id="get-stockorder-no" />
 										</div>
 									</div>
 								</div>
@@ -101,7 +101,7 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.departmentName}" disabled />
+												th:value="${stockOrder.departmentName}" disabled />
 										</div>
 									</div>
 								</div>
@@ -110,7 +110,7 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.division}" disabled />
+												th:value="${stockOrder.division}" disabled />
 										</div>
 									</div>
 
@@ -121,7 +121,7 @@
 											Division</label>
 										<div class="col-sm-6 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.subDivision}" disabled />
+												th:value="${stockOrder.subDivision}" disabled />
 										</div>
 									</div>
 								</div>
@@ -133,7 +133,7 @@
 											Priority</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.workPriority}" disabled />
+												th:value="${stockOrder.workPriority}" disabled />
 										</div>
 									</div>
 								</div>
@@ -142,7 +142,7 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.workSite}" disabled />
+												th:value="${stockOrder.workSite}" disabled />
 										</div>
 									</div>
 
@@ -152,12 +152,12 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
 										<div class="col-sm-6 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${workOrder.contactNo}" disabled />
+												th:value="${stockOrder.contactNo}" disabled />
 										</div>
 									</div>
 								</div>
 							</div>
-							<h3 class="text-center bg-info mt-2 py-1 text-white"><small>Work Order Items</small>
+							<h3 class="text-center bg-info mt-2 py-1 text-white"><small>stock Order Items</small>
 							</h3>
 						</div>
 
@@ -168,9 +168,9 @@
 									<th class="all">Sl No</th>
 									<th class="all">Item ID</th>
 									<th class="all">Item</th>
-									<th class="all text-center">Stock</th>
+									<th class="all text-center">Availability</th>
 									<th class="all">Image</th>
-									<th class="all text-center">Stock Type</th>
+									<th class="all ">Type</th>
 									<th class="all" style="width: 12%;">MRP</th>
 									<th class="all" style="width: 15%;">Quantity</th>
 									<th class="all" style="width: 12%;">Total</th>
@@ -178,34 +178,34 @@
 								</tr>
 							</thead>
 							<tbody class="add-item">
-								<tr th:each="getWorkOrderItem: ${getWorkOrderItems}">
-									<td th:text="${getWorkOrderItem.slNo}"></td>
-									<td th:text="${getWorkOrderItem.itemId}"></td>
-									<td class="item-id" th:text="${getWorkOrderItem.itemId}" style="display: none;">
+								<tr th:each="getStockOrderItem: ${getStockOrderItems}">
+									<td th:text="${getStockOrderItem.slNo}"></td>
+									<td th:text="${getStockOrderItem.itemId}"></td>
+									<td class="item-id" th:text="${getStockOrderItem.itemId}" style="display: none;">
 									</td>
 									<td class="sl_no"><label class="mb-0"
-											th:text="${getWorkOrderItem.itemName}"></label></td>
-									<td class="text-center"><span th:if="${getWorkOrderItem.stockAvailable} > 0"
+											th:text="${getStockOrderItem.itemName}"></label></td>
+									<td class="text-center"><span th:if="${getStockOrderItem.stockAvailable} > 0"
 											class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
-										<span th:if="${getWorkOrderItem.stockAvailable} <= 0"
+										<span th:if="${getStockOrderItem.stockAvailable} <= 0"
 											class="bg-danger p-1 rounded font-weight-bold text-white">Not
 											Available</span>
 									</td>
 
 									<td class="text-center thumb">
-										<img th:src="@{${getWorkOrderItem.imagePath} + ${getWorkOrderItem.itemImage}}"
+										<img th:src="@{${getStockOrderItem.imagePath} + ${getStockOrderItem.itemImage}}"
 											alt="image" />
 									</td>
-									<td th:text="${getWorkOrderItem.stockType == 'ML' ? 'Material' :
-					                 getWorkOrderItem.stockType == 'SP' ? 'Spare' :
-					                 getWorkOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
-					                 getWorkOrderItem.stockType}"></td>
+									<td th:text="${getStockOrderItem.stockType == 'ML' ? 'Material' :
+					                 getStockOrderItem.stockType == 'SP' ? 'Spare' :
+					                 getStockOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 getStockOrderItem.stockType}"></td>
 									<td>
 										<div class="row text-center">
 											<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"
 												style="font-size: 13px; width: 0;"> </i>
 											<input type="text" id="price" class="price"
-												th:value="${getWorkOrderItem.mrpRate}"
+												th:value="${getStockOrderItem.mrpRate}"
 												style="border: none; color: black; background: transparent; outline: 0;"
 												disabled />
 										</div>
@@ -218,7 +218,7 @@
 														style="font-size: 0.6em; color: #fff; padding: 5px; "></i>
 												</div>
 											</div>
-											<input type="number" id="qty" th:value="${getWorkOrderItem.finalQuantity}"
+											<input type="number" id="qty" th:value="${getStockOrderItem.finalQuantity}"
 												class="qty text-center"
 												style="border: none; color: black; background: transparent; outline: 0; width: 35%;"
 												disabled />
@@ -245,9 +245,9 @@
 							</tbody>
 						</table>
 						<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
-							th:if="${workOrderItems != null}">No Work Order Items</div>
-						<form th:action="@{/stocks/outward/workorder/items}" method="post" th:object="${workorder}"
-							th:if="${workOrderItems == null}">
+							th:if="${stockOrderItems != null}">No Stock Order Items</div>
+						<form th:action="@{/stocks/outward/stockorder/items}" method="post" th:object="${stockorder}"
+							th:if="${stockOrderItems == null}">
 							<div class="row">
 								<div class="col-8">
 									<div class="row">
@@ -347,7 +347,7 @@
 										</div>
 									</div>
 								</div>
-								<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
+								<input type="hidden" name="stockOrderNo" id="set-stockorder-no" required />
 								<div class="col-12 text-center mt-3">
 									<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
 									<button type="reset" class="btn btn-secondary btn-sm mr-3">Reset</button>
@@ -363,26 +363,25 @@
 					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
 					<thead class="table-dark">
 						<tr>
-
 							<th>Complaint No</th>
 							<th>Indent No</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="workOrderNo: ${workOrdersNos}">
-							<td th:text="${workOrderNo.complNo}"></td>
-							<td th:text="${workOrderNo.indentNo}"></td>
+						<tr th:each="stockOrderNo: ${stockOrdersNos}">
+							<td th:text="${stockOrderNo.complNo}"></td>
+							<td th:text="${stockOrderNo.indentNo}"></td>
 							<td class="text-center">
-								<a th:href="@{'/stocks/outward/get/' + ${workOrderNo.workOrderNo}}"
-									class="btn btn-info p-1 mx-2">Workorder</a>
+								<a th:href="@{'/stocks/outward/get/' + ${stockOrderNo.stockOrderNo}}"
+									class="btn btn-info p-1 mx-2">Stockorder</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
 					th:if="${emptyList != null}">
-					No Work Orders</div>
+					No Stock Orders</div>
 				<div th:if="${stockQuantities != null}">
 					<div class="alert alert-danger text-center my-2 py-1" role="alert">
 						The quantity exceeds the available stock.</div>

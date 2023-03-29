@@ -1,7 +1,7 @@
 
-var workorderNo = $("#get-workorder-no").val();
+var stockorderNo = $("#get-stockorder-no").val();
 
-$("#set-workorder-no").val(workorderNo);
+$("#set-stockorder-no").val(stockorderNo);
 
 $(".igst-outward").prop('disabled', true);
 $(".cgst-outward").prop('disabled', true);
@@ -74,13 +74,13 @@ $(function() {
 			success: function(data) {
 				var json = JSON.stringify(data);
 				var stockQty = JSON.parse(json);
-				var workorder = parseInt($("#get-workorder-no").val());
+				var stockorder = parseInt($("#get-stockorder-no").val());
 				if ($button.find('i').hasClass('fa-plus')) {
 					var newQty1 = parseFloat(oldQty) + 1;
 					if (stockQty >= newQty1) {
 						var newQty = parseFloat(oldQty) + 1;
 						quantity.qty = newQty;
-						quantity.workOrderNo = workorder;
+						quantity.stockOrderNo = stockorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -97,7 +97,7 @@ $(function() {
 						alert('Available stocks is ' + stockQty + ' cant add more than that !');
 						newQty = stockQty;
 						quantity.qty = stockQty;
-						quantity.workOrderNo = workorder;
+						quantity.stockOrderNo = stockorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -115,7 +115,7 @@ $(function() {
 					if (oldQty > 1) {
 						var newQty = parseFloat(oldQty) - 1;
 						quantity.qty = newQty;
-						quantity.workOrderNo = workorder;
+						quantity.stockOrderNo = stockorder;
 						var json = JSON.stringify(quantity);
 						$.ajax({
 							url: '/stocks/outward/item/quantity',
@@ -176,9 +176,9 @@ $(function() {
 		if (confirm("Do you really want to remove this item?")) {
 			var item = {};
 			var $row = $(this).closest("tr");
-			var workorder = parseInt($("#get-workorder-no").val());
+			var stockorder = parseInt($("#get-stockorder-no").val());
 			item.itemId = $row.find(".item-id").text();
-			item.workOrderNo = workorder;
+			item.stockOrderNo = stockorder;
 			var json = JSON.stringify(item);
 			$(this).parent().parent().remove();
 			calculate();

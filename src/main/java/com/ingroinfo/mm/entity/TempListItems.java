@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "mm_temp_indent_items")
-public class TempIndentItems {
+public class TempListItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class TempIndentItems {
 	private Double totalCost;
 	private Double mrpRate;
 	private String description;
-	private Long workOrderNo;
+	private Long stockOrderNo;
 	private String stockType;
 	private String username;
 

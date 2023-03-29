@@ -52,6 +52,7 @@ public class InwardTools {
 	private String receivedDate;
 	private String username;
 	private String stockType;
+	private String approvalStatus;
 	
 	@Column(name = "date_created")
 	@CreationTimestamp

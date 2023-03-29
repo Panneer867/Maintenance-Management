@@ -15,10 +15,10 @@
 							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/outward/stocks}">Outward Workorders</a></div>
+							<div class="link"><a th:href="@{/approvals/outward/stocks}">Outward Stockorders</a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Outward Workorders Items</span></div>
+							<div class="link"><span aria-current="location">Outward Stockorders Items</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -51,7 +51,7 @@
 								No</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.complNo}" disabled />
+									th:value="${outwardStockorderNo.complNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -60,18 +60,18 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.indentNo}" disabled />
+									th:value="${outwardStockorderNo.indentNo}" disabled />
 							</div>
 						</div>
 
 					</div>
 					<div class="col-4">
 						<div class="form-group row">
-							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Stockorder
 								No</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workOrderNo}" disabled />
+									th:value="${outwardStockorderNo.StockOrderNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.departmentName}" disabled />
+									th:value="${outwardStockorderNo.departmentName}" disabled />
 							</div>
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.division}" disabled />
+									th:value="${outwardStockorderNo.division}" disabled />
 							</div>
 						</div>
 
@@ -103,7 +103,7 @@
 								Division</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.subDivision}" disabled />
+									th:value="${outwardStockorderNo.subDivision}" disabled />
 							</div>
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 								Priority</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workPriority}" disabled />
+									th:value="${outwardStockorderNo.workPriority}" disabled />
 							</div>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.workSite}" disabled />
+									th:value="${outwardStockorderNo.workSite}" disabled />
 							</div>
 						</div>
 
@@ -135,7 +135,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.contactNo}" disabled />
+									th:value="${outwardStockorderNo.contactNo}" disabled />
 							</div>
 						</div>
 					</div>
@@ -149,7 +149,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST Type</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.gstType}" disabled />
+									th:value="${outwardStockorderNo.gstType}" disabled />
 							</div>
 						</div>
 
@@ -159,7 +159,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">GST %</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.igst}" disabled />
+									th:value="${outwardStockorderNo.igst}" disabled />
 							</div>
 						</div>
 
@@ -169,7 +169,7 @@
 							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Billed On</label>
 							<div class="col-sm-6 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStocksWorkorderNo.billedOn}" disabled />
+									th:value="${outwardStockorderNo.billedOn}" disabled />
 							</div>
 						</div>
 					</div>
@@ -226,7 +226,7 @@
 							</div>
 							<div class="col-6 bg-dark row py-2 rounded-top">
 								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.subTotal}></label></label>
+										th:text=${outwardStockorderNo.subTotal}></label></label>
 
 							</div>
 						</div>
@@ -236,7 +236,7 @@
 							</div>
 							<div class="col-6 bg-primary row py-2 rounded-bottom">
 								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text=${outwardStocksWorkorderNo.grandTotal}></label></label>
+										th:text=${outwardStockorderNo.grandTotal}></label></label>
 
 							</div>
 						</div>
@@ -244,10 +244,10 @@
 
 					<div class="col-12 text-center mt-3">
 						<button
-							th:onclick="|approveWorkorder('/approvals/outward/workorder/items/${outwardStocksWorkorderNo.workOrderNo}')|"
-							class="btn btn-success" data-toggle="modal" data-target="#approveWorkorder">Approve</button>
+							th:onclick="|approveStockorder('/approvals/outward/stockorder/items/${outwardStockorderNo.StockOrderNo}')|"
+							class="btn btn-success" data-toggle="modal" data-target="#approveStockorder">Approve</button>
 						<button
-							th:onclick="|deleteId('/approvals/outward/workorder/reject/${outwardStocksWorkorderNo.workOrderNo}')|"
+							th:onclick="|deleteId('/approvals/outward/stockorder/reject/${outwardStockorderNo.StockOrderNo}')|"
 							class="btn btn-danger" data-toggle="modal" data-target="#delItem">Reject</button>
 						<a th:href="@{/stocks/outward/list}" class="btn btn-light btn-sm mr-3">Back</a>
 					</div>
@@ -263,7 +263,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						Are you sure, you want to reject this Workorder Items?
+						Are you sure, you want to reject this Stockorder Items?
 					</div>
 					<div class="modal-footer p-2">
 						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Reject</a>
@@ -273,18 +273,18 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="approveWorkorder" tabindex="-1" role="dialog" aria-labelledby="approveWorkorder"
+		<div class="modal fade" id="approveStockorder" tabindex="-1" role="dialog" aria-labelledby="approveStockorder"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document" style="margin-top: 180px;">
 				<div class="modal-content">
 					<div class="modal-header p-2">
-						<h4>Approve Workorder</h4>
+						<h4>Approve Stockorder</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						Are you sure, you want to approve this Workorder Items?
+						Are you sure, you want to approve this Stockorder Items?
 					</div>
 					<div class="modal-footer p-2">
 						<a href="" class="btn btn-sm btn-success" id="approveRef">Yes, Approve</a>

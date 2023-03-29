@@ -3,7 +3,7 @@ package com.ingroinfo.mm.dto;
 import lombok.Data;
 
 @Data
-public class WorkOrderItemsDto {
+public class StockOrderItemsDto {
 
 	private int stockAvailable;
 	private int stockRequested;
@@ -22,7 +22,7 @@ public class WorkOrderItemsDto {
 	private Double totalCost;
 	private Double mrpRate;
 	private String description;
-	private Long workOrderNo;
+	private Long stockOrderNo;
 	private String username;
 
 	private int returnQuantity;

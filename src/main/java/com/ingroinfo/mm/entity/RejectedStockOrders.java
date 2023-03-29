@@ -1,19 +1,14 @@
 package com.ingroinfo.mm.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,8 +22,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mm_approved_workorders")
-public class ApprovedWorkOrders {
+@Table(name = "mm_rejected_stockorders")
+public class RejectedStockOrders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,31 +35,14 @@ public class ApprovedWorkOrders {
 	private Double cgst;
 	private Double subTotal;
 	private Double grandTotal;
-	private Long workOrderNo;
-	private String username;
-
+	private Long stockOrderNo;
 	private String indentNo;
 	private String complNo;
-	private String division;
-	private String subDivision;
-	private String workSite;
-	private Date startDate;
-	private Date endDate;
-	private String contactNo;
-	private String complDtls;
-	private String workPriority;
 	private String departmentName;
-
+	private String username;
+	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
-	private List<ApprovedWorkOrderItems> workOrderItems;
-
-	@Column(name = "date_created")
-	@CreationTimestamp
-	private Date dateCreated;
-
-	@Column(name = "last_updated")
-	@UpdateTimestamp
-	private Date lastUpdated;
+	private List<RejectedStockOrderItems> workOrderItems;
 
 }

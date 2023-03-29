@@ -14,6 +14,6 @@ function viewImg(src) {
 	$('#viewRef').attr('src', src);
 }
 
-function approveWorkorder(src) {
+function approveStockorder(src) {
 	$('#approveRef').attr('href', src);
 }
