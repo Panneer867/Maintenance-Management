@@ -8,11 +8,9 @@
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
 						</li>
-						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
-						</li>
+						
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Material Approvals</span></div>
 						</li>
@@ -26,7 +24,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/materials/list/approved}">
-							Inward Approved Materials List
+							 Approved Materials 
 						</a>
 					</li>
 				</ul>
@@ -89,7 +87,7 @@
 								class="glyphicon glyphicon-ok"></span></button>
 
 						<button
-							th:onclick="|deleteId('/approvals/stocks/materials/reject/${materialsList.materialId}')|"
+							th:onclick="|deleteId('/approval/stock/materials/reject/${materialsList.materialId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
 								class="glyphicon glyphicon-remove"></span></button>
@@ -138,7 +136,7 @@
 			aria-hidden="true">
 			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
 				<div class="modal-content">
-					<form class="mb-0" th:action="@{/approvals/stocks/materials/approve}" th:object="${approval}"
+					<form class="mb-0" th:action="@{/approval/stock/materials/approve}" th:object="${approval}"
 						method="post">
 
 						<input type="hidden" name="materialId" id="approve-mat-materialId" />

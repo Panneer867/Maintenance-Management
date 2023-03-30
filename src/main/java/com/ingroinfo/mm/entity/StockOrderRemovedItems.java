@@ -25,7 +25,7 @@ public class StockOrderRemovedItems {
 	private int requestedQuantity;
 	private int stockQuantity;
 	private String Availability;
-	private Long workOrderNo;
+	private Long stockOrderNo;
 	private String remarks;
 	private String stockType;
 	private String username;

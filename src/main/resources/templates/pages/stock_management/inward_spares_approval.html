@@ -11,7 +11,7 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+							<div class="link"><a th:href="@{/approval/stock}">Stock Approvals</a></div>
 						</li>
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Spare Approvals</span></div>
@@ -26,7 +26,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/spares/list/approved}">
-							Inward Approved Spares List
+							Inward Approved Spares 
 						</a>
 					</li>
 				</ul>
@@ -89,7 +89,7 @@
 								class="glyphicon glyphicon-ok"></span></button>
 
 						<button
-							th:onclick="|deleteId('/approvals/stocks/spares/reject/${sparesList.spareId}')|"
+							th:onclick="|deleteId('/approval/stock/spares/reject/${sparesList.spareId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delInwardItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
 								class="glyphicon glyphicon-remove"></span></button>
@@ -140,7 +140,7 @@
 			aria-hidden="true">
 			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
 				<div class="modal-content">
-					<form class="mb-0" th:action="@{/approvals/stocks/spares/approve}" th:object="${approval}"
+					<form class="mb-0" th:action="@{/approval/stock/spares/approve}" th:object="${approval}"
 						method="post">
 
 						<input type="hidden" name="spareId" id="approve-sap-spareId" />

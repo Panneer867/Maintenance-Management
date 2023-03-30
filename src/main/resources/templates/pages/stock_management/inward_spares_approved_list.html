@@ -17,7 +17,7 @@
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Approved Spares</span></div>
+							<div class="link"><span aria-current="location"> Approved Spares</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -41,13 +41,13 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/spares/list}">
-							Inward Spares List
+							Inward Spares 
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
 							th:href="@{/stocks/inward/spares/list/approved}">
-							Inward Approved Spares List
+							 Approved Spares 
 						</a>
 					</li>
 				</ul>
@@ -98,7 +98,7 @@
 					<td th:text="${#dates.format(approvedSparesList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<button
-							th:onclick="|getSpareDetails('/approvals/inward/approved/spares/get/${approvedSparesList.approvedSpareId}')|"
+							th:onclick="|getSpareDetails('/approval/inward/approved/spares/get/${approvedSparesList.approvedSpareId}')|"
 							class="btn btn-success p-1 mx-2" data-toggle="modal"
 							data-target="#spare-detail">View</button>
 					</td>
@@ -110,7 +110,7 @@
 			aria-hidden="true">
 			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
 				<div class="modal-content">
-					<form class="mb-0" th:action="@{/approvals/stocks/spare/approved}" th:object="${inwardItem}"
+					<form class="mb-0" th:action="@{/approval/stock/spare/approved}" th:object="${inwardItem}"
 						method="post">
 						<div class="modal-header p-2">
 							<h4 class="mx-auto my-2">Spare Details</h4>

@@ -13,11 +13,11 @@
 						</li>
 
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/inward/materials/entry}">Inward Materials Entry</a></div>
+							<div class="link"><a th:href="@{/stocks/inward/materials/entry}">Inward Materials</a></div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Inward Approved Materials</span></div>
+							<div class="link"><span aria-current="location">Approved Materials</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -41,13 +41,13 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/inward/materials/list}">
-							Inward Materials List
+							Inward Materials 
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr active-tab bg-dark"
 							th:href="@{/stocks/inward/materials/list/approved}">
-							Inward Approved Materials List
+							 Approved Materials 
 						</a>
 					</li>
 				</ul>
@@ -98,7 +98,7 @@
 						<td th:text="${#dates.format(approvedMaterialsList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<button
-							th:onclick="|getMaterialDetails('/approvals/inward/approved/materials/get/${approvedMaterialsList.approvedMaterialId}')|"
+							th:onclick="|getMaterialDetails('/approval/inward/approved/materials/get/${approvedMaterialsList.approvedMaterialId}')|"
 							class="btn btn-success p-1 mx-2" data-toggle="modal"
 							data-target="#material-detail">View</button>
 
@@ -111,7 +111,7 @@
 			aria-hidden="true">
 			<div class="modal-dialog " role="document" style="margin-top: 70px;max-width:1100px;">
 				<div class="modal-content">
-					<form class="mb-0" th:action="@{/approvals/stocks/material/approved}" th:object="${inwardItem}"
+					<form class="mb-0" th:action="@{/approval/stock/material/approved}" th:object="${inwardItem}"
 						method="post">
 						<div class="modal-header p-2">
 							<h4 class="mx-auto my-2">Material Details</h4>

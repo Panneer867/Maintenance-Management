@@ -11,10 +11,10 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+							<div class="link"><a th:href="@{/approval/stock}">Stock Approvals</a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Outward Stockorder Approvals</span></div>
+							<div class="link"><span aria-current="location"> Stock Order Approvals</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -26,7 +26,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/outward/approved/list}">
-							Outward Stocks Approved List
+							Approved Outward Stocks 
 						</a>
 					</li>
 				</ul>
@@ -70,9 +70,9 @@
 						<span class="status-pending" th:text="${outwardStocksList.approvalStatus}" />
 					</td>
 					<td class="text-center">
-						<a class="btn btn-success p-1 mx-2" th:href="@{'/approvals/outward/stocks/items/' + ${outwardStocksList.stockOrderNo} }">View/Approve	</a>
+						<a class="btn btn-success p-1 mx-2" th:href="@{'/approval/outward/stocks/items/' + ${outwardStocksList.stockOrderNo} }">View/Approve	</a>
 						<button
-							th:onclick="|deleteId('/approvals/outward/stockorder/reject/${outwardStocksList.stockOrderNo}')|"
+							th:onclick="|deleteId('/approval/outward/stockorder/reject/${outwardStocksList.stockOrderNo}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Reject"><span
 								class="glyphicon glyphicon-remove"></span></button>

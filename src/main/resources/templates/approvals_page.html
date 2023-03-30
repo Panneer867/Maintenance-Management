@@ -10,6 +10,81 @@
 						<div class="dash-cards">
 							<article class="dash-card">
 								<picture class="thumbnail">
+									<a th:href="@{/approval/stock/materials}"><img class="category__02 w-100"
+											th:src="@{/images/dashboard/Inward.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approval/stock/materials}">
+									<p class="dash-category category__01"> Material Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approval/stock/spares}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Leakage.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approval/stock/spares}">
+									<p class="dash-category category__03"> Spares Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approval/stock/tools}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Meter.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approval/stock/tools}">
+									<p class="dash-category category__03"> Tools Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approval/outward/stocks}"><img class="category__03 w-100"
+											th:src="@{/images/dashboard/Outward.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approval/outward/stocks}">
+									<p class="dash-category category__04">Outward Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center mt-5">
+				<div class="row">
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
+									<a th:href="@{/approval/stock/item/return}"><img class="category__02 w-100"
+											th:src="@{/images/dashboard/Inward.jpg}" alt="" />
+									</a>
+								</picture>
+								<a th:href="@{/approval/stock/item/return}">
+									<p class="dash-category category__01"> Return Approvals</p>
+								</a>
+							</article>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="dash-cards">
+							<article class="dash-card">
+								<picture class="thumbnail">
 									<a th:href="@{/approval/indent}"><img class="category__02 w-100"
 											th:src="@{/images/dashboard/Inward.jpg}" alt="" />
 									</a>
@@ -29,26 +104,16 @@
 									</a>
 								</picture>
 								<a th:href="@{/approval/workorder}">
-									<p class="dash-category category__01" style="background-color: #50db68;"> Workorder Approvals</p>
+									<p class="dash-category category__01" style="background-color: #50db68;"> Workorder
+										Approvals</p>
 								</a>
 							</article>
 						</div>
 					</div>
 
-					<div class="col-3">
-							<div class="dash-cards">
-							<article class="dash-card border-hide">
-								<picture class="thumbnail">
 
-								</picture>
-								<a href="#">
-
-								</a>
-							</article>
-						</div>
-					</div>
 					<div class="col-3">
-							<div class="dash-cards">
+						<div class="dash-cards">
 							<article class="dash-card border-hide">
 								<picture class="thumbnail">
 
@@ -60,7 +125,7 @@
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</section>
 </body>

@@ -94,7 +94,7 @@ public interface StockService {
 
 	List<InwardApprovedTools> getApprovedToolsLists();
 
-	/******** Workorders *********/
+	/******** Work Orders *********/
 
 	List<StockOrderItemsRequest> getStockOrderNos(String username);
 
@@ -124,6 +124,9 @@ public interface StockService {
 
 	StockOrderItemsDto getStockorderItemDetails(String itemId, Long stockOrderNo);
 
+
+	/******** Return Stocks *********/
+	
 	void saveReturnItem(TempStocksReturn tempStocksReturn, MultipartFile file);
 
 	boolean checkReturnedItem(TempStocksReturn tempStocksReturn);
@@ -144,4 +147,26 @@ public interface StockService {
 
 	List<ApprovedStocksReturn> getApprovedStockReturnItemList();
 
+
+	/******** Approval *********/
+	
+	void saveMaterial(InwardDto inwardItemDto);
+
+	void rejectMaterial(Long id, String username);
+
+	void saveSpare(InwardDto inwardItemDto);
+
+	void rejectSpare(Long id, String username);
+	
+	void saveTool(InwardDto inwardItemDto);
+
+	void rejectTool(Long id, String username);
+
+	void approveOutwardStocks(Long stockOrderNo, String username);
+
+	void rejectStockorderItems(Long stockOrderNo, String username);
+
+	void approveReturnItem(Long id, String username);
+
+	void rejectReturnItem(Long id, String username);
 }

@@ -11,7 +11,7 @@
 							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approvals/stocks}">Stock Approvals</a></div>
+							<div class="link"><a th:href="@{/approval/stock}">Stock Approvals</a></div>
 						</li>
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Returns Approvals</span></div>
@@ -26,7 +26,7 @@
 					<li class="nav-item" role="presentation">
 						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
 							th:href="@{/stocks/return/approved/list}">
-							Returns Approved Items List
+							 Approved Items List
 						</a>
 					</li>
 				</ul>
@@ -78,12 +78,12 @@
 					<td th:text="${returnedItemList.invoiceNo}"></td>
 					<td class="text-center">
 						<button
-							th:onclick="|approveStockorder('/approvals/stocks/item/return/${returnedItemList.recordId}')|"
+							th:onclick="|approveStockorder('/approval/stock/item/return/${returnedItemList.recordId}')|"
 							class="btn btn-success p-1 mx-2" data-toggle="modal" data-target="#approveItemReturn"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><span
 								class="glyphicon glyphicon-ok"></span></button>
 
-						<button th:onclick="|deleteId('/approvals/return/item/reject/${returnedItemList.recordId}')|"
+						<button th:onclick="|deleteId('/approval/return/item/reject/${returnedItemList.recordId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
 								class="glyphicon glyphicon-trash"></span></button>

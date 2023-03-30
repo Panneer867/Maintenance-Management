@@ -331,12 +331,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$(function() {
-		if (window.location.href.match('/approvals/stocks')) {
-			$("#approvals-stocks-active").addClass("m-menu__item--active sub-menu-active");
-		}
-	});
-
 
 	$(function() {
 		if (window.location.href.match('/outward/stocks')) {
