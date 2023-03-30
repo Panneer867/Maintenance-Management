@@ -28,7 +28,6 @@ import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.TempListItemsRepository;
-import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dto.GraphDto;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.StockOrderItemsDto;
@@ -70,10 +69,7 @@ public class StocksController {
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private TempListItemsRepository tempIndentItemsRepository;
-
-	@Autowired
-	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;
+	private TempListItemsRepository tempListItemsRepository;
 
 	@Autowired
 	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
@@ -602,13 +598,13 @@ public class StocksController {
 		String itemId = indentItems.getItemId();
 		Long stockOrderNo = indentItems.getStockOrderNo();
 		if (itemId != null) {
-			Optional<TempListItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndStockOrderNo(itemId,
+			Optional<TempListItems> tempIndentItems = tempListItemsRepository.findByItemIdAndStockOrderNo(itemId,
 					stockOrderNo);
 			DecimalFormat df = new DecimalFormat("#.##");
 			tempIndentItems.get()
 					.setTotalCost(Double.parseDouble(df.format(indentItems.getMrpRate() * indentItems.getQty())));
 			tempIndentItems.get().setFinalQuantity(indentItems.getQty());
-			tempIndentItemsRepository.save(tempIndentItems.get());
+			tempListItemsRepository.save(tempIndentItems.get());
 		}
 	}
 
@@ -618,13 +614,10 @@ public class StocksController {
 		Long stockOrderNo = indentItems.getStockOrderNo();
 
 		if (itemId != null) {
-			Optional<TempListItems> tempIndentItems = tempIndentItemsRepository.findByItemIdAndStockOrderNo(itemId,
-					stockOrderNo);
-			Long stockId = stockOrderItemsRequestRepository.findByStockOrderNoAndItemId(stockOrderNo, itemId)
-					.getRecordId();
+			Optional<TempListItems> tempIndentItems = tempListItemsRepository.findByItemIdAndStockOrderNo(itemId,
+					stockOrderNo);			
 			stockService.saveRemovedItems(itemId, stockOrderNo, principal.getName());
-			tempIndentItemsRepository.deleteById(tempIndentItems.get().getRecordId());
-			stockOrderItemsRequestRepository.deleteById(stockId);
+			tempListItemsRepository.deleteById(tempIndentItems.get().getRecordId());			
 		}
 	}
 

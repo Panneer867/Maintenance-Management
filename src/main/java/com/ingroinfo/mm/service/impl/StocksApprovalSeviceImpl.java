@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ingroinfo.mm.dao.ApprovedStocksReturnRepository;
+import com.ingroinfo.mm.dao.IndentApprovedItemsRepository;
 import com.ingroinfo.mm.dao.ApprovedStockOrderItemsRepository;
 import com.ingroinfo.mm.dao.ApprovedStockOrdersRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
@@ -23,8 +24,10 @@ import com.ingroinfo.mm.dao.RejectedStockOrdersRepository;
 import com.ingroinfo.mm.dao.StockReturnsRepository;
 import com.ingroinfo.mm.dao.TempStockOrderItemsRepository;
 import com.ingroinfo.mm.dao.TempStockOrdersRepository;
+import com.ingroinfo.mm.dao.TempWorkOrderItemRequestRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.entity.ApprovedStocksReturn;
+import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
 import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
@@ -42,6 +45,7 @@ import com.ingroinfo.mm.entity.RejectedStockOrders;
 import com.ingroinfo.mm.entity.StocksReturn;
 import com.ingroinfo.mm.entity.TempStockOrderItems;
 import com.ingroinfo.mm.entity.TempStockOrders;
+import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.service.StocksApprovalService;
 
 @Service
@@ -102,6 +106,12 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 
 	@Autowired
 	private RejectedStocksReturnRepository rejectedStocksReturnRepository;
+
+	@Autowired
+	private IndentApprovedItemsRepository indentApprovedItemsRepository;
+
+	@Autowired
+	private TempWorkOrderItemRequestRepository tempWorkOrderItemRequestRepository;
 
 	/**************************** Materials ********************************/
 
@@ -209,7 +219,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedStockOrders.setSubTotal(tempStockOrders.getSubTotal());
 		approvedStockOrders.setUsername(username);
 		approvedStockOrders.setStockOrderNo(tempStockOrders.getStockOrderNo());
-		
+
 		approvedStockOrders.setComplDtls(tempStockOrders.getComplDtls());
 		approvedStockOrders.setComplNo(tempStockOrders.getComplNo());
 		approvedStockOrders.setContactNo(tempStockOrders.getContactNo());
@@ -221,8 +231,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedStockOrders.setSubDivision(tempStockOrders.getSubDivision());
 		approvedStockOrders.setWorkPriority(tempStockOrders.getWorkPriority());
 		approvedStockOrders.setWorkSite(tempStockOrders.getWorkSite());
-		
-		
+		approvedStockOrders.setApprovalStatus("APPROVED");
 
 		ApprovedStockOrders savedApprovedStockOrders = approvedStockOrdersRepository.save(approvedStockOrders);
 
@@ -277,6 +286,45 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 				inwardApprovedToolsRepository.save(inwardApprovedTools);
 			}
 
+			IndentApprovedItems indentApprovedItems = indentApprovedItemsRepository
+					.findByComplNoAndItemId(approvedStockOrders.getComplNo(), tempStockOrderItem.getItemId());
+			if (indentApprovedItems != null) {
+				indentApprovedItems.setApprovedSts("Y");
+				indentApprovedItems.setQuantity(tempStockOrderItem.getFinalQuantity());
+				IndentApprovedItems savedIndentApprovedItem = indentApprovedItemsRepository.save(indentApprovedItems);
+
+				if (savedIndentApprovedItem != null) {
+
+					TempWorkOrderItemRequest tempWorkItems = new TempWorkOrderItemRequest();
+					tempWorkItems.setApprovedSts(savedIndentApprovedItem.getApprovedSts());
+					tempWorkItems.setCategoryName(savedIndentApprovedItem.getCategoryName());
+					tempWorkItems.setComplDtls(savedIndentApprovedItem.getComplDtls());
+					tempWorkItems.setComplNo(savedIndentApprovedItem.getComplNo());
+					tempWorkItems.setContactNo(savedIndentApprovedItem.getContactNo());
+					tempWorkItems.setCreatedDate(savedIndentApprovedItem.getCreatedDate());
+					tempWorkItems.setDepartmentName(savedIndentApprovedItem.getDepartmentName());
+					tempWorkItems.setDivision(savedIndentApprovedItem.getDivision());
+					tempWorkItems.setEndDate(savedIndentApprovedItem.getEndDate());
+					tempWorkItems.setHsnCode(savedIndentApprovedItem.getHsnCode());
+					tempWorkItems.setIndentApproved(savedIndentApprovedItem.getIndentApproved());
+					tempWorkItems.setIndentNo(savedIndentApprovedItem.getIndentNo());
+					tempWorkItems.setItemId(savedIndentApprovedItem.getItemName());
+					tempWorkItems.setItemName(savedIndentApprovedItem.getItemName());
+					tempWorkItems.setItemReqId(savedIndentApprovedItem.getItemReqId());
+					tempWorkItems.setQuantity(savedIndentApprovedItem.getQuantity());
+					tempWorkItems.setStartDate(savedIndentApprovedItem.getStartDate());
+					tempWorkItems.setStockType(savedIndentApprovedItem.getStockType());
+					tempWorkItems.setStockTypeName(savedIndentApprovedItem.getStockTypeName());
+					tempWorkItems.setSubDivision(savedIndentApprovedItem.getSubDivision());
+					tempWorkItems.setUnitOfMesure(savedIndentApprovedItem.getUnitOfMesure());
+					tempWorkItems.setUserName(username);
+					tempWorkItems.setWorkSite(savedIndentApprovedItem.getWorkSite());
+					tempWorkItems.setWorkPriority(savedIndentApprovedItem.getWorkPriority());
+
+					tempWorkOrderItemRequestRepository.save(tempWorkItems);
+				}
+			}
+
 		}
 
 		tempStockOrdersRepository.deleteById(tempStockOrders.getOrderId());
@@ -296,7 +344,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedStockOrderNos.setSubTotal(tempStockOrders.getSubTotal());
 		rejectedStockOrderNos.setUsername(username);
 		rejectedStockOrderNos.setStockOrderNo(tempStockOrders.getStockOrderNo());
-		
+
 		rejectedStockOrderNos.setComplNo(tempStockOrders.getComplNo());
 		rejectedStockOrderNos.setIndentNo(tempStockOrders.getIndentNo());
 		rejectedStockOrderNos.setDepartmentName(tempStockOrders.getDepartmentName());
@@ -361,7 +409,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		approvedStocksReturn.setStockType(stocksReturn.getStockType());
 		approvedStocksReturn.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
 		approvedStocksReturn.setStockOrderNo(stocksReturn.getStockOrderNo());
-		
+
 		approvedStocksReturn.setComplNo(stocksReturn.getComplNo());
 		approvedStocksReturn.setIndentNo(stocksReturn.getIndentNo());
 		approvedStocksReturn.setDepartmentName(stocksReturn.getDepartmentName());
@@ -429,7 +477,7 @@ public class StocksApprovalSeviceImpl implements StocksApprovalService {
 		rejectedStockReturns.setStockType(stocksReturn.getStockType());
 		rejectedStockReturns.setUnitOfMeasure(stocksReturn.getUnitOfMeasure());
 		rejectedStockReturns.setStockOrderNo(stocksReturn.getStockOrderNo());
-		
+
 		rejectedStockReturns.setComplNo(stocksReturn.getComplNo());
 		rejectedStockReturns.setIndentNo(stocksReturn.getIndentNo());
 		rejectedStockReturns.setDepartmentName(stocksReturn.getDepartmentName());

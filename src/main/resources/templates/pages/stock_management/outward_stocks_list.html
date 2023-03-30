@@ -60,6 +60,7 @@
 				<tr>
 					<th class="all">Order ID</th>
 					<th class="all">Stockorder No</th>
+
 					<th class="all">GST Type</th>
 					<th class="all">IGST</th>
 					<th class="all">CGST</th>
@@ -67,6 +68,7 @@
 					<th class="all">Sub Total</th>
 					<th class="all">Grand Total</th>
 					<th class="all">Billled On</th>
+					<th class="all">Approval</th>
 					<th class="all">Actions</th>
 				</tr>
 			</thead>
@@ -74,6 +76,7 @@
 				<tr th:each="outwardStocksList: ${outwardStocksLists}">
 					<td th:text="${outwardStocksList.orderId}"></td>
 					<td th:text="${outwardStocksList.stockOrderNo}"></td>
+
 					<td th:text="${outwardStocksList.gstType}"></td>
 					<td><label class="px-1" th:text="${outwardStocksList.igst}"></label>%</td>
 					<td><label class="px-1" th:text="${outwardStocksList.cgst}"></label>%</td>
@@ -81,6 +84,9 @@
 					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.subTotal}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.grandTotal}"></label></td>
 					<td th:text="${outwardStocksList.billedOn}"></td>
+					<td class="text-center">
+						<span class="status-pending" th:text="${outwardStocksList.approvalStatus}" />
+					</td>
 					<td class="text-center">
 						<a class="btn btn-success p-1 mx-2"
 							th:href="@{'/stocks/outward/list/items/' + ${outwardStocksList.stockOrderNo} }">View</a>

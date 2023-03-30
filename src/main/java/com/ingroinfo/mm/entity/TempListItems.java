@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_temp_indent_items")
+@Table(name = "mm_temp_list_items")
 public class TempListItems {
 
 	@Id

@@ -11,4 +11,6 @@ public interface IndentApprovedItemsRepository extends JpaRepository<IndentAppro
 
 	List<IndentApprovedItems> getByComplNoAndIndentNo(String complNo, String indentNo);
 
+	IndentApprovedItems findByComplNoAndItemId(String complNo, String itemId);
+
 }

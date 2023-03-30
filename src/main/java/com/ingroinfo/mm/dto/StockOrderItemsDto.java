@@ -24,6 +24,7 @@ public class StockOrderItemsDto {
 	private String description;
 	private Long stockOrderNo;
 	private String username;
+	private String approvedStatus;
 
 	private int returnQuantity;
 

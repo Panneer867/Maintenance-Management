@@ -3,6 +3,7 @@ package com.ingroinfo.mm.controller;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ingroinfo.mm.dao.IndentApprovedItemsRepository;
 import com.ingroinfo.mm.dao.IndentApprovedLaboursRepository;
 import com.ingroinfo.mm.dao.IndentApprovedVehiclesRepository;
+import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
@@ -24,6 +26,7 @@ import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
+import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
@@ -48,16 +51,66 @@ public class ApprovalController {
 	private IndentApprovedLaboursRepository indentApprovedLaboursRepo;
 	@Autowired
 	private IndentApprovedVehiclesRepository indentApprovedVehiclesRepo;
-	
-	
+	@Autowired
+	private IndentApprovedItemsRepository indentApprovedItemsRepository;
+	@Autowired
+	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;
+
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
-	
+
+	private void CopyItemsToStockorders(String username) {
+		List<IndentApprovedItems> indentApprovedItems = indentApprovedItemsRepository.findAll();
+
+		Map<String, List<IndentApprovedItems>> groupedItems = indentApprovedItems.stream()
+				.collect(Collectors.groupingBy(IndentApprovedItems::getComplNo));
+
+		for (Map.Entry<String, List<IndentApprovedItems>> newSet : groupedItems.entrySet()) {
+
+			List<IndentApprovedItems> items = newSet.getValue();
+
+			for (IndentApprovedItems item : items) {
+
+				if (item.getApprovedSts().equalsIgnoreCase("N")) {
+
+					StockOrderItemsRequest stockOrderItemsRequest = new StockOrderItemsRequest();
+
+					long stockOrderNo = Long.parseLong(item.getComplNo() + item.getIndentNo());
+
+					stockOrderItemsRequest.setStockOrderNo(stockOrderNo);
+					stockOrderItemsRequest.setCategoryName(item.getCategoryName());
+					stockOrderItemsRequest.setComplDtls(item.getComplDtls());
+					stockOrderItemsRequest.setComplNo(item.getComplNo());
+					stockOrderItemsRequest.setContactNo(item.getContactNo());
+					stockOrderItemsRequest.setDepartmentName(item.getDepartmentName());
+					stockOrderItemsRequest.setDivision(item.getDivision());
+					stockOrderItemsRequest.setEndDate(item.getEndDate());
+					stockOrderItemsRequest.setHsnCode(item.getHsnCode());
+					stockOrderItemsRequest.setIndentNo(item.getIndentNo());
+					stockOrderItemsRequest.setItemId(item.getItemId());
+					stockOrderItemsRequest.setItemName(item.getItemName());
+					stockOrderItemsRequest.setQuantity(item.getQuantity());
+					stockOrderItemsRequest.setStartDate(item.getStartDate());
+					stockOrderItemsRequest.setStockType(item.getStockType());
+					stockOrderItemsRequest.setStockTypeName(item.getStockTypeName());
+					stockOrderItemsRequest.setSubDivision(item.getSubDivision());
+					stockOrderItemsRequest.setUnitOfMesure(item.getUnitOfMesure());
+					stockOrderItemsRequest.setUsername(username);
+					stockOrderItemsRequest.setWorkPriority(item.getWorkPriority());
+					stockOrderItemsRequest.setWorkSite(item.getWorkSite());
+
+					stockOrderItemsRequestRepository.save(stockOrderItemsRequest);
+				}
+
+			}
+		}
+	}
+
 	@GetMapping
 	@PreAuthorize("hasAuthority('APPROVALS')")
-	public String hrApprovals(Model model) {		
+	public String hrApprovals(Model model) {
 		return "approvals_page";
 	}
 
@@ -79,9 +132,12 @@ public class ApprovalController {
 		List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
 		model.addAttribute("listOfCompl", complDtos);
 
-		List<TempIndentItemRequest> tempIndentItemRequests = this.tempIndentItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-		List<TempIndentLabourRequest> tempIndentLabourRequests = this.tempIndentLabourRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-		List<TempIndentVehicleRequest> TempIndentVehicleRequests = this.tempIndentVehicleRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentItemRequest> tempIndentItemRequests = this.tempIndentItemRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentLabourRequest> tempIndentLabourRequests = this.tempIndentLabourRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentVehicleRequest> TempIndentVehicleRequests = this.tempIndentVehicleRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
 
 		String complNumber = null;
 		String indentNumber = null;
@@ -165,9 +221,12 @@ public class ApprovalController {
 	public String approveIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
 			Principal principal, HttpSession session) {
 
-		List<TempIndentItemRequest> tempIndentItemRequests = this.tempIndentItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-		List<TempIndentLabourRequest> tempIndentLabourRequests = this.tempIndentLabourRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-		List<TempIndentVehicleRequest> TempIndentVehicleRequests = this.tempIndentVehicleRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentItemRequest> tempIndentItemRequests = this.tempIndentItemRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentLabourRequest> tempIndentLabourRequests = this.tempIndentLabourRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
+		List<TempIndentVehicleRequest> TempIndentVehicleRequests = this.tempIndentVehicleRequestRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
 
 		if (tempIndentItemRequests != null) {
 			ModelMapper modelMapper = new ModelMapper();
@@ -215,6 +274,8 @@ public class ApprovalController {
 			this.tempIndentVehicleRequestRepo.deleteAllByComplNo(complNo);
 		}
 
+		CopyItemsToStockorders(principal.getName());
+
 		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
 		oldcomplaintDto.setComplStatus("approved_indent");
 		oldcomplaintDto.setIndentApprovedBy(principal.getName());
@@ -223,205 +284,210 @@ public class ApprovalController {
 		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
 		return "redirect:/approval/indent";
 	}
-	
+
 	// Handler For Open Work Order Approval Page
-		@GetMapping("/workorder")
-		public String displayWorkOrderApproval(Model model) {
-			String complStatus = "waiting_for_workorder_approval";
-			List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
-			model.addAttribute("listOfCompl", complDtos);
-			model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
-			return "/pages/approvals/workorder_approvals";
-		}
-		
-		// Handler For get WorkOrder Data For Approval
-		@GetMapping("/workorder/get/{complNo}/{indentNo}")
-		public String getWorkOrderdataByComplNoAndIndentNumber(@PathVariable String complNo, @PathVariable String indentNo,
-				Model model) {
-			String complStatus = "waiting_for_workorder_approval";
-			List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
-			model.addAttribute("listOfCompl", complDtos);
+	@GetMapping("/workorder")
+	public String displayWorkOrderApproval(Model model) {
+		String complStatus = "waiting_for_workorder_approval";
+		List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
+		model.addAttribute("listOfCompl", complDtos);
+		model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
+		return "/pages/approvals/workorder_approvals";
+	}
 
-			//List<WapWorkOrderItemRequest> wapItemRequests = this.wapWorkOrderItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-			//List<WapWorkOrderLabourRequest> wapLabourRequests = this.wapWorkOrderLabourRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-			//List<WapWorkOrderVehicleRequest> WapVehicleRequests = this.wapWorkOrderVehicleRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
+	// Handler For get WorkOrder Data For Approval
+	@GetMapping("/workorder/get/{complNo}/{indentNo}")
+	public String getWorkOrderdataByComplNoAndIndentNumber(@PathVariable String complNo, @PathVariable String indentNo,
+			Model model) {
+		String complStatus = "waiting_for_workorder_approval";
+		List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
+		model.addAttribute("listOfCompl", complDtos);
 
-			/*
-			 * String complNumber = null; String indentNumber = null; Date expStartDate =
-			 * null; String department = null; String division = null; String subDivision =
-			 * null; String workPriprity = null; String workSite = null; String contactNo =
-			 * null;
-			 */
+		// List<WapWorkOrderItemRequest> wapItemRequests =
+		// this.wapWorkOrderItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
+		// List<WapWorkOrderLabourRequest> wapLabourRequests =
+		// this.wapWorkOrderLabourRequestRepo.getByComplNoAndIndentNo(complNo,
+		// indentNo);
+		// List<WapWorkOrderVehicleRequest> WapVehicleRequests =
+		// this.wapWorkOrderVehicleRequestRepo.getByComplNoAndIndentNo(complNo,
+		// indentNo);
 
-			// Check for indent number in TempIndentItemRequest list
-			/*
-			 * for (WapWorkOrderItemRequest wapWorkOrderItems : wapItemRequests) { if
-			 * (wapWorkOrderItems.getIndentNo() != null || wapWorkOrderItems.getComplNo() !=
-			 * null) { indentNumber = wapWorkOrderItems.getIndentNo(); complNumber =
-			 * wapWorkOrderItems.getComplNo(); expStartDate =
-			 * wapWorkOrderItems.getStartDate(); department =
-			 * wapWorkOrderItems.getDepartmentName(); division =
-			 * wapWorkOrderItems.getDivision(); subDivision =
-			 * wapWorkOrderItems.getSubDivision(); workPriprity =
-			 * wapWorkOrderItems.getWorkPriority(); workSite =
-			 * wapWorkOrderItems.getWorkSite(); contactNo =
-			 * wapWorkOrderItems.getContactNo(); break; } } // Check for indent number in
-			 * TempIndentLabourRequest list if (indentNumber == null || complNumber == null)
-			 * { for (WapWorkOrderLabourRequest wapWorkOrderLabors : wapLabourRequests) { if
-			 * (wapWorkOrderLabors.getIndentNo() != null || wapWorkOrderLabors.getComplNo()
-			 * != null) { indentNumber = wapWorkOrderLabors.getIndentNo(); complNumber =
-			 * wapWorkOrderLabors.getComplNo(); expStartDate =
-			 * wapWorkOrderLabors.getStartDate(); department =
-			 * wapWorkOrderLabors.getDepartmentName(); division =
-			 * wapWorkOrderLabors.getDivision(); subDivision =
-			 * wapWorkOrderLabors.getSubDivision(); workPriprity =
-			 * wapWorkOrderLabors.getWorkPriority(); workSite =
-			 * wapWorkOrderLabors.getWorkSite(); contactNo =
-			 * wapWorkOrderLabors.getContactNo(); break; } } } // Check for indent number in
-			 * TempIndentVehicleRequest list if (indentNumber == null || complNumber ==
-			 * null) { for (WapWorkOrderVehicleRequest wapWorkOrderVehicle :
-			 * WapVehicleRequests) { if (wapWorkOrderVehicle.getIndentNo() != null ||
-			 * wapWorkOrderVehicle.getComplNo() != null) { indentNumber =
-			 * wapWorkOrderVehicle.getIndentNo(); complNumber =
-			 * wapWorkOrderVehicle.getComplNo(); expStartDate =
-			 * wapWorkOrderVehicle.getStartDate(); department =
-			 * wapWorkOrderVehicle.getDepartmentName(); division =
-			 * wapWorkOrderVehicle.getDivision(); subDivision =
-			 * wapWorkOrderVehicle.getSubDivision(); workPriprity =
-			 * wapWorkOrderVehicle.getWorkPriority(); workSite =
-			 * wapWorkOrderVehicle.getWorkSite(); contactNo =
-			 * wapWorkOrderVehicle.getContactNo(); break; } } }
-			 * 
-			 * model.addAttribute("complNo", complNumber); model.addAttribute("indentNo",
-			 * indentNumber); model.addAttribute("startDate", expStartDate);
-			 * model.addAttribute("department", department); model.addAttribute("division",
-			 * division); model.addAttribute("subdivision", subDivision);
-			 * model.addAttribute("workPriority", workPriprity);
-			 * model.addAttribute("worksite", workSite); model.addAttribute("contactNo",
-			 * contactNo);
-			 * 
-			 * model.addAttribute("listOfMaterials", wapItemRequests);
-			 * model.addAttribute("listOfLabors", wapLabourRequests);
-			 * model.addAttribute("listOfVehicles", WapVehicleRequests);
-			 */
-			model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
-			return "/pages/approvals/workorder_approvals";
-		}
+		/*
+		 * String complNumber = null; String indentNumber = null; Date expStartDate =
+		 * null; String department = null; String division = null; String subDivision =
+		 * null; String workPriprity = null; String workSite = null; String contactNo =
+		 * null;
+		 */
 
-		// Handler For Approve Work Order Data
-		@GetMapping("/workorder/approve/{complNo}/{indentNo}")
-		public String approveWorkOrderData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
-				Principal principal, HttpSession session) {
+		// Check for indent number in TempIndentItemRequest list
+		/*
+		 * for (WapWorkOrderItemRequest wapWorkOrderItems : wapItemRequests) { if
+		 * (wapWorkOrderItems.getIndentNo() != null || wapWorkOrderItems.getComplNo() !=
+		 * null) { indentNumber = wapWorkOrderItems.getIndentNo(); complNumber =
+		 * wapWorkOrderItems.getComplNo(); expStartDate =
+		 * wapWorkOrderItems.getStartDate(); department =
+		 * wapWorkOrderItems.getDepartmentName(); division =
+		 * wapWorkOrderItems.getDivision(); subDivision =
+		 * wapWorkOrderItems.getSubDivision(); workPriprity =
+		 * wapWorkOrderItems.getWorkPriority(); workSite =
+		 * wapWorkOrderItems.getWorkSite(); contactNo =
+		 * wapWorkOrderItems.getContactNo(); break; } } // Check for indent number in
+		 * TempIndentLabourRequest list if (indentNumber == null || complNumber == null)
+		 * { for (WapWorkOrderLabourRequest wapWorkOrderLabors : wapLabourRequests) { if
+		 * (wapWorkOrderLabors.getIndentNo() != null || wapWorkOrderLabors.getComplNo()
+		 * != null) { indentNumber = wapWorkOrderLabors.getIndentNo(); complNumber =
+		 * wapWorkOrderLabors.getComplNo(); expStartDate =
+		 * wapWorkOrderLabors.getStartDate(); department =
+		 * wapWorkOrderLabors.getDepartmentName(); division =
+		 * wapWorkOrderLabors.getDivision(); subDivision =
+		 * wapWorkOrderLabors.getSubDivision(); workPriprity =
+		 * wapWorkOrderLabors.getWorkPriority(); workSite =
+		 * wapWorkOrderLabors.getWorkSite(); contactNo =
+		 * wapWorkOrderLabors.getContactNo(); break; } } } // Check for indent number in
+		 * TempIndentVehicleRequest list if (indentNumber == null || complNumber ==
+		 * null) { for (WapWorkOrderVehicleRequest wapWorkOrderVehicle :
+		 * WapVehicleRequests) { if (wapWorkOrderVehicle.getIndentNo() != null ||
+		 * wapWorkOrderVehicle.getComplNo() != null) { indentNumber =
+		 * wapWorkOrderVehicle.getIndentNo(); complNumber =
+		 * wapWorkOrderVehicle.getComplNo(); expStartDate =
+		 * wapWorkOrderVehicle.getStartDate(); department =
+		 * wapWorkOrderVehicle.getDepartmentName(); division =
+		 * wapWorkOrderVehicle.getDivision(); subDivision =
+		 * wapWorkOrderVehicle.getSubDivision(); workPriprity =
+		 * wapWorkOrderVehicle.getWorkPriority(); workSite =
+		 * wapWorkOrderVehicle.getWorkSite(); contactNo =
+		 * wapWorkOrderVehicle.getContactNo(); break; } } }
+		 * 
+		 * model.addAttribute("complNo", complNumber); model.addAttribute("indentNo",
+		 * indentNumber); model.addAttribute("startDate", expStartDate);
+		 * model.addAttribute("department", department); model.addAttribute("division",
+		 * division); model.addAttribute("subdivision", subDivision);
+		 * model.addAttribute("workPriority", workPriprity);
+		 * model.addAttribute("worksite", workSite); model.addAttribute("contactNo",
+		 * contactNo);
+		 * 
+		 * model.addAttribute("listOfMaterials", wapItemRequests);
+		 * model.addAttribute("listOfLabors", wapLabourRequests);
+		 * model.addAttribute("listOfVehicles", WapVehicleRequests);
+		 */
+		model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
+		return "/pages/approvals/workorder_approvals";
+	}
 
-			/*
-			 * List<WapWorkOrderItemRequest> wapItemRequests =
-			 * this.wapWorkOrderItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
-			 * List<WapWorkOrderLabourRequest> wapLabourRequests =
-			 * this.wapWorkOrderLabourRequestRepo.getByComplNoAndIndentNo(complNo,
-			 * indentNo); List<WapWorkOrderVehicleRequest> WapVehicleRequests =
-			 * this.wapWorkOrderVehicleRequestRepo.getByComplNoAndIndentNo(complNo,
-			 * indentNo);
-			 * 
-			 * List<WorkOrderItemsRequest> workOrderItemsRequests = new ArrayList<>();
-			 * List<WorkOrderLabourRequest> workOrderLaborRequests = new ArrayList<>();
-			 * List<WorkOrderVehicleRequest> workOrderVehicleRequests = new ArrayList<>();
-			 * 
-			 * if (wapItemRequests != null) {
-			 * 
-			 * for (WapWorkOrderItemRequest wapWorkOrderItem : wapItemRequests) {
-			 * WorkOrderItemsRequest workOrderItems = new WorkOrderItemsRequest(); String
-			 * complNumber = "101" + wapWorkOrderItem.getComplNo();
-			 * workOrderItems.setWorkOrderNo(Long.parseLong(complNumber));
-			 * workOrderItems.setDepartmentName(wapWorkOrderItem.getDepartmentName());
-			 * workOrderItems.setItemId(wapWorkOrderItem.getItemId());
-			 * workOrderItems.setStockType(wapWorkOrderItem.getStockType());
-			 * workOrderItems.setQuantity(Integer.parseInt(wapWorkOrderItem.getQuantity()));
-			 * workOrderItems.setUsername(principal.getName());
-			 * workOrderItems.setIndentNo(wapWorkOrderItem.getIndentNo());
-			 * workOrderItems.setComplNo(wapWorkOrderItem.getComplNo());
-			 * workOrderItems.setDivision(wapWorkOrderItem.getDivision());
-			 * workOrderItems.setSubDivision(wapWorkOrderItem.getSubDivision());
-			 * workOrderItems.setWorkSite(wapWorkOrderItem.getWorkSite());
-			 * workOrderItems.setStartDate(wapWorkOrderItem.getStartDate());
-			 * workOrderItems.setEndDate(wapWorkOrderItem.getEndDate());
-			 * workOrderItems.setContactNo(wapWorkOrderItem.getContactNo());
-			 * workOrderItems.setComplDtls(wapWorkOrderItem.getComplDtls());
-			 * workOrderItems.setWorkPriority(wapWorkOrderItem.getWorkPriority());
-			 * workOrderItems.setCategoryName(wapWorkOrderItem.getCategoryName());
-			 * workOrderItems.setItemName(wapWorkOrderItem.getItemName());
-			 * workOrderItems.setUnitOfMesure(wapWorkOrderItem.getUnitOfMesure());
-			 * workOrderItems.setHsnCode(wapWorkOrderItem.getHsnCode());
-			 * workOrderItems.setStockTypeName(wapWorkOrderItem.getStockTypeName());
-			 * 
-			 * workOrderItemsRequests.add(workOrderItems); }
-			 * 
-			 * this.workOrderItemRequestRepo.saveAll(workOrderItemsRequests); } if
-			 * (wapLabourRequests != null) {
-			 * 
-			 * for (WapWorkOrderLabourRequest wapWorkOrderLabor : wapLabourRequests) {
-			 * WorkOrderLabourRequest workOrderLabors = new WorkOrderLabourRequest(); String
-			 * complNumber = "101" + wapWorkOrderLabor.getComplNo();
-			 * workOrderLabors.setWorkOrderNo(Long.parseLong(complNumber));
-			 * workOrderLabors.setUsername(principal.getName());
-			 * workOrderLabors.setDepartmentName(wapWorkOrderLabor.getDepartmentName());
-			 * workOrderLabors.setIndentNo(wapWorkOrderLabor.getIndentNo());
-			 * workOrderLabors.setComplNo(wapWorkOrderLabor.getComplNo());
-			 * workOrderLabors.setDivision(wapWorkOrderLabor.getDivision());
-			 * workOrderLabors.setSubDivision(wapWorkOrderLabor.getSubDivision());
-			 * workOrderLabors.setWorkSite(wapWorkOrderLabor.getWorkSite());
-			 * workOrderLabors.setStartDate(wapWorkOrderLabor.getStartDate());
-			 * workOrderLabors.setEndDate(wapWorkOrderLabor.getEndDate());
-			 * workOrderLabors.setContactNo(wapWorkOrderLabor.getContactNo());
-			 * workOrderLabors.setComplDtls(wapWorkOrderLabor.getComplDtls());
-			 * workOrderLabors.setWorkPriority(wapWorkOrderLabor.getWorkPriority());
-			 * workOrderLabors.setEmpCategory(wapWorkOrderLabor.getEmpCategory());
-			 * workOrderLabors.setMembers(wapWorkOrderLabor.getMembers());
-			 * workOrderLabors.setDaysRequired(wapWorkOrderLabor.getDaysRequired());
-			 * workOrderLabors.setTimeRequired(wapWorkOrderLabor.getTimeRequired());
-			 * 
-			 * workOrderLaborRequests.add(workOrderLabors); }
-			 * 
-			 * this.workOrderLabourRequestRepo.saveAll(workOrderLaborRequests);
-			 * 
-			 * } if (WapVehicleRequests != null) {
-			 * 
-			 * for (WapWorkOrderVehicleRequest wapWorkOrderVehicle : WapVehicleRequests) {
-			 * WorkOrderVehicleRequest workOrderVehicles = new WorkOrderVehicleRequest();
-			 * String complNumber = "101" + wapWorkOrderVehicle.getComplNo();
-			 * workOrderVehicles.setWorkOrderNo(Long.parseLong(complNumber));
-			 * workOrderVehicles.setUsername(principal.getName());
-			 * workOrderVehicles.setDepartmentName(wapWorkOrderVehicle.getDepartmentName());
-			 * workOrderVehicles.setIndentNo(wapWorkOrderVehicle.getIndentNo());
-			 * workOrderVehicles.setComplNo(wapWorkOrderVehicle.getComplNo());
-			 * workOrderVehicles.setDivision(wapWorkOrderVehicle.getDivision());
-			 * workOrderVehicles.setSubDivision(wapWorkOrderVehicle.getSubDivision());
-			 * workOrderVehicles.setWorkSite(wapWorkOrderVehicle.getWorkSite());
-			 * workOrderVehicles.setStartDate(wapWorkOrderVehicle.getStartDate());
-			 * workOrderVehicles.setEndDate(wapWorkOrderVehicle.getEndDate());
-			 * workOrderVehicles.setContactNo(wapWorkOrderVehicle.getContactNo());
-			 * workOrderVehicles.setComplDtls(wapWorkOrderVehicle.getComplDtls());
-			 * workOrderVehicles.setWorkPriority(wapWorkOrderVehicle.getWorkPriority());
-			 * workOrderVehicles.setVehicleType(wapWorkOrderVehicle.getVehicleType());
-			 * workOrderVehicles.setVehicleNo(wapWorkOrderVehicle.getVehicleNo());
-			 * workOrderVehicles.setDriverName(wapWorkOrderVehicle.getDriverName());
-			 * workOrderVehicles.setDriverPhone(wapWorkOrderVehicle.getDriverPhone());
-			 * workOrderVehicles.setMeterReading(wapWorkOrderVehicle.getMeterReading());
-			 * workOrderVehicles.setStratTime(wapWorkOrderVehicle.getStratTime());
-			 * workOrderVehicles.setVehicleId(wapWorkOrderVehicle.getVehicleId());
-			 * 
-			 * workOrderVehicleRequests.add(workOrderVehicles); }
-			 * 
-			 * this.workOrderVehicleRequestRepo.saveAll(workOrderVehicleRequests); }
-			 */
+	// Handler For Approve Work Order Data
+	@GetMapping("/workorder/approve/{complNo}/{indentNo}")
+	public String approveWorkOrderData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
 
-			ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
-			oldcomplaintDto.setComplStatus("work_order_approved");
-			oldcomplaintDto.setWorkorderApprovedBy(principal.getName());
-			oldcomplaintDto.setWorkOrder("101"+complNo);
-			oldcomplaintDto.setWorkorderApprovedDate(new java.sql.Date(System.currentTimeMillis()));
-			this.taskUpdateService.saveComplaint(oldcomplaintDto);
-			session.setAttribute("message", new Message("Workorder Approved Sucessfully !!", "success"));
-			return "redirect:/approval/workorder";
-		}
-		
+		/*
+		 * List<WapWorkOrderItemRequest> wapItemRequests =
+		 * this.wapWorkOrderItemRequestRepo.getByComplNoAndIndentNo(complNo, indentNo);
+		 * List<WapWorkOrderLabourRequest> wapLabourRequests =
+		 * this.wapWorkOrderLabourRequestRepo.getByComplNoAndIndentNo(complNo,
+		 * indentNo); List<WapWorkOrderVehicleRequest> WapVehicleRequests =
+		 * this.wapWorkOrderVehicleRequestRepo.getByComplNoAndIndentNo(complNo,
+		 * indentNo);
+		 * 
+		 * List<WorkOrderItemsRequest> workOrderItemsRequests = new ArrayList<>();
+		 * List<WorkOrderLabourRequest> workOrderLaborRequests = new ArrayList<>();
+		 * List<WorkOrderVehicleRequest> workOrderVehicleRequests = new ArrayList<>();
+		 * 
+		 * if (wapItemRequests != null) {
+		 * 
+		 * for (WapWorkOrderItemRequest wapWorkOrderItem : wapItemRequests) {
+		 * WorkOrderItemsRequest workOrderItems = new WorkOrderItemsRequest(); String
+		 * complNumber = "101" + wapWorkOrderItem.getComplNo();
+		 * workOrderItems.setWorkOrderNo(Long.parseLong(complNumber));
+		 * workOrderItems.setDepartmentName(wapWorkOrderItem.getDepartmentName());
+		 * workOrderItems.setItemId(wapWorkOrderItem.getItemId());
+		 * workOrderItems.setStockType(wapWorkOrderItem.getStockType());
+		 * workOrderItems.setQuantity(Integer.parseInt(wapWorkOrderItem.getQuantity()));
+		 * workOrderItems.setUsername(principal.getName());
+		 * workOrderItems.setIndentNo(wapWorkOrderItem.getIndentNo());
+		 * workOrderItems.setComplNo(wapWorkOrderItem.getComplNo());
+		 * workOrderItems.setDivision(wapWorkOrderItem.getDivision());
+		 * workOrderItems.setSubDivision(wapWorkOrderItem.getSubDivision());
+		 * workOrderItems.setWorkSite(wapWorkOrderItem.getWorkSite());
+		 * workOrderItems.setStartDate(wapWorkOrderItem.getStartDate());
+		 * workOrderItems.setEndDate(wapWorkOrderItem.getEndDate());
+		 * workOrderItems.setContactNo(wapWorkOrderItem.getContactNo());
+		 * workOrderItems.setComplDtls(wapWorkOrderItem.getComplDtls());
+		 * workOrderItems.setWorkPriority(wapWorkOrderItem.getWorkPriority());
+		 * workOrderItems.setCategoryName(wapWorkOrderItem.getCategoryName());
+		 * workOrderItems.setItemName(wapWorkOrderItem.getItemName());
+		 * workOrderItems.setUnitOfMesure(wapWorkOrderItem.getUnitOfMesure());
+		 * workOrderItems.setHsnCode(wapWorkOrderItem.getHsnCode());
+		 * workOrderItems.setStockTypeName(wapWorkOrderItem.getStockTypeName());
+		 * 
+		 * workOrderItemsRequests.add(workOrderItems); }
+		 * 
+		 * this.workOrderItemRequestRepo.saveAll(workOrderItemsRequests); } if
+		 * (wapLabourRequests != null) {
+		 * 
+		 * for (WapWorkOrderLabourRequest wapWorkOrderLabor : wapLabourRequests) {
+		 * WorkOrderLabourRequest workOrderLabors = new WorkOrderLabourRequest(); String
+		 * complNumber = "101" + wapWorkOrderLabor.getComplNo();
+		 * workOrderLabors.setWorkOrderNo(Long.parseLong(complNumber));
+		 * workOrderLabors.setUsername(principal.getName());
+		 * workOrderLabors.setDepartmentName(wapWorkOrderLabor.getDepartmentName());
+		 * workOrderLabors.setIndentNo(wapWorkOrderLabor.getIndentNo());
+		 * workOrderLabors.setComplNo(wapWorkOrderLabor.getComplNo());
+		 * workOrderLabors.setDivision(wapWorkOrderLabor.getDivision());
+		 * workOrderLabors.setSubDivision(wapWorkOrderLabor.getSubDivision());
+		 * workOrderLabors.setWorkSite(wapWorkOrderLabor.getWorkSite());
+		 * workOrderLabors.setStartDate(wapWorkOrderLabor.getStartDate());
+		 * workOrderLabors.setEndDate(wapWorkOrderLabor.getEndDate());
+		 * workOrderLabors.setContactNo(wapWorkOrderLabor.getContactNo());
+		 * workOrderLabors.setComplDtls(wapWorkOrderLabor.getComplDtls());
+		 * workOrderLabors.setWorkPriority(wapWorkOrderLabor.getWorkPriority());
+		 * workOrderLabors.setEmpCategory(wapWorkOrderLabor.getEmpCategory());
+		 * workOrderLabors.setMembers(wapWorkOrderLabor.getMembers());
+		 * workOrderLabors.setDaysRequired(wapWorkOrderLabor.getDaysRequired());
+		 * workOrderLabors.setTimeRequired(wapWorkOrderLabor.getTimeRequired());
+		 * 
+		 * workOrderLaborRequests.add(workOrderLabors); }
+		 * 
+		 * this.workOrderLabourRequestRepo.saveAll(workOrderLaborRequests);
+		 * 
+		 * } if (WapVehicleRequests != null) {
+		 * 
+		 * for (WapWorkOrderVehicleRequest wapWorkOrderVehicle : WapVehicleRequests) {
+		 * WorkOrderVehicleRequest workOrderVehicles = new WorkOrderVehicleRequest();
+		 * String complNumber = "101" + wapWorkOrderVehicle.getComplNo();
+		 * workOrderVehicles.setWorkOrderNo(Long.parseLong(complNumber));
+		 * workOrderVehicles.setUsername(principal.getName());
+		 * workOrderVehicles.setDepartmentName(wapWorkOrderVehicle.getDepartmentName());
+		 * workOrderVehicles.setIndentNo(wapWorkOrderVehicle.getIndentNo());
+		 * workOrderVehicles.setComplNo(wapWorkOrderVehicle.getComplNo());
+		 * workOrderVehicles.setDivision(wapWorkOrderVehicle.getDivision());
+		 * workOrderVehicles.setSubDivision(wapWorkOrderVehicle.getSubDivision());
+		 * workOrderVehicles.setWorkSite(wapWorkOrderVehicle.getWorkSite());
+		 * workOrderVehicles.setStartDate(wapWorkOrderVehicle.getStartDate());
+		 * workOrderVehicles.setEndDate(wapWorkOrderVehicle.getEndDate());
+		 * workOrderVehicles.setContactNo(wapWorkOrderVehicle.getContactNo());
+		 * workOrderVehicles.setComplDtls(wapWorkOrderVehicle.getComplDtls());
+		 * workOrderVehicles.setWorkPriority(wapWorkOrderVehicle.getWorkPriority());
+		 * workOrderVehicles.setVehicleType(wapWorkOrderVehicle.getVehicleType());
+		 * workOrderVehicles.setVehicleNo(wapWorkOrderVehicle.getVehicleNo());
+		 * workOrderVehicles.setDriverName(wapWorkOrderVehicle.getDriverName());
+		 * workOrderVehicles.setDriverPhone(wapWorkOrderVehicle.getDriverPhone());
+		 * workOrderVehicles.setMeterReading(wapWorkOrderVehicle.getMeterReading());
+		 * workOrderVehicles.setStratTime(wapWorkOrderVehicle.getStratTime());
+		 * workOrderVehicles.setVehicleId(wapWorkOrderVehicle.getVehicleId());
+		 * 
+		 * workOrderVehicleRequests.add(workOrderVehicles); }
+		 * 
+		 * this.workOrderVehicleRequestRepo.saveAll(workOrderVehicleRequests); }
+		 */
+
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("work_order_approved");
+		oldcomplaintDto.setWorkorderApprovedBy(principal.getName());
+		oldcomplaintDto.setWorkOrder("101" + complNo);
+		oldcomplaintDto.setWorkorderApprovedDate(new java.sql.Date(System.currentTimeMillis()));
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+		session.setAttribute("message", new Message("Workorder Approved Sucessfully !!", "success"));
+		return "redirect:/approval/workorder";
+	}
+
 }

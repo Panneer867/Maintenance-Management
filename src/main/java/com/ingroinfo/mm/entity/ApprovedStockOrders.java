@@ -42,6 +42,7 @@ public class ApprovedStockOrders {
 	private Double grandTotal;
 	private Long stockOrderNo;
 	private String username;
+	private String approvalStatus;
 
 	private String indentNo;
 	private String complNo;
