@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	//$("#hold-button-workorder").addClass("disabled-link");
+	
+
 	$(".tablinks").addClass('active');
 	$('.btnNext').click(function() {
 		var $activeTab = $('.nav-tabs > .active');
@@ -654,12 +657,12 @@ $(document).ready(function() {
 							driverPhone: $("#pump-vehicle-driverPhone").val(),
 							meterReading: $("#pump-vehicle-meterReading").val(),
 							stratTime: $("#pump-vehicle-stratingTime").val(),
-							vehicleNo: $("#pump-vehicle-vehicleNo").val(),							
+							vehicleNo: $("#pump-vehicle-vehicleNo").val(),
 
 						},
 						success: function(result) {
 
-							    $("#master-vehicleType-list").val(""),
+							$("#master-vehicleType-list").val(""),
 								$("#master-vehicleNos-list").val(""),
 								$("#pump-vehicle-driverName").val(""),
 								$("#pump-vehicle-driverPhone").val(""),

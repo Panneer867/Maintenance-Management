@@ -48,7 +48,7 @@
 										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
 											No</label>
 										<div class="col-sm-7 px-0">
-											<input type="text"
+											<input type="text" id="complNo-compldtls"
 												class="form-control form-control-sm text-center font-weight-bold"
 												disabled th:value="${complNo}" />
 										</div>
@@ -178,9 +178,10 @@
 									<thead class="table-dark">
 										<tr>
 											<th>Category</th>
-											<th>Item</th>
+											<th>Item Name</th>
+											<th>Stock Order No</th>
 											<th>HSNCode</th>
-											<th>Unit of Meassure</th>
+											<th>Unit of Meas</th>
 											<th>Qty</th>
 											<th>Stock Type</th>
 										</tr>
@@ -189,6 +190,7 @@
 										<tr th:each="material:${listOfMaterials}" class="bl-cr">
 											<td th:text="${material.categoryName}"></td>
 											<td th:text="${material.itemName}"></td>
+											<td th:text="${material.stockOrderNo}"></td>
 											<td th:text="${material.hsnCode}"></td>
 											<td th:text="${material.unitOfMesure}"></td>
 											<td th:text="${material.quantity}"></td>
@@ -246,8 +248,15 @@
 								</table>
 							</div>
 						</div>
-						<div class=" text-center mt-3 mb-2">
-							<a class="btn btn-primary btnPrevious w-20  text-white" th:href="@{/workorder/generate/submit/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Submit</a>						
+						<div class=" text-center mt-4 mb-4">
+							<a th:if="${complNo != null and indentNo != null}" class="btn btn-warning text-white"
+								th:href="@{/workorder/generate/hold/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+								&nbsp;&nbsp;Hold&nbsp;&nbsp;
+							</a>
+							<a th:if="${complNo != null and indentNo != null}" class="btn btn-primary text-white"
+								th:href="@{/workorder/generate/submit/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Generate</a>&nbsp;
+							<a th:if="${complNo != null and indentNo != null}" class="btn btn-danger text-white"
+								th:href="@{/workorder/generate/cancel/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Cancel</a>
 						</div>
 					</div>
 				</div>
@@ -265,15 +274,16 @@
 									<th class="text-center fs-6" scope="col-sm">Compl No</th>
 									<th class="text-center fs-6" scope="col-sm">Indent No</th>
 									<th class="text-center fs-6" scope="col-sm">Department</th>
+									<th class="text-center fs-6" scope="col-sm">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="vindent : ${VerifiedIndentStsList}" class="text-center">
-									<td class="fs-6"><a
-									th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${vindent.complNo}, indentNo=${vindent.indentNo})}">
-									<span th:text="${'CN'+vindent.complNo}"></span></a></td>
+									<td class="fs-6" th:text="${'CN'+vindent.complNo}"></td>
 									<td class="fs-6" th:text="${vindent.indentNo}"></td>
 									<td class="fs-6" th:text="${vindent.departmentName}"></td>
+									<td><a th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${vindent.complNo}, indentNo=${vindent.indentNo})}"
+											class="btn-sm btn-danger fs-6 p-1"><span class="">Click</span></a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -281,7 +291,6 @@
 				</div>
 			</div>
 		</div>
-
 	</section>
 </body>
 

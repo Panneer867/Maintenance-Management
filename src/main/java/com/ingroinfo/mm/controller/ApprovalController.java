@@ -251,9 +251,6 @@ public class ApprovalController {
 			this.indentApprovedItemsRepo.saveAll(approvedIndentItems);
 			CopyItemsToStockorders(principal.getName(),complNo,indentNo);
 			this.tempIndentItemRequestRepo.deleteAllByComplNo(complNo);
-
-
-			
 		}
 		if (tempIndentLabourRequests != null) {
 			ModelMapper modelMapper = new ModelMapper();

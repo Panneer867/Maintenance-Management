@@ -306,7 +306,7 @@ $(document).ready(function() {
 	});
 
 	$(function() {
-		if (window.location.href.match('/asset/viewAsset')) {
+		if (window.location.href.match('/asset/view') || window.location.href.match('/asset/id/view')) {
 			$("#asset-view-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});

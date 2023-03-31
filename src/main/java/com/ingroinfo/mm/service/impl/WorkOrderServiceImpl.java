@@ -1,6 +1,9 @@
 package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +13,24 @@ import com.ingroinfo.mm.dao.IndentApprovedVehiclesRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemRequestRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderVehicleRequestRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderLaboursRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderVehiclesRepository;
+import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
 import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
+import com.ingroinfo.mm.entity.WapWorkOrderItems;
 import com.ingroinfo.mm.service.WorkOrderService;
 
 @Service
 public class WorkOrderServiceImpl implements WorkOrderService {
 
+	@Autowired
+	private ModelMapper modelMapper;
 	@Autowired
 	private TempWorkOrderItemRequestRepository tempWorkOrderItemRequestRepo;
 	@Autowired
@@ -33,6 +43,12 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	private IndentApprovedLaboursRepository indentApprovedLaboursRepo;
 	@Autowired
 	private IndentApprovedVehiclesRepository indentApprovedVehiclesRepo;
+	@Autowired
+	private WapWorkOrderItemsRepository wapWorkOrderItemsRepo;
+	@Autowired
+	private WapWorkOrderVehiclesRepository wapWorkOrderVehiclesRepo;
+	@Autowired
+	private WapWorkOrderLaboursRepository wapWorkOrderLaboursRepo;
 
 	@Override
 	public List<TempWorkOrderItemRequest> getTempWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo) {
@@ -96,5 +112,17 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		this.indentApprovedVehiclesRepo.saveAll(approvedIndentVehicles);
 	}
 
+	@Override
+	public void saveAllWapWorkOrderItems(List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos) {
+		List<WapWorkOrderItems> wapWorkItems = wapWorkOrderItemsDtos.stream()
+				.map((wapWorkItem) -> this.modelMapper.map(wapWorkItem, WapWorkOrderItems.class))
+				.collect(Collectors.toList());
+		this.wapWorkOrderItemsRepo.saveAll(wapWorkItems);
+	}
+
+	@Override
+	public void deleteTempWorkOrderItemRequestByComplNo(String complNo) {
+		this.tempWorkOrderItemRequestRepo.deleteByComplNo(complNo);
+	}
 
 }

@@ -2,6 +2,7 @@ package com.ingroinfo.mm.service;
 
 import java.util.List;
 
+import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
@@ -49,6 +50,12 @@ public interface WorkOrderService {
 
 	//Save All Approved Indent Vehicles Data
 	void saveAllApprovedIndentVehicles(List<IndentApprovedVehicles> approvedIndentVehicles);
+
+	//Save All WapWorkorderItems Data
+	void saveAllWapWorkOrderItems(List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos);
+
+	//Delete All TempWorkOrder Data By ComplNo
+	void deleteTempWorkOrderItemRequestByComplNo(String complNo);
 
 
 }
