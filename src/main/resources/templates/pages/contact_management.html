@@ -2,30 +2,30 @@
 
 <body>
 	<section>
-		<div class="col-sm-12 mt-2">
+		<div class="col-sm-10 mt-5 mx-auto">
 			<div class="card bl-cr">
 				<div class="card-header heading-bg">
 					<h3 class="text-center text-white">Contact Mangement</h3>
 				</div>
 				<div class="card-body font-weight-bold">
-					<form method="post" th:action="@{/savecontactangement}">
+					<form method="post" th:action="@{/save}">
 						<div class="row">
 							<div class="col">
 								<div class="row">
 									<div class="form-group col-md-4">
 										<label for="contactId">Contact ID</label>
 										<input type="text" class="form-control" id="contactId" name="contactId"
-											placeholder="Contact ID">
+											placeholder="Contact ID" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="division">Division</label>
 										<input type="text" class="form-control" id="division" name="division"
-											placeholder="Division">
+											placeholder="Division" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="subDivision">Sub-Division</label>
 										<input type="text" class="form-control" id="subDivision" name="subDivision"
-											placeholder="Sub-Division">
+											placeholder="Sub-Division" required>
 									</div>
 								</div>
 
@@ -33,17 +33,17 @@
 									<div class="form-group col-md-4">
 										<label for="dept">Department</label>
 										<input type="text" class="form-control" id="dept" name="dept"
-											placeholder="Department">
+											placeholder="Department" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="desig">Designation</label>
 										<input type="text" class="form-control" id="desig" name="desig"
-											placeholder="Designation">
+											placeholder="Designation" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="name">Name</label>
 										<input type="text" class="form-control" id="name" name="name"
-											placeholder="Name">
+											placeholder="Name" required>
 									</div>
 								</div>
 
@@ -51,23 +51,22 @@
 									<div class="form-group col-md-4">
 										<label for="mobileNo">Mobile Number</label>
 										<input type="number" class="form-control" id="mobileNo" name="mobileNo"
-											placeholder="Mobile Number">
+											placeholder="Mobile Number" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="emailId">Email ID</label>
 										<input type="email" class="form-control" id="emailId" name="emailId"
-											placeholder="Email ID">
+											placeholder="Email ID" required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="empStatus">Employee Status</label>
 										<input type="text" class="form-control" id="empStatus" name="empStatus"
-											placeholder="Employee Status">
+											placeholder="Employee Status" required>
 									</div>
 								</div>
 							</div>
 							<div class="col-3">
-								<!--<label for="formGroupExampleInput">Preview</label>
-							<img th:src="@{/images/qr_code.png}" class="rounded mx-auto d-block" alt="...">-->
+								
 								<div id="profile-container">
 									<image id="profileImage" th:src="@{/images/profile1.png}" />
 								</div>
@@ -78,7 +77,7 @@
 
 						<div class="text-center mt-3">
 							<button type="submit" class="btn btn-primary">Submit</button>
-							<a type="button" th:href="@{/contact/viewcontact}" class="btn btn-primary">View</a>
+							<a type="button" th:href="@{/contact/view}" class="btn btn-success">View</a>
 						</div>
 					</form>
 				</div>

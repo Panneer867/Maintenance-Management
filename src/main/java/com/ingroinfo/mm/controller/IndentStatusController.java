@@ -1,11 +1,13 @@
 package com.ingroinfo.mm.controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
@@ -22,6 +24,12 @@ public class IndentStatusController {
 	@Autowired
 	private WorkOrderService workOrderService;
 
+	
+	@ModelAttribute
+	private void UserDetailsService(Model model, Principal principal) {
+		model.addAttribute("getLoggedUser", principal.getName());
+	}
+	
 	@GetMapping("/indent-status")
 	public String verifyIndentStatus(Model model) {
 		String complStatus = "approved_indent";
