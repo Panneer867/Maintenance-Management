@@ -3,75 +3,100 @@
 <body>
 	<section>
 		<div class="col-sm-10 mt-5 mx-auto">
+			<div th:if="${session.message}" class="alert_field">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
 			<div class="card bl-cr">
 				<div class="card-header heading-bg">
 					<h3 class="text-center text-white">Contact Mangement</h3>
 				</div>
+
+
 				<div class="card-body font-weight-bold">
-					<form method="post" th:action="@{/save}">
+					<form th:action="@{/contact/save}" th:object="${contact}" method="post"
+						enctype="multipart/form-data">
+
 						<div class="row">
 							<div class="col">
 								<div class="row">
 									<div class="form-group col-md-4">
-										<label for="contactId">Contact ID</label>
-										<input type="text" class="form-control" id="contactId" name="contactId"
+										<label for="name">Name<strong class="text-danger">*</strong></label>
+										<input type="text" class="form-control" name="name" placeholder="Name" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="dept">Department<strong class="text-danger">*</strong></label>
+										<select type="text" id="master-division-list" name="department" required
+											class="form-select text-center font-weight-bold">
+
+											<option value="">--Select--</option>
+											<option th:each="listOfDept : ${listOfDepts}"
+												th:value="${listOfDept.DepartmentName}"
+												th:utext="${listOfDept.DepartmentName}" />
+										</select>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="contactId">Contact ID<strong class="text-danger">*</strong></label>
+										<input type="text" class="form-control" name="contactId"
 											placeholder="Contact ID" required>
 									</div>
-									<div class="form-group col-md-4">
-										<label for="division">Division</label>
-										<input type="text" class="form-control" id="division" name="division"
-											placeholder="Division" required>
-									</div>
-									<div class="form-group col-md-4">
-										<label for="subDivision">Sub-Division</label>
-										<input type="text" class="form-control" id="subDivision" name="subDivision"
-											placeholder="Sub-Division" required>
-									</div>
+
 								</div>
 
 								<div class="row mt-2 ">
 									<div class="form-group col-md-4">
-										<label for="dept">Department</label>
-										<input type="text" class="form-control" id="dept" name="dept"
-											placeholder="Department" required>
+										<label for="division">Division<strong class="text-danger">*</strong></label>
+										<select type="text" id="master-division-list-contact" name="division"
+											class="form-select text-center font-weight-bold" required>
+											<option value="">--Select--</option>
+
+											<option th:each="divisions: ${divSubDivList}" th:text="${divisions}">
+											</option>
+										</select>
 									</div>
 									<div class="form-group col-md-4">
-										<label for="desig">Designation</label>
-										<input type="text" class="form-control" id="desig" name="desig"
+										<label for="subDivision">Sub-Division<strong
+												class="text-danger">*</strong></label>
+										<select type="text" id="master-sub-division-list-contact" name="subDivision"
+											class="form-select text-center font-weight-bold" required>
+											<option value="">--Select--</option>
+										</select>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="desig">Designation<strong class="text-danger">*</strong></label>
+										<input type="text" class="form-control" name="designation"
 											placeholder="Designation" required>
 									</div>
-									<div class="form-group col-md-4">
-										<label for="name">Name</label>
-										<input type="text" class="form-control" id="name" name="name"
-											placeholder="Name" required>
-									</div>
+
 								</div>
 
 								<div class="row mt-2 ">
 									<div class="form-group col-md-4">
-										<label for="mobileNo">Mobile Number</label>
-										<input type="number" class="form-control" id="mobileNo" name="mobileNo"
+										<label for="mobileNo">Mobile Number<strong
+												class="text-danger">*</strong></label>
+										<input type="number" class="form-control" name="mobileNo"
 											placeholder="Mobile Number" required>
 									</div>
 									<div class="form-group col-md-4">
-										<label for="emailId">Email ID</label>
-										<input type="email" class="form-control" id="emailId" name="emailId"
-											placeholder="Email ID" required>
+										<label for="emailId">Email ID<strong class="text-danger">*</strong></label>
+										<input type="email" class="form-control" name="email" placeholder="Email ID"
+											required>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="empStatus">Employee Status</label>
-										<input type="text" class="form-control" id="empStatus" name="empStatus"
-											placeholder="Employee Status" required>
+										<input type="text" class="form-control" name="empStatus"
+											placeholder="Employee Status">
 									</div>
 								</div>
 							</div>
 							<div class="col-3">
-								
+								<label for="emailId" class="ml-5">Photo<strong class="text-danger">*</strong></label>
 								<div id="profile-container">
 									<image id="profileImage" th:src="@{/images/profile1.png}" />
 								</div>
-								<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" capture>
-
+								<input id="imageUpload" type="file" name="image" accept="image/*" required>
 							</div>
 						</div>
 
@@ -83,43 +108,64 @@
 				</div>
 			</div>
 		</div>
-	
-	
+
+
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
-			<h5 class="text-center text-white mt-2 p-1 bg-primary">Contact Mangement Details</h5>
+			<h4 class="text-center text-white mt-2 p-1 bg-success">All Contacts
+			</h4>
 			<table
 				class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
 				<thead class="table-dark">
 					<tr>
 						<th style="width: 15px;">Id</th>
-						<th>Divis</th>
-						<th>Sub-Division</th>
+						<th>Name</th>
 						<th>Department</th>
 						<th>Designation</th>
-						<th>Name</th>
-						<th>Mobile No</th>
-						<th>Email ID</th>
-						<th>Emp Status</th>
+						<th>Division</th>
+						<th>Sub-Division</th>
+
+						<th>Mobile</th>
+						<th>Email</th>
+						<th>Status</th>
 						<th>Photo</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="contact: ${contactMang}">
+					<tr th:each="contact: ${contacts}">
 						<td th:text="${contact.contactId}"></td>
+						<td th:text="${contact.name}"></td>
+						<td th:text="${contact.department}"></td>
+						<td th:text="${contact.designation}"></td>
 						<td th:text="${contact.division}"></td>
 						<td th:text="${contact.subDivision}"></td>
-						<td th:text="${contact.dept}"></td>
-						<td th:text="${contact.desig}"></td>
-						<td th:text="${contact.name}"></td>
 						<td th:text="${contact.mobileNo}"></td>
-						<td th:text="${contact.emailId}"></td>
+						<td th:text="${contact.email}"></td>
 						<td th:text="${contact.empStatus}"></td>
-						<td th:text="${contact.imageUpload}"></td>
+						<td class="text-center img-box"
+						th:attr="onclick=|viewImg('${contact.image}')|" data-toggle="modal"
+						data-target="#imgModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to View">
+						<img th:src="@{${contact.image}}" alt="image" />
+					</td>
 					</tr>
 				</tbody>
 			</table>
 
 
+		</div>
+		<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
+				<div class="modal-content">
+					<div class="modal-header p-2 bg-dark">
+						<h4 class="mx-auto text-white">Photo</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-1">
+						<img th:id="viewRef" width="794" alt="image" />
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 

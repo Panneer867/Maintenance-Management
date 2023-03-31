@@ -1,23 +1,23 @@
 $(document).ready(function() {
-	
+
 	//Getting HsnCode from Category Master
-	$("#item-master-category").change(function() {		
+	$("#item-master-category").change(function() {
 		var categoryId = $(this).val();
 		if (categoryId == "") {
 			alert("Select Category !!");
 			return false;
 		}
-				//Getting Stock Type 
+		//Getting Stock Type 
 		$.ajax({
 			type: "GET",
 			url: "/masters/get/hsnCode/" + categoryId,
 			success: function(data) {
 				var json = JSON.stringify(data);
-				var jsonobject = JSON.parse(json);				
-				$("#item-master-hsnCode").val(jsonobject.hsnCode);				
+				var jsonobject = JSON.parse(json);
+				$("#item-master-hsnCode").val(jsonobject.hsnCode);
 			},
-		});		
-		
+		});
+
 	});
 
 	//Getting SubDivision From Master According To Division
@@ -40,11 +40,39 @@ $(document).ready(function() {
 						'<option>' + jsonobject[i].subdivision + "</option>";
 				}
 				$("#master-sub-division-list").html(s);
+				$("#master-sub-division-list-contact").html(s);
 			},
 		});
 
 	});
-	
+
+
+	//Getting SubDivision From Master According To Division for Contact management
+	$("#master-division-list-contact").change(function() {
+		var division = $(this).val();
+		if (division == "") {
+			alert("Select Division !!");
+			return false;
+		}
+		var s = '<option value="">--Select--</option>';
+
+		$.ajax({
+			type: "GET",
+			url: "/masters/get/subdivision/" + division,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var jsonobject = JSON.parse(json);
+				for (var i = 0; i < jsonobject.length; i++) {
+					s +=
+						'<option>' + jsonobject[i].subdivision + "</option>";
+				}
+
+				$("#master-sub-division-list-contact").html(s);
+			},
+		});
+
+	});
+
 	//Getting Distibution Location From Master According To SubDivision
 	$("#master-sub-division-list").change(function() {
 		var subDivision = $(this).val();

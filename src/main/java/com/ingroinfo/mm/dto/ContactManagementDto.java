@@ -5,16 +5,16 @@ import lombok.Data;
 @Data
 public class ContactManagementDto {
 	
-	private Long contId;
+	private Long recordId;
 	private String contactId;
 	private String division;
 	private String subDivision;
-	private String dept;
-	private String desig;
+	private String department;
+	private String designation;
 	private String name;
 	private String mobileNo;
-	private String emailId;
+	private String email;
 	private String empStatus;
-	private byte[] imageUpload;
+	private String image;
 
 }

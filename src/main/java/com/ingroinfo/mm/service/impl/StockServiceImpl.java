@@ -221,8 +221,11 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempMaterials inwardTempMaterials = modelMapper.map(inward, InwardTempMaterials.class);
 
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+
 		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
-		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Materials\\";
+		String uploadDir = drive + "\\Company\\" + companyName + "\\Inward_Materials\\";
 
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
@@ -341,8 +344,11 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempSpares inwardTempSpares = modelMapper.map(inward, InwardTempSpares.class);
 
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+
 		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
-		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Spares\\";
+		String uploadDir = drive + "\\Company\\" + companyName + "\\Inward_Spares\\";
 
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
@@ -459,8 +465,11 @@ public class StockServiceImpl implements StockService {
 
 		InwardTempTools inwardTempTools = modelMapper.map(inward, InwardTempTools.class);
 
+		List<String> drives = adminService.getLocalDriveLetters();
+		String drive = drives.get(0);
+
 		String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "." + tokens.get();
-		String uploadDir = "C:\\Company\\" + companyName + "\\Inward_Tools\\";
+		String uploadDir = drive + "\\Company\\" + companyName + "\\Inward_Tools\\";
 
 		try {
 			adminService.saveFile(uploadDir, fileName, file);
@@ -987,7 +996,11 @@ public class StockServiceImpl implements StockService {
 
 			String fileName = stockReturn.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + "."
 					+ tokens.get();
-			String uploadDir = "C:\\Company\\" + companyName + "\\Stock_Returns\\";
+
+			List<String> drives = adminService.getLocalDriveLetters();
+			String drive = drives.get(0);
+
+			String uploadDir = drive + "\\Company\\" + companyName + "\\Stock_Returns\\";
 
 			try {
 				adminService.saveFile(uploadDir, fileName, file);

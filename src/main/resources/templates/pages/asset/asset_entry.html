@@ -31,7 +31,7 @@
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Division</label>
 								<select type="text" id="master-division-list" name="division"
-									class="form-select text-center font-weight-bold">
+									class="form-select text-center font-weight-bold" required>
 									<option value="">--Select--</option>
 
 									<option th:each="divisions: ${divSubDivList}" th:text="${divisions}">
@@ -41,7 +41,7 @@
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Sub Division</label>
 								<select type="text" id="master-sub-division-list" name="subDivision"
-									class="form-select text-center font-weight-bold">
+									class="form-select text-center font-weight-bold" required>
 									<option value="">--Select--</option>
 								</select>
 

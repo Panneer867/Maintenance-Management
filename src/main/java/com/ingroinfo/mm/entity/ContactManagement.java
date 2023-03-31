@@ -11,20 +11,20 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name ="MM_Contact_Mangement")
+@Table(name ="mm_contact_mangement")
 public class ContactManagement {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long contId;
+	private Long recordId;
 	private String contactId;
 	private String division;
 	private String subDivision;
-	private String dept;
-	private String desig;
+	private String department;
+	private String designation;
 	private String name;
 	private String mobileNo;
-	private String emailId;
+	private String email;
 	private String empStatus;
-	private byte[] imageUpload;
+	private String image;
 }
