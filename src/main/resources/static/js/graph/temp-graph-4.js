@@ -1,4 +1,4 @@
-Highcharts.chart('leakage-graph-4', {
+Highcharts.chart('temp-graph-4', {
   chart: {
     type: 'bar'
   },

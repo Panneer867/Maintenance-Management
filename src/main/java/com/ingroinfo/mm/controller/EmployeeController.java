@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +68,9 @@ public class EmployeeController {
 	public ModelMapperConfig mapper;
 	@Autowired
 	private MasterService masterService;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('EMPLOYEE_DASHBOARD')")
@@ -473,26 +478,21 @@ public class EmployeeController {
 	
 	
 
-	@GetMapping("/dash/empCount")
-	public @ResponseBody List<EmployeeGraphDto> getDeptWiseMonthlyEmployee() {
-	    List<EmployeeGraphDto> graph = null ;
-	    try {
-	        // Get the current year
-	        //int currentYear = Year.now().getValue();
-
-	        // Modify the SQL query to filter by current year
-	        //String sql = "SELECT * FROM DASHBOARD_DEPTWISE_EMPLOYEE WHERE YEAR = ?";
-	        //System.out.println("SQL query: " + sql);
-
-	        // Execute the query and map the result set to a list of EmployeeGraphDto objects
-	       // graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return graph;	
-	}
+   @GetMapping("/dash/empCount") 
+	  public @ResponseBody List<EmployeeGraphDto>  getDeptWiseMonthlyEmployee() { 
+		  List<EmployeeGraphDto> graph = null ; 
+		  try {
+	  
+	            String sql = "SELECT * FROM DASHBOARD_DEPTWISE_EMPLOYEE"; 
+	 
+	            graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
+	  
+	        } catch (Exception e) {
+		       e.printStackTrace(); 
+		    }
+	  
+	          return graph; 
+	  }
 
 	  @GetMapping("/dash/empLeave")
 	  public @ResponseBody List<EmployeeGraphDto> getMonthlyEmpLeave() {

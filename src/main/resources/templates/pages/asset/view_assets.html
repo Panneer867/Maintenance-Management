@@ -13,9 +13,10 @@
 						<th class="all">Asset Name</th>
 						<th class="all">Asset Type</th>
 						<th class="all">Category</th>
-						<th class="all">Sub Category</th>
+						<th class="all">Quantity</th>
 						<th class="all">Department</th>
 						<th class="all">Model</th>
+						<th class="all">Cost</th>
 						<th class="all">Action</th>
 					</tr>
 				</thead>
@@ -25,9 +26,10 @@
 						<td th:text="${asset.assetName}"></td>
 						<td th:text="${asset.assetType}"></td>
 						<td th:text="${asset.category}"></td>
-						<td th:text="${asset.subCategory}"></td>
+						<td th:text="${asset.quantity}"></td>
 						<td th:text="${asset.department}"></td>
 						<td th:text="${asset.model}"></td>
+						<td th:text="${asset.cost}"></td>
 						<td class="text-center">
 							<a class="text-white bg-black p-2 rounded" th:href="@{'/asset/id/view/'+ ${asset.assetEntryId}}">View</a>
 						</td>

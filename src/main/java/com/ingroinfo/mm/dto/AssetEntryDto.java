@@ -24,5 +24,6 @@ public class AssetEntryDto {
 	private String storeName;
 	private String department;
 	private String assetMake;
+	private int quantity;
 
 }

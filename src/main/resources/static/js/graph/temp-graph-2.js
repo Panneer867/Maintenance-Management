@@ -1,5 +1,5 @@
 // Data retrieved from: https://www.uefa.com/uefachampionsleague/history/
-Highcharts.chart('leakage-graph-2', {
+Highcharts.chart('temp-graph-2', {
   chart: {
     type: 'bar'
   },

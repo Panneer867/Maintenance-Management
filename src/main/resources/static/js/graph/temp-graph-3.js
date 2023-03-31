@@ -1,4 +1,4 @@
-Highcharts.chart('leakage-graph-3', {
+Highcharts.chart('temp-graph-3', {
   chart: {
     type: 'column'
   },

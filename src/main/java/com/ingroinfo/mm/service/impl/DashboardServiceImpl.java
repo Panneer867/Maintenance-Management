@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ingroinfo.mm.dto.ComplaintDto;
@@ -155,6 +154,6 @@ public class DashboardServiceImpl implements DashboardService {
 		graph.setEeComplaints(eeCount);
 		graph.setCommComplaints(CommCount);
 		return graph;
-	}
+	}	
 
 }

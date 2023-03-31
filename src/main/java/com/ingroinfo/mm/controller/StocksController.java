@@ -152,6 +152,26 @@ public class StocksController {
 	public @ResponseBody List<GraphDto> getMaterialsData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_MATERIALS");
 	}
+	
+	@GetMapping("/graph/spares/chart")
+	public @ResponseBody List<GraphDto> getSparesData() {
+		return executeQuery("SELECT * FROM DASHBOARD_STOCK_SPARES");
+	}
+	
+	@GetMapping("/graph/tools/chart")
+	public @ResponseBody List<GraphDto> getToolsData() {
+		return executeQuery("SELECT * FROM DASHBOARD_STOCK_TOOLS");
+	}
+	
+	@GetMapping("/graph/outward/chart")
+	public @ResponseBody List<GraphDto> getOutwardStocksData() {
+		return executeQuery("SELECT * FROM DASHBOARD_STOCK_OUTWARDS");
+	}
+	
+	@GetMapping("/graph/return/chart")
+	public @ResponseBody List<GraphDto> getStocksReturnData() {
+		return executeQuery("SELECT * FROM DASHBOARD_STOCK_RETURNS");
+	}
 
 	/******************************************************************/
 

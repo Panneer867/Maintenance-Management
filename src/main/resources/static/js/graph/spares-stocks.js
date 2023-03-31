@@ -1,4 +1,4 @@
-$.getJSON('/stocks/graph/materials/chart', function(data) {
+$.getJSON('/stocks/graph/spares/chart', function(data) {
 
 	const categories = data.map(item => item.category);
 	const quantities = data.map(item => item.totalQuantity);
@@ -7,9 +7,9 @@ $.getJSON('/stocks/graph/materials/chart', function(data) {
 		return accumulator + currentValue;
 	}, 0);
 
-	Highcharts.chart('materials-stocks', {
+	Highcharts.chart('spares-stocks', {
 		title: {
-			text: 'Inward Materials',
+			text: 'Inward Spares',
 			align: 'center'
 		},
 		xAxis: {
@@ -21,16 +21,16 @@ $.getJSON('/stocks/graph/materials/chart', function(data) {
 			}
 		},
 		tooltip: {
-			valueSuffix: ' Inward Materials'
+			valueSuffix: ' Inward Spares'
 		},
 		plotOptions: {
 			column: {
-				color: '#1ebdad' // Set the color of the columns to red
+				color: '#b5543c' // Set the color of the columns to red
 			}
 		},
 		series: [{
 			type: 'column',
-			name: "Materials",
+			name: "Spares",
 			data: quantities
 		}]
 	});

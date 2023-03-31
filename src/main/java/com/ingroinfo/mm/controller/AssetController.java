@@ -1,6 +1,8 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.ingroinfo.mm.dto.AssetEntryDto;
+import com.ingroinfo.mm.dto.CategoryDto;
+import com.ingroinfo.mm.dto.DepartmentDto;
 import com.ingroinfo.mm.dto.IdMasterDto;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AssetService;
@@ -47,14 +51,23 @@ public class AssetController {
 		IdMasterDto idMasterDto = this.masterService.getIdMasterByMasterIdName(masterIdName);
 		String lastNo = idMasterDto.getLastNumber();
 		model.addAttribute("maxAssetId", lastNo);
+		
+		List<String> divSubDivList = this.masterService.getDistinctDivisions();
+		model.addAttribute("divSubDivList", divSubDivList);
+		
+		List<CategoryDto> listOfCategoryDtos = this.masterService.findAllCategory();
+		model.addAttribute("listOfCategory", listOfCategoryDtos);
+		
+		
+		List<DepartmentDto> listOfDeptDto = this.masterService.findAllDepartment();
+		model.addAttribute("listOfDepts", listOfDeptDto);
 
 		return "pages/asset/asset_entry";
 	}
 
 	@PostMapping("/entry")
 	public String saveAsset(@ModelAttribute("asset") AssetEntryDto assetEntryDto, HttpSession session) {
-		this.assetService.saveAsset(assetEntryDto);
-
+		
 		String masterIdName = "Asset Id";
 
 		String assetId = masterService.getAutoIncrementId(masterIdName);
@@ -63,6 +76,8 @@ public class AssetController {
 		idMasterDto.setLastNumber(assetId);
 
 		this.masterService.saveIdMaster(idMasterDto);
+		
+		this.assetService.saveAsset(assetEntryDto);
 
 		session.setAttribute("message", new Message("Asset Information Saved Successfully !", "success"));
 		return "redirect:/asset/entry";

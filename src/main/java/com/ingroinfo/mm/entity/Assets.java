@@ -39,6 +39,7 @@ public class Assets {
 	private String storeName;
 	private String department;
 	private String assetMake;
+	private int quantity;
 
 	@CreationTimestamp
 	private Date dateCreated;

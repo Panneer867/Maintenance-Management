@@ -67,8 +67,6 @@ public class ApprovalController {
 	@Autowired
 	private IndentApprovedVehiclesRepository indentApprovedVehiclesRepo;
 	@Autowired
-	private IndentApprovedItemsRepository indentApprovedItemsRepository;
-	@Autowired
 	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;	
 	@Autowired
 	private WorkOrderService workOrderService;
@@ -78,17 +76,10 @@ public class ApprovalController {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
 
-	private void CopyItemsToStockorders(String username) {
-		List<IndentApprovedItems> indentApprovedItems = indentApprovedItemsRepository.findAll();
+	private void CopyItemsToStockorders(String username, String complNo, String indentNo) {
+		List<IndentApprovedItems> indentApprovedItems = workOrderService.getApprovedIndentItemsByComplNoAndIndentNo(complNo, indentNo);
 
-		Map<String, List<IndentApprovedItems>> groupedItems = indentApprovedItems.stream()
-				.collect(Collectors.groupingBy(IndentApprovedItems::getComplNo));
-
-		for (Map.Entry<String, List<IndentApprovedItems>> newSet : groupedItems.entrySet()) {
-
-			List<IndentApprovedItems> items = newSet.getValue();
-
-			for (IndentApprovedItems item : items) {
+			for (IndentApprovedItems item : indentApprovedItems) {
 
 				if (item.getApprovedSts().equalsIgnoreCase("N")) {
 
@@ -122,7 +113,7 @@ public class ApprovalController {
 				}
 
 			}
-		}
+		
 	}
 
 	@GetMapping
@@ -256,9 +247,13 @@ public class ApprovalController {
 				indentItem.setIndentApproved("Y");
 				indentItem.setApprovedSts("N");
 			});
-
+						
 			this.indentApprovedItemsRepo.saveAll(approvedIndentItems);
+			CopyItemsToStockorders(principal.getName(),complNo,indentNo);
 			this.tempIndentItemRequestRepo.deleteAllByComplNo(complNo);
+
+
+			
 		}
 		if (tempIndentLabourRequests != null) {
 			ModelMapper modelMapper = new ModelMapper();
@@ -290,9 +285,7 @@ public class ApprovalController {
 			this.indentApprovedVehiclesRepo.saveAll(approvedIndentVehicles);
 			this.tempIndentVehicleRequestRepo.deleteAllByComplNo(complNo);
 		}
-
-		CopyItemsToStockorders(principal.getName());
-
+		
 		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
 		oldcomplaintDto.setComplStatus("approved_indent");
 		oldcomplaintDto.setIndentApprovedBy(principal.getName());

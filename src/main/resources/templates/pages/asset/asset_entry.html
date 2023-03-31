@@ -4,7 +4,7 @@
 	<section>
 		<h3 class="text-center text-white mt-2 p-1 bg-primary">Asset Data Entry</h3>
 		<div class="col-10 mx-auto mt-5">
-		<div th:if="${session.message}" class="alert_field">
+			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 					<span th:text="${session.message.content}"></span>
 				</div>
@@ -17,34 +17,66 @@
 				<div class="card-body font-weight-bold">
 					<form method="post" th:action="@{/asset/entry}" th:object=${asset}>
 						<div class="row">
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">Division</label>
-								<input type="text" class="form-control" name="division" required
-									placeholder="Division">
-							</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">Sub Division</label>
-								<input type="text" class="form-control" name="subDivision" required
-									placeholder="Sub Division">
+						<div class="form-group col-md-3">
+								<label for="inputEmail4">Asset Id</label>
+								<input type="text" class="form-control bg-white" th:value="${maxAssetId}" name="assetId"
+									readonly placeholder="Asset Id ">
 							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Asset Name</label>
 								<input type="text" class="form-control" name="assetName" required
 									placeholder="Assests Name">
 							</div>
+							
 							<div class="form-group col-md-3">
-								<label for="inputEmail4">Asset Id</label>
-								<input type="text" class="form-control" th:value="${maxAssetId}" name="assetId" readonly 
-									placeholder="Asset Id ">
+								<label for="inputEmail4">Division</label>
+								<select type="text" id="master-division-list" name="division"
+									class="form-select text-center font-weight-bold">
+									<option value="">--Select--</option>
+
+									<option th:each="divisions: ${divSubDivList}" th:text="${divisions}">
+									</option>
+								</select>
 							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Sub Division</label>
+								<select type="text" id="master-sub-division-list" name="subDivision"
+									class="form-select text-center font-weight-bold">
+									<option value="">--Select--</option>
+								</select>
+
+							</div>
+							
+							
 						</div>
 
 						<!-- ***************************** 2nd Row  ***************************-->
 						<div class="row mt-2">
+						<div class="form-group col-md-3">
+							 
+							
+								<label for="inputEmail4">Department</label>
+								<select type="text" id="master-division-list" name="department" required
+									class="form-select text-center font-weight-bold">
+
+									<option value="">--Select--</option>
+									<option th:each="listOfDept : ${listOfDepts}"
+										th:value="${listOfDept.DepartmentName}"
+										th:utext="${listOfDept.DepartmentName}" />
+								</select>
+								
+							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Category</label>
-								<input type="text" class="form-control" name="category" required
-									placeholder="Category">
+								<select type="text" id="master-division-list" name="category"
+									class="form-select text-center font-weight-bold">
+
+									<option value="">--Select--</option>
+									<option th:each="categoryList : ${listOfCategory}"
+										th:value="${categoryList.categoryName}"
+										th:utext="${categoryList.categoryName}" />
+								</select>
+								
 							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Sub Category</label>
@@ -53,18 +85,18 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Model</label>
-								<input type="text" class="form-control" name="model" required
-									placeholder="Model">
+								<input type="text" class="form-control" name="model" required placeholder="Model">
 							</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">Purchase Date</label>
-								<input type="date" class="form-control" name="purchaseDate" required
-									placeholder="Purchase Date">
-							</div>
+							
 						</div>
 
 						<!-- ***************************** 3rd Row  ***************************-->
 						<div class="row mt-2">
+						<div class="form-group col-md-3">
+								<label for="inputEmail4">Purchase Date</label>
+								<input type="date" class="form-control" name="purchaseDate" required
+									placeholder="Purchase Date">
+							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Asset Type</label>
 								<input type="text" class="form-control" name="assetType" required
@@ -77,48 +109,48 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Barcode</label>
-								<input type="text" class="form-control" name="barCode" required
-									placeholder="Barcode">
+								<input type="text" class="form-control" name="barCode" required placeholder="Barcode">
 							</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">HSNCode</label>
-								<input type="text" class="form-control" name="hsnCode" required
-									placeholder="HSNCode">
-							</div>
+							
 						</div>
 
 						<!-- ***************************** 4th Row  ***************************-->
 						<div class="row mt-2">
+						<div class="form-group col-md-3">
+								<label for="inputEmail4">HSNCode</label>
+								<input type="text" class="form-control" name="hsnCode" required placeholder="HSNCode">
+							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Cost</label>
-								<input type="number" class="form-control" name="cost" required
-									placeholder="Cost">
+								<input type="number" class="form-control" name="cost" required placeholder="Cost">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="inputEmail4">Quantity</label>
+								<input type="number" class="form-control" name="quantity" required placeholder="Quantity">
 							</div>
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Asset Location</label>
 								<input type="text" class="form-control" name="assetLocation" required
 									placeholder="AssestsLocation">
 							</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">Returned Date</label>
-								<input type="date" class="form-control" name="returnedDate" required
-									placeholder="Returned Date">
-							</div>
-							<div class="form-group col-md-3">
-								<label for="inputEmail4">Store Name</label>
-								<input type="text" class="form-control" name="storeName" required
-									placeholder="Store Name">
-							</div>
+						
+							
 						</div>
 
 
 						<!-- ***************************** 5th Row  ***************************-->
 						<div class="row mt-2">
 							<div class="form-group col-md-3">
-								<label for="inputEmail4">Department</label>
-								<input type="text" class="form-control" name="department" required
-									placeholder="Department">
+								<label for="inputEmail4">Returned Date</label>
+								<input type="date" class="form-control" name="returnedDate" required
+									placeholder="Returned Date">
 							</div>
+						<div class="form-group col-md-3">
+								<label for="inputEmail4">Store Name</label>
+								<input type="text" class="form-control" name="storeName" required
+									placeholder="Store Name">
+							</div>
+							
 							<div class="form-group col-md-3">
 								<label for="inputEmail4">Asset Make</label>
 								<input type="text" class="form-control" name="assetMake" required

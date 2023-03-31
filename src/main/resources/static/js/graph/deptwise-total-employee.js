@@ -30,7 +30,7 @@ $.getJSON('/employee/dash/empCount', function(data) {
                     name: emp.department,
                     y: emp.empCount
                 })),
-                showInLegend: false
+                showInLegend: true // set to true to show the legend
             }]
         });
     }

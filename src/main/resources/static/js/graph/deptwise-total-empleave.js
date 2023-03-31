@@ -1,4 +1,4 @@
- $.getJSON('/employee/dash/empLeave', function(data) {
+
     if (Array.isArray(data)) { // Add a check for array
         const department = [];
         const empCount = [];
@@ -35,4 +35,4 @@
             }]
         });
     }
-});
+

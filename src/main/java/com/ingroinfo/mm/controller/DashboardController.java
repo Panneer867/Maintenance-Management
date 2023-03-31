@@ -1,7 +1,11 @@
 package com.ingroinfo.mm.controller;
 
 import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,19 @@ public class DashboardController {
 
 	@Autowired
 	private DashboardService dashboardService;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	private List<GraphDto> executeQuery(String sql) {
+		List<GraphDto> graph = null;
+		try {
+			graph = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(GraphDto.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return graph;
+	}
 
 	@GetMapping
 	public String dashboard() {
@@ -115,6 +132,12 @@ public class DashboardController {
 		GraphDto graph = dashboardService.taskManagementGraph(principal.getName());
 
 		return graph;
+	}
+
+	@GetMapping("/get/asset-management")
+	public @ResponseBody List<GraphDto> getAllAssets(Principal principal) {
+		
+		return executeQuery("SELECT * FROM DASHBORD_ASSETS");
 	}
 
 }

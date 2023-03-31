@@ -20,7 +20,7 @@ public class BorewellController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model) {
-		return "/pages/handpump/dashboard";
+		return "/pages/borewell/dashboard";
 	}
 
 	@GetMapping("/index")

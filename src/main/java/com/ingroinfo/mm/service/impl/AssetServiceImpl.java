@@ -31,8 +31,10 @@ public class AssetServiceImpl implements AssetService{
 	}
 
 	@Override
-	public Assets getAssetById(Long assetId) {		
-		return assetRepository.findById(assetId).get();
+	public Assets getAssetById(Long assetId) {
+		
+		Assets asset = assetRepository.findById(assetId).get();
+		return asset;
 	}
 
 }
