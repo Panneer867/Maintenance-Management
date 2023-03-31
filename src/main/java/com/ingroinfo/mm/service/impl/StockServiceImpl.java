@@ -1295,6 +1295,7 @@ public class StockServiceImpl implements StockService {
 					tempWorkItems.setUserName(username);
 					tempWorkItems.setWorkSite(savedIndentApprovedItem.getWorkSite());
 					tempWorkItems.setWorkPriority(savedIndentApprovedItem.getWorkPriority());
+					tempWorkItems.setStockOrderNo(tempStockOrderItem.getStockOrderNo());
 
 					tempWorkOrderItemRequestRepository.save(tempWorkItems);
 				}

@@ -1,0 +1,201 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval For Labour Indent
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Labour Indent Approval</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Labour Indent Details</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${complNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${indentNo}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp Start
+											Date</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${expStartDate}" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${department}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${division}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${subdvision}" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${workPriority}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${workSite}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${contactNo}" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							<table
+								class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
+								<thead class="table-dark">
+									<tr>
+										<th>Employee Categorty</th>
+										<th>Members Required</th>
+										<th>Days Required</th>
+										<th>Time Required</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="labors:${listOfLabors}" class="bl-cr">
+										<td th:text="${labors.empCategory}"></td>
+										<td th:text="${labors.members}"></td>
+										<td th:text="${labors.daysRequired}"></td>
+										<td th:text="${labors.timeRequired}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class=" text-center mt-3 mb-2">
+						<a class="btn btn-primary btnPrevious w-20  text-white"
+							th:href="@{/approval/indent/labour/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Approve</a>
+						<a class="btn btn-warning btnPrevious w-20  text-white">Reject</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card text-center">
+					<div class="card-header heading-bg text-white fs-6 ">
+						Updates
+					</div>
+
+					<div class="card-body">
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th class="text-center fs-6" scope="col-sm">Compl No</th>
+									<th class="text-center fs-6" scope="col-sm">Indent No</th>
+									<th class="text-center fs-6" scope="col-sm">Department</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="labors : ${notApprovedLabourList}" class="text-center">
+									<td class="fs-6"><a
+											th:href="@{/approval/indent/labour/get/{complNo}/{indentNo}(complNo=${labors.complNo}, indentNo=${labors.indentNo})}">
+											<span th:text="${'CN'+labors.complNo}"></span></a></td>
+									<td class="fs-6" th:text="${labors.indentNo}"></td>
+									<td class="fs-6" th:text="${labors.departmentName}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

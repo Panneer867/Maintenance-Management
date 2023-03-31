@@ -31,4 +31,24 @@ public interface WorkOrderService {
 	// Get List Of Temporary WorkOrder Vehicles Request Data By Complaint No And
 	// Indent No
 	List<TempWorkOrderVehicleRequest> getTempWorkOrderVehiclesByComplNoAndIndentNo(String complNo, String indentNo);
+
+	//Get Approved Labour Indent By Approved Status
+	List<IndentApprovedLabours> getApprovedLabourIndentByApprovedSts(String approvedSts);
+
+	//Get Approved Vehicle Indent By Approved Status
+	List<IndentApprovedVehicles> getApprovedVehicleIndentByApprovedSts(String approvedSts);
+
+	//Save All TempWorkOrder Labors Data
+	void saveAllTempWorkOrderLabours(List<TempWorkOrderLabourRequest> tempWorkOrderLabours);
+
+	//Save All Approved Indent Labours
+	void saveAllApprovedIndentLabours(List<IndentApprovedLabours> approvedIndentLabours);
+
+	//Save All TempWorkOrder Vehicles Data
+	void saveAllTempWorkOrderVehicles(List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles);
+
+	//Save All Approved Indent Vehicles Data
+	void saveAllApprovedIndentVehicles(List<IndentApprovedVehicles> approvedIndentVehicles);
+
+
 }

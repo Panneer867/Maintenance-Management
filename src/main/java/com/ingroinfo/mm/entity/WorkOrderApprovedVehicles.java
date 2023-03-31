@@ -22,7 +22,6 @@ public class WorkOrderApprovedVehicles {
 	private Long vehicleReqId;
 	private String indentNo;
 	private String complNo;
-	private String workOrderNo;
 	private String division;
 	private String subDivision;
 	private String workSite;
@@ -39,8 +38,10 @@ public class WorkOrderApprovedVehicles {
 	private String stratTime;
 	private Long vehicleId;
 	private String departmentName;
+	private String indentApproved;
 	private String approvedSts;
 	private String userName;
 	@CreationTimestamp
-	private Date approvedDate;
+	private Date createdDate;
+	private String workOrder;
 }

@@ -8,13 +8,11 @@
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
 						</li>
-						<li class="crumb">
-							<div class="link"><a th:href="@{/approval/stock}">Stock Approvals</a></div>
-						</li>
+					
 						<li class="crumb active">
-							<div class="link"><span aria-current="location"> Stock Order Approvals</span></div>
+							<div class="link"><span aria-current="location"> Outward Approvals</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -70,7 +68,7 @@
 						<span class="status-pending" th:text="${outwardStocksList.approvalStatus}" />
 					</td>
 					<td class="text-center">
-						<a class="btn btn-success p-1 mx-2" th:href="@{'/approval/outward/stocks/items/' + ${outwardStocksList.stockOrderNo} }">View/Approve	</a>
+						<a class="btn btn-success p-1 mx-2" th:href="@{'/approval/outward/stock/items/' + ${outwardStocksList.stockOrderNo} }">View/Approve	</a>
 						<button
 							th:onclick="|deleteId('/approval/outward/stockorder/reject/${outwardStocksList.stockOrderNo}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"

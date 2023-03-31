@@ -8,11 +8,9 @@
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/stocks/dashboard}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
 						</li>
-						<li class="crumb">
-							<div class="link"><a th:href="@{/approval/stock}">Stock Approvals</a></div>
-						</li>
+					
 						<li class="crumb active">
 							<div class="link"><span aria-current="location">Returns Approvals</span></div>
 						</li>
@@ -86,7 +84,7 @@
 						<button th:onclick="|deleteId('/approval/return/item/reject/${returnedItemList.recordId}')|"
 							class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#delItem"
 							data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
-								class="glyphicon glyphicon-trash"></span></button>
+								class="glyphicon glyphicon-remove"></span></button>
 
 					</td>
 				</tr>
@@ -102,10 +100,10 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						Are you sure, you want to remove this Item from the list?
+						Are you sure, you want to reject this Item from the list?
 					</div>
 					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Remove</a>
+						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Reject</a>
 						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>

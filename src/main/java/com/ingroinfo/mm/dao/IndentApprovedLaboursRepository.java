@@ -12,5 +12,6 @@ public interface IndentApprovedLaboursRepository extends JpaRepository<IndentApp
 
 	List<IndentApprovedLabours> getByComplNoAndIndentNo(String complNo, String indentNo);
 
+	List<IndentApprovedLabours> getByApprovedSts(String approvedSts);
 
 }

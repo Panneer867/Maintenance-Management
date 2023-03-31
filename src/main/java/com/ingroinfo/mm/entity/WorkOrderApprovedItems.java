@@ -22,7 +22,7 @@ public class WorkOrderApprovedItems {
 	private Long itemReqId;
 	private String indentNo;
 	private String complNo;
-	private String workOrderNo;
+	private Long stockOrderNo;
 	private String division;
 	private String subDivision;
 	private String workSite;
@@ -40,8 +40,11 @@ public class WorkOrderApprovedItems {
 	private String stockType;
 	private String stockTypeName;
 	private String departmentName;
-	private String approvedSts;
+	private String indentApproved;
+    private String approvedSts;
 	private String userName;
 	@CreationTimestamp
-	private Date approvedDate;
+	private Date createdDate;
+	private String workOrder;
+
 }

@@ -11,5 +11,6 @@ public interface IndentApprovedVehiclesRepository extends JpaRepository<IndentAp
 
 	List<IndentApprovedVehicles> getByComplNoAndIndentNo(String complNo, String indentNo);
 
+	List<IndentApprovedVehicles> getByApprovedSts(String approvedSts);
 
 }
