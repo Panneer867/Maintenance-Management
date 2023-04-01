@@ -4,7 +4,7 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import javax.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,11 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.VerifyIndentStatusDto;
 import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
 import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
+import com.ingroinfo.mm.helper.Message;
+import com.ingroinfo.mm.service.TaskUpdateService;
 import com.ingroinfo.mm.service.WorkOrderService;
 
 @Controller
@@ -29,9 +34,10 @@ public class WorkOrderController {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	private WorkOrderService workOrderService;
+	@Autowired
+	private TaskUpdateService taskUpdateService;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -156,7 +162,7 @@ public class WorkOrderController {
 	
 	//Handler For Submitting TempWorkOrder Data For Approval
 	@GetMapping("/generate/submit/{complNo}/{indentNo}")
-	public String submitTempWorkorderForGenerateWorkOrder(@PathVariable String complNo, @PathVariable String indentNo,Principal principal) {
+	public String submitTempWorkorderForGenerateWorkOrder(@PathVariable String complNo, @PathVariable String indentNo,Principal principal,HttpSession session) {
 
 		List<TempWorkOrderItemRequest> tempWorkOrderItems = this.workOrderService
 				.getTempWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
@@ -175,9 +181,37 @@ public class WorkOrderController {
 			});
 			
 			this.workOrderService.saveAllWapWorkOrderItems(wapWorkOrderItemsDtos);
-			//this.workOrderService.deleteTempWorkOrderItemRequestByComplNo(complNo);
+			this.workOrderService.deleteTempWorkOrderItemRequestByComplNo(complNo);
 		}
-
+		if (tempWorkOrderLabours != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos = tempWorkOrderLabours.stream()
+					.map((wapWorkOrderLabourDto) -> modelMapper.map(wapWorkOrderLabourDto, WapWorkOrderLaboursDto.class))
+					.collect(Collectors.toList());
+			wapWorkOrderLaboursDtos.forEach(wapWorkOrderLabour -> {
+				wapWorkOrderLabour.setUserName(principal.getName());
+			});
+			
+			this.workOrderService.saveAllWapWorkOrderLabours(wapWorkOrderLaboursDtos);
+			this.workOrderService.deleteTempWorkOrderLaboursRequestByComplNo(complNo);
+		}
+		if (tempWorkOrderVehicles != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WapWorkOrderVehiclesDto> wapWorkOrderVehicleDtos = tempWorkOrderVehicles.stream()
+					.map((wapWorkOrderItemDto) -> modelMapper.map(wapWorkOrderItemDto, WapWorkOrderVehiclesDto.class))
+					.collect(Collectors.toList());
+			wapWorkOrderVehicleDtos.forEach(wapWorkOrderItem -> {
+				wapWorkOrderItem.setUserName(principal.getName());
+			});
+			
+			this.workOrderService.saveAllWapWorkOrderVehicles(wapWorkOrderVehicleDtos);
+			this.workOrderService.deleteTempWorkOrderVehicleRequestByComplNo(complNo);
+		}
+		
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("WAITING_WORKORDER_APPROVAL");		
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+		session.setAttribute("message", new Message("Generate For WorkOrder Request Sucessfully Sent !!", "success"));
 		return "redirect:/workorder/generate";
 	}
 
@@ -189,13 +223,13 @@ public class WorkOrderController {
 	@GetMapping("/hold")
 	@PreAuthorize("hasAuthority('HOLD_WORKORDER')")
 	public String holdWorkOrder(Model model) {
-		return "/pages/work_orders/hold_work_order";
+		return "/pages/work_orders/hold_work_order_list";
 	}
 
 	@GetMapping("/cancel")
 	@PreAuthorize("hasAuthority('CANCEL_WORKORDER')")
 	public String cancelWorkOrder(Model model) {
-		return "/pages/work_orders/cancel_work_order";
+		return "/pages/work_orders/cancel_work_order_list";
 	}
 
 }

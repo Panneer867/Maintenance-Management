@@ -66,4 +66,10 @@ public class ComplaintDto {
 	private String workorderApprovedBy;
 	private Date indentApprovedDate;
 	private Date workorderApprovedDate;
+	private String workOrderHoldBy;
+	private String workOrderCancelBy;
+	private Date workOrderHoldDate;
+	private Date workOrderCancelDate;
+	private String workOrderReApproveBy;
+	private Date workOrderReApprovedDate;
 }

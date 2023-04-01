@@ -17,6 +17,8 @@ import com.ingroinfo.mm.dao.WapWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WapWorkOrderLaboursRepository;
 import com.ingroinfo.mm.dao.WapWorkOrderVehiclesRepository;
 import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
@@ -24,6 +26,8 @@ import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
 import com.ingroinfo.mm.entity.WapWorkOrderItems;
+import com.ingroinfo.mm.entity.WapWorkOrderLabours;
+import com.ingroinfo.mm.entity.WapWorkOrderVehicles;
 import com.ingroinfo.mm.service.WorkOrderService;
 
 @Service
@@ -119,10 +123,36 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 				.collect(Collectors.toList());
 		this.wapWorkOrderItemsRepo.saveAll(wapWorkItems);
 	}
+	
+	@Override
+	public void saveAllWapWorkOrderLabours(List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos) {
+		List<WapWorkOrderLabours> wapWorkOrderLabours = wapWorkOrderLaboursDtos.stream()
+				.map((wapWorkLabour) -> modelMapper.map(wapWorkLabour, WapWorkOrderLabours.class))
+				.collect(Collectors.toList());
+		this.wapWorkOrderLaboursRepo.saveAll(wapWorkOrderLabours);
+	}
 
+	@Override
+	public void saveAllWapWorkOrderVehicles(List<WapWorkOrderVehiclesDto> wapWorkOrderVehicleDtos) {
+		List<WapWorkOrderVehicles> wapWorkOrderLabours = wapWorkOrderVehicleDtos.stream()
+				.map((wapWorkVehicle) -> modelMapper.map(wapWorkVehicle, WapWorkOrderVehicles.class))
+				.collect(Collectors.toList());
+		this.wapWorkOrderVehiclesRepo.saveAll(wapWorkOrderLabours);
+	}
+	
 	@Override
 	public void deleteTempWorkOrderItemRequestByComplNo(String complNo) {
 		this.tempWorkOrderItemRequestRepo.deleteByComplNo(complNo);
+	}
+
+	@Override
+	public void deleteTempWorkOrderLaboursRequestByComplNo(String complNo) {
+		this.tempWorkOrderLabourRequestRepo.deleteByComplNo(complNo);
+	}
+
+	@Override
+	public void deleteTempWorkOrderVehicleRequestByComplNo(String complNo) {
+		this.tempWorkOrderVehicleRequestRepo.deleteByComplNo(complNo);
 	}
 
 }

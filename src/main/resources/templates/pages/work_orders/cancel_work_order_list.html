@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Cancel WorkOrder List
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/workorder/approved}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Cancel Workorder List</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-11 ml-5">
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Cancel WorkOrder List</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<table
+							class="table table-stock table-bordered table table-success table-striped table-hover mytable w-100 mt-4">
+							<thead class="table-dark">
+								<tr>
+									<th class="all">Complaint No</th>
+									<th class="all">Complain Date</th>
+									<th class="all">Indent No</th>
+									<th class="all">Workorder No</th>
+									<th class="all">Approved Date</th>
+									<th class="all">Approved By</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="workorderapproved: ${workorderApprovedcompls}">
+									<td th:text="${workorderapproved.complNo}"></td>
+									<td th:text="${workorderapproved.complDate}"></td>
+									<td th:text="${workorderapproved.indentNo}"></td>
+									<td th:text="${workorderapproved.workOrder}"></td>
+									<td
+										th:text="${#dates.format(workorderapproved.workorderApprovedDate, 'dd/MM/yyyy ')}">
+									</td>
+									<td th:text="${workorderapproved.workorderApprovedBy}"></td>
+									<td class="text-center"><a class="btn btn-success p-1 mx-2"
+											th:href="@{/pump/maintenance/view/detalis/{complNo}/{indentNo}(complNo=${workorderapproved.complNo}, indentNo=${workorderapproved.indentNo})}">View</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
