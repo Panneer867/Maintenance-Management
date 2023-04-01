@@ -26,6 +26,7 @@ public class GraphDto {
 	private int eeComplaints;
 	private int commComplaints;
 	private String departments;
-
+	private int count;
+	private int complNo;
 	private Map<String, Integer> departmentCount;
 }

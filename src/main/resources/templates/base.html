@@ -42,7 +42,8 @@
 	<script th:src="@{https://code.highcharts.com/modules/export-data.js}"></script>
 	<script th:src="@{https://code.highcharts.com/modules/accessibility.js}"></script>
 	<script th:src="@{https://code.highcharts.com/highcharts-3d.js}"></script>
-
+	<script th:src="@{https://code.highcharts.com/modules/cylinder.js}"></script>
+	
 	<!-- Charts -->
 	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js}"></script>
 	<script th:src="@{https://canvasjs.com/assets/script/canvasjs.min.js}"></script>
@@ -381,7 +382,7 @@
 								</ul>
 							</div>
 						</li>
-						
+
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
 							data-menu-submenu-toggle="hover">
 							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
@@ -421,7 +422,7 @@
 												Dashboard
 											</span>
 										</a>
-									</li>									
+									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">
@@ -1011,7 +1012,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="leakage-maintenance-indent-active">
-										<a th:href="@{/leakage/maintenance-indent}" class="m-menu__link ">
+										<a th:href="@{/leakage/indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1022,7 +1023,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="leakage-maintenance-view-active">
-										<a th:href="@{/leakage/maintenance-view}" class="m-menu__link ">
+										<a th:href="@{/leakage/view}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1033,7 +1034,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="leakage-maintenance-update-active">
-										<a th:href="@{/leakage/maintenance-update}" class="m-menu__link ">
+										<a th:href="@{/leakage/update}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1044,7 +1045,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="leakage-maintenance-inspection-active">
-										<a th:href="@{/leakage/maintenance-inspection}" class="m-menu__link ">
+										<a th:href="@{/leakage/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1055,7 +1056,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="leakage-maintenance-history-active">
-										<a th:href="@{/leakage/maintenance-history}" class="m-menu__link ">
+										<a th:href="@{/leakage/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1754,7 +1755,7 @@
 	<script th:src="@{/js/graph/spares-stocks.js}"></script>
 	<script th:src="@{/js/graph/tools-stocks.js}"></script>
 	<script th:src="@{/js/graph/categorywise-outward-stocks.js}"></script>
-	<script th:src="@{/js/graph/categorywise-stocks-return.js}"></script>	
+	<script th:src="@{/js/graph/categorywise-stocks-return.js}"></script>
 	<script th:src="@{/js/graph/deptwise-total-employee.js}"></script>
 	<script th:src="@{/js/graph/deptwise-total-empleave.js}"></script>
 	<script th:src="@{/js/graph/temp-graph-1.js}"></script>
@@ -1768,6 +1769,10 @@
 	<script th:src="@{/js/graph/task-management-1.js}"></script>
 	<script th:src="@{/js/graph/task-management-2.js}"></script>
 	<script th:src="@{/js/graph/asset-management-1.js}"></script>
+	<script th:src="@{/js/graph/work-order-1.js}"></script>
+	<script th:src="@{/js/graph/work-order-2.js}"></script>
+	<script th:src="@{/js/graph/work-order-3.js}"></script>
+	<script th:src="@{/js/graph/work-order-4.js}"></script>
 </body>
 
 </html>

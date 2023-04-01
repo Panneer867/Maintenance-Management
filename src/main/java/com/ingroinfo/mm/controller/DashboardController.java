@@ -128,16 +128,33 @@ public class DashboardController {
 
 	@GetMapping("/get/task-management")
 	public @ResponseBody GraphDto getAllCompalintsNos(Principal principal) {
-
 		GraphDto graph = dashboardService.taskManagementGraph(principal.getName());
-
 		return graph;
 	}
 
 	@GetMapping("/get/asset-management")
-	public @ResponseBody List<GraphDto> getAllAssets(Principal principal) {
-		
+	public @ResponseBody List<GraphDto> getAllAssets() {
 		return executeQuery("SELECT * FROM DASHBORD_ASSETS");
+	}
+	
+	@GetMapping("/get/pending/workorder-management")
+	public @ResponseBody List<GraphDto> getArrivedWorkOrders() {		
+		return executeQuery("SELECT * FROM DASHBORD_GENERATE_WORKORDERS");
+	}
+	
+	@GetMapping("/get/approved/workorder-management")
+	public @ResponseBody List<GraphDto> getApprovedWorkOrders() {		
+		return executeQuery("SELECT * FROM DASHBORD_APPROVED_WORKORDERS");
+	}
+	
+	@GetMapping("/get/hold/workorder-management")
+	public @ResponseBody List<GraphDto> getHoldWorkOrders() {		
+		return executeQuery("SELECT * FROM DASHBORD_HOLD_WORKORDERS");
+	}
+	
+	@GetMapping("/get/cancel/workorder-management")
+	public @ResponseBody List<GraphDto> getCancelWorkOrders() {		
+		return executeQuery("SELECT * FROM DASHBORD_CANCEL_WORKORDERS");
 	}
 
 }

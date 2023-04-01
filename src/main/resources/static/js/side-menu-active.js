@@ -603,27 +603,27 @@ $(document).ready(function() {
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/leakage/management')) {
+		if (window.location.href.match('/leakage/indent')) {
 			$("#leakage-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/leakage/maintenance-view')) {
+		if (window.location.href.match('/leakage/view')) {
 			$("#leakage-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/leakage/maintenance-update')) {
+		if (window.location.href.match('/leakage/update')) {
 			$("#leakage-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/leakage/maintenance-inspection')) {
+		if (window.location.href.match('/leakage/inspection')) {
 			$("#leakage-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/leakage/maintenance-history')) {
+		if (window.location.href.match('/leakage/history')) {
 			$("#leakage-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
