@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.Designation;
 @Repository
 public interface DesignationRepository extends JpaRepository<Designation, Long> {
 
+	boolean existsByDesignation(String designation);
+
 }

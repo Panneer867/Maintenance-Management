@@ -5,4 +5,6 @@ import com.ingroinfo.mm.entity.ServiceProgress;
 
 public interface ServiceProgressRepository extends JpaRepository<ServiceProgress, Long> {
 
+	boolean existsBysevcProgress(String sevcProgress);
+
 }

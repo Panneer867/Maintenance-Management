@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,7 +17,7 @@
 					<h3 class="mb-0">Master Pumps</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-				  <form th:action="@{/masters/savepumps}" method="post">
+				  <form  th:action="@{/masters/savepumps}" method="post">
 					<div class="row">
 						<div class="col-sm-3">
 							<label for="pumpId" class="col col-form-label">Pump ID</label>
@@ -30,14 +30,14 @@
 							<label for="pumpType" class="col col-form-label">Pump Type</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="pumpType" name="pumpType" required placeholder="Enter Pump Type">
+								id="pumpType" name="pumpType" required placeholder="Enter Pump Type" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<label for="warranty" class="col col-form-label">Warranty</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="warranty" name="warranty" required placeholder="Enter Warranty">
+								id="warranty" name="warranty" required placeholder="Enter Warranty" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-3">
@@ -53,21 +53,21 @@
 							<label for="contactNo" class="col col-form-label">Contact No</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="contactNo" name="contactNo" required maxlength="10" placeholder="Enter Contact No">
+								id="contactNo" name="contactNo"  maxlength="10" placeholder="Enter Contact No" required>
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<label for="manufactName" class="col col-form-label">Manufacture Name</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="manufactName" name="manufactName" required placeholder="Enter Manufacture Name">
+								id="manufactName" name="manufactName" required placeholder="Enter Manufacture Name" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-5">
 							<label for="manufactAddress" class="col col-form-label">Manufacture Address</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="manufactAddress" name="manufactAddress" required placeholder="Enter Manufacture Address">
+								id="manufactAddress" name="manufactAddress" required placeholder="Enter Manufacture Address" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>												
 					</div>
@@ -86,29 +86,29 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Master Pumps History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Pump Id</th>
 						<th class="text-center" scope="col">Pump Type</th>
 						<th class="text-center" scope="col">Warranty</th>
 						<th class="text-center" scope="col">purchage Date</th>
 						<th class="text-center" scope="col">Contact No</th>
 						<th class="text-center" scope="col">Manufacture Name</th>
-						<th class="text-center" scope="col">Manufacture Address</th>												
+						<th class="text-center" scope="col">Manufacture Address</th>	
+						<th class="text-center" scope="col">Delete</th>											
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="pumps : ${listOfPumps}">
-						<td><a href="#" th:onclick="|deleteMasterPump(${pumps.pumpMasterId})|">
-								<span th:text="${'PM'+pumps.pumpMasterId}"></span></a>
-						</td>
+					<tr th:each="pumps : ${listOfPumps}">					
 						<td th:text="${pumps.pumpId}"></td>
 						<td th:text="${pumps.pumpType}"></td>	
 						<td th:text="${pumps.warranty}"></td>	
 						<td th:text="${pumps.purchageDate}"></td>	
 						<td th:text="${pumps.contactNo}"></td>
 						<td th:text="${pumps.manufactName}"></td>
-						<td th:text="${pumps.manufactAddress}"></td>																		
+						<td th:text="${pumps.manufactAddress}"></td>	
+						<td><a href="#" th:onclick="|deleteMasterPump(${pumps.pumpMasterId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>																	
 					</tr>
 				</tbody>
 			</table>

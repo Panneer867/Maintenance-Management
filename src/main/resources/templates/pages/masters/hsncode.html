@@ -17,26 +17,37 @@
 					<h3 class="mb-0">HSN Code</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savehsncode}" method="post">
-						<div class="mx-auto col-10 text-start">
-
-							<div class="form-group row">
-								<label for="category" class="col-sm-2 col-form-label">Category</label>
-								<div class="col-sm-4">
-									<select class="form-select form-select-sm" name="category" required>
+					<form data-toggle="validator" th:action="@{/masters/savehsncode}" method="post">						
+						<div class="row">
+                              <div class="col-md-5 mt-1">
+                                 <div class="form-group row col-auto">
+                                    <label for="category" class="col-sm-4  col-form-label">Category</label>
+                                    <div class="col-sm-8">
+                                 	<select class="form-select form-select-sm" name="category" id="category" required data-error="Select a Category !">
 									    <option value="">--Select--</option>
 										<option th:each="category:${listOfCategory}" th:value="${category.catid}"
 											    th:text="${category.categoryName}">
 										</option>
-									</select>									
-								</div>
-								<label for="hsnCode" class="col-sm-2 col-form-label">HSN Code</label>
-								<div class="col-sm-4">
-									<input type="text" class="form-control form-control-sm" id="hsnCode" name="hsnCode"
-										required maxlength="15" placeholder="Enter HsnCode" oninput="this.value = this.value.toUpperCase()">
-								</div>
-							</div>														
-						</div>
+									</select>
+								  <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                               <div class="col-md-6 mt-1">
+                                 <div class="form-group row col-auto">
+                                    <label for="hsnCode" class="col-sm-4  col-form-label">HSN Code</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="hsnCode" class="form-control form-control-sm"
+									       name="hsnCode" required placeholder="Enter Employee Category" pattern="^[a-zA-Z0-9/.-]+$" 
+									       data-error="Provide a HSN Code !" oninput="this.value = this.value.toUpperCase()">
+                                     <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                      </div>
+						
+						
+						
 
 						<div class="mt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -56,18 +67,18 @@
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Category</th>						
 						<th class="text-center" scope="col">Hsn Code</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="hsncode : ${listOfHsnCode}">
-						<td><a href="#" th:onclick="|deleteHsnCode(${hsncode.hsnCodeId})|">
-								<span th:text="${'HC'+hsncode.hsnCodeId}"></span></a>
-						</td>
+					<tr th:each="hsncode : ${listOfHsnCode}">					
 						<td th:text="${hsncode.categoryName}"></td>						
 						<td th:text="${hsncode.hsnCode}"></td>
+						<td><a href="#" th:onclick="|deleteHsnCode(${hsncode.hsnCodeId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

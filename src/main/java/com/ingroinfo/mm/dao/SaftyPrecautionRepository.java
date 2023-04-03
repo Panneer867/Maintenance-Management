@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.SaftyPrecautions;
 @Repository
 public interface SaftyPrecautionRepository extends JpaRepository<SaftyPrecautions, Long> {
 
+	boolean existsBySaftyPrecausSts(String saftyPrecausSts);
+
 }

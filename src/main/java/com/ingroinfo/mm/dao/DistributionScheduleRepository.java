@@ -9,4 +9,6 @@ public interface DistributionScheduleRepository extends JpaRepository<Distributi
 
 	boolean existsByDistSchedule(String distSchedule);
 
+	boolean existsBySubDivision(String subDivision);
+
 }

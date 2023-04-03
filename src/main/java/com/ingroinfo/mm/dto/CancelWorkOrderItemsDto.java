@@ -31,5 +31,6 @@ public class CancelWorkOrderItemsDto {
 	private String approvedSts;
 	private String userName;
 	private Date createdDate;
+	private String workOrder;
 	
 }

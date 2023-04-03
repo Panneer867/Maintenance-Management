@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -30,6 +29,9 @@ import com.ingroinfo.mm.dao.DivisionSubdivisionRepository;
 import com.ingroinfo.mm.dao.DmaWardRepository;
 import com.ingroinfo.mm.dao.EmployeeCategoryRepository;
 import com.ingroinfo.mm.dao.EmployeePerformRepostory;
+import com.ingroinfo.mm.dao.EmployeeQualificationRepository;
+import com.ingroinfo.mm.dao.EmployeeStatusRepository;
+import com.ingroinfo.mm.dao.EmployeeTypeRepository;
 import com.ingroinfo.mm.dao.HsnCodeRepository;
 import com.ingroinfo.mm.dao.IdMasterRepository;
 import com.ingroinfo.mm.dao.ItemMasterRepository;
@@ -69,6 +71,9 @@ import com.ingroinfo.mm.dto.DivisionSubdivisionDto;
 import com.ingroinfo.mm.dto.DmaWardDto;
 import com.ingroinfo.mm.dto.EmployeeCategoryDto;
 import com.ingroinfo.mm.dto.EmployeePerformanceDto;
+import com.ingroinfo.mm.dto.EmployeeQualificationDto;
+import com.ingroinfo.mm.dto.EmployeeStatusDto;
+import com.ingroinfo.mm.dto.EmployeeTypeDto;
 import com.ingroinfo.mm.dto.HsnCodeDto;
 import com.ingroinfo.mm.dto.IdMasterDto;
 import com.ingroinfo.mm.dto.ItemMasterDto;
@@ -108,6 +113,9 @@ import com.ingroinfo.mm.entity.DivisionSubdivision;
 import com.ingroinfo.mm.entity.DmaWard;
 import com.ingroinfo.mm.entity.EmployeeCategory;
 import com.ingroinfo.mm.entity.EmployeePerformance;
+import com.ingroinfo.mm.entity.EmployeeQualification;
+import com.ingroinfo.mm.entity.EmployeeStatus;
+import com.ingroinfo.mm.entity.EmployeeType;
 import com.ingroinfo.mm.entity.HsnCode;
 import com.ingroinfo.mm.entity.IdMaster;
 import com.ingroinfo.mm.entity.ItemMaster;
@@ -137,6 +145,11 @@ import com.ingroinfo.mm.entity.WaterSource;
 import com.ingroinfo.mm.entity.WorkPriority;
 import com.ingroinfo.mm.entity.WorkStatus;
 import com.ingroinfo.mm.service.MasterService;
+
+
+
+
+
 
 @Service
 public class MasterServiceImpl implements MasterService {
@@ -225,6 +238,12 @@ public class MasterServiceImpl implements MasterService {
 	private WaterSourceRepository waterSourceRepo;
 	@Autowired
 	SupplierDtlsRepository supplierDtlsRepo;
+	@Autowired
+	EmployeeQualificationRepository empQulifRepository;
+	@Autowired
+	EmployeeStatusRepository employeeStatusRepo;
+	@Autowired
+	EmployeeTypeRepository employeeTypeRepo;
 
 	@Override
 	public EmployeeCategoryDto saveEmployeeMaster(EmployeeCategoryDto employeeCategoryDto) {
@@ -1160,7 +1179,7 @@ public class MasterServiceImpl implements MasterService {
 				.collect(Collectors.toList());
 		return workPriorityDtos;
 	}
-
+	
 	@Override
 	public void deleteWorkPriority(Long workPrioId) {
 		WorkPriority workPriority = this.workPriorityRepo.findById(workPrioId).get();
@@ -1259,11 +1278,6 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public boolean isisDistributionScheduleExists(String distSchedule) {
-		return this.disScheduleRepo.existsByDistSchedule(distSchedule);
-	}
-
-	@Override
 	public boolean isSubDivisionExists(String subdivision) {
 		return this.divsubdivRepo.existsBySubdivision(subdivision);
 	}
@@ -1300,7 +1314,7 @@ public class MasterServiceImpl implements MasterService {
 	public boolean isExistsEmpPerformanceSts(String performStatus) {
 		return this.empPerformRepo.existsByPerformStatus(performStatus);
 	}
-
+	
 	@Override
 	public boolean isCategoryExists(String categoryName) {
 		return this.categoryRepository.existsByCategoryName(categoryName);
@@ -1333,6 +1347,293 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
+	public EmployeeQualificationDto saveEmployeeQualification(EmployeeQualificationDto empQualifDto) {
+		EmployeeQualification convEmpQualification   =  this.modelMapper.map(empQualifDto, EmployeeQualification.class);
+		EmployeeQualification savedEmpQulification   =  this.empQulifRepository.save(convEmpQualification);
+		return this.modelMapper.map(savedEmpQulification, EmployeeQualificationDto.class);
+	}
+
+
+	@Override
+	public List<EmployeeQualificationDto> getAllEmpQualification() {
+		List<EmployeeQualification>	empQualification        =  this.empQulifRepository.findAll();
+		List<EmployeeQualificationDto> empQualificationDto	=   empQualification.stream().map((empQualif) -> 
+		this.modelMapper.map(empQualif, EmployeeQualificationDto.class)).collect(Collectors.toList());
+		return empQualificationDto;
+	}
+
+	@Override
+	public boolean isExistsEmpQualification(String qualification) {	
+		return this.empQulifRepository.existsByQualification(qualification);
+	}
+	
+	@Override
+	public void deleteEmpQualification(Long empQulifId) {
+	EmployeeQualification   empQualification  =  this.empQulifRepository.findById(empQulifId).get();
+	 this.empQulifRepository.delete(empQualification);	
+	}
+
+	@Override
+	public EmployeeStatusDto saveEmployeestatus(EmployeeStatusDto empStatusDto) {
+		  EmployeeStatus  convEmployeeStatus    =  this.modelMapper.map(empStatusDto, EmployeeStatus.class);
+		  EmployeeStatus  savedEmployeeStatus   =  this.employeeStatusRepo.save(convEmployeeStatus);
+		return this.modelMapper.map(savedEmployeeStatus, EmployeeStatusDto.class);
+	}
+
+	@Override
+	public boolean isExistsEmpStatus(String empStatus) {
+		return this.employeeStatusRepo.existsByEmpStatus(empStatus);
+	}
+
+	@Override
+	public List<EmployeeStatusDto> getAllEmpStatus() {
+	   List<EmployeeStatus>  employeeStatus   =  this.employeeStatusRepo.findAll();
+	   List<EmployeeStatusDto>	employeeStatusDtos	= employeeStatus.stream().map((empStatus) -> 
+	   this.modelMapper.map(empStatus, EmployeeStatusDto.class)).collect(Collectors.toList());
+		return employeeStatusDtos;
+	}
+
+	@Override
+	public void deleteEmpStatus(Long empStsId) {
+	EmployeeStatus employeeStatus =	this.employeeStatusRepo.findById(empStsId).get();
+	this.employeeStatusRepo.delete(employeeStatus);
+	}
+
+	@Override
+	public EmployeeTypeDto saveEmployeeType(EmployeeTypeDto empTypeDto) {
+	   EmployeeType convEmployeeType   =  this.modelMapper.map(empTypeDto, EmployeeType.class);
+	   EmployeeType	savedEmployeeType   = this.employeeTypeRepo.save(convEmployeeType);
+		return this.modelMapper.map(savedEmployeeType, EmployeeTypeDto.class);
+	}
+
+	@Override
+	public List<EmployeeTypeDto> getAllEmpType() {
+		List<EmployeeType>      employeeType    =  this.employeeTypeRepo.findAll();
+		List<EmployeeTypeDto> employeeTypeDtos  =	employeeType.stream().map((empType) -> 
+		this.modelMapper.map(empType, EmployeeTypeDto.class)).collect(Collectors.toList());
+		return employeeTypeDtos;
+	}
+
+	@Override
+	public void deleteEmpType(Long empTypeId) {
+		EmployeeType empType   =  this.employeeTypeRepo.findById(empTypeId).get();
+		this.employeeTypeRepo.delete(empType);	
+	}
+
+	@Override
+	public boolean isExistsEmpType(String empType) {
+		return this.employeeTypeRepo.existsByEmpType(empType);
+	}
+
+	@Override
+	public boolean isExistsMaintenPerformType(String maintenPerformType) {
+		return this.maintenPerformRepo.existsByMaintenPerformType(maintenPerformType);
+	}
+
+	@Override
+	public boolean isExistsMaintenTypeStatus(String maintenTypeStatus) {
+		return this.maintenTypeRepo.existsByMaintenTypeStatus(maintenTypeStatus);
+	}
+
+	@Override
+	public boolean isExistsDeptName(String departmentName) {
+		return this.departmentRepository.existsByDepartmentName(departmentName);
+	}
+
+	@Override
+	public boolean isExistsEmpCategory(String empCategory) {
+		return this.employeeCategoryRepository.existsByEmpCategory(empCategory);
+	}
+
+	@Override
+	public boolean isExistsPumpTypeForManufacturing(String manufactName, String pumpType) {
+		return this.pumpMasterRepo.existsBymanufactNameAndPumpType(manufactName, pumpType);
+	}
+
+	@Override
+	public boolean isExistsMeterType(String meterType) {
+		return this.meterTypeRepo.existsByMeterType(meterType);
+	}
+
+	@Override
+	public boolean isExistsPipeTypeForPipeManufctr(String manufactureName,  String pipeType) {
+		return this.pipeManufactRepo.existsByManufactureNameAndPipeType(manufactureName, pipeType);
+	}
+
+	@Override
+	public boolean isExistsByPressureType(String pressureType) {
+		
+		return this.pressureTypeRepo.existsByPressureType(pressureType);
+	}
+
+	@Override
+	public boolean isExistsBySaftyPrecaution(String saftyPrecausSts) {
+		return this.saftyPrecusRepo.existsBySaftyPrecausSts(saftyPrecausSts);
+	}
+
+	@Override
+	public boolean isExistsByServiceArea(String serviceArea) {
+		return this.serviceAreaRepo.existsByServiceArea(serviceArea);
+	}
+
+	@Override
+	public boolean isExistsByServiceProgress(String sevcProgress) {
+		return this.serviceProgressRepo.existsBysevcProgress(sevcProgress);
+	}
+
+	@Override
+	public boolean isExistsBySpareEquipmentId(String spareEquipmentId) {	
+		return this.spareEquipRepo.existsBySpareEquipmentId(spareEquipmentId);
+	}
+
+	@Override
+	public boolean isExistsBySpareEquipmentName(String spareEquipmentName) {
+		return this.spareEquipRepo.existsBySpareEquipmentName(spareEquipmentName);
+	}
+
+	@Override
+	public boolean isExistsByStoreBranch(String stroreBranchName) {
+		return this.storeBranchRepository.existsByStroreBranchName(stroreBranchName);
+	}
+
+	@Override
+	public boolean isExistsBySupplierId(String supplierId) {
+		
+		return this.supplierDtlsRepo.existsBySupplierId(supplierId);
+	}
+
+	@Override
+	public boolean isExistsSupplierEmail(String emailId) {
+		return this.supplierDtlsRepo.existsByEmailId(emailId);
+	}
+
+	@Override
+	public boolean isExistsByTaskStatus(String taskStatus) {
+		return this.taskStatusRepository.existsByTaskStatus(taskStatus);
+	}
+
+	@Override
+	public boolean isExistsByTeamSectionName(String section) {
+		return this.teamCodeRepo.existsBySection(section);
+	}
+
+	@Override
+	public boolean isExistsByTeamSiteEngineer(String siteEnginner) {
+		return this.teamCodeRepo.existsBySiteEnginner(siteEnginner);
+	}
+
+	@Override
+	public boolean isExistsByTeamSupervisor(String siteSuperwiser) {
+		
+		return this.teamCodeRepo.existsBySiteSuperwiser(siteSuperwiser);
+	}
+
+	@Override
+	public boolean isExistsByUnitOfType(String unitType) {
+		return this.unitMeasureRepo.existsByUnitType(unitType);
+	}
+
+	@Override
+	public boolean isExistsByWaterSource(String waterSource) {
+		return this.waterSourceRepo.existsByWaterSource(waterSource);
+	}
+
+	@Override
+	public boolean isExistsByWorkPriority(String workPriority) {
+		return this.workPriorityRepo.existsByWorkPriority(workPriority);
+	}
+
+	@Override
+	public boolean isExistsByWorkStatus(String workStatus) {
+		return this.workStatusRepo.existsByWorkStatus(workStatus);
+	}
+
+	@Override
+	public boolean isExistsByMaintenWorkType(String maintanWork) {
+		return this.maintanFrequencyRepo.existsByMaintanWork(maintanWork);
+	}
+
+	@Override
+	public boolean isExistsByDesignation(String designation) {
+		return this.designationRepo.existsByDesignation(designation);
+	}
+
+	@Override
+	public boolean isExistsByServiceProviderId(String serviceProviderId) {
+		return this.serviceProviderRepo.existsByServiceProviderId(serviceProviderId);
+	}
+
+	@Override
+	public boolean isExistsByServiceProvdrRegNo(String registerNo) {
+		return this.serviceProviderRepo.existsByRegisterNo(registerNo);
+	}
+
+	@Override
+	public boolean isExistsByServiceProvdrConNo(String contactNo) {	
+		return this.serviceProviderRepo.existsByContactNo(contactNo);
+	}
+
+	@Override
+	public boolean isExistsStockTypeForItemName(String itemName, String stockType) {
+		return this.itemMasterRepo.existsByItemNameAndStockType(itemName, stockType);
+	}
+
+	@Override
+	public boolean isExistsMeterManufctrForMeterType(String meterManufacture, String meterType) {
+		return this.meterManufactRepo.existsByMeterManufactureAndMeterType(meterManufacture, meterType);
+	}
+
+	@Override
+	public boolean isExistsByPipeId(String manufactureId) {
+		return this.pipeManufactRepo.existsByManufactureId(manufactureId);
+	}
+
+	@Override
+	public boolean isExistsByIdMasterName(String masterIdName) {
+		return this.idRepository.existsByMasterIdName(masterIdName);
+	}
+
+	@Override
+	public boolean isExistsDeptNameByDeptIdMaster(String masterIdName ,String deptName) {	
+		return this.deptIdMasterRepo.existsByDeptNameAndMasterIdName(masterIdName, deptName);
+	}
+
+	@Override
+	public boolean isExistsDeptIdByDeptIdMaster(String masterIdName, String deptId) {
+		return this.deptIdMasterRepo.existsByDeptIdAndMasterIdName(masterIdName, deptId);
+	}
+
+	@Override
+	public boolean isExistsBySupplierRecNo(String reciptNo) {	
+		return this.supplierDtlsRepo.existsByReciptNo(reciptNo);
+	}
+
+	@Override
+	public boolean isExistsVehicleNoByVDtls(String vehicleNo) {
+		return this.vehicleDtlsRepo.existsByVehicleNo(vehicleNo);
+	}
+
+	@Override
+	public boolean isExistsRecNoByVDtls(String rcNumber) {
+		return this.vehicleDtlsRepo.existsByRcNumber(rcNumber);
+	}
+
+	@Override
+	public boolean isExistsInsuranceNoByVDtls(String insurancNo) {
+		return this.vehicleDtlsRepo.existsByInsurancNo(insurancNo);
+	}
+
+	@Override
+	public boolean isExistsSubDivsnByDstbtnLctn(String subDivision) {	
+		return this.disLocationRepo.existsBySubDivision(subDivision);
+	}
+
+	@Override
+	public boolean isExistsSubDivsnByDstnSchdl(String subDivision) {	
+		return this.disScheduleRepo.existsBySubDivision(subDivision);
+	}
+
+	@Override
 	public String getAutoIncrementId(String IdName) {
 
 		String nextDeptId = "";
@@ -1362,6 +1663,7 @@ public class MasterServiceImpl implements MasterService {
 		}
 		return nextDeptId;
 	}
+
 
 
 }

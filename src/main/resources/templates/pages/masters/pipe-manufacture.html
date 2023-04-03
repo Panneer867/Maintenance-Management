@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,21 +23,21 @@
 							<label for="manufactureId" class="col col-form-label">Manufacture ID</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" placeholder="Enter Manufacture Id"
-								id="manufactureId" name="manufactureId" required maxlength="6" >
+								id="manufactureId" name="manufactureId" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<label for="pipeType" class="col col-form-label">Pipe Type</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="pipeType" name="pipeType" required placeholder="Enter Pipe Type">
+								id="pipeType" name="pipeType" required placeholder="Enter Pipe Type" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<label for="manufactureName" class="col col-form-label">Manufacture Name</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="manufactureName" name="manufactureName" required placeholder="Enter Manufature Name">
+								id="manufactureName" name="manufactureName" required placeholder="Enter Manufature Name"  oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>												
 					</div>
@@ -46,7 +46,7 @@
 							<label for="size" class="col col-form-label">Size</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="size" name="size" required placeholder="Enter Pipe Size">
+								id="size" name="size" required placeholder="Enter Pipe Size" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="col-sm-3">
@@ -60,7 +60,7 @@
 							<label for="manufactAddress" class="col col-form-label">Manufacture Address</label>
 							<div class="col">
 								<input type="text" class="form-control form-control-sm" 
-								id="manufactAddress" name="manufactAddress" required placeholder="Enter Manufature Address">
+								id="manufactAddress" name="manufactAddress" required placeholder="Enter Manufature Address" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>												
 					</div>
@@ -79,27 +79,27 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Pipe Manufacture History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Manufacture Id</th>
 						<th class="text-center" scope="col">Pipe Type</th>
 						<th class="text-center" scope="col">Size</th>
 						<th class="text-center" scope="col">Contact No</th>
 						<th class="text-center" scope="col">Manufacture Name</th>
-						<th class="text-center" scope="col">Manufacture Address</th>												
+						<th class="text-center" scope="col">Manufacture Address</th>
+						<th class="text-center" scope="col">Delete</th>												
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="pipemenufac : ${listOfPipeManufact}">
-						<td><a href="#" th:onclick="|deletePipeManufacture(${pipemenufac.pipemanufId})|">
-								<span th:text="${'PM'+pipemenufac.pipemanufId}"></span></a>
-						</td>
+					<tr th:each="pipemenufac : ${listOfPipeManufact}">					
 						<td th:text="${pipemenufac.manufactureId}"></td>
 						<td th:text="${pipemenufac.pipeType}"></td>	
 						<td th:text="${pipemenufac.size}"></td>	
 						<td th:text="${pipemenufac.contactNo}"></td>	
 						<td th:text="${pipemenufac.manufactureName}"></td>
-						<td th:text="${pipemenufac.manufactAddress}"></td>																		
+						<td th:text="${pipemenufac.manufactAddress}"></td>
+							<td><a href="#" th:onclick="|deletePipeManufacture(${pipemenufac.pipemanufId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>																		
 					</tr>
 				</tbody>
 			</table>

@@ -29,4 +29,5 @@ public class WapWorkOrderVehiclesDto {
 	private String approvedSts;
 	private String userName;
 	private Date createdDate;
+	private String workOrder;
 }

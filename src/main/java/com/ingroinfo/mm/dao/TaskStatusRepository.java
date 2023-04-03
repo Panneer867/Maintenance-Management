@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.TaskStatus;
 @Repository
 public interface TaskStatusRepository extends JpaRepository<TaskStatus, Long> {
 
+	boolean existsByTaskStatus(String taskStatus);
+
 }

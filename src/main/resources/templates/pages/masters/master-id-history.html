@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -39,7 +39,7 @@
 								<td th:text="${masterid.statNumber}"></td>
 								<td th:text="${masterid.idDescription}"></td>
 								<td><a type="button" th:href="@{'/masters/getMasterIdData/'+${masterid.masterId}}"
-								 class="btn-sm btn-warning">Update</a></td>								
+								 class="btn-sm p-1 btn-warning">Update</a></td>								
 							</tr>
 						</tbody>
 					</table>

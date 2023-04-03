@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.MaintanceFrequency;
 @Repository
 public interface MaintanceFrequencyRepository extends JpaRepository<MaintanceFrequency, Long> {
 
+	boolean existsByMaintanWork(String maintanWork);
+
 }

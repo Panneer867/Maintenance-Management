@@ -4,6 +4,35 @@
 	<section>
 		<!-- form Start-->
 		<div class="mx-auto col-12 mt-5">
+		
+			<ul class="nav nav-pills nav-justified py-1 mt-2 " id="pills-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a id="employee-link" th:href="@{/masters/empperformance}" class="nav-link active py-2 text-white hvr bg-dark">
+						Employee Performance
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empqualification}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Qualification
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empstatus}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Status
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/emptype}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Type
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empcategory}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Category
+					</a>
+				</li>
+			</ul>
+
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
@@ -12,19 +41,20 @@
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
 			<!-- End of Message Alert Field -->
-			<div class="card bl-cr">
-				<div class="card-header text-center heading-bg text-white">
-					<h3 class="mb-0">Employee Performance</h3>
+			<div class="card  mt-2 bl-cr">
+				<div class="card-header heading-bg">
+					<h3 class="text-center text-white mb-0">Employee Performance</h3>
 				</div>
-				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveEmpPerform}" method="post">
+				<div class="card-body font-weight-bold">
+					<form  data-toggle="validator" th:action="@{/masters/saveEmpPerform}" method="post">
 						<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
-								<label class="col-sm-6 col-form-label">Employee Performance</label>
+								<label for="performStatus"  class="col-sm-6 col-form-label">Employee Performance</label>
 								<div class="col-sm-6">
-									<input class="form-control form-control-sm" name="performStatus" required
-										placeholder="Enter Employee Performance"
-										oninput="this.value = this.value.toUpperCase()">
+									<input class="form-control form-control-sm" name="performStatus" id="performStatus" required
+										placeholder="Enter Employee Status"   pattern="^[A-Za-z]+[A-Za-z ]*$" 
+										data-error="Provide a Emp Performance !" oninput="this.value = this.value.toUpperCase()">
+							       <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -36,24 +66,22 @@
 				</div>
 			</div>
 		</div>
-		<!-- form END-->
 
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
-			<h5 class="mb-4 bg-primary py-1 text-white text-center">Employee Performance History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Employee Status History</h5>
+			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Employee Performance</th>
+					<tr>						
+						<th class="text-center" scope="col">Employee Status</th>
+							<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="empperform : ${listOfEmpPerform}">
-						<td><a href="#" th:onclick="|deleteEmplyeePerformance(${empperform.empPerformId})|">
-								<span th:text="${'EP'+empperform.empPerformId}"></span></a>
-						</td>
-						<td th:text="${empperform.performStatus}"></td>
+					<tr th:each="empperfm : ${listOfEmpPerform}">
+					<td th:text="${empperfm.performStatus}"></td>
+					<td ><a href="#" th:onclick="|deleteEmplyeePerformance(${empperfm.empPerformId})|">
+					<button class="btn-xs btn-danger">Delete</button></a></td>
 					</tr>
 				</tbody>
 			</table>

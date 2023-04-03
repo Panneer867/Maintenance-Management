@@ -494,26 +494,21 @@ public class EmployeeController {
 	          return graph; 
 	  }
 
-	  @GetMapping("/dash/empLeave")
-	  public @ResponseBody List<EmployeeGraphDto> getMonthlyEmpLeave() {
-	      List<EmployeeGraphDto> graph = null;
-	      try {
-	          // Get the current year
-	         // int currentYear = Year.now().getValue();
-
-	          // Modify the SQL query to filter by current year
-	         // String sql = "SELECT * FROM DASHBORD_DEPTWISE_EMP_LEAVE WHERE YEAR = ?";
-	         // System.out.println("SQL query: " + sql);
-
-	          // Execute the query and map the result set to a list of EmployeeGraphDto objects
-	         // graph = jdbcTemplate.query(sql, new Object[]{currentYear}, BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
-
-	      } catch (Exception e) {
-	          System.out.println("Error occurred: " + e.getMessage());
-	          e.printStackTrace();
-	      }
-	      return graph;
-	  }
-
+		/*
+		 * @GetMapping("/dash/empLeave") public @ResponseBody List<EmployeeGraphDto>
+		 * getMonthlyEmpLeave() { List<EmployeeGraphDto> graph = null; try { // Get the
+		 * current year // int currentYear = Year.now().getValue();
+		 * 
+		 * // Modify the SQL query to filter by current year // String sql =
+		 * "SELECT * FROM DASHBORD_DEPTWISE_EMP_LEAVE WHERE YEAR = ?"; //
+		 * System.out.println("SQL query: " + sql);
+		 * 
+		 * // Execute the query and map the result set to a list of EmployeeGraphDto
+		 * objects // graph = jdbcTemplate.query(sql, new Object[]{currentYear},
+		 * BeanPropertyRowMapper.newInstance(EmployeeGraphDto.class));
+		 * 
+		 * } catch (Exception e) { System.out.println("Error occurred: " +
+		 * e.getMessage()); e.printStackTrace(); } return graph; }
+		 */
 
 }

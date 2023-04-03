@@ -37,4 +37,5 @@ public class WapWorkOrderLabours {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 }

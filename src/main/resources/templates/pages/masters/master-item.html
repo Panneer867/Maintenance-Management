@@ -3,11 +3,11 @@
 <body>
 	<section>
 		<!-- form Start-->
-		 <div class="mx-auto col-12 mt-5">
+		<div class="mx-auto col-12 mt-5">
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,36 +17,36 @@
 					<h3 class="mb-0">Item Master</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-				  <form th:action="@{/masters/saveItemdata}" method="post">				     
-						<div class="row ">						
+					<form th:action="@{/masters/saveItemdata}" method="post">
+						<div class="row ">
 							<div class="col-3">
 								<label for="itemId" class="col col-form-label">Item Id</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm bg-white" id="itemId" readonly
-										name="itemId" required th:value="${masterItemId}">
+									<input type="text" class="form-control form-control-sm bg-white" id="itemId"
+										readonly name="itemId" required th:value="${masterItemId}">
 								</div>
-							</div>							
+							</div>
 							<div class="col-5">
 								<label for="category" class="col col-form-label">Category</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm " id="item-master-category"
 										name="category" required>
 										<option value="">--Select--</option>
-										<option th:each ="categoies:${categoryList}"
-										        th:value="${categoies.catid}"
-										        th:text="${categoies.categoryName}"></option>										
+										<option th:each="categoies:${categoryList}" th:value="${categoies.catid}"
+											th:text="${categoies.categoryName}"></option>
 									</select>
 								</div>
 							</div>
 							<div class="col-4">
 								<label for="hsnCode" class="col col-form-label">HsnCode</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm bg-white" id="item-master-hsnCode" readonly
-										name="hsnCode" required placeholder="Enter Hsn Code">
+									<input type="text" class="form-control form-control-sm bg-white"
+										id="item-master-hsnCode" readonly name="hsnCode" required
+										placeholder="Enter Hsn Code">
 								</div>
 							</div>
-						    </div>
-							<div class="row ">
+						</div>
+						<div class="row ">
 							<div class="col-3">
 								<label for="stockType" class="col col-form-label">Stock Type</label>
 								<div class="col">
@@ -55,26 +55,28 @@
 										<option value="">--Select--</option>
 										<option value="ML">Materials</option>
 										<option value="SP">Spares</option>
-										<option value="TE">Tools & Equipments</option>										
+										<option value="TE">Tools & Equipments</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-5">
 								<label for="itemName" class="col-auto col-form-label">Item Name</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="itemName" 
-									name="itemName" required placeholder="Enter Item Name">
+									<input type="text" class="form-control form-control-sm" id="itemName"
+										name="itemName" required placeholder="Enter Item Name"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
-							</div>							
+							</div>
 							<div class="col-4">
 								<label for="description" class="col-auto col-form-label">Description</label>
 								<div class="col">
-									<textarea class="form-control form-control-sm" aria-label="With textarea" name="description"
-									placeholder ="Write Description"></textarea>
+									<textarea class="form-control form-control-sm" aria-label="With textarea"
+										name="description" placeholder="Write Description"
+										oninput="this.value = this.value.toUpperCase()"></textarea>
 								</div>
 							</div>
 
-						</div>				      
+						</div>
 						<div class="pt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit </button>
 							<a th:href="@{/masters/itemhistory}" class="btn btn-success">View</a>
@@ -83,37 +85,52 @@
 					</form>
 				</div>
 			</div>
-		 </div>
+		</div>
 		<!-- form END-->
-		
+
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Item Master History</h5>
-			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
+			<table
+				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>						
-						<th class="text-center" scope="col">Item Id</th>					
+					<tr>
+						<th class="text-center" scope="col">Item Id</th>
 						<th class="text-center" scope="col">Category</th>
 						<th class="text-center" scope="col">HsnCode</th>
 						<th class="text-center" scope="col">ItemName</th>
+						<th class="text-center" scope="col">StockType</th>
 						<th class="text-center" scope="col">Description</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="items : ${listOfItems}">
-						<td><a href="#" th:onclick="|deleteMasterItem(${items.itemMasterId})|">
-								<span th:text="${items.itemId}"></span></a>
-						</td>												
+						<td th:text="${items.itemId}"></td>
 						<td th:text="${items.categoryName}"></td>
 						<td th:text="${items.hsnCode}"></td>
 						<td th:text="${items.itemName}"></td>
+						<td class="text-center">
+							<span th:if="${items.stockType eq 'ML'}">
+								Materials
+							</span>
+							<span th:if="${items.stockType eq 'SP'}">
+								Spares
+							</span>
+							<span th:if="${items.stockType eq 'TE'}">
+								Tools & Equipments
+							</span>
+						</td>
 						<td th:text="${items.description}"></td>
+						<td><a href="#" th:onclick="|deleteMasterItem(${items.itemMasterId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->
-		
+
 	</section>
 </body>
 

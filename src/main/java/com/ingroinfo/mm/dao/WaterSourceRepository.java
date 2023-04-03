@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.WaterSource;
 @Repository
 public interface WaterSourceRepository extends JpaRepository<WaterSource, Long> {
 
+	boolean existsByWaterSource(String waterSource);
+
 }

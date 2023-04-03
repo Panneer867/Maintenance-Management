@@ -17,18 +17,15 @@
 					<h3 class="mb-0">Leakage Type</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveleakageType}" method="post">
+					<form data-toggle="validator" th:action="@{/masters/saveleakageType}" method="post">
 						<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
-								<label class="col-auto col-form-label">Leakage Type</label>
+								<label for="leakageType" class="col-sm-6 col-form-label">Leakage Type</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="leakageType" required>
-									    <option value="">--Select--</option>
-										<option>Pipe-Main Line</option>
-										<option>Bulk Meter supply Zone</option>
-										<option>Distriubution Line</option>
-										<option>HSC Zone</option>
-									</select>
+									<input class="form-control form-control-sm" name="leakageType" id="leakageType" required
+										placeholder="Enter Leakage Type" pattern="^[A-Za-z/&]+[A-Za-z/&\s]*$"
+										    data-error="Provide a Leakage Type!" oninput="this.value = this.value.toUpperCase()">
+										<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -48,16 +45,16 @@
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Leakage Type</th>						
+						<th class="text-center" scope="col">Leakage Type</th>	
+						<th class="text-center" scope="col">Delete</th>					
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="leaktype : ${listOfLikageType}">
+						<td th:text="${leaktype.leakageType}"></td>		
 						<td><a href="#" th:onclick="|deleteLikageType(${leaktype.leakageId})|">
-								<span th:text="${'LT'+leaktype.leakageId}"></span></a>
-						</td>
-						<td th:text="${leaktype.leakageType}"></td>						
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>				
 					</tr>
 				</tbody>
 			</table>

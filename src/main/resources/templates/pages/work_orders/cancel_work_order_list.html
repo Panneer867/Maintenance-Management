@@ -33,23 +33,23 @@
 									<th class="all">Complain Date</th>
 									<th class="all">Indent No</th>
 									<th class="all">Workorder No</th>
-									<th class="all">Approved Date</th>
-									<th class="all">Approved By</th>
+									<th class="all">Canceld Date</th>
+									<th class="all">Canceld By</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="workorderapproved: ${workorderApprovedcompls}">
-									<td th:text="${workorderapproved.complNo}"></td>
-									<td th:text="${workorderapproved.complDate}"></td>
-									<td th:text="${workorderapproved.indentNo}"></td>
-									<td th:text="${workorderapproved.workOrder}"></td>
+								<tr th:each="cencelwork: ${listOfCancelCompls}">
+									<td th:text="${cencelwork.complNo}"></td>
+									<td th:text="${cencelwork.complDate}"></td>
+									<td th:text="${cencelwork.indentNo}"></td>
+									<td th:text="${cencelwork.workOrder}"></td>
 									<td
-										th:text="${#dates.format(workorderapproved.workorderApprovedDate, 'dd/MM/yyyy ')}">
+										th:text="${#dates.format(cencelwork.workOrderCancelDate, 'dd/MM/yyyy ')}">
 									</td>
-									<td th:text="${workorderapproved.workorderApprovedBy}"></td>
+									<td th:text="${cencelwork.workOrderCancelBy}"></td>
 									<td class="text-center"><a class="btn btn-success p-1 mx-2"
-											th:href="@{/pump/maintenance/view/detalis/{complNo}/{indentNo}(complNo=${workorderapproved.complNo}, indentNo=${workorderapproved.indentNo})}">View</a>
+											th:href="@{/pump/maintenance/view/detalis/{complNo}/{indentNo}(complNo=${cencelwork.complNo}, indentNo=${cencelwork.indentNo})}">View</a>
 									</td>
 								</tr>
 							</tbody>

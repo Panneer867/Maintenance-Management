@@ -17,38 +17,41 @@
 					<h3 class="mb-0">DMA-Ward</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savedmaward}" method="post">
+					<form data-toggle="validator" th:action="@{/masters/savedmaward}" method="post">
 						<div class="row ">
-							<div class="col text-start">
-
+							<div class="form-group col text-start">
 								<label for="dmaNumber" class="col-sm-8 col-form-label">DMA Number</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="dmaNumber"
-										name="dmaNumber" required placeholder="Enter Dma Number">
+									<input type="text" class="form-control form-control-sm" id="dmaNumber"  data-error="Provide a DMA Number !"
+										name="dmaNumber"  pattern="^[a-zA-Z0-9\s]+$" required placeholder="Enter Dma Number" oninput="this.value = this.value.toUpperCase()">
+								  <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="dmaName" class="col-sm-8 col-form-label">DMA Name</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="dmaName" name="dmaName"
-										required placeholder="Enter Dma Name">
+									<input type="text" class="form-control form-control-sm" id="dmaName" name="dmaName"  data-error="Provide a DMA Name !"
+										 pattern="^[A-Za-z]+[A-Za-z ]*$" required placeholder="Enter Dma Name" oninput="this.value = this.value.toUpperCase()">
+								   <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="wardNumber" class="col-sm-10 col-form-label">Ward Number</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="wardNumber"
-										name="wardNumber" required placeholder="Enter Ward Number">
+									<input type="text" class="form-control form-control-sm" id="wardNumber"  data-error="Provide a Ward Number !"
+										name="wardNumber"  pattern="^[a-zA-Z0-9\s]+$" required placeholder="Enter Ward Number" oninput="this.value = this.value.toUpperCase()">
+								      <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="wardName" class="col-sm-10 col-form-label">Ward Name</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="wardName"
-										name="wardName" required placeholder="Enter Ward Name">
+									<input type="text" class="form-control form-control-sm" id="wardName"  data-error="Provide a Ward Name !"
+										name="wardName"  pattern="^[A-Za-z]+[A-Za-z ]*$" required placeholder="Enter Ward Name" oninput="this.value = this.value.toUpperCase()">
+										<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -70,22 +73,22 @@
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Dma No</th>
 						<th class="text-center" scope="col">Dma Name</th>
 						<th class="text-center" scope="col">Ward Number</th>
 						<th class="text-center" scope="col">Ward Name</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="dmaward : ${listOfDmaWard}">
-						<td><a href="#" th:onclick="|deleteDmaWard(${dmaward.dmaWardId})|">
-								<span th:text="${'DW'+dmaward.dmaWardId}"></span></a>
-						</td>
+					<tr th:each="dmaward : ${listOfDmaWard}">					
 						<td th:text="${dmaward.dmaNumber}"></td>
 						<td th:text="${dmaward.dmaName}"></td>
 						<td th:text="${dmaward.wardNumber}"></td>
 						<td th:text="${dmaward.wardName}"></td>
+							<td><a href="#" th:onclick="|deleteDmaWard(${dmaward.dmaWardId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

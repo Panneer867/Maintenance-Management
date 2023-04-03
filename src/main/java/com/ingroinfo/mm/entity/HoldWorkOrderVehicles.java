@@ -40,4 +40,5 @@ public class HoldWorkOrderVehicles {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 }

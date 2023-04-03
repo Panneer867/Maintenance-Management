@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" span th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,31 +17,31 @@
 					<h3 class="mb-0">Maintance Frequency</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savemaintenfreq}" method="post">
-						<div class="row g-3 align-items-center">
-							<div class="col-auto pl-5">
-								<label for="maintanWork" class="col-form-label">Maintance Work</label>
-							</div>
-							<div class="col-sm-4">
-								<input type="text" id="maintanWork" class="form-control form-control-sm"
-									name="maintanWork" required placeholder="Enter Maintance Work">
-							</div>
-							<div class="col-auto">
-								<label for="maintanFrequency" class="col-form-label">Maintance Frequency</label>
-							</div>
-							<div class="col-sm-3">
-								<select class="form-select form-select-sm" name="maintanFrequency" required>
-									<option>--Select--</option>
-									<option>Daily</option>
-									<option>Weekly</option>
-									<option>15 Days</option>
-									<option>Monthly</option>
-									<option>6 Month</option>
-									<option>Yearly </option>
-								</select>
+					<form 	data-toggle="validator" th:action="@{/masters/savemaintenfreq}" method="post">	
+					<div class="row">			
+	                    <div class="col-6 text-start">
+							<div class="form-group row p-2">
+								<label for="maintanWork" class="col-sm-5 col-form-label">Maintenance Work </label>
+								<div class="col-sm-7">
+									<input class="form-control form-control-sm" name="maintanWork" id="maintanWork" required
+										placeholder="Enter Maintenance Work Type"   pattern="^[A-Za-z/&-]+[A-Za-z/&\s-]*$"
+									 data-error="Provide a Maintenance Work !" oninput="this.value = this.value.toUpperCase()">
+									<div class="help-block with-errors text-danger"></div>
+								</div>
 							</div>
 						</div>
-
+						 <div class="col-6 text-start">
+							<div class="form-group row p-2">
+								<label for="maintanFrequency" class="col-sm-6 col-form-label">Maintenance Frequency </label>
+								<div class="col-sm-6">
+									<input class="form-control form-control-sm" name="maintanFrequency" id="maintanFrequency" required
+										placeholder="Enter Maintenance Frequency Type"  pattern="^[a-zA-Z0-9\s%.]+$"
+										 data-error="Provide a Maintenance Frequency !"	oninput="this.value = this.value.toUpperCase()">
+								    <div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 						<div class="mt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit</button>
 							<a type="button" th:href="@{/masters/maintanfreqhistory}" class="btn btn-success">View</a>
@@ -59,19 +59,19 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>					
 						<th class="text-center" scope="col">Maintance Work</th>
 						<th class="text-center" scope="col">Maintance Frequency</th>
+							<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="maintanfreq : ${listOfMaintenFreq}">
-						<td><a href="#" th:onclick="|deleteMaintenFrequency(${maintanfreq.maintanFrequId})|">
-								<span th:text="${'DW'+maintanfreq.maintanFrequId}"></span></a>
-						</td>
 						<td th:text="${maintanfreq.maintanWork}"></td>
 						<td th:text="${maintanfreq.maintanFrequency}"></td>
+					    <td><a href="#" th:onclick="|deleteMaintenFrequency(${maintanfreq.maintanFrequId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

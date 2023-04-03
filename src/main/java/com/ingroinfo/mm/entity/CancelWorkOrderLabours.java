@@ -37,4 +37,5 @@ public class CancelWorkOrderLabours {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 }

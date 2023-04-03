@@ -7,5 +7,7 @@ import com.ingroinfo.mm.entity.MaintenanceType;
 @Repository
 public interface MaintenanceTypeRepository extends JpaRepository<MaintenanceType, Long> {
 
+	boolean existsByMaintenTypeStatus(String maintenTypeStatus);
+
 
 }

@@ -42,6 +42,7 @@ public class WapWorkOrderItems {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 	
 
 }

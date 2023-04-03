@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.StoreBranch;
 @Repository
 public interface StoreBranchRepository extends JpaRepository<StoreBranch, Long> {
 
+	boolean existsByStroreBranchName(String stroreBranchName);
+
 }

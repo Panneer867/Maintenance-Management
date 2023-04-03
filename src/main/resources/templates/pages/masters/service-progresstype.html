@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,18 +17,15 @@
 					<h3 class="mb-0">Service Progress Type Details</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveServiceprogress}" method="post">
-						<div class="mx-auto col-8 text-start">
+					<form th:action="@{/masters/saveServiceprogress}" method="post">					
+							<div class="mx-auto col-8 text-start">
 							<div class="form-group row p-2">
-								<label for="inputEmail3" class="col-auto col-form-label">Service Progress
+								<label class="col-sm-6 col-form-label">Service Progress
 									Type Details</label>
-								<div class="col-sm-5">
-									<select class="form-select form-select-sm" name="sevcProgress" required>
-										<option>Initiated</option>
-										<option>On Progress</option>
-										<option>Completed</option>
-										<option>On hold</option>
-									</select>
+								<div class="col-sm-6">
+									<input class="form-control form-control-sm" name="sevcProgress" required
+										placeholder="Enter Service Progress Type Details"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -47,17 +44,17 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Service Progress History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Service Progress Type</th>																		
+					<tr>						
+						<th class="text-center" scope="col">Service Progress Type</th>		
+						<th class="text-center" scope="col">Delete</th>																
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="serviceprogress : ${listOfServiceProgrss}">
+					<tr th:each="serviceprogress : ${listOfServiceProgrss}">						
+						<td th:text="${serviceprogress.sevcProgress}"></td>		
 						<td><a href="#" th:onclick="|deleteServiceProgressType(${serviceprogress.servcProgressId})|">
-								<span th:text="${'SP'+serviceprogress.servcProgressId}"></span></a>
-						</td>
-						<td th:text="${serviceprogress.sevcProgress}"></td>																							
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>																					
 					</tr>
 				</tbody>
 			</table>

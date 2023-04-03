@@ -7,4 +7,8 @@ import com.ingroinfo.mm.entity.SpareEquipment;
 @Repository
 public interface SpareEquipmentRepository extends JpaRepository<SpareEquipment, Long> {
 
+	boolean existsBySpareEquipmentId(String spareEquipmentId);
+
+	boolean existsBySpareEquipmentName(String spareEquipmentName);
+
 }

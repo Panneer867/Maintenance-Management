@@ -40,4 +40,5 @@ public class WapWorkOrderVehicles {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 }

@@ -17,45 +17,49 @@
 					<h3 class="mb-0">Distribution Schedule</h3>
 				</div>
 				<div class="card-body pl-2 pr-2 font-weight-bold">
-					<form th:action="@{/masters/savedisschedule}" method="post">
+					<form data-toggle="validator" th:action="@{/masters/savedisschedule}" method="post">
 						<div class="row ">
-							<div class="col-3 text-start">
-								<label for="division" class="col-sm-8 col-form-label">Division</label>
+							<div class="form-group col-3 text-start">
+								<label for="master-division-list" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm" id="master-division-list" name="division"
-										required>
+											data-error="Selete this field !" required>
 										<option value="">--Select--</option>
 										<option th:each="divisions:${divisionList}"
 										        th:value="${divisions}"
 										        th:text="${divisions}"></option>
 									</select>
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col-3 text-start">
-								<label for="subDivision" class="col-sm-8 col-form-label">Sub-Division</label>
+							<div class="form-group col-3 text-start">
+								<label for="master-sub-division-list" class="col-sm-8 col-form-label">Sub-Division</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm" id="master-sub-division-list"
-										name="subDivision" required>
+										data-error="Selete this field !" name="subDivision" required>
 										<option value="">--Select--</option>
 										<option></option>
 									</select>
+										<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col-3 text-start">
-								<label for="distLocation" class="col-sm-10 col-form-label">Distribution Location</label>
+							<div class="form-group col-3 text-start">
+								<label for="master-distlocation-list" class="col-sm-10 col-form-label">Distribution Location</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm" id="master-distlocation-list"
-										name="distLocation" required>
+									  data-error="Selete this field !" name="distLocation" required>
 										<option value="">--Select--</option>
 										<option></option>
 									</select>
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col-3 text-start">
+							<div class="form-group col-3 text-start">
 								<label for="distSchedule" class="col-sm-12 col-form-label">Distribution Schedule</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="distSchedule"
-										name="distSchedule" required placeholder="Enter Dist Schedule Name">
+									<input type="text" class="form-control form-control-sm" id="distSchedule"  data-error="Provide a Distribution Schedule !" 
+										name="distSchedule" required placeholder="Enter Dist Schedule Name"  pattern="^[a-zA-Z0-9\s]+$" oninput="this.value = this.value.toUpperCase()">
+								     <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -77,23 +81,23 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Division</th>
 						<th class="text-center" scope="col">SubDivision</th>
 						<th class="text-center" scope="col">Dis Location</th>
 						<th class="text-center" scope="col">Dis Schedule</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="disschedule : ${listOfdisschedule}">
-						<td><a href="#" th:onclick="|deleteDistributionSchedule(${disschedule.disScheduleId})|">
-								<span th:text="${'DS'+disschedule.disScheduleId}"></span></a>
-						</td>
+					<tr th:each="disschedule : ${listOfdisschedule}">						
 						<td th:text="${disschedule.division}"></td>
 						<td th:text="${disschedule.subDivision}"></td>
 						<td th:text="${disschedule.distLocation}"></td>
 						<td th:text="${disschedule.distSchedule}"></td>
+						<td><a href="#" th:onclick="|deleteDistributionSchedule(${disschedule.disScheduleId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

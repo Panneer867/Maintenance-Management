@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,16 +17,14 @@
 					<h3 class="mb-0">Work Priority</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveWorkPriority}" method="post">
-						<div class="mx-auto col-6 text-start">
+					<form th:action="@{/masters/saveWorkPriority}" method="post">						
+							<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
-								<label class="col-auto col-form-label">Work Priority</label>
+								<label class="col-sm-6 col-form-label">Water Priority</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="workPriority" required>
-										<option>High Priority</option>
-										<option>Medium Priority</option>
-										<option>Low Priority</option>
-									</select>
+									<input class="form-control form-control-sm" name="workPriority" required
+										placeholder="Enter Water Priority"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -46,16 +44,17 @@
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Work Priority</th>						
+						
+						<th class="text-center" scope="col">Work Priority</th>	
+						<th class="text-center" scope="col">Delete</th>					
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="workprio : ${listOfWorkPriority}">
+					<tr th:each="workprio : ${listOfWorkPriority}">					
+						<td th:text="${workprio.workPriority}"></td>	
 						<td><a href="#" th:onclick="|deleteWorkPriority(${workprio.workPrioId})|">
-								<span th:text="${'EP'+workprio.workPrioId}"></span></a>
-						</td>
-						<td th:text="${workprio.workPriority}"></td>						
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>					
 					</tr>
 				</tbody>
 			</table>

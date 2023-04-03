@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.MeterManufacture;
 @Repository
 public interface MeterManufactureRepository extends JpaRepository<MeterManufacture, Long> {
 
+	boolean existsByMeterManufactureAndMeterType(String meterManufacture, String meterType);
+
 }

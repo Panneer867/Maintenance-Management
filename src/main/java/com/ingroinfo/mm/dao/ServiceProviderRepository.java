@@ -7,4 +7,10 @@ import com.ingroinfo.mm.entity.ServiceProvider;
 @Repository
 public interface ServiceProviderRepository extends JpaRepository<ServiceProvider, Long> {
 
+	boolean existsByServiceProviderId(String serviceProviderId);
+
+	boolean existsByRegisterNo(String registerNo);
+
+	boolean existsByContactNo(String contactNo);
+
 }

@@ -42,5 +42,6 @@ public class HoldWorkOrderItems {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 	
 }

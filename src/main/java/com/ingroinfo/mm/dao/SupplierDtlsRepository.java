@@ -7,4 +7,10 @@ import com.ingroinfo.mm.entity.SupplierDtls;
 @Repository
 public interface SupplierDtlsRepository extends JpaRepository<SupplierDtls, Long> {
 
+	boolean existsBySupplierId(String supplierId);
+
+	boolean existsByEmailId(String emailId);
+
+	boolean existsByReciptNo(String reciptNo);
+
 }

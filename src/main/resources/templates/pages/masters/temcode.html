@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,28 +23,28 @@
 								<label for="division" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="division"
-										name="division" required placeholder="Enter Division Name">
+										name="division" required placeholder="Enter Division Name" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="section" class="col-sm-8 col-form-label">Section</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="section" name="section"
-										required placeholder="Enter Section Name">
+										required placeholder="Enter Section Name" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="siteEnginner" class="col-sm-10 col-form-label">Site Engineer</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="siteEnginner"
-										name="siteEnginner" required placeholder="Enter Site Enginner Name">
+										name="siteEnginner" required placeholder="Enter Site Enginner Name" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="siteSuperwiser" class="col-sm-10 col-form-label">Site Superwiser</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="siteSuperwiser"
-										name="siteSuperwiser" required placeholder="Enter Site Superwiser Name">
+										name="siteSuperwiser" required placeholder="Enter Site Superwiser Name" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -64,25 +64,25 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Division</th>
 						<th class="text-center" scope="col">Section</th>
 						<th class="text-center" scope="col">Site Enginner</th>
 						<th class="text-center" scope="col">Site Superwiser</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="teamcode : ${listOfTeamCode}">
-						<td><a href="#" th:onclick="|deleteTeamcode(${teamcode.teamCodeId})|">
-								<span th:text="${'WS'+teamcode.teamCodeId}"></span></a>
-						</td>
+					<tr th:each="teamcode : ${listOfTeamCode}">					
 						<td th:text="${teamcode.division}"></td>
 						<td th:text="${teamcode.section}"></td>
 						<td th:text="${teamcode.siteEnginner}"></td>
 						<td th:text="${teamcode.siteSuperwiser}"></td>
+							<td><a href="#" th:onclick="|deleteTeamcode(${teamcode.teamCodeId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
-				</tbody>
+				<dottuby>
 			</table>
 		</div>
 		<!-- History Table End-->

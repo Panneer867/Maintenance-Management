@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.PressureType;
 @Repository
 public interface PressureTypeRepository extends JpaRepository<PressureType, Long> {
 
+	boolean existsByPressureType(String pressureType);
+
 }

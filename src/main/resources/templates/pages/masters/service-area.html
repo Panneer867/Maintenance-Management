@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,7 +23,7 @@
 							<label for="inputEmail3" class="col-auto col-form-label">Service Area Details </label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control form-control-sm" 
-								id="inputEmail3" name="serviceArea" required placeholder="Enter Service Name">
+								id="inputEmail3" name="serviceArea" required placeholder="Enter Service Area Details" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 					</div>
@@ -42,17 +42,17 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Service Area History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Service Area</th>																		
+					<tr>						
+						<th class="text-center" scope="col">Service Area</th>	
+						<th class="text-center" scope="col">Delete</th>																	
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="servicearea : ${listOfServiceArea}">
-						<td><a href="#" th:onclick="|deleteServiceArea(${servicearea.sericAreaId})|">
-								<span th:text="${'SP'+servicearea.sericAreaId}"></span></a>
-						</td>
-						<td th:text="${servicearea.serviceArea}"></td>																							
+					<tr th:each="servicearea : ${listOfServiceArea}">					
+						<td th:text="${servicearea.serviceArea}"></td>	
+							<td><a href="#" th:onclick="|deleteServiceArea(${servicearea.sericAreaId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>																						
 					</tr>
 				</tbody>
 			</table>

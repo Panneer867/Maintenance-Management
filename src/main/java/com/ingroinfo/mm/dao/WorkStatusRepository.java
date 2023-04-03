@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.WorkStatus;
 @Repository
 public interface WorkStatusRepository extends JpaRepository<WorkStatus, Long> {
 
+	boolean existsByWorkStatus(String workStatus);
+
 }

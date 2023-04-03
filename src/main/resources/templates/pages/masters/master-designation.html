@@ -6,7 +6,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -35,7 +35,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" id="designationDesc" class="form-control form-control-sm"
-									placeholder="Enter Designation Description" name="designationDesc" required>
+									placeholder="Enter Designation Description" name="designationDesc"  oninput="this.value = this.value.toUpperCase()" required>
 							</div>
 						</div>
 						<div class="pt-4 text-center">
@@ -56,19 +56,19 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>				
 						<th class="text-center" scope="col">Designation</th>
-						<th class="text-center" scope="col">Description</th>						
+						<th class="text-center" scope="col">Description</th>	
+						<th class="text-center" scope="col">Delete</th>					
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="designation : ${listOfDesignation}">
-						<td><a href="#" th:onclick="|deleteDesignationMaster(${designation.desigId})|">
-								<span th:text="${'DM'+designation.desigId}"></span></a>
-						</td>
+					<tr th:each="designation : ${listOfDesignation}">					
 						<td th:text="${designation.designation}"></td>
-						<td th:text="${designation.designationDesc}"></td>						
+						<td th:text="${designation.designationDesc}"></td>	
+							<td><a href="#" th:onclick="|deleteDesignationMaster(${designation.desigId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>					
 					</tr>
 				</tbody>
 			</table>

@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -24,21 +24,21 @@
 							</div>
 							<div class="col-sm-2">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="5" name="supplierId" required placeholder="Enter Supplier Id">
+									maxlength="5" name="supplierId" required placeholder="Enter Supplier Id" oninput="this.value = this.value.toUpperCase()">
 							</div>
 							<div class="col-auto">
 								<label for="inputPassword6" class="col-form-label">Recipt No</label>
 							</div>
 							<div class="col-sm-2" style="left: 29px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									maxlength="12" name="reciptNo" required placeholder="Enter Recipt No">
+									maxlength="12" name="reciptNo" required placeholder="Enter Recipt No" oninput="this.value = this.value.toUpperCase()">
 							</div>
 							<div class="col-auto" style="left:43px;">
 								<label for="inputPassword6" class="col-form-label">Supplier Name</label>
 							</div>
 							<div class="col-sm-3" style="left: 44px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="supplierName" required placeholder="Enter Supplier Name">
+									name="supplierName" required placeholder="Enter Supplier Name" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="row align-items-center pt-2">
@@ -47,7 +47,7 @@
 							</div>
 							<div class="col-sm-2" style="left:7px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="gstType" required placeholder="Enter GST Type">
+									name="gstType" required placeholder="Enter GST Type" oninput="this.value = this.value.toUpperCase()">
 							</div>
 							<div class="col-auto" style="left:9px;">
 								<label for="inputPassword6" class="col-form-label">Contact Number</label>
@@ -56,12 +56,12 @@
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
 									maxlength="10" name="contactNo" required placeholder="Enter Contact No">
 							</div>
-							<div class="col-auto" style="left: 13px;">
-								<label for="inputPassword6" class="col-form-label">Supplier Address</label>
+							<div class="col" style="left: 15px;">
+								<label for="inputPassword6" class="col-form-label">Address</label>
 							</div>
 							<div class="col-sm-3">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm"
-									name="supplierAdd" required placeholder="Enter Supplier Address">
+									name="supplierAdd" required placeholder="Enter Supplier Address" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="row align-items-center pt-2">
@@ -70,7 +70,7 @@
 							</div>
 							<div class="col-sm-2" style="left:24px;">
 								<input type="text" id="inputPassword6" class="form-control form-control-sm" name="gstIn"
-									required placeholder="Enter GSTIN No ">
+									required placeholder="Enter GSTIN No " oninput="this.value = this.value.toUpperCase()">
 							</div>
 							<div class="col-auto" style="left:28px;">
 								<label for="inputPassword6" class="col-form-label">Phone Number</label>
@@ -84,7 +84,7 @@
 							</div>
 							<div class="col-sm-3" style="left: 80px;">
 								<input type="email" id="inputPassword6" class="form-control form-control-sm"
-									name="emailId" required placeholder="Enter Email Id">
+									name="emailId" required placeholder="Enter Email Id" oninput="this.value = this.value.toUpperCase()">
 							</div>
 						</div>
 						<div class="row align-items-center pt-2">
@@ -133,20 +133,19 @@
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">Id</th>
+						<th class="text-center" scope="col">Supplier Id</th>
 						<th class="text-center" scope="col">Recipt No</th>
 						<th class="text-center" scope="col">Gst No</th>
 						<th class="text-center" scope="col">Contact No</th>
 						<th class="text-center" scope="col">Email Id</th>
 						<th class="text-center" scope="col">Supplier Name</th>
 						<th class="text-center" scope="col">Supplier Address</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="supplydtls : ${listOfSupplierDtls}">
-						<td><a href="#" th:onclick="|deleteSupplierDetails(${supplydtls.suplyDtlsId})|">
-								<span th:text="${supplydtls.supplierId}"></span></a>
-						</td>
+					<tr th:each="supplydtls : ${listOfSupplierDtls}">					
+						<td th:text="${supplydtls.supplierId}"></td>
 						<td th:text="${supplydtls.reciptNo}"></td>
 						<td th:text="${supplydtls.gstIn}"></td>
 						<td th:text="${supplydtls.contactNo}"></td>
@@ -155,6 +154,9 @@
 						<td th:text="${supplydtls.supplierAdd}+ ',' 
 						             +${supplydtls.state} +','+${supplydtls.city} 
 						             +','+${supplydtls.pincode}">
+						</td>
+							<td><a href="#" th:onclick="|deleteSupplierDetails(${supplydtls.suplyDtlsId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
 						</td>
 					</tr>
 				</tbody>

@@ -14,4 +14,6 @@ public interface ItemMasterRepository extends JpaRepository<ItemMaster, Long> {
 	List<ItemMaster> findItemsByCategoryId(@Param("categoryId") Long categoryId);
 
 	List<ItemMaster> findByStockType(String stockType);
+
+	boolean existsByItemNameAndStockType(String itemName, String stockType);
 }

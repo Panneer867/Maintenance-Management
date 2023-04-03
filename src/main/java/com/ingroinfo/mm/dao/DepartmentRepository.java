@@ -6,5 +6,7 @@ import com.ingroinfo.mm.entity.Department;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
+
+	boolean existsByDepartmentName(String departmentName);
 	
 }

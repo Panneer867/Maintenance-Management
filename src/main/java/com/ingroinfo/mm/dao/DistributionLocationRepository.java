@@ -14,4 +14,6 @@ public interface DistributionLocationRepository extends JpaRepository<Distributi
 
 	List<DistributionLocation> getBySubDivision(String subDivision);
 
+	boolean existsBySubDivision(String subDivision);
+
 }

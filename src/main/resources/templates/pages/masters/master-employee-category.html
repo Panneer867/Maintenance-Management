@@ -4,10 +4,37 @@
 	<section>
 		<!-- form Start-->
 		<div class="mx-auto col-12 mt-5">
+			<ul class="nav nav-pills nav-justified py-1 mt-2 " id="pills-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empperformance}" class="nav-link active py-2 text-white hvr bg-dark">
+						Employee Performance
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empqualification}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Qualification
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empstatus}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Status
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/emptype}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Type
+					</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a th:href="@{/masters/empcategory}" class="nav-link active  py-2 text-white hvr bg-dark">
+						Employee Category
+					</a>
+				</li>
+			</ul>
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,27 +44,34 @@
 					<h3 class="mb-0">Employee Master Category</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/save/empcategory}" method="post">
-						<div class="row g-3 align-items-center">
-							<div class="col-auto">
-								<label for="department" class="col-form-label">Department</label>
-							</div>
-							<div class="col-sm-3">
-								<select class="form-select form-select-sm" name="department" required>
+					<form data-toggle="validator" th:action="@{/masters/save/empcategory}" method="post">					
+						 <div class="row">
+                              <div class="col-md-5 mt-1">
+                                 <div class="form-group row col-auto">
+                                    <label for="department" class="col-sm-4  col-form-label">Department</label>
+                                    <div class="col-sm-8">
+                                   <select class="form-select form-select-sm" name="department" id="department" required data-error="Selete this field !">
 									<option value="">--Select--</option>
-									<option th:each="department:${allDepartment}"
+									<option th:each="department:${allDepartment}" 
 										th:value="${department.departmentName}" th:text="${department.departmentName}">
 									</option>
-								</select>
-							</div>
-							<div class="col-auto pl-5">
-								<label for="empCategory" class="col-form-label">Employee Category</label>
-							</div>
-							<div class="col-sm-4">
-								<input type="text" id="empCategory" class="form-control form-control-sm"
-									name="empCategory" required placeholder="Enter Employee Category">
-							</div>
-						</div>
+									</select>
+								  <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                               <div class="col-md-6 mt-1">
+                                 <div class="form-group row col-auto">
+                                    <label for="empCategory" class="col-sm-5  col-form-label">Employee Category</label>
+                                    <div class="col-sm-7">
+                                       <input type="text" id="empCategory" class="form-control form-control-sm"
+									       name="empCategory" required placeholder="Enter Employee Category" pattern="^[A-Za-z]+[A-Za-z ]*$"
+									       data-error="Provide a Emp Category !" oninput="this.value = this.value.toUpperCase()">
+                                     <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                      </div>
 
 						<div class="mt-4 text-center">
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -56,19 +90,19 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Department</th>
 						<th class="text-center" scope="col">Employee Category</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="empCategory : ${listOfEmpCategory}">
-						<td><a href="#" th:onclick="|deleteEmpCategory(${empCategory.empCategoryId})|">
-								<span th:text="${'EC'+empCategory.empCategoryId}"></span></a>
-						</td>
+					<tr th:each="empCategory : ${listOfEmpCategory}">						
 						<td th:text="${empCategory.department}"></td>
 						<td th:text="${empCategory.empCategory}"></td>
+						<td><a href="#" th:onclick="|deleteEmpCategory(${empCategory.empCategoryId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.ServiceArea;
 @Repository
 public interface ServiceAreaRepository extends JpaRepository<ServiceArea, Long> {
 
+	boolean existsByServiceArea(String serviceArea);
+
 }

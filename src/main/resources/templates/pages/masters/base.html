@@ -374,7 +374,7 @@
 								</ul>
 							</div>
 						</li>
-
+						
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
 							data-menu-submenu-toggle="hover">
 							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
@@ -414,7 +414,7 @@
 												Dashboard
 											</span>
 										</a>
-									</li>
+									</li>									
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">
@@ -1061,6 +1061,7 @@
 							</div>
 						</li>
 
+
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="expand-monitor"
 							data-menu-submenu-toggle="hover">
 							<a href="#" class="m-menu__link m-menu__toggle">
@@ -1673,7 +1674,7 @@
 						</div>
 						<div class="icon" onclick="window.location='/masters/empperformance'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/empperformance' 
 							|| #httpServletRequest.getRequestURI() == '/masters/empperformhistory' ? 'active':''}">
-							<span class="text">Employee Performance</span>
+							<span class="text">Employee Master</span>
 						</div>
 						<div class="icon" onclick="window.location='/masters/hsncode'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/hsncode' 
 							|| #httpServletRequest.getRequestURI() == '/masters/hsncodehistory' ? 'active':''}">
@@ -1718,11 +1719,7 @@
 						<div class="icon" onclick="window.location='/masters/designation'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/designation'
 							|| #httpServletRequest.getRequestURI() == '/masters/desigHistory' ? 'active':''}">
 							<span class="text">Master Designation</span>
-						</div>
-						<div class="icon" onclick="window.location='/masters/empcategory'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/empcategory'
-							|| #httpServletRequest.getRequestURI() == '/masters/empcategory/history' ? 'active':''}">
-							<span class="text">Master Employee Category</span>
-						</div>
+						</div>						
 						<div class="icon" id="master-id-sidebar" onclick="window.location='/masters/idmasterhistory'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/idmasterhistory'
 							|| #httpServletRequest.getRequestURI() == '/masters/idmaster'? 'active':''}">

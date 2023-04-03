@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.WorkPriority;
 @Repository
 public interface WorkPriorityRepository extends JpaRepository<WorkPriority, Long> {
 
+	boolean existsByWorkPriority(String workPriority);
+
 }

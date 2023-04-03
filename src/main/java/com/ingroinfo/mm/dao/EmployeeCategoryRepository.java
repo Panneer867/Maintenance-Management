@@ -9,4 +9,6 @@ public interface EmployeeCategoryRepository extends JpaRepository<EmployeeCatego
 
 	EmployeeCategory findByDepartment(String department);
 
+	boolean existsByEmpCategory(String empCategory);
+
 }

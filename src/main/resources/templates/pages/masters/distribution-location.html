@@ -17,36 +17,40 @@
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
 					<!--Strat Form-->
-					<form th:action="@{/masters/savedislocation}" method="post">
-						<div class="row ">
-							<div class="col text-start">
-								<label for="division" class="col-sm-8 col-form-label">Division</label>
+					<form data-toggle="validator" th:action="@{/masters/savedislocation}" method="post">
+						<div class="row">
+							<div class="form-group col text-start">
+								<label for="master-division-list" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm" id="master-division-list" name="division"
-										required>
+										data-error="Selete this field !" required>
 										<option value="">--Select--</option>
 										<option th:each="divisions:${listOfDivisions}" th:value="${divisions}"
 											th:text="${divisions}">
 										</option>
 									</select>
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col text-start">
-								<label for="subDivision" class="col-sm-8 col-form-label">Sub-Division</label>
+							<div class="form-group col text-start">
+								<label for="master-sub-division-list" class="col-sm-8 col-form-label">Sub-Division</label>
 								<div class="col">
 									<select type="text" class="form-select form-select-sm" id="master-sub-division-list" name="subDivision"
-										required>
+										data-error="Selete this field !" required>
 										<option value="">--Select--</option>
 									</select>
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="distlocation" class="col-sm-8 col-form-label">Distribution
 									Location </label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="distlocation"
-										name="distlocation" required placeholder="Enter Dist Location Name">
+									<input type="text" class="form-control form-control-sm" id="distlocation" pattern="^[A-Za-z]+[A-Za-z ]*$"
+									 data-error="Provide a Distribution Location !" name="distlocation" required placeholder="Enter Dist Location Name" oninput="this.value = this.value.toUpperCase()">
+								    <div class="help-block with-errors text-danger"></div>
 								</div>
+									
 							</div>
 
 						</div>
@@ -69,20 +73,20 @@
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Division</th>
 						<th class="text-center" scope="col">SubDivision</th>
 						<th class="text-center" scope="col">Dis Location</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="dislocation : ${listOfDistLocations}">
-						<td><a href=# th:onclick="|deleteDistrutLocation(${dislocation.disLocId})|">
-								<span th:text="${'DL'+dislocation.disLocId}"></span></a>
-						</td>
+					<tr th:each="dislocation : ${listOfDistLocations}">						
 						<td th:text="${dislocation.division}"></td>
 						<td th:text="${dislocation.subDivision}"></td>
 						<td th:text="${dislocation.distlocation}"></td>
+						<td><a href=# th:onclick="|deleteDistrutLocation(${dislocation.disLocId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

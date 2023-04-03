@@ -15,5 +15,9 @@ public interface DepartmentIdMasterRepository extends JpaRepository<DepartmentId
 	
 	@Query("from DepartmentIdMaster d where d.masterIdName=:masterIdName and d.deptName=:deptName")
 	public DepartmentIdMaster getByDeptIdNameAndDeptName(String masterIdName,String deptName);
+
+	public boolean existsByDeptNameAndMasterIdName(String masterIdName, String deptName);
+
+	public boolean existsByDeptIdAndMasterIdName(String masterIdName, String deptId);
 		
 }

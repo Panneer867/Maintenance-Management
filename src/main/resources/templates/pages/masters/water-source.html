@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -20,13 +20,11 @@
 					<form th:action="@{/masters/saveWaterSource}" method="post">
 						<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
-								<label class="col-auto col-form-label">Water Source</label>
+								<label class="col-sm-6 col-form-label">Water Source</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="waterSource" required>
-										<option>River</option>
-										<option>Well</option>
-										<option>Borwell</option>
-									</select>
+									<input class="form-control form-control-sm" name="waterSource" required
+										placeholder="Enter Water Source"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -45,17 +43,18 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Water Source History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
-						<th class="text-center" scope="col">Water Source</th>						
+					<tr>					
+						<th class="text-center" scope="col">Water Source</th>	
+							<th class="text-center" scope="col">Delete</th>					
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="watersource : ${listOfWaterSource}">
+						
+						<td th:text="${watersource.waterSource}"></td>	
 						<td><a href="#" th:onclick="|deleteWaterSource(${watersource.wateSourceId})|">
-								<span th:text="${'WR'+watersource.wateSourceId}"></span></a>
-						</td>
-						<td th:text="${watersource.waterSource}"></td>						
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>					
 					</tr>
 				</tbody>
 			</table>

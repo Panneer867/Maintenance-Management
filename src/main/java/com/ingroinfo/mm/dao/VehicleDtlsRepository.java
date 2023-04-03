@@ -15,4 +15,10 @@ public interface VehicleDtlsRepository extends JpaRepository<VehicleDtls, Long> 
 
 	List<VehicleDtls> findByVehicleType(String vehicleType);
 
+	boolean existsByVehicleNo(String vehicleNo);
+
+	boolean existsByRcNumber(String rcNumber);
+
+	boolean existsByInsurancNo(String insurancNo);
+
 }

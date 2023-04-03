@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,7 +23,7 @@
 								<label class="col-auto col-form-label">Meter Type</label>
 								<div class="col-sm-6">
 									<input class="form-control form-control-sm" Placeholder="Enter Meter Type"
-										name="meterType" required>
+										name="meterType" required oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -42,17 +42,17 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Meter Type History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>					
 						<th class="text-center" scope="col">Meter Type</th>
+							<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="metertype : ${listOfMeterTypes}">
-						<td><a href="#" th:onclick="|deleteMeterType(${metertype.meterTypeId})|">
-								<span th:text="${'MT'+metertype.meterTypeId}"></span></a>
-						</td>
+					<tr th:each="metertype : ${listOfMeterTypes}">					
 						<td th:text="${metertype.meterType}"></td>
+							<td><a href="#" th:onclick="|deleteMeterType(${metertype.meterTypeId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

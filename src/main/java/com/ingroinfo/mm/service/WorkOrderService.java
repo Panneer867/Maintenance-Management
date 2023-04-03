@@ -2,6 +2,12 @@ package com.ingroinfo.mm.service;
 
 import java.util.List;
 
+import com.ingroinfo.mm.dto.CancelWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.CancelWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.CancelWorkOrderVehiclesDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderVehiclesDto;
 import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
 import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
 import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
@@ -44,14 +50,17 @@ public interface WorkOrderService {
 	// Save All TempWorkOrder Labors Data
 	void saveAllTempWorkOrderLabours(List<TempWorkOrderLabourRequest> tempWorkOrderLabours);
 
-	// Save All Approved Indent Labours
-	void saveAllApprovedIndentLabours(List<IndentApprovedLabours> approvedIndentLabours);
-
 	// Save All TempWorkOrder Vehicles Data
 	void saveAllTempWorkOrderVehicles(List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles);
 
 	// Save All Approved Indent Vehicles Data
+	void saveAllApprovedIndentItems(List<IndentApprovedItems> indentApprovedItems);
+
+	// Save All Approved Indent Vehicles Data
 	void saveAllApprovedIndentVehicles(List<IndentApprovedVehicles> approvedIndentVehicles);
+
+	// Save All Approved Indent Labours
+	void saveAllApprovedIndentLabours(List<IndentApprovedLabours> approvedIndentLabours);
 
 	// Save All WapWorkorderItems Data
 	void saveAllWapWorkOrderItems(List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos);
@@ -70,5 +79,23 @@ public interface WorkOrderService {
 
 	// Delete All TempWorkOrder Vehicle Data By ComplNo
 	void deleteTempWorkOrderVehicleRequestByComplNo(String complNo);
+
+	// Save All Hold WorkorderItems Data
+	void saveAllHoldWorkOrderItems(List<HoldWorkOrderItemsDto> holdWorkOrderItemsDtos);
+
+	// Save All Hold WorkorderLabours Data
+	void saveAllHoldWorkOrderLabours(List<HoldWorkOrderLaboursDto> holdWorkOrderLaboursDtos);
+
+	// Save All Hold WorkorderVehicles Data
+	void saveAllHoldWorkOrderVehicles(List<HoldWorkOrderVehiclesDto> holdWorkOrderVehiclesDtos);
+
+	// Save All Cancel WorkorderItems Data
+	void saveAllCancelWorkOrderItems(List<CancelWorkOrderItemsDto> cancelWorkOrderItemsDtos);
+
+	// Save All Cancel WorkorderLabors Data
+	void saveAllCancelWorkOrderLabours(List<CancelWorkOrderLaboursDto> cancelWorkOrderLaboursDtos);
+
+	// Save All Cancel WorkorderVehicles Data
+	void saveAllCancelWorkOrderVehicles(List<CancelWorkOrderVehiclesDto> cancelWorkOrderVehiclesDtos);
 
 }

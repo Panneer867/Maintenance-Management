@@ -7,4 +7,10 @@ import com.ingroinfo.mm.entity.TeamCode;
 @Repository
 public interface TeamCodeRepository extends JpaRepository<TeamCode, Long> {
 
+	boolean existsBySection(String section);
+
+	boolean existsBySiteEnginner(String siteEnginner);
+
+	boolean existsBySiteSuperwiser(String siteSuperwiser);
+
 }

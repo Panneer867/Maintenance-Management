@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.UnitMeasure;
 @Repository
 public interface UnitMeasureRepository extends JpaRepository<UnitMeasure, Long> {
 
+	boolean existsByUnitType(String unitType);
+
 }

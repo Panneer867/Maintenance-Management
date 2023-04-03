@@ -16,6 +16,9 @@ import com.ingroinfo.mm.dto.DivisionSubdivisionDto;
 import com.ingroinfo.mm.dto.DmaWardDto;
 import com.ingroinfo.mm.dto.EmployeeCategoryDto;
 import com.ingroinfo.mm.dto.EmployeePerformanceDto;
+import com.ingroinfo.mm.dto.EmployeeQualificationDto;
+import com.ingroinfo.mm.dto.EmployeeStatusDto;
+import com.ingroinfo.mm.dto.EmployeeTypeDto;
 import com.ingroinfo.mm.dto.HsnCodeDto;
 import com.ingroinfo.mm.dto.IdMasterDto;
 import com.ingroinfo.mm.dto.ItemMasterDto;
@@ -50,6 +53,9 @@ public interface MasterService {
 	// Save Employee Master Category
 	EmployeeCategoryDto saveEmployeeMaster(EmployeeCategoryDto employeeCategoryDto);
 
+	// Validate Employee Category Data
+	boolean isExistsEmpCategory(String empCategory);
+	
 	// Get List Of Employee Master Category
 	List<EmployeeCategoryDto> getAllEmployeeCategory();
 
@@ -82,6 +88,12 @@ public interface MasterService {
 
 	// save Data
 	DepartmentIdMasterDto saveDepartmentIdMaster(DepartmentIdMasterDto deptIdMasterDto);
+	
+	// Validate Department Name from DeptId Master
+	boolean isExistsDeptNameByDeptIdMaster(String masterIdName,String deptName);
+	
+	// Validate DeptId From  DeptId Master
+	boolean isExistsDeptIdByDeptIdMaster(String masterIdName,String deptId);
 
 	// find All
 	List<DepartmentIdMasterDto> findAllDepartmentIdMaster();
@@ -104,6 +116,8 @@ public interface MasterService {
 	// find All
 	List<DepartmentDto> findAllDepartment();
 
+	// Validate Department Name Data
+	boolean isExistsDeptName(String departmentName);
 	// Delete
 	void deleteDepartmentMaster(Long depMasterId);
 
@@ -113,6 +127,9 @@ public interface MasterService {
 	// save Data
 	DesignationDto saveDesignation(DesignationDto designationDto);
 
+	// Validate Designation Data
+	boolean isExistsByDesignation(String designation);
+	
 	// find All
 	List<DesignationDto> getAllDesignations();
 
@@ -124,7 +141,10 @@ public interface MasterService {
 
 	// Save Distribution Location Data
 	DistributionLocationDto saveDistributionLocation(DistributionLocationDto disLocationDto);
-
+	
+	// Validate Sub-Division Data
+	boolean isExistsSubDivsnByDstbtnLctn(String subDivision);
+	
 	// validate Distribution Schedule
 	boolean isisDistributionLocationExists(String distlocation);
 
@@ -140,9 +160,9 @@ public interface MasterService {
 	// Find Distribution Schedule All Data
 	List<DistributionScheduleDto> findAllDisSchedule();
 
-	// validate Distribution Schedule
-	boolean isisDistributionScheduleExists(String distSchedule);
-
+	// validate Sub-Division For Distribution Schedule 
+	boolean isExistsSubDivsnByDstnSchdl(String subDivision);
+	
 	// Delete Distribution Schedule
 	void deleteDistrbSchedule(Long disScheduleId);
 
@@ -193,6 +213,42 @@ public interface MasterService {
 
 	// Delete Employee Performance
 	void deleteEmpPerformance(Long empPerformId);
+	
+	// save Employee Qualification Data
+	EmployeeQualificationDto saveEmployeeQualification(EmployeeQualificationDto empQualifDto);
+	
+	// Find All Employee Qualification Data
+	List<EmployeeQualificationDto> getAllEmpQualification();
+	
+	// Validate Employee Qualification
+	boolean isExistsEmpQualification(String qualification);
+	
+	// Delete Employee Qualification
+	void deleteEmpQualification(Long empQulifId);
+	
+	// save Employee Status Data
+	EmployeeStatusDto saveEmployeestatus(EmployeeStatusDto empStatusDto);
+	
+	// validate Employee Status
+	boolean isExistsEmpStatus(String empStatus);
+	
+	// Find All Employee Status Data
+	List<EmployeeStatusDto> getAllEmpStatus();
+	
+	// Delete Employee Status 
+	void deleteEmpStatus(Long empStsId);
+	
+	// save Employee Type Data
+	EmployeeTypeDto saveEmployeeType(EmployeeTypeDto empTypeDto);
+	
+	// validation Employee Type
+	boolean isExistsEmpType(String empType);
+	
+	// Find All Employee Type Data
+	List<EmployeeTypeDto> getAllEmpType();
+	
+	// Delete Employee Type
+	void deleteEmpType(Long empTypeId);
 
 	// create Item HSN Code
 	HsnCodeDto saveHsnCode(HsnCodeDto hsnCodeDto);
@@ -214,7 +270,10 @@ public interface MasterService {
 
 	// save Data
 	IdMasterDto saveIdMaster(IdMasterDto idDto);
-
+	
+	// Validate IdMaster Name Data
+	boolean isExistsByIdMasterName(String masterIdName);
+	
 	// FindAll
 	List<IdMasterDto> findAllIdMaster();
 
@@ -226,6 +285,9 @@ public interface MasterService {
 
 	// save Data
 	ItemMasterDto saveItemmaster(ItemMasterDto itemDto);
+	
+	// Validate Stock Type for item Name
+	boolean isExistsStockTypeForItemName(String itemName, String stockType);
 
 	// find All Data
 	List<ItemMasterDto> getAllItems();
@@ -256,6 +318,9 @@ public interface MasterService {
 
 	// save Data
 	MaintanceFrequencyDto saveMaintanceFrequency(MaintanceFrequencyDto maintanFrequency);
+	
+	// Validate Maintenance Frequency Data
+	boolean isExistsByMaintenWorkType(String maintanWork);
 
 	// Find All Data
 	List<MaintanceFrequencyDto> getAllMaintanceFrequency();
@@ -280,12 +345,18 @@ public interface MasterService {
 
 	// find All Data
 	List<MaintenancePerformanceDto> getAllMaintenPerform();
+	
+	// validate MaintenancePerformance Data
+	boolean isExistsMaintenPerformType(String maintenPerformType);
 
 	// Delete
 	void deleteMaintainsPerformance(Long maintenPerformId);
 
 	// create Data
 	MaintenanceTypeDto saveMaintenanceType(MaintenanceTypeDto maintenTypeDto);
+	
+	// Validate Maintenance Type Data
+	boolean isExistsMaintenTypeStatus(String maintenTypeStatus);
 
 	// findAll Data
 	List<MaintenanceTypeDto> findAllMaintenanceType();
@@ -295,6 +366,9 @@ public interface MasterService {
 
 	// save
 	MeterManufactureDto saveMeterManufact(MeterManufactureDto meterManufactDto);
+	
+	// Validate MeterManufacture Data
+	boolean isExistsMeterManufctrForMeterType(String meterManufacture, String meterType);
 
 	// Get All Data
 	List<MeterManufactureDto> findAllMeterManufact();
@@ -304,6 +378,9 @@ public interface MasterService {
 
 	// create
 	MeterTypeDto saveMeterType(MeterTypeDto meterTypeDto);
+	
+	// Validate Meter Type
+	boolean isExistsMeterType(String meterType);
 
 	// Find All data
 	List<MeterTypeDto> getAllMeterType();
@@ -314,6 +391,12 @@ public interface MasterService {
 	// save
 	PipeManufactureDto savePipeManufacture(PipeManufactureDto pipemanufacDto);
 
+	// Validate For Pipe Manufacture Id
+	boolean isExistsByPipeId(String manufactureId);
+	
+	// Validate Pipe Manufacture data
+	boolean isExistsPipeTypeForPipeManufctr(String manufactureName,  String pipeType);
+	
 	// find All Data
 	List<PipeManufactureDto> findAllPipeManufact();
 
@@ -323,6 +406,9 @@ public interface MasterService {
 	// create
 	PressureTypeDto savePressureType(PressureTypeDto pressureDto);
 
+	// Validate Pressure Type data
+	boolean isExistsByPressureType(String pressureType);
+	
 	// Get All Data
 	List<PressureTypeDto> getAllPressureType();
 
@@ -331,6 +417,9 @@ public interface MasterService {
 
 	// create
 	PumpMasterDto savePumpMaster(PumpMasterDto pumpDto);
+	
+	// Validate Pump Type
+	boolean isExistsPumpTypeForManufacturing(String manufactName, String pumpType);
 
 	// Find All data
 	List<PumpMasterDto> getAllPumpMaster();
@@ -344,6 +433,9 @@ public interface MasterService {
 	// save
 	SaftyPrecautionsDto saveSaftyPrecus(SaftyPrecautionsDto saftyPrecusDto);
 
+	// Validate SaftyPrecaution Data
+	boolean isExistsBySaftyPrecaution(String saftyPrecausSts);
+	
 	// Find All Data
 	List<SaftyPrecautionsDto> findAllSaftyPrecus();
 
@@ -352,6 +444,9 @@ public interface MasterService {
 
 	// create
 	ServiceAreaDto saveSaerviceArea(ServiceAreaDto serviceAreaDto);
+	
+	// Validate Service Area
+	boolean isExistsByServiceArea(String serviceArea);
 
 	// Find All Data
 	List<ServiceAreaDto> findAllServiceArea();
@@ -361,6 +456,9 @@ public interface MasterService {
 
 	// create
 	ServiceProgressDto saveServiceProgress(ServiceProgressDto serviceProgrssDto);
+	
+	// Validate Service Progress Data
+	boolean isExistsByServiceProgress(String sevcProgress);
 
 	// Find All
 	List<ServiceProgressDto> findAllServiceProgress();
@@ -370,6 +468,15 @@ public interface MasterService {
 
 	// save Data
 	ServiceProviderDto saveServiceProvider(ServiceProviderDto serviceProviderDto);
+	
+	// Validation Service Provider Id Data
+	boolean isExistsByServiceProviderId(String serviceProviderId); 
+	
+	// Validation Service Provider Registration No Data
+	boolean isExistsByServiceProvdrRegNo(String registerNo);
+	
+	// Validation Service Provider Contact No Data 
+	boolean isExistsByServiceProvdrConNo(String contactNo);
 
 	// find All Data
 	List<ServiceProviderDto> getAllServiceProvider();
@@ -379,6 +486,12 @@ public interface MasterService {
 
 	// create
 	SpareEquipmentDto saveSpareEquipment(SpareEquipmentDto spareEquipDto);
+	
+	// Validate Spare Equipment Data
+	boolean isExistsBySpareEquipmentId(String spareEquipmentId);
+	
+	// Validate Spare Equipment Name
+	boolean isExistsBySpareEquipmentName(String spareEquipmentName);
 
 	// Show All Data
 	List<SpareEquipmentDto> getAllSpareEquipmens();
@@ -388,6 +501,9 @@ public interface MasterService {
 
 	// Save Data
 	StoreBranchDto saveStoreBranch(StoreBranchDto storeBranchDto);
+	
+	// Validate Store Branch Data
+	boolean isExistsByStoreBranch(String stroreBranchName);
 
 	// Find All
 	List<StoreBranchDto> findAllStoreBranch();
@@ -398,6 +514,9 @@ public interface MasterService {
 	// create
 	TaskStatusDto saveTaskStatus(TaskStatusDto taskStatusDto);
 
+	// Validate Task Status Data
+	boolean isExistsByTaskStatus(String taskStatus);
+	
 	// get All Data
 	List<TaskStatusDto> findAllTaskStatus();
 
@@ -415,6 +534,9 @@ public interface MasterService {
 
 	// save Data
 	UnitMeasureDto saveUnitMeasure(UnitMeasureDto unitMeasureDto);
+	
+	// Validate Unit Type Data
+	boolean isExistsByUnitOfType(String unitType);
 
 	// find All
 	List<UnitMeasureDto> getAllUnitMeasure();
@@ -424,7 +546,16 @@ public interface MasterService {
 
 	// create
 	VehicleDtlsDto saveVDtls(VehicleDtlsDto vehicleDtlsDto);
-
+	
+	// Validate Vehicle Number For Vehicle Details
+    boolean isExistsVehicleNoByVDtls(String vehicleNo);
+    
+    // Validate Vehicle RecNo For Vehicle Details
+    boolean isExistsRecNoByVDtls(String rcNumber );
+    
+    //Validate Vehicle Insurance No For Vehicle Details
+    boolean isExistsInsuranceNoByVDtls(String insurancNo);
+    
 	// find All
 	List<VehicleDtlsDto> findAllVehicleDtls();
 
@@ -442,6 +573,9 @@ public interface MasterService {
 
 	// save
 	WorkPriorityDto saveWorkPriority(WorkPriorityDto workPriorityDto);
+	
+	// Validation Work Priority Data
+	boolean isExistsByWorkPriority(String workPriority);
 
 	// find All
 	List<WorkPriorityDto> findAllWorkPriority();
@@ -451,6 +585,9 @@ public interface MasterService {
 
 	// save
 	WorkStatusDto saveWorkStatus(WorkStatusDto workStatusDto);
+	
+	// Validate Work Status Data
+	boolean isExistsByWorkStatus(String workStatus);
 
 	// Find All
 	List<WorkStatusDto> getAllWorkStatus();
@@ -460,6 +597,15 @@ public interface MasterService {
 
 	// save
 	TeamCodeDto saveTeamCode(TeamCodeDto teamCodeDto);
+	
+	// Validate Team Section Name Data
+	boolean isExistsByTeamSectionName(String section);
+	
+	// Validate Team Site Engineer Name
+	boolean isExistsByTeamSiteEngineer(String siteEnginner);
+	
+	// Validate Team Site supervisor name
+	boolean isExistsByTeamSupervisor(String siteSuperwiser);
 
 	// find All
 	List<TeamCodeDto> getAllTeamCode();
@@ -469,6 +615,9 @@ public interface MasterService {
 
 	// create
 	WaterSourceDto saveWaterSource(WaterSourceDto waterSourceDto);
+	
+	// Validate Water Source Name
+	boolean isExistsByWaterSource(String waterSource);
 
 	// find All
 	List<WaterSourceDto> findAllWaterSource();
@@ -478,6 +627,15 @@ public interface MasterService {
 
 	// create
 	SupplierDtlsDto saveSupplierDtls(SupplierDtlsDto supplierDtlsDto);
+	
+	// Validate Supplier Details Id
+	boolean isExistsBySupplierId(String supplierId);
+	
+	// Validate Supplier Details RecNo
+	boolean isExistsBySupplierRecNo(String reciptNo);
+	
+	// Validate Supplier Details Email
+	boolean isExistsSupplierEmail(String emailId);
 
 	// find All
 	List<SupplierDtlsDto> getAllSupplierDtls();
@@ -490,7 +648,8 @@ public interface MasterService {
 
 	// Get Category By Department
 	EmployeeCategoryDto getCategoryByDept(String department);
+
+	String getAutoIncrementId(String masterIdName);
 	
-	// Get AutoIncrement Id
-	String getAutoIncrementId(String IdName);
+	
 }

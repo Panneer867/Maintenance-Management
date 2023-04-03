@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,21 +23,21 @@
 							<div class="form-group row">
 								<label for="cGst" class="col-sm-3 col-form-label">CGST</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" 
+									<input type="number" class="form-control form-control-sm" 
 									id="cGst" name="cGst" required placeholder="Enter CGST">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="sGst" class="col-sm-3 col-form-label">SGST</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" 
+									<input type="number" class="form-control form-control-sm" 
 									id="sGst" name="sGst" required placeholder="Enter SGST">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="gstTotal" class="col-sm-3 col-form-label">GST Total</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" 
+									<input type="number" class="form-control form-control-sm" 
 									id="gstTotal" name="gstTotal" required maxlength="8" placeholder="Enter Total GST">
 								</div>
 							</div>
@@ -56,24 +56,24 @@
 		
 		<!-- History Table Start-->
 		<div class=" mt-4 col-12 px-0 mx-auto" th:if="${show != null}">
-			<h5 class="mb-4 bg-primary py-1 text-white text-center">Hsn Code History</h5>
+			<h5 class="mb-4 bg-primary py-1 text-white text-center">Tax Master History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>					
 						<th class="text-center" scope="col">C-GST</th>
 						<th class="text-center" scope="col">S-GST</th>
-						<th class="text-center" scope="col">GST Total</th>						
+						<th class="text-center" scope="col">GST Total</th>	
+							<th class="text-center" scope="col">Delete</th>					
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="taxes : ${listOfTaxs}">
-						<td><a href="#" th:onclick="|deleteTaxMaster(${taxes.taxMasterId})|">
-								<span th:text="${'TM'+taxes.taxMasterId}"></span></a>
-						</td>
+					<tr th:each="taxes : ${listOfTaxs}">					
 						<td th:text="${taxes.cGst}"></td>
 						<td th:text="${taxes.sGst}"></td>
-						<td th:text="${taxes.gstTotal}"></td>						
+						<td th:text="${taxes.gstTotal}"></td>	
+							<td><a href="#" th:onclick="|deleteTaxMaster(${taxes.taxMasterId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>					
 					</tr>
 				</tbody>
 			</table>

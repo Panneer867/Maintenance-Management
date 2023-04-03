@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -17,17 +17,15 @@
 					<h3 class="mb-0">Maintenance Performance</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savemaintenperform}" method="post">
-						<div class="mx-auto col-8 text-start">
+					<form data-toggle="validator" th:action="@{/masters/savemaintenperform}" method="post">
+							<div class="mx-auto col-8 text-start">
 							<div class="form-group row p-2">
-								<label class="col-auto col-form-label">Maintenance Performance Type</label>
-								<div class="col-sm-4">
-									<select class="form-select form-select-sm" name="maintenPerformType" required>
-										<option value="">--Select--</option>
-										<option>Good</option>
-										<option>Average</option>
-										<option>poor</option>
-									</select>
+								<label for="maintenPerformType" class="col-sm-6 col-form-label">Maintenance Performance Type</label>
+								<div class="col-sm-6">
+									<input class="form-control form-control-sm" name="maintenPerformType" id="maintenPerformType" required
+										placeholder="Enter Maintenance Performance Type"  pattern="^[A-Za-z/&-]+[A-Za-z/&\s-]*$"
+									 data-error="Provide a Performance Type !"	oninput="this.value = this.value.toUpperCase()">
+								   <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -48,16 +46,16 @@
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Maintance Performance Type</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="maintperform : ${listOfMaintenPerform}">
-						<td><a href="#" th:onclick="|deleteMaintainsPerformance(${maintperform.maintenPerformId})|">
-								<span th:text="${'MP'+maintperform.maintenPerformId}"></span></a>
-						</td>
+					<tr th:each="maintperform : ${listOfMaintenPerform}">				
 						<td th:text="${maintperform.maintenPerformType}"></td>
+								<td><a href="#" th:onclick="|deleteMaintainsPerformance(${maintperform.maintenPerformId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

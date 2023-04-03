@@ -31,4 +31,5 @@ public class HoldWorkOrderItemsDto {
 	private String approvedSts;
 	private String userName;
 	private Date createdDate;
+	private String workOrder;
 }

@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -23,12 +23,12 @@
 								<label for="unitType" class="col-auto col-form-label">Units Type</label>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="unitType"
-										name="unitType" required placeholder="Enter Unit Type">
+										name="unitType" required placeholder="Enter Unit Type" oninput="this.value = this.value.toUpperCase()">
 								</div>
 								<label for="description" class="col-auto col-form-label">Description</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control form-control-sm" id="description"
-										name="description" required placeholder="Write Description">
+										name="description" required placeholder="Write Description" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -48,19 +48,19 @@
 			<table
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Unit Type</th>
 						<th class="text-center" scope="col">Description</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="unitmeaseu : ${listOfUnitMeasure}">
-						<td><a href="#" th:onclick="|deleteUnitOfMeasure(${unitmeaseu.unitMeasureId})|">
-								<span th:text="${'TM'+unitmeaseu.unitMeasureId}"></span></a>
-						</td>
+					<tr th:each="unitmeaseu : ${listOfUnitMeasure}">						
 						<td th:text="${unitmeaseu.unitType}"></td>
 						<td th:text="${unitmeaseu.description}"></td>
+						<td><a href="#" th:onclick="|deleteUnitOfMeasure(${unitmeaseu.unitMeasureId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

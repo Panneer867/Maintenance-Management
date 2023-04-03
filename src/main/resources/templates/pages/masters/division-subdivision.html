@@ -17,27 +17,30 @@
 					<h3 class="mb-0">Division SubDevision</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/savedivsubdiv}" method="post">
+					<form data-toggle="validator" th:action="@{/masters/savedivsubdiv}" method="post">
 						<div class="row ">
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="division" class="col-sm-8 col-form-label">Division</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="division"
-										name="division" required placeholder="Enter Division Name">
+									<input type="text" class="form-control form-control-sm" id="division" data-error="Provide a Division !"
+										pattern="^[A-Za-z]+[A-Za-z ]*$" name="division" required placeholder="Enter Division Name" oninput="this.value = this.value.toUpperCase()">
+								      <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="subdivision" class="col-sm-8 col-form-label">Sub Division</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="subdivision"
-										name="subdivision" required placeholder="Enter Sub-Division Name">
+									<input type="text" class="form-control form-control-sm" id="subdivision" pattern="^[A-Za-z]+[A-Za-z ]*$" data-error="Provide a Division !"
+										name="subdivision" required placeholder="Enter Sub-Division Name" oninput="this.value = this.value.toUpperCase()">
+								       <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
-							<div class="col text-start">
+							<div class="form-group col text-start">
 								<label for="serviceStation" class="col-sm-8 col-form-label">Service Station</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="serviceStation"
-										name="serviceStation" required placeholder="Enter Service Station Name">
+									<input type="text" class="form-control form-control-sm" id="serviceStation" pattern="^[A-Za-z]+[A-Za-z ]*$" data-error="Provide a Service Station !"
+										name="serviceStation" required placeholder="Enter Service Station Name" oninput="this.value = this.value.toUpperCase()">
+								     <div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 
@@ -59,20 +62,20 @@
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>
-						<th class="text-center" scope="col">ID</th>
 						<th class="text-center" scope="col">Division</th>
 						<th class="text-center" scope="col">Sub-Division</th>
-						<th class="text-center" scope="col">Service Station</th>						
+						<th class="text-center" scope="col">Service Station</th>		
+						<th class="text-center" scope="col">Delete</th>				
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="divsubdiv : ${listOfDivSubdiv}">
-						<td><a href="#" th:onclick="|deleteDivSubdiv(${divsubdiv.divsubId})|">
-								<span th:text="${'DS'+divsubdiv.divsubId}"></span></a>
-						</td>
+					<tr th:each="divsubdiv : ${listOfDivSubdiv}">						
 						<td th:text="${divsubdiv.division}"></td>
 						<td th:text="${divsubdiv.subdivision}"></td>
-						<td th:text="${divsubdiv.serviceStation}"></td>						
+						<td th:text="${divsubdiv.serviceStation}"></td>		
+						<td><a href="#" th:onclick="|deleteDivSubdiv(${divsubdiv.divsubId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>				
 					</tr>
 				</tbody>
 			</table>

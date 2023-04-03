@@ -31,7 +31,6 @@ function deleteCategory(catid) {
 }
 
 function deleteDistrutLocation(disLocId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -39,17 +38,14 @@ function deleteDistrutLocation(disLocId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/delteDistLocation/" + disLocId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteDistributionSchedule(disScheduleId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -57,17 +53,14 @@ function deleteDistributionSchedule(disScheduleId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteDistSchedule/" + disScheduleId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteDivSubdiv(divsubId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -75,10 +68,8 @@ function deleteDivSubdiv(divsubId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteDivSubdiv/" + divsubId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
@@ -93,17 +84,14 @@ function deleteDmaWard(dmaWardId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteDmaWard/" + dmaWardId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteEmplyeePerformance(empPerformId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -111,17 +99,15 @@ function deleteEmplyeePerformance(empPerformId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteEmpPerform/" + empPerformId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
+
 function deleteHsnCode(hsnCodeId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -129,17 +115,14 @@ function deleteHsnCode(hsnCodeId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteHnsCode/" + hsnCodeId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteMaintenFrequency(maintanFrequId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -147,17 +130,14 @@ function deleteMaintenFrequency(maintanFrequId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteMaintenFrequency/" + maintanFrequId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteMaintainsActivity(maintenActiveId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -165,17 +145,14 @@ function deleteMaintainsActivity(maintenActiveId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteMaintenActive/" + maintenActiveId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
 }
 
 function deleteMaintainsPerformance(maintenPerformId) {
-	// @ts-ignore
 	swal({
 		text: "Are you sure ? You Want To Delete This !!",
 		buttons: true,
@@ -183,10 +160,8 @@ function deleteMaintainsPerformance(maintenPerformId) {
 	})
 		.then((willDelete) => {
 			if (willDelete) {
-				// @ts-ignore
 				window.location = "/masters/deleteMaintenPerform/" + maintenPerformId;
 			} else {
-				// @ts-ignore
 				swal("Data is safe !!");
 			}
 		});
@@ -649,6 +624,51 @@ function deleteBrandMaster(brandMasterId) {
 		.then((willDelete) => {
 			if (willDelete) {
 				window.location = "/masters/deleteBrand/" + brandMasterId;
+			} else {
+				swal("Data is safe !!");
+			}
+		});
+}
+
+function deleteEmplyeeQualification(qulificationId) {
+	swal({
+		text: "Are you sure ? You Want To Delete This !!",
+		buttons: true,
+		dangerMode: true,
+	})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location = "/masters/deleteEmpQualif/" + qulificationId;
+			} else {
+				swal("Data is safe !!");
+			}
+		});
+}
+
+function deleteEmployeeStatus(statusId) {
+	swal({
+		text: "Are you sure ? You Want To Delete This !!",
+		buttons: true,
+		dangerMode: true,
+	})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location = "/masters/deleteEmpStatus/" + statusId;
+			} else {
+				swal("Data is safe !!");
+			}
+		});
+}
+
+function deleteEmployeeType(empTypeId) {
+	swal({
+		text: "Are you sure ? You Want To Delete This !!",
+		buttons: true,
+		dangerMode: true,
+	})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location = "/masters/deleteEmptype/" + empTypeId;
 			} else {
 				swal("Data is safe !!");
 			}

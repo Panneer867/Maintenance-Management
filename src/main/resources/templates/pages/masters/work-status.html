@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span  class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -20,13 +20,11 @@
 					<form th:action="@{/masters/saveWorkStatus}" method="post">
 						<div class="mx-auto col-6 text-start">
 							<div class="form-group row p-2">
-								<label class="col-auto col-form-label">Work Status</label>
+								<label class="col-sm-6 col-form-label">Water Status</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="workStatus" required>
-										<option>On Progress</option>
-										<option>On Hold</option>
-										<option>Completed</option>
-									</select>
+									<input class="form-control form-control-sm" name="workStatus" required
+										placeholder="Enter Water Status"
+										oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -45,17 +43,17 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Work Status History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>					
 						<th class="text-center" scope="col">Work Status</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="worksts : ${listOfWorkStatus}">
-						<td><a href="#" th:onclick="|deleteWorkStatus(${worksts.workStsId})|">
-								<span th:text="${'WS'+worksts.workStsId}"></span></a>
-						</td>
+					<tr th:each="worksts : ${listOfWorkStatus}">					
 						<td th:text="${worksts.workStatus}"></td>
+							<td><a href="#" th:onclick="|deleteWorkStatus(${worksts.workStsId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

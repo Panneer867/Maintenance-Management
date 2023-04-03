@@ -9,4 +9,6 @@ import com.ingroinfo.mm.entity.IdMaster;
 public interface IdMasterRepository extends JpaRepository<IdMaster, Long> {
 	
 	IdMaster getByMasterIdName(String masterIdName);
+
+	boolean existsByMasterIdName(String masterIdName);
 }

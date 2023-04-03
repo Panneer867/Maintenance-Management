@@ -8,4 +8,6 @@ import com.ingroinfo.mm.entity.PumpMaster;
 public interface PumpMasterRepository extends JpaRepository<PumpMaster, Long> {
 	
 	PumpMaster getPumpMasterByPumpId(String pumpId);
+
+	boolean existsBymanufactNameAndPumpType(String manufactName, String pumpType);
 }

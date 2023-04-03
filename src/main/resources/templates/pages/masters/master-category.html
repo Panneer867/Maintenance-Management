@@ -54,19 +54,19 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Category Master History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Category ID</th>						
 						<th class="text-center" scope="col">Category Name</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="category : ${listOfCategory}">
-						<td><a href="#" th:onclick="|deleteCategory(${category.catid})|">
-								<span th:text="${'CI'+category.catid}"></span></a>
-						</td>
+					<tr th:each="category : ${listOfCategory}">					
 						<td th:text="${category.categoryId}"></td>						
 						<td th:text="${category.categoryName}"></td>
+							<td><a href="#" th:onclick="|deleteCategory(${category.catid})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

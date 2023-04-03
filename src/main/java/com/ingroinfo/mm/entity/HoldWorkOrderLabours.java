@@ -37,5 +37,6 @@ public class HoldWorkOrderLabours {
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
+	private String workOrder;
 
 }

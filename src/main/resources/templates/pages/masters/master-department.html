@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -19,7 +19,7 @@
 					<h3 class="mb-0">Department Master</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveDepartment}" method="post">
+					<form data-toggle="validator" th:action="@{/masters/saveDepartment}" method="post">
 						<div class="row text-center">                          
 							<div class="col-auto text-start">
 								<label class="text-left">Department ID</label>								
@@ -29,17 +29,19 @@
 									required readonly th:value="${maxdeptId}"> 
 						    </div>
 							<div class="col-auto text-start">
-								<label for="categoryName">Department Name</label>								
+								<label for="departmentName">Department Name</label>								
 							</div>
-							<div class="col-sm-6"> 
-							  <select class="form-select form-select-sm" type="text" name="departmentName" 
-							  required placeholder="Enter Department Name">
+							<div class="col-sm-6 form-group"> 
+							  <select class="form-select form-select-sm" type="text" name="departmentName" id="departmentName" 
+							  required placeholder="Enter Department Name" 	  data-error="Provide a Maintenance Type !">
 							  <option value="">--Select--</option>
 							  <option th:each="deptList :${departmentList}"
 							          th:value ="${deptList.departmentName}"
 							          th:text = "${deptList.departmentName}">
-							  Pipe Dept</option>							 
+							       Pipe Dept</option>								      				 
 							  </select>
+							     <div class="help-block with-errors text-danger"></div>		
+							
 							</div>
 						</div>
 						<div class="mt-4 text-center">
@@ -60,19 +62,19 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Department Master History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>						
 						<th class="text-center" scope="col">Department ID</th>
 						<th class="text-center" scope="col">Department Name</th>
+						<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="department : ${listOfDepartment}">
-						<td><a href="#" th:onclick="|deleteDeptMaster(${department.depMasterId})|">
-								<span th:text="${'DP'+department.depMasterId}"></span></a>
-						</td>
+					<tr th:each="department : ${listOfDepartment}">						
 						<td th:text="${department.departmentId}"></td>
 						<td th:text="${department.departmentName}"></td>
+						<td><a href="#" th:onclick="|deleteDeptMaster(${department.depMasterId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -502,7 +502,7 @@ public class ApprovalController {
 	// Handler For Open Work Order Approval Page
 	@GetMapping("/workorder")
 	public String displayWorkOrderApproval(Model model) {
-		String complStatus = "waiting_for_workorder_approval";
+		String complStatus = "WAITING_WORKORDER_APPROVAL";
 		List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
 		model.addAttribute("listOfCompl", complDtos);
 		model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");

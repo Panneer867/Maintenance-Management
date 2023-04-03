@@ -17,18 +17,15 @@
 					<h3 class="mb-0">Maintenance Activities</h3>
 				</div>
 				<div class="card-body pl-5 pr-5 font-weight-bold">
-					<form th:action="@{/masters/saveMaintenactive}" method="post">
+					<form  data-toggle="validator" th:action="@{/masters/saveMaintenactive}" method="post">
 						<div class="mx-auto col-8 text-start">
-							<div class="form-group row">
-								<label class="col-auto col-form-label">Maintenance Activities Type</label>
+							<div class="form-group row p-2">
+								<label for="maintenActivity" class="col-sm-6 col-form-label">Maintenance Activities Type</label>
 								<div class="col-sm-6">
-									<select class="form-select form-select-sm" name="maintenActivity" required>
-									   <option value="">--Select--</option>
-										<option>Pump Maintance</option>
-										<option>Pipe Mainttance</option>
-										<option>Vehicel Maintance</option>
-										<option>Meter Mainttance</option>
-									</select>
+									<input class="form-control form-control-sm" name="maintenActivity" id="maintenActivity"
+										placeholder="Enter Maintenance Activities Type" pattern="^[A-Za-z/&]+[A-Za-z/&\s]*$"
+										 required data-error="Provide a Maintenance Activities !"  oninput="this.value = this.value.toUpperCase()">
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 							</div>
 						</div>
@@ -49,17 +46,17 @@
 			<h5 class="mb-4 bg-primary py-1 text-white text-center">Maintenance Activities History</h5>
 			<table class="table table-stock table-bordered text-center table-primary table-striped table-hover">
 				<thead class="table-dark">
-					<tr>
-						<th class="text-center" scope="col">ID</th>
+					<tr>					
 						<th class="text-center" scope="col">Maintenance Activities Type</th>
+							<th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="maintenactive : ${listOfMaintenActive}">
-						<td><a href="#" th:onclick="|deleteMaintainsActivity(${maintenactive.maintenActiveId})|">
-								<span th:text="${'MA'+maintenactive.maintenActiveId}"></span></a>
-						</td>
+					<tr th:each="maintenactive : ${listOfMaintenActive}">						
 						<td th:text="${maintenactive.maintenActivity}"></td>
+						<td><a href="#" th:onclick="|deleteMaintainsActivity(${maintenactive.maintenActiveId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -30,7 +30,7 @@
 								<label for="meterManufacture" class="col-sm-10 col-form-label">Meter Manufacture</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="meterManufacture"
-										name="meterManufacture" required placeholder="Enter Manufacture Name">
+										name="meterManufacture" required placeholder="Enter Manufacture Name" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 							<div class="col text-start">
@@ -47,8 +47,8 @@
 							<div class="col text-start">
 								<label for="digit" class="col-sm-10 col-form-label">Degit</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="digit" name="digit"
-										required placeholder="Enter Meter Degit">
+									<input type="number" class="form-control form-control-sm" id="digit" name="digit"
+										required placeholder="Enter Meter Degit" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 							<div class="col text-start">
 								<label for="meterSlNo" class="col-sm-10 col-form-label">Meter Sl Namber</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="meterSlNo"
+									<input type="number" class="form-control form-control-sm" id="meterSlNo"
 										name="meterSlNo" required placeholder="Enter Meter Sl No">
 								</div>
 							</div>
@@ -72,14 +72,14 @@
 								<label for="warranty" class="col-sm-10 col-form-label">Warranty</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="warranty"
-										name="warranty" required placeholder="Enter Meter Warranty">
+										name="warranty" required placeholder="Enter Meter Warranty" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 							<div class="col text-start">
 								<label for="condition" class="col-sm-10 col-form-label">Condition</label>
 								<div class="col">
 									<input type="text" class="form-control form-control-sm" id="condition"
-										name="condition" required placeholder="Enter Meter Condition">
+										name="condition" required placeholder="Enter Meter Condition" oninput="this.value = this.value.toUpperCase()">
 								</div>
 							</div>
 						</div>
@@ -108,13 +108,12 @@
 						<th class="text-center" scope="col">Meter Sl No</th>
 						<th class="text-center" scope="col">Warranty</th>
 						<th class="text-center" scope="col">Condition</th>
+						 <th class="text-center" scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="metermenufact : ${listOfManufact}">
-						<td><a href="#" th:onclick="|deleteMeterManufacture(${metermenufact.mtrmanufacId})|">
-								<span th:text="${metermenufact.meterId}"></span></a>
-						</td>
+						<td th:text="${metermenufact.meterId}"></td>
 						<td th:text="${metermenufact.meterManufacture}"></td>
 						<td th:text="${metermenufact.meterType}"></td>
 						<td th:text="${metermenufact.digit}"></td>
@@ -122,6 +121,10 @@
 						<td th:text="${metermenufact.meterSlNo}"></td>
 						<td th:text="${metermenufact.warranty}"></td>
 						<td th:text="${metermenufact.condition}"></td>
+						<td><a href="#" th:onclick="|deleteMeterManufacture(${metermenufact.mtrmanufacId})|">
+								<button class="btn-xs btn-danger">Delete</button></a>
+						</td>
+						
 					</tr>
 				</tbody>
 			</table>

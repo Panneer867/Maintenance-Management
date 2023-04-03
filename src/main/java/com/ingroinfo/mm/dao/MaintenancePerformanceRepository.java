@@ -7,4 +7,6 @@ import com.ingroinfo.mm.entity.MaintenancePerformance;
 @Repository
 public interface MaintenancePerformanceRepository extends JpaRepository<MaintenancePerformance, Long> {
 
+	boolean existsByMaintenPerformType(String maintenPerformType);
+
 }

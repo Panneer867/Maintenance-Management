@@ -1,19 +1,24 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval For Labour Indent
-		</h3>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval
+			For Labour Indent</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/approval}" class="fa fa-home pt-1"></a></div>
+							<div class="link">
+								<a th:href="@{/approval}" class="fa fa-home pt-1"></a>
+							</div>
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Labour Indent Approval</span></div>
+							<div class="link">
+								<span aria-current="location">Labour Indent Approval</span>
+							</div>
 						</li>
 					</ol>
 				</nav>
@@ -22,7 +27,8 @@
 		<div class="row">
 			<div class="col-9">
 				<div th:if="${session.message}" class="alert_field">
-					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<div class="alert text-center py-1"
+						th:classappend="${'alert-'+session.message.type}" role="alert">
 						<span th:text="${session.message.content}"></span>
 					</div>
 					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
@@ -47,7 +53,8 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent
+											No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -58,8 +65,8 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp Start
-											Date</label>
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Exp
+											Start Date</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -117,7 +124,8 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Site</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -128,7 +136,8 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact
+											No</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -161,32 +170,38 @@
 						</div>
 					</div>
 					<div class=" text-center mt-3 mb-2">
-						<a class="btn btn-primary btnPrevious w-20  text-white"
-							th:href="@{/approval/indent/labour/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">Approve</a>
-						<a class="btn btn-warning btnPrevious w-20  text-white">Reject</a>
+						<button type="button"
+							class="btn btn-primary btnPrevious w-20 text-white"
+							data-toggle="modal" data-target="#approveLabourModal">Approve
+						</button>
+						<button type="button"
+							class="btn btn-warning btnPrevious w-20 text-white"
+							data-toggle="modal" data-target="#rejectaLabourModal">Reject
+						</button>
 					</div>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="card text-center">
-					<div class="card-header heading-bg text-white fs-6 ">
-						Updates
+					<div class="card-header heading-bg text-white fs-6 ">Updates
 					</div>
 
 					<div class="card-body">
 						<table class="table table-sm">
 							<thead>
 								<tr>
-									<th class="text-center fs-6" scope="col-sm">Compl No</th>
-									<th class="text-center fs-6" scope="col-sm">Indent No</th>
-									<th class="text-center fs-6" scope="col-sm">Department</th>
+									<th class="text-center fs-6">Compl No</th>
+									<th class="text-center fs-6">Indent No</th>
+									<th class="text-center fs-6">Department</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="labors : ${notApprovedLabourList}" class="text-center">
+								<tr th:each="labors : ${notApprovedLabourList}"
+									class="text-center">
 									<td class="fs-6"><a
-											th:href="@{/approval/indent/labour/get/{complNo}/{indentNo}(complNo=${labors.complNo}, indentNo=${labors.indentNo})}">
-											<span th:text="${'CN'+labors.complNo}"></span></a></td>
+										th:href="@{/approval/indent/labour/get/{complNo}/{indentNo}(complNo=${labors.complNo}, indentNo=${labors.indentNo})}">
+											<span th:text="${'CN'+labors.complNo}"></span>
+									</a></td>
 									<td class="fs-6" th:text="${labors.indentNo}"></td>
 									<td class="fs-6" th:text="${labors.departmentName}"></td>
 								</tr>
@@ -196,6 +211,59 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="modal fade" id="approveLabourModal" tabindex="-1" role="dialog"
+			aria-labelledby="approveModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="approveModalLabel">Approve
+							Confirmation</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">Are you sure you want to approve this
+						request?</div>
+					<div class="modal-footer">
+						<a th:if="${complNo != null and indentNo != null}"
+							class="btn btn-primary btnPrevious w-20 text-white"
+							th:href="@{/approval/indent/labour/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+							Yes,Approve </a>
+						<button type="button" class="btn btn-danger"
+							data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div><div class="modal fade" id="rejectaLabourModal" tabindex="-1" role="dialog"
+			aria-labelledby="rejectModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="rejectModalLabel">Reject
+							Confirmation</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">Are you sure you want to Reject this
+						request?</div>
+					<div class="modal-footer">
+						<a th:if="${complNo != null and indentNo != null}"
+							class="btn btn-primary btnPrevious w-20 text-white"
+							th:href="@{/approval/indent/vehicle/reject/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+							Yes,Reject</a>
+						<button type="button" class="btn btn-danger"
+							data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+
 	</section>
 </body>
 </html>

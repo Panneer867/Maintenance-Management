@@ -7,7 +7,7 @@
 			<!-- Message Alert Field -->
 			<div th:if="${session.message}" class="alert_field">
 				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-					<span th:text="${session.message.content}"></span>
+					<span class="text-dark fw-bold" th:text="${session.message.content}"></span>
 				</div>
 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 			</div>
@@ -22,37 +22,41 @@
 
 						<div class="form-group row p-2">
 							<label for="Ids" class="col-sm-3 col-form-label fs-6">ID's</label>
-							<label for="branchName" class="col-sm-2 col-form-label fs-6">Department Name</label>
-							<label for="serialNumber" class="col-sm-2 col-form-label fs-6">Start Number</label>
-							<label for="description" class="col-sm-3 col-form-label fs-6">Description</label>
+							<label for="budget-deptName" class="col-sm-2 col-form-label fs-6">Department Name</label>
+							<label for="budget-deptId" class="col-sm-2 col-form-label fs-6">Start Number</label>
+							<label for="budget-deptIdDesc" class="col-sm-3 col-form-label fs-6">Description</label>
 							<a th:href="@{/masters/departmentIdHistory}"
 								class="col-sm-1 btn btn-success fs-6">History</a>
 							<label for="description" class="col-sm-1 col-form-label fs-6"></label>
 						</div>
-						<form th:action="@{/masters/saveDepartmentId}" method="post">
+						<form data-toggle="validator" th:action="@{/masters/saveDepartmentId}" method="post">
 							<div class="form-group row p-2">
 								<div class="col-sm-3">
 									<input type="text" class="form-control-plaintext font-weight-bold"
 										id="budget-idName" name="masterIdName" value="Budget Id" required
-										readonly="true">
+										 readonly="true">
+								  
 								</div>
-								<div class="col-sm-2">
-									<select class="form-select form-select-sm" name="deptName" required
-										id="budget-deptName">
+								<div class="form-group col-sm-2">
+									<select class="form-select form-select-sm" name="deptName"  required 
+									     data-error="Selete a Dept Name !" id="budget-deptName">
 										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
 									</select>
+									   <div class="help-block with-errors text-danger"></div>
 								</div>
-								<div class="col-sm-2">
+								<div class="form-group col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10"
 										id="budget-deptId" name="deptId" oninput="this.value = this.value.toUpperCase()"
-										required placeholder="Enter Starting No">
+										 pattern="^[a-zA-Z0-9]+$" data-error="Provide a Start No!" required placeholder="Enter Starting No">
+										<div class="help-block with-errors text-danger"></div>
 								</div>
-								<div class="col-sm-3">
+								<div class="form-group  col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="budget-deptIdDesc"
-										name="deptIdDesc" required placeholder="Enter Id Description">
+										name="deptIdDesc" required placeholder="Enter Id Description" data-error="Provide a Description!">
+											<div class="help-block with-errors text-danger"></div>
 								</div>
 								<div class="col-sm-1" style="bottom: 3px;">
 									<button type="submit" class="btn btn-primary">Add</button>
@@ -64,25 +68,27 @@
 								</div>
 							</div>
 						</form>
-						<form th:action="@{/masters/saveDepartmentId}" method="post">
+						<form data-toggle="validator" th:action="@{/masters/saveDepartmentId}" method="post">
 							<div class="form-group row p-2">
 								<div class="col-sm-3">
 									<input type="text" class="form-control-plaintext font-weight-bold"
 										id="budjet-idName" name="masterIdName" value="Out Matl Issue Id" required
 										readonly="true">
 								</div>
-								<div class="col-sm-2">
-									<select class="form-select form-select-sm" name="deptName" required>
+								<div class="form-group col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required  data-error="Selete this field !">
 										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
 									</select>
+										<div class="help-block with-errors text-danger"></div>
 								</div>
-								<div class="col-sm-2">
+								<div class="form-group col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
 										name="deptId" oninput="this.value = this.value.toUpperCase()" required
-										placeholder="Enter Starting No">
+										placeholder="Enter Starting No" data-error="Selete this field !">
+										<div class="help-block with-errors text-danger"></div>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" name="deptIdDesc" required
@@ -98,28 +104,29 @@
 								</div>
 							</div>
 						</form>
-						<form>
-							<div class="form-group row p-2">
+						<form th:action="@{/masters/saveDepartmentId}" method="post">
+							<div class="row p-2">
 								<div class="col-sm-3">
 									<input type="text" class="form-control-plaintext font-weight-bold"
 										id="budjet-idName" name="masterIdName" value="Out Spr Matl Issue Id" required
 										readonly="true">
 								</div>
-								<div class="col-sm-2">
-									<select class="form-select form-select-sm" name="maintanFrequency" required>
+								<div class="form-group col-sm-2">
+									<select class="form-select form-select-sm" name="deptName" required>
 										<option value="">--Select--</option>
 										<option th:each="deptName:${allDepartment}"
 											th:value="${deptName.departmentName}" th:text="${deptName.departmentName}">
 										</option>
 									</select>
 								</div>
-								<div class="col-sm-2">
+								<div class="form-group col-sm-2">
 									<input type="text" class="form-control form-control-sm" maxlength="10" id="assertId"
-										name="assertId" required placeholder="Enter Starting No">
+									data-error="Provide a Start No!" name="deptId" required placeholder="Enter Starting No">
+									<div class="help-block with-errors text-danger"></div>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control form-control-sm" id="assertDesc"
-										name="assertDesc" required placeholder="Enter Id Description">
+										name="deptIdDesc" required placeholder="Enter Id Description">
 								</div>
 								<div class="col-sm-1" style="bottom: 3px;">
 									<button type="submit" class="btn btn-primary">Add</button>
