@@ -29,7 +29,7 @@ public class ReportsController {
 
 		// Compile the .jrxml file to a .jasper file
 		JasperReport jasperReport = JasperCompileManager
-				.compileReport(getClass().getResourceAsStream("/reports/Assets_Reports.jrxml"));
+				.compileReport(getClass().getResourceAsStream("/reports/Assets_Report.jrxml"));
 
 		// Generate the report data
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(assets);
