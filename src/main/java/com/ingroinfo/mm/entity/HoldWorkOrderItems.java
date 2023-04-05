@@ -38,10 +38,11 @@ public class HoldWorkOrderItems {
 	private String stockTypeName;
 	private String departmentName;
 	private String indentApproved;
-	private String approvedSts;
+    private String approvedSts;
 	private String userName;
 	@CreationTimestamp
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 	
 }

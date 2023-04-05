@@ -17,4 +17,5 @@ public interface StockOrderItemsRequestRepository extends JpaRepository<StockOrd
 	StockOrderItemsRequest findByStockOrderNoAndItemId(Long workOrderNo, String itemId);
 
 	List<StockOrderItemsRequest> findByComplNoAndIndentNo(String complNo, String indentNo);
+
 }

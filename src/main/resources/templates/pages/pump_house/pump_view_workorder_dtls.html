@@ -2,27 +2,41 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">View WorkOrder
-		</h3>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approved
+			WorkOrder Details</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/pump/maintenance/view}" class="fa fa-home pt-1"></a></div>
+							<div class="link">
+								<a th:href="@{/pump/maintenance/view}" class="fa fa-home pt-1"></a>
+							</div>
 						</li>
+						
 						<li class="crumb">
-							<div class="link"><a th:href="@{/pump/maintenance/view}">Workorder List</a></div>
+							<div class="link">
+								<a th:href="@{/pump/maintenance/view}"><span aria-current="location">Approved Workorders</span></a>
+							</div>
 						</li>
+
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Workorder Details</span></div>
+							<div class="link">
+								<span aria-current="location">Workorder Details</span>
+							</div>
 						</li>
 					</ol>
 				</nav>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-11 ml-5">				
+			<div class="col-12">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
 						<h4 class="mb-0">WorkOrder Details</h4>
@@ -30,7 +44,7 @@
 					<div class="card-body font-weight-bold pb-0">
 						<div>
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="complNo" class="col-sm-5 col-form-label pr-0">Complaint
 											No</label>
@@ -41,34 +55,45 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="workOrderNo" class="col-sm-5 col-form-label pr-0">WorkOrder
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${workOrderNo}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="indentNo" class="col-sm-5 col-form-label pr-0">Indent No</label>
-										<div class="col-sm-7 px-0">
+										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
 												disabled th:value="${indentNo}" />
 										</div>
 									</div>
-
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
-										<label for="workOrderNo" class="col-sm-5 col-form-label pr-0">Workorder No
-											</label>
+										<label for="startDate" class="col-sm-5 col-form-label pr-0">Exp
+											Start Date</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
-												disabled th:value="${workOrderNo}" />
+												disabled th:value="${startDate}" />
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<label for="department" class="col-sm-5 col-form-label pr-0">Department</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -76,7 +101,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="division" class="col-sm-5 col-form-label pr-0">Division</label>
 										<div class="col-sm-7 px-0">
@@ -87,7 +112,7 @@
 									</div>
 
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="subdivision" class="col-sm-5 col-form-label pr-0">Sub
 											Division</label>
@@ -98,9 +123,19 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="approvedDate" class="col-sm-5 col-form-label pr-0">Approved Date</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${approvedDate}"/>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="workPriority" class="col-sm-5 col-form-label pr-0">Work
 											Priority</label>
@@ -111,9 +146,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
-										<label for="worksite" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<label for="worksite" class="col-sm-5 col-form-label pr-0">Work
+											Site</label>
 										<div class="col-sm-7 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -122,9 +158,10 @@
 									</div>
 
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
-										<label for="contactNo" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<label for="contactNo" class="col-sm-5 col-form-label pr-0">Contact
+											No</label>
 										<div class="col-sm-6 px-0">
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
@@ -132,31 +169,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-														<div class="row">
-								<div class="col-4">
-									<div class="form-group row">
-										<label for="startDate" class="col-sm-5 col-form-label pr-0">Exp
-											Start Date</label>
-										<div class="col-sm-7 px-0">
-											<input type="text"
-												class="form-control form-control-sm text-center font-weight-bold"
-												disabled th:value="${#dates.format(startDate, 'dd/MM/yyyy ')}"/>
-										</div>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group row">
-										<label for="endDate" class="col-sm-5 col-form-label pr-0">Exp End Date</label>
-										<div class="col-sm-7 px-0">
-											<input type="text"
-												class="form-control form-control-sm text-center font-weight-bold"
-												disabled th:value="${#dates.format(endDate, 'dd/MM/yyyy ')}" />
-										</div>
-									</div>
-
-								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="approvedBy" class="col-sm-5 col-form-label pr-0">Approved By</label>
 										<div class="col-sm-6 px-0">
@@ -207,7 +220,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="material:${listOfMaterials}" class="bl-cr">
+										<tr th:each="material:${listOfApprovedWorkorderitems}" class="bl-cr">
 											<td th:text="${material.categoryName}"></td>
 											<td th:text="${material.itemName}"></td>
 											<td th:text="${material.hsnCode}"></td>
@@ -231,7 +244,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="labors:${listOfLabors}" class="bl-cr">
+										<tr th:each="labors:${listOfApprovedWorkorderLabours}" class="bl-cr">
 											<td th:text="${labors.empCategory}"></td>
 											<td th:text="${labors.members}"></td>
 											<td th:text="${labors.daysRequired}"></td>
@@ -255,7 +268,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="vehicles:${listOfVehicles}" class="bl-cr">
+										<tr th:each="vehicles:${listOfApprovedWorkorderVehicles}" class="bl-cr">
 											<td th:text="${vehicles.vehicleType}"></td>
 											<td th:text="${vehicles.vehicleNo}"></td>
 											<td th:text="${vehicles.driverName}"></td>
@@ -266,14 +279,12 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
-						<div class=" text-center mt-3 mb-2">						
-						</div>
+						</div>						
+
 					</div>
 				</div>
 			</div>			
-		</div>
-
+		</div>	
 	</section>
 </body>
 

@@ -31,8 +31,6 @@ import com.ingroinfo.mm.dao.TempListItemsRepository;
 import com.ingroinfo.mm.dto.GraphDto;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.StockOrderItemsDto;
-import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
-import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -42,9 +40,10 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.StockOrderItems;
 import com.ingroinfo.mm.entity.TempListItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
-import com.ingroinfo.mm.entity.TempStockOrders;
+import com.ingroinfo.mm.entity.StockOrders;
 import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.MasterService;
@@ -600,7 +599,7 @@ public class StocksController {
 
 		model.addAttribute("getStockOrderItems", stockService.getStockOrderItems(stockOrderNo));
 
-		model.addAttribute("stockorder", new TempStockOrders());
+		model.addAttribute("stockorder", new StockOrders());
 
 		List<StockOrderItemsDto> qty = stockService.checkStockQuantity(stockOrderNo);
 
@@ -664,7 +663,7 @@ public class StocksController {
 	}
 
 	@PostMapping("/outward/stockorder/items")
-	public String stockOrerItems(@ModelAttribute("stockorder") TempStockOrders stockOrders, BindingResult bindingResult,
+	public String stockOrerItems(@ModelAttribute("stockorder") StockOrders stockOrders, BindingResult bindingResult,
 			HttpSession session, Principal principal) {
 
 		Long stockOrderNo = stockOrders.getStockOrderNo();
@@ -735,25 +734,7 @@ public class StocksController {
 		return "/pages/stock_management/outward_stocks_list_items";
 	}
 
-	@GetMapping("/outward/approved/list")
-	public String outwardApprovedList(Model model, Principal principal) {
-		model.addAttribute("title", "Outward Stocks Approved List | Maintenance Management");
-		model.addAttribute("approvedOutwardStocksLists", stockService.getOutwardApprovedStockOrders());
-		return "/pages/stock_management/outward_stocks_approved_list";
-	}
-
-	@GetMapping("/outward/approved/list/items/{stockOrderNo}")
-	public String outwardApprovedListItems(@PathVariable("stockOrderNo") Long stockOrderNo, Model model,
-			Principal principal) {
-		model.addAttribute("title", "Outward Stocks Approved Items List | Maintenance Management");
-
-		model.addAttribute("approvedOutwardStocksListItems",
-				stockService.getOutwardApprovedStockOrderItems(stockOrderNo));
-		model.addAttribute("approvedOutwardStockorderNo", stockService.getOutwardApprovedStockOrder(stockOrderNo));
-
-		return "/pages/stock_management/outward_stocks_approved_list_items";
-	}
-
+	
 	/******************************************************************/
 
 	@GetMapping("/return/entry")
@@ -761,7 +742,7 @@ public class StocksController {
 	public String returnEntry(Model model, Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
-		model.addAttribute("stockOrders", stockService.getOutwardApprovedStockOrders());
+		model.addAttribute("stockOrders", stockService.getOutwardStockOrders());
 		model.addAttribute("stockReturn", new TempStocksReturn());
 
 		List<TempStocksReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
@@ -829,7 +810,7 @@ public class StocksController {
 	public @ResponseBody String getStockorderItemForReturn(@PathVariable("stockOrderNo") Long stockOrderNo) {
 
 		String json = null;
-		List<ApprovedStockOrderItems> list = stockService.getOutwardApprovedStockOrderItems(stockOrderNo);
+		List<StockOrderItems> list = stockService.getOutwardStockOrderItems(stockOrderNo);
 		try {
 			json = new ObjectMapper().writeValueAsString(list);
 		} catch (JsonProcessingException e) {
@@ -839,8 +820,8 @@ public class StocksController {
 	}
 
 	@GetMapping("/return/stockorder/{stockOrderNo}")
-	public @ResponseBody ApprovedStockOrders getStockorderDetails(@PathVariable("stockOrderNo") Long stockOrderNo) {
-		return stockService.getOutwardApprovedStockOrder(stockOrderNo);
+	public @ResponseBody StockOrders getStockorderDetails(@PathVariable("stockOrderNo") Long stockOrderNo) {
+		return stockService.getOutwardStockOrder(stockOrderNo);
 	}
 
 	@GetMapping("/return/items/details/{itemId}/{stockOrderNo}")

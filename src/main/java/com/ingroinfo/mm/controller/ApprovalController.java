@@ -27,8 +27,20 @@ import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
+import com.ingroinfo.mm.dto.CancelWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.CancelWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.CancelWorkOrderVehiclesDto;
 import com.ingroinfo.mm.dto.ComplaintDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.HoldWorkOrderVehiclesDto;
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
+import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
+import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedItemsDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
@@ -39,6 +51,7 @@ import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
+import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
 import com.ingroinfo.mm.helper.Message;
@@ -67,7 +80,7 @@ public class ApprovalController {
 	@Autowired
 	private IndentApprovedVehiclesRepository indentApprovedVehiclesRepo;
 	@Autowired
-	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;	
+	private StockOrderItemsRequestRepository stockOrderItemsRequestRepository;
 	@Autowired
 	private WorkOrderService workOrderService;
 
@@ -76,51 +89,60 @@ public class ApprovalController {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
 
-	private void CopyItemsToStockorders(String username, String complNo, String indentNo) {
-		List<IndentApprovedItems> indentApprovedItems = workOrderService.getApprovedIndentItemsByComplNoAndIndentNo(complNo, indentNo);
-
-			for (IndentApprovedItems item : indentApprovedItems) {
-
-				if (item.getApprovedSts().equalsIgnoreCase("N")) {
-
-					StockOrderItemsRequest stockOrderItemsRequest = new StockOrderItemsRequest();
-
-					long stockOrderNo = Long.parseLong(item.getComplNo() + item.getIndentNo());
-
-					stockOrderItemsRequest.setStockOrderNo(stockOrderNo);
-					stockOrderItemsRequest.setCategoryName(item.getCategoryName());
-					stockOrderItemsRequest.setComplDtls(item.getComplDtls());
-					stockOrderItemsRequest.setComplNo(item.getComplNo());
-					stockOrderItemsRequest.setContactNo(item.getContactNo());
-					stockOrderItemsRequest.setDepartmentName(item.getDepartmentName());
-					stockOrderItemsRequest.setDivision(item.getDivision());
-					stockOrderItemsRequest.setEndDate(item.getEndDate());
-					stockOrderItemsRequest.setHsnCode(item.getHsnCode());
-					stockOrderItemsRequest.setIndentNo(item.getIndentNo());
-					stockOrderItemsRequest.setItemId(item.getItemId());
-					stockOrderItemsRequest.setItemName(item.getItemName());
-					stockOrderItemsRequest.setQuantity(item.getQuantity());
-					stockOrderItemsRequest.setStartDate(item.getStartDate());
-					stockOrderItemsRequest.setStockType(item.getStockType());
-					stockOrderItemsRequest.setStockTypeName(item.getStockTypeName());
-					stockOrderItemsRequest.setSubDivision(item.getSubDivision());
-					stockOrderItemsRequest.setUnitOfMesure(item.getUnitOfMesure());
-					stockOrderItemsRequest.setUsername(username);
-					stockOrderItemsRequest.setWorkPriority(item.getWorkPriority());
-					stockOrderItemsRequest.setWorkSite(item.getWorkSite());
-
-					stockOrderItemsRequestRepository.save(stockOrderItemsRequest);
-				}
-
-			}
-		
+	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+		Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+		return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
 	}
 
+	private void CopyItemsToStockorders(String username, String complNo, String indentNo) {
+		List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos = workOrderService
+				.getApprovedWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
+
+		for (WorkOrderApprovedItemsDto item : workOrderApprovedItemsDtos) {
+
+			if (item.getStockApproveSts().equalsIgnoreCase("N")) {
+
+				StockOrderItemsRequest stockOrderItemsRequest = new StockOrderItemsRequest();
+
+				long stockOrderNo = Long.parseLong(item.getComplNo() + item.getIndentNo());
+
+				stockOrderItemsRequest.setStockOrderNo(stockOrderNo);
+				stockOrderItemsRequest.setCategoryName(item.getCategoryName());
+				stockOrderItemsRequest.setComplDtls(item.getComplDtls());
+				stockOrderItemsRequest.setComplNo(item.getComplNo());
+				stockOrderItemsRequest.setContactNo(item.getContactNo());
+				stockOrderItemsRequest.setDepartmentName(item.getDepartmentName());
+				stockOrderItemsRequest.setDivision(item.getDivision());
+				stockOrderItemsRequest.setEndDate(item.getEndDate());
+				stockOrderItemsRequest.setHsnCode(item.getHsnCode());
+				stockOrderItemsRequest.setIndentNo(item.getIndentNo());
+				stockOrderItemsRequest.setItemId(item.getItemId());
+				stockOrderItemsRequest.setItemName(item.getItemName());
+				stockOrderItemsRequest.setQuantity(item.getQuantity());
+				stockOrderItemsRequest.setStartDate(item.getStartDate());
+				stockOrderItemsRequest.setStockType(item.getStockType());
+				stockOrderItemsRequest.setStockTypeName(item.getStockTypeName());
+				stockOrderItemsRequest.setSubDivision(item.getSubDivision());
+				stockOrderItemsRequest.setUnitOfMesure(item.getUnitOfMesure());
+				stockOrderItemsRequest.setUsername(username);
+				stockOrderItemsRequest.setWorkPriority(item.getWorkPriority());
+				stockOrderItemsRequest.setWorkSite(item.getWorkSite());
+				stockOrderItemsRequest.setWorkOrderNo(item.getWorkOrder());
+
+				stockOrderItemsRequestRepository.save(stockOrderItemsRequest);
+			}
+		}
+	}
+
+	// Handler For Open Approvals Page
 	@GetMapping
 	@PreAuthorize("hasAuthority('APPROVALS')")
 	public String hrApprovals(Model model) {
+		model.addAttribute("title", "Approval | Manintenance Management");
 		return "approvals_page";
 	}
+
+	/********************* Indent Approvals *****************************/
 
 	// Handler For Open Indent Approval Page
 	@GetMapping("/indent")
@@ -247,9 +269,8 @@ public class ApprovalController {
 				indentItem.setIndentApproved("Y");
 				indentItem.setApprovedSts("N");
 			});
-						
+
 			this.indentApprovedItemsRepo.saveAll(approvedIndentItems);
-			CopyItemsToStockorders(principal.getName(),complNo,indentNo);
 			this.tempIndentItemRequestRepo.deleteAllByComplNo(complNo);
 		}
 		if (tempIndentLabourRequests != null) {
@@ -282,7 +303,7 @@ public class ApprovalController {
 			this.indentApprovedVehiclesRepo.saveAll(approvedIndentVehicles);
 			this.tempIndentVehicleRequestRepo.deleteAllByComplNo(complNo);
 		}
-		
+
 		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
 		oldcomplaintDto.setComplStatus("approved_indent");
 		oldcomplaintDto.setIndentApprovedBy(principal.getName());
@@ -291,213 +312,316 @@ public class ApprovalController {
 		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
 		return "redirect:/approval/indent";
 	}
-	
+
+	/********************* Materials Indent Approvals *****************************/
+
+	// Handler For Open Material Indent Approval Page
+	@GetMapping("/indent/material")
+	public String displayMaterialIndentApproval(Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedItems> notApprovedItemsList = this.workOrderService
+				.getApprovedItemsIndentByApprovedSts(approvedSts);
+
+		List<IndentApprovedItems> uniqueItemsList = notApprovedItemsList.stream()
+				.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
+				.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+				.collect(Collectors.toList());
+
+		model.addAttribute("notApprovedItemsList", uniqueItemsList);
+		model.addAttribute("title", "Approval | Material | Manintenance Management");
+		return "/pages/approvals/material_indent_approvals";
+	}
+
+	// Handler For get Not Approved Material Indent Data For Approval
+	@GetMapping("/indent/material/get/{complNo}/{indentNo}")
+	public String getItemsIndentdataByComplNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
+			Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedItems> notApprovedItemsList = this.workOrderService
+				.getApprovedItemsIndentByApprovedSts(approvedSts);
+
+		List<IndentApprovedItems> uniqueItemsList = notApprovedItemsList.stream()
+				.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
+				.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+				.collect(Collectors.toList());
+
+		List<IndentApprovedItems> approvedItemsList = this.workOrderService
+				.getApprovedIndentItemsByComplNoAndIndentNo(complNo, indentNo);
+
+		Date expStartDate = null;
+		String departmentName = null;
+		String division = null;
+		String subDivision = null;
+		String workPriority = null;
+		String workSite = null;
+		String contactNo = null;
+
+		for (IndentApprovedItems indentItems : approvedItemsList) {
+			if (indentItems.getIndentNo() != null || indentItems.getComplNo() != null) {
+				expStartDate = indentItems.getStartDate();
+				departmentName = indentItems.getDepartmentName();
+				division = indentItems.getDivision();
+				subDivision = indentItems.getSubDivision();
+				workPriority = indentItems.getWorkPriority();
+				workSite = indentItems.getWorkSite();
+				contactNo = indentItems.getContactNo();
+				break;
+			}
+		}
+
+		model.addAttribute("expStartDate", expStartDate);
+		model.addAttribute("department", departmentName);
+		model.addAttribute("division", division);
+		model.addAttribute("subdvision", subDivision);
+		model.addAttribute("workPriority", workPriority);
+		model.addAttribute("workSite", workSite);
+		model.addAttribute("contactNo", contactNo);
+		model.addAttribute("notApprovedItemsList", uniqueItemsList);
+		model.addAttribute("listOfApprovedItems", approvedItemsList);
+		model.addAttribute("title", "Approval | Indent | Material | Manintenance Management");
+		return "/pages/approvals/material_indent_approvals";
+	}
+
+	// Handler For Submit Approved Material Data
+	@GetMapping("/indent/material/approve/{complNo}/{indentNo}")
+	public String approveMaterialIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
+
+		List<IndentApprovedItems> approvedIndentItemsList = this.workOrderService
+				.getApprovedIndentItemsByComplNoAndIndentNo(complNo, indentNo);
+
+		if (approvedIndentItemsList != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<TempWorkOrderItemRequest> tempWorkOrderItems = approvedIndentItemsList.stream()
+					.map((indentItems) -> modelMapper.map(indentItems, TempWorkOrderItemRequest.class))
+					.collect(Collectors.toList());
+
+			tempWorkOrderItems.forEach(tempWorkOrderLabors -> {
+				tempWorkOrderLabors.setUserName(principal.getName());
+				tempWorkOrderLabors.setApprovedSts("Y");
+			});
+			this.workOrderService.saveAllTempWorkOrderItems(tempWorkOrderItems);
+
+			for (int i = 0; i < approvedIndentItemsList.size(); i++) {
+				IndentApprovedItems indentItems = approvedIndentItemsList.get(i);
+				TempWorkOrderItemRequest tempWorkorderItems = tempWorkOrderItems.get(i);
+
+				// Update the approved status based on the corresponding Indent And Compl No
+				indentItems.setApprovedSts(tempWorkorderItems.getApprovedSts());
+			}
+			this.workOrderService.saveAllApprovedIndentItems(approvedIndentItemsList);
+		}
+
+		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
+		return "redirect:/approval/indent/labour";
+	}
+
+	/********************* Labor Indent Approvals *****************************/
+
 	// Handler For Open Labor Indent Approval Page
-		@GetMapping("/indent/labour")
-		public String displayLaborIndentApproval(Model model) {
-			String approvedSts = "N";
-			List<IndentApprovedLabours> notApprovedLaborList = this.workOrderService
-					.getApprovedLabourIndentByApprovedSts(approvedSts);
+	@GetMapping("/indent/labour")
+	public String displayLaborIndentApproval(Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedLabours> notApprovedLaborList = this.workOrderService
+				.getApprovedLabourIndentByApprovedSts(approvedSts);
 
-			List<IndentApprovedLabours> uniqueLabourList = notApprovedLaborList.stream()
-					.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
-					.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+		List<IndentApprovedLabours> uniqueLabourList = notApprovedLaborList.stream()
+				.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
+				.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+				.collect(Collectors.toList());
+
+		model.addAttribute("notApprovedLabourList", uniqueLabourList);
+		model.addAttribute("title", "Approval | Labour | Manintenance Management");
+		return "/pages/approvals/labour_indent_approvals";
+	}
+
+	// Handler For get Not Approved Labor Indent Data For Approval
+	@GetMapping("/indent/labour/get/{complNo}/{indentNo}")
+	public String getLabourIndentdataByComplNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
+			Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedLabours> notApprovedLaborList = this.workOrderService
+				.getApprovedLabourIndentByApprovedSts(approvedSts);
+		List<IndentApprovedLabours> uniqueLabourList = notApprovedLaborList.stream()
+				.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
+				.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+				.collect(Collectors.toList());
+
+		List<IndentApprovedLabours> approvedIndentLabours = this.workOrderService
+				.getApprovedIndentLaborsByComplNoAndIndentNo(complNo, indentNo);
+
+		Date expStartDate = null;
+		String departmentName = null;
+		String division = null;
+		String subDivision = null;
+		String workPriority = null;
+		String workSite = null;
+		String contactNo = null;
+
+		for (IndentApprovedLabours indentLabors : approvedIndentLabours) {
+			if (indentLabors.getIndentNo() != null || indentLabors.getComplNo() != null) {
+				expStartDate = indentLabors.getStartDate();
+				departmentName = indentLabors.getDepartmentName();
+				division = indentLabors.getDivision();
+				subDivision = indentLabors.getSubDivision();
+				workPriority = indentLabors.getWorkPriority();
+				workSite = indentLabors.getWorkSite();
+				contactNo = indentLabors.getContactNo();
+				break;
+			}
+		}
+
+		model.addAttribute("expStartDate", expStartDate);
+		model.addAttribute("department", departmentName);
+		model.addAttribute("division", division);
+		model.addAttribute("subdvision", subDivision);
+		model.addAttribute("workPriority", workPriority);
+		model.addAttribute("workSite", workSite);
+		model.addAttribute("contactNo", contactNo);
+		model.addAttribute("notApprovedLabourList", uniqueLabourList);
+		model.addAttribute("listOfLabors", approvedIndentLabours);
+		model.addAttribute("title", "Approval | Indent | Labour | Manintenance Management");
+		return "/pages/approvals/labour_indent_approvals";
+	}
+
+	// Handler For Submit Approved Labor Data
+	@GetMapping("/indent/labour/approve/{complNo}/{indentNo}")
+	public String approveLabourIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
+
+		List<IndentApprovedLabours> approvedIndentLabours = this.workOrderService
+				.getApprovedIndentLaborsByComplNoAndIndentNo(complNo, indentNo);
+
+		if (approvedIndentLabours != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<TempWorkOrderLabourRequest> tempWorkOrderLabours = approvedIndentLabours.stream()
+					.map((indentLabors) -> modelMapper.map(indentLabors, TempWorkOrderLabourRequest.class))
 					.collect(Collectors.toList());
 
-			model.addAttribute("notApprovedLabourList", uniqueLabourList);
-			model.addAttribute("title", "Approval | Labour | Manintenance Management");
-			return "/pages/approvals/labour_indent_approvals";
+			tempWorkOrderLabours.forEach(tempWorkOrderLabors -> {
+				tempWorkOrderLabors.setUserName(principal.getName());
+				tempWorkOrderLabors.setApprovedSts("Y");
+			});
+			this.workOrderService.saveAllTempWorkOrderLabours(tempWorkOrderLabours);
+
+			for (int i = 0; i < approvedIndentLabours.size(); i++) {
+				IndentApprovedLabours indentLabors = approvedIndentLabours.get(i);
+				TempWorkOrderLabourRequest tempWorkorderLabors = tempWorkOrderLabours.get(i);
+
+				// Update the approved status based on the corresponding Indent And Compl No
+				indentLabors.setApprovedSts(tempWorkorderLabors.getApprovedSts());
+			}
+			this.workOrderService.saveAllApprovedIndentLabours(approvedIndentLabours);
 		}
 
-		public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
-			Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-			return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
+		return "redirect:/approval/indent/labour";
+	}
+
+	/********************* Vehicle Indent Approvals *****************************/
+
+	// Handler For Open Vehicle Indent Approval Page
+	@GetMapping("/indent/vehicle")
+	public String displayVehicleIndentApproval(Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedVehicles> notApprovedVehicleList = this.workOrderService
+				.getApprovedVehicleIndentByApprovedSts(approvedSts);
+
+		List<IndentApprovedVehicles> uniqueVehicleList = notApprovedVehicleList.stream()
+				.filter(vehicel -> vehicel.getComplNo() != null && vehicel.getIndentNo() != null)
+				.filter(distinctByKey(vehicel -> vehicel.getComplNo() + "_" + vehicel.getIndentNo()))
+				.collect(Collectors.toList());
+
+		model.addAttribute("notApprovedVehicleList", uniqueVehicleList);
+		model.addAttribute("title", "Approval | Vehicle | Manintenance Management");
+		return "/pages/approvals/vehicle_indent_approvals";
+	}
+
+	// Handler For get Not Approved Vehicle Indent Data For Approval
+	@GetMapping("/indent/vehicle-get/{complNo}/{indentNo}")
+	public String getVehicleIndentdataByComplNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
+			Model model) {
+		String approvedSts = "N";
+		List<IndentApprovedVehicles> notApprovedVehicleList = this.workOrderService
+				.getApprovedVehicleIndentByApprovedSts(approvedSts);
+
+		List<IndentApprovedVehicles> uniqueVehicleList = notApprovedVehicleList.stream()
+				.filter(vehicel -> vehicel.getComplNo() != null && vehicel.getIndentNo() != null)
+				.filter(distinctByKey(vehicel -> vehicel.getComplNo() + "_" + vehicel.getIndentNo()))
+				.collect(Collectors.toList());
+
+		List<IndentApprovedVehicles> approvedIndentVehicles = this.workOrderService
+				.getApprovedIndentVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+		Date expStartDate = null;
+		String departmentName = null;
+		String division = null;
+		String subDivision = null;
+		String workPriority = null;
+		String workSite = null;
+		String contactNo = null;
+
+		for (IndentApprovedVehicles indentvehicles : approvedIndentVehicles) {
+			if (indentvehicles.getIndentNo() != null || indentvehicles.getComplNo() != null) {
+				expStartDate = indentvehicles.getStartDate();
+				departmentName = indentvehicles.getDepartmentName();
+				division = indentvehicles.getDivision();
+				subDivision = indentvehicles.getSubDivision();
+				workPriority = indentvehicles.getWorkPriority();
+				workSite = indentvehicles.getWorkSite();
+				contactNo = indentvehicles.getContactNo();
+				break;
+			}
 		}
 
-		// Handler For Open Vehicle Indent Approval Page
-		@GetMapping("/indent/vehicle")
-		public String displayVehicleIndentApproval(Model model) {
-			String approvedSts = "N";
-			List<IndentApprovedVehicles> notApprovedVehicleList = this.workOrderService
-					.getApprovedVehicleIndentByApprovedSts(approvedSts);
+		model.addAttribute("expStartDate", expStartDate);
+		model.addAttribute("department", departmentName);
+		model.addAttribute("division", division);
+		model.addAttribute("subdvision", subDivision);
+		model.addAttribute("workPriority", workPriority);
+		model.addAttribute("workSite", workSite);
+		model.addAttribute("contactNo", contactNo);
+		model.addAttribute("notApprovedVehicleList", uniqueVehicleList);
+		model.addAttribute("listOfVehicles", approvedIndentVehicles);
+		model.addAttribute("title", "Approval | Indent | Vehicle | Manintenance Management");
+		return "/pages/approvals/vehicle_indent_approvals";
+	}
 
-			List<IndentApprovedVehicles> uniqueVehicleList = notApprovedVehicleList.stream()
-					.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
-					.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
+	// Handler For Submit Approved Labor Data
+	@GetMapping("/indent/vehicle/approve/{complNo}/{indentNo}")
+	public String approveVehicleIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
+
+		List<IndentApprovedVehicles> approvedIndentVehicles = this.workOrderService
+				.getApprovedIndentVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+		if (approvedIndentVehicles != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles = approvedIndentVehicles.stream()
+					.map((indentLabors) -> modelMapper.map(indentLabors, TempWorkOrderVehicleRequest.class))
 					.collect(Collectors.toList());
 
-			model.addAttribute("notApprovedVehicleList", uniqueVehicleList);
-			model.addAttribute("title", "Approval | Vehicle | Manintenance Management");
-			return "/pages/approvals/vehicle_indent_approvals";
-		}
+			tempWorkOrderVehicles.forEach(tempWorkOrderVehicle -> {
+				tempWorkOrderVehicle.setUserName(principal.getName());
+				tempWorkOrderVehicle.setApprovedSts("Y");
+			});
+			this.workOrderService.saveAllTempWorkOrderVehicles(tempWorkOrderVehicles);
 
-		// Handler For get Not Approved Labor Indent Data For Approval
-		@GetMapping("/indent/labour/get/{complNo}/{indentNo}")
-		public String getLabourIndentdataByComplNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
-				Model model) {
-			String approvedSts = "N";
-			List<IndentApprovedLabours> notApprovedLaborList = this.workOrderService
-					.getApprovedLabourIndentByApprovedSts(approvedSts);
-			List<IndentApprovedLabours> uniqueLabourList = notApprovedLaborList.stream()
-					.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
-					.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
-					.collect(Collectors.toList());
+			for (int i = 0; i < approvedIndentVehicles.size(); i++) {
+				IndentApprovedVehicles indentVehicles = approvedIndentVehicles.get(i);
+				TempWorkOrderVehicleRequest tempWorkOrderVehicle = tempWorkOrderVehicles.get(i);
 
-			List<IndentApprovedLabours> approvedIndentLabours = this.workOrderService
-					.getApprovedIndentLaborsByComplNoAndIndentNo(complNo, indentNo);
-
-			Date expStartDate = null;
-			String departmentName = null;
-			String division = null;
-			String subDivision = null;
-			String workPriority = null;
-			String workSite = null;
-			String contactNo = null;
-
-			for (IndentApprovedLabours indentLabors : approvedIndentLabours) {
-				if (indentLabors.getIndentNo() != null || indentLabors.getComplNo() != null) {
-					expStartDate = indentLabors.getStartDate();
-					departmentName = indentLabors.getDepartmentName();
-					division = indentLabors.getDivision();
-					subDivision = indentLabors.getSubDivision();
-					workPriority = indentLabors.getWorkPriority();
-					workSite = indentLabors.getWorkSite();
-					contactNo = indentLabors.getContactNo();
-					break;
-				}
+				// Update the approved status based on the corresponding Indent And Compl No
+				indentVehicles.setApprovedSts(tempWorkOrderVehicle.getApprovedSts());
 			}
-
-			model.addAttribute("expStartDate", expStartDate);
-			model.addAttribute("department", departmentName);
-			model.addAttribute("division", division);
-			model.addAttribute("subdvision", subDivision);
-			model.addAttribute("workPriority", workPriority);
-			model.addAttribute("workSite", workSite);
-			model.addAttribute("contactNo", contactNo);
-			model.addAttribute("notApprovedLabourList", uniqueLabourList);
-			model.addAttribute("listOfLabors", approvedIndentLabours);
-			model.addAttribute("title", "Approval | Indent | Labour | Manintenance Management");
-			return "/pages/approvals/labour_indent_approvals";
+			this.workOrderService.saveAllApprovedIndentVehicles(approvedIndentVehicles);
 		}
 
-		// Handler For get Not Approved Vehicle Indent Data For Approval
-		@GetMapping("/indent/vehicle-get/{complNo}/{indentNo}")
-		public String getVehicleIndentdataByComplNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
-				Model model) {
-			String approvedSts = "N";
-			List<IndentApprovedVehicles> notApprovedVehicleList = this.workOrderService
-					.getApprovedVehicleIndentByApprovedSts(approvedSts);
+		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
+		return "redirect:/approval/indent/vehicle";
+	}
 
-			List<IndentApprovedVehicles> uniqueVehicleList = notApprovedVehicleList.stream()
-					.filter(labor -> labor.getComplNo() != null && labor.getIndentNo() != null)
-					.filter(distinctByKey(labor -> labor.getComplNo() + "_" + labor.getIndentNo()))
-					.collect(Collectors.toList());
-
-			List<IndentApprovedVehicles> approvedIndentVehicles = this.workOrderService
-					.getApprovedIndentVehiclesByComplNoAndIndentNo(complNo, indentNo);
-
-			Date expStartDate = null;
-			String departmentName = null;
-			String division = null;
-			String subDivision = null;
-			String workPriority = null;
-			String workSite = null;
-			String contactNo = null;
-
-			for (IndentApprovedVehicles indentvehicles : approvedIndentVehicles) {
-				if (indentvehicles.getIndentNo() != null || indentvehicles.getComplNo() != null) {
-					expStartDate = indentvehicles.getStartDate();
-					departmentName = indentvehicles.getDepartmentName();
-					division = indentvehicles.getDivision();
-					subDivision = indentvehicles.getSubDivision();
-					workPriority = indentvehicles.getWorkPriority();
-					workSite = indentvehicles.getWorkSite();
-					contactNo = indentvehicles.getContactNo();
-					break;
-				}
-			}
-
-			model.addAttribute("expStartDate", expStartDate);
-			model.addAttribute("department", departmentName);
-			model.addAttribute("division", division);
-			model.addAttribute("subdvision", subDivision);
-			model.addAttribute("workPriority", workPriority);
-			model.addAttribute("workSite", workSite);
-			model.addAttribute("contactNo", contactNo);
-			model.addAttribute("notApprovedVehicleList", uniqueVehicleList);
-			model.addAttribute("listOfVehicles", approvedIndentVehicles);
-			model.addAttribute("title", "Approval | Indent | Vehicle | Manintenance Management");
-			return "/pages/approvals/vehicle_indent_approvals";
-		}
-
-		// Handler For Submit Approved Labor Data
-		@GetMapping("/indent/labour/approve/{complNo}/{indentNo}")
-		public String approveLabourIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
-				Principal principal, HttpSession session) {
-
-			List<IndentApprovedLabours> approvedIndentLabours = this.workOrderService
-					.getApprovedIndentLaborsByComplNoAndIndentNo(complNo, indentNo);
-
-			if (approvedIndentLabours != null) {
-				ModelMapper modelMapper = new ModelMapper();
-				List<TempWorkOrderLabourRequest> tempWorkOrderLabours = approvedIndentLabours.stream()
-						.map((indentLabors) -> modelMapper.map(indentLabors, TempWorkOrderLabourRequest.class))
-						.collect(Collectors.toList());
-
-				tempWorkOrderLabours.forEach(tempWorkOrderLabors -> {
-					tempWorkOrderLabors.setUserName(principal.getName());
-					tempWorkOrderLabors.setApprovedSts("Y");
-				});
-				this.workOrderService.saveAllTempWorkOrderLabours(tempWorkOrderLabours);
-
-				for (int i = 0; i < approvedIndentLabours.size(); i++) {
-					IndentApprovedLabours indentLabors = approvedIndentLabours.get(i);
-					TempWorkOrderLabourRequest tempWorkorderLabors = tempWorkOrderLabours.get(i);
-
-					// Update the approved status based on the corresponding Indent And Compl No
-					indentLabors.setApprovedSts(tempWorkorderLabors.getApprovedSts());
-				}
-				this.workOrderService.saveAllApprovedIndentLabours(approvedIndentLabours);
-			}
-
-			session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
-			return "redirect:/approval/indent/labour";
-		}
-		
-		// Handler For Submit Approved Labor Data
-		@GetMapping("/indent/vehicle/approve/{complNo}/{indentNo}")	
-		public String approveVehicleIndentData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
-				Principal principal, HttpSession session) {
-
-			List<IndentApprovedVehicles> approvedIndentVehicles = this.workOrderService
-					.getApprovedIndentVehiclesByComplNoAndIndentNo(complNo, indentNo);
-
-			if (approvedIndentVehicles != null) {
-				ModelMapper modelMapper = new ModelMapper();
-				List<TempWorkOrderVehicleRequest> tempWorkOrderVehicles = approvedIndentVehicles.stream()
-						.map((indentLabors) -> modelMapper.map(indentLabors, TempWorkOrderVehicleRequest.class))
-						.collect(Collectors.toList());
-
-				tempWorkOrderVehicles.forEach(tempWorkOrderVehicle -> {
-					tempWorkOrderVehicle.setUserName(principal.getName());
-					tempWorkOrderVehicle.setApprovedSts("Y");
-				});
-				this.workOrderService.saveAllTempWorkOrderVehicles(tempWorkOrderVehicles);
-
-				for (int i = 0; i < approvedIndentVehicles.size(); i++) {
-					IndentApprovedVehicles indentVehicles = approvedIndentVehicles.get(i);
-					TempWorkOrderVehicleRequest tempWorkOrderVehicle = tempWorkOrderVehicles.get(i);
-
-					// Update the approved status based on the corresponding Indent And Compl No
-					indentVehicles.setApprovedSts(tempWorkOrderVehicle.getApprovedSts());
-				}
-				this.workOrderService.saveAllApprovedIndentVehicles(approvedIndentVehicles);
-			}
-
-			session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
-			return "redirect:/approval/indent/vehicle";
-		}
-
+	/********************* WorkOrder Approvals *****************************/
 
 	// Handler For Open Work Order Approval Page
 	@GetMapping("/workorder")
@@ -508,6 +632,295 @@ public class ApprovalController {
 		model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
 		return "/pages/approvals/workorder_approvals";
 	}
+
+	// Handler For Get Work order Data From TempWorkOrder
+	@GetMapping("/workorder/get/{complNo}/{indentNo}")
+	public String getWapWorkorderdataByComlNoAndIndentNo(@PathVariable String complNo, @PathVariable String indentNo,
+			Model model) {
+		String complStatus = "WAITING_WORKORDER_APPROVAL";
+		List<ComplaintDto> complDtos = this.taskUpdateService.getListOfComplaintByStatus(complStatus);
+		model.addAttribute("listOfCompl", complDtos);
+
+		List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos = this.workOrderService
+				.getWapWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos = this.workOrderService
+				.getWapWorkOrderLaboursByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderVehiclesDto> wapWorkOrderVehiclesDtos = this.workOrderService
+				.getWapWorkOrderVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+		String complNumber = null;
+		String indentNumber = null;
+		String workorderNo = null;
+		Date expStartDate = null;
+		String department = null;
+		String division = null;
+		String subDivision = null;
+		String workPriprity = null;
+		String workSite = null;
+		String contactNo = null;
+
+		// Check for indent number in WapWokroderItemDto list
+		for (WapWorkOrderItemsDto wapWorkorderItems : wapWorkOrderItemsDtos) {
+			if (wapWorkorderItems.getIndentNo() != null || wapWorkorderItems.getComplNo() != null) {
+				indentNumber = wapWorkorderItems.getIndentNo();
+				complNumber = wapWorkorderItems.getComplNo();
+				workorderNo = wapWorkorderItems.getWorkOrder();
+				expStartDate = wapWorkorderItems.getStartDate();
+				department = wapWorkorderItems.getDepartmentName();
+				division = wapWorkorderItems.getDivision();
+				subDivision = wapWorkorderItems.getSubDivision();
+				workPriprity = wapWorkorderItems.getWorkPriority();
+				workSite = wapWorkorderItems.getWorkSite();
+				contactNo = wapWorkorderItems.getContactNo();
+				break;
+			}
+		}
+		// Check for indent number in WapWorkOrderLabourDto list
+		if (indentNumber == null || complNumber == null) {
+			for (WapWorkOrderLaboursDto wapWorkorderLabors : wapWorkOrderLaboursDtos) {
+				if (wapWorkorderLabors.getIndentNo() != null || wapWorkorderLabors.getComplNo() != null) {
+					indentNumber = wapWorkorderLabors.getIndentNo();
+					complNumber = wapWorkorderLabors.getComplNo();
+					workorderNo = wapWorkorderLabors.getWorkOrder();
+					expStartDate = wapWorkorderLabors.getStartDate();
+					department = wapWorkorderLabors.getDepartmentName();
+					division = wapWorkorderLabors.getDivision();
+					subDivision = wapWorkorderLabors.getSubDivision();
+					workPriprity = wapWorkorderLabors.getWorkPriority();
+					workSite = wapWorkorderLabors.getWorkSite();
+					contactNo = wapWorkorderLabors.getContactNo();
+					break;
+				}
+			}
+		}
+		// Check for indent number in WapWorkOrderVehicleDto list
+		if (indentNumber == null || complNumber == null) {
+			for (WapWorkOrderVehiclesDto wapWorkorderVehicle : wapWorkOrderVehiclesDtos) {
+				if (wapWorkorderVehicle.getIndentNo() != null || wapWorkorderVehicle.getComplNo() != null) {
+					indentNumber = wapWorkorderVehicle.getIndentNo();
+					complNumber = wapWorkorderVehicle.getComplNo();
+					workorderNo = wapWorkorderVehicle.getWorkOrder();
+					expStartDate = wapWorkorderVehicle.getStartDate();
+					department = wapWorkorderVehicle.getDepartmentName();
+					division = wapWorkorderVehicle.getDivision();
+					subDivision = wapWorkorderVehicle.getSubDivision();
+					workPriprity = wapWorkorderVehicle.getWorkPriority();
+					workSite = wapWorkorderVehicle.getWorkSite();
+					contactNo = wapWorkorderVehicle.getContactNo();
+					break;
+				}
+			}
+		}
+
+		model.addAttribute("complNo", complNumber);
+		model.addAttribute("workOrderNo", workorderNo);
+		model.addAttribute("startDate", expStartDate);
+		model.addAttribute("department", department);
+		model.addAttribute("division", division);
+		model.addAttribute("subdivision", subDivision);
+		model.addAttribute("workPriority", workPriprity);
+		model.addAttribute("worksite", workSite);
+		model.addAttribute("contactNo", contactNo);
+
+		model.addAttribute("listOfWapWorkorderitems", wapWorkOrderItemsDtos);
+		model.addAttribute("listOfWapWorkorderLabours", wapWorkOrderLaboursDtos);
+		model.addAttribute("listOfWapWorkorderVehicles", wapWorkOrderVehiclesDtos);
+		model.addAttribute("title", "Approval | WorkOrder | Manintenance Management");
+		return "/pages/approvals/workorder_approvals";
+	}
+
+	// Handler For Submit Approved WorkOrder Data
+	@GetMapping("/workorder/approve/{complNo}/{indentNo}")
+	public String approveWorkorderData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
+
+		List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos = this.workOrderService
+				.getWapWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos = this.workOrderService
+				.getWapWorkOrderLaboursByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderVehiclesDto> wapWorkOrderVehiclesDtos = this.workOrderService
+				.getWapWorkOrderVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+		if (wapWorkOrderItemsDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos = wapWorkOrderItemsDtos.stream()
+					.map((approvedWorkOrderItems) -> modelMapper.map(approvedWorkOrderItems,
+							WorkOrderApprovedItemsDto.class))
+					.collect(Collectors.toList());
+
+			workOrderApprovedItemsDtos.forEach(workOrderItem -> {
+				workOrderItem.setUserName(principal.getName());
+				workOrderItem.setStockApproveSts("N");
+
+			});
+
+			this.workOrderService.saveAllApprovedWorkOrderItems(workOrderApprovedItemsDtos);
+			CopyItemsToStockorders(principal.getName(), complNo, indentNo);
+			this.workOrderService.deleteAllWapWorkorderItemsByComplNo(complNo);
+		}
+		if (wapWorkOrderLaboursDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WorkOrderApprovedLaboursDto> workOrderApprovedLaboursDtos = wapWorkOrderLaboursDtos.stream()
+					.map(approvedWorkOrderLabors -> modelMapper.map(approvedWorkOrderLabors,
+							WorkOrderApprovedLaboursDto.class))
+					.collect(Collectors.toList());
+
+			workOrderApprovedLaboursDtos.forEach(indentLabor -> {
+				indentLabor.setUserName(principal.getName());
+			});
+
+			this.workOrderService.saveAllApprovedWorkOrderLabours(workOrderApprovedLaboursDtos);
+			this.workOrderService.deleteAllWapWorkorderLaboursByComplNo(complNo);
+		}
+		if (wapWorkOrderVehiclesDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<WorkOrderApprovedVehiclesDto> workOrderApprovedVehiclesDtos = wapWorkOrderVehiclesDtos.stream()
+					.map((approvedWorkOrderVehicles) -> modelMapper.map(approvedWorkOrderVehicles,
+							WorkOrderApprovedVehiclesDto.class))
+					.collect(Collectors.toList());
+
+			workOrderApprovedVehiclesDtos.forEach(indentVehicle -> {
+				indentVehicle.setUserName(principal.getName());
+			});
+
+			this.workOrderService.saveAllApprovedWorkOrderVehicles(workOrderApprovedVehiclesDtos);
+			this.workOrderService.deleteAllWapWorkorderVehiclesByComplNo(complNo);
+		}
+
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("APPROVED_WORKORDERS");
+		oldcomplaintDto.setWorkorderApprovedBy(principal.getName());
+		oldcomplaintDto.setWorkorderApprovedDate(new java.sql.Date(System.currentTimeMillis()));
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
+		return "redirect:/approval/workorder";
+	}
+
+	// Handler For Submit Hold WorkOrder Data
+	@GetMapping("/workorder/hold/{complNo}/{indentNo}")
+	public String submitHoldWorkorderData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+			Principal principal, HttpSession session) {
+
+		List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos = this.workOrderService
+				.getWapWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos = this.workOrderService
+				.getWapWorkOrderLaboursByComplNoAndIndentNo(complNo, indentNo);
+		List<WapWorkOrderVehiclesDto> wapWorkOrderVehiclesDtos = this.workOrderService
+				.getWapWorkOrderVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+		if (wapWorkOrderItemsDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<HoldWorkOrderItemsDto> holdWorkOrderItemsDtos = wapWorkOrderItemsDtos.stream()
+					.map((holdWorkOrderItems) -> modelMapper.map(holdWorkOrderItems, HoldWorkOrderItemsDto.class))
+					.collect(Collectors.toList());
+
+			holdWorkOrderItemsDtos.forEach(holdworkOrderItem -> {
+				holdworkOrderItem.setUserName(principal.getName());
+				holdworkOrderItem.setStockApproveSts("N");
+
+			});
+
+			this.workOrderService.saveAllHoldWorkOrderItems(holdWorkOrderItemsDtos);
+			this.workOrderService.deleteAllWapWorkorderItemsByComplNo(complNo);
+		}
+		if (wapWorkOrderLaboursDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<HoldWorkOrderLaboursDto> holdWorkOrderLaboursDtos = wapWorkOrderLaboursDtos.stream()
+					.map(holdWorkOrderLabors -> modelMapper.map(holdWorkOrderLabors, HoldWorkOrderLaboursDto.class))
+					.collect(Collectors.toList());
+
+			holdWorkOrderLaboursDtos.forEach(indentLabor -> {
+				indentLabor.setUserName(principal.getName());
+			});
+
+			this.workOrderService.saveAllHoldWorkOrderLabours(holdWorkOrderLaboursDtos);
+			this.workOrderService.deleteAllWapWorkorderLaboursByComplNo(complNo);
+		}
+		if (wapWorkOrderVehiclesDtos != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<HoldWorkOrderVehiclesDto> holdWorkOrderVehiclesDtos = wapWorkOrderVehiclesDtos.stream().map(
+					(holdWorkOrderVehicles) -> modelMapper.map(holdWorkOrderVehicles, HoldWorkOrderVehiclesDto.class))
+					.collect(Collectors.toList());
+
+			holdWorkOrderVehiclesDtos.forEach(indentVehicle -> {
+				indentVehicle.setUserName(principal.getName());
+			});
+
+			this.workOrderService.saveAllHoldWorkOrderVehicles(holdWorkOrderVehiclesDtos);
+			this.workOrderService.deleteAllWapWorkorderVehiclesByComplNo(complNo);
+		}
+
+		ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+		oldcomplaintDto.setComplStatus("WORK_ORDER_IN_HOLD");
+		oldcomplaintDto.setWorkOrderHoldBy(principal.getName());
+		oldcomplaintDto.setWorkOrderHoldDate(new java.sql.Date(System.currentTimeMillis()));
+		this.taskUpdateService.saveComplaint(oldcomplaintDto);
+		session.setAttribute("message", new Message("The WorkOrder Is On Hold !!", "warning"));
+		return "redirect:/approval/workorder";
+	}
+	
+	// Handler For Submit Cancel WorkOrder Data
+		@GetMapping("/workorder/cancel/{complNo}/{indentNo}")
+		public String submitCancelWorkorderData(@PathVariable String complNo, @PathVariable String indentNo, Model model,
+				Principal principal, HttpSession session) {
+
+			List<WapWorkOrderItemsDto> wapWorkOrderItemsDtos = this.workOrderService
+					.getWapWorkOrderItemsByComplNoAndIndentNo(complNo, indentNo);
+			List<WapWorkOrderLaboursDto> wapWorkOrderLaboursDtos = this.workOrderService
+					.getWapWorkOrderLaboursByComplNoAndIndentNo(complNo, indentNo);
+			List<WapWorkOrderVehiclesDto> wapWorkOrderVehiclesDtos = this.workOrderService
+					.getWapWorkOrderVehiclesByComplNoAndIndentNo(complNo, indentNo);
+
+			if (wapWorkOrderItemsDtos != null) {
+				ModelMapper modelMapper = new ModelMapper();
+				List<CancelWorkOrderItemsDto> cancelWorkOrderItemsDtos = wapWorkOrderItemsDtos.stream()
+						.map((cancelWorkOrderItems) -> modelMapper.map(cancelWorkOrderItems, CancelWorkOrderItemsDto.class))
+						.collect(Collectors.toList());
+
+				cancelWorkOrderItemsDtos.forEach(holdworkOrderItem -> {
+					holdworkOrderItem.setUserName(principal.getName());
+					holdworkOrderItem.setStockApproveSts("N");
+
+				});
+
+				this.workOrderService.saveAllCancelWorkOrderItems(cancelWorkOrderItemsDtos);
+				this.workOrderService.deleteAllWapWorkorderItemsByComplNo(complNo);
+			}
+			if (wapWorkOrderLaboursDtos != null) {
+				ModelMapper modelMapper = new ModelMapper();
+				List<CancelWorkOrderLaboursDto> cancelWorkOrderLaboursDtos = wapWorkOrderLaboursDtos.stream()
+						.map(cancelWorkOrderLabors -> modelMapper.map(cancelWorkOrderLabors, CancelWorkOrderLaboursDto.class))
+						.collect(Collectors.toList());
+
+				cancelWorkOrderLaboursDtos.forEach(indentLabor -> {
+					indentLabor.setUserName(principal.getName());
+				});
+
+				this.workOrderService.saveAllCancelWorkOrderLabours(cancelWorkOrderLaboursDtos);
+				this.workOrderService.deleteAllWapWorkorderLaboursByComplNo(complNo);
+			}
+			if (wapWorkOrderVehiclesDtos != null) {
+				ModelMapper modelMapper = new ModelMapper();
+				List<CancelWorkOrderVehiclesDto> cancelWorkOrderVehiclesDtos = wapWorkOrderVehiclesDtos.stream().map(
+						(cancelWorkOrderVehicles) -> modelMapper.map(cancelWorkOrderVehicles, CancelWorkOrderVehiclesDto.class))
+						.collect(Collectors.toList());
+
+				cancelWorkOrderVehiclesDtos.forEach(indentVehicle -> {
+					indentVehicle.setUserName(principal.getName());
+				});
+
+				this.workOrderService.saveAllCancelWorkOrderVehicles(cancelWorkOrderVehiclesDtos);
+				this.workOrderService.deleteAllWapWorkorderVehiclesByComplNo(complNo);
+			}
+
+			ComplaintDto oldcomplaintDto = this.taskUpdateService.getComplainDataByComplainNo(complNo);
+			oldcomplaintDto.setComplStatus("WORK_ORDER_CANCELD");
+			oldcomplaintDto.setWorkOrderCancelBy(principal.getName());
+			oldcomplaintDto.setWorkOrderCancelDate(new java.sql.Date(System.currentTimeMillis()));
+			this.taskUpdateService.saveComplaint(oldcomplaintDto);
+			session.setAttribute("message", new Message("The WorkOrder Is Canceled !!", "danger"));
+			return "redirect:/approval/workorder";
+		}
 
 	/********************* Stock Approvals *****************************/
 
@@ -628,48 +1041,6 @@ public class ApprovalController {
 
 		return "redirect:/approval/stock/tools";
 
-	}
-
-	/****************** Outward Stocks ***************/
-
-	@GetMapping("/outward/stocks")
-	public String approveOutwardStocks(Model model) {
-
-		model.addAttribute("title", "Outward Stocks Approvals | Maintenance Mangement");
-		model.addAttribute("outwardStocksLists", stockService.getOutwardStockOrders());
-		return "/pages/stock_management/outward_stocks_approval";
-	}
-
-	@GetMapping("/outward/stock/items/{stockOrderNo}")
-	public String outwardListItemsApprovals(@PathVariable("stockOrderNo") Long stockOrderNo, Model model) {
-
-		model.addAttribute("title", "Outward Stockorder Items Approvals | Maintenance Management");
-		model.addAttribute("outwardStocksListItems", stockService.getOutwardStockOrderItems(stockOrderNo));
-		model.addAttribute("outwardStockorderNo", stockService.getOutwardStockOrder(stockOrderNo));
-
-		return "/pages/stock_management/outward_stocks_approval_items";
-	}
-
-	@GetMapping("/outward/stockorder/items/{stockOrderNo}")
-	public String outwardApproveItems(@PathVariable("stockOrderNo") Long stockOrderNo, Model model, HttpSession session,
-			Principal principal) {
-
-		model.addAttribute("title", "Outward Stockorder Items Approvals | Maintenance Management");
-		stockService.approveOutwardStocks(stockOrderNo, principal.getName());
-		session.setAttribute("message",
-				new Message("Outward Stockorder Items has been approved successfully !", "success"));
-		return "redirect:/approval/outward/stocks";
-	}
-
-	@GetMapping("/outward/stockorder/reject/{stockOrderNo}")
-	public String rejectOutwardStockorderItems(@PathVariable("stockOrderNo") Long stockOrderNo, HttpSession session,
-			Principal principal) {
-
-		stockService.rejectStockorderItems(stockOrderNo, principal.getName());
-		session.setAttribute("message",
-				new Message("Outward Stockorder Items has been rejected successfully !", "success"));
-
-		return "redirect:/approval/outward/stocks";
 	}
 
 	/****************** Stocks Return ***************/

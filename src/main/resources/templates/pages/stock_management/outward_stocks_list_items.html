@@ -41,12 +41,7 @@
 							Outward Stocks
 						</a>
 					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/approved/list}">
-							Approved Outward Stocks 
-						</a>
-					</li>
+					
 				</ul>
 			</div>
 		</div>
@@ -71,10 +66,10 @@
 					</div>
 					<div class="col-4">
 						<div class="form-group row">
-							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+							<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder No</label>
 							<div class="col-sm-7 px-0">
 								<input type="text" class="form-control text-center font-weight-bold"
-									th:value="${outwardStockorderNo.indentNo}" disabled />
+									th:value="${outwardStockorderNo.workOrderNo}" disabled />
 							</div>
 						</div>
 
@@ -122,7 +117,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-4">
 						<div class="form-group row">
@@ -155,7 +150,7 @@
 					</div>
 
 				</div>
-				
+
 				<div class="row">
 
 					<div class="col-4">

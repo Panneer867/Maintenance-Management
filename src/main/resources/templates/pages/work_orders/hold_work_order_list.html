@@ -9,10 +9,10 @@
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/workorder/approved}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/workorder/hold}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Hold Workorder List</span></div>
+							<div class="link"><span aria-current="location">Hold Workorders</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -49,7 +49,7 @@
 									</td>
 									<td th:text="${holdWork.workOrderHoldBy}"></td>																		
 									<td class="text-center"><a class="btn btn-success p-1 mx-2"
-											th:href="@{/workorder/hold/view/{complNo}/{indentNo}(complNo=${holdWork.complNo}, indentNo=${holdWork.indentNo})}">View</a>
+											th:href="@{'/workorder/hold/view/'+${holdWork.workOrder}}">View</a>
 									</td>
 								</tr>
 							</tbody>

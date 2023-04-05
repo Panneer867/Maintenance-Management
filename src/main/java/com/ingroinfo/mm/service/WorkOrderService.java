@@ -11,6 +11,9 @@ import com.ingroinfo.mm.dto.HoldWorkOrderVehiclesDto;
 import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
 import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
 import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedItemsDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
@@ -41,11 +44,17 @@ public interface WorkOrderService {
 	// Indent No
 	List<TempWorkOrderVehicleRequest> getTempWorkOrderVehiclesByComplNoAndIndentNo(String complNo, String indentNo);
 
-	// Get Approved Labour Indent By Approved Status
+	// Get Approved Materials Indent By Approved Status
+	List<IndentApprovedItems> getApprovedItemsIndentByApprovedSts(String approvedSts);
+
+	// Get Approved Labor Indent By Approved Status
 	List<IndentApprovedLabours> getApprovedLabourIndentByApprovedSts(String approvedSts);
 
 	// Get Approved Vehicle Indent By Approved Status
 	List<IndentApprovedVehicles> getApprovedVehicleIndentByApprovedSts(String approvedSts);
+
+	// Save All TempWorkOrder Items Data
+	void saveAllTempWorkOrderItems(List<TempWorkOrderItemRequest> tempWorkOrderItems);
 
 	// Save All TempWorkOrder Labors Data
 	void saveAllTempWorkOrderLabours(List<TempWorkOrderLabourRequest> tempWorkOrderLabours);
@@ -59,7 +68,7 @@ public interface WorkOrderService {
 	// Save All Approved Indent Vehicles Data
 	void saveAllApprovedIndentVehicles(List<IndentApprovedVehicles> approvedIndentVehicles);
 
-	// Save All Approved Indent Labours
+	// Save All Approved Indent Labors
 	void saveAllApprovedIndentLabours(List<IndentApprovedLabours> approvedIndentLabours);
 
 	// Save All WapWorkorderItems Data
@@ -97,5 +106,62 @@ public interface WorkOrderService {
 
 	// Save All Cancel WorkorderVehicles Data
 	void saveAllCancelWorkOrderVehicles(List<CancelWorkOrderVehiclesDto> cancelWorkOrderVehiclesDtos);
+
+	// Get List Of WapWorkOrder Items Data By Complaint No And Indent No
+	List<WapWorkOrderItemsDto> getWapWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo);
+
+	// Get List Of WapWorkOrder Labors Data By Complaint No And Indent No
+	List<WapWorkOrderLaboursDto> getWapWorkOrderLaboursByComplNoAndIndentNo(String complNo, String indentNo);
+
+	// Get List Of WapWorkOrder Vehicles Data By Complaint No And Indent No
+	List<WapWorkOrderVehiclesDto> getWapWorkOrderVehiclesByComplNoAndIndentNo(String complNo, String indentNo);
+
+	// Save All Approved WorkOrder Items Data
+	void saveAllApprovedWorkOrderItems(List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos);
+
+	// Save All Approved WorkOrder Labors Data
+	void saveAllApprovedWorkOrderLabours(List<WorkOrderApprovedLaboursDto> workOrderApprovedLaboursDtos);
+
+	// Save All Approved WorkOrder Vehicles Data
+	void saveAllApprovedWorkOrderVehicles(List<WorkOrderApprovedVehiclesDto> workOrderApprovedVehiclesDtos);
+
+	// Delete All WapWorkOrder Items Data By Complaint No
+	void deleteAllWapWorkorderItemsByComplNo(String complNo);
+
+	// Delete All WapWorkOrder Labor Data By Complaint No
+	void deleteAllWapWorkorderLaboursByComplNo(String complNo);
+
+	// Delete All WapWorkOrder Vehicle Data By Complaint No
+	void deleteAllWapWorkorderVehiclesByComplNo(String complNo);
+
+	// Get Approved WorkOrder Items data By WorkOrder Number
+	List<WorkOrderApprovedItemsDto> getApprovedWorkOrderItemsByWorkorderNo(String workOrder);
+
+	// Get Approved WorkOrder Labors data By WorkOrder Number
+	List<WorkOrderApprovedLaboursDto> getApprovedWorkOrderLaboursByWorkorderNo(String workOrder);
+
+	// Get Approved WorkOrder Vehicles data By WorkOrder Number
+	List<WorkOrderApprovedVehiclesDto> getApprovedWorkOrderVehiclesByWorkorderNo(String workOrder);
+
+	// Get Hold WorkOrder Items data By WorkOrder Number
+	List<HoldWorkOrderItemsDto> getHoldWorkOrderItemsByWorkorderNo(String workOrder);
+
+	// Get Hold WorkOrder Labors data By WorkOrder Number
+	List<HoldWorkOrderLaboursDto> getHoldWorkOrderLaboursByWorkorderNo(String workOrder);
+
+	// Get Hold WorkOrder Vehicles data By WorkOrder Number
+	List<HoldWorkOrderVehiclesDto> getHoldWorkOrderVehiclesByWorkorderNo(String workOrder);
+
+	// Get Canceled WorkOrder Items data By WorkOrder Number
+	List<CancelWorkOrderItemsDto> getCanceledWorkOrderItemsByWorkorderNo(String workOrder);
+
+	// Get Canceled WorkOrder Labors data By WorkOrder Number
+	List<CancelWorkOrderLaboursDto> getCanceledWorkOrderLaboursByWorkorderNo(String workOrder);
+
+	// Get Canceled WorkOrder Vehicles data By WorkOrder Number
+	List<CancelWorkOrderVehiclesDto> getCanceledWorkOrderVehiclesByWorkorderNo(String workOrder);
+
+	// Get Approved WorkOrder Items data to Outward Stock Item request Table
+	List<WorkOrderApprovedItemsDto> getApprovedWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo);
 
 }

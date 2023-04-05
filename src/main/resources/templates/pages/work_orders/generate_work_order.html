@@ -1,5 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 
 <body>
 	<section>
@@ -24,19 +23,16 @@
 				</nav>
 			</div>
 			<div class="col-8">
-				<ul class="nav nav-pills justify-content-end py-1 mb-2"
-					id="pills-tab" role="tablist">
-					<li class="nav-item" role="presentation"><a
-						class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-						th:href="@{/workorder/approved}"> Workorder Approved List </a></li>
+				<ul class="nav nav-pills justify-content-end py-1 mb-2" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation"><a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
+							th:href="@{/workorder/approved}"> Workorder Approved List </a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-8">
 				<div th:if="${session.message}" class="alert_field">
-					<div class="alert text-center py-1"
-						th:classappend="${'alert-'+session.message.type}" role="alert">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 						<span th:text="${session.message.content}"></span>
 					</div>
 					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
@@ -159,21 +155,19 @@
 									<li class="nav-item bg-dark" role="presentation">
 										<button class="nav-link active pl-5 pr-5 text-white"
 											id="pills-indent-material-tab" data-bs-toggle="pill"
-											data-bs-target="#pills-indent-material" type="button"
-											role="tab" aria-controls="pills-indent-material"
-											aria-selected="true">Item Materials</button>
+											data-bs-target="#pills-indent-material" type="button" role="tab"
+											aria-controls="pills-indent-material" aria-selected="true">Item
+											Materials</button>
 									</li>
 									<li class="nav-item bg-dark" role="presentation">
-										<button class="nav-link pl-5 pr-5 text-white"
-											id="pills-indent-labor-tab" data-bs-toggle="pill"
-											data-bs-target="#pills-indent-labor" type="button" role="tab"
-											aria-controls="pills-indent-labor" aria-selected="false">Labor
+										<button class="nav-link pl-5 pr-5 text-white" id="pills-indent-labor-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-indent-labor" type="button"
+											role="tab" aria-controls="pills-indent-labor" aria-selected="false">Labor
 											Request</button>
 									</li>
 									<li class="nav-item bg-dark" role="presentation">
-										<button class="nav-link pl-5 pr-5 text-white"
-											id="pills-indent-vehicle-tab" data-bs-toggle="pill"
-											data-bs-target="#pills-indent-vehicle" type="button"
+										<button class="nav-link pl-5 pr-5 text-white" id="pills-indent-vehicle-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-indent-vehicle" type="button"
 											role="tab" aria-controls="pills-indent-vehicle"
 											aria-selected="false">Vehicle Request</button>
 									</li>
@@ -181,15 +175,14 @@
 							</div>
 						</div>
 						<div class="tab-content" id="pills-tabContent">
-							<div class="tab-pane fade show active" id="pills-indent-material"
-								role="tabpanel" aria-labelledby="pills-indent-material-tab">
+							<div class="tab-pane fade show active" id="pills-indent-material" role="tabpanel"
+								aria-labelledby="pills-indent-material-tab">
 								<table
 									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
 									<thead class="table-dark">
 										<tr>
 											<th>Category</th>
 											<th>Item Name</th>
-											<th>Stock Order No</th>
 											<th>HSNCode</th>
 											<th>Unit of Meas</th>
 											<th>Qty</th>
@@ -200,7 +193,6 @@
 										<tr th:each="material:${listOfMaterials}" class="bl-cr">
 											<td th:text="${material.categoryName}"></td>
 											<td th:text="${material.itemName}"></td>
-											<td th:text="${material.stockOrderNo}"></td>
 											<td th:text="${material.hsnCode}"></td>
 											<td th:text="${material.unitOfMesure}"></td>
 											<td th:text="${material.quantity}"></td>
@@ -209,8 +201,8 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="tab-pane fade" id="pills-indent-labor"
-								role="tabpanel" aria-labelledby="pills-indent-labor-tab">
+							<div class="tab-pane fade" id="pills-indent-labor" role="tabpanel"
+								aria-labelledby="pills-indent-labor-tab">
 								<table
 									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
 									<thead class="table-dark">
@@ -231,8 +223,8 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="tab-pane fade" id="pills-indent-vehicle"
-								role="tabpanel" aria-labelledby="pills-indent-vehicle-tab">
+							<div class="tab-pane fade" id="pills-indent-vehicle" role="tabpanel"
+								aria-labelledby="pills-indent-vehicle-tab">
 								<table
 									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
 									<thead class="table-dark">
@@ -259,14 +251,8 @@
 							</div>
 						</div>
 						<div class=" text-center mt-3 mb-2">
-							<button type="button" class="btn btn-primary text-white"
-								data-toggle="modal" data-target="#generateWorkOrdereModal">Generate
-							</button>
-							<button type="button" class="btn btn-warning text-white"
-								data-toggle="modal" data-target="#holdWorkOrderModal">&nbsp;&nbsp;&nbsp;Hold&nbsp;&nbsp;&nbsp;
-							</button>
-							<button type="button" class="btn btn-danger text-white"
-								data-toggle="modal" data-target="#cancelWorkOrderModal">&nbsp;Cancel&nbsp;
+							<button type="button" class="btn btn-success text-white" data-toggle="modal"
+								data-target="#generateWorkOrdereModal">Generate WorkOrder
 							</button>
 						</div>
 					</div>
@@ -288,14 +274,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="vindent : ${VerifiedIndentStsList}"
-									class="text-center">
+								<tr th:each="vindent : ${VerifiedIndentStsList}" class="text-center">
 									<td class="fs-6" th:text="${'CN'+vindent.complNo}"></td>
 									<td class="fs-6" th:text="${vindent.indentNo}"></td>
 									<td class="fs-6" th:text="${vindent.departmentName}"></td>
-									<td><a
-										th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${vindent.complNo}, indentNo=${vindent.indentNo})}"
-										class="btn-sm btn-danger fs-6 p-1"><span class="">Click</span></a></td>
+									<td><a th:href="@{/workorder/generate/get/{complNo}/{indentNo}(complNo=${vindent.complNo}, indentNo=${vindent.indentNo})}"
+											class="btn-sm btn-danger fs-6 p-1"><span class="">Click</span></a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -304,16 +288,14 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="generateWorkOrdereModal" tabindex="-1"
-			role="dialog" aria-labelledby="generateWorkOrderModalLabel"
-			aria-hidden="true">
+		<div class="modal fade" id="generateWorkOrdereModal" tabindex="-1" role="dialog"
+			aria-labelledby="generateWorkOrderModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="generateWorkOrderModalLabel">Generate
 							WorkOrder Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -321,60 +303,10 @@
 						Generate WorkOder ?</div>
 					<div class="modal-footer">
 						<a th:if="${complNo != null and indentNo != null}"
-							class="btn btn-primary btnPrevious w-20 text-white"
+							class="btn btn-success text-white"
 							th:href="@{/workorder/generate/submit/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
 							Generate WorkOrder </a>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="holdWorkOrderModal" tabindex="-1"
-			role="dialog" aria-labelledby="holdWorkOrderModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="holdWorkOrderModalLabel">Hold
-							WorkOrder Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">Are you sure you want to Hold this
-						WorkOrder ?</div>
-					<div class="modal-footer">
-						<a th:if="${complNo != null and indentNo != null}"
-							class="btn btn-primary btnPrevious w-20 text-white"
-							th:href="@{/workorder/generate/hold/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
-							Hold WorkOrder </a>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="cancelWorkOrderModal" tabindex="-1"
-			role="dialog" aria-labelledby="cancelWorkOrderModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="cancelWorkOrderModalLabel">Cancel
-							WorkOrder Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body text-danger">Are you sure you want to
-						Cancel this WorkOrder ?</div>
-					<div class="modal-footer">
-						<a th:if="${complNo != null and indentNo != null}"
-							class="btn btn-primary btnPrevious w-20 text-white"
-							th:href="@{/workorder/generate/cancel/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
-							Cancel WorkOrder </a>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>

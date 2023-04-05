@@ -9,7 +9,6 @@ public class WapWorkOrderItemsDto {
 	private Long itemReqId;
 	private String indentNo;
 	private String complNo;
-	private Long stockOrderNo;
 	private String division;
 	private String subDivision;
 	private String workSite;

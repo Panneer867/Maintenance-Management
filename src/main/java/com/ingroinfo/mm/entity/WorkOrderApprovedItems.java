@@ -46,5 +46,6 @@ public class WorkOrderApprovedItems {
 	@CreationTimestamp
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 
 }

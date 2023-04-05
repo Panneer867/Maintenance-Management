@@ -2,13 +2,10 @@ package com.ingroinfo.mm.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,43 +16,42 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_approved_stockorder_items")
-public class ApprovedStockOrderItems {
+@Entity
+@Table(name = "mm_stockorders")
+public class StockOrders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long recordId;
-	private int finalQuantity;
-	private int slNo;
-	private String itemId;
-	private String itemName;
-	private String aliasName;
-	private String itemImage;
-	private String imagePath;
-	private String category;
-	private String unitOfMeasure;
-	private Double mrpRate;
-	private Double totalCost;
-	private String description;
+	private Long orderId;
+	private String billedOn;
+	private String gstType;
+	private Double igst;
+	private Double sgst;
+	private Double cgst;
+	private Double subTotal;
+	private Double grandTotal;
 	private Long stockOrderNo;
-	private String stockType;
 	private String username;
+	private String approvalStatus;
+	private String workOrderNo;
+	private String indentNo;
+	private String complNo;
+	private String division;
+	private String subDivision;
+	private String workSite;
+	private Date startDate;
+	private Date endDate;
+	private String contactNo;
+	private String complDtls;
+	private String workPriority;
+	private String departmentName;
 	
-	@Column(name = "date_created")
 	@CreationTimestamp
 	private Date dateCreated;
-
-	@Column(name = "last_updated")
 	@UpdateTimestamp
 	private Date lastUpdated;
-
-	@ManyToOne
-	@JoinColumn(name = "orderId")
-	private ApprovedStockOrders orderId;
-
 }

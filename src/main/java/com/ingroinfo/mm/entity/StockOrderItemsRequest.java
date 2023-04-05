@@ -45,5 +45,6 @@ public class StockOrderItemsRequest {
 	private String hsnCode;
 	private String departmentName;
 	private String stockTypeName;
+	private String workOrderNo;
 
 }

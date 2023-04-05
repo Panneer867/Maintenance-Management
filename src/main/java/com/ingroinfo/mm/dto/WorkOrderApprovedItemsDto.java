@@ -32,4 +32,5 @@ public class WorkOrderApprovedItemsDto {
 	private String userName;
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 }

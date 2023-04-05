@@ -26,15 +26,15 @@ import com.ingroinfo.mm.dao.TempAddedIndentVehiclesRepository;
 import com.ingroinfo.mm.dao.TempIndentItemRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
-import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
-import com.ingroinfo.mm.dao.WorkOrderApprovedLaboursRepository;
-import com.ingroinfo.mm.dao.WorkOrderApprovedVehiclesRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 import com.ingroinfo.mm.dto.PumpMasterDto;
 import com.ingroinfo.mm.dto.UnitMeasureDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedItemsDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
 import com.ingroinfo.mm.entity.TempAddedIndentLabours;
 import com.ingroinfo.mm.entity.TempAddedIndentMaterials;
@@ -43,15 +43,13 @@ import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
 import com.ingroinfo.mm.entity.User;
-import com.ingroinfo.mm.entity.StockOrderItemsRequest;
-import com.ingroinfo.mm.entity.WorkOrderApprovedLabours;
-import com.ingroinfo.mm.entity.WorkOrderApprovedVehicles;
 import com.ingroinfo.mm.helper.Message;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.MasterService;
 import com.ingroinfo.mm.service.PumpMaintenanceService;
 import com.ingroinfo.mm.service.StockService;
 import com.ingroinfo.mm.service.TaskUpdateService;
+import com.ingroinfo.mm.service.WorkOrderService;
 
 @Controller
 @RequestMapping("/pump")
@@ -85,11 +83,8 @@ public class PumpController {
 	@Autowired
 	private TempIndentVehicleRequestRepository tempIndentVehicleRequestRepo;
 	@Autowired
-	private StockOrderItemsRequestRepository workOrderItemsRequestRepo;
-	@Autowired
-	private WorkOrderApprovedLaboursRepository workOrderLabourRequestRepo;
-	@Autowired
-	private WorkOrderApprovedVehiclesRepository workOrderVehicleRequestRepo;
+	private WorkOrderService workOrderService;
+
 
 	// Handler For Open dashBoard
 	@GetMapping("/maintenance/dashboard")
@@ -453,10 +448,11 @@ public class PumpController {
 		return f;
 	}
 	
+	//display Approved WorkOrders List	
 	@GetMapping("/maintenance/view")
 	@PreAuthorize("hasAuthority('PUMP_VIEW')")
 	public String viewApprovedWorkOrderList(Model model) {
-		String complSts="work_order_approved";
+		String complSts="APPROVED_WORKORDERS";
 		String department = "Pump Dept";
 		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
 		model.addAttribute("workorderApprovedcompls", complaintDtos);
@@ -464,78 +460,84 @@ public class PumpController {
 		return "/pages/pump_house/pump_view_workorder_list";
 	}
 
-	@GetMapping("/maintenance/view/detalis/{complNo}/{indentNo}")
-	public String viewWorkOrderDtls(@PathVariable String complNo,@PathVariable String indentNo,Model model) {
+	//display Approved WorkOrders Details By WorkOrder Number	
+	@GetMapping("/maintenance/view/detalis/{workOrder}")
+	public String viewWorkOrderDtls(@PathVariable String workOrder,Model model) {
 		
-		List<StockOrderItemsRequest> itemRequests = this.workOrderItemsRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
-		List<WorkOrderApprovedLabours> labourRequests = this.workOrderLabourRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
-		List<WorkOrderApprovedVehicles> vehicleRequests = this.workOrderVehicleRequestRepo.findByComplNoAndIndentNo(complNo, indentNo);
+		List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos = this.workOrderService
+				.getApprovedWorkOrderItemsByWorkorderNo(workOrder);
+		List<WorkOrderApprovedLaboursDto> workOrderApprovedLaboursDtos = this.workOrderService
+				.getApprovedWorkOrderLaboursByWorkorderNo(workOrder);
+		List<WorkOrderApprovedVehiclesDto> workOrderApprovedVehiclesDtos = this.workOrderService
+				.getApprovedWorkOrderVehiclesByWorkorderNo(workOrder);
 
 		String complNumber = null;
 		String indentNumber = null;
-		Long workOrderNumber = null;
+		String workorderNo = null;
 		Date expStartDate = null;
-		Date expEndDate = null;
-		String approvedBy = null;
 		String department = null;
 		String division = null;
 		String subDivision = null;
 		String workPriprity = null;
 		String workSite = null;
-		String contactNo = null;		
+		String contactNo = null;
+		Date approvedDate = null;
+		String approvedBy = null;
 
-		// Check for indent number in TempIndentItemRequest list
-		for (StockOrderItemsRequest indentItems : itemRequests) {
-			if (indentItems.getIndentNo() != null || indentItems.getComplNo() != null) {
-				indentNumber = indentItems.getIndentNo();
-				complNumber = indentItems.getComplNo();
-				workOrderNumber = indentItems.getStockOrderNo();
-				expStartDate = indentItems.getStartDate();
-				expEndDate = indentItems.getEndDate();
-				approvedBy = indentItems.getUsername();
-				department = indentItems.getDepartmentName();
-				division = indentItems.getDivision();
-				subDivision = indentItems.getSubDivision();
-				workPriprity = indentItems.getWorkPriority();
-				workSite = indentItems.getWorkSite();
-				contactNo = indentItems.getContactNo();				
+		// Check for indent number in Approved WokroderItemsDto list
+		for (WorkOrderApprovedItemsDto approvedWorkorderItems : workOrderApprovedItemsDtos) {
+			if (approvedWorkorderItems.getIndentNo() != null || approvedWorkorderItems.getComplNo() != null) {
+				indentNumber = approvedWorkorderItems.getIndentNo();
+				complNumber = approvedWorkorderItems.getComplNo();
+				workorderNo = approvedWorkorderItems.getWorkOrder();
+				expStartDate = approvedWorkorderItems.getStartDate();
+				department = approvedWorkorderItems.getDepartmentName();
+				division = approvedWorkorderItems.getDivision();
+				subDivision = approvedWorkorderItems.getSubDivision();
+				workPriprity = approvedWorkorderItems.getWorkPriority();
+				workSite = approvedWorkorderItems.getWorkSite();
+				contactNo = approvedWorkorderItems.getContactNo();
+				approvedDate = approvedWorkorderItems.getCreatedDate();
+				approvedBy = approvedWorkorderItems.getUserName();
 				break;
 			}
 		}
-		// Check for indent number in TempIndentLabourRequest list
+		// Check for indent number in Approved WorkOrderLabourDto list
 		if (indentNumber == null || complNumber == null) {
-			for (WorkOrderApprovedLabours indentLabors : labourRequests) {
-				if (indentLabors.getIndentNo() != null || indentLabors.getComplNo() != null) {
-					indentNumber = indentLabors.getIndentNo();
-					complNumber = indentLabors.getComplNo();		
-					expStartDate = indentLabors.getStartDate();
-					expEndDate = indentLabors.getEndDate();
-					approvedBy = indentLabors.getUserName();
-					department = indentLabors.getDepartmentName();
-					division = indentLabors.getDivision();
-					subDivision = indentLabors.getSubDivision();
-					workPriprity = indentLabors.getWorkPriority();
-					workSite = indentLabors.getWorkSite();
-					contactNo = indentLabors.getContactNo();
+			for (WorkOrderApprovedLaboursDto approvedWorkorderLabors : workOrderApprovedLaboursDtos) {
+				if (approvedWorkorderLabors.getIndentNo() != null || approvedWorkorderLabors.getComplNo() != null) {
+					indentNumber = approvedWorkorderLabors.getIndentNo();
+					complNumber = approvedWorkorderLabors.getComplNo();
+					workorderNo = approvedWorkorderLabors.getWorkOrder();
+					expStartDate = approvedWorkorderLabors.getStartDate();
+					department = approvedWorkorderLabors.getDepartmentName();
+					division = approvedWorkorderLabors.getDivision();
+					subDivision = approvedWorkorderLabors.getSubDivision();
+					workPriprity = approvedWorkorderLabors.getWorkPriority();
+					workSite = approvedWorkorderLabors.getWorkSite();
+					contactNo = approvedWorkorderLabors.getContactNo();
+					approvedDate = approvedWorkorderLabors.getCreatedDate();
+					approvedBy = approvedWorkorderLabors.getUserName();
 					break;
 				}
 			}
 		}
-		// Check for indent number in TempIndentVehicleRequest list
+		// Check for indent number in Approved WorkOrderVehicleDto list
 		if (indentNumber == null || complNumber == null) {
-			for (WorkOrderApprovedVehicles indentVehicle : vehicleRequests) {
-				if (indentVehicle.getIndentNo() != null || indentVehicle.getComplNo() != null) {
-					indentNumber = indentVehicle.getIndentNo();
-					complNumber = indentVehicle.getComplNo();					
-					expStartDate = indentVehicle.getStartDate();
-					expEndDate = indentVehicle.getEndDate();
-					approvedBy = indentVehicle.getUserName();
-					department = indentVehicle.getDepartmentName();
-					division = indentVehicle.getDivision();
-					subDivision = indentVehicle.getSubDivision();
-					workPriprity = indentVehicle.getWorkPriority();
-					workSite = indentVehicle.getWorkSite();
-					contactNo = indentVehicle.getContactNo();
+			for (WorkOrderApprovedVehiclesDto approvedWorkorderVehicle : workOrderApprovedVehiclesDtos) {
+				if (approvedWorkorderVehicle.getIndentNo() != null || approvedWorkorderVehicle.getComplNo() != null) {
+					indentNumber = approvedWorkorderVehicle.getIndentNo();
+					complNumber = approvedWorkorderVehicle.getComplNo();
+					workorderNo = approvedWorkorderVehicle.getWorkOrder();
+					expStartDate = approvedWorkorderVehicle.getStartDate();
+					department = approvedWorkorderVehicle.getDepartmentName();
+					division = approvedWorkorderVehicle.getDivision();
+					subDivision = approvedWorkorderVehicle.getSubDivision();
+					workPriprity = approvedWorkorderVehicle.getWorkPriority();
+					workSite = approvedWorkorderVehicle.getWorkSite();
+					contactNo = approvedWorkorderVehicle.getContactNo();
+					approvedDate = approvedWorkorderVehicle.getCreatedDate();
+					approvedBy = approvedWorkorderVehicle.getUserName();
 					break;
 				}
 			}
@@ -543,20 +545,20 @@ public class PumpController {
 
 		model.addAttribute("complNo", complNumber);
 		model.addAttribute("indentNo", indentNumber);
-		model.addAttribute("workOrderNo", workOrderNumber);
+		model.addAttribute("workOrderNo", workorderNo);
 		model.addAttribute("startDate", expStartDate);
-		model.addAttribute("endDate", expEndDate);
-		model.addAttribute("approvedBy", approvedBy);
 		model.addAttribute("department", department);
 		model.addAttribute("division", division);
 		model.addAttribute("subdivision", subDivision);
 		model.addAttribute("workPriority", workPriprity);
 		model.addAttribute("worksite", workSite);
 		model.addAttribute("contactNo", contactNo);
+		model.addAttribute("approvedDate", approvedDate);
+		model.addAttribute("approvedBy", approvedBy);
 
-		model.addAttribute("listOfMaterials", itemRequests);
-		model.addAttribute("listOfLabors", labourRequests);
-		model.addAttribute("listOfVehicles", vehicleRequests);
+		model.addAttribute("listOfApprovedWorkorderitems", workOrderApprovedItemsDtos);
+		model.addAttribute("listOfApprovedWorkorderLabours", workOrderApprovedLaboursDtos);
+		model.addAttribute("listOfApprovedWorkorderVehicles", workOrderApprovedVehiclesDtos);
 		model.addAttribute("title", "Pump | View | Manintenance Management");
 		return "/pages/pump_house/pump_view_workorder_dtls";
 	}

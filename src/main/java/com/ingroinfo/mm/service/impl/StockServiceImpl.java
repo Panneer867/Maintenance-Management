@@ -17,9 +17,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dao.ApprovedStocksReturnRepository;
-import com.ingroinfo.mm.dao.IndentApprovedItemsRepository;
-import com.ingroinfo.mm.dao.ApprovedStockOrderItemsRepository;
-import com.ingroinfo.mm.dao.ApprovedStockOrdersRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
@@ -33,24 +30,19 @@ import com.ingroinfo.mm.dao.InwardTempSparesRepository;
 import com.ingroinfo.mm.dao.InwardTempToolsRepository;
 import com.ingroinfo.mm.dao.InwardToolsRepository;
 import com.ingroinfo.mm.dao.ItemMasterRepository;
-import com.ingroinfo.mm.dao.RejectedStockOrderItemsRepository;
-import com.ingroinfo.mm.dao.RejectedStockOrdersRepository;
 import com.ingroinfo.mm.dao.RejectedStocksReturnRepository;
 import com.ingroinfo.mm.dao.StockReturnsRepository;
 import com.ingroinfo.mm.dao.TempListItemsRepository;
 import com.ingroinfo.mm.dao.TempStocksReturnRepository;
-import com.ingroinfo.mm.dao.TempWorkOrderItemRequestRepository;
-import com.ingroinfo.mm.dao.TempStockOrderItemsRepository;
+import com.ingroinfo.mm.dao.WorkOrderApprovedItemsRepository;
+import com.ingroinfo.mm.dao.StockOrderItemsRepository;
 import com.ingroinfo.mm.dao.StockOrderItemsRequestRepository;
 import com.ingroinfo.mm.dao.WorkOrderRemovedItemsRepository;
-import com.ingroinfo.mm.dao.TempStockOrdersRepository;
+import com.ingroinfo.mm.dao.StockOrdersRepository;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.StockOrderItemsDto;
 import com.ingroinfo.mm.entity.ApprovedStocksReturn;
-import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
-import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.Company;
-import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -63,17 +55,15 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
-import com.ingroinfo.mm.entity.RejectedStockOrderItems;
-import com.ingroinfo.mm.entity.RejectedStockOrders;
 import com.ingroinfo.mm.entity.RejectedStocksReturn;
 import com.ingroinfo.mm.entity.StocksReturn;
 import com.ingroinfo.mm.entity.TempListItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
-import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
-import com.ingroinfo.mm.entity.TempStockOrderItems;
+import com.ingroinfo.mm.entity.WorkOrderApprovedItems;
+import com.ingroinfo.mm.entity.StockOrderItems;
 import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 import com.ingroinfo.mm.entity.StockOrderRemovedItems;
-import com.ingroinfo.mm.entity.TempStockOrders;
+import com.ingroinfo.mm.entity.StockOrders;
 import com.ingroinfo.mm.service.AdminService;
 import com.ingroinfo.mm.service.StockService;
 
@@ -122,22 +112,16 @@ public class StockServiceImpl implements StockService {
 	private TempListItemsRepository tempListItemsRepository;
 
 	@Autowired
-	private TempStockOrderItemsRepository tempStockOrderItemsRepository;
+	private StockOrderItemsRepository stockOrderItemsRepository;
 
 	@Autowired
-	private TempStockOrdersRepository tempStockOrdersRepository;
+	private StockOrdersRepository stockOrdersRepository;
 
 	@Autowired
 	private WorkOrderRemovedItemsRepository stockOrderRemovedItemsRepository;
 
 	@Autowired
 	private ItemMasterRepository itemMasterRepository;
-
-	@Autowired
-	private ApprovedStockOrderItemsRepository approvedStockOrderItemsRepository;
-
-	@Autowired
-	private ApprovedStockOrdersRepository approvedStockOrdersRepository;
 
 	@Autowired
 	private TempStocksReturnRepository tempStocksReturnRepository;
@@ -156,22 +140,14 @@ public class StockServiceImpl implements StockService {
 
 	@Autowired
 	private InwardRejectedToolsRepository inwardRejectedToolsRepository;
-
-	@Autowired
-	private RejectedStockOrderItemsRepository rejectedStockOrderItemsRepository;
-
-	@Autowired
-	private RejectedStockOrdersRepository rejectedStockOrderNosRepository;
-
+	
 	@Autowired
 	private RejectedStocksReturnRepository rejectedStocksReturnRepository;
-
+	
 	@Autowired
-	private IndentApprovedItemsRepository indentApprovedItemsRepository;
-
-	@Autowired
-	private TempWorkOrderItemRequestRepository tempWorkOrderItemRequestRepository;
-
+	private WorkOrderApprovedItemsRepository workOrderApprovedItemsRepository;
+	
+	
 	/***** All Stocks *****/
 
 	@Override
@@ -588,6 +564,8 @@ public class StockServiceImpl implements StockService {
 
 		List<StockOrderItemsRequest> stockOrderItemsRequest = stockOrderItemsRequestRepository
 				.findByStockOrderNo(stockOrderNo);
+		
+		String workOrderNo = stockOrderItemsRequest.get(0).getWorkOrderNo();
 
 		// Define the list of StockTypes to filter by
 		List<String> stockTypes = Arrays.asList("ML", "SP", "TE");
@@ -624,6 +602,7 @@ public class StockServiceImpl implements StockService {
 						TempListItems tempIndentMaterialItems = modelMapper.map(iam, TempListItems.class);
 						tempIndentMaterialItems.setStockOrderNo(stockOrderNo);
 						tempIndentMaterialItems.setQty(quantity);
+						tempIndentMaterialItems.setWorkOrderNo(workOrderNo);
 						if (stockQuantity >= quantity) {
 							tempIndentMaterialItems.setFinalQuantity(quantity);
 							tempIndentMaterialItems.setTotalCost(iam.getMrpRate() * quantity);
@@ -652,7 +631,7 @@ public class StockServiceImpl implements StockService {
 						TempListItems tempIndentSpareItems = modelMapper.map(ias, TempListItems.class);
 						tempIndentSpareItems.setStockOrderNo(stockOrderNo);
 						tempIndentSpareItems.setQty(quantity);
-
+						tempIndentSpareItems.setWorkOrderNo(workOrderNo);
 						if (stockQuantity >= quantity) {
 							tempIndentSpareItems.setFinalQuantity(quantity);
 							tempIndentSpareItems.setTotalCost(ias.getMrpRate() * quantity);
@@ -679,7 +658,7 @@ public class StockServiceImpl implements StockService {
 						TempListItems tempIndentToolItems = modelMapper.map(iat, TempListItems.class);
 						tempIndentToolItems.setStockOrderNo(stockOrderNo);
 						tempIndentToolItems.setQty(quantity);
-
+						tempIndentToolItems.setWorkOrderNo(workOrderNo);
 						if (stockQuantity >= quantity) {
 							tempIndentToolItems.setFinalQuantity(quantity);
 							tempIndentToolItems.setTotalCost(iat.getMrpRate() * quantity);
@@ -787,43 +766,84 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public void saveStockOrder(TempStockOrders stockOrders, String username) {
+	public void saveStockOrder(StockOrders stockOrders, String username) {
+			
 		stockOrders.setUsername(username);
-		stockOrders.setApprovalStatus("PENDING");
-		TempStockOrders tempStockOrders = tempStockOrdersRepository.save(stockOrders);
+		stockOrders.setApprovalStatus("APPROVED");
+		stockOrders.setWorkOrderNo(stockOrders.getWorkOrderNo());
+		StockOrders tempStockOrders = stockOrdersRepository.save(stockOrders);
+		
 		List<TempListItems> tempIndentItems = tempListItemsRepository
 				.findByStockOrderNo(tempStockOrders.getStockOrderNo());
 
 		for (TempListItems tempIndentItem : tempIndentItems) {
-			TempStockOrderItems tempStockOrderItems = new TempStockOrderItems();
-			tempStockOrderItems.setAliasName(tempIndentItem.getAliasName());
-			tempStockOrderItems.setCategory(tempIndentItem.getCategory());
-			tempStockOrderItems.setDescription(tempIndentItem.getDescription());
-			tempStockOrderItems.setFinalQuantity(tempIndentItem.getFinalQuantity());
-			tempStockOrderItems.setImagePath(tempIndentItem.getImagePath());
-			tempStockOrderItems.setItemId(tempIndentItem.getItemId());
-			tempStockOrderItems.setItemImage(tempIndentItem.getItemImage());
-			tempStockOrderItems.setItemName(tempIndentItem.getItemName());
-			tempStockOrderItems.setMrpRate(tempIndentItem.getMrpRate());
-			tempStockOrderItems.setSlNo(tempIndentItem.getSlNo());
-			tempStockOrderItems.setStockType(tempIndentItem.getStockType());
-			tempStockOrderItems.setTotalCost(tempIndentItem.getTotalCost());
-			tempStockOrderItems.setUnitOfMeasure(tempIndentItem.getUnitOfMeasure());
-			tempStockOrderItems.setStockOrderNo(tempIndentItem.getStockOrderNo());
-			tempStockOrderItems.setOrderId(tempStockOrders.getOrderId());
-			tempStockOrderItems.setTotalCost(tempStockOrderItems.getFinalQuantity() * tempStockOrderItems.getMrpRate());
-			tempStockOrderItems.setUsername(username);
-			tempStockOrderItems.setComplNo(stockOrders.getComplNo());
-			tempStockOrderItems.setDepartmentName(stockOrders.getDepartmentName());
-			tempStockOrderItems.setIndentNo(stockOrders.getIndentNo());
-			tempStockOrderItemsRepository.save(tempStockOrderItems);
+			StockOrderItems stockOrderItems = new StockOrderItems();
+			stockOrderItems.setAliasName(tempIndentItem.getAliasName());
+			stockOrderItems.setCategory(tempIndentItem.getCategory());
+			stockOrderItems.setDescription(tempIndentItem.getDescription());
+			stockOrderItems.setFinalQuantity(tempIndentItem.getFinalQuantity());
+			stockOrderItems.setImagePath(tempIndentItem.getImagePath());
+			stockOrderItems.setItemId(tempIndentItem.getItemId());
+			stockOrderItems.setItemImage(tempIndentItem.getItemImage());
+			stockOrderItems.setItemName(tempIndentItem.getItemName());
+			stockOrderItems.setMrpRate(tempIndentItem.getMrpRate());
+			stockOrderItems.setSlNo(tempIndentItem.getSlNo());
+			stockOrderItems.setStockType(tempIndentItem.getStockType());
+			stockOrderItems.setTotalCost(tempIndentItem.getTotalCost());
+			stockOrderItems.setUnitOfMeasure(tempIndentItem.getUnitOfMeasure());
+			stockOrderItems.setStockOrderNo(tempIndentItem.getStockOrderNo());
+			stockOrderItems.setOrderId(tempStockOrders.getOrderId());
+			stockOrderItems.setTotalCost(stockOrderItems.getFinalQuantity() * stockOrderItems.getMrpRate());
+			stockOrderItems.setUsername(username);
+			stockOrderItems.setComplNo(stockOrders.getComplNo());
+			stockOrderItems.setDepartmentName(stockOrders.getDepartmentName());
+			stockOrderItems.setIndentNo(stockOrders.getIndentNo());		
+			stockOrderItems.setWorkOrderNo(tempStockOrders.getWorkOrderNo());
+			stockOrderItemsRepository.save(stockOrderItems);
+
+			int requiredQty = tempIndentItem.getFinalQuantity();
+
+			InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
+					.findByItemId(tempIndentItem.getItemId());
+
+			InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository
+					.findByItemId(tempIndentItem.getItemId());
+
+			InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository
+					.findByItemId(tempIndentItem.getItemId());
+
+			if (inwardApprovedMaterials != null) {
+				int MaterialStockQty = inwardApprovedMaterials.getQuantity();
+				inwardApprovedMaterials.setAvailableQty(MaterialStockQty - requiredQty);
+				inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
+			}
+			if (inwardApprovedSpares != null) {
+				int SpareStockQty = inwardApprovedSpares.getQuantity();
+				inwardApprovedSpares.setAvailableQty(SpareStockQty - requiredQty);
+				inwardApprovedSparesRepository.save(inwardApprovedSpares);
+			}
+			if (inwardApprovedTools != null) {
+				int ToolStockQty = inwardApprovedTools.getQuantity();
+				inwardApprovedTools.setAvailableQty(ToolStockQty - requiredQty);
+				inwardApprovedToolsRepository.save(inwardApprovedTools);
+			}
+
 			tempListItemsRepository.deleteById(tempIndentItem.getRecordId());
 		}
-
-		List<StockOrderItemsRequest> stockOrderItemsRequest = stockOrderItemsRequestRepository
-				.findByStockOrderNo(tempStockOrders.getStockOrderNo());
-		for (StockOrderItemsRequest stockItems : stockOrderItemsRequest)
-			stockOrderItemsRequestRepository.deleteById(stockItems.getRecordId());
+		
+		List<StockOrderItemsRequest>  stockOrderItemsRequest = stockOrderItemsRequestRepository.findByStockOrderNo(stockOrders.getStockOrderNo());
+		
+		stockOrderItemsRequest.forEach(stockOrderItems -> stockOrderItemsRequestRepository.deleteById(stockOrderItems.getRecordId()));
+		
+		
+		List<WorkOrderApprovedItems> workOrderApprovedItems =  workOrderApprovedItemsRepository.getByWorkOrder(tempStockOrders.getWorkOrderNo());
+		
+		for(WorkOrderApprovedItems workOrderApprovedItem :workOrderApprovedItems) {
+			workOrderApprovedItem.setStockApproveSts("Y");
+			workOrderApprovedItem.setStockOrderNo(stockOrders.getStockOrderNo());
+			workOrderApprovedItemsRepository.save(workOrderApprovedItem);
+		}
+		
 	}
 
 	@Override
@@ -893,63 +913,18 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public List<TempStockOrders> getOutwardStockOrders() {
-		return tempStockOrdersRepository.findAll();
+	public List<StockOrders> getOutwardStockOrders() {
+		return stockOrdersRepository.findAll();
 	}
 
 	@Override
-	public List<TempStockOrderItems> getOutwardStockOrderItems(Long stockOrderNo) {
-		return tempStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
+	public List<StockOrderItems> getOutwardStockOrderItems(Long stockOrderNo) {
+		return stockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
 	}
 
 	@Override
-	public TempStockOrders getOutwardStockOrder(Long stockOrderNo) {
-		return tempStockOrdersRepository.findByStockOrderNo(stockOrderNo);
-	}
-
-	@Override
-	public List<ApprovedStockOrders> getOutwardApprovedStockOrders() {
-		return approvedStockOrdersRepository.findAll();
-	}
-
-	@Override
-	public List<ApprovedStockOrderItems> getOutwardApprovedStockOrderItems(Long stockOrderNo) {
-		return approvedStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
-	}
-
-	@Override
-	public ApprovedStockOrders getOutwardApprovedStockOrder(Long stockOrderNo) {
-		return approvedStockOrdersRepository.findByStockOrderNo(stockOrderNo);
-	}
-
-	@Override
-	public StockOrderItemsDto getStockorderItemDetails(String itemId, Long stockOrderNo) {
-		ApprovedStockOrderItems approvedstockOrderItems = approvedStockOrderItemsRepository
-				.findByItemIdAndStockOrderNo(itemId, stockOrderNo);
-
-		ApprovedStockOrders approvedstockOrder = approvedStockOrdersRepository.findByStockOrderNo(stockOrderNo);
-		StockOrderItemsDto stockOrderItems = new StockOrderItemsDto();
-
-		stockOrderItems.setAliasName(approvedstockOrderItems.getAliasName());
-		stockOrderItems.setCategory(approvedstockOrderItems.getCategory());
-		stockOrderItems.setComplNo(approvedstockOrder.getComplNo());
-		stockOrderItems.setDepartmentName(approvedstockOrder.getDepartmentName());
-		stockOrderItems.setDescription(approvedstockOrderItems.getDescription());
-		stockOrderItems.setFinalQuantity(approvedstockOrderItems.getFinalQuantity());
-		stockOrderItems.setImagePath(approvedstockOrderItems.getImagePath());
-		stockOrderItems.setIndentNo(approvedstockOrder.getIndentNo());
-		stockOrderItems.setItemId(approvedstockOrderItems.getItemId());
-		stockOrderItems.setItemImage(approvedstockOrderItems.getItemImage());
-		stockOrderItems.setItemName(approvedstockOrderItems.getItemName());
-		stockOrderItems.setMrpRate(approvedstockOrderItems.getMrpRate());
-		stockOrderItems.setRecordId(approvedstockOrderItems.getRecordId());
-		stockOrderItems.setSlNo(approvedstockOrderItems.getSlNo());
-		stockOrderItems.setStockType(approvedstockOrderItems.getStockType());
-		stockOrderItems.setTotalCost(approvedstockOrderItems.getTotalCost());
-		stockOrderItems.setUnitOfMeasure(approvedstockOrderItems.getUnitOfMeasure());
-		stockOrderItems.setStockOrderNo(approvedstockOrderItems.getStockOrderNo());
-
-		return stockOrderItems;
+	public StockOrders getOutwardStockOrder(Long stockOrderNo) {
+		return stockOrdersRepository.findByStockOrderNo(stockOrderNo);
 	}
 
 	/***** Stocks Return *****/
@@ -960,7 +935,7 @@ public class StockServiceImpl implements StockService {
 		TempStocksReturn tempStocksReturn = tempStocksReturnRepository
 				.findByStockOrderNoAndItemId(stockReturn.getStockOrderNo(), stockReturn.getItemId());
 
-		Double orderCost = approvedStockOrderItemsRepository
+		Double orderCost = stockOrderItemsRepository
 				.findByItemIdAndStockOrderNo(stockReturn.getItemId(), stockReturn.getStockOrderNo()).getTotalCost();
 
 		if (tempStocksReturn != null) {
@@ -1190,185 +1165,6 @@ public class StockServiceImpl implements StockService {
 		}
 	}
 
-	/*********************** Outwards Stock orders ********************************/
-	@Override
-	public void approveOutwardStocks(Long stockOrderNo, String username) {
-
-		TempStockOrders tempStockOrders = tempStockOrdersRepository.findByStockOrderNo(stockOrderNo);
-
-		ApprovedStockOrders approvedStockOrders = new ApprovedStockOrders();
-
-		approvedStockOrders.setBilledOn(tempStockOrders.getBilledOn());
-		approvedStockOrders.setCgst(tempStockOrders.getCgst());
-		approvedStockOrders.setGrandTotal(tempStockOrders.getGrandTotal());
-		approvedStockOrders.setGstType(tempStockOrders.getGstType());
-		approvedStockOrders.setIgst(tempStockOrders.getIgst());
-		approvedStockOrders.setSgst(tempStockOrders.getSgst());
-		approvedStockOrders.setSubTotal(tempStockOrders.getSubTotal());
-		approvedStockOrders.setUsername(username);
-		approvedStockOrders.setStockOrderNo(tempStockOrders.getStockOrderNo());
-
-		approvedStockOrders.setComplDtls(tempStockOrders.getComplDtls());
-		approvedStockOrders.setComplNo(tempStockOrders.getComplNo());
-		approvedStockOrders.setContactNo(tempStockOrders.getContactNo());
-		approvedStockOrders.setDepartmentName(tempStockOrders.getDepartmentName());
-		approvedStockOrders.setDivision(tempStockOrders.getDivision());
-		approvedStockOrders.setEndDate(tempStockOrders.getEndDate());
-		approvedStockOrders.setIndentNo(tempStockOrders.getIndentNo());
-		approvedStockOrders.setStartDate(tempStockOrders.getStartDate());
-		approvedStockOrders.setSubDivision(tempStockOrders.getSubDivision());
-		approvedStockOrders.setWorkPriority(tempStockOrders.getWorkPriority());
-		approvedStockOrders.setWorkSite(tempStockOrders.getWorkSite());
-		approvedStockOrders.setApprovalStatus("APPROVED");
-
-		ApprovedStockOrders savedApprovedStockOrders = approvedStockOrdersRepository.save(approvedStockOrders);
-
-		List<TempStockOrderItems> tempStockOrderItems = tempStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
-
-		for (TempStockOrderItems tempStockOrderItem : tempStockOrderItems) {
-
-			ApprovedStockOrderItems approvedStockOrderItems = new ApprovedStockOrderItems();
-
-			approvedStockOrderItems.setAliasName(tempStockOrderItem.getAliasName());
-			approvedStockOrderItems.setCategory(tempStockOrderItem.getCategory());
-			approvedStockOrderItems.setDescription(tempStockOrderItem.getDescription());
-			approvedStockOrderItems.setFinalQuantity(tempStockOrderItem.getFinalQuantity());
-			approvedStockOrderItems.setImagePath(tempStockOrderItem.getImagePath());
-			approvedStockOrderItems.setItemId(tempStockOrderItem.getItemId());
-			approvedStockOrderItems.setItemImage(tempStockOrderItem.getItemImage());
-			approvedStockOrderItems.setItemName(tempStockOrderItem.getItemName());
-			approvedStockOrderItems.setMrpRate(tempStockOrderItem.getMrpRate());
-			approvedStockOrderItems.setSlNo(tempStockOrderItem.getSlNo());
-			approvedStockOrderItems.setStockType(tempStockOrderItem.getStockType());
-			approvedStockOrderItems.setTotalCost(tempStockOrderItem.getTotalCost());
-			approvedStockOrderItems.setUnitOfMeasure(tempStockOrderItem.getUnitOfMeasure());
-			approvedStockOrderItems.setStockOrderNo(tempStockOrderItem.getStockOrderNo());
-			approvedStockOrderItems.setOrderId(savedApprovedStockOrders);
-			approvedStockOrderItems.setUsername(username);
-			approvedStockOrderItemsRepository.save(approvedStockOrderItems);
-
-			int requiredQty = tempStockOrderItem.getFinalQuantity();
-
-			InwardApprovedMaterials inwardApprovedMaterials = inwardApprovedMaterialsRepository
-					.findByItemId(approvedStockOrderItems.getItemId());
-
-			InwardApprovedSpares inwardApprovedSpares = inwardApprovedSparesRepository
-					.findByItemId(approvedStockOrderItems.getItemId());
-
-			InwardApprovedTools inwardApprovedTools = inwardApprovedToolsRepository
-					.findByItemId(approvedStockOrderItems.getItemId());
-
-			if (inwardApprovedMaterials != null) {
-				int MaterialStockQty = inwardApprovedMaterials.getQuantity();
-				inwardApprovedMaterials.setAvailableQty(MaterialStockQty - requiredQty);
-				inwardApprovedMaterialsRepository.save(inwardApprovedMaterials);
-			}
-			if (inwardApprovedSpares != null) {
-				int SpareStockQty = inwardApprovedSpares.getQuantity();
-				inwardApprovedSpares.setAvailableQty(SpareStockQty - requiredQty);
-				inwardApprovedSparesRepository.save(inwardApprovedSpares);
-			}
-			if (inwardApprovedTools != null) {
-				int ToolStockQty = inwardApprovedTools.getQuantity();
-				inwardApprovedTools.setAvailableQty(ToolStockQty - requiredQty);
-				inwardApprovedToolsRepository.save(inwardApprovedTools);
-			}
-
-			IndentApprovedItems indentApprovedItems = indentApprovedItemsRepository
-					.findByComplNoAndItemId(approvedStockOrders.getComplNo(), tempStockOrderItem.getItemId());
-			if (indentApprovedItems != null) {
-				indentApprovedItems.setApprovedSts("Y");
-				indentApprovedItems.setQuantity(tempStockOrderItem.getFinalQuantity());
-				IndentApprovedItems savedIndentApprovedItem = indentApprovedItemsRepository.save(indentApprovedItems);
-
-				if (savedIndentApprovedItem != null) {
-
-					TempWorkOrderItemRequest tempWorkItems = new TempWorkOrderItemRequest();
-					tempWorkItems.setApprovedSts(savedIndentApprovedItem.getApprovedSts());
-					tempWorkItems.setCategoryName(savedIndentApprovedItem.getCategoryName());
-					tempWorkItems.setComplDtls(savedIndentApprovedItem.getComplDtls());
-					tempWorkItems.setComplNo(savedIndentApprovedItem.getComplNo());
-					tempWorkItems.setContactNo(savedIndentApprovedItem.getContactNo());
-					tempWorkItems.setCreatedDate(savedIndentApprovedItem.getCreatedDate());
-					tempWorkItems.setDepartmentName(savedIndentApprovedItem.getDepartmentName());
-					tempWorkItems.setDivision(savedIndentApprovedItem.getDivision());
-					tempWorkItems.setEndDate(savedIndentApprovedItem.getEndDate());
-					tempWorkItems.setHsnCode(savedIndentApprovedItem.getHsnCode());
-					tempWorkItems.setIndentApproved(savedIndentApprovedItem.getIndentApproved());
-					tempWorkItems.setIndentNo(savedIndentApprovedItem.getIndentNo());
-					tempWorkItems.setItemId(savedIndentApprovedItem.getItemName());
-					tempWorkItems.setItemName(savedIndentApprovedItem.getItemName());
-					tempWorkItems.setItemReqId(savedIndentApprovedItem.getItemReqId());
-					tempWorkItems.setQuantity(savedIndentApprovedItem.getQuantity());
-					tempWorkItems.setStartDate(savedIndentApprovedItem.getStartDate());
-					tempWorkItems.setStockType(savedIndentApprovedItem.getStockType());
-					tempWorkItems.setStockTypeName(savedIndentApprovedItem.getStockTypeName());
-					tempWorkItems.setSubDivision(savedIndentApprovedItem.getSubDivision());
-					tempWorkItems.setUnitOfMesure(savedIndentApprovedItem.getUnitOfMesure());
-					tempWorkItems.setUserName(username);
-					tempWorkItems.setWorkSite(savedIndentApprovedItem.getWorkSite());
-					tempWorkItems.setWorkPriority(savedIndentApprovedItem.getWorkPriority());
-					tempWorkItems.setStockOrderNo(tempStockOrderItem.getStockOrderNo());
-
-					tempWorkOrderItemRequestRepository.save(tempWorkItems);
-				}
-			}
-
-		}
-
-		tempStockOrdersRepository.deleteById(tempStockOrders.getOrderId());
-	}
-
-	@Override
-	public void rejectStockorderItems(Long stockOrderNo, String username) {
-		TempStockOrders tempStockOrders = tempStockOrdersRepository.findByStockOrderNo(stockOrderNo);
-
-		RejectedStockOrders rejectedStockOrderNos = new RejectedStockOrders();
-		rejectedStockOrderNos.setBilledOn(tempStockOrders.getBilledOn());
-		rejectedStockOrderNos.setCgst(tempStockOrders.getCgst());
-		rejectedStockOrderNos.setGrandTotal(tempStockOrders.getGrandTotal());
-		rejectedStockOrderNos.setGstType(tempStockOrders.getGstType());
-		rejectedStockOrderNos.setIgst(tempStockOrders.getIgst());
-		rejectedStockOrderNos.setSgst(tempStockOrders.getSgst());
-		rejectedStockOrderNos.setSubTotal(tempStockOrders.getSubTotal());
-		rejectedStockOrderNos.setUsername(username);
-		rejectedStockOrderNos.setStockOrderNo(tempStockOrders.getStockOrderNo());
-
-		rejectedStockOrderNos.setComplNo(tempStockOrders.getComplNo());
-		rejectedStockOrderNos.setIndentNo(tempStockOrders.getIndentNo());
-		rejectedStockOrderNos.setDepartmentName(tempStockOrders.getDepartmentName());
-
-		RejectedStockOrders rejectedStockOrderNosId = rejectedStockOrderNosRepository.save(rejectedStockOrderNos);
-
-		List<TempStockOrderItems> tempStockOrderItems = tempStockOrderItemsRepository.findByStockOrderNo(stockOrderNo);
-
-		for (TempStockOrderItems StockOrderItem : tempStockOrderItems) {
-
-			RejectedStockOrderItems rejectedStockOrderItems = new RejectedStockOrderItems();
-
-			rejectedStockOrderItems.setAliasName(StockOrderItem.getAliasName());
-			rejectedStockOrderItems.setCategory(StockOrderItem.getCategory());
-			rejectedStockOrderItems.setDescription(StockOrderItem.getDescription());
-			rejectedStockOrderItems.setFinalQuantity(StockOrderItem.getFinalQuantity());
-			rejectedStockOrderItems.setImagePath(StockOrderItem.getImagePath());
-			rejectedStockOrderItems.setItemId(StockOrderItem.getItemId());
-			rejectedStockOrderItems.setItemImage(StockOrderItem.getItemImage());
-			rejectedStockOrderItems.setItemName(StockOrderItem.getItemName());
-			rejectedStockOrderItems.setMrpRate(StockOrderItem.getMrpRate());
-			rejectedStockOrderItems.setSlNo(StockOrderItem.getSlNo());
-			rejectedStockOrderItems.setStockType(StockOrderItem.getStockType());
-			rejectedStockOrderItems.setTotalCost(StockOrderItem.getTotalCost());
-			rejectedStockOrderItems.setUnitOfMeasure(StockOrderItem.getUnitOfMeasure());
-			rejectedStockOrderItems.setStockOrderNo(StockOrderItem.getStockOrderNo());
-			rejectedStockOrderItems.setOrderId(rejectedStockOrderNosId);
-			rejectedStockOrderItems.setUsername(username);
-			rejectedStockOrderItemsRepository.save(rejectedStockOrderItems);
-		}
-
-		tempStockOrdersRepository.deleteById(tempStockOrders.getOrderId());
-
-	}
-
 	/******************************* Return Stocks ********************************/
 
 	@Override
@@ -1477,6 +1273,36 @@ public class StockServiceImpl implements StockService {
 		if (newRejectedStocksReturn != null) {
 			stockReturnsRepository.deleteById(id);
 		}
+	}
+
+	@Override
+	public StockOrderItemsDto getStockorderItemDetails(String itemId, Long stockOrderNo) {
+		StockOrderItems approvedstockOrderItems = stockOrderItemsRepository.findByItemIdAndStockOrderNo(itemId,
+				stockOrderNo);
+
+		StockOrders approvedstockOrder = stockOrdersRepository.findByStockOrderNo(stockOrderNo);
+		StockOrderItemsDto stockOrderItems = new StockOrderItemsDto();
+
+		stockOrderItems.setAliasName(approvedstockOrderItems.getAliasName());
+		stockOrderItems.setCategory(approvedstockOrderItems.getCategory());
+		stockOrderItems.setComplNo(approvedstockOrder.getComplNo());
+		stockOrderItems.setDepartmentName(approvedstockOrder.getDepartmentName());
+		stockOrderItems.setDescription(approvedstockOrderItems.getDescription());
+		stockOrderItems.setFinalQuantity(approvedstockOrderItems.getFinalQuantity());
+		stockOrderItems.setImagePath(approvedstockOrderItems.getImagePath());
+		stockOrderItems.setIndentNo(approvedstockOrder.getIndentNo());
+		stockOrderItems.setItemId(approvedstockOrderItems.getItemId());
+		stockOrderItems.setItemImage(approvedstockOrderItems.getItemImage());
+		stockOrderItems.setItemName(approvedstockOrderItems.getItemName());
+		stockOrderItems.setMrpRate(approvedstockOrderItems.getMrpRate());
+		stockOrderItems.setRecordId(approvedstockOrderItems.getRecordId());
+		stockOrderItems.setSlNo(approvedstockOrderItems.getSlNo());
+		stockOrderItems.setStockType(approvedstockOrderItems.getStockType());
+		stockOrderItems.setTotalCost(approvedstockOrderItems.getTotalCost());
+		stockOrderItems.setUnitOfMeasure(approvedstockOrderItems.getUnitOfMeasure());
+		stockOrderItems.setStockOrderNo(approvedstockOrderItems.getStockOrderNo());
+
+		return stockOrderItems;
 	}
 
 }

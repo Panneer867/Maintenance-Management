@@ -1,6 +1,7 @@
 package com.ingroinfo.mm.dto;
 
 import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -32,5 +33,6 @@ public class CancelWorkOrderItemsDto {
 	private String userName;
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 	
 }

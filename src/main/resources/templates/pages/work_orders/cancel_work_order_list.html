@@ -2,17 +2,17 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Cancel WorkOrder List
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Canceled WorkOrder List
 		</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/workorder/approved}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/workorder/cancel}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Cancel Workorder List</span></div>
+							<div class="link"><span aria-current="location">Canceled Workorders</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -22,7 +22,7 @@
 			<div class="col-11 ml-5">
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
-						<h4 class="mb-0">Cancel WorkOrder List</h4>
+						<h4 class="mb-0">Canceld WorkOrder List</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 						<table
@@ -49,7 +49,7 @@
 									</td>
 									<td th:text="${cencelwork.workOrderCancelBy}"></td>
 									<td class="text-center"><a class="btn btn-success p-1 mx-2"
-											th:href="@{/pump/maintenance/view/detalis/{complNo}/{indentNo}(complNo=${cencelwork.complNo}, indentNo=${cencelwork.indentNo})}">View</a>
+											th:href="@{'/workorder/cancel/view/'+${cencelwork.workOrder}}">View</a>
 									</td>
 								</tr>
 							</tbody>

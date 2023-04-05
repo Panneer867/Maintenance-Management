@@ -28,8 +28,9 @@ public class HoldWorkOrderItemsDto {
 	private String stockTypeName;
 	private String departmentName;
 	private String indentApproved;
-	private String approvedSts;
+    private String approvedSts;
 	private String userName;
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 }

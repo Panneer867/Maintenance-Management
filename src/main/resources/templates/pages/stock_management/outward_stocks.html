@@ -36,12 +36,7 @@
 							Outward Stocks
 						</a>
 					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/approved/list}">
-							Approved Outward Stocks
-						</a>
-					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -73,10 +68,13 @@
 								</div>
 								<div class="col-4">
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+											No</label>
 										<div class="col-sm-7 px-0">
 											<input type="text" class="form-control text-center font-weight-bold"
-												th:value="${stockOrder.indentNo}" disabled />
+												th:value="${stockOrder.workOrderNo}" disabled />
+											<input type="hidden" th:value="${stockOrder.workOrderNo}"
+												id="get-workorder-no" />
 										</div>
 									</div>
 
@@ -174,7 +172,7 @@
 									<th class="all" style="width: 12%;">MRP</th>
 									<th class="all" style="width: 15%;">Quantity</th>
 									<th class="all" style="width: 12%;">Total</th>
-									<th class="all" style="width: 5%;">Action</th>
+									<!--<th class="all" style="width: 5%;">Action</th>-->
 								</tr>
 							</thead>
 							<tbody class="add-item">
@@ -238,9 +236,9 @@
 												disabled />
 										</div>
 									</td>
-									<td class="text-center"><i
+									<!--<td class="text-center"><i
 											class="glyphicon glyphicon-trash remove-item text-danger"></i>
-									</td>
+									</td>-->
 								</tr>
 							</tbody>
 						</table>
@@ -348,6 +346,7 @@
 									</div>
 								</div>
 								<input type="hidden" name="stockOrderNo" id="set-stockorder-no" required />
+								<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
 								<div class="col-12 text-center mt-3">
 									<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
 									<button type="reset" class="btn btn-secondary btn-sm mr-3">Reset</button>
@@ -363,15 +362,15 @@
 					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
 					<thead class="table-dark">
 						<tr>
-							<th>Complaint No</th>
-							<th>Indent No</th>
+							<th>Complaint</th>
+							<th>Workorder</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="stockOrderNo: ${stockOrdersNos}">
 							<td th:text="${stockOrderNo.complNo}"></td>
-							<td th:text="${stockOrderNo.indentNo}"></td>
+							<td th:text="${stockOrderNo.workOrderNo}"></td>
 							<td class="text-center">
 								<a th:href="@{'/stocks/outward/get/' + ${stockOrderNo.stockOrderNo}}"
 									class="btn btn-info p-1 mx-2">Stockorder</a>

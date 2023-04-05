@@ -12,7 +12,7 @@
 							<div class="link"><a th:href="@{/pump/maintenance/view}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Workorder List</span></div>
+							<div class="link"><span aria-current="location">Approved WorkOrders</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -49,7 +49,7 @@
 									</td>
 									<td th:text="${workorderapproved.workorderApprovedBy}"></td>
 									<td class="text-center"><a class="btn btn-success p-1 mx-2"
-											th:href="@{/pump/maintenance/view/detalis/{complNo}/{indentNo}(complNo=${workorderapproved.complNo}, indentNo=${workorderapproved.indentNo})}">View</a>
+											th:href="@{'/pump/maintenance/view/detalis/'+${workorderapproved.workOrder}}">View</a>
 									</td>
 								</tr>
 							</tbody>

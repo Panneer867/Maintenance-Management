@@ -1,10 +1,16 @@
 package com.ingroinfo.mm.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +21,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mm_temp_stockorder_items")
-public class TempStockOrderItems {
+@Table(name = "mm_stockorder_items")
+public class StockOrderItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +43,13 @@ public class TempStockOrderItems {
 	private Long stockOrderNo;
 	private String stockType;
 	private String username;
-	
+	private String workOrderNo;
 	private String indentNo;
 	private String complNo;
 	private String departmentName;
+	
+	@CreationTimestamp
+	private Date dateCreated;
+	@UpdateTimestamp
+	private Date lastUpdated;
 }

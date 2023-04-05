@@ -1,7 +1,8 @@
 
 var stockorderNo = $("#get-stockorder-no").val();
-
+var workorderNo = $("#get-workorder-no").val();
 $("#set-stockorder-no").val(stockorderNo);
+$("#set-workorder-no").val(workorderNo);
 
 $(".igst-outward").prop('disabled', true);
 $(".cgst-outward").prop('disabled', true);

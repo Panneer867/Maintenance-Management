@@ -1,7 +1,6 @@
 package com.ingroinfo.mm.dto;
 
 import java.sql.Date;
-import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
 
 @Data
@@ -26,8 +25,6 @@ public class HoldWorkOrderLaboursDto {
 	private String indentApproved;
 	private String approvedSts;
 	private String userName;
-	@CreationTimestamp
 	private Date createdDate;
 	private String workOrder;
-
 }

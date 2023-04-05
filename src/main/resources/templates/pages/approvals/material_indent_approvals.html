@@ -1,10 +1,9 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 
 <body>
 	<section>
 		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval
-			For Vehicle Indent</h3>
+			For Labour Indent</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
@@ -17,7 +16,7 @@
 
 						<li class="crumb active">
 							<div class="link">
-								<span aria-current="location">Vehicle Indent Approval</span>
+								<span aria-current="location">Labour Indent Approval</span>
 							</div>
 						</li>
 					</ol>
@@ -27,15 +26,14 @@
 		<div class="row">
 			<div class="col-9">
 				<div th:if="${session.message}" class="alert_field">
-					<div class="alert text-center py-1"
-						th:classappend="${'alert-'+session.message.type}" role="alert">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 						<span th:text="${session.message.content}"></span>
 					</div>
 					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 				</div>
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
-						<h4 class="mb-0">Vehicle Indent Details</h4>
+						<h4 class="mb-0">Labour Indent Details</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 						<div>
@@ -152,33 +150,33 @@
 								class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
 								<thead class="table-dark">
 									<tr>
-										<th>Vehicle Type</th>
-										<th>Vehicle Number</th>
-										<th>Driver Name</th>
-										<th>Driver Contact No</th>
-										<th>ODO Meter Reading</th>
-										<th>Start Time</th>
+										<th>Category</th>
+										<th>Item</th>
+										<th>HSNCode</th>
+										<th>Unit of Meassure</th>
+										<th>Qty</th>
+										<th>Stock Type</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="vehicles:${listOfVehicles}" class="bl-cr">
-										<td th:text="${vehicles.vehicleType}"></td>
-										<td th:text="${vehicles.vehicleNo}"></td>
-										<td th:text="${vehicles.driverName}"></td>
-										<td th:text="${vehicles.driverPhone}"></td>
-										<td th:text="${vehicles.meterReading}"></td>
-										<td th:text="${vehicles.stratTime}"></td>
+									<tr th:each="material:${listOfApprovedItems}" class="bl-cr">
+										<td th:text="${material.categoryName}"></td>
+										<td th:text="${material.itemName}"></td>
+										<td th:text="${material.hsnCode}"></td>
+										<td th:text="${material.unitOfMesure}"></td>
+										<td th:text="${material.quantity}"></td>
+										<td th:text="${material.stockTypeName}"></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div class=" text-center mt-3 mb-2">
-						<button type="button" class="btn btn-primary text-white"
-							data-toggle="modal" data-target="#approveVehicleModal">Approve
+						<button type="button" class="btn btn-primary btnPrevious w-20 text-white" data-toggle="modal"
+							data-target="#approveMateialModal">Approve
 						</button>
-						<button type="button" class="btn btn-warning text-white"
-							data-toggle="modal" data-target="#rejectaVehicleModal">Reject
+						<button type="button" class="btn btn-warning btnPrevious w-20 text-white" data-toggle="modal"
+							data-target="#rejectaMaterialModal">Reject
 						</button>
 					</div>
 				</div>
@@ -192,20 +190,19 @@
 						<table class="table table-sm">
 							<thead>
 								<tr>
-									<th class="text-center fs-6" scope="col-sm">Compl No</th>
-									<th class="text-center fs-6" scope="col-sm">Indent No</th>
-									<th class="text-center fs-6" scope="col-sm">Department</th>
+									<th class="text-center fs-6">Compl No</th>
+									<th class="text-center fs-6">Indent No</th>
+									<th class="text-center fs-6">Department</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="vehicles : ${notApprovedVehicleList}"
-									class="text-center">
+								<tr th:each="materials : ${notApprovedItemsList}" class="text-center">
 									<td class="fs-6"><a
-										th:href="@{/approval/indent/vehicle-get/{complNo}/{indentNo}(complNo=${vehicles.complNo}, indentNo=${vehicles.indentNo})}">
-											<span th:text="${'CN'+vehicles.complNo}"></span>
-									</a></td>
-									<td class="fs-6" th:text="${vehicles.indentNo}"></td>
-									<td class="fs-6" th:text="${vehicles.departmentName}"></td>
+											th:href="@{/approval/indent/material/get/{complNo}/{indentNo}(complNo=${materials.complNo}, indentNo=${materials.indentNo})}">
+											<span th:text="${'CN'+materials.complNo}"></span>
+										</a></td>
+									<td class="fs-6" th:text="${materials.indentNo}"></td>
+									<td class="fs-6" th:text="${materials.departmentName}"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -213,15 +210,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="approveVehicleModal" tabindex="-1"
-			role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
+
+		<div class="modal fade" id="approveMateialModal" tabindex="-1" role="dialog" aria-labelledby="approveIndentItemModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="approveModalLabel">Approve
+						<h5 class="modal-title" id="approveIndentItemModalLabel">Approve
 							Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -229,23 +226,22 @@
 						request?</div>
 					<div class="modal-footer">
 						<a th:if="${complNo != null and indentNo != null}"
-							class="btn btn-primary btnPrevious w-20 text-white"
-							th:href="@{/approval/indent/vehicle/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+							class="btn btn-success text-white"
+							th:href="@{/approval/indent/material/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
 							Yes,Approve </a>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="rejectaVehicleModal" tabindex="-1"
-			role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+		<div class="modal fade" id="rejectaMaterialModal" tabindex="-1" role="dialog" aria-labelledby="rejectIndentItemModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="rejectModalLabel">Reject
+						<h5 class="modal-title" id="rejectIndentItemModalLabel">Reject
 							Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -253,15 +249,14 @@
 						request?</div>
 					<div class="modal-footer">
 						<a th:if="${complNo != null and indentNo != null}"
-							class="btn btn-primary btnPrevious w-20 text-white"
-							th:href="@{/approval/indent/vehicle/reject/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+							class="btn btn-success text-white"
+							th:href="@{/approval/indent/Material/reject/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
 							Yes,Reject</a>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 </body>
 

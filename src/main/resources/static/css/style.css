@@ -150,18 +150,12 @@ table .vehicel-table-scroll {
   flex: 0 0 95.83333%;
 }
 
+
+
 .status-pending {
-	background-color: red; 
-	color: white; 
-	padding: 5px; 
-	border-radius: 5px; 
-	animation: blink 2s infinite;
+	background-color: red; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;
 }
 
 .status-success {
-	background-color: green; 
-	color: white; 
-	padding: 5px; 
-	border-radius: 5px; 
-	animation: blink 2s infinite;
+	background-color: green; color: white; padding: 5px; border-radius: 5px; animation: blink 1s infinite;
 }

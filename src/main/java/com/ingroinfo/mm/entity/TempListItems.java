@@ -37,5 +37,6 @@ public class TempListItems {
 	private Long stockOrderNo;
 	private String stockType;
 	private String username;
+	private String workOrderNo;
 
 }

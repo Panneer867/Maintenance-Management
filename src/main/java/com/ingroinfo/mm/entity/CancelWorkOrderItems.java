@@ -43,5 +43,6 @@ public class CancelWorkOrderItems {
 	@CreationTimestamp
 	private Date createdDate;
 	private String workOrder;
+	private String stockApproveSts;
 	
 }

@@ -39,12 +39,7 @@
 							Outward Stocks
 						</a>
 					</li>
-					<li class="nav-item" role="presentation">
-						<a class="nav-link py-2 w-100 px-2 text-white hvr bg-dark"
-							th:href="@{/stocks/outward/approved/list}">
-							Approved Outward Stocks 
-						</a>
-					</li>
+					
 				</ul>
 			</div>
 		</div>
@@ -85,7 +80,7 @@
 					<td>&#8377;<label class="px-1" th:text="${outwardStocksList.grandTotal}"></label></td>
 					<td th:text="${outwardStocksList.billedOn}"></td>
 					<td class="text-center">
-						<span class="status-pending" th:text="${outwardStocksList.approvalStatus}" />
+						<span class="status-success" th:text="${outwardStocksList.approvalStatus}" />
 					</td>
 					<td class="text-center">
 						<a class="btn btn-success p-1 mx-2"
@@ -95,6 +90,25 @@
 				</tr>
 			</tbody>
 		</table>
+<style>
+			@keyframes blink {
+				0% {
+					opacity: 1;
+				}
+
+				50% {
+					opacity: 0.5;
+				}
+
+				75% {
+					opacity: 0.8;
+				}
+
+				100% {
+					opacity: 1;
+				}
+			}
+		</style>
 
 	</section>
 </body>

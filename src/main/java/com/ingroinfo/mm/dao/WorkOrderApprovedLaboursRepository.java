@@ -9,6 +9,6 @@ import com.ingroinfo.mm.entity.WorkOrderApprovedLabours;
 @Repository
 public interface WorkOrderApprovedLaboursRepository extends JpaRepository<WorkOrderApprovedLabours, Long> {
 
-	List<WorkOrderApprovedLabours> findByComplNoAndIndentNo(String complNo, String indentNo);
+	List<WorkOrderApprovedLabours> getByWorkOrder(String workOrder);
 
 }

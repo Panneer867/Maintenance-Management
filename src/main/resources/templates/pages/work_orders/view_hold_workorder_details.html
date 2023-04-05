@@ -2,21 +2,27 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approval
-			For WorkOrder</h3>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Hold
+			WorkOrder Details</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
 							<div class="link">
-								<a th:href="@{/approval}" class="fa fa-home pt-1"></a>
+								<a th:href="@{/workorder/hold}" class="fa fa-home pt-1"></a>
+							</div>
+						</li>
+						
+						<li class="crumb">
+							<div class="link">
+								<a th:href="@{/workorder/hold}"><span aria-current="location">Hold Workorders</span></a>
 							</div>
 						</li>
 
 						<li class="crumb active">
 							<div class="link">
-								<span aria-current="location">WorkOrder Approval</span>
+								<span aria-current="location">Workorder Details</span>
 							</div>
 						</li>
 					</ol>
@@ -24,7 +30,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-9">
+			<div class="col-12">
 				<div th:if="${session.message}" class="alert_field">
 					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
 						<span th:text="${session.message.content}"></span>
@@ -38,7 +44,7 @@
 					<div class="card-body font-weight-bold pb-0">
 						<div>
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="complNo" class="col-sm-5 col-form-label pr-0">Complaint
 											No</label>
@@ -49,7 +55,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="workOrderNo" class="col-sm-5 col-form-label pr-0">WorkOrder
 											No</label>
@@ -61,7 +67,17 @@
 									</div>
 
 								</div>
-								<div class="col-4">
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="indentNo" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${indentNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="startDate" class="col-sm-5 col-form-label pr-0">Exp
 											Start Date</label>
@@ -75,7 +91,7 @@
 							</div>
 
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="department" class="col-sm-5 col-form-label pr-0">Department</label>
 										<div class="col-sm-7 px-0">
@@ -85,7 +101,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="division" class="col-sm-5 col-form-label pr-0">Division</label>
 										<div class="col-sm-7 px-0">
@@ -96,7 +112,7 @@
 									</div>
 
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="subdivision" class="col-sm-5 col-form-label pr-0">Sub
 											Division</label>
@@ -107,9 +123,19 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="holdDate" class="col-sm-5 col-form-label pr-0">Hold Date</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${holdDate}"/>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="row">
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="workPriority" class="col-sm-5 col-form-label pr-0">Work
 											Priority</label>
@@ -120,7 +146,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="worksite" class="col-sm-5 col-form-label pr-0">Work
 											Site</label>
@@ -132,7 +158,7 @@
 									</div>
 
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 									<div class="form-group row">
 										<label for="contactNo" class="col-sm-5 col-form-label pr-0">Contact
 											No</label>
@@ -140,6 +166,16 @@
 											<input type="text"
 												class="form-control form-control-sm text-center font-weight-bold"
 												disabled th:value="${contactNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="holdBy" class="col-sm-5 col-form-label pr-0">Hold By</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${holdBy}" />
 										</div>
 									</div>
 								</div>
@@ -184,13 +220,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="material:${listOfWapWorkorderitems}" class="bl-cr">
-											<td th:text="${material.categoryName}"></td>
-											<td th:text="${material.itemName}"></td>
-											<td th:text="${material.hsnCode}"></td>
-											<td th:text="${material.unitOfMesure}"></td>
-											<td th:text="${material.quantity}"></td>
-											<td th:text="${material.stockTypeName}"></td>
+										<tr th:each="holdMaterial:${listOfHoldWorkorderitems}" class="bl-cr">
+											<td th:text="${holdMaterial.categoryName}"></td>
+											<td th:text="${holdMaterial.itemName}"></td>
+											<td th:text="${holdMaterial.hsnCode}"></td>
+											<td th:text="${holdMaterial.unitOfMesure}"></td>
+											<td th:text="${holdMaterial.quantity}"></td>
+											<td th:text="${holdMaterial.stockTypeName}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -208,11 +244,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="labors:${listOfWapWorkorderLabours}" class="bl-cr">
-											<td th:text="${labors.empCategory}"></td>
-											<td th:text="${labors.members}"></td>
-											<td th:text="${labors.daysRequired}"></td>
-											<td th:text="${labors.timeRequired}"></td>
+										<tr th:each="holdLabors:${listOfHoldWorkorderLabours}" class="bl-cr">
+											<td th:text="${holdLabors.empCategory}"></td>
+											<td th:text="${holdLabors.members}"></td>
+											<td th:text="${holdLabors.daysRequired}"></td>
+											<td th:text="${holdLabors.timeRequired}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -232,130 +268,56 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="vehicles:${listOfWapWorkorderVehicles}" class="bl-cr">
-											<td th:text="${vehicles.vehicleType}"></td>
-											<td th:text="${vehicles.vehicleNo}"></td>
-											<td th:text="${vehicles.driverName}"></td>
-											<td th:text="${vehicles.driverPhone}"></td>
-											<td th:text="${vehicles.meterReading}"></td>
-											<td th:text="${vehicles.stratTime}"></td>
+										<tr th:each="holdVehicles:${listOfHoldWorkorderVehicles}" class="bl-cr">
+											<td th:text="${holdVehicles.vehicleType}"></td>
+											<td th:text="${holdVehicles.vehicleNo}"></td>
+											<td th:text="${holdVehicles.driverName}"></td>
+											<td th:text="${holdVehicles.driverPhone}"></td>
+											<td th:text="${holdVehicles.meterReading}"></td>
+											<td th:text="${holdVehicles.stratTime}"></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div class=" text-center mt-3 mb-2">
-							<button type="button" class="btn btn-primary text-white" data-toggle="modal"
-								data-target="#approveWorkOrdereModal">Approve
-							</button>
-							<button type="button" class="btn btn-warning text-white" data-toggle="modal"
-								data-target="#holdWorkOrderModal">&nbsp;&nbsp;Hold&nbsp;&nbsp;
-							</button>
-							<button type="button" class="btn btn-danger text-white" data-toggle="modal"
-								data-target="#cancelWorkOrderModal">Cancel
-							</button>
-						</div>
+						
+							<div class=" text-center mt-3 mb-2">
+							<button type="button" class="btn btn-success text-white"
+								data-toggle="modal" data-target="#reGenerateWorkOrdereModal">Re-Generate
+							</button>							
+						</div>					
 
 					</div>
 				</div>
-			</div>
-			<div class="col-3">
-				<div class="card text-center">
-					<div class="card-header heading-bg text-white fs-6 ">Updates
-					</div>
-
-					<div class="card-body">
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th class="text-center fs-6">Compl No</th>
-									<th class="text-center fs-6">Indent No</th>
-									<th class="text-center fs-6">Department</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="compl : ${listOfCompl}" class="text-center">
-									<td class="fs-6"><a
-											th:href="@{/approval/workorder/get/{complNo}/{indentNo}(complNo=${compl.complNo}, indentNo=${compl.indentNo})}">
-											<span th:text="${'CN'+compl.complNo}"></span>
-										</a></td>
-									<td class="fs-6" th:text="${compl.indentNo}"></td>
-									<td class="fs-6" th:text="${compl.department}"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+			</div>			
 		</div>
-
-		<div class="modal fade" id="approveWorkOrdereModal" tabindex="-1" role="dialog"
-			aria-labelledby="approveWorkOrderModalLabel" aria-hidden="true">
+		
+		<div class="modal fade" id="reGenerateWorkOrdereModal" tabindex="-1"
+			role="dialog" aria-labelledby="reGenerateWorkOrderModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="approveWorkOrderModalLabel">Approve WorkOrder
-							Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<h5 class="modal-title" id="reGenerateWorkOrderModalLabel">Re-Generate
+							WorkOrder Confirmation</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">Are you sure you want to approve this
-						request?</div>
+					<div class="modal-body">Are you sure you want to
+						Re-Generate this WorkOrder ?</div>
 					<div class="modal-footer">
-						<a th:if="${complNo != null and indentNo != null}" class="btn btn-success text-white"
-							th:href="@{/approval/workorder/approve/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
-							Yes,Approve </a>
+						<a th:if="${complNo != null and indentNo != null}"
+							class="btn btn-success text-white"
+							th:href="@{/workorder/hold/regenerate/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
+							Re-Generate WorkOrder </a>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="holdWorkOrderModal" tabindex="-1" role="dialog"
-			aria-labelledby="holdWorkOrderModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="holdWorkOrderModalLabel">Hold WorkOrder
-							Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">Are you sure you want to Hold this
-						request?</div>
-					<div class="modal-footer">
-						<a th:if="${complNo != null and indentNo != null}" class="btn btn-success text-white"
-							th:href="@{/approval/workorder/hold/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
-							Yes,Hold</a>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="cancelWorkOrderModal" tabindex="-1" role="dialog"
-			aria-labelledby="cancelWorkOrderModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="cancelWorkOrderModalLabel">Cancel WorkOrder
-							Confirmation</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">Are you sure you want to Cancel this
-						request?</div>
-					<div class="modal-footer">
-						<a th:if="${complNo != null and indentNo != null}" class="btn btn-success text-white"
-							th:href="@{/approval/workorder/cancel/{complNo}/{indentNo}(complNo=${complNo}, indentNo=${indentNo})}">
-							Yes,Cancel</a>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
+			
 	</section>
 </body>
 

@@ -22,6 +22,9 @@ import com.ingroinfo.mm.dao.TempWorkOrderVehicleRequestRepository;
 import com.ingroinfo.mm.dao.WapWorkOrderItemsRepository;
 import com.ingroinfo.mm.dao.WapWorkOrderLaboursRepository;
 import com.ingroinfo.mm.dao.WapWorkOrderVehiclesRepository;
+import com.ingroinfo.mm.dao.WorkOrderApprovedItemsRepository;
+import com.ingroinfo.mm.dao.WorkOrderApprovedLaboursRepository;
+import com.ingroinfo.mm.dao.WorkOrderApprovedVehiclesRepository;
 import com.ingroinfo.mm.dto.CancelWorkOrderItemsDto;
 import com.ingroinfo.mm.dto.CancelWorkOrderLaboursDto;
 import com.ingroinfo.mm.dto.CancelWorkOrderVehiclesDto;
@@ -31,6 +34,9 @@ import com.ingroinfo.mm.dto.HoldWorkOrderVehiclesDto;
 import com.ingroinfo.mm.dto.WapWorkOrderItemsDto;
 import com.ingroinfo.mm.dto.WapWorkOrderLaboursDto;
 import com.ingroinfo.mm.dto.WapWorkOrderVehiclesDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedItemsDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
+import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.entity.CancelWorkOrderItems;
 import com.ingroinfo.mm.entity.CancelWorkOrderLabours;
 import com.ingroinfo.mm.entity.CancelWorkOrderVehicles;
@@ -46,6 +52,9 @@ import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
 import com.ingroinfo.mm.entity.WapWorkOrderItems;
 import com.ingroinfo.mm.entity.WapWorkOrderLabours;
 import com.ingroinfo.mm.entity.WapWorkOrderVehicles;
+import com.ingroinfo.mm.entity.WorkOrderApprovedItems;
+import com.ingroinfo.mm.entity.WorkOrderApprovedLabours;
+import com.ingroinfo.mm.entity.WorkOrderApprovedVehicles;
 import com.ingroinfo.mm.service.WorkOrderService;
 
 @Service
@@ -83,6 +92,12 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	private CancelWorkOrderLaboursRepository cancelWorkOrderLaboursRepo;
 	@Autowired
 	private CancelWorkOrderVehiclesRepository cancelWorkOrderVehiclesRepo;
+	@Autowired
+	private WorkOrderApprovedItemsRepository workOrderApprovedItemsRepo;
+	@Autowired
+	private WorkOrderApprovedLaboursRepository workOrderApprovedLaboursRepo;
+	@Autowired
+	private WorkOrderApprovedVehiclesRepository workOrderApprovedVehiclesRepo;
 
 	@Override
 	public List<TempWorkOrderItemRequest> getTempWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo) {
@@ -117,6 +132,11 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	}
 
 	@Override
+	public List<IndentApprovedItems> getApprovedItemsIndentByApprovedSts(String approvedSts) {
+		return this.indentApprovedItemsRepo.getByApprovedSts(approvedSts);
+	}
+
+	@Override
 	public List<IndentApprovedLabours> getApprovedLabourIndentByApprovedSts(String approvedSts) {
 		return this.indentApprovedLaboursRepo.getByApprovedSts(approvedSts);
 	}
@@ -127,8 +147,13 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	}
 
 	@Override
+	public void saveAllTempWorkOrderItems(List<TempWorkOrderItemRequest> tempWorkOrderItems) {
+		this.tempWorkOrderItemRequestRepo.saveAll(tempWorkOrderItems);
+	}
+
+	@Override
 	public void saveAllTempWorkOrderLabours(List<TempWorkOrderLabourRequest> tempWorkOrderLabours) {
-		tempWorkOrderLabourRequestRepo.saveAll(tempWorkOrderLabours);
+		this.tempWorkOrderLabourRequestRepo.saveAll(tempWorkOrderLabours);
 	}
 
 	@Override
@@ -236,6 +261,149 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 				.map((cancelWorkOrderlabor) -> modelMapper.map(cancelWorkOrderlabor, CancelWorkOrderVehicles.class))
 				.collect(Collectors.toList());
 		this.cancelWorkOrderVehiclesRepo.saveAll(cancelWorkOrderLabours);
+	}
+
+	@Override
+	public List<WapWorkOrderItemsDto> getWapWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo) {
+		List<WapWorkOrderItems> wapWorkOrderItems = this.wapWorkOrderItemsRepo.getByComplNoAndIndentNo(complNo,
+				indentNo);
+		return wapWorkOrderItems.stream()
+				.map((workorderItemDto) -> modelMapper.map(workorderItemDto, WapWorkOrderItemsDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<WapWorkOrderLaboursDto> getWapWorkOrderLaboursByComplNoAndIndentNo(String complNo, String indentNo) {
+		List<WapWorkOrderLabours> wapWorkOrderLabours = this.wapWorkOrderLaboursRepo.getByComplNoAndIndentNo(complNo,
+				indentNo);
+		return wapWorkOrderLabours.stream()
+				.map((workOrderLabourDto) -> modelMapper.map(workOrderLabourDto, WapWorkOrderLaboursDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<WapWorkOrderVehiclesDto> getWapWorkOrderVehiclesByComplNoAndIndentNo(String complNo, String indentNo) {
+		List<WapWorkOrderVehicles> wapWorkOrderVehicles = this.wapWorkOrderVehiclesRepo.getByComplNoAndIndentNo(complNo,
+				indentNo);
+		return wapWorkOrderVehicles.stream()
+				.map((workorderVehicleDto) -> modelMapper.map(workorderVehicleDto, WapWorkOrderVehiclesDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void saveAllApprovedWorkOrderItems(List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos) {
+		List<WorkOrderApprovedItems> workOrderApprovedItems = workOrderApprovedItemsDtos.stream()
+				.map((workOrderItems) -> modelMapper.map(workOrderItems, WorkOrderApprovedItems.class))
+				.collect(Collectors.toList());
+		this.workOrderApprovedItemsRepo.saveAll(workOrderApprovedItems);
+	}
+
+	@Override
+	public void saveAllApprovedWorkOrderLabours(List<WorkOrderApprovedLaboursDto> workOrderApprovedLaboursDtos) {
+		List<WorkOrderApprovedLabours> workOrderApprovedLabours = workOrderApprovedLaboursDtos.stream()
+				.map((workOrderLabours) -> modelMapper.map(workOrderLabours, WorkOrderApprovedLabours.class))
+				.collect(Collectors.toList());
+		this.workOrderApprovedLaboursRepo.saveAll(workOrderApprovedLabours);
+	}
+
+	@Override
+	public void saveAllApprovedWorkOrderVehicles(List<WorkOrderApprovedVehiclesDto> workOrderApprovedVehiclesDtos) {
+		List<WorkOrderApprovedVehicles> workOrderApprovedVehicles = workOrderApprovedVehiclesDtos.stream()
+				.map((workOrderVehicles) -> modelMapper.map(workOrderVehicles, WorkOrderApprovedVehicles.class))
+				.collect(Collectors.toList());
+		this.workOrderApprovedVehiclesRepo.saveAll(workOrderApprovedVehicles);
+	}
+
+	@Override
+	public void deleteAllWapWorkorderItemsByComplNo(String complNo) {
+		this.wapWorkOrderItemsRepo.deleteByComplNo(complNo);
+	}
+
+	@Override
+	public void deleteAllWapWorkorderLaboursByComplNo(String complNo) {
+		this.wapWorkOrderLaboursRepo.deleteByComplNo(complNo);
+	}
+
+	@Override
+	public void deleteAllWapWorkorderVehiclesByComplNo(String complNo) {
+		this.wapWorkOrderVehiclesRepo.deleteByComplNo(complNo);
+	}
+
+	@Override
+	public List<WorkOrderApprovedItemsDto> getApprovedWorkOrderItemsByWorkorderNo(String workOrder) {
+		List<WorkOrderApprovedItems> workOrderApprovedItems = this.workOrderApprovedItemsRepo.getByWorkOrder(workOrder);
+		return workOrderApprovedItems.stream().map((approvedWorkOrderItemdto) -> this.modelMapper
+				.map(approvedWorkOrderItemdto, WorkOrderApprovedItemsDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<WorkOrderApprovedLaboursDto> getApprovedWorkOrderLaboursByWorkorderNo(String workOrder) {
+		List<WorkOrderApprovedLabours> workOrderApprovedLabours = this.workOrderApprovedLaboursRepo
+				.getByWorkOrder(workOrder);
+		return workOrderApprovedLabours.stream().map((approvedWorkOrderLabourdto) -> this.modelMapper
+				.map(approvedWorkOrderLabourdto, WorkOrderApprovedLaboursDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<WorkOrderApprovedVehiclesDto> getApprovedWorkOrderVehiclesByWorkorderNo(String workOrder) {
+		List<WorkOrderApprovedVehicles> workOrderApprovedVehicles = this.workOrderApprovedVehiclesRepo
+				.getByWorkOrder(workOrder);
+		return workOrderApprovedVehicles.stream().map((approvedWorkOrderVehicledto) -> this.modelMapper
+				.map(approvedWorkOrderVehicledto, WorkOrderApprovedVehiclesDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<HoldWorkOrderItemsDto> getHoldWorkOrderItemsByWorkorderNo(String workOrder) {
+		List<HoldWorkOrderItems> holdWorkOrderItems = this.holdWorkOrderItemsRepo.getByWorkOrder(workOrder);
+		return holdWorkOrderItems.stream()
+				.map((holdWorkOrderItemdto) -> this.modelMapper.map(holdWorkOrderItemdto, HoldWorkOrderItemsDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<HoldWorkOrderLaboursDto> getHoldWorkOrderLaboursByWorkorderNo(String workOrder) {
+		List<HoldWorkOrderLabours> holdWorkOrderLabours = this.holdWorkOrderLaboursRepo.getByWorkOrder(workOrder);
+		return holdWorkOrderLabours.stream().map(
+				(holdWorkOrderLabordto) -> this.modelMapper.map(holdWorkOrderLabordto, HoldWorkOrderLaboursDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<HoldWorkOrderVehiclesDto> getHoldWorkOrderVehiclesByWorkorderNo(String workOrder) {
+		List<HoldWorkOrderVehicles> holdWorkOrderVehicles = this.holdWorkOrderVehiclesRepo.getByWorkOrder(workOrder);
+		return holdWorkOrderVehicles.stream().map((holdWorkorderVehicleDto) -> this.modelMapper
+				.map(holdWorkorderVehicleDto, HoldWorkOrderVehiclesDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CancelWorkOrderItemsDto> getCanceledWorkOrderItemsByWorkorderNo(String workOrder) {
+		List<CancelWorkOrderItems> cancelWorkOrderItems = this.cancelWorkOrderItemsRepo.getByWorkOrder(workOrder);
+		return cancelWorkOrderItems.stream().map((cancelWorkorderVehicleDto) -> this.modelMapper
+				.map(cancelWorkorderVehicleDto, CancelWorkOrderItemsDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CancelWorkOrderLaboursDto> getCanceledWorkOrderLaboursByWorkorderNo(String workOrder) {
+		List<CancelWorkOrderLabours> cancelWorkOrderLabours = this.cancelWorkOrderLaboursRepo.getByWorkOrder(workOrder);
+		return cancelWorkOrderLabours.stream().map((cancelWorkorderVehicleDto) -> this.modelMapper
+				.map(cancelWorkorderVehicleDto, CancelWorkOrderLaboursDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CancelWorkOrderVehiclesDto> getCanceledWorkOrderVehiclesByWorkorderNo(String workOrder) {
+		List<CancelWorkOrderVehicles> cancelWorkOrderVehiclescs = this.cancelWorkOrderVehiclesRepo
+				.getByWorkOrder(workOrder);
+		return cancelWorkOrderVehiclescs.stream().map((cancelWorkorderVehicleDto) -> this.modelMapper
+				.map(cancelWorkorderVehicleDto, CancelWorkOrderVehiclesDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<WorkOrderApprovedItemsDto> getApprovedWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo) {
+		List<WorkOrderApprovedItems> workOrderApprovedItems = this.workOrderApprovedItemsRepo
+				.getByComplNoAndIndentNo(complNo, indentNo);
+		return workOrderApprovedItems.stream()
+				.map((workOrderItem) -> this.modelMapper.map(workOrderItem, WorkOrderApprovedItemsDto.class))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -9,6 +9,6 @@ import com.ingroinfo.mm.entity.WorkOrderApprovedVehicles;
 @Repository
 public interface WorkOrderApprovedVehiclesRepository extends JpaRepository<WorkOrderApprovedVehicles, Long> {
 
-	List<WorkOrderApprovedVehicles> findByComplNoAndIndentNo(String complNo, String indentNo);
+	List<WorkOrderApprovedVehicles> getByWorkOrder(String workOrder);
 
 }

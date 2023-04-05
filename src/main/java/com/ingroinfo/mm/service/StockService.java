@@ -7,8 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.mm.dto.InwardDto;
 import com.ingroinfo.mm.dto.StockOrderItemsDto;
 import com.ingroinfo.mm.entity.ApprovedStocksReturn;
-import com.ingroinfo.mm.entity.ApprovedStockOrderItems;
-import com.ingroinfo.mm.entity.ApprovedStockOrders;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
@@ -20,8 +18,8 @@ import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
 import com.ingroinfo.mm.entity.StocksReturn;
 import com.ingroinfo.mm.entity.TempStocksReturn;
-import com.ingroinfo.mm.entity.TempStockOrderItems;
-import com.ingroinfo.mm.entity.TempStockOrders;
+import com.ingroinfo.mm.entity.StockOrderItems;
+import com.ingroinfo.mm.entity.StockOrders;
 import com.ingroinfo.mm.entity.StockOrderItemsRequest;
 
 public interface StockService {
@@ -102,7 +100,7 @@ public interface StockService {
 
 	List<StockOrderItemsDto> checkStockQuantity(Long stockOrderNo);
 
-	public void saveStockOrder(TempStockOrders stockOrders, String username);
+	void saveStockOrder(StockOrders stockOrders, String username);
 
 	boolean notAvailableItems(Long stockOrderNo);
 
@@ -110,23 +108,16 @@ public interface StockService {
 
 	boolean getTempStockOrderItems(Long stockOrderNo);
 
-	public List<TempStockOrders> getOutwardStockOrders();
+	List<StockOrders> getOutwardStockOrders();
 
-	public List<TempStockOrderItems> getOutwardStockOrderItems(Long stockOrderNo);
+	List<StockOrderItems> getOutwardStockOrderItems(Long stockOrderNo);
 
-	public TempStockOrders getOutwardStockOrder(Long stockOrderNo);
-
-	List<ApprovedStockOrders> getOutwardApprovedStockOrders();
-
-	List<ApprovedStockOrderItems> getOutwardApprovedStockOrderItems(Long stockOrderNo);
-
-	ApprovedStockOrders getOutwardApprovedStockOrder(Long stockOrderNo);
+	StockOrders getOutwardStockOrder(Long stockOrderNo);
 
 	StockOrderItemsDto getStockorderItemDetails(String itemId, Long stockOrderNo);
 
-
 	/******** Return Stocks *********/
-	
+
 	void saveReturnItem(TempStocksReturn tempStocksReturn, MultipartFile file);
 
 	boolean checkReturnedItem(TempStocksReturn tempStocksReturn);
@@ -147,9 +138,8 @@ public interface StockService {
 
 	List<ApprovedStocksReturn> getApprovedStockReturnItemList();
 
-
 	/******** Approval *********/
-	
+
 	void saveMaterial(InwardDto inwardItemDto);
 
 	void rejectMaterial(Long id, String username);
@@ -157,14 +147,10 @@ public interface StockService {
 	void saveSpare(InwardDto inwardItemDto);
 
 	void rejectSpare(Long id, String username);
-	
+
 	void saveTool(InwardDto inwardItemDto);
 
 	void rejectTool(Long id, String username);
-
-	void approveOutwardStocks(Long stockOrderNo, String username);
-
-	void rejectStockorderItems(Long stockOrderNo, String username);
 
 	void approveReturnItem(Long id, String username);
 
