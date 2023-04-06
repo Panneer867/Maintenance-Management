@@ -3,13 +3,20 @@
 <body>
 	<section>
 		<div class="col-10 mx-auto">
+		<div th:if="${session.message}" class="alert_field mt-4">
+				<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
 			<!-- form Start-->
 			<div class="card bl-cr mt-4">
 				<div class="card-header text-center heading-bg text-white">
 					<h4 class="mb-0">MIS Daily Report</h4>
 				</div>
+				
 				<div class="card-body font-weight-bold">
-					<form class="mb-0" th:action="@{/mis/daily}" th:object="${daily}" method="post"> 
+					<form class="mb-0" th:action="@{/mis/daily/report}" th:object="${daily}" method="get">
 						<div class="row ">
 							<div class="col text-start">
 								<label class="col-sm-8 col-form-label">From Date</label>
