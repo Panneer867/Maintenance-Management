@@ -57,8 +57,43 @@ public class MisController {
 		return "/pages/mis_report/daily";
 	}
 
+	private ResponseEntity<InputStreamResource> generateReport(String reportName, String param, List<?> reportList)
+			throws Exception {
+
+		// Compile the .jrxml file to a .jasper file
+		InputStream jasperStream = this.getClass().getResourceAsStream(reportName);
+		JasperDesign design = JRXmlLoader.load(jasperStream);
+		JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+		// Generate the report data
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportList);
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put(param, param);
+
+		// Fill the report with data
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+		// Export the report to a PDF file and create an InputStreamResource from the
+		// generated PDF
+		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
+		InputStreamResource isr = new InputStreamResource(bis);
+
+		// Date and Time
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_hh:mm");
+		String formattedDateTime = now.format(Dateformatter);
+
+		// Create and return a ResponseEntity with the InputStreamResource
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition",
+				"attachment; filename=" + param.replaceAll("\\s+", "_") + "_" + formattedDateTime + ".pdf");
+		ResponseEntity<InputStreamResource> responseEntity = ResponseEntity.ok().headers(headers)
+				.contentType(MediaType.APPLICATION_PDF).body(isr);
+		return responseEntity;
+	}
+
 	@GetMapping("/daily/report")
-	public ResponseEntity<InputStreamResource> generateReport(@ModelAttribute("daily") MisReportDto misReportDto,
+	public ResponseEntity<InputStreamResource> misReport(@ModelAttribute("daily") MisReportDto misReportDto,
 			HttpSession session) throws Exception {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,35 +112,10 @@ public class MisController {
 				return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/mis/daily").build();
 			}
 
-			// Compile the .jrxml file to a .jasper file
-			InputStream jasperStream = this.getClass().getResourceAsStream("/reports/Assets_Report.jrxml");
-			JasperDesign design = JRXmlLoader.load(jasperStream);
-			JasperReport jasperReport = JasperCompileManager.compileReport(design);
+			String reportName = "/reports/Assets_Report.jrxml";
+			String param = "Assets Report";
 
-			// Generate the report data
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(newAssets);
-			Map<String, Object> parameters = new HashMap<>();
-			parameters.put("Report Asset", "Assets Report");
-
-			// Fill the report with data
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-
-			// Export the report to a PDF file and create an InputStreamResource from the
-			// generated PDF
-			ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
-			InputStreamResource isr = new InputStreamResource(bis);
-
-			// Date and Time
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter Dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_hh:mm");
-			String formattedDateTime = now.format(Dateformatter);
-
-			// Create and return a ResponseEntity with the InputStreamResource
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "attachment; filename=Assets_Report_" + formattedDateTime + ".pdf");
-			ResponseEntity<InputStreamResource> responseEntity = ResponseEntity.ok().headers(headers)
-					.contentType(MediaType.APPLICATION_PDF).body(isr);
-			return responseEntity;
+			return generateReport(reportName, param, newAssets);
 		} else {
 			return ResponseEntity.badRequest().build();
 		}
