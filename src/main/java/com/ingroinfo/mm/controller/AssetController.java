@@ -34,7 +34,7 @@ public class AssetController {
 	private MasterService masterService;
 
 	@Autowired
-	AssetService assetService;
+	private AssetService assetService;
 
 	@GetMapping("/dashboard")
 	public String dashboard() {

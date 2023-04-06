@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,12 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.ingroinfo.mm.dao.AssetRepository;
+import com.ingroinfo.mm.dao.AssetsRepository;
 import com.ingroinfo.mm.dto.MisReportDto;
 import com.ingroinfo.mm.entity.Assets;
-import com.ingroinfo.mm.service.AssetService;
-
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -35,14 +30,14 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @RequestMapping("/mis")
 public class MisReportController {
 
+	@Autowired
+	private AssetsRepository assetsRepository;
+
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
 		model.addAttribute("getLoggedUser", principal.getName());
 	}
 
-	@Autowired
-	private AssetRepository assetRepository;
-	
 	@GetMapping("/daily")
 	@PreAuthorize("hasAuthority('MIS_DAILY_REPORT')")
 	public String misDaily(Model model) {
@@ -61,8 +56,7 @@ public class MisReportController {
 
 		if (misReportDto.getSubCategory().equals("ASSETS")) {
 
-			List<Assets> assets = assetRepository.findAll();
-						
+			List<Assets> assets = assetsRepository.findAll();
 			List<Assets> newAssets = assets.stream()
 					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
 					.collect(Collectors.toList());
@@ -83,9 +77,7 @@ public class MisReportController {
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition", "attachment; filename=Assets_Report.pdf");
 			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-
 		}
-
 	}
 
 	@GetMapping("/monthly")

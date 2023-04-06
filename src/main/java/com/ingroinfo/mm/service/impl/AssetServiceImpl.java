@@ -4,36 +4,36 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ingroinfo.mm.dao.AssetRepository;
+
+import com.ingroinfo.mm.dao.AssetsRepository;
 import com.ingroinfo.mm.dto.AssetEntryDto;
 import com.ingroinfo.mm.entity.Assets;
 import com.ingroinfo.mm.service.AssetService;
-
 
 @Service
 public class AssetServiceImpl implements AssetService{
 
 	@Autowired
-	ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 	
 	@Autowired
-	AssetRepository assetRepository;
+	private AssetsRepository assetsRepository;
 	
 	@Override
 	public void saveAsset(AssetEntryDto assestEntry) {
 		Assets assets = modelMapper.map(assestEntry, Assets.class);
-		assetRepository.save(assets);
+		assetsRepository.save(assets);
 	}
 
 	@Override
 	public List<Assets> getAllAssets() {		
-		return assetRepository.findAll();
+		return assetsRepository.findAll();
 	}
 
 	@Override
 	public Assets getAssetById(Long assetId) {
 		
-		Assets asset = assetRepository.findById(assetId).get();
+		Assets asset = assetsRepository.findById(assetId).get();
 		return asset;
 	}
 
