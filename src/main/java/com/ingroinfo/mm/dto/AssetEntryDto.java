@@ -1,8 +1,16 @@
 package com.ingroinfo.mm.dto;
 
-import lombok.Data;
+import java.util.Date;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AssetEntryDto {
 
 	private Long assetEntryId;
@@ -25,5 +33,12 @@ public class AssetEntryDto {
 	private String department;
 	private String assetMake;
 	private int quantity;
+	private Date dateCreated;
+	private Date lastUpdated;
+	
+    }
+	
+	
+	
 
-}
+
