@@ -25,8 +25,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.ingroinfo.mm.dao.AssetsRepository;
+import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
+import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
+import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
+import com.ingroinfo.mm.dao.StockOrderItemsRepository;
 import com.ingroinfo.mm.dto.MisReportDto;
 import com.ingroinfo.mm.entity.Assets;
+import com.ingroinfo.mm.entity.InwardApprovedMaterials;
+import com.ingroinfo.mm.entity.InwardApprovedSpares;
+import com.ingroinfo.mm.entity.InwardApprovedTools;
+import com.ingroinfo.mm.entity.StockOrderItems;
 import com.ingroinfo.mm.helper.Message;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -43,6 +51,18 @@ public class MisController {
 
 	@Autowired
 	private AssetsRepository assetsRepository;
+
+	@Autowired
+	private InwardApprovedMaterialsRepository inwardApprovedMaterialsRepository;
+
+	@Autowired
+	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
+
+	@Autowired
+	private InwardApprovedSparesRepository inwardApprovedSparesRepository;
+
+	@Autowired
+	private StockOrderItemsRepository stockOrderItemsRepository;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -100,23 +120,97 @@ public class MisController {
 		Date fromDate = formatter.parse(misReportDto.getFromDate());
 		Date toDate = formatter.parse(misReportDto.getToDate());
 
-		if (misReportDto.getSubCategory().equals("ASSETS")) {
+		String message = "No data exists to generate report!";
+		String redirect = "/mis/daily";
+
+		if (misReportDto.getCategory().equals("ASSETS") && misReportDto.getSubCategory().equals("ASSETS")) {
+
+			String reportName = "/reports/Assets_Report.jrxml";
+			String param = "Assets Report";
 
 			List<Assets> assets = assetsRepository.findAll();
 			List<Assets> newAssets = assets.stream()
 					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
 					.collect(Collectors.toList());
 
-			if (newAssets.size() == 0) {
-				session.setAttribute("message", new Message("No data exists to generate report!", "danger"));
-				return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/mis/daily").build();
+			if (newAssets.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
 			}
 
-			String reportName = "/reports/Assets_Report.jrxml";
-			String param = "Assets Report";
-
 			return generateReport(reportName, param, newAssets);
+
+		} else if (misReportDto.getCategory().equals("STOCKS")
+				&& misReportDto.getSubCategory().equals("INWARDMATERIALS")) {
+
+			String reportName = "/reports/Inward_Materials_Report.jrxml";
+			String param = "Inward Materials Report";
+
+			List<InwardApprovedMaterials> inwardMaterials = inwardApprovedMaterialsRepository.findAll();
+			List<InwardApprovedMaterials> newInwardMaterials = inwardMaterials.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newInwardMaterials.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+
+			return generateReport(reportName, param, newInwardMaterials);
+
+		} else if (misReportDto.getCategory().equals("STOCKS")
+				&& misReportDto.getSubCategory().equals("INWARDSPARES")) {
+
+			String reportName = "/reports/Inward_Spares_Report.jrxml";
+			String param = "Inward Spares Report";
+
+			List<InwardApprovedSpares> inwardSpares = inwardApprovedSparesRepository.findAll();
+			List<InwardApprovedSpares> newInwardSpares = inwardSpares.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newInwardSpares.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+
+			return generateReport(reportName, param, newInwardSpares);
+
+		} else if (misReportDto.getCategory().equals("STOCKS") && misReportDto.getSubCategory().equals("INWARDTOOLS")) {
+
+			String reportName = "/reports/Inward_Tools_Report.jrxml";
+			String param = "Inward Tools Report";
+
+			List<InwardApprovedTools> inwardToos = inwardApprovedToolsRepository.findAll();
+			List<InwardApprovedTools> newInwardToos = inwardToos.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newInwardToos.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+
+			return generateReport(reportName, param, newInwardToos);
+
+		} else if (misReportDto.getCategory().equals("STOCKS")
+				&& misReportDto.getSubCategory().equals("OUTWARDSTOCKS")) {
+
+			String reportName = "/reports/Outward_Stocks_Report.jrxml";
+			String param = "Outward Stocks Report";
+
+			List<StockOrderItems> stockOrderItems = stockOrderItemsRepository.findAll();
+			List<StockOrderItems> newStockOrderItems = stockOrderItems.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newStockOrderItems.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newStockOrderItems);
 		} else {
+
 			return ResponseEntity.badRequest().build();
 		}
 	}

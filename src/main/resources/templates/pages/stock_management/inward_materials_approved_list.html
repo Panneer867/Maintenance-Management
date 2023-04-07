@@ -91,10 +91,11 @@
 					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.mrpRate}"></label></td>
 					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.subTotal}"></label></td>
 					<td><label class="px-1" th:text="${approvedMaterialsList.igst}"></label>%</td>
+					
+					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.grandTotal}"></label></td>
 					<td class="text-center">
 						<span class="status-success" th:text="${approvedMaterialsList.approvalStatus}" />
 					</td>
-					<td>&#8377;<label class="px-1" th:text="${approvedMaterialsList.grandTotal}"></label></td>
 						<td th:text="${#dates.format(approvedMaterialsList.dateCreated, 'dd/MM/yyyy ')}"></td>
 					<td class="text-center">
 						<button
