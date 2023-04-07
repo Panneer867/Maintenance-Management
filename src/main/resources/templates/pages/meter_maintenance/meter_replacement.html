@@ -2,184 +2,1181 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Meter Management
-		</h3>
-		<div class="row mt-2">
-			<div class="col-4" dir="ltr">
-				<nav aria-label="breadcrumb">
-					<ol class="default-breadcrumb">
-						<li class="crumb">
-							<div class="link"><a th:href="@{/monitor/meter/dashboard}" class="fa fa-home pt-1"></a>
+
+		<div class="mt-2">
+			<ul class="nav nav-pills justify-content-center py-1 " id="pills-tab" role="tablist">
+
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active mx-1 py-2 text-white hvr bg-dark" id="meter-index-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-index" type="button" role="tab"
+						aria-controls="pills-home" aria-selected="true">
+						Meter Index
+					</button>
+				</li>
+				<!--<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="pills-chart-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-chart" type="button" role="tab" aria-controls="pills-chart"
+						aria-selected="false">
+						Replace/Testing Complaint
+					</button>
+				</li>-->
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="meter-inspection-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-inspection" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Replace/Testing Inspection
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="meter-Intent-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-Intent" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Replace/Testing Indent
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="meter-work-order-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-work-order" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Replace/Testing Work Order
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="meter-work-update-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-work-update" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Replace/Testing Work Update
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link py-2 mx-1 text-white hvr bg-dark" id="meter-history-tab"
+						data-bs-toggle="pill" data-bs-target="#meter-history" type="button" role="tab"
+						aria-controls="pills-profile" aria-selected="false">
+						Replace/Testing History
+					</button>
+				</li>
+
+
+			</ul>
+
+			<!--*********************** Meter Index  Start ********************-->
+			<div class="tab-content" id="pills-tabContent">
+
+				<div class="tab-pane fade show active " id="meter-index" role="tabpanel"
+					aria-labelledby="meter-index-tab" tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Meter Index</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" required name="purchaseDate">
+									</div>
+								</div>
 							</div>
-						</li>
 
-						<li class="crumb active">
-							<div class="link"><span aria-current="location">Meter Replace</span></div>
-						</li>
-					</ol>
-				</nav>
-			</div>
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Sanction Date *</label>
+									<div class="col">
+										<input type="date" class="form-control form-control-sm bg-white"
+											id="purchaseDate" required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Purchase Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">IMIS ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">DMA ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
 
-		</div>
-	
-		<div class="col-11 mx-auto">
-			<div th:if="${session.message}" class="alert_field">
-			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-				<span th:text="${session.message.content}"></span>
-			</div>
-			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		</div>
-			<div class="card bl-cr">
-				<div class="card-header heading-bg">
-					<h3 class="text-center text-white mb-0">Meter Replace</h3>
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Ref No
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device type
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Device Digit</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Old Device No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Remove Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Connected Date *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Location *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Device Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device
+										Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
 				</div>
-				<div class="card-body font-weight-bold">
 
-					<form th:action="@{/monitor/meter/replacement}" th:object="${meter}" method="post">
-						<div class="row ">
-							<div class="col-3 text-start">
-								<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="complaintNumber">
+
+
+				<!-- Meter Inspection Start-->
+
+				<div class="tab-pane fade click " id="meter-inspection" role="tabpanel"
+					aria-labelledby="meter-inspection-tab" tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Replace/Testing Inspection</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
 								</div>
-							</div>
-							<div class="col text-start">
-								<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="department">
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
 								</div>
 							</div>
 
-							<div class="col text-start">
-								<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceNo">
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
 								</div>
 							</div>
-							<div class="col text-start">
-								<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceMake">
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device
+										Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
 								</div>
 							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+
+								<div class="col-6 text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-6 text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
+										Result</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
 						</div>
 
-						<div class="row ">
-							<div class="col text-start">
-								<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="consumerId">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="consumerName">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceIr">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceFr">
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col text-start">
-								<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
-									*</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceLocation">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="manufactureContact" class="col-sm-12 col-form-label">Device
-									Ownership</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceOwnership">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="pipeSize">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="deviceWarranty">
-								</div>
-							</div>
-						</div>
-
-						<div class="row ">
-							<div class="col-3 text-start">
-								<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="plumberName">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="plumberId">
-								</div>
-							</div>
-
-							<div class="col text-start">
-								<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="dma">
-								</div>
-							</div>
-							<div class="col text-start">
-								<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="ward">
-								</div>
-							</div>
-						</div>
-
-						<div class="row ">
-
-							<div class="col-6 text-start">
-								<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="compliantDetails">
-								</div>
-							</div>
-
-						</div>
-
-						<div class="row">
-
-							<div class="col-6 text-start">
-								<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
-									Result</label>
-								<div class="col">
-									<input type="text" class="form-control" required name="inspectionResult">
-								</div>
-							</div>
-
-						</div>
-
-						<div class="mt-4 text-center">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="reset" class="btn btn-light">Reset</button>
-						</div>
-					</form>
+					</div>
 				</div>
+
+				<!-- Meter Inspection End -->
+
+
+				<!-- Meter Intent Start-->
+
+				<div class="tab-pane fade click " id="meter-Intent" role="tabpanel" aria-labelledby="meter-Intent-tab"
+					tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Replace/Testing Intent</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device
+										Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+
+								<div class="col-6 text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-6 text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
+										Result</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Meter Intend End -->
+
+
+				<!-- Meter Work Order Start-->
+
+				<div class="tab-pane fade click " id="meter-work-order" role="tabpanel"
+					aria-labelledby="meter-work-order-tab" tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Replace/Testion Work Order</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device
+										Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+
+								<div class="col-6 text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-6 text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
+										Result</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Meter Work Order End -->
+
+
+				<!-- Meter Work Update Start-->
+
+				<div class="tab-pane fade click " id="meter-work-update" role="tabpanel"
+					aria-labelledby="meter-work-update-tab" tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Replace/Testion Work Update</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device
+										Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+
+								<div class="col-6 text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-6 text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
+										Result</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Meter Work Update End -->
+
+
+				<!-- Meter Work Update Start-->
+
+				<div class="tab-pane fade click " id="meter-history" role="tabpanel" aria-labelledby="meter-history-tab"
+					tabindex="0">
+					<div class="card bl-cr">
+						<div class="card-header heading-bg">
+							<h3 class="text-center text-white mb-0">Replace/Testion history</h3>
+						</div>
+						<div class="card-body font-weight-bold">
+
+
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Complaint Number</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Department</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">Device No *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Device Make *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Consumer ID *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpWarranty" class="col-sm-8 col-form-label">Consumer Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpWarranty" readonly required name="pumpWarranty">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpStonName" class="col-sm-10 col-form-label">Device IR *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenTime" class="col-sm-10 col-form-label">Device FR</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpStonName"
+											required name="pumpStonName">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Device Location
+										*</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Device
+										Ownership</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly required name="manufactureContact">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureAddr" class="col-sm-10 col-form-label">Pipe Size *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureAddr" readonly required name="manufactureAddr">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workInterval" class="col-sm-10 col-form-label">Device Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="workInterval"
+											required name="workInterval">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+								<div class="col-3 text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Plumber Name *</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId"
+											readonly required name="pumpId">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpType" class="col-sm-8 col-form-label">Plumber Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpType"
+											readonly required name="pumpType">
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpDetails" class="col-sm-10 col-form-label">DMA</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpDetails"
+											required name="pumpDetails">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Ward</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+							</div>
+
+							<div class="row ">
+
+								<div class="col-6 text-start">
+									<label for="purchaseDate" class="col-sm-10 col-form-label">Compliant Details</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchaseDate" readonly required name="purchaseDate">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-6 text-start">
+									<label for="manufactureName" class="col-sm-12 col-form-label">Inspection
+										Result</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureName" readonly required name="manufactureName">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="mt-4 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="#" class="btn btn-success">View</a>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Meter History End -->
 
 			</div>
 		</div>
+
+
+
+
+
 	</section>
 </body>
 

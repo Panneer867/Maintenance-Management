@@ -15,11 +15,11 @@ public interface TempAddedIndentVehiclesRepository extends JpaRepository<TempAdd
 
 	List<TempAddedIndentVehicles> getByIndentNoAndComplNo(String indentNo, String complNo);
 
-	boolean existsByVehicleNo(String vehicleNo);
+	boolean existsByVehicleNoAndComplNo(String vehicleNo, String complNo);
 
 	@Transactional
     @Modifying
     @Query("DELETE FROM TempAddedIndentVehicles v WHERE v.complNo = :complNo")
-	void deleteByComplNo(String complNo);
+	void deleteByComplNo(String complNo);	
 
 }

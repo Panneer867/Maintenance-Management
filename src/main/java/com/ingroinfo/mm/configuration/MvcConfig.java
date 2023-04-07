@@ -16,5 +16,10 @@ public class MvcConfig implements WebMvcConfigurer {
 		String uploadPath = uploadDir.toFile().getAbsolutePath();
 		registry.addResourceHandler("/Company/**").addResourceLocations("file:/" + uploadPath + "/");
 
+		/*
+		 * registry.addResourceHandler("/images/**").addResourceLocations(
+		 * "/WEB-INF/images/") .setCacheControl(CacheControl.maxAge(2,
+		 * TimeUnit.HOURS).cachePublic());
+		 */
 	}
 }

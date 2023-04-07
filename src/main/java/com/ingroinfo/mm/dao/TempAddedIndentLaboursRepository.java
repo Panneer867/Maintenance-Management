@@ -15,11 +15,13 @@ public interface TempAddedIndentLaboursRepository extends JpaRepository<TempAdde
 
 	List<TempAddedIndentLabours> getByIndentNoAndComplNo(String indentNo, String complNo);
 
-	boolean existsByEmpCategory(String empCategory);
-
+	boolean existsByEmpCategoryAndComplNo(String empCategory, String complNo);
+	
 	@Transactional
     @Modifying
     @Query("DELETE FROM TempAddedIndentLabours l WHERE l.complNo = :complNo")
 	void deleteByComplNo(String complNo);
+
+	
 
 }

@@ -599,7 +599,7 @@ public interface MasterService {
 	TeamCodeDto saveTeamCode(TeamCodeDto teamCodeDto);
 	
 	// Validate Team Section Name Data
-	boolean isExistsByTeamSectionName(String section);
+	boolean isExistsByTeamCode(String teamCode);
 	
 	// Validate Team Site Engineer Name
 	boolean isExistsByTeamSiteEngineer(String siteEnginner);
@@ -649,7 +649,19 @@ public interface MasterService {
 	// Get Category By Department
 	EmployeeCategoryDto getCategoryByDept(String department);
 
+	// Get Incremented id By Id Name
 	String getAutoIncrementId(String masterIdName);
 	
-	
+	//AutoIncriment Id By MasterIdName And DepartmentName
+	String getAutoIncrimentIdForDepartment(String masterIdName,String deptName);
+
+	//Get Pump Master Details By PumpMaster Id
+	PumpMasterDto getPumpMasterDetailsByPumpMasterId(Long pumpMasterId);
+
+	//Get DamaWard Details By WardNumber
+	DmaWardDto getDmaWardByWardMumber(String wardNumber);
+
+	//Get TeamCode Details By TeamCodeId
+	TeamCodeDto getTeamCodeByTeamCodeId(Long teamCodeId);
+		
 }

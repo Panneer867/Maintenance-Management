@@ -13,5 +13,7 @@ public class PumpMasterDto {
 	private String contactNo;
 	private String manufactName;
 	private String manufactAddress;
+	private String pumpMake;
+	private String pumpPower;
 
 }

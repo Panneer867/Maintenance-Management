@@ -2,6 +2,8 @@ package com.ingroinfo.mm.service;
 
 import java.util.List;
 
+import com.ingroinfo.mm.dto.PumpMaintenanceInspectionDto;
+import com.ingroinfo.mm.dto.PumpMaintenanceUpdatedDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 
 public interface PumpMaintenanceService {
@@ -9,14 +11,17 @@ public interface PumpMaintenanceService {
 	//save Pump Index Data
 	PumpMaintenanceDto savePumpMaintenance(PumpMaintenanceDto pumpMaintenDto);
 	
-	//get All Data
-	List<PumpMaintenanceDto> getAllMaintenance();
-	
-	//get Data by Pump Maintenance Id
-	PumpMaintenanceDto getPumpMaintenByPumpMaintenId(Long pumpMaintenId);
+	//Save Pump Maintenance Updated Data
+	PumpMaintenanceUpdatedDto savePumpMaintenanceUpdated(PumpMaintenanceUpdatedDto pumpDto);
 
-	//Delete Added Pump Material Data From List
-	boolean deleteMateialById(Long pumMaterialId);
+	//find All Pump Maintenance Updated Data
+	List<PumpMaintenanceUpdatedDto> getAllPumpMaintenanceUpdated();
+
+	//Get Pump Maintenance Updated Data By WorkOrder Number
+	PumpMaintenanceUpdatedDto getPumpMaintenanceUpdatedByWorkorderNo(String workOrderNo);
+
+	//Save Pump Maintenance Inspection Data
+	PumpMaintenanceInspectionDto savePumpInspectionData(PumpMaintenanceInspectionDto pumpInspectionDto);
 	
 	
 }

@@ -19,4 +19,6 @@ public interface TaskUpdateRepository extends JpaRepository<Complaints, Long> {
 	List<Complaints> getComplainByDeptComplSts(String department,String complSts);
 
 	List<Complaints> findByComplStatus(String complStatus);
+
+	Complaints getByWorkOrder(String workOrder);
 }

@@ -117,7 +117,7 @@ public class Complaints {
 	private String esclationType;
 	@Column(name = "ESCLATED_LAVEL")
 	private String esclationLavel;
-	
+	private Date workCompletedDate;
 	private String indentNo;
 	private String workOrder;
 	private String indentApprovedBy;
@@ -130,4 +130,6 @@ public class Complaints {
 	private Date workOrderCancelDate;
 	private String workOrderReApproveBy;
 	private Date workOrderReApprovedDate;
+	private Date inspectionDate;
+	private String inspectionBy;
 }

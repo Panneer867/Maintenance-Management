@@ -2,271 +2,442 @@
 
 <body>
 	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Pipe Maintenance Work Status Update
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/pump/maintenance/update}" class="fa fa-home pt-1"></a>
+							</div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Maintenance Update</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
 		<!-- form Start-->
-		<div class="row mt-3">
+		<div class="row">
 			<div class="col">
-
-				<div class="col-sm-12 ">
-					<div class="card bl-cr">
-						<div class="card-header heading-bg">
-							<h3 class="text-center text-white">Pipe Maintenance Update </h3>
-						</div>
-						<div class="card-body font-weight-bold">
-
-							<form method="post" th:action="@{/pipe/savepipemaintenanceupdate}"
-								th:object="${pipeMaintenance}">
-
-
-								<div class="row mt-3">
-
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Number</label>
-										<input type="number" class="form-control" id="pipeWorkOrderNo"
-											name="pipeWorkOrderNo" placeholder="Work Order Number">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Order Date</label>
-										<input type="date" class="form-control" id="pipeWorkOrderdate"
-											name="pipeWorkOrderdate" placeholder="Work Order Date">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line Indent No</label>
-										<input type="number" class="form-control" id="pipeIndentNo" name="pipeIndentNo"
-											placeholder="Pipe Line Indent No"
-											th:value="${pipeMaintenance.pipeIndentNo}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line Indent Date</label>
-										<input type="text" class="form-control" id="pipeIndentDate"
-											name="pipeIndentDate" placeholder="Pipe Line Indent Date"
-											th:value="${pipeMaintenance.pipeIndentDate}">
-									</div>
-								</div>
-
-
-								<!--***********Row 2**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line From</label>
-										<input type="text" class="form-control" id="pipeFrom" name="pipeFrom"
-											placeholder="Pipe Line From" th:value="${pipeMaintenance.pipeFrom}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line End</label>
-										<input type="text" class="form-control" id="pipeEnd" name="pipeEnd"
-											placeholder="Pipe Line End" th:value="${pipeMaintenance.pipeEnd}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Lenth in Meter / KM</label>
-										<input type="number" class="form-control" id="lengthMeterKM"
-											name="lengthMeterKM" placeholder="Lenth in Meter / KM"
-											th:value="${pipeMaintenance.lengthMeterKM}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Maintenance Type</label>
-
-										<input type="text" class="form-control" id="maintenanceType"
-											name="maintenanceType" placeholder="Maintenance Type"
-											th:value="${pipeMaintenance.maintenanceType}">
-										<!--<select class="form-select" id="inputGroupSelect03"
-										aria-label="Example select with button addon">
-										<option selected>Choose...</option>
-										<option value="1">Emergency</option>
-										<option value="2">Routine </option>
-										<option value="3">Pro-Active </option>
-									</select>-->
-									</div>
-
-
-								</div>
-
-								<!--***********Row 3**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line Start Node</label>
-										<input type="text" class="form-control" id="pipeStartNode" name="pipeStartNode"
-											placeholder="Pipe Line Start Node"
-											th:value="${pipeMaintenance.pipeStartNode}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line End Node</label>
-										<input type="text" class="form-control" id="pipeEndNode" name="pipeEndNode"
-											placeholder="Pipe Line End Node" th:value="${pipeMaintenance.pipeEndNode}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Lenth in Meter / KM</label>
-										<input type="number" class="form-control" id="nodeLengthMeterKM"
-											name="nodeLengthMeterKM" placeholder="Lenth in Meter / KM"
-											th:value="${pipeMaintenance.nodeLengthMeterKM}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Assts ID</label>
-										<input type="number" class="form-control" id="asstsID" name="asstsID"
-											placeholder="Assts ID" th:value="${pipeMaintenance.asstsID}">
-									</div>
-								</div>
-
-								<!--***********Row 4**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Langitude</label>
-										<input type="number" class="form-control" id="langitude" name="langitude"
-											placeholder="Langitude" th:value="${pipeMaintenance.langitude}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Latitude</label>
-										<input type="number" class="form-control" id="latitude" name="latitude"
-											placeholder="Latitude" th:value="${pipeMaintenance.latitude}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Lenth in Meter / KM</label>
-										<input type="number" class="form-control" id="lanlatlLengthMeterKM"
-											name="lanlatlLengthMeterKM" placeholder="Lenth in Meter / KM"
-											th:value="${pipeMaintenance.lanlatlLengthMeterKM}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Line Type</label>
-										<input type="text" class="form-control" id="pipeLineType" name="pipeLineType"
-											placeholder="Pipe Line  Type" th:value="${pipeMaintenance.pipeLineType}">
-									</div>
-								</div>
-								<!--***********Row 5**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipeline Diameter</label>
-										<input type="text" class="form-control" id="pipeLineDiameter"
-											name="pipeLineDiameter" placeholder="Pipeline Diameters"
-											th:value="${pipeMaintenance.pipeLineDiameter}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipeline pressure</label>
-										<input type="text" class="form-control" id="pipeLinepressure"
-											name="pipeLinepressure" placeholder="Pipeline pressure"
-											th:value="${pipeMaintenance.pipeLinepressure}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">GRID</label>
-										<input type="number" class="form-control" id="pipeGRID" name="pipeGRID"
-											placeholder="GRID" th:value="${pipeMaintenance.pipeGRID}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">GMIS_ID</label>
-										<input type="number" class="form-control" id="pipeGMIS_ID" name="pipeGMIS_ID"
-											placeholder="GMIS_ID" th:value="${pipeMaintenance.pipeGMIS_ID}">
-									</div>
-								</div>
-
-								<!--***********Row 6**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Ward No</label>
-										<input type="number" class="form-control" id="pipeWardNo" name="pipeWardNo"
-											placeholder="Ward No" th:value="${pipeMaintenance.pipeWardNo}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Ward Name</label>
-										<input type="text" class="form-control" id="pipeWardName" name="pipeWardName"
-											placeholder="Ward Name" th:value="${pipeMaintenance.pipeWardName}">
-									</div>
-
-								</div>
-
-								<!--***********Text Area**********-->
-								<div class="row mt-3">
-
-									<label for="inputEmail4">Pipe maintenance reasons</label>
-									<textarea class="form-control" id="pipeMaintenanceReasons"
-										name="pipeMaintenanceReasons"
-										th:value="${pipeMaintenance.pipeMaintenanceReasons}"></textarea>
-
-								</div>
-								<!--***********Row 7**********-->
-								<div class="row mt-3">
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Breakdown Date</label>
-										<input type="text" class="form-control" id="pipeBreakdownDate"
-											name="pipeBreakdownDate" placeholder="Pipe Breakdown schedule Date"
-											th:value="${pipeMaintenance.pipeBreakdownDate}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Pipe Breakdown Time</label>
-										<input type="text" class="form-control" id="pipeBreakdownTime"
-											name="pipeBreakdownTime" placeholder="Pipe Breakdown schedule Time"
-											th:value="${pipeMaintenance.pipeBreakdownTime}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Site Engineer</label>
-										<input type="text" class="form-control" id="siteEngineer" name="siteEngineer"
-											placeholder="Site Engineer" th:value="${pipeMaintenance.siteEngineer}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Team Code</label>
-										<input type="text" class="form-control" id="teamCode" name="teamCode"
-											placeholder="Team Code" th:value="${pipeMaintenance.teamCode}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Site Superwiser </label>
-										<input type="text" class="form-control" id="siteSuperwiser"
-											name="siteSuperwiser" placeholder="Site Superwiser"
-											th:value="${pipeMaintenance.siteSuperwiser}">
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputEmail4">Work Status</label>
-										<input type="text" class="form-control" id="workStatus" name="workStatus"
-											placeholder="Work Status">
-									</div>
-								</div>
-
-								<div class="text-center">
-									<button type="submit" class="btn btn-info ">Submit</button>
-									<button type="button" class="btn btn-secondary ">Invoice Print</button>
-
-
-								</div>
-							</form>
-						</div>
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
 					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				<div class="card text-center bl-cr">
+					<div class="card-header heading-bg text-white fs-4">
+						WorkOrder Details
+					</div>
+					<div class="card-body font-weight-bold">
+						<form data-toggle="validator" th:action="@{/pump/maintenance/submitUpdated}" method="post">
+							<div class="row ">
+								<div class="col text-start">
+									<label for="workOrderNo" class="col-sm-10 col-form-label">WorkOrder No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											th:value="${complDtls.workOrder}" id="workOrderNo" readonly
+											name="workOrderNo" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="workorderApprovedDate" class="col-sm-10 col-form-label">WorkOrder
+										Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											th:value="${complDtls.workorderApprovedDate}" id="workorderApprovedDate"
+											name="workOrderApprovedDate" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="indentNo" class="col-sm-12 col-form-label">PipeLine Indent No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											th:value="${complDtls.indentNo}" id="indentNo" readonly name="indentNo"
+											required>
+									</div>
+									<input type="hidden" id="complNo" th:value="${complDtls.complNo}" name="complNo">
+									<input type="hidden" id="department" th:value="${complDtls.department}"
+										name="department">
+								</div>
+								<div class="col text-start">
+									<label for="indentApprovedDate" class="col-sm-12 col-form-label">PipeLine Indent
+										Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											name="indentApprovedDate" th:value="${complDtls.indentApprovedDate}"
+											id="indentApprovedDate" readonly required>
+									</div>
+								</div>
 
+							</div>
+							<div class="row">
+								<div class="col text-start">
+									<label for="distributionTo" class="col-sm-10 col-form-label">Assts Id</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="distributionTo"
+											placeholder="Enter Distribution To" name="distributionTo" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="distributionTo" class="col-sm-10 col-form-label">Complaint No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="distributionTo"
+											placeholder="Enter Distribution To" name="distributionTo" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="latitude" class="col-sm-8 col-form-label">Latitude</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="latitude"
+											value="-----" name="latitude" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="langitude" class="col-sm-8 col-form-label">Langitude</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="langitude"
+											value="-----" name="langitude" required>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col text-start">
+									<label for="pumptype" class="col-sm-12 col-form-label">PipeLine Type</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-pumpType" readonly name="pumptype" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumptype" class="col-sm-12 col-form-label">Pipeline Diameter</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-pumpType" readonly name="pumptype" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumptype" class="col-sm-12 col-form-label">Pipeline pressure</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-pumpType" readonly name="pumptype" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="maintenanceType" class="col-sm-10 col-form-label">Maintenance
+										Type</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm" id="maintenanceType"
+											name="maintenanceType" required>
+											<option value="">--select--</option>
+											<option th:each="maintenanceType:${listOfMaintenanceType}"
+												th:text="${maintenanceType.maintenTypeStatus}"
+												th:value="${maintenanceType.maintenTypeStatus}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="grid" class="col-sm-8 col-form-label">GRID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="grid"
+											placeholder="Enter GRID" name="grid" required>
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="gmisId" class="col-sm-8 col-form-label">GMIS_ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="gmisId"
+											placeholder="Enter GIMS Id" name="gmisId" required>
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="wardNo" class="col-sm-10 col-form-label">Ward No</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm"
+											id="master-dmaward-wardno" name="wardNo" required>
+											<option value="">--Select--</option>
+											<option th:each="dmaWards:${listofDmaWard}" th:text="${dmaWards.wardNumber}"
+												th:value="${dmaWards.wardNumber}"></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="wardName" class="col-sm-10 col-form-label">Ward Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="dmaward-master-wardName" readonly name="wardName" required>
+									</div>
+								</div>
+
+							</div>
+							<div class="row from-group">
+								<div class="col text-start">
+									<label for="pumpMasterId" class="col-sm-10 col-form-label">PipeLine From</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm" id="master-pump-id"
+											required>
+											<option value="">--Select--</option>
+											<option th:each="pumps:${listOfPumpMaster}" th:text="${pumps.pumpId}"
+												th:value="${pumps.pumpMasterId}"></option>
+										</select>
+									</div>
+								</div>
+
+								<input type="hidden" id="pump-master-pumpId" name="pumpId">
+
+								<div class="col text-start form-group">
+									<label for="pumpLocation" class="col-sm-10 col-form-label">PipeLine End</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm" id="pumpLocation"
+											placeholder="Enter Pump Location" required name="pumpLocation"
+											pattern="^[A-Za-z]+[A-Za-z ]*$" data-error="Enter Pump Location !">
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+
+								<div class="col text-start">
+									<label for="pumpMake" class="col-sm-12 col-form-label">Lenth in Meter / KM</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-pumpMake" readonly name="pumpMake" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenDate" class="col-sm-12 col-form-label">Next Maintenance
+										Date</label>
+									<div class="col">
+										<input type="date" class="form-control form-control-sm" id="nextMaintenDate"
+											name="nextMaintenDate" required>
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col text-start">
+									<label for="purchageDate" class="col-sm-12 col-form-label">PipeLine Start
+										Node</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-purchageDate" readonly name="purchageDate" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="warranty" class="col-sm-12 col-form-label">PipeLine End Node</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pump-master-warranty" readonly name="warranty" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="waterSource" class="col-sm-10 col-form-label">Lenth in Meter /
+										KM</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm" id="waterSource"
+											name="waterSource" required>
+											<option value="">--Select--</option>
+											<option th:each="waterSource:${listOfWaterSourse}"
+												th:text="${waterSource.waterSource}"
+												th:value="${waterSource.waterSource}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintentime" class="col-sm-12 col-form-label">Next Maintenance
+										Time</label>
+									<div class="col">
+										<input type="time" id="nextMaintentime" class="form-control form-control-sm"
+											name="nextMaintentime" required>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 text-start">
+									<label for="maintenanceReasone" class="col-sm-8 col-form-label"> Pipe Maintenance
+										Reasons</label>
+									<div class="col">
+										<textarea type="text" class="form-control form-control-sm"
+											id="maintenanceReasone" name="maintenanceReasone" required
+											placeholder="Write Maintenance Reasons"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+									<label for="breakDownDate" class="col-sm-12 col-form-label">Pipe Breakdown
+										Date</label>
+									<div class="col">
+										<input type="date" class="form-control form-control-sm" id="breakDownDate"
+											name="breakDownDate" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="breakDowntime" class="col-sm-12 col-form-label">Pipe Breakdown
+										Time</label>
+									<div class="col">
+										<input type="time" class="form-control form-control-sm" id="breakDowntime"
+											name="breakDowntime" required>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="inputEmail3" class="col-sm-10 col-form-label">Team Code</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm"
+											id="teamCode-master-teamCodeId" required>
+											<option valu="">--Select--</option>
+											<option th:each="teamCodes:${listOfTeamCode}"
+												th:text="${teamCodes.teamCode}" th:value="${teamCodes.teamCodeId}">
+											</option>
+										</select>
+									</div>
+								</div>
+								<input type="hidden" id="teamCode-master-teamcode" name="teamCode">
+								<div class="col text-start">
+									<label for="siteEngineerName" class="col-sm-10 col-form-label">Site Engineer</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="teamCode-master-siteEnginner" readonly name="siteEngineerName" required>
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-4 text-start">
+									<label for="workSts" class="col-sm-8 col-form-label">Work Status</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm " id="workSts"
+											name="workSts" required>
+											<option valu="">--Select--</option>
+											<option th:each="workStatus:${listOfWorkSts}"
+												th:text="${workStatus.workStatus}" th:value="${workStatus.workStatus}">
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-4 text-start">
+									<label for="materialReturnSts" class="col-sm-10 col-form-label">Material Return
+										Status</label>
+									<div class="col">
+										<select type="text" class="form-select form-select-sm " id="materialReturnSts"
+											onchange="showDiv('divReturnForm', this)" name="materialReturnSts"
+											aria-label="Example select with button addon" required>
+											<option value="">--Select--</option>
+											<option value="Y">Yes,I Have To Return</option>
+											<option value="N">No,I don't Have To Return</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-4 text-start">
+									<label for="siteSuperWiser" class="col-sm-8 col-form-label">Site Superwiser</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="teamCode-master-siteSuperwiser" readonly name="siteSuperWiser" required>
+									</div>
+								</div>
+							</div>
+							<div id="divReturnForm">
+								<h5 class="text-center text-white mt-2 p-1 bg-primary">Return Item Details</h5>
+								<div class="card-body font-weight-bold pb-0">
+									<div class="row">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="category" class="col-sm-5 col-form-label pr-0">WorkOrder
+													No</label>
+												<div class="col-sm-7 px-0">
+													<input type="number" class="form-control form-control-sm bg-white"
+														readonly th:value="${complDtls.workOrder}">
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="itemName" class="col-sm-5 col-form-label pr-0">Item
+													Name</label>
+												<div class="col-sm-7 px-0">
+													<select class="form-select form-select-sm" id="">
+														<option value="">--Select--</option>
+														<option th:each="approvedItems:${approvedWorkorderItems}"
+															th:text="${approvedItems.itemName}"
+															th:value="${approvedItems.stockOrderNo}"></option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="hsnCode"
+													class="col-sm-5 col-form-label pr-0">Quantity</label>
+												<div class="col-sm-6 px-0">
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<button class="btn-sm btn-outline-secondary btn-danger"
+																type="button" onclick="decrementValue()">-</button>
+														</div>
+														<input type="number"
+															class="form-control form-control-sm bg-white"
+															id="numberInput" value="0">
+														<div class="input-group-append">
+															<button class="btn-sm btn-outline-secondary btn-success"
+																type="button" onclick="incrementValue()">+</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center pt-3">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
-
-			<div class="col-4">
+			<div class="col-3">
 				<div class="card text-center">
-					<div class="card-header heading-bg text-white fs-6 ">
+					<div class="card-header heading-bg text-white fs-6">
 						Updates
 					</div>
-
 					<div class="card-body">
 						<table class="table table-sm">
 							<thead>
 								<tr>
-									<th class="text-center" scope="col">Id</th>
-									<th class="text-center" scope="col">Work No</th>
-									<th class="text-center" scope="col">Date</th>
-									<th class="text-center" scope="col">Status</th>
+									<th class="fs-6" scope="col-sm">ComplNo</th>
+									<th class="fs-6" scope="col-sm">WorkOrder No</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="listpipe : ${listofpipe}" class="text-center">
-
-									<td><a href="#" th:href="@{'/pipe/ViewPipeMaintenance/'+ ${listpipe.pipeId}}"
-											th:text="${listpipe.pipeId}"></a></td>
-									<td th:text="${listpipe.asstsID}"></td>
-									<td th:text="${#dates.format(listpipe.pipeIndentDate, 'dd-MMM-yyyy')}"></td>
-									<td th:text="${listpipe.maintenanceType}"></td>
-
+								<tr th:each="approvedWorkOrders:${approvedWorkOrders}">
+									<td class="fs-6" th:text="${approvedWorkOrders.complNo}"></td>
+									<td class="fs-6" th:text="${approvedWorkOrders.workOrder}"></td>
+									<td class="fs-6">
+										<a class="btn-sm btn-danger p-1 text-white"
+											th:href="@{'/pump/maintenance/update/get/'+${approvedWorkOrders.workOrder}}">Click</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-
-
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 		<!-- form END-->
+		<script>
+			function showDiv(divId, element) {
+				document.getElementById(divId).style.display = element.value == 'Y' ? 'block' : 'none';
+			}
+
+		</script>
 	</section>
 </body>
 

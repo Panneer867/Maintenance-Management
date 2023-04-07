@@ -28,14 +28,21 @@ import com.ingroinfo.mm.dao.TempIndentLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempIndentVehicleRequestRepository;
 import com.ingroinfo.mm.dto.ComplaintDto;
 import com.ingroinfo.mm.dto.DepartmentIdMasterDto;
+import com.ingroinfo.mm.dto.DmaWardDto;
 import com.ingroinfo.mm.dto.InwardDto;
+import com.ingroinfo.mm.dto.MaintenanceTypeDto;
+import com.ingroinfo.mm.dto.PumpMaintenanceInspectionDto;
+import com.ingroinfo.mm.dto.PumpMaintenanceUpdatedDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
 import com.ingroinfo.mm.dto.PumpMasterDto;
+import com.ingroinfo.mm.dto.TeamCodeDto;
 import com.ingroinfo.mm.dto.UnitMeasureDto;
+import com.ingroinfo.mm.dto.WaterSourceDto;
 import com.ingroinfo.mm.dto.WorkOrderApprovedItemsDto;
 import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
 import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
+import com.ingroinfo.mm.dto.WorkStatusDto;
 import com.ingroinfo.mm.entity.TempAddedIndentLabours;
 import com.ingroinfo.mm.entity.TempAddedIndentMaterials;
 import com.ingroinfo.mm.entity.TempAddedIndentVehicles;
@@ -84,7 +91,6 @@ public class PumpController {
 	private TempIndentVehicleRequestRepository tempIndentVehicleRequestRepo;
 	@Autowired
 	private WorkOrderService workOrderService;
-
 
 	// Handler For Open dashBoard
 	@GetMapping("/maintenance/dashboard")
@@ -274,8 +280,7 @@ public class PumpController {
 	@ResponseBody
 	public ResponseEntity<TempAddedIndentVehicles> addTempVehicleData(
 			@ModelAttribute("vehicleData") TempAddedIndentVehicles tempAddedIndentVehicles) {
-		TempAddedIndentVehicles tempIndentVehicleData = this.tempAddedIndentVehiclesRepo
-				.save(tempAddedIndentVehicles);
+		TempAddedIndentVehicles tempIndentVehicleData = this.tempAddedIndentVehiclesRepo.save(tempAddedIndentVehicles);
 		return new ResponseEntity<TempAddedIndentVehicles>(tempIndentVehicleData, HttpStatus.OK);
 	}
 
@@ -297,14 +302,18 @@ public class PumpController {
 
 	}
 
-	// Handler For Add Pump Indent Data In WorkOrder Table
+	// Handler For Add Pump Indent Data In TempIndent Table
 	@GetMapping("/maintenance/indent/submit/{complNo}/{indentNo}")
-	public String savePumpIndent(@PathVariable String complNo,@PathVariable String indentNo, Principal principal, HttpSession session, Model model) {
+	public String savePumpIndent(@PathVariable String complNo, @PathVariable String indentNo, Principal principal,
+			HttpSession session, Model model) {
 		String masterIdName = "Indent Id";
 
-		List<TempAddedIndentMaterials> tempAddedIndentItems = this.tempAddedIndentMaterialsRepo.getByIndentNoAndComplNo(indentNo,complNo);
-		List<TempAddedIndentLabours> tempAddedIndentLabours = this.tempAddedIndentLaboursRepo.getByIndentNoAndComplNo(indentNo,complNo);
-		List<TempAddedIndentVehicles> tempAddedIndentVehicles = this.tempAddedIndentVehiclesRepo.getByIndentNoAndComplNo(indentNo,complNo);
+		List<TempAddedIndentMaterials> tempAddedIndentItems = this.tempAddedIndentMaterialsRepo
+				.getByIndentNoAndComplNo(indentNo, complNo);
+		List<TempAddedIndentLabours> tempAddedIndentLabours = this.tempAddedIndentLaboursRepo
+				.getByIndentNoAndComplNo(indentNo, complNo);
+		List<TempAddedIndentVehicles> tempAddedIndentVehicles = this.tempAddedIndentVehiclesRepo
+				.getByIndentNoAndComplNo(indentNo, complNo);
 
 		String indentNumber = null;
 
@@ -383,76 +392,55 @@ public class PumpController {
 		oldcomplaintDto.setIndentNo(indentNumber);
 		this.taskUpdateService.saveComplaint(oldcomplaintDto);
 		String deptName = oldcomplaintDto.getDepartment();
-		try {
-			DepartmentIdMasterDto deptIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
-					deptName);
-			String lastIndentNo = deptIdMasterDto.getDeptLastId();
-
-			StringBuilder letters = new StringBuilder();
-			StringBuilder numbers = new StringBuilder();
-			for (int i = 0; i < lastIndentNo.length(); i++) {
-				char c = lastIndentNo.charAt(i);
-				if (Character.isDigit(c)) {
-					numbers.append(c);
-				} else {
-					letters.append(c);
-				}
-			}
-			String lettersString = letters.toString();
-			String numbersString = numbers.toString();
-
-			int number = Integer.parseInt(numbersString);
-			number++;
-			String newStartId = lettersString + Integer.toString(number);
-			deptIdMasterDto.setDeptLastId(newStartId);
-			this.masterService.saveDepartmentIdMaster(deptIdMasterDto);
-
-		} catch (Exception e) {
-			System.out.println("Exception :: " + e.getMessage());
-		}
-
+		
+		String nextIncrimentId = this.masterService.getAutoIncrimentIdForDepartment(masterIdName, deptName);
+		DepartmentIdMasterDto deptIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
+				deptName);
+		deptIdMasterDto.setDeptLastId(nextIncrimentId);
+		this.masterService.saveDepartmentIdMaster(deptIdMasterDto);
+		
 		session.setAttribute("message", new Message("Indent Successfully Created !! Wait For Approval !!", "success"));
 		return "redirect:/pump/maintenance/indent";
 	}
 
 	// verify Items
-	@RequestMapping("/add/materials/item/verify/{itemId}")
+	@RequestMapping("/add/materials/item/verify/{itemId}/{complNo}")
 	@ResponseBody
-	public String verifyItmName(@PathVariable("itemId") String itemId) {
+	public String verifyItmName(@PathVariable("itemId") String itemId,@PathVariable("complNo")String complNo) {
 		String f = "false";
-		if (tempAddedIndentMaterialsRepo.existsByItemId(itemId)) {
+		if (tempAddedIndentMaterialsRepo.existsByItemIdAndComplNo(itemId,complNo)) {
 			f = "true";
 		}
 		return f;
 	}
 
 	// verify Employee Category
-	@RequestMapping("/add/labor/empcategory/verify/{empCategory}")
+	@RequestMapping("/add/labor/empcategory/verify/{empCategory}/{complNo}")
 	@ResponseBody
-	public String verifyEmployeeCategory(@PathVariable("empCategory") String empCategory) {
+	public String verifyEmployeeCategory(@PathVariable("empCategory") String empCategory,@PathVariable("complNo")String complNo) {
 		String f = "false";
-		if (tempAddedIndentLaboursRepo.existsByEmpCategory(empCategory)) {
+		if (tempAddedIndentLaboursRepo.existsByEmpCategoryAndComplNo(empCategory,complNo)) {
 			f = "true";
 		}
 		return f;
 	}
 
 	// verify Vehicle Number
-	@RequestMapping("/add/vehicle/number/verify/{vehicleNo}")
+	@RequestMapping("/add/vehicle/number/verify/{vehicleNo}/{complNo}")
 	@ResponseBody
-	public String verifyVehicleNumber(@PathVariable("vehicleNo") String vehicleNo) {
+	public String verifyVehicleNumber(@PathVariable("vehicleNo") String vehicleNo,@PathVariable("complNo")String complNo) {
 		String f = "false";
-		if (tempAddedIndentVehiclesRepo.existsByVehicleNo(vehicleNo)) {
+		if (tempAddedIndentVehiclesRepo.existsByVehicleNoAndComplNo(vehicleNo,complNo)) {
 			f = "true";
 		}
 		return f;
 	}
-	
-	//display Approved WorkOrders List	
+
+	// display Approved WorkOrders List In Pump View
 	@GetMapping("/maintenance/view")
 	@PreAuthorize("hasAuthority('PUMP_VIEW')")
 	public String viewApprovedWorkOrderList(Model model) {
-		String complSts="APPROVED_WORKORDERS";
+		String complSts = "APPROVED_WORKORDERS";
 		String department = "Pump Dept";
 		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
 		model.addAttribute("workorderApprovedcompls", complaintDtos);
@@ -460,10 +448,10 @@ public class PumpController {
 		return "/pages/pump_house/pump_view_workorder_list";
 	}
 
-	//display Approved WorkOrders Details By WorkOrder Number	
+	// display Approved WorkOrders Details By WorkOrder Number In View Page
 	@GetMapping("/maintenance/view/detalis/{workOrder}")
-	public String viewWorkOrderDtls(@PathVariable String workOrder,Model model) {
-		
+	public String viewWorkOrderDtls(@PathVariable String workOrder, Model model) {
+
 		List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos = this.workOrderService
 				.getApprovedWorkOrderItemsByWorkorderNo(workOrder);
 		List<WorkOrderApprovedLaboursDto> workOrderApprovedLaboursDtos = this.workOrderService
@@ -563,19 +551,112 @@ public class PumpController {
 		return "/pages/pump_house/pump_view_workorder_dtls";
 	}
 
+	// Display Pump Maintenance Update Form
 	@GetMapping("/maintenance/update")
 	@PreAuthorize("hasAuthority('PUMP_UPDATE')")
 	public String pumpMaintenanceUpdate(Model model) {
+		String complSts = "APPROVED_WORKORDERS";
+		String department = "Pump Dept";
+		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
+		model.addAttribute("approvedWorkOrders", complaintDtos);
+		model.addAttribute("complDtls", new ComplaintDto());
 		model.addAttribute("title", "Pump | Update | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_update";
 	}
 
+	// Get WorkOrder Data By WorkOrder Number
+	@GetMapping("/maintenance/update/get/{workOrderNo}")
+	public String getWorkOrderDetailsByWorkOrderNo(@PathVariable("workOrderNo") String workOrderNo, Model model) {
+		try {
+			String complSts = "APPROVED_WORKORDERS";
+			String department = "Pump Dept";
+			List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
+			ComplaintDto complaintDto = taskUpdateService.getComplDetailsByWorkOrderNo(workOrderNo);
+			List<PumpMasterDto> pumpMasterDtos = this.masterService.getAllPumpMaster();
+			List<WaterSourceDto> waterSourceDtos = this.masterService.findAllWaterSource();
+			List<MaintenanceTypeDto> maintenanceTypeDtos = this.masterService.findAllMaintenanceType();
+			List<DmaWardDto> dmaWardDtos = this.masterService.getAllDmaWard();
+			List<TeamCodeDto> teamCodeDtos = this.masterService.getAllTeamCode();
+			List<WorkStatusDto> workStatusDtos = this.masterService.getAllWorkStatus();
+			List<WorkOrderApprovedItemsDto> workOrderApprovedItemsDtos = this.workOrderService
+					.getApprovedWorkOrderItemsByWorkorderNo(workOrderNo);
+			model.addAttribute("approvedWorkorderItems", workOrderApprovedItemsDtos);
+			model.addAttribute("listOfWorkSts", workStatusDtos);
+			model.addAttribute("listOfTeamCode", teamCodeDtos);
+			model.addAttribute("listofDmaWard", dmaWardDtos);
+			model.addAttribute("listOfMaintenanceType", maintenanceTypeDtos);
+			model.addAttribute("listOfWaterSourse", waterSourceDtos);
+			model.addAttribute("listOfPumpMaster", pumpMasterDtos);
+			model.addAttribute("complDtls", complaintDto);
+			model.addAttribute("approvedWorkOrders", complaintDtos);
+		} catch (Exception e) {
+			System.out.println("Something Wrong !!" + e.getMessage());
+		}
+
+		model.addAttribute("title", "Pump | Update | Manintenance Management");
+		return "/pages/pump_house/pump_maintenance_update";
+	}
+
+	// Submit Pump Updated Maintenance Data
+	@PostMapping("/maintenance/submitUpdated")
+	public String submitUpdatedMainteance(PumpMaintenanceUpdatedDto pumpDto, HttpSession session,
+			Principal principal) {
+		pumpDto.setUserName(principal.getName());
+		this.pumpMaintenService.savePumpMaintenanceUpdated(pumpDto);
+		ComplaintDto oldComplaintDto = this.taskUpdateService.getComplainDataByComplainNo(pumpDto.getComplNo());
+		oldComplaintDto.setComplStatus("WORKORDER_UPDATED");
+		this.taskUpdateService.saveComplaint(oldComplaintDto);
+		session.setAttribute("message", new Message("Updated Data Successfully Updated !!", "success"));
+		return "redirect:/pump/maintenance/update";
+	}
+
+	// display Inspections Data
 	@GetMapping("/maintenance/inspection")
 	@PreAuthorize("hasAuthority('PUMP_INSPECTION')")
 	public String pumpMaintenanceInspection(Model model) {
+		String complSts = "WORKORDER_UPDATED";
+		String department = "Pump Dept";
+		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
+		model.addAttribute("updatedWorkOrders", complaintDtos);
+		model.addAttribute("maintenanceUpdatedDto", new PumpMaintenanceUpdatedDto());
 		model.addAttribute("title", "Pump | Inspection | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_inspection";
 	}
+
+	// get Inspections Data By WorkOrderNo
+	@GetMapping("/maintenance/inspection/get/{workOrderNo}")
+	public String getPumpMaintenanceInspectionByWorkOrderNo(@PathVariable String workOrderNo, Model model) {
+		String complSts = "WORKORDER_UPDATED";
+		String department = "Pump Dept";
+		List<ComplaintDto> complaintDtos = this.taskUpdateService.getComplainByDeptComplSts(department, complSts);
+		PumpMaintenanceUpdatedDto pumpMaintenainceUpdatedDto = this.pumpMaintenService
+				.getPumpMaintenanceUpdatedByWorkorderNo(workOrderNo);
+		model.addAttribute("maintenanceUpdatedDto", pumpMaintenainceUpdatedDto);
+		model.addAttribute("updatedWorkOrders", complaintDtos);
+		model.addAttribute("title", "Pump | Inspection | Manintenance Management");
+		return "/pages/pump_house/pump_maintenance_inspection";
+	}
+	
+	// Save Inspections Data 
+	@PostMapping("/maintenance/inspection/submit")
+	public String submitInspectionWorkOrder(PumpMaintenanceInspectionDto pumpInspectionDto,Principal principal,HttpSession session) {
+		try {
+			pumpInspectionDto.setUserName(principal.getName());			
+			this.pumpMaintenService.savePumpInspectionData(pumpInspectionDto);
+			ComplaintDto oldComplaintDto = this.taskUpdateService.getComplainDataByComplainNo(pumpInspectionDto.getComplNo());
+			oldComplaintDto.setComplStatus("Completed");
+			oldComplaintDto.setInspectionBy(principal.getName());
+			oldComplaintDto.setInspectionDate(new java.sql.Date(System.currentTimeMillis()));
+			oldComplaintDto.setWorkCompletedDate(new java.sql.Date(System.currentTimeMillis()));
+			this.taskUpdateService.saveComplaint(oldComplaintDto);
+			this.taskUpdateService.submitInvestigations(oldComplaintDto);
+			session.setAttribute("message", new Message("Complain Inspection Successfully Completed !!","success"));
+		} catch (Exception e) {
+			System.out.println("Something Wrong !!"+e.getMessage());
+		}		
+		return "redirect:/pump/maintenance/inspection";
+	}
+	
 
 	@GetMapping("/maintenance/history")
 	@PreAuthorize("hasAuthority('PUMP_HISTORY')")

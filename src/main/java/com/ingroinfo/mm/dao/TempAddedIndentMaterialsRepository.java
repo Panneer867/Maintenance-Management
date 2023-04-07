@@ -15,7 +15,7 @@ public interface TempAddedIndentMaterialsRepository extends JpaRepository<TempAd
 
 	List<TempAddedIndentMaterials> getByIndentNoAndComplNo(String indentNo, String complNo);
 
-	boolean existsByItemId(String itemId);
+	boolean existsByItemIdAndComplNo(String itemId,String complNo);
 
 	@Transactional
     @Modifying

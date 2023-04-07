@@ -1,0 +1,291 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Approved
+			WorkOrder Details</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link">
+								<a th:href="@{/pipe/maintenance/view}" class="fa fa-home pt-1"></a>
+							</div>
+						</li>
+						
+						<li class="crumb">
+							<div class="link">
+								<a th:href="@{/pipe/maintenance/view}"><span aria-current="location">Approved Workorders</span></a>
+							</div>
+						</li>
+
+						<li class="crumb active">
+							<div class="link">
+								<span aria-current="location">Workorder Details</span>
+							</div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">WorkOrder Details</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
+						<div>
+							<div class="row">
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="complNo" class="col-sm-5 col-form-label pr-0">Complaint
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${complNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="workOrderNo" class="col-sm-5 col-form-label pr-0">WorkOrder
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${workOrderNo}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="indentNo" class="col-sm-5 col-form-label pr-0">Indent No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${indentNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="startDate" class="col-sm-5 col-form-label pr-0">Exp
+											Start Date</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${startDate}" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="department" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${department}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="division" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${division}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="subdivision" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${subdivision}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="approvedDate" class="col-sm-5 col-form-label pr-0">Approved Date</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${approvedDate}"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="workPriority" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${workPriority}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="worksite" class="col-sm-5 col-form-label pr-0">Work
+											Site</label>
+										<div class="col-sm-7 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${worksite}" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="contactNo" class="col-sm-5 col-form-label pr-0">Contact
+											No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${contactNo}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="form-group row">
+										<label for="approvedBy" class="col-sm-5 col-form-label pr-0">Approved By</label>
+										<div class="col-sm-6 px-0">
+											<input type="text"
+												class="form-control form-control-sm text-center font-weight-bold"
+												disabled th:value="${approvedBy}" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-center">
+								<ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+									<li class="nav-item bg-dark" role="presentation">
+										<button class="nav-link active pl-5 pr-5 text-white"
+											id="pills-indent-material-tab" data-bs-toggle="pill"
+											data-bs-target="#pills-indent-material" type="button" role="tab"
+											aria-controls="pills-indent-material" aria-selected="true">Item
+											Materials</button>
+									</li>
+									<li class="nav-item bg-dark" role="presentation">
+										<button class="nav-link pl-5 pr-5 text-white" id="pills-indent-labor-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-indent-labor" type="button"
+											role="tab" aria-controls="pills-indent-labor" aria-selected="false">Labor
+											Request</button>
+									</li>
+									<li class="nav-item bg-dark" role="presentation">
+										<button class="nav-link pl-5 pr-5 text-white" id="pills-indent-vehicle-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-indent-vehicle" type="button"
+											role="tab" aria-controls="pills-indent-vehicle"
+											aria-selected="false">Vehicle Request</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-indent-material" role="tabpanel"
+								aria-labelledby="pills-indent-material-tab">
+								<table
+									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
+									<thead class="table-dark">
+										<tr>
+											<th>Category</th>
+											<th>Item</th>
+											<th>HSNCode</th>
+											<th>Unit of Meassure</th>
+											<th>Qty</th>
+											<th>Stock Type</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="material:${listOfApprovedWorkorderitems}" class="bl-cr">
+											<td th:text="${material.categoryName}"></td>
+											<td th:text="${material.itemName}"></td>
+											<td th:text="${material.hsnCode}"></td>
+											<td th:text="${material.unitOfMesure}"></td>
+											<td th:text="${material.quantity}"></td>
+											<td th:text="${material.stockTypeName}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="tab-pane fade" id="pills-indent-labor" role="tabpanel"
+								aria-labelledby="pills-indent-labor-tab">
+								<table
+									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
+									<thead class="table-dark">
+										<tr>
+											<th>Employee Categorty</th>
+											<th>Members Required</th>
+											<th>Days Required</th>
+											<th>Time Required</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="labors:${listOfApprovedWorkorderLabours}" class="bl-cr">
+											<td th:text="${labors.empCategory}"></td>
+											<td th:text="${labors.members}"></td>
+											<td th:text="${labors.daysRequired}"></td>
+											<td th:text="${labors.timeRequired}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="tab-pane fade" id="pills-indent-vehicle" role="tabpanel"
+								aria-labelledby="pills-indent-vehicle-tab">
+								<table
+									class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-2">
+									<thead class="table-dark">
+										<tr>
+											<th>Vehicle Type</th>
+											<th>Vehicle Number</th>
+											<th>Driver Name</th>
+											<th>Driver Contact No</th>
+											<th>ODO Meter Reading</th>
+											<th>Start Time</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="vehicles:${listOfApprovedWorkorderVehicles}" class="bl-cr">
+											<td th:text="${vehicles.vehicleType}"></td>
+											<td th:text="${vehicles.vehicleNo}"></td>
+											<td th:text="${vehicles.driverName}"></td>
+											<td th:text="${vehicles.driverPhone}"></td>
+											<td th:text="${vehicles.meterReading}"></td>
+											<td th:text="${vehicles.stratTime}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>						
+
+					</div>
+				</div>
+			</div>			
+		</div>	
+	</section>
+</body>
+
+</html>

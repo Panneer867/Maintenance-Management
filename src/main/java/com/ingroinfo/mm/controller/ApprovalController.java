@@ -413,7 +413,7 @@ public class ApprovalController {
 		}
 
 		session.setAttribute("message", new Message("Approved Sucessfully Done !!", "success"));
-		return "redirect:/approval/indent/labour";
+		return "redirect:/approval/indent/material";
 	}
 
 	/********************* Labor Indent Approvals *****************************/

@@ -301,4 +301,10 @@ public class TaskUpdateServiceImpl implements TaskUpdateService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public ComplaintDto getComplDetailsByWorkOrderNo(String workOrder) {
+		Complaints complaints = this.taskUpdateRepo.getByWorkOrder(workOrder);
+		return modelMapper.map(complaints, ComplaintDto.class);
+	}
+
 }

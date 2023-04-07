@@ -20,19 +20,12 @@
 					<form th:action="@{/masters/saveTeamcode}" method="post">
 						<div class="row ">
 							<div class="col text-start">
-								<label for="division" class="col-sm-8 col-form-label">Division</label>
+								<label for="teamCode" class="col-sm-8 col-form-label">Team Code</label>
 								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="division"
-										name="division" required placeholder="Enter Division Name" oninput="this.value = this.value.toUpperCase()">
+									<input type="text" class="form-control form-control-sm" id="teamCode"
+										name="teamCode" required placeholder="Enter Team Code" oninput="this.value = this.value.toUpperCase()">
 								</div>
-							</div>
-							<div class="col text-start">
-								<label for="section" class="col-sm-8 col-form-label">Section</label>
-								<div class="col">
-									<input type="text" class="form-control form-control-sm" id="section" name="section"
-										required placeholder="Enter Section Name" oninput="this.value = this.value.toUpperCase()">
-								</div>
-							</div>
+							</div>							
 							<div class="col text-start">
 								<label for="siteEnginner" class="col-sm-10 col-form-label">Site Engineer</label>
 								<div class="col">
@@ -65,8 +58,7 @@
 				class="table table-stock table-bordered text-center table-primary table-striped table-hover MasterTable">
 				<thead class="table-dark">
 					<tr>						
-						<th class="text-center" scope="col">Division</th>
-						<th class="text-center" scope="col">Section</th>
+						<th class="text-center" scope="col">Team Code</th>						
 						<th class="text-center" scope="col">Site Enginner</th>
 						<th class="text-center" scope="col">Site Superwiser</th>
 						<th class="text-center" scope="col">Delete</th>
@@ -74,15 +66,14 @@
 				</thead>
 				<tbody>
 					<tr th:each="teamcode : ${listOfTeamCode}">					
-						<td th:text="${teamcode.division}"></td>
-						<td th:text="${teamcode.section}"></td>
+						<td th:text="${teamcode.teamCode}"></td>						
 						<td th:text="${teamcode.siteEnginner}"></td>
 						<td th:text="${teamcode.siteSuperwiser}"></td>
 							<td><a href="#" th:onclick="|deleteTeamcode(${teamcode.teamCodeId})|">
 								<button class="btn-xs btn-danger">Delete</button></a>
 						</td>
 					</tr>
-				<dottuby>
+				</tbody>
 			</table>
 		</div>
 		<!-- History Table End-->

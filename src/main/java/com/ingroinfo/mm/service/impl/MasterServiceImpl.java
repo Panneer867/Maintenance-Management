@@ -146,11 +146,6 @@ import com.ingroinfo.mm.entity.WorkPriority;
 import com.ingroinfo.mm.entity.WorkStatus;
 import com.ingroinfo.mm.service.MasterService;
 
-
-
-
-
-
 @Service
 public class MasterServiceImpl implements MasterService {
 
@@ -1513,8 +1508,8 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public boolean isExistsByTeamSectionName(String section) {
-		return this.teamCodeRepo.existsBySection(section);
+	public boolean isExistsByTeamCode(String teamCode) {
+		return this.teamCodeRepo.existsByTeamCode(teamCode);
 	}
 
 	@Override
@@ -1636,7 +1631,7 @@ public class MasterServiceImpl implements MasterService {
 	@Override
 	public String getAutoIncrementId(String IdName) {
 
-		String nextDeptId = "";
+		String nextIncrimentId = "";
 		IdMasterDto idMasterDto = getIdMasterByMasterIdName(IdName);
 		
 		try {
@@ -1656,12 +1651,59 @@ public class MasterServiceImpl implements MasterService {
 
 			int number = Integer.parseInt(numbersString);
 			number++;
-			nextDeptId = lettersString + Integer.toString(number);
+			nextIncrimentId = lettersString + Integer.toString(number);
 
 		} catch (Exception e) {
 			System.out.println("something went Wrong !!" + e.getMessage());
 		}
-		return nextDeptId;
+		return nextIncrimentId;
+	}
+
+	@Override
+	public PumpMasterDto getPumpMasterDetailsByPumpMasterId(Long pumpMasterId) {
+		PumpMaster pumpMaster = this.pumpMasterRepo.findById(pumpMasterId).get();
+		return this.modelMapper.map(pumpMaster, PumpMasterDto.class);
+	}
+
+	@Override
+	public DmaWardDto getDmaWardByWardMumber(String wardNumber) {
+	    DmaWard dmaWard = this.dmaWardRepository.getByWardNumber(wardNumber);
+		return this.modelMapper.map(dmaWard, DmaWardDto.class);
+	}
+
+	@Override
+	public TeamCodeDto getTeamCodeByTeamCodeId(Long teamCodeId) {
+		TeamCode teamCode = this.teamCodeRepo.findById(teamCodeId).get();		
+		return this.modelMapper.map(teamCode, TeamCodeDto.class);
+	}
+
+	@Override
+	public String getAutoIncrimentIdForDepartment(String masterIdName, String deptName) {
+		String nextIncrimentId = "";
+		DepartmentIdMasterDto deptIdMasterDto = getByMasterIdNameAndDeptName(masterIdName,deptName);		
+		try {
+			String lastIndentNo = deptIdMasterDto.getDeptLastId();
+			StringBuilder letters = new StringBuilder();
+			StringBuilder numbers = new StringBuilder();
+			for (int i = 0; i < lastIndentNo.length(); i++) {
+				char c = lastIndentNo.charAt(i);
+				if (Character.isDigit(c)) {
+					numbers.append(c);
+				} else {
+					letters.append(c);
+				}
+			}
+			String lettersString = letters.toString();
+			String numbersString = numbers.toString();
+
+			int number = Integer.parseInt(numbersString);
+			number++;
+			nextIncrimentId = lettersString + Integer.toString(number);
+
+		} catch (Exception e) {
+			System.out.println("something went Wrong !!" + e.getMessage());
+		}
+		return nextIncrimentId;
 	}
 
 

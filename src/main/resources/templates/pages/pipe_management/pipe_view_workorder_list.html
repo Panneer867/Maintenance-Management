@@ -2,17 +2,17 @@
 
 <body>
 	<section>
-		<h3 class="text-center text-white mt-2 p-1 bg-primary">Task Completed
+		<h3 class="text-center text-white mt-2 p-1 bg-primary"> Pipe WorkOrder View
 		</h3>
 		<div class="row mt-2">
 			<div class="col-4" dir="ltr">
 				<nav aria-label="breadcrumb">
 					<ol class="default-breadcrumb">
 						<li class="crumb">
-							<div class="link"><a th:href="@{/task/work-complete}" class="fa fa-home pt-1"></a></div>
+							<div class="link"><a th:href="@{/pump/maintenance/view}" class="fa fa-home pt-1"></a></div>
 						</li>
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Completed Tasks</span></div>
+							<div class="link"><span aria-current="location">Approved WorkOrders</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -22,7 +22,7 @@
 			<div class="col-11 ml-5">
 				<div class="card bl-cr">
 					<div class="card-header text-center bg-info text-white heading-bg">
-						<h4 class="mb-0">Completed WorkOrder List</h4>
+						<h4 class="mb-0">Approved WorkOrder List</h4>
 					</div>
 					<div class="card-body font-weight-bold pb-0">
 						<table
@@ -33,25 +33,23 @@
 									<th class="all">Complain Date</th>
 									<th class="all">Indent No</th>
 									<th class="all">Workorder No</th>
-									<th class="all">Department</th>
-									<th class="all">Completed Date</th>
-									<th class="all">Completed By</th>
+									<th class="all">Approved Date</th>
+									<th class="all">Approved By</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="completeCompl: ${completedComplaints}">
-									<td th:text="${completeCompl.complNo}"></td>
-									<td th:text="${completeCompl.complDate}"></td>
-									<td th:text="${completeCompl.indentNo}"></td>
-									<td th:text="${completeCompl.workOrder}"></td>
-									<td th:text="${completeCompl.department}"></td>
+								<tr th:each="workorderapproved: ${workorderApprovedcompls}">
+									<td th:text="${workorderapproved.complNo}"></td>
+									<td th:text="${workorderapproved.complDate}"></td>
+									<td th:text="${workorderapproved.indentNo}"></td>
+									<td th:text="${workorderapproved.workOrder}"></td>
 									<td
-										th:text="${#dates.format(completeCompl.workCompletedDate, 'dd/MM/yyyy ')}">
+										th:text="${#dates.format(workorderapproved.workorderApprovedDate, 'dd/MM/yyyy ')}">
 									</td>
-									<td th:text="${completeCompl.inspectionBy}"></td>
+									<td th:text="${workorderapproved.workorderApprovedBy}"></td>
 									<td class="text-center"><a class="btn btn-success p-1 mx-2"
-											th:href="@{'/task/work-complete/view/detalis/'+${completeCompl.workOrder}}">View</a>
+											th:href="@{'/pipe/maintenance/view/detalis/'+${workorderapproved.workOrder}}">View</a>
 									</td>
 								</tr>
 							</tbody>

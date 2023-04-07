@@ -2,8 +2,23 @@
 
 <body>
 	<section>
-
-		<div class="row mt-3">
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">JE Investigation
+		</h3>
+		<div class="row mt-1">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/task/je}" class="fa fa-home pt-1"></a></div>
+						</li>
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Assigned Tasks</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col">
 				<div class="card bl-cr">
 
@@ -279,26 +294,27 @@
 								<div class="form-group col-md-4 mt-2">
 									<label for="jobDoneNotDone">Job Done/Not Done/Esclate</label>
 									<select class="form-select" id="job-done-notdone" name="jobDoneNotDone"
-										onchange="showDiv('tutorial', this)"
+										onchange="showDiv('divEsclationForm', this)"
 										aria-label="Example select with button addon">
 										<option value="">--Select--</option>
 										<option value="N">Need Material</option>
-                                        <option value="E">Esclate</option>
-										<option value="Y">Close Complaint</option>										
+										<option value="E">Esclate</option>
+										<option value="Y">Close Complaint</option>
 									</select>
 								</div>
-								
-								<div class="form-group col-md-7" style="padding-left: 99px;top: 30px;right: 41px;">								 
-								  <button type="submit" id="with-material-button" class="btn btn-primary">With Material</button>
+
+								<div class="form-group col-md-7" style="padding-left: 99px;top: 30px;right: 41px;">
+									<button type="submit" id="with-material-button" class="btn btn-primary">With
+										Material</button>
 								</div>
-								
+
 
 								<!--<div class="form-group col-md-8" id="material-link" style="padding-left: 131px;top: 30px;">								    									
 									<a type="submit" th:href="@{'/task/open-indent/'+${complDtls.complNo}}"
 									   class="btn btn-primary w-25 text-center">With Metrials</a>
 								</div>-->
 							</div>
-							<div id="tutorial">
+							<div id="divEsclationForm">
 								<h5 class="text-center text-white mt-2 p-1 bg-primary">Escalation Details</h5>
 								<!--***********Row 10**********-->
 								<div class="row mt-2">
@@ -359,8 +375,9 @@
 
 							</div>
 							<div class="text-center mt-2">
-								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>								
-								<button type="submit" id="esclate-invest-data" class="btn btn-primary">Escala Task</button>													
+								<button type="submit" id="submit-invest-data" class="btn btn-primary">Submit</button>
+								<button type="submit" id="esclate-invest-data" class="btn btn-primary">Escala
+									Task</button>
 							</div>
 						</form>
 

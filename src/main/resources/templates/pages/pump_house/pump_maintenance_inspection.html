@@ -1,499 +1,382 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Material Mangement</title>
-</head>
-
 <body>
 	<section>
+		<h3 class="text-center text-white mt-2 p-1 bg-primary">Pump Maintenance Work Inspections
+		</h3>
+		<div class="row mt-2">
+			<div class="col-4" dir="ltr">
+				<nav aria-label="breadcrumb">
+					<ol class="default-breadcrumb">
+						<li class="crumb">
+							<div class="link"><a th:href="@{/pump/maintenance/inspection}" class="fa fa-home pt-1"></a>
+							</div>
+						</li>
 
+						<li class="crumb active">
+							<div class="link"><span aria-current="location">Maintenance Inspection</span></div>
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
 		<!-- form Start-->
-		<div class="row mt-3">
+		<div class="row">
 			<div class="col">
-
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
 				<div class="card text-center bl-cr">
 					<div class="card-header heading-bg text-white fs-4">
-						Pump Maintenance Inspection
+						WorkOrder Details
 					</div>
 					<div class="card-body font-weight-bold">
-
-						<form>
-
-
-							
-
-<!--							<h5 class="card-title mt-4">Leakage Details</h5>-->
-<!--							<hr>-->
-
+						<form data-toggle="validator" th:action="@{/pump/maintenance/inspection/submit}" method="post">
 							<div class="row ">
 								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Work Order Number</label>
+									<label for="workOrderNo" class="col-sm-10 col-form-label">WorkOrder No</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="workOrderNo" readonly name="workOrderNo" required
+											th:value="${maintenanceUpdatedDto.workOrderNo}">
 									</div>
 								</div>
-
 								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Work Order Date</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump  Indent No</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump  Indent Date</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump ID</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Location</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Marke</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Type Of Pump</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Pump Purchased Date</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Pump Warranty</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Water Source</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Next Maintenance Time</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-<!--							<h5 class="card-title mt-4">Pipe Details</h5>-->
-<!--							<hr>-->
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Langitude</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Latitude</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Distribution to</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">schedule types </label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Pump Type</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Pump Power</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Supplier</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Supplier Contact</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">GRID</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">GMIS_ID</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Ward No</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Ward Name</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col-6 text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label"> Pump maintenance
-										reasons</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-lg " id="inputEmail3">
-									</div>
-								</div>
-
-							</div>
-
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Pump Breakdown
+									<label for="workorderApprovedDate" class="col-sm-10 col-form-label">WorkOrder
 										Date</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white" readonly
+											id="workorderApprovedDate" name="workOrderApprovedDate" required
+											th:value="${maintenanceUpdatedDto.workOrderApprovedDate}">
+									</div>
+									<input type="hidden" name="complNo" th:value="${maintenanceUpdatedDto.complNo}">
+								</div>
+								<div class="col text-start">
+									<label for="indentNo" class="col-sm-10 col-form-label">Indent No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="indentNo"
+											readonly name="indentNo" required
+											th:value="${maintenanceUpdatedDto.indentNo}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="indentApprovedDate" class="col-sm-10 col-form-label">Indent Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											name="indentApprovedDate" id="indentApprovedDate" readonly required
+											th:value="${maintenanceUpdatedDto.indentApprovedDate}">
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+									<label for="pumpId" class="col-sm-10 col-form-label">Pump ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="pumpId" readonly
+											name="pumpId" required th:value="${maintenanceUpdatedDto.pumpId}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpLocation" class="col-sm-10 col-form-label">Pump Location</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpLocation" readonly required
+											th:value="${maintenanceUpdatedDto.pumpLocation}" name="pumpLocation">
 									</div>
 								</div>
 
 								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Pump Breakdown
+									<label for="pumpMake" class="col-sm-10 col-form-label">Pump Make</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpMake" readonly name="pumpMake" required
+											th:value="${maintenanceUpdatedDto.pumpMake}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintenDate" class="col-sm-12 col-form-label">Next Maintenance
+										Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="nextMaintenDate" name="nextMaintenDate" required
+											th:value="${maintenanceUpdatedDto.nextMaintenDate}" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+
+									<label for="purchageDate" class="col-sm-10 col-form-label">Purchage Date</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="purchageDate" readonly name="purchageDate" required
+											th:value="${maintenanceUpdatedDto.purchageDate}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="warranty" class="col-sm-8 col-form-label">Warranty</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="warranty" readonly name="warranty" required
+											th:value="${maintenanceUpdatedDto.warranty}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="waterSource" class="col-sm-10 col-form-label">Water Source</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="waterSource" readonly
+											name="waterSource" required
+											th:value="${maintenanceUpdatedDto.waterSource}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="nextMaintentime" class="col-sm-12 col-form-label">Next Maintenance
 										Time</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" id="nextMaintentime"
+											class="form-control form-control-sm bg-white" name="nextMaintentime"
+											required th:value="${maintenanceUpdatedDto.nextMaintentime}" readonly>
 									</div>
 								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Site Engineer</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">TEAM CODE</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
 							</div>
-
 							<div class="row ">
-								<div class="col-4 text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Site Superwiser</label>
+								<div class="col text-start">
+									<label for="latitude" class="col-sm-8 col-form-label">Latitude</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm " id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white" id="latitude"
+											value="-----" name="latitude" required
+											th:value="${maintenanceUpdatedDto.latitude}" readonly>
 									</div>
 								</div>
-
-								<div class="col-4 text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Work Status</label>
+								<div class="col text-start">
+									<label for="langitude" class="col-sm-8 col-form-label">Langitude</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm " id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white" id="langitude"
+											value="-----" name="langitude" required
+											th:value="${maintenanceUpdatedDto.langitude}" readonly>
 									</div>
 								</div>
-
+								<div class="col text-start">
+									<label for="distributionTo" class="col-sm-10 col-form-label">Distribution To</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="distributionTo" placeholder="Enter Distribution To"
+											name="distributionTo" required
+											th:value="${maintenanceUpdatedDto.distributionTo}" readonly>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="maintenanceType" class="col-sm-10 col-form-label">Maintenance
+										Type</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="maintenanceType" readonly
+											name="maintenanceType" required
+											th:value="${maintenanceUpdatedDto.maintenanceType}">
+									</div>
+								</div>
 							</div>
-
-							<hr>
 							<div class="row ">
+								<div class="col text-start">
+									<label for="pumptype" class="col-sm-8 col-form-label">Pump Type</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumptype" readonly name="pumptype" required
+											th:value="${maintenanceUpdatedDto.pumptype}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="pumpPower" class="col-sm-8 col-form-label">Pump Power</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="pumpPower" readonly name="pumpPower" required
+											th:value="${maintenanceUpdatedDto.pumpPower}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufatureName" class="col-sm-10 col-form-label">Manufature Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufatureName" readonly name="manufatureName" required
+											th:value="${maintenanceUpdatedDto.manufatureName}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="manufactureContact" class="col-sm-12 col-form-label">Manufature
+										Contact</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="manufactureContact" readonly name="manufactureContact" required
+											th:value="${maintenanceUpdatedDto.manufactureContact}">
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+									<label for="grid" class="col-sm-8 col-form-label">GRID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="grid"
+											placeholder="Enter GRID" name="grid" required
+											th:value="${maintenanceUpdatedDto.grid}" readonly>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="gmisId" class="col-sm-8 col-form-label">GMIS_ID</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="gmisId"
+											placeholder="Enter GIMS Id" name="gmisId" required
+											th:value="${maintenanceUpdatedDto.gmisId}" readonly>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="wardNo" class="col-sm-10 col-form-label">Ward No</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="wardNo" readonly
+											name="wardNo" required th:value="${maintenanceUpdatedDto.wardNo}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="wardName" class="col-sm-10 col-form-label">Ward Name</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="wardName" readonly name="wardName" required
+											th:value="${maintenanceUpdatedDto.wardName}">
+									</div>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-12 text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Work Order</label>
+									<label for="maintenanceReasone" class="col-sm-8 col-form-label"> Pump Maintenance
+										Reasons</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-lg " id="inputEmail3">
+										<textarea type="text" class="form-control form-control-sm"
+											id="maintenanceReasone" name="maintenanceReasone" required
+											th:field="*{maintenanceUpdatedDto.maintenanceReasone}"
+											placeholder="Write Maintenance Reasons"></textarea>
 									</div>
 								</div>
-
-							</div>
-							<hr>
-							<div class="row ">
-								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-12 col-form-label">Total equipment
-										cost</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Service cost</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Labor Cost</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
-								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Total Work Cost</label>
-									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
-									</div>
-								</div>
-
 							</div>
 							<div class="row ">
 								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Inspection Done By</label>
+									<label for="breakDownDate" class="col-sm-12 col-form-label">Pump Breakdown
+										Date</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="breakDownDate" name="breakDownDate" required
+											th:value="${maintenanceUpdatedDto.breakDownDate}" readonly>
 									</div>
 								</div>
-
 								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-10 col-form-label">Inspection Work
+									<label for="breakDowntime" class="col-sm-12 col-form-label">Pump Breakdown
+										Time</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="breakDowntime" name="breakDowntime" required
+											th:value="${maintenanceUpdatedDto.breakDowntime}" readonly>
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="teamCode" class="col-sm-10 col-form-label">Team Code</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="teamCode" readonly
+											name="teamCode" required th:value="${maintenanceUpdatedDto.teamCode}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="siteEngineerName" class="col-sm-10 col-form-label">Site Engineer</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="siteEngineerName" readonly name="siteEngineerName" required
+											th:value="${maintenanceUpdatedDto.siteEngineerName}">
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col text-start">
+									<label for="workSts" class="col-sm-8 col-form-label">Work Status</label>
+									<div class="col">
+										<input type="text" class="form-control form-control-sm bg-white" id="workSts" readonly
+											name="workSts" required th:value="${maintenanceUpdatedDto.workSts}">
+									</div>
+								</div>
+								<div class="col text-start">
+									<label for="materialReturnSts" class="col-sm-12 col-form-label">Material Return
 										Status</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white" id="materialReturnSts" readonly
+											name="materialReturnSts" required											
+											th:value="${maintenanceUpdatedDto.materialReturnSts == 'Y' ? 'Yes Returned' : 'Nothing To Return'}">
+
 									</div>
 								</div>
-
 								<div class="col text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Inspection Date</label>
+									<label for="siteSuperWiser" class="col-sm-12 col-form-label">Site Superwiser</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="text" class="form-control form-control-sm bg-white"
+											id="siteSuperWiser" readonly name="siteSuperWiser" required
+											th:value="${maintenanceUpdatedDto.siteSuperWiser}">
 									</div>
+									<input type="hidden" name="department"
+										th:value="${maintenanceUpdatedDto.department}">
 								</div>
-
-							</div>
-							<div class="row ">
 								<div class="col text-start">
-
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Inspection Photo
-										upload</label>
-									<div class="row">
-										<div class="col-6">
-											<input type="email" class="form-control form-control-sm" id="inputEmail3">
-										</div>
-										<div class="col-4">
-											<input type="file" class="form-control-file" id="exampleFormControlFile1">
-										</div>
-									</div>
-
-
-								</div>
-
-								<div class="col-4 text-start">
-									<label for="inputEmail3" class="col-sm-8 col-form-label">Inspection Reamrks</label>
+									<label for="inspectionDate" class="col-sm-12 col-form-label">Inspection Date</label>
 									<div class="col">
-										<input type="email" class="form-control form-control-sm" id="inputEmail3">
+										<input type="date" class="form-control form-control-sm bg-white"
+											id="inspectionDate" name="inspectionDate" required>
 									</div>
 								</div>
-
 							</div>
-
+							<div class="row">
+								<div class="col-12 text-start">
+									<label for="inspectionRemark" class="col-sm-8 col-form-label"> Inspection
+										Remarks</label>
+									<div class="col">
+										<textarea type="text" class="form-control form-control-sm"
+											id="inspectionRemark" name="inspectionRemark" required
+											placeholder="Write Inspection Remarks"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="text-center pt-3">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
 						</form>
-
-						<a href="#" class="btn btn-primary">Submit</a>
-						<a href="#" class="btn btn-success">Invoice Print</a>
-
-					</div>
-					<div class="card-footer text-muted bg-info">
-
 					</div>
 				</div>
-
 			</div>
-
 			<div class="col-3">
-
 				<div class="card text-center">
 					<div class="card-header heading-bg text-white fs-6">
 						Updates
 					</div>
-
 					<div class="card-body">
-
-						<form>
-
-							<table class="table table-sm">
-								<thead>
-									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Wo No</th>
-										<th scope="col">Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Emergency</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Emergency</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Routine</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Emergency</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Routine</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Pro-Active</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Routine</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Routine</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Routine</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Emergency</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Pro-Active</td>
-									</tr>
-									<tr>
-										<td>1/12/22</td>
-										<td>123</td>
-										<td>Pro-Active</td>
-									</tr>
-								</tbody>
-							</table>
-
-						</form>
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th class="fs-6" scope="col-sm">ComplNo</th>
+									<th class="fs-6" scope="col-sm">WorkOrder No</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="updatedWorkOrder:${updatedWorkOrders}">
+									<td class="fs-6" th:text="${updatedWorkOrder.complNo}"></td>
+									<td class="fs-6" th:text="${updatedWorkOrder.workOrder}"></td>
+									<td class="fs-6">
+										<a class="btn-sm btn-danger p-1 text-white"
+											th:href="@{'/pump/maintenance/inspection/get/'+${updatedWorkOrder.workOrder}}">Click</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 		<!-- form END-->
-
-
-
-
 	</section>
-
-
 </body>
 
 </html>

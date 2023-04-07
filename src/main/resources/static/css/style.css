@@ -134,7 +134,10 @@ table .vehicel-table-scroll {
 	scroll-behavior: smooth;
 	height: 600px;
 }
-#tutorial{
+#divEsclationForm{
+	display:none;
+}
+#divReturnForm{
 	display:none;
 }
 

@@ -60,6 +60,7 @@ public class ComplaintDto {
 	private String esclationType;
 	private String esclationLavel;
 	
+	private Date workCompletedDate;
 	private String indentNo;
 	private String workOrder;
 	private String indentApprovedBy;
@@ -72,4 +73,6 @@ public class ComplaintDto {
 	private Date workOrderCancelDate;
 	private String workOrderReApproveBy;
 	private Date workOrderReApprovedDate;
+	private Date inspectionDate;
+	private String inspectionBy;
 }

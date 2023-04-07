@@ -209,6 +209,7 @@ public class TaskUpdateController {
 
 		if (complaintDto.getJobDoneNotDone().equalsIgnoreCase("Y")) {
 			complaintDto.setComplStatus("Completed");
+			complaintDto.setWorkCompletedDate(new java.sql.Date(System.currentTimeMillis()));
 			this.taskUpdateService.saveComplaint(complaintDto);
 			try {
 				this.taskUpdateService.submitInvestigations(complaintDto);
@@ -222,7 +223,7 @@ public class TaskUpdateController {
 				this.taskUpdateService.saveComplaint(complaintDto);
 				this.taskUpdateService.submitInvestigations(complaintDto);
 				if (complaintDto.getDepartment().equalsIgnoreCase("Pipe Dept")) {
-					return "redirect:/pipe/maintenance-indent";
+					return "redirect:/pipe/maintenance/indent";
 				} else if (complaintDto.getDepartment().equalsIgnoreCase("Pump Dept")) {
 					return "redirect:/pump/maintenance/indent";
 				}
@@ -344,16 +345,14 @@ public class TaskUpdateController {
 
 	@GetMapping("/work-complete")
 	@PreAuthorize("hasAuthority('TASK_WORKCOMPLETE')")
-	public String workComplete() {
+	public String workComplete(Model model) {
+		String complSts ="Completed";
+		List<ComplaintDto> complaintDtos = this.taskUpdateService.getListOfComplaintByStatus(complSts);
+		model.addAttribute("completedComplaints", complaintDtos);
+		model.addAttribute("title", "Task | Completed | Maintenance Management");
 		return "/pages/task_update/work_complete";
 	}
-
-	@GetMapping("/job-card")
-	@PreAuthorize("hasAuthority('TASK_JOBCARD')")
-	public String JobCard() {
-		return "/pages/task_update/job_card";
-	}
-
+	
 	@GetMapping("/complaint-history")
 	@PreAuthorize("hasAuthority('TASK_COMPLAINTHISTORY')")
 	public String ComplaintHistory() {

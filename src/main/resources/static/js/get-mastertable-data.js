@@ -204,5 +204,72 @@ $(document).ready(function() {
 			},
 		});
 	});
+	
+	//Getting Pump Master Data By Pump Master Id
+	$("#master-pump-id").change(function() {		
+		var pumpMasterId = $(this).val();
+		if (pumpMasterId == "") {
+			alert("Select Pump Id !!");
+			return false;
+		}
+				//Getting Pump Deatils 
+		$.ajax({
+			type: "GET",
+			url: "/masters/get/PumpMaster/details/" + pumpMasterId,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var jsonobject = JSON.parse(json);				
+				$("#pump-master-pumpType").val(jsonobject.pumpType);
+				$("#pump-master-warranty").val(jsonobject.warranty);
+				$("#pump-master-purchageDate").val(jsonobject.purchageDate);
+				$("#pump-master-contactNo").val(jsonobject.contactNo);
+				$("#pump-master-manufactName").val(jsonobject.manufactName);
+				$("#pump-master-pumpMake").val(jsonobject.pumpMake);
+				$("#pump-master-pumpPower").val(jsonobject.pumpPower);
+				$("#pump-master-pumpId").val(jsonobject.pumpId);				
+			},
+		});		
+		
+	});
+	
+	//Getting DamaWard Master Data By wardNumber
+	$("#master-dmaward-wardno").change(function() {		
+		var wardNumber = $(this).val();
+		if (wardNumber == "") {
+			alert("Select Ward Number !!");
+			return false;
+		}
+		$.ajax({
+			type: "GET",
+			url: "/masters/get/dmaWard/" + wardNumber,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var jsonobject = JSON.parse(json);				
+				$("#dmaward-master-wardName").val(jsonobject.wardName);					
+			},
+		});		
+		
+	});
+	
+	//Getting TeamCode Master Data By teamCodeId
+	$("#teamCode-master-teamCodeId").change(function() {		
+		var teamCodeId = $(this).val();
+		if (teamCodeId == "") {
+			alert("Select Team Code !!");
+			return false;
+		}			
+		$.ajax({
+			type: "GET",
+			url: "/masters/get/teamCode/details/" + teamCodeId,
+			success: function(data) {
+				var json = JSON.stringify(data);
+				var jsonobject = JSON.parse(json);				
+				$("#teamCode-master-siteEnginner").val(jsonobject.siteEnginner);	
+				$("#teamCode-master-siteSuperwiser").val(jsonobject.siteSuperwiser);
+				$("#teamCode-master-teamcode").val(jsonobject.teamCode);					
+			},
+		});		
+		
+	});
 
 });

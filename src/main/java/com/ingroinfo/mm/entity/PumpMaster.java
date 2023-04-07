@@ -30,4 +30,6 @@ public class PumpMaster {
 	private String manufactName;
 	@Column(name="MANUFACT_ADDRESS",length = 150)
 	private String manufactAddress;
+	private String pumpMake;
+	private String pumpPower;
 }

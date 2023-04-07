@@ -92,8 +92,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		Privilege taskAee = createPrivilegeIfNotFound(201, "TASK_AEE");
 		Privilege taskEe = createPrivilegeIfNotFound(202, "TASK_EE");
 		Privilege taskCommissioner = createPrivilegeIfNotFound(203, "TASK_COMMISSIONER");
-		Privilege taskWorkcomplete = createPrivilegeIfNotFound(204, "TASK_WORKCOMPLETE");
-		Privilege taskJobcard = createPrivilegeIfNotFound(205, "TASK_JOBCARD");
+		Privilege taskWorkcomplete = createPrivilegeIfNotFound(204, "TASK_WORKCOMPLETE");		
 		Privilege taskComplainthistory = createPrivilegeIfNotFound(206, "TASK_COMPLAINTHISTORY");
 
 		/* Asset Management User Roles */
@@ -232,7 +231,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 				viewCompany, deleteCompany, branchManagement, createBranch, editBranch, viewBranch, deleteBranch,
 				userManagement, createUser, editUser, deleteUser, roleManagement, createRole, editRole, deleteRole,
 				userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe, taskAee, taskEe,
-				taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory, assestManagement, stockAvailable,
+				taskCommissioner, taskWorkcomplete, taskComplainthistory, assestManagement, stockAvailable,
 				inwardMatierals, inwardSpares, inwardTools, outwardStocks, stocksReturn, stockApprovals,
 				generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation, employeeDashBoard, employeeMaster,
 				attendance, salary, inspection, leave, consMasterDetails, consTransDetails, meterDetails, pumpDashboard,
@@ -252,7 +251,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		List<Privilege> companyPrivileges = Arrays.asList(adminpage, branchManagement, createBranch, editBranch,
 				viewBranch, deleteBranch, userManagement, createUser, editUser, deleteUser, roleManagement, createRole,
 				editRole, deleteRole, userRoles, updateUserRoles, importExport, deviceControl, serverBackup, taskJe,
-				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard, taskComplainthistory,
+				taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskComplainthistory,
 				assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools, outwardStocks,
 				stocksReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder, workEstmation,
 				employeeDashBoard, employeeMaster, attendance, salary, inspection, leave, consMasterDetails,
@@ -272,7 +271,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		List<Privilege> branchPrivileges = Arrays.asList(adminpage, userManagement, createUser, editUser, deleteUser,
 				roleManagement, createRole, editRole, deleteRole, userRoles, updateUserRoles, importExport,
-				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete, taskJobcard,
+				deviceControl, serverBackup, taskJe, taskAee, taskEe, taskCommissioner, taskWorkcomplete,
 				taskComplainthistory, assestManagement, stockAvailable, inwardMatierals, inwardSpares, inwardTools,
 				outwardStocks, stocksReturn, stockApprovals, generateWorkOrder, holdWorkOrder, cancelWorkOrder,
 				workEstmation, employeeDashBoard, employeeMaster, attendance, salary, inspection, leave,

@@ -11,4 +11,6 @@ public interface DmaWardRepository extends JpaRepository<DmaWard, Long> {
 
 	boolean existsByWardNumber(String wardNumber);
 
+	DmaWard getByWardNumber(String wardNumber);
+
 }

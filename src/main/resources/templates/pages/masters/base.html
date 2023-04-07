@@ -95,6 +95,11 @@
 
 								<h5 class="mb-0 mt-2 pr-3 font-weight-bold" th:text="${getLoggedUser}"
 									style="color: #2232f5 !important;"></h5>
+								<a class="text-dark" th:href="@{/approval}">
+									<i class="fas fa-check-square px-2"
+										style="font-size: 25px;color: rgb(200, 55, 185);" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Approval"></i>
+								</a>
 								<a class="text-dark" th:href="@{/admin/home}">
 									<i class="fas fa-user-shield px-2" style="font-size: 25px;" data-bs-toggle="tooltip"
 										data-bs-placement="bottom" title="Admin"></i>
@@ -205,16 +210,6 @@
 											</i>
 											<span class="m-menu__link-text">
 												Work Complete
-											</span>
-										</a>
-									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="job-card-active">
-										<a th:href="@{/task/job-card}" class="m-menu__link ">
-											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-												<span></span>
-											</i>
-											<span class="m-menu__link-text">
-												Job card Update
 											</span>
 										</a>
 									</li>
@@ -374,7 +369,7 @@
 								</ul>
 							</div>
 						</li>
-						
+
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
 							data-menu-submenu-toggle="hover">
 							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
@@ -414,7 +409,7 @@
 												Dashboard
 											</span>
 										</a>
-									</li>									
+									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">
@@ -772,7 +767,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-dashboard-active">
-										<a th:href="@{/pipe/dashboard}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -783,7 +778,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-index-active">
-										<a th:href="@{/pipe/pipe-index}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -794,7 +789,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-indent-active">
-										<a th:href="@{/pipe/maintenance-indent}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -805,7 +800,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-view-active">
-										<a th:href="@{/pipe/viewwork}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/view}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -816,7 +811,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-update-active">
-										<a th:href="@{/pipe/maintenance-work-update}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/update}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -827,7 +822,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-inspection-active">
-										<a th:href="@{/pipe/maintenance-inspection}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -838,7 +833,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-history-active">
-										<a th:href="@{/pipe/maintenance-history}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1719,7 +1714,7 @@
 						<div class="icon" onclick="window.location='/masters/designation'" th:classappend="${#httpServletRequest.getRequestURI() == '/masters/designation'
 							|| #httpServletRequest.getRequestURI() == '/masters/desigHistory' ? 'active':''}">
 							<span class="text">Master Designation</span>
-						</div>						
+						</div>
 						<div class="icon" id="master-id-sidebar" onclick="window.location='/masters/idmasterhistory'"
 							th:classappend="${#httpServletRequest.getRequestURI() == '/masters/idmasterhistory'
 							|| #httpServletRequest.getRequestURI() == '/masters/idmaster'? 'active':''}">

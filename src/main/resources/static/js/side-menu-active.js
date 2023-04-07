@@ -138,7 +138,7 @@ $(document).ready(function() {
 			$("#approval-active").addClass("li-active");
 		}
 	});
-
+	
 	$(function() {
 		if (window.location.href.match('/indent-status')) {
 			$("#indent-status-active").addClass("li-active");
@@ -242,7 +242,7 @@ $(document).ready(function() {
 			$("#dashboard-menu").addClass("li-active");
 		}
 	});
-
+	
 
 	/**************Task Mangement tabs *************** */
 
@@ -358,7 +358,7 @@ $(document).ready(function() {
 			$("#workoder-dashboard-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
-
+	
 	$(function() {
 		if (window.location.href.match('/workorder/generate')) {
 			$("#generate-workorder-active").addClass("m-menu__item--active sub-menu-active");
@@ -504,41 +504,41 @@ $(document).ready(function() {
 	/************** Pump Management *************** */
 
 	$(function() {
-		if (window.location.href.match('/pipe/dashboard')) {
+		if (window.location.href.match('/pipe/maintenance/dashboard')) {
 			$("#pipe-dashboard-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/pipe/pipe-index')) {
+		if (window.location.href.match('/pipe/maintenance/index')) {
 			$("#pipe-maintenance-index-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/pipe/maintenance-indent')) {
+		if (window.location.href.match('/pipe/maintenance/indent')) {
 			$("#pipe-maintenance-indent-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/pipe/viewwork')) {
+		if (window.location.href.match('/pipe/maintenance/view')) {
 			$("#pipe-maintenance-view-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 
 
 	$(function() {
-		if (window.location.href.match('/pipe/maintenance-work-update')) {
+		if (window.location.href.match('/pipe/maintenance/update')) {
 			$("#pipe-maintenance-update-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 
 	$(function() {
-		if (window.location.href.match('/pipe/maintenance-inspection')) {
+		if (window.location.href.match('/pipe/maintenance/inspection')) {
 			$("#pipe-maintenance-inspection-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 
 	$(function() {
-		if (window.location.href.match('/pipe/maintenance-history')) {
+		if (window.location.href.match('/pipe/maintenance/history')) {
 			$("#pipe-maintenance-history-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
@@ -635,8 +635,8 @@ $(document).ready(function() {
 		}
 	});
 	$(function() {
-		if (window.location.href.match('/monitor/meter/index')) {
-			$("#meter-index-active").addClass("m-menu__item--active sub-menu-active");
+		if (window.location.href.match('/monitor/meter/testing-maintenance')) {
+			$("#testing-maintenance-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
 	$(function() {
@@ -644,11 +644,7 @@ $(document).ready(function() {
 			$("#meter-replace-active").addClass("m-menu__item--active sub-menu-active");
 		}
 	});
-	$(function() {
-		if (window.location.href.match('/monitor/meter/history')) {
-			$("#meter-history-active").addClass("m-menu__item--active sub-menu-active");
-		}
-	});
+
 
 	/************** Hand Pump Management *************** */
 

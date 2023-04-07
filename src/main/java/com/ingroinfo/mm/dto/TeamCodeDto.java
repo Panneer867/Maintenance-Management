@@ -6,8 +6,7 @@ import lombok.Data;
 public class TeamCodeDto {
 
 	private Long teamCodeId;
-	private String division;
-	private String section;
+	private String teamCode;
 	private String siteEnginner;
 	private String siteSuperwiser;
 }

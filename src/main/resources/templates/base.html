@@ -76,7 +76,7 @@
 					<div class="m-stack__item m-brand  m-brand--skin-dark ">
 						<div class="m-stack m-stack--ver m-stack--general">
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
-								<a href="#" class="m-brand__logo-wrapper  pl-5 ">
+								<a th:href="@{/dashboard}" class="m-brand__logo-wrapper  pl-5 ">
 									<img th:src="@{/images/MM_logo2.png}" width="160px" height="35px">
 								</a>
 							</div>
@@ -103,6 +103,10 @@
 
 								<h5 class="mb-0 mt-2 pr-3 font-weight-bold" th:text="${getLoggedUser}"
 									style="color: #2232f5 !important;"></h5>
+								<a class="text-dark" th:href="@{/approval}">
+									<i class="fas fa-check-square px-2" style="font-size: 25px;color: rgb(255, 255, 0);" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Approval"></i>
+								</a>
 								<a class="text-dark" th:href="@{/admin/home}">
 									<i class="fas fa-user-shield px-2" style="font-size: 25px;" data-bs-toggle="tooltip"
 										data-bs-placement="bottom" title="Admin"></i>
@@ -213,16 +217,6 @@
 											</i>
 											<span class="m-menu__link-text">
 												Work Complete
-											</span>
-										</a>
-									</li>
-									<li class="m-menu__item sub-menu-hover" aria-haspopup="true" id="job-card-active">
-										<a th:href="@{/task/job-card}" class="m-menu__link ">
-											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-												<span></span>
-											</i>
-											<span class="m-menu__link-text">
-												Job card Update
 											</span>
 										</a>
 									</li>
@@ -382,7 +376,7 @@
 								</ul>
 							</div>
 						</li>
-						
+
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" id="indent-status-active"
 							data-menu-submenu-toggle="hover">
 							<a th:href="@{/indent-status}" class="m-menu__link m-menu__toggle">
@@ -422,7 +416,7 @@
 												Dashboard
 											</span>
 										</a>
-									</li>									
+									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="generate-workorder-active">
 										<a th:href="@{/workorder/generate}" class="m-menu__link ">
@@ -780,7 +774,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-dashboard-active">
-										<a th:href="@{/pipe/dashboard}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/dashboard}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -791,7 +785,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-index-active">
-										<a th:href="@{/pipe/pipe-index}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/index}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -802,7 +796,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-indent-active">
-										<a th:href="@{/pipe/maintenance-indent}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/indent}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -813,7 +807,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-view-active">
-										<a th:href="@{/pipe/viewwork}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/view}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -824,7 +818,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-update-active">
-										<a th:href="@{/pipe/maintenance-work-update}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/update}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -835,7 +829,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-inspection-active">
-										<a th:href="@{/pipe/maintenance-inspection}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/inspection}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -846,7 +840,7 @@
 									</li>
 									<li class="m-menu__item sub-menu-hover" aria-haspopup="true"
 										id="pipe-maintenance-history-active">
-										<a th:href="@{/pipe/maintenance-history}" class="m-menu__link ">
+										<a th:href="@{/pipe/maintenance/history}" class="m-menu__link ">
 											<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 												<span></span>
 											</i>
@@ -1116,13 +1110,13 @@
 													</a>
 												</li>
 												<li class="m-menu__item  sub-menu-hover align-list" aria-haspopup="true"
-													id="meter-index-active">
-													<a th:href="@{/monitor/meter/index}" class="m-menu__link ">
+													id="testing-maintenance-active">
+													<a href="#" class="m-menu__link ">
 														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 															<span></span>
 														</i>
 														<span class="m-menu__link-text">
-															Meter Index
+															Testing / Maintenance
 														</span>
 													</a>
 												</li>
@@ -1134,17 +1128,6 @@
 														</i>
 														<span class="m-menu__link-text">
 															Meter Replace
-														</span>
-													</a>
-												</li>
-												<li class="m-menu__item  sub-menu-hover align-list" aria-haspopup="true"
-													id="meter-history-active">
-													<a th:href="@{/monitor/meter/history}" class="m-menu__link ">
-														<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-															<span></span>
-														</i>
-														<span class="m-menu__link-text">
-															Meter History
 														</span>
 													</a>
 												</li>
@@ -1786,7 +1769,6 @@
 	<script th:src="@{/js/graph/work-order-2.js}"></script>
 	<script th:src="@{/js/graph/work-order-3.js}"></script>
 	<script th:src="@{/js/graph/work-order-4.js}"></script>
-	
 </body>
 
 </html>

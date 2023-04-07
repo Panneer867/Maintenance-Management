@@ -188,7 +188,7 @@ $(document).ready(function() {
 		var itemId = $("#pump-spare-item-list").val();
 		$.ajax({
 			type: "GET",
-			url: "/pump/add/materials/item/verify/" + itemId,
+			url: "/pump/add/materials/item/verify/" + itemId + "/" + complNo,
 			success: function(data) {
 				if (data === "true") {
 					alert("Item Already Added , You Have To Delete For Re-Enter !!")
@@ -409,7 +409,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "GET",
-			url: "/pump/add/labor/empcategory/verify/" + category,
+			url: "/pump/add/labor/empcategory/verify/" + category+ "/" + complNo,
 			success: function(data) {
 				if (data === "true") {
 					alert("Employee Category Already Added , You Have To Delete For Re-Enter !!")
@@ -629,7 +629,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "GET",
-			url: "/pump/add/vehicle/number/verify/" + vehicleNo,
+			url: "/pump/add/vehicle/number/verify/" + vehicleNo+ "/" + complNo,
 			success: function(data) {
 				if (data === "true") {
 					alert("Vehicle No Already Added , You Have To Delete For Re-Enter !!")

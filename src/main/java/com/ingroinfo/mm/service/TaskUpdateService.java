@@ -48,4 +48,7 @@ public interface TaskUpdateService {
 	//get List of complaint data by Complain Status
 	List<ComplaintDto> getListOfComplaintByStatus(String complStatus);
 
+	//get Complaint Details By WorkOrder Number
+	ComplaintDto getComplDetailsByWorkOrderNo(String workOrder);
+
 }

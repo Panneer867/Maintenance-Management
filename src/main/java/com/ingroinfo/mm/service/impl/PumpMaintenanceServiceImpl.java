@@ -2,13 +2,18 @@ package com.ingroinfo.mm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ingroinfo.mm.dao.PumpMaintenanceInspectionRepository;
+import com.ingroinfo.mm.dao.PumpMaintenanceUpdatedRepository;
 import com.ingroinfo.mm.dao.PumpMaintenanceRepository;
+import com.ingroinfo.mm.dto.PumpMaintenanceInspectionDto;
+import com.ingroinfo.mm.dto.PumpMaintenanceUpdatedDto;
 import com.ingroinfo.mm.dto.PumpMaintenanceDto;
+import com.ingroinfo.mm.entity.PumpMaintenanceInspection;
+import com.ingroinfo.mm.entity.PumpMaintenanceUpdated;
 import com.ingroinfo.mm.entity.PumpMaintenance;
 import com.ingroinfo.mm.service.PumpMaintenanceService;
 
@@ -16,9 +21,13 @@ import com.ingroinfo.mm.service.PumpMaintenanceService;
 public class PumpMaintenanceServiceImpl implements PumpMaintenanceService {
 
 	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
 	private PumpMaintenanceRepository pumpMaintenRepo;
 	@Autowired
-	private ModelMapper modelMapper;
+	private PumpMaintenanceUpdatedRepository pumpMaintenainceUpdatedRepo;
+	@Autowired
+	private PumpMaintenanceInspectionRepository pumpMaintenainceInspectionRepo;
 
 	@Override
 	public PumpMaintenanceDto savePumpMaintenance(PumpMaintenanceDto pumpMaintenDto) {
@@ -28,24 +37,30 @@ public class PumpMaintenanceServiceImpl implements PumpMaintenanceService {
 	}
 
 	@Override
-	public List<PumpMaintenanceDto> getAllMaintenance() {
-		List<PumpMaintenance> pumpMaintenances = this.pumpMaintenRepo.findAll();
-		List<PumpMaintenanceDto> pumpMaintenanceDtos = pumpMaintenances.stream()
-				.map((pumpmainten) -> this.modelMapper.map(pumpmainten, PumpMaintenanceDto.class))
+	public PumpMaintenanceUpdatedDto savePumpMaintenanceUpdated(PumpMaintenanceUpdatedDto pumpDto) {
+		PumpMaintenanceUpdated savedPumpUpdated = this.pumpMaintenainceUpdatedRepo.save(modelMapper.map(pumpDto, PumpMaintenanceUpdated.class));
+		return this.modelMapper.map(savedPumpUpdated, PumpMaintenanceUpdatedDto.class);
+	}
+
+	@Override
+	public List<PumpMaintenanceUpdatedDto> getAllPumpMaintenanceUpdated() {
+		List<PumpMaintenanceUpdated> pumpMaintenainceUpdateds = this.pumpMaintenainceUpdatedRepo.findAll();
+		return pumpMaintenainceUpdateds.stream()
+				.map((updatedPumps) -> this.modelMapper.map(updatedPumps, PumpMaintenanceUpdatedDto.class))
 				.collect(Collectors.toList());
-		return pumpMaintenanceDtos;
 	}
 
 	@Override
-	public PumpMaintenanceDto getPumpMaintenByPumpMaintenId(Long pumpMaintenId) {
-		PumpMaintenance pumpMaintenance = this.pumpMaintenRepo.findById(pumpMaintenId).get();
-		return this.modelMapper.map(pumpMaintenance, PumpMaintenanceDto.class);
+	public PumpMaintenanceUpdatedDto getPumpMaintenanceUpdatedByWorkorderNo(String workOrderNo) {
+		PumpMaintenanceUpdated pumpMaintenainceUpdated = this.pumpMaintenainceUpdatedRepo.getByWorkOrderNo(workOrderNo);
+		return this.modelMapper.map(pumpMaintenainceUpdated, PumpMaintenanceUpdatedDto.class);
 	}
 
 	@Override
-	public boolean deleteMateialById(Long pumMaterialId) {
-		// TODO Auto-generated method stub
-		return false;
+	public PumpMaintenanceInspectionDto savePumpInspectionData(PumpMaintenanceInspectionDto pumpInspectionDto) {
+		PumpMaintenanceInspection convertedInspection = this.modelMapper.map(pumpInspectionDto, PumpMaintenanceInspection.class);
+		PumpMaintenanceInspection savedPumpInspections = this.pumpMaintenainceInspectionRepo.save(convertedInspection);
+		return this.modelMapper.map(savedPumpInspections, PumpMaintenanceInspectionDto.class);
 	}
 
 }
