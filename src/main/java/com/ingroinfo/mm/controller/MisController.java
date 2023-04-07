@@ -31,6 +31,9 @@ import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.StockOrderItemsRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderItemsRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderLaboursRepository;
+import com.ingroinfo.mm.dao.WapWorkOrderVehiclesRepository;
 import com.ingroinfo.mm.dto.MisReportDto;
 import com.ingroinfo.mm.entity.ApprovedStocksReturn;
 import com.ingroinfo.mm.entity.Assets;
@@ -38,6 +41,9 @@ import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
 import com.ingroinfo.mm.entity.InwardApprovedTools;
 import com.ingroinfo.mm.entity.StockOrderItems;
+import com.ingroinfo.mm.entity.WapWorkOrderItems;
+import com.ingroinfo.mm.entity.WapWorkOrderLabours;
+import com.ingroinfo.mm.entity.WapWorkOrderVehicles;
 import com.ingroinfo.mm.helper.Message;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -69,6 +75,15 @@ public class MisController {
 
 	@Autowired
 	private ApprovedStocksReturnRepository approvedStocksReturnRepository;
+	
+	@Autowired
+	private WapWorkOrderItemsRepository wapWorkOrderItemsRepository;
+	
+	@Autowired
+	private WapWorkOrderLaboursRepository wapWorkOrderLaboursRepository;
+	
+	@Autowired
+	private WapWorkOrderVehiclesRepository wapWorkOrderVehiclesRepository;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -231,9 +246,73 @@ public class MisController {
 				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
 			}
 			return generateReport(reportName, param, newApprovedStocksReturn);
-		} else {
+		} else if (misReportDto.getCategory().equals("STOCKS")
+				&& misReportDto.getSubCategory().equals("STOCKSRETURN")) {
 
-			return ResponseEntity.badRequest().build();
+			String reportName = "/reports/Stocks_Return_Report.jrxml";
+			String param = "Stocks Return Report";
+
+			List<ApprovedStocksReturn> approvedStocksReturn = approvedStocksReturnRepository.findAll();
+			List<ApprovedStocksReturn> newApprovedStocksReturn = approvedStocksReturn.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newApprovedStocksReturn.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newApprovedStocksReturn);
+		}  else if (misReportDto.getCategory().equals("WORKORDERS")
+				&& misReportDto.getSubCategory().equals("WAITINGWORKORDERITEMS")) {
+
+			String reportName = "/reports/Waiting_Workorder_Items_Report.jrxml";
+			String param = "Waiting Workorder Items Report";
+
+			List<WapWorkOrderItems> wapWorkOrderItems = wapWorkOrderItemsRepository.findAll();
+			List<WapWorkOrderItems> newWapWorkOrderItems = wapWorkOrderItems.stream()
+					.filter(obj -> obj.getCreatedDate().after(fromDate) && obj.getCreatedDate().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newWapWorkOrderItems.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newWapWorkOrderItems);
+		}else if (misReportDto.getCategory().equals("WORKORDERS")
+				&& misReportDto.getSubCategory().equals("WAITINGWORKORDERLABOURS")) {
+
+			String reportName = "/reports/Waiting_Workorder_Labours_Report.jrxml";
+			String param = "Waiting Workorder Labours Report";
+
+			List<WapWorkOrderLabours> wapWorkOrderLabours = wapWorkOrderLaboursRepository.findAll();
+			List<WapWorkOrderLabours> newWapWorkOrderLabours = wapWorkOrderLabours.stream()
+					.filter(obj -> obj.getCreatedDate().after(fromDate) && obj.getCreatedDate().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newWapWorkOrderLabours.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newWapWorkOrderLabours);
+		}else if (misReportDto.getCategory().equals("WORKORDERS")
+				&& misReportDto.getSubCategory().equals("WAITINGWORKORDERVEHICLES")) {
+
+			String reportName = "/reports/Waiting_Workorder_Vehicles_Report.jrxml";
+			String param = "Waiting Workorder Vehicles Report";
+
+			List<WapWorkOrderVehicles> wapWorkOrderVehicles = wapWorkOrderVehiclesRepository.findAll();
+			List<WapWorkOrderVehicles> newWapWorkOrderVehicles = wapWorkOrderVehicles.stream()
+					.filter(obj -> obj.getCreatedDate().after(fromDate) && obj.getCreatedDate().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newWapWorkOrderVehicles.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newWapWorkOrderVehicles);
+		}else {
+			session.setAttribute("message", new Message("Please Select Sub Category Appropriately !", "danger"));
+			return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
 		}
 	}
 
