@@ -46,6 +46,7 @@ public class ApprovedStocksReturn {
 	private String username;
 	private String invoiceNo;
 	private String returnEntryDate;
+	private String workOrderNo;
 	
 	private String indentNo;
 	private String complNo;

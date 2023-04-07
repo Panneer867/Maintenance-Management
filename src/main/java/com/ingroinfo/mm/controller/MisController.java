@@ -24,12 +24,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ingroinfo.mm.dao.ApprovedStocksReturnRepository;
 import com.ingroinfo.mm.dao.AssetsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
 import com.ingroinfo.mm.dao.StockOrderItemsRepository;
 import com.ingroinfo.mm.dto.MisReportDto;
+import com.ingroinfo.mm.entity.ApprovedStocksReturn;
 import com.ingroinfo.mm.entity.Assets;
 import com.ingroinfo.mm.entity.InwardApprovedMaterials;
 import com.ingroinfo.mm.entity.InwardApprovedSpares;
@@ -63,6 +66,9 @@ public class MisController {
 
 	@Autowired
 	private StockOrderItemsRepository stockOrderItemsRepository;
+
+	@Autowired
+	private ApprovedStocksReturnRepository approvedStocksReturnRepository;
 
 	@ModelAttribute
 	private void UserDetailsService(Model model, Principal principal) {
@@ -209,6 +215,22 @@ public class MisController {
 				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
 			}
 			return generateReport(reportName, param, newStockOrderItems);
+		} else if (misReportDto.getCategory().equals("STOCKS")
+				&& misReportDto.getSubCategory().equals("STOCKSRETURN")) {
+
+			String reportName = "/reports/Stocks_Return_Report.jrxml";
+			String param = "Stocks Return Report";
+
+			List<ApprovedStocksReturn> approvedStocksReturn = approvedStocksReturnRepository.findAll();
+			List<ApprovedStocksReturn> newApprovedStocksReturn = approvedStocksReturn.stream()
+					.filter(obj -> obj.getDateCreated().after(fromDate) && obj.getDateCreated().before(toDate))
+					.collect(Collectors.toList());
+
+			if (newApprovedStocksReturn.isEmpty()) {
+				session.setAttribute("message", new Message(message, "danger"));
+				return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirect).build();
+			}
+			return generateReport(reportName, param, newApprovedStocksReturn);
 		} else {
 
 			return ResponseEntity.badRequest().build();
