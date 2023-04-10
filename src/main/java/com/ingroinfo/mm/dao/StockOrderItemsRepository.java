@@ -12,4 +12,6 @@ public interface StockOrderItemsRepository extends JpaRepository<StockOrderItems
 
 	 StockOrderItems findByItemIdAndStockOrderNo(String itemId, Long stockOrderNo);
 
+	StockOrderItems getByItemIdAndComplNo(String itemId, String complNo);
+
 }

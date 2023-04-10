@@ -43,9 +43,11 @@ import com.ingroinfo.mm.dto.WorkOrderApprovedLaboursDto;
 import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.dto.WorkPriorityDto;
 import com.ingroinfo.mm.dto.WorkStatusDto;
+import com.ingroinfo.mm.entity.ReturnItemsRequest;
 import com.ingroinfo.mm.entity.TempAddedIndentLabours;
 import com.ingroinfo.mm.entity.TempAddedIndentMaterials;
 import com.ingroinfo.mm.entity.TempAddedIndentVehicles;
+import com.ingroinfo.mm.entity.TempAddedReturnItems;
 import com.ingroinfo.mm.entity.TempIndentItemRequest;
 import com.ingroinfo.mm.entity.TempIndentLabourRequest;
 import com.ingroinfo.mm.entity.TempIndentVehicleRequest;
@@ -392,13 +394,12 @@ public class PumpController {
 		oldcomplaintDto.setIndentNo(indentNumber);
 		this.taskUpdateService.saveComplaint(oldcomplaintDto);
 		String deptName = oldcomplaintDto.getDepartment();
-		
+
 		String nextIncrimentId = this.masterService.getAutoIncrimentIdForDepartment(masterIdName, deptName);
-		DepartmentIdMasterDto deptIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName,
-				deptName);
+		DepartmentIdMasterDto deptIdMasterDto = this.masterService.getByMasterIdNameAndDeptName(masterIdName, deptName);
 		deptIdMasterDto.setDeptLastId(nextIncrimentId);
 		this.masterService.saveDepartmentIdMaster(deptIdMasterDto);
-		
+
 		session.setAttribute("message", new Message("Indent Successfully Created !! Wait For Approval !!", "success"));
 		return "redirect:/pump/maintenance/indent";
 	}
@@ -406,9 +407,9 @@ public class PumpController {
 	// verify Items
 	@RequestMapping("/add/materials/item/verify/{itemId}/{complNo}")
 	@ResponseBody
-	public String verifyItmName(@PathVariable("itemId") String itemId,@PathVariable("complNo")String complNo) {
+	public String verifyItmName(@PathVariable("itemId") String itemId, @PathVariable("complNo") String complNo) {
 		String f = "false";
-		if (tempAddedIndentMaterialsRepo.existsByItemIdAndComplNo(itemId,complNo)) {
+		if (tempAddedIndentMaterialsRepo.existsByItemIdAndComplNo(itemId, complNo)) {
 			f = "true";
 		}
 		return f;
@@ -417,9 +418,10 @@ public class PumpController {
 	// verify Employee Category
 	@RequestMapping("/add/labor/empcategory/verify/{empCategory}/{complNo}")
 	@ResponseBody
-	public String verifyEmployeeCategory(@PathVariable("empCategory") String empCategory,@PathVariable("complNo")String complNo) {
+	public String verifyEmployeeCategory(@PathVariable("empCategory") String empCategory,
+			@PathVariable("complNo") String complNo) {
 		String f = "false";
-		if (tempAddedIndentLaboursRepo.existsByEmpCategoryAndComplNo(empCategory,complNo)) {
+		if (tempAddedIndentLaboursRepo.existsByEmpCategoryAndComplNo(empCategory, complNo)) {
 			f = "true";
 		}
 		return f;
@@ -428,9 +430,10 @@ public class PumpController {
 	// verify Vehicle Number
 	@RequestMapping("/add/vehicle/number/verify/{vehicleNo}/{complNo}")
 	@ResponseBody
-	public String verifyVehicleNumber(@PathVariable("vehicleNo") String vehicleNo,@PathVariable("complNo")String complNo) {
+	public String verifyVehicleNumber(@PathVariable("vehicleNo") String vehicleNo,
+			@PathVariable("complNo") String complNo) {
 		String f = "false";
-		if (tempAddedIndentVehiclesRepo.existsByVehicleNoAndComplNo(vehicleNo,complNo)) {
+		if (tempAddedIndentVehiclesRepo.existsByVehicleNoAndComplNo(vehicleNo, complNo)) {
 			f = "true";
 		}
 		return f;
@@ -599,10 +602,20 @@ public class PumpController {
 
 	// Submit Pump Updated Maintenance Data
 	@PostMapping("/maintenance/submitUpdated")
-	public String submitUpdatedMainteance(PumpMaintenanceUpdatedDto pumpDto, HttpSession session,
-			Principal principal) {
+	public String submitUpdatedMainteance(PumpMaintenanceUpdatedDto pumpDto, HttpSession session, Principal principal) {
 		pumpDto.setUserName(principal.getName());
 		this.pumpMaintenService.savePumpMaintenanceUpdated(pumpDto);
+		List<TempAddedReturnItems> tempAddedReturnItems = this.workOrderService
+				.getAllAddedReturnItemsByIndentNoAndComplNo(pumpDto.getIndentNo(), pumpDto.getComplNo());
+		
+		if (tempAddedReturnItems != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<ReturnItemsRequest> returnItemsRequests = tempAddedReturnItems.stream()
+					.map((returnItems) -> modelMapper.map(returnItems, ReturnItemsRequest.class))
+					.collect(Collectors.toList());			
+			this.workOrderService.saveAllReturnItemRequest(returnItemsRequests);
+			this.workOrderService.deleteAllTempAddedReturnItemsByComplNo(pumpDto.getComplNo());
+		}
 		ComplaintDto oldComplaintDto = this.taskUpdateService.getComplainDataByComplainNo(pumpDto.getComplNo());
 		oldComplaintDto.setComplStatus("WORKORDER_UPDATED");
 		this.taskUpdateService.saveComplaint(oldComplaintDto);
@@ -636,27 +649,28 @@ public class PumpController {
 		model.addAttribute("title", "Pump | Inspection | Manintenance Management");
 		return "/pages/pump_house/pump_maintenance_inspection";
 	}
-	
-	// Save Inspections Data 
+
+	// Save Inspections Data
 	@PostMapping("/maintenance/inspection/submit")
-	public String submitInspectionWorkOrder(PumpMaintenanceInspectionDto pumpInspectionDto,Principal principal,HttpSession session) {
+	public String submitInspectionWorkOrder(PumpMaintenanceInspectionDto pumpInspectionDto, Principal principal,
+			HttpSession session) {
 		try {
-			pumpInspectionDto.setUserName(principal.getName());			
+			pumpInspectionDto.setUserName(principal.getName());
 			this.pumpMaintenService.savePumpInspectionData(pumpInspectionDto);
-			ComplaintDto oldComplaintDto = this.taskUpdateService.getComplainDataByComplainNo(pumpInspectionDto.getComplNo());
+			ComplaintDto oldComplaintDto = this.taskUpdateService
+					.getComplainDataByComplainNo(pumpInspectionDto.getComplNo());
 			oldComplaintDto.setComplStatus("Completed");
 			oldComplaintDto.setInspectionBy(principal.getName());
 			oldComplaintDto.setInspectionDate(new java.sql.Date(System.currentTimeMillis()));
 			oldComplaintDto.setWorkCompletedDate(new java.sql.Date(System.currentTimeMillis()));
 			this.taskUpdateService.saveComplaint(oldComplaintDto);
 			this.taskUpdateService.submitInvestigations(oldComplaintDto);
-			session.setAttribute("message", new Message("Complain Inspection Successfully Completed !!","success"));
+			session.setAttribute("message", new Message("Complain Inspection Successfully Completed !!", "success"));
 		} catch (Exception e) {
-			System.out.println("Something Wrong !!"+e.getMessage());
-		}		
+			System.out.println("Something Wrong !!" + e.getMessage());
+		}
 		return "redirect:/pump/maintenance/inspection";
 	}
-	
 
 	@GetMapping("/maintenance/history")
 	@PreAuthorize("hasAuthority('PUMP_HISTORY')")

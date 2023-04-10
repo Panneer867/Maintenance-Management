@@ -17,6 +17,8 @@ import com.ingroinfo.mm.dto.WorkOrderApprovedVehiclesDto;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
+import com.ingroinfo.mm.entity.ReturnItemsRequest;
+import com.ingroinfo.mm.entity.TempAddedReturnItems;
 import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
@@ -163,5 +165,14 @@ public interface WorkOrderService {
 
 	// Get Approved WorkOrder Items data to Outward Stock Item request Table
 	List<WorkOrderApprovedItemsDto> getApprovedWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo);
+
+	//Get TempAdded Return Items By IndentNo And ComplNo
+	List<TempAddedReturnItems> getAllAddedReturnItemsByIndentNoAndComplNo(String indentNo, String complNo);
+
+	//save All Return Item Requests
+	void saveAllReturnItemRequest(List<ReturnItemsRequest> returnItemsRequests);
+
+	//Delete All TempReturn Added Materials
+	void deleteAllTempAddedReturnItemsByComplNo(String complNo);
 
 }

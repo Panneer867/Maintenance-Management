@@ -16,6 +16,8 @@ import com.ingroinfo.mm.dao.HoldWorkOrderVehiclesRepository;
 import com.ingroinfo.mm.dao.IndentApprovedItemsRepository;
 import com.ingroinfo.mm.dao.IndentApprovedLaboursRepository;
 import com.ingroinfo.mm.dao.IndentApprovedVehiclesRepository;
+import com.ingroinfo.mm.dao.ReturnItemsRequestRepository;
+import com.ingroinfo.mm.dao.TempAddedReturnItemsRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderItemRequestRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderLabourRequestRepository;
 import com.ingroinfo.mm.dao.TempWorkOrderVehicleRequestRepository;
@@ -46,6 +48,8 @@ import com.ingroinfo.mm.entity.HoldWorkOrderVehicles;
 import com.ingroinfo.mm.entity.IndentApprovedItems;
 import com.ingroinfo.mm.entity.IndentApprovedLabours;
 import com.ingroinfo.mm.entity.IndentApprovedVehicles;
+import com.ingroinfo.mm.entity.ReturnItemsRequest;
+import com.ingroinfo.mm.entity.TempAddedReturnItems;
 import com.ingroinfo.mm.entity.TempWorkOrderItemRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderLabourRequest;
 import com.ingroinfo.mm.entity.TempWorkOrderVehicleRequest;
@@ -98,6 +102,10 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	private WorkOrderApprovedLaboursRepository workOrderApprovedLaboursRepo;
 	@Autowired
 	private WorkOrderApprovedVehiclesRepository workOrderApprovedVehiclesRepo;
+	@Autowired
+	private TempAddedReturnItemsRepository tempAddedReturnItemsRepo;
+	@Autowired
+	private ReturnItemsRequestRepository returnItemsRequestRepo;
 
 	@Override
 	public List<TempWorkOrderItemRequest> getTempWorkOrderItemsByComplNoAndIndentNo(String complNo, String indentNo) {
@@ -404,6 +412,21 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		return workOrderApprovedItems.stream()
 				.map((workOrderItem) -> this.modelMapper.map(workOrderItem, WorkOrderApprovedItemsDto.class))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<TempAddedReturnItems> getAllAddedReturnItemsByIndentNoAndComplNo(String indentNo, String complNo) {		
+		return tempAddedReturnItemsRepo.getByIndentNoAndComplNo(indentNo, complNo);
+	}
+
+	@Override
+	public void saveAllReturnItemRequest(List<ReturnItemsRequest> returnItemsRequests) {
+		this.returnItemsRequestRepo.saveAll(returnItemsRequests);
+	}
+
+	@Override
+	public void deleteAllTempAddedReturnItemsByComplNo(String complNo) {
+		this.tempAddedReturnItemsRepo.deleteAllByComplNo(complNo);
 	}
 
 }

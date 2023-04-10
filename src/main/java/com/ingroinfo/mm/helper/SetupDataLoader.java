@@ -51,7 +51,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 	@Autowired
 	private PrivilegeRepository privilegeRepository;
-
+		
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (alreadySetup)
@@ -785,8 +785,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			bank = new Bank(bankName);
 			bankRepository.save(bank);
 		}
-	}
-
-	
+	}		
 
 }

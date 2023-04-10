@@ -13,7 +13,7 @@
 						</li>
 
 						<li class="crumb active">
-							<div class="link"><span aria-current="location">Stocks Return Entry</span></div>
+							<div class="link"><span aria-current="location">Stocks Return</span></div>
 						</li>
 					</ol>
 				</nav>
@@ -48,394 +48,367 @@
 				</ul>
 			</div>
 		</div>
-		<div th:if="${session.message}" class="alert_field">
-			<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
-				<span th:text="${session.message.content}"></span>
-			</div>
-			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		</div>
-		<div class="col-12 mx-auto">
-			<div class="card bl-cr">
-				<div class="card-header text-center heading-bg text-white">
-					<h4 class="mb-0">Stock Return</h4>
+		<div class="row">
+			<div class="col-9">
+				<div th:if="${session.message}" class="alert_field">
+					<div class="alert text-center py-1" th:classappend="${'alert-'+session.message.type}" role="alert">
+						<span th:text="${session.message.content}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 				</div>
-				<div class="card-body font-weight-bold">
-					<form class="p-0 mb-0" th:action="@{/stocks/return/items/entry/add}" th:object="${stockReturn}"
-						method="post" enctype="multipart/form-data">
-						<div class="row">
-							<div class="col-9">
-								<div class="row">
-									<div class="col-6">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-3 col-form-label">Stock Order No
-											</label>
-											<div class="col-sm-9">
-												<select class="form-select" id="mySelect2" name="stockOrderNo" required>
-													<option value="" selected>Select</option>
-													<option th:each="stockOrder : ${stockOrders}"
-														th:value="${stockOrder.stockOrderNo}"
-														th:utext="${stockOrder.stockOrderNo}" />
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-3 col-form-label">Item ID
-											</label>
-											<div class="col-sm-9">
-												<select class="form-select" id="mySelect3" name="itemId" required>
-													<option value="" selected>Select</option>
-												</select>
-											</div>
-										</div>
-									</div>
+				<div class="card bl-cr">
+					<div class="card-header text-center bg-info text-white heading-bg">
+						<h4 class="mb-0">Outward Stocks</h4>
+					</div>
+					<div class="card-body font-weight-bold pb-0">
 
-								</div>
-								<div class="row ">
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Complaint
-												No</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-complNo" class="form-control" disabled />
-											</div>
-										</div>
-									</div>
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Indent No</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-indentNo" class="form-control" disabled
-													required />
-											</div>
-										</div>
-									</div>
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Department</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-department" class="form-control" disabled
-													required />
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="row">
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Item
-												Name</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-itemName" class="form-control" disabled />
-											</div>
-										</div>
-									</div>
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Category</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-category" class="form-control" disabled
-													required />
-											</div>
-										</div>
-									</div>
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Unit of
-												Measure</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-unitOfMeasure" class="form-control" disabled
-													required />
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="row">
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">
-												Stock Type</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-stockType" class="form-control" disabled
-													required />
-
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">MRP
-											</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<div class="input-group-prepend">
-														<span class="input-group-text py-2 font-weight-bold"
-															style="border-radius: 0;">&#8377;</span>
-													</div>
-													<input type="text" id="sr-mrpRate" class="form-control" disabled
-														required />
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">
-												Order Quantity</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-orderQuantity" class="form-control" disabled
-													required />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">
-												GST</label>
-											<div class="col-sm-8">
-												<input type="text" id="sr-igst" class="form-control" disabled
-													required />
-
-											</div>
-										</div>
-
-									</div>
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Order Total
-												Cost</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<div class="input-group-prepend">
-														<span class="input-group-text py-2 font-weight-bold"
-															style="border-radius: 0;">&#8377;</span>
-													</div>
-													<input type="text" id="sr-orderTotalCost" class="form-control"
-														disabled required />
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Return
-												Quantity<strong class="text-danger">*</strong></label>
-											<div class="col-sm-8">
-												<input type="number" name="returnQuantity" id="return-quantity"
-													class="form-control" required />
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-								<div class="row">
-									<div class="col-4">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">
-												Return Reason<strong class="text-danger">*</strong></label>
-											<div class="col-sm-8">
-												<select class="form-select" name="returnReason" required>
-													<option value="" selected>Select</option>
-													<option value="Direct return">Direct Return</option>
-													<option value="Damaged Item">Damaged Item</option>
-													<option value="Exceeded Item">Exceeded Item</option>
-													<option value="Worngly Placed">Worngly Placed</option>
-												</select>
-
-											</div>
-										</div>
-									</div>
-									<div class="col-8">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">
-												Return Description</label>
-											<div class="col-sm-8">
-												<input type="text" name="description" class="form-control" required />
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-3 text-center">
-								<input name="itemImage" type="file" class="dropify" data-height="200" accept="image/*"
-									data-max-file-size="2M" required />
-								<strong class="text-primary"> File Max Size: 2MB</strong>
-							</div>
-							<input type="hidden" id="itemName-sr" name="itemName" />
-							<input type="hidden" id="category-sr" name="category" />
-							<input type="hidden" id="unitOfMeasure-sr" name="unitOfMeasure" />
-							<input type="hidden" id="orderTotalCost-sr" name="orderTotalCost" />
-							<input type="hidden" id="mrpRate-sr" name="mrpRate" />
-							<input type="hidden" id="orderQuantity-sr" name="orderQuantity" />
-							<input type="hidden" id="stockType-sr" name="stockType" />
-							<input type="hidden" id="igst-sr" name="igst" />
-							<input type="hidden" id="sgst-sr" name="sgst" />
-							<input type="hidden" id="cgst-sr" name="cgst" />
-							<input type="hidden" id="complNo-sr" name="complNo" />
-							<input type="hidden" id="indentNo-sr" name="indentNo" />
-							<input type="hidden" id="department-sr" name="departmentName" />
+						<div th:if="${stockOrder.stockOrderNo != null} ">
 							<div class="row">
-								<div class="col-12 text-center">
-									<button type="submit" class="btn btn-primary btn-sm"><i
-											class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
-									<button type="reset" class="btn btn-secondary btn-sm">Reset</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<h3 class="text-center bg-warning mt-2 py-1"><small>Returned Stocks</small></h3>
-
-			<table class="table table-stock table-bordered table table-success table-striped table-hover">
-				<thead class="table-dark">
-					<tr>
-						<th class="all">Category</th>
-						<th class="all">Item ID</th>
-						<th class="all">Item</th>
-						<th class="all">Image</th>
-
-						<th class="all">Unit(M)</th>
-
-						<th class="all">MRP</th>
-						<th class="all">Ordered Qty</th>
-						<th class="all">Return Qty</th>
-						<th class="all">Ordered Cost</th>
-						<th class="all">Return Cost</th>
-						<th class="all" width="80px"><button th:onclick="|deleteAll('/stocks/return/items/deleteAll')|"
-								class="btn text-danger p-0 font-weight-bold" data-toggle="modal" data-target="#delAll"
-								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Spare">Clear All</button>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="tempStockReturn: ${tempStockReturns}">
-						<td th:text="${tempStockReturn.category}"></td>
-						<td th:text="${tempStockReturn.itemId}"></td>
-						<td th:text="${tempStockReturn.itemName}"></td>
-						<td class="text-center thumb">
-							<img th:src="@{${tempStockReturn.imagePath} + ${tempStockReturn.itemImage}}" alt="image" />
-						</td>
-						<td th:text="${tempStockReturn.unitOfMeasure}"></td>
-						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.mrpRate}"></label></td>
-						<td th:text="${tempStockReturn.orderQuantity}"></td>
-						<td th:text="${tempStockReturn.returnQuantity}"></td>
-						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.orderTotalCost}"></label></td>
-						<td>&#8377;<label class="px-1" th:text="${tempStockReturn.returnTotalCost}"></label></td>
-						<td class="text-center">
-							<button th:onclick="|deleteId('/stocks/return/items/delete/${tempStockReturn.recordId}')|"
-								class="btn btn-danger p-1 mx-2" data-toggle="modal" data-target="#del"
-								data-bs-toggle="tooltip" data-bs-placement="top" title="Remove Item"><span
-									class="glyphicon glyphicon-trash"></span></button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert" th:if="${emptyList != null}">
-				[[${emptyList}]]</div>
-
-			<form th:action="@{/stocks/return/items/entry/addAll}" th:object="${stockReturn}" method="post">
-				<div class="row">
-					<div class="col-9">
-						<div class="card my-1 w-100 bl-cr">
-							<div class="card-body font-weight-bold">
-								<div class="row ">
-									<div class="col-6">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-4 col-form-label">Invoice</label>
-											<div class="col-sm-8">
-												<input type="text" name="invoiceNo" class="form-control" required />
-											</div>
-										</div>
-									</div>
-
-
-									<div class="col-6">
-										<div class="form-group row">
-											<label for="staticEmail" class="col-sm-5 col-form-label">Return
-												Enry Date</label>
-											<div class="col-sm-7">
-												<input type="date" name="returnEntryDate" class="form-control"
-													required />
-											</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Complaint
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.complNo}" disabled />
 										</div>
 									</div>
 								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Workorder
+											No</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.workOrderNo}" disabled />
+											<input type="hidden" th:value="${stockOrder.workOrderNo}"
+												id="get-workorder-no" />
+										</div>
+									</div>
 
-								<div class="row mt-3">
-									<div class="col-12 text-center">
-										<button type="submit" class="btn btn-success btn-sm">Submit</button>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">StockOrder
+											No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.stockOrderNo}" disabled />
+											<input type="hidden" th:value="${stockOrder.stockOrderNo}"
+												id="get-stockorder-no" />
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-3 pt-1">
-						<div class="row text-white">
-							<div class="col-6 bg-dark py-2 rounded-top">
-								<label class="font-weight-bold mb-0">Total Return Amount</label>
-								<label class="font-weight-bold mb-0">(Inclusive of GST)</label>
-							</div>
-							<div class="col-6 bg-dark row py-2 rounded-top">
-								<label class="font-weight-bold mb-0">&#8377;<label class=" pl-2 font-weight-bold mb-0"
-										th:text="${returnCost}"></label></label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
 
-		<div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
-			<div class="modal-dialog" role="document" style="margin-top: 180px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4>Remove Item</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						Are you sure, you want to remove this Items from the list?
-					</div>
-					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Remove</a>
-						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Department</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.departmentName}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Division</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.division}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Sub
+											Division</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.subDivision}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work
+											Priority</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.workPriority}" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Work Site</label>
+										<div class="col-sm-7 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.workSite}" disabled />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-4">
+									<div class="form-group row">
+										<label for="staticEmail" class="col-sm-5 col-form-label pr-0">Contact No</label>
+										<div class="col-sm-6 px-0">
+											<input type="text" class="form-control text-center font-weight-bold"
+												th:value="${stockOrder.contactNo}" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="text-center bg-info mt-2 py-1 text-white"><small>stock Order Items</small>
+							</h3>
+						</div>
+
+						<table
+							class="table table-stock table-bordered basket-tbl table table-striped table-hover shopping-cart is-fullwidth orderTable actionBtn">
+							<thead class="bg-dark text-white">
+								<tr>
+									<th class="all">Sl No</th>
+									<th class="all">Item ID</th>
+									<th class="all">Item</th>
+									<th class="all text-center">Availability</th>
+									<th class="all">Image</th>
+									<th class="all ">Type</th>
+									<th class="all" style="width: 12%;">MRP</th>
+									<th class="all" style="width: 15%;">Quantity</th>
+									<th class="all" style="width: 12%;">Total</th>
+									<!--<th class="all" style="width: 5%;">Action</th>-->
+								</tr>
+							</thead>
+							<tbody class="add-item">
+								<tr th:each="getStockOrderItem: ${getStockOrderItems}">
+									<td th:text="${getStockOrderItem.slNo}"></td>
+									<td th:text="${getStockOrderItem.itemId}"></td>
+									<td class="item-id" th:text="${getStockOrderItem.itemId}" style="display: none;">
+									</td>
+									<td class="sl_no"><label class="mb-0"
+											th:text="${getStockOrderItem.itemName}"></label></td>
+									<td class="text-center"><span th:if="${getStockOrderItem.stockAvailable} > 0"
+											class="bg-success p-1 rounded font-weight-bold text-white">Available</span>
+										<span th:if="${getStockOrderItem.stockAvailable} <= 0"
+											class="bg-danger p-1 rounded font-weight-bold text-white">Not
+											Available</span>
+									</td>
+
+									<td class="text-center thumb">
+										<img th:src="@{${getStockOrderItem.imagePath} + ${getStockOrderItem.itemImage}}"
+											alt="image" />
+									</td>
+									<td th:text="${getStockOrderItem.stockType == 'ML' ? 'Material' :
+					                 getStockOrderItem.stockType == 'SP' ? 'Spare' :
+					                 getStockOrderItem.stockType == 'TE' ? 'Tool/Equipment' :
+					                 getStockOrderItem.stockType}"></td>
+									<td>
+										<div class="row text-center">
+											<i class="fa fa-inr pt-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; width: 0;"> </i>
+											<input type="text" id="price" class="price"
+												th:value="${getStockOrderItem.mrpRate}"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<td>
+										<div class="row pl-3">
+											<div class="outer-button" style="width: 30px;">
+												<div class="dec button">
+													<i class="fa fa-minus bg-danger"
+														style="font-size: 0.6em; color: #fff; padding: 5px; "></i>
+												</div>
+											</div>
+											<input type="number" id="qty" th:value="${getStockOrderItem.finalQuantity}"
+												class="qty text-center"
+												style="border: none; color: black; background: transparent; outline: 0; width: 35%;"
+												disabled />
+											<div class="outer-button" style="width: 20px;">
+												<div class="inc button"><i class="fa fa-plus bg-success"
+														style="font-size: 0.6em; color: #fff; padding: 5px;"></i>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="row">
+											<i class="fa fa-inr pr-1 pl-3" aria-hidden="true"
+												style="font-size: 13px; padding-top: 4px;width: 0;"></i>
+											<input type="text" class="cost"
+												style="border: none; color: black; background: transparent; outline: 0;"
+												disabled />
+										</div>
+									</td>
+									<!--<td class="text-center"><i
+											class="glyphicon glyphicon-trash remove-item text-danger"></i>
+									</td>-->
+								</tr>
+							</tbody>
+						</table>
+						<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+							th:if="${noReturnItems != null}">No Stock Order Items</div>
+						<form th:action="@{/stocks/outward/stockorder/items}" method="post" th:object="${stockorder}"
+							th:if="${noReturnItems == null}">
+							<div class="row">
+								<div class="col-8">
+									<div class="row">
+
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label"
+													style="width: 95px;">Billed On</label>
+												<div class="col-sm-7">
+													<input type="date" name="billedOn" class="form-control" required />
+												</div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">GST
+													Type<strong class="text-danger">*</strong></label>
+												<div class="col-sm-7">
+													<select class="form-select" name="gstType" id="select-gst-outward"
+														required>
+														<option value="">Select</option>
+														<option value="Taxable">Taxable</option>
+														<option value="Exempted">Exempted</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-4 col-form-label">IGST</label>
+												<div class="col-sm-8">
+													<div class="input-group">
+														<input type="hidden" name="igst" id="get-igst-outward" />
+														<input type="number" class="form-control igst-outward"
+															required />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">SGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="sgst" id="get-sgst-outward" />
+														<input type="number" class="form-control sgst-outward" />
+														<div class="input-group-prepend">
+															<span class="input-group-text font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="form-group row">
+												<label for="staticEmail" class="col-sm-5 col-form-label">CGST</label>
+												<div class="col-sm-7">
+													<div class="input-group">
+														<input type="hidden" name="cgst" id="get-cgst-outward" />
+														<input type="number" class="form-control cgst-outward" />
+														<div class="input-group-prepend">
+															<span class="input-group-text  font-weight-bold"
+																style="border-radius: 0; padding-top:7px; padding-bottom:7px;">%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 text-center">
+									<div class="row text-white">
+										<div class="col-6 bg-dark py-2 rounded-top">
+											<label class="font-weight-bold mb-0">Subtotal</label>
+										</div>
+										<div class="col-6 bg-dark row py-2 rounded-top">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 subtotal"></label></label>
+											<input type="hidden" name="subTotal" id="sub-total-outward" />
+										</div>
+									</div>
+									<div class="row text-white">
+										<div class="col-6 bg-primary py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">Grand Total</label>
+										</div>
+										<div class="col-6 bg-primary row py-2 rounded-bottom">
+											<label class="font-weight-bold mb-0">&#8377;<label
+													class=" pl-2 font-weight-bold mb-0 grand-total"></label></label>
+											<input type="hidden" name="grandTotal" id="grand-total-outward" />
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="stockOrderNo" id="set-stockorder-no" required />
+								<input type="hidden" name="workOrderNo" id="set-workorder-no" required />
+								<div class="col-12 text-center mt-3">
+									<button type="submit" class="btn btn-success btn-sm mr-3">Submit</button>
+									<button type="reset" class="btn btn-secondary btn-sm mr-3">Reset</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="modal fade" id="delAll" tabindex="-1" role="dialog" aria-labelledby="delAll" aria-hidden="true">
-			<div class="modal-dialog" role="document" style="margin-top: 180px;">
-				<div class="modal-content">
-					<div class="modal-header p-2">
-						<h4>Remove Items</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						Are you sure, you want to remove All Items from the list?
-					</div>
-					<div class="modal-footer p-2">
-						<a href="" class="btn btn-sm btn-danger" id="deleteAll">Yes, Remove</a>
-						<button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-					</div>
+			<div class="col-3">
+				<table
+					class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+					<thead class="table-dark">
+						<tr>
+							<th>Complaint</th>
+							<th>Workorder</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="returnItemsRequest: ${returnItemsRequests}">
+							<td th:text="${returnItemsRequest.complNo}"></td>
+							<td th:text="${returnItemsRequest.workOrderNo}"></td>
+							<td class="text-center">
+								<a th:href="@{'/stocks/outward/get/' + ${returnItemsRequest.stockOrderNo}}"
+									class="btn btn-info p-1 mx-2">Stockorder</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="alert alert-dark text-danger text-center my-2 py-1" role="alert"
+					th:if="${emptyList != null}">
+					No Stock Orders</div>
+				<div th:if="${stockQuantities != null}">
+					<div class="alert alert-danger text-center my-2 py-1" role="alert">
+						The quantity exceeds the available stock.</div>
+					<table
+						class="table table-stock table-bordered table table-striped table-hover outward-stocks w-100 mt-4">
+						<thead class="table-warning">
+							<tr>
+								<th>Item ID</th>
+								<th> Requested</th>
+								<th>Available</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stockQuantity: ${stockQuantities}">
+								<td th:text="${stockQuantity.itemId}"></td>
+								<td th:text="${stockQuantity.stockRequested}"></td>
+								<td th:text="${stockQuantity.stockAvailable}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

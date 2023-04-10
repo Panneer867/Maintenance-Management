@@ -3,8 +3,13 @@ package com.ingroinfo.mm.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -27,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.mm.dao.InwardApprovedMaterialsRepository;
 import com.ingroinfo.mm.dao.InwardApprovedSparesRepository;
 import com.ingroinfo.mm.dao.InwardApprovedToolsRepository;
+import com.ingroinfo.mm.dao.ReturnItemsRequestRepository;
 import com.ingroinfo.mm.dao.TempListItemsRepository;
 import com.ingroinfo.mm.dto.GraphDto;
 import com.ingroinfo.mm.dto.InwardDto;
@@ -40,6 +46,7 @@ import com.ingroinfo.mm.entity.InwardTempMaterials;
 import com.ingroinfo.mm.entity.InwardTempSpares;
 import com.ingroinfo.mm.entity.InwardTempTools;
 import com.ingroinfo.mm.entity.InwardTools;
+import com.ingroinfo.mm.entity.ReturnItemsRequest;
 import com.ingroinfo.mm.entity.StockOrderItems;
 import com.ingroinfo.mm.entity.TempListItems;
 import com.ingroinfo.mm.entity.TempStocksReturn;
@@ -78,6 +85,9 @@ public class StocksController {
 
 	@Autowired
 	private InwardApprovedToolsRepository inwardApprovedToolsRepository;
+
+	@Autowired
+	private ReturnItemsRequestRepository itemsRequestRepository;
 
 	@GetMapping("/dashboard")
 	@PreAuthorize("hasAuthority('STOCKS_AVAILABLE')")
@@ -151,22 +161,22 @@ public class StocksController {
 	public @ResponseBody List<GraphDto> getMaterialsData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_MATERIALS");
 	}
-	
+
 	@GetMapping("/graph/spares/chart")
 	public @ResponseBody List<GraphDto> getSparesData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_SPARES");
 	}
-	
+
 	@GetMapping("/graph/tools/chart")
 	public @ResponseBody List<GraphDto> getToolsData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_TOOLS");
 	}
-	
+
 	@GetMapping("/graph/outward/chart")
 	public @ResponseBody List<GraphDto> getOutwardStocksData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_OUTWARDS");
 	}
-	
+
 	@GetMapping("/graph/return/chart")
 	public @ResponseBody List<GraphDto> getStocksReturnData() {
 		return executeQuery("SELECT * FROM DASHBOARD_STOCK_RETURNS");
@@ -634,9 +644,9 @@ public class StocksController {
 
 		if (itemId != null) {
 			Optional<TempListItems> tempIndentItems = tempListItemsRepository.findByItemIdAndStockOrderNo(itemId,
-					stockOrderNo);			
+					stockOrderNo);
 			stockService.saveRemovedItems(itemId, stockOrderNo, principal.getName());
-			tempListItemsRepository.deleteById(tempIndentItems.get().getRecordId());			
+			tempListItemsRepository.deleteById(tempIndentItems.get().getRecordId());
 		}
 	}
 
@@ -734,7 +744,6 @@ public class StocksController {
 		return "/pages/stock_management/outward_stocks_list_items";
 	}
 
-	
 	/******************************************************************/
 
 	@GetMapping("/return/entry")
@@ -742,21 +751,21 @@ public class StocksController {
 	public String returnEntry(Model model, Principal principal) {
 		model.addAttribute("title", "Stock Returns Entry | Maintenance Management");
 
-		model.addAttribute("stockOrders", stockService.getOutwardStockOrders());
-		model.addAttribute("stockReturn", new TempStocksReturn());
+		model.addAttribute("title", "Outward Stocks | Maintenance Management");
 
-		List<TempStocksReturn> tempStocksReturn = stockService.getTempStockReturn(principal.getName());
+		Map<Long, List<ReturnItemsRequest>> returnItemsRequests = itemsRequestRepository.findAll().stream()
+				.collect(Collectors.groupingBy(ReturnItemsRequest::getStockOrderNo));
+		
+		List<Long> keys = new ArrayList<>(returnItemsRequests.keySet());
 
-		model.addAttribute("tempStockReturns", tempStocksReturn);
+		model.addAttribute("returnItemsRequests", keys);
 
-		if (tempStocksReturn.size() == 0) {
-			model.addAttribute("emptyList", "No Return Stocks");
-			model.addAttribute("returnCost", 0);
-		} else {
-			Double returnCost = tempStocksReturn.stream().filter(f -> f.getReturnTotalCost() != null)
-					.mapToDouble(o -> o.getReturnTotalCost()).sum();
+		model.addAttribute("noReturnItems", "No Return Items");
 
-			model.addAttribute("returnCost", returnCost);
+		model.addAttribute("stockOrder", new StockOrderItemsRequest());
+
+		if (keys.size() == 0) {
+			model.addAttribute("emptyList", "No Return Items");
 		}
 
 		return "/pages/stock_management/stock_returns_entry";
